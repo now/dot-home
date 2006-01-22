@@ -1,0 +1,455 @@
+/*
+ * contents: Conkeror web browser configuration file.
+ * arch-tag: 8c580702-58c4-46b2-ac8b-de38defcfd1e
+ *
+ * Copyright © 2005 Nikolai Weibull <work@rawuncut.elitemail.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+
+
+var environment = Components.classes["@mozilla.org/process/environment;1"].createInstance(Components.interfaces.nsIEnvironment);
+
+var TMP = environment.exists("TMP") ? environment.get("TMP") : "/tmp";
+var EDITOR = "screen -X screen vim";
+if (environment.exists("MOZILLA_EDITOR")) {
+    EDITOR = environment.get("MOZILLA_EDITOR");
+} else if (environment.exists("EDITOR")) {
+    EDITOR = environment.get("EDITOR");
+}
+
+/* ----------------------------------------------------------- */
+/*
+ * A JavaScript implementation of the RSA Data Security, Inc. MD5 Message
+ * Digest Algorithm, as defined in RFC 1321.
+ * Version 2.0 Copyright (C) Paul Johnston 1999 - 2002.
+ * Other contributors: Greg Holt, Ydnar
+ * Distributed under the BSD License
+ * See http://pajhome.org.uk/crypt/md5 for more info.
+ */
+
+/*
+ * Configurable variables. You may need to tweak these to be compatible with
+ * the server-side, but the defaults work in most cases.
+ */
+var hexcase = 0;  /* hex output format. 0 - lowercase; 1 - uppercase        */
+var b64pad  = ""; /* base-64 pad character. "=" for strict RFC compliance   */
+var chrsz   = 8;  /* bits per input character. 8 - ASCII; 16 - Unicode      */
+
+function hex_md5(s)
+{
+    return binl2hex(core_md5(str2binl(s), s.length * chrsz));
+}
+
+/*
+ * Calculate the MD5 of an array of little-endian words, and a bit length
+ */
+function core_md5(x, len)
+{
+    /* append padding */
+    x[len >> 5] |= 0x80 << ((len) % 32);
+    x[(((len + 64) >>> 9) << 4) + 14] = len;
+
+    var a =  1732584193;
+    var b = -271733879;
+    var c = -1732584194;
+    var d =  271733878;
+
+    for(var i = 0; i < x.length; i += 16) {
+        var olda = a;
+        var oldb = b;
+        var oldc = c;
+        var oldd = d;
+
+        a = md5_ff(a, b, c, d, x[i+ 0], 7 , -680876936);
+        d = md5_ff(d, a, b, c, x[i+ 1], 12, -389564586);
+        c = md5_ff(c, d, a, b, x[i+ 2], 17,  606105819);
+        b = md5_ff(b, c, d, a, x[i+ 3], 22, -1044525330);
+        a = md5_ff(a, b, c, d, x[i+ 4], 7 , -176418897);
+        d = md5_ff(d, a, b, c, x[i+ 5], 12,  1200080426);
+        c = md5_ff(c, d, a, b, x[i+ 6], 17, -1473231341);
+        b = md5_ff(b, c, d, a, x[i+ 7], 22, -45705983);
+        a = md5_ff(a, b, c, d, x[i+ 8], 7 ,  1770035416);
+        d = md5_ff(d, a, b, c, x[i+ 9], 12, -1958414417);
+        c = md5_ff(c, d, a, b, x[i+10], 17, -42063);
+        b = md5_ff(b, c, d, a, x[i+11], 22, -1990404162);
+        a = md5_ff(a, b, c, d, x[i+12], 7 ,  1804603682);
+        d = md5_ff(d, a, b, c, x[i+13], 12, -40341101);
+        c = md5_ff(c, d, a, b, x[i+14], 17, -1502002290);
+        b = md5_ff(b, c, d, a, x[i+15], 22,  1236535329);
+
+        a = md5_gg(a, b, c, d, x[i+ 1], 5 , -165796510);
+        d = md5_gg(d, a, b, c, x[i+ 6], 9 , -1069501632);
+        c = md5_gg(c, d, a, b, x[i+11], 14,  643717713);
+        b = md5_gg(b, c, d, a, x[i+ 0], 20, -373897302);
+        a = md5_gg(a, b, c, d, x[i+ 5], 5 , -701558691);
+        d = md5_gg(d, a, b, c, x[i+10], 9 ,  38016083);
+        c = md5_gg(c, d, a, b, x[i+15], 14, -660478335);
+        b = md5_gg(b, c, d, a, x[i+ 4], 20, -405537848);
+        a = md5_gg(a, b, c, d, x[i+ 9], 5 ,  568446438);
+        d = md5_gg(d, a, b, c, x[i+14], 9 , -1019803690);
+        c = md5_gg(c, d, a, b, x[i+ 3], 14, -187363961);
+        b = md5_gg(b, c, d, a, x[i+ 8], 20,  1163531501);
+        a = md5_gg(a, b, c, d, x[i+13], 5 , -1444681467);
+        d = md5_gg(d, a, b, c, x[i+ 2], 9 , -51403784);
+        c = md5_gg(c, d, a, b, x[i+ 7], 14,  1735328473);
+        b = md5_gg(b, c, d, a, x[i+12], 20, -1926607734);
+
+        a = md5_hh(a, b, c, d, x[i+ 5], 4 , -378558);
+        d = md5_hh(d, a, b, c, x[i+ 8], 11, -2022574463);
+        c = md5_hh(c, d, a, b, x[i+11], 16,  1839030562);
+        b = md5_hh(b, c, d, a, x[i+14], 23, -35309556);
+        a = md5_hh(a, b, c, d, x[i+ 1], 4 , -1530992060);
+        d = md5_hh(d, a, b, c, x[i+ 4], 11,  1272893353);
+        c = md5_hh(c, d, a, b, x[i+ 7], 16, -155497632);
+        b = md5_hh(b, c, d, a, x[i+10], 23, -1094730640);
+        a = md5_hh(a, b, c, d, x[i+13], 4 ,  681279174);
+        d = md5_hh(d, a, b, c, x[i+ 0], 11, -358537222);
+        c = md5_hh(c, d, a, b, x[i+ 3], 16, -722521979);
+        b = md5_hh(b, c, d, a, x[i+ 6], 23,  76029189);
+        a = md5_hh(a, b, c, d, x[i+ 9], 4 , -640364487);
+        d = md5_hh(d, a, b, c, x[i+12], 11, -421815835);
+        c = md5_hh(c, d, a, b, x[i+15], 16,  530742520);
+        b = md5_hh(b, c, d, a, x[i+ 2], 23, -995338651);
+
+        a = md5_ii(a, b, c, d, x[i+ 0], 6 , -198630844);
+        d = md5_ii(d, a, b, c, x[i+ 7], 10,  1126891415);
+        c = md5_ii(c, d, a, b, x[i+14], 15, -1416354905);
+        b = md5_ii(b, c, d, a, x[i+ 5], 21, -57434055);
+        a = md5_ii(a, b, c, d, x[i+12], 6 ,  1700485571);
+        d = md5_ii(d, a, b, c, x[i+ 3], 10, -1894986606);
+        c = md5_ii(c, d, a, b, x[i+10], 15, -1051523);
+        b = md5_ii(b, c, d, a, x[i+ 1], 21, -2054922799);
+        a = md5_ii(a, b, c, d, x[i+ 8], 6 ,  1873313359);
+        d = md5_ii(d, a, b, c, x[i+15], 10, -30611744);
+        c = md5_ii(c, d, a, b, x[i+ 6], 15, -1560198380);
+        b = md5_ii(b, c, d, a, x[i+13], 21,  1309151649);
+        a = md5_ii(a, b, c, d, x[i+ 4], 6 , -145523070);
+        d = md5_ii(d, a, b, c, x[i+11], 10, -1120210379);
+        c = md5_ii(c, d, a, b, x[i+ 2], 15,  718787259);
+        b = md5_ii(b, c, d, a, x[i+ 9], 21, -343485551);
+
+        a = safe_add(a, olda);
+        b = safe_add(b, oldb);
+        c = safe_add(c, oldc);
+        d = safe_add(d, oldd);
+    }
+
+    return Array(a, b, c, d);
+}
+
+/*
+ * These functions implement the four basic operations the algorithm uses.
+ */
+function md5_cmn(q, a, b, x, s, t)
+{
+    return safe_add(bit_rol(safe_add(safe_add(a, q), safe_add(x, t)), s),b);
+}
+function md5_ff(a, b, c, d, x, s, t)
+{
+    return md5_cmn((b & c) | ((~b) & d), a, b, x, s, t);
+}
+function md5_gg(a, b, c, d, x, s, t)
+{
+    return md5_cmn((b & d) | (c & (~d)), a, b, x, s, t);
+}
+function md5_hh(a, b, c, d, x, s, t)
+{
+    return md5_cmn(b ^ c ^ d, a, b, x, s, t);
+}
+function md5_ii(a, b, c, d, x, s, t)
+{
+    return md5_cmn(c ^ (b | (~d)), a, b, x, s, t);
+}
+
+/*
+/*
+ * Add integers, wrapping at 2^32. This uses 16-bit operations internally
+ * to work around bugs in some JS interpreters.
+ */
+function safe_add(x, y)
+{
+    var lsw = (x & 0xFFFF) + (y & 0xFFFF);
+    var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
+    return (msw << 16) | (lsw & 0xFFFF);
+}
+
+/*
+ * Bitwise rotate a 32-bit number to the left.
+ */
+function bit_rol(num, cnt)
+{
+    return (num << cnt) | (num >>> (32 - cnt));
+}
+
+/*
+ * Convert a string to an array of little-endian words
+ * If chrsz is ASCII, characters >255 have their hi-byte silently ignored.
+ */
+function str2binl(str)
+{
+    var bin = Array();
+    var mask = (1 << chrsz) - 1;
+
+    for (var i = 0; i < str.length * chrsz; i += chrsz)
+        bin[i>>5] |= (str.charCodeAt(i / chrsz) & mask) << (i%32);
+
+    return bin;
+}
+
+/*
+ * Convert an array of little-endian words to a hex string.
+ */
+function binl2hex(binarray)
+{
+    var hex_tab = hexcase ? "0123456789ABCDEF" : "0123456789abcdef";
+    var str = "";
+
+    for (var i = 0; i < binarray.length * 4; i++) {
+        str += hex_tab.charAt((binarray[i>>2] >> ((i%4)*8+4)) & 0xF) +
+            hex_tab.charAt((binarray[i>>2] >> ((i%4)*8  )) & 0xF);
+    }
+
+    return str;
+}
+/* ------------------------------------------------------------------------- */
+
+function makeTemporaryFilename(textarea)
+{
+    var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+    file.initWithPath(TMP);
+
+    if (!file.exists())
+        return null;
+
+    return TMP + "/textarea." + hex_md5(textarea.ownerDocument.URL + ":" + textarea.getAttribute("name")) + ".txt";
+}
+
+function deleteFile(filename)
+{
+    var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+    file.initWithPath(filename);
+
+    if (!file.exists())
+        return true;
+
+    try {
+        file.remove(false);
+    } catch (e) {
+        return false;
+    }
+
+    return true;
+}
+
+
+function writeFile(contents, filename)
+{
+    var PR_WRONLY = 0x02;
+
+    try {
+        var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+        file.initWithPath(filename);
+
+        try {
+            /* raises an error if the file already exists */
+            file.create(Components.interfaces.nsIFile.NORMAL_FILE_TYPE, 0600);
+        } catch (e) { 
+            return false;
+        }
+       
+        var stream = Components.classes["@mozilla.org/network/file-output-stream;1"].
+                                    createInstance(Components.interfaces.nsIFileOutputStream);
+        stream.init(file, PR_WRONLY, 0600, 0);
+        stream.write(contents, contents.length);
+        stream.close();
+    } catch (e) {
+        return false;
+    }
+
+    return true;
+}
+
+function readFile(filename)
+{
+    var MODE_RDONLY = 0x01;
+    var PERM_IRUSR = 00400;
+    
+    try {
+        var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+        file.initWithPath(filename);
+
+        if (file.exists() && file.isReadable()) {
+            var is = Components.classes["@mozilla.org/network/file-input-stream;1"].
+                                    createInstance(Components.interfaces.nsIFileInputStream);
+            is.init(file, MODE_RDONLY, PERM_IRUSR, 0);
+
+            var sis = Components.classes["@mozilla.org/scriptableinputstream;1"].
+                                    createInstance(Components.interfaces.nsIScriptableInputStream);
+            sis.init(is);
+
+            // TODO: this should be readUTF or something...
+            var data = sis.read(sis.available());
+
+            sis.close();
+            is.close();
+
+            return data;
+        }
+    } catch (e) {
+    }
+
+    return null;
+}
+
+function edit_textarea_in_editor()
+{
+    var textarea = document.commandDispatcher.focusedElement;
+    if (textarea == null ||
+        !((textarea.tagName == "INPUT" &&
+           (textarea.type == null || textarea.type == "text")) ||
+          textarea.tagName == "TEXTAREA")) {
+        alert("no textarea or text-input has the focus");
+        return false;
+    }
+
+    var tmpfile = makeTemporaryFilename(textarea);
+    if (tmpfile == null) {
+        alert("directory for storing temporary files in (" + TMP + ") doesn't exist");
+        return false;
+    }
+
+    var contents = readFile(tmpfile);
+    if (contents != null) {
+        textarea.value = contents;
+        deleteFile(tmpfile);
+        return true;
+    }
+
+    if (!writeFile(textarea.value, tmpfile)) {
+        alert("failed to write contents of textarea to temporary file");
+        return false;
+    }
+
+    try {
+        var pr = Components.classes["@mozilla.org/process/util;1"].createInstance(Components.interfaces.nsIProcess);
+        var exec = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+
+        exec.initWithPath("/bin/sh");
+        pr.init(exec);
+
+        pr.run(false, ["-c", EDITOR + " " + tmpfile], 2);
+    } catch (e) {
+        alert("can't run $EDITOR on temporary file for textarea editing");
+        deleteFile(tmpfile);
+        return false;
+    }
+
+    return true;
+}
+
+function show_options () {
+    openDialog("chrome://browser/content/pref/pref.xul", "PrefWindow",
+               "chrome,titlebar,resizable,modal", "catFeaturesbutton");
+}                                                                                                                                   
+
+add_command("options", show_options, []);
+
+add_command("edit-textarea-in-editor", edit_textarea_in_editor, []);
+
+add_command("q", quit, []);
+
+function vi_kill_browser()
+{
+    getBrowser().killCurrentBrowser();
+}
+
+add_command("bd", vi_kill_browser, []);
+
+use_vi_keys();
+
+function define_key(kmap, key, cmd)
+{
+    for (var i = 0; i < kmap.length; i++) {
+        if (((kmap[i].key.charCode && key.charCode &&
+              kmap[i].key.charCode == key.charCode) ||
+             (kmap[i].key.keyCode && key.keyCode &&
+              kmap[i].key.keyCode == key.keyCode)) &&
+            kmap[i].key.modifiers == key.modifiers) {
+            if (typeof cmd == "string") {
+                kmap[i].command = cmd;
+                kmap[i].keymap = null;
+            } else {
+                kmap[i].command = null;
+                kmap[i].keymap = cmd;
+            }
+            return;
+        }
+    }
+    var obj = {key: key};
+    if (typeof cmd == "string")
+            obj.command = cmd;
+    else 
+            obj.keymap = cmd;
+    kmap.push(obj);
+}
+
+define_key(textarea_kmap, make_key("s", MOD_CTRL), "edit-textarea-in-editor");
+define_key(input_kmap, make_key("s", MOD_CTRL), "edit-textarea-in-editor");
+
+define_key(top_kmap, make_key("o", MOD_CTRL), "go-back");
+define_key(top_kmap, make_key("i", MOD_CTRL), "go-forward");
+define_key(top_kmap, make_key("t", 0), "cmd_scrollLineDown");
+define_key(top_kmap, make_key("n", 0), "cmd_scrollLineUp");
+define_key(top_kmap, make_key("h", 0), "cmd_scrollLeft");
+define_key(top_kmap, make_key("s", 0), "cmd_scrollRight");
+define_key(top_kmap, make_key("H", 0), "cmd_scrollLeft");
+define_key(top_kmap, make_key("S", 0), "cmd_scrollRight");
+define_key(top_kmap, make_key(KeyEvent.DOM_VK_BACK_SPACE, 0), "cmd_scrollPageUp");
+define_key(top_kmap, make_key("l", MOD_CTRL), "revert-buffer");
+define_key(top_kmap, make_key("\"", 0), "yank-to-clipboard");
+
+add_webjump("#", "http://hitta.se/SearchMixed.aspx?UCSB%3aTextBoxWho=%s");
+add_webjump("'", "http://del.icio.us/pcp/%s");
+add_webjump("/", "http://google.com/search?q=%s");
+add_webjump("acronym", "http://www.ucc.ie/cgi-bin/uncgi/acronym?%s");
+add_webjump("archived", "javascript:location.href='http://web.archive.org/web/*/'+encodeURIComponent(location.href)");
+add_webjump("b", "http://bloglines.com/myblogs_display?all=1");
+add_webjump("cite", "http://citeseer.ist.psu.edu/cis?q=%s&submit=Search+Documents&cs=1");
+add_webjump("cookies", "javascript:alert('Cookies stored by this host or domain:\\n\\n' + document.cookie.replace(/; /g,'\\n'));");
+add_webjump("d", "http://discogs.com/search?type=all&q=%s");
+add_webjump("dict", "http://www.cogsci.princeton.edu/cgi-bin/webwn2.0?stage=1&word=%s");
+add_webjump("digg", "http://digg.com/");
+add_webjump("l", "http://google.com/search?q=%s&btnI");
+add_webjump("l/", "http://google.com/linux?q=%s");
+add_webjump("login", "javascript:location.href='http://bugmenot.com/view.php?mode=bookmarklet&url='+encodeURIComponent(location.href)");
+add_webjump("lookup", "http://en.wikipedia.org/wiki/Special:Search?search=%s&go=Go");
+add_webjump("mail", "https://www.fastmail.fm/");
+add_webjump("mark", "javascript:location.href='http://del.icio.us/new/pcp?v=2&url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title)");
+add_webjump("math", "http://planetmath.org/?op=search&term=%s");
+add_webjump("music", "http://discogs.com/search?type=all&q=%s");
+add_webjump("q", "http://answers.com/%s");
+add_webjump("r", "http://reddit.com/");
+add_webjump("related", "javascript:location.href='http://google.com/search?q=related:'+encodeURIComponent(location.href)");
+add_webjump("raa", "http://raa.ruby-lang.org/search.rhtml?search=%s");
+add_webjump("s/", "javascript:location.href='http://google.com/search?q=%s+site:'+encodeURIComponent(location.href)");
+
+add_webjump("gentoo-bug#", "http://bugs.gentoo.org/show_bug.cgi?id=%s");
+add_webjump("d/", "http://google.com/search?q=%s+site:discogs.com");
+
+
+
+/* vim: set sts=4 sw=4 ts=8: */

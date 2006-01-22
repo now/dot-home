@@ -1,0 +1,117 @@
+# contents: screen(1) user RC file.
+#
+# Copyright © 2002,2003,2004,2005,2006 Nikolai Weibull <now@bitwi.se>
+
+# 1  Terminal Settings
+# ====================
+
+
+attrcolor b ".I"        # map bold attribute to bright, to maintain compat.
+deflogin off
+#defobuflimit 16384      # TODO: what's a good value?
+defscrollback 8192
+maptimeout 10
+term "screen-256color"
+
+
+
+# 2  Formats
+# ==========
+
+
+# TODO: Once screen can have UTF-8-encoded strings, the quotes will be changed
+activity "activity in window %n, \"%t\", at %0c"
+caption splitonly "%{= wd}%?%F%{..g}%?%n %t"
+hardstatus alwayslastline "%{= dd}%?%-w%?%{..g}%n %t%?[%u]%?%{-}%+w%-014= %M %d, %0c"
+sorendition = dr
+
+
+
+# 3  Bindings
+# ===========
+
+
+# 3.1  General
+# ------------
+
+bind \# colon "number "
+bind ^I windowlist -b -m
+bind f fit
+bind o only
+bind M monitor
+bind s split
+bind S silence
+bind w focus down
+bind W focus up
+bind x remove
+bind X lockscreen
+bind \' select 10
+
+
+# 3.2  Applications
+# -----------------
+
+bind -c applications f colon "screen -t 'edit' 6 vim --servername vim "
+bind -c applications m screen -t 'media' 7 $SHELL -c "LOCKTITLE=1 $SHELL"
+bind -c applications i screen -t 'irc' 8 irssi --home=~/.local/etc/irssi
+bind -c applications l screen -t 'log' -M 10 tail -F /var/log/critical/current /var/log/ftpd/current /var/log/pwdfail/current /var/log/sshd/current /var/log/mail/current
+bind -c applications v screen -t 'mixer' alsamixer
+
+bind / command -c applications
+
+
+# 3.3  Unbindings
+# ---------------
+
+# TODO: do we really need this?
+bind \"
+bind A
+bind b
+bind ^B
+bind B
+bind C
+bind ^D
+bind D
+bind ^F
+bind F
+bind ^G
+bind N
+bind q
+bind ^Q
+bind Q
+bind r
+bind ^R
+bind ^S
+bind t
+bind ^T
+bind v
+bind ^W
+bind ^X
+bind z
+bind ^Z
+bind .
+bind {
+bind }
+bind >
+bind <
+bind =
+bind _
+bind ,
+
+
+# 3.4  Mark Keys
+# --------------
+
+markkeys "j=t:k=n:l=s:L=S:n=k:^S=/"
+
+
+
+# 4  Session Loading
+# ==================
+
+
+screen 0
+screen -t 'media' 7 $SHELL -c "LOCKTITLE=1 $SHELL"
+screen -t 'log' -M 10 tail -F /var/log/critical/current /var/log/ftpd/current /var/log/pwdfail/current /var/log/sshd/current /var/log/mail/current
+
+select 0

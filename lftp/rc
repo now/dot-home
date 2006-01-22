@@ -1,0 +1,21 @@
+# contents: lftp(1) user RC file.
+#
+# Copyright © 2004,2005,2006 Nikolai Weibull <now@bitwi.se>
+
+set cmd:prompt "\[\e[00;33m\]:::\[\e[0m\] \
+\[\e[00;34m\]dir\[\e[0m\]: \w\[\e[0m\] \
+\[\e[00;33m\]::\[\e[0m\] \
+\[\e[00;34m\]user\[\e[0m\]: \u@\h\[\e[0m\] \
+\[\e[00;33m\]:::\[\e[0m\]\n"
+set cmd:cls-default ""
+set cmd:save-cwd-history no
+set cmd:save-rl-history no
+set net:connection-limit 1
+
+alias ls cls -hq
+alias a ls
+alias rea recls
+alias o ls -l
+alias e command ls -a
+alias u command ls -la
+alias i "ls | less"

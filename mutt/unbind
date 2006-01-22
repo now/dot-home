@@ -1,0 +1,8 @@
+#! /bin/zsh
+# contents: Implements an unbind command for mutt.
+#
+# Copyright © 2005,2006 Nikolai Weibull <now@bitwi.se>
+
+for key in ${=2}; do
+  print -rn bind $1 $key noop\;
+done

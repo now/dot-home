@@ -1,0 +1,21 @@
+# contents: mutt(1) alias file.
+#
+# Copyright © 2004,2006 Nikolai Weibull <now@bitwi.se>
+
+alias icecream Pelle Widenstam <pelle@ai-studio.com>
+alias anna anna <anna_ho@hotmail.com>
+alias mike Mike Acevedo <my_bad_holmes@hotmail.com>
+alias vim vim <vim@vim.org>
+alias vim-dev vim-dev <vim-dev@vim.org>
+alias bram Bram Moolenaar <Bram@moolenaar.net>
+alias rg Ruby-GNOME2 Developers List <ruby-gnome2-devel-en@lists.sourceforge.net>
+alias ruby-talk Ruby-Talk <ruby-talk@ruby-lang.org>
+alias ruby-core Ruby-Core <ruby-core@ruby-lang.org>
+alias ratpoison Ratpoison Developers <ratpoison-devel@lists.sourceforge.net>
+alias context NTG-context List <ntg-context@ntg.nl>
+alias masao Masao Mutoh <mutoh@highway.ne.jp>
+alias screen GNU Screen Users <screen-users@gnu.org>
+alias zsh-users ZSH Users <zsh-users@sunsite.dk>
+alias zsh-workers ZSH Workers <zsh-workers@sunsite.dk>
+
+# vim: set ft=muttrc

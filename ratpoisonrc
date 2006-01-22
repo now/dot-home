@@ -1,0 +1,64 @@
+# contents: ratpoison(1) window manager rf file.
+#
+# Copyright © 2003,2004,2005,2006 Nikolai Weibull <now@bitwi.se>
+
+# 1  Unmanage Certain Windows
+# ===========================
+
+
+unmanage GNOME Panel
+unmanage MPlayer
+unmanage MPlayer VIDIX X11 Overlay
+unmanage gnome-screensaver
+
+
+
+# 2  Startup
+# ==========
+
+
+startup_message off
+exec xset +fp ~/.local/share/fonts r rate 240 30 m 2 20
+exec xrdb -merge ~/.local/etc/X11/Xresources
+exec xsetroot -cursor_name left_ptr -solid "#a4b0c0"
+exec xsetbg -center ~/img/backgrounds/OTHER-linux_1600.png
+exec /usr/bin/gnome-volume-manager &
+exec unrat &
+exec rpws -i -b
+exec xterm -e screen -d -RR -U
+exec firefox
+
+
+
+# 3  Bar and Message Window Settings
+# ==================================
+
+
+set bargravity southwest
+set barpadding 2 0
+set border 0
+set bgcolor #f6f6f6
+set fgcolor #181818
+set font -Bitwi.se-Fixed-Medium-R-SemiCondensed--13-120-75-75-C-60-ISO10646-1
+set waitcursor 0
+
+
+
+# 4  Key Bindings
+# ===============
+
+
+escape C-m
+bind Escape abort
+bind c exec xterm -e screen -d -RR -U
+bind C-c exec xterm -e screen -d -RR -U
+bind e exec gnome-logout
+bind o only
+bind x remove
+bind X exec gnome-screensaver-command --lock
+
+newkmap applications
+definekey applications d exec valknut -c ~/.qt --disable-splash
+definekey applications m exec muine
+definekey applications b exec firefox -chrome chrome://conkeror/content
+bind slash readkey applications

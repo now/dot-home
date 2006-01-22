@@ -1,0 +1,64 @@
+/*
+ * contents: X11 user resource file.
+ *
+ * Copyright © 2005,2006 Nikolai Weibull <now@bitwi.se>
+ */
+
+/* 1  Terminals
+ * ============ */
+
+
+/* 1.1  XTerm Colors
+ * ----------------- */
+
+*VT100*background:      #f6f6f6
+*VT100*foreground:      #181818
+*VT100*color0:          #000000
+*VT100*color1:          #951616
+*VT100*color2:          #257325
+*VT100*color3:          #766020
+*VT100*color4:          #2f5a9b
+*VT100*color5:          #602f80
+*VT100*color6:          #5694a8
+*VT100*color7:          #c0c0c0
+*VT100*color8:          #181818
+*VT100*color9:          #f02626
+*VT100*color10:         #009000
+*VT100*color11:         #f0a500
+*VT100*color12:         #2080c0
+*VT100*color13:         #93376e
+*VT100*color14:         #80b0c0
+*VT100*color15:         #f6f6f6
+*VT100*cursorColor:     #000000
+*VT100*highlightColor:  #99a6bf
+
+
+/* 1.2  XTerm Fonts
+ * ---------------- */
+
+*VT100.utf8Fonts.font:      -Bitwi.se-Fixed-Medium-R-SemiCondensed--13-120-75-75-C-60-ISO10646-1
+*VT100.utf8Fonts.boldFont:  -Bitwi.se-Fixed-Medium-R-SemiCondensed--13-120-75-75-C-60-ISO10646-1
+
+
+/* 1.3  XTerm Input/Output
+ * ----------------------- */
+
+*VT100*boldMode:        false
+*VT100*eightBitInput:   false
+
+
+/* 1.4  XTerm Options
+ * ------------------ */
+
+*VT100*saveLines:       0
+*termName:              xterm-256color
+*VT100*visualBell:      true
+/**backarrowKey:          false*/
+
+
+
+/* 2 XCursor
+ * ========= */
+
+
+Xcursor.theme: Jimmac

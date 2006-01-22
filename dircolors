@@ -1,0 +1,116 @@
+# contents: color ls configuration file.
+#
+# Copyright © 2002,2003,2004,2005,2006 Nikolai Weibull <now@bitwi.se>
+
+# 1  256 Color Terminals
+# ======================
+
+
+TERM screen-256color
+TERM xterm-256color
+
+
+# 1.1  Options
+# ------------
+
+# using a literal ESC character is safer than \e, as not all apps convert it
+LEFTCODE [38;5;
+RIGHTCODE m
+ENDCODE [m
+
+
+# 1.2  Colors
+# -----------
+
+# 1.2.1  General
+
+NORMAL	8
+FILE 	8
+DIR 			12
+LINK 			14
+FIFO 			11
+SOCK 			5
+DOOR			5
+BLK 			11
+CHR 			11
+ORPHAN			1
+EXEC 			10
+SUID			46
+SGID			40
+WRO			201
+WROT			201
+
+# 1.2.2  Archives
+
+.tar 	3
+.tgz 	3
+.bz2 	3
+.zip 	3
+.rar 	3
+.arj 	3
+.taz 	3
+.lzh 	3
+.rpm 	3
+.deb 	3
+.gz  	3
+.z   	3
+.Z   	3
+.tbz2	3
+
+# 1.2.3  Images
+
+.jpg 5
+.png 5
+.gif 5
+.bmp 5
+.ppm 5
+.tga 5
+.xbm 5
+.xpm 5
+.tif 5
+.xcf 5
+
+# 1.2.4  Audio
+
+.mp3 139
+.ogg 139
+.wav 139
+.rm  139
+
+# 1.2.5  Video
+
+.mpg 101
+.mpeg 101
+.avi 101
+.mov 101
+.swf 101
+.ram 101
+.asf 101
+.m2v 101
+.wmv 101
+.mp4 101
+
+# 1.2.6  Documents
+
+.shtml 8
+.html  8
+.diff  8
+.htm   8
+.txt   8
+.doc   8
+.log   8
+.ms    8
+*NEWS   8
+*ChangeLog 8
+*README 8
+.nfo	8
+
+# 1.2.7  Hidden
+
+.swp 7
+.tmp 7
+*~   7
+
+# 1.2.8  Uninteresting
+
+.o   7

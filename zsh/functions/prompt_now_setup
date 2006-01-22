@@ -1,0 +1,118 @@
+# contents: The `pcp' prompt definition.
+# arch-tag: 775239e8-3447-4ced-829f-095b101ee867 
+#
+# Copyright (C) 2002,2003,2004 Nikolai Weibull <source@pcppopper.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+
+
+# prompt_pcp_help {{{1
+#
+# Called by `prompt' when help for this theme is requested.
+prompt_pcp_help () {
+  cat <<EOH
+This prompt is color-scheme-able.  You can invoke it thusly:
+
+  prompt pcp [<color1> [<color2> [<color3>]]]
+
+where the colors are for the items, the separators, and the item names.
+The default colors are default, yellow, and blue.  This theme works best
+with a light background.
+EOH
+}
+
+# prompt_pcp_setup {{{1
+#
+# Called by `prompt' when the theme is selected.
+prompt_pcp_setup () {
+  emulate -L zsh
+  setopt extended_glob
+
+  local c1=$fg[${1:-default}]
+  local c2=$fg[${2:-yellow}]
+  local c3=$fg[${3:-blue}]
+  local reset=$reset_color
+  local beg end sep user path_comp dir pstatus line_1 line_2
+
+  beg="%{$c2%}:::%{$reset%} "
+  end=" %{$c2%}:::%{$reset%}"
+  sep=" %{$c2%}::%{$reset%} "
+
+  # XXX: this can probably be cleaned up some
+  dir="%{$c3%}dir%{$reset%}: %{$c1%}$path_comp%{$reset%}"
+  user="%{$c3%}user%{$reset%}: %{$c1%}%n@%m%{$reset%}"
+  line_1="$beg$dir$sep$user$end"
+  line_1=${line_1//\%{[^%]#%}/}
+  path_comp="%$((COLUMNS - ${(c)#$(print -P -- $line_1)}))<...<%(25~|.../|)%24~%<<"
+
+  dir="%{$c3%}dir%{$reset%}: %{$c1%}$path_comp%{$reset%}"
+  pstatus="%(?..$beg%{$c3%}err%{$reset%}: %{$fg_bold[red]%}%?%{$reset%}$end$prompt_newline)"
+  line_1="$beg$dir$sep$user$end"
+  line_2="$pstatus"
+
+  # XXX: PS{2,3,4} should be looked into
+  PS1="$line_1$prompt_newline$line_2"
+  PS2="%_$sep"
+  PS3="?$sep"
+
+  SPROMPT="zsh: correct ‘$fg_bold[red]%R${reset}’ to ‘$fg_bold[green]%r${reset}’? "
+
+  local cmd real system
+
+  cmd="${c3}job$reset: %J"
+  real="${c3}real$reset: %*E"
+  user="${c3}user$reset: %*U"
+  system="${c3}system$reset: %*S (%P)"
+
+  TIMEFMT=${${:-"$beg$cmd$sep$real$sep$user$sep$system$end"}//(%{|%})}
+
+  local tty time
+
+  user="$c3%(a.logon.logoff)$reset: %n (%M)" 
+  tty="${c3}tty$reset: %l"
+  time="${c3}time$reset: %T (%D)"
+
+  WATCHFMT=${${:-"$beg$user$sep$tty$sep$time$end"}//(%{|%})}
+
+  local mail fmts p
+  integer i
+  mail=${${:-"$beg${c3}new$reset: \$_$end"}//(%{|%})}
+  for (( i = 1; i <= $#mailpath; i++ )); do
+    mailpath[i]=$mailpath[i]?$mail
+  done
+
+  local ec=$fg[red]
+
+  zstyle ':completion:*:default' list-prompt \
+    "%{$bg[white]%}-- More --$(printf '%*s' $((COLUMNS - ${#:-'-- More --page: Top'})) '')page: %p%{$reset%}"
+
+  zstyle ':completion:*:descriptions' format "$beg%{$c3%}%d%{$reset%}$end"
+  zstyle ':completion:*:messages' format "%{$fg[green]%}%d%{$reset_color%}"
+  zstyle ':completion:*:warnings' format "%{$ec%}no matches for %d%{$reset_color%}"
+ #zstyle ':completion:*:warnings' format "%{$bg[red]$fg_bold[white]%}no matches for %d%{$reset_color%}"
+				# corrections
+  zstyle ':completion:*:corrections' format "$beg%{$c3%}%d%{$reset%}$sep%{$c3%}errors%{$reset%}: %{$ec%}%e%{$reset%})$end"
+}
+
+# }}}1
+
+
+
+[[ -o kshautoload ]] || prompt_pcp_setup "$@"
+
+
+
+# vim: set ft=zsh sts=2 sw=2:

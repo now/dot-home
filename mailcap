@@ -1,0 +1,36 @@
+# contents: MIME attachment specification.
+#
+# Copyright © 2002,2003,2004,2005,2006 Nikolai Weibull <now@bitwi.se>
+
+# 1. Text (text)
+# ==============
+
+
+text/html; firefox %s           ; nametemplate=%s.html; test=test -n "$DISPLAY"
+text/html; elinks %s            ; nametemplate=%s.html; test=test -z "$DISPLAY"
+text/html; elinks -dump %s      ; nametemplate=%s.html; copiousoutput
+text/*; vimless %s              ; needsterminal; edit=vim %s
+
+
+
+# 2. Media (audio/image/video)
+# ============================
+
+
+audio/*                 ; mplayer %s    ; needsterminal
+image/*                 ; xview %s      ; test=test -n "$DISPLAY"; edit=gimp-2.0
+image/*                 ; anytopnm %s | pnmscale -xsize 80 | ppmtopgm | pgmtopbm | pbmtoascii ; copiousoutput
+video/*                 ; mplayer %s    ; test=test -n "$DISPLAY"
+
+
+
+# 3. Applications (application)
+# =============================
+
+
+application/x-dvi       ; evince %s     ; test=test -n "$DISPLAY"
+application/pdf         ; evince %s     ; test=test -n "$DISPLAY"
+application/ps          ; evince %s     ; test=test -n "$DISPLAY"
+application/pgp-keys    ; gpg -f < %s   ; copiousoutput
+application/x-tex       ; cat %s        ; copiousoutput
+application/x-zip-comp  ; unzip -l %s   ; copiousoutput

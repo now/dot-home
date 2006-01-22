@@ -1,0 +1,160 @@
+# contents: Calculator inside zsh(1) command line.
+# arch-tag: 906df7a4-d2dd-4bab-a561-66fdd237b57b 
+#
+# Stolen from the main zsh distribution.  Will write own later probably.
+# For now only change is the skipping of writing to ~/.zcalc_history.
+
+
+
+emulate -L zsh
+setopt extendedglob
+
+# can't be local since required in EXIT trap
+zcalc_orighist=$HISTFILE 
+local temphist=${TMPPREFIX}hist SAVEHIST=$HISTSIZE
+HISTFILE=$temphist
+fc -W
+
+local HISTSIZE=0
+HISTSIZE=$SAVEHIST
+HISTFILE=~/.local/var/lib/zsh/zcalc-history
+[[ -f $HISTFILE ]] && fc -R
+
+zcalc_restore() {
+    unfunction zcalc_restore
+    fc -W
+    HISTFILE=$zcalc_orighist
+    fc -R
+}
+trap zcalc_restore HUP INT QUIT EXIT
+
+local line ans base defbase forms match mbegin mend psvar optlist opt arg
+local compcontext="-math-"
+integer num outdigits outform=1
+
+forms=( '%2$g' '%.*g' '%.*f' '%.*E' )
+
+zmodload -i zsh/mathfunc 2>/dev/null
+
+: ${ZCALCPROMPT="%1v> "}
+
+# Supply some constants.
+float PI E
+(( PI = 4 * atan(1), E = exp(1) ))
+
+# Process command line
+while [[ -n $1 && $1 = -(|[#-]*) ]]; do
+  optlist=${1[2,-1]}
+  shift
+  [[ $optlist = (|-) ]] && break
+  while [[ -n $optlist ]]; do
+    opt=${optlist[1]}
+    optlist=${optlist[2,-1]}
+    case $opt in
+      ('#') # Default base
+            if [[ -n $optlist ]]; then
+	       arg=$optlist
+	       optlist=
+	    elif [[ -n $1 ]]; then
+	       arg=$1
+	       shift
+	    else
+	       print "-# requires an argument" >&2
+	       return 1
+	    fi
+	    if [[ $arg != (|\#)[[:digit:]]## ]]; then
+	      print - "-# requires a decimal number as an argument" >&2
+	      return 1
+	    fi
+            defbase="[#${arg}]"
+	    ;;
+    esac
+  done
+done
+
+for (( num = 1; num <= $#; num++ )); do
+  # Make sure all arguments have been evaluated.
+  # The `$' before the second argv forces string rather than numeric
+  # substitution.
+  (( argv[$num] = $argv[$num] ))
+  print "$num> $argv[$num]"
+done
+
+psvar[1]=$num
+while vared -cehp "${(%)ZCALCPROMPT}" line; do
+  [[ -z $line ]] && break
+  # special cases
+  # Set default base if `[#16]' or `[##16]' etc. on its own.
+  # Unset it if `[#]' or `[##]'.
+  if [[ $line = (#b)[[:blank:]]#('[#'(\#|)(<->|)']')[[:blank:]]#(*) ]]; then
+    if [[ -z $match[4] ]]; then
+      if [[ -z $match[3] ]]; then
+	defbase=
+      else
+	defbase=$match[1]
+      fi
+      print -s -- $line
+      line=
+      continue
+    else
+      base=$match[1]
+    fi
+  else
+    base=$defbase
+  fi
+
+  print -s -- $line
+
+  case ${${line##[[:blank:]]#}%%[[:blank:]]#} in
+    q) # Exit if `q' on its own.
+      return 0
+    ;;
+    norm) # restore output format to default
+      outform=1
+    ;;
+    sci[[:blank:]]#(#b)(<->)(#B))
+      outdigits=$match[1]
+      outform=2
+    ;;
+    fix[[:blank:]]#(#b)(<->)(#B))
+      outdigits=$match[1]
+      outform=3
+    ;;
+    eng[[:blank:]]#(#b)(<->)(#B))
+      outdigits=$match[1]
+      outform=4
+    ;;
+    local([[:blank:]]##*|))
+      eval $line
+      line=
+      continue
+    ;;
+    *)
+      # Latest value is stored as a string, because it might be floating
+      # point or integer --- we don't know till after the evaluation, and
+      # arrays always store scalars anyway.
+      # 
+      # Since it's a string, we'd better make sure we know which
+      # base it's in, so don't change that until we actually print it.
+      eval "ans=\$(( $line ))"
+      # on error $ans is not set; let user re-edit line
+      [[ -n $ans ]] || continue
+      argv[num++]=$ans
+      psvar[1]=$num
+    ;;
+  esac
+  if [[ -n $base ]]; then
+    print -- $(( $base $ans ))
+  elif [[ $ans = *.* ]] || (( outdigits )); then
+    printf "$forms[outform]\n" $outdigits $ans
+  else
+    printf "%d\n" $ans
+  fi
+  line=
+done
+
+return 0
+
+
+
+# vim: set sts=2 sw=2:

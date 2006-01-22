@@ -1,0 +1,93 @@
+# contents: irssi user RC file.
+#
+# Copyright © 2004,2005,2006 Nikolai Weibull <now@bitwi.se>
+
+servers = (
+  {
+    address = "irc.servercentral.net";
+    chatnet = "EFNet";
+    autoconnect = "yes";
+  },
+  { address = "localhost"; chatnet = "ICQ"; autoconnect = "yes"; },
+  { address = "irc.freenode.net"; chatnet = "FreeNode"; },
+  { address = "irc.gnome.org"; chatnet = "GIMPNet"; },
+  {
+    address = "130.233.24.153";
+    chatnet = "TOLNet";
+    port = "6667";
+    use_ssl = "no";
+    ssl_verify = "no";
+  }
+);
+
+chatnets = {
+  ICQ = { 
+    type = "IRC";
+    nick = "pcp";
+    autosendcmd = "/load theme_indent";
+  };
+  EFNet = { type = "IRC"; };
+  FreeNode = { type = "IRC"; };
+  GIMPNet = { type = "IRC"; };
+  TOLNet = { type = "IRC"; };
+};
+
+channels = ( { name = "#hoho"; chatnet = "EFNet"; autojoin = "yes"; } );
+
+aliases = {
+  J = "join";
+  HOST = "userhost";
+  SAY = "msg *";
+  WI = "whois";
+  WII = "whois $0 $0";
+  WW = "whowas";
+  W = "who";
+  N = "names";
+  M = "msg";
+  T = "topic";
+  SB = "scrollback";
+  UMODE = "mode $N";
+  WC = "window close";
+  GOTO = "scrollback goto";
+};
+
+statusbar = {
+  items = {
+    window = "$itemname";
+    window_empty = "{sbservertag $tag}";
+    prompt = "";
+    time = "";
+    user = "";
+
+    lag = " {sb lag $0-}";
+    act = " {sb act $0-}";
+    more = "-- more --";
+  };
+  default = { topic = { disabled = "yes"; }; };
+};
+
+settings = {
+  core = {
+    real_name = "Not Your Business";
+    nick = "n-o-w";
+    rawlog_lines = "1024";
+    user_name = "pcp";
+  };
+  "irc/core" = { alternate_nick = "soulbro"; skip_motd = "yes"; };
+  "fe-common/core" = {
+    theme = "clean";
+    autocreate_own_query = "no";
+    autocreate_query_level = "DCCMSGS";
+    use_status_window = "no";
+    max_command_history = "256";
+    autolog_path = "~/.local/var/log/irssi/$tag/$0.log";
+    hilight_color = "%B";
+    names_max_columns = "0";
+    hide_server_tags = "yes";
+  };
+  "fe-text" = {
+    indent = "19";
+    scrollback_lines = "4096";
+    term_type = "utf-8";
+  };
+};
