@@ -42,6 +42,7 @@ MPLAYER_HOME=$XDG_CONFIG_HOME/mplayer
 GTK2_RC_FILES=$XDG_CONFIG_HOME/gtkrc
 LESSHISTFILE=~/.local/var/lib/less/history
 GIMP2_DIRECTORY=.local/var/lib/gimp-2.0
+GNOME22_USER_DIR=~/.local/var/lib/gnome2
 
 export                                                                \
   PATH MAILCAPS                                                       \
@@ -52,4 +53,5 @@ export                                                                \
   XDG_CONFIG_HOME XDG_CACHE_HOME MONO_SHARED_DIR GEMCACHE             \
   VIMINIT XAUTHORITY ICEAUTHORITY CVS_PASSFILE INPUTRC INDENT_PROFILE \
   SCREENRC GST_REGISTRY GNUPGHOME IRBRC LFTP_HOME WINEPREFIX          \
-  MPLAYER_HOME GTK2_RC_FILES LESSHISTFILE GIMP2_DIRECTORY
+  MPLAYER_HOME GTK2_RC_FILES LESSHISTFILE GIMP2_DIRECTORY             \
+  GNOME22_USER_DIR
