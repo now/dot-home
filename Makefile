@@ -56,7 +56,7 @@ all: diff
 diff: $(DOTFILES_DIFF)
 
 $(DOTFILES_DIFF):
-	-$(DIFF) -u $(addprefix $(userconfdir)/,$(basename $@)) $(basename $@)
+	-@$(DIFF) -u $(addprefix $(userconfdir)/,$(basename $@)) $(basename $@)
 
 install: $(target_DOTDIRS) $(target_DOTFILES)
 
