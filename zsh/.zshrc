@@ -41,7 +41,7 @@ hash -d mycontext=~/.local/share/texmf/tex/context
 # TODO: printeightbit can be removed with Unicode support
 setopt autocd                                 \
        autopushd                              \
-       completeinword                         \
+       completeinword nolistambiguous         \
        rcexpandparam rcquotes                 \
        correct dvorak                         \
        nonotify                               \
@@ -356,14 +356,23 @@ autoload -U zargs
 alias v='vim'
 alias ro='vimless'
 alias view='vimless'
-alias vr='vim --remote'
-es () {
-  if vim --serverlist | grep '^VIM$' >& /dev/null; then
-    vim --servername vim --remote $@
-  else
-    screen -t 'edit' 6 vim --servername vim -S $@
-  fi
-}
+#alias vr='vim --remote'
+#es () {
+#  if vim --serverlist | grep '^VIM$' >& /dev/null; then
+#    vim --servername vim --remote $@
+#  else
+#    screen -t 'edit' 6 vim --servername vim -S $@
+#  fi
+#}
+#:e () {
+#  if vim --serverlist | grep -q '^VIM$'; then
+#    vim --servername vim --remote $@
+#    exit
+#  else
+#    vim --servername vim $@
+#  fi
+#}
+
 alias mv='nocorrect mv -g'
 alias cp='nocorrect cp -g'
 alias mkdir='nocorrect mkdir'
