@@ -44,7 +44,8 @@
  * ----------------------- */
 
 *VT100*boldMode:        false
-*VT100*eightBitInput:   false
+/* XXX: this is actually (probably) wrong, so remove: */
+/**VT100*eightBitInput:   false*/
 
 
 /* 1.4  XTerm Options
