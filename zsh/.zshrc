@@ -38,15 +38,13 @@ hash -d mycontext=~/.local/share/texmf/tex/context
 # ================
 
 # magicequalsubst 
-# TODO: printeightbit can be removed with Unicode support
 setopt autocd                                 \
        autopushd                              \
        completeinword nolistambiguous         \
        rcexpandparam rcquotes                 \
        correct dvorak                         \
        nonotify                               \
-       nobeep                                 \
-       printeightbit
+       nobeep
 
 
 
@@ -173,7 +171,7 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS} tc=7
 
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*' list-separator "                "
-zstyle ':completion:*:options' auto-description "specify '%d'"
+zstyle ':completion:*:options' auto-description "specify ‘%d’"
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=8=9'
 
@@ -251,6 +249,10 @@ bindkey "^P" _history-complete-older
 bindkey "^N" _history-complete-newer
 bindkey "^U" undo
 
+autoload -Uz insert-composed-char
+zle -N insert-composed-char
+bindkey "^K" insert-composed-char
+
 # 8.2.4  Miscellaneous
 
 _complete-previous-output () {
@@ -299,14 +301,10 @@ bindkey "^Q" push-line-or-edit
 bindkey " " magic-space
 bindkey "^H" backward-delete-char
 bindkey "^?" backward-delete-char
-_backward-kill-to-space-or-/ () {
-  local WORDCHARS='*?_-.[]~=&;!#$%^(){}<>:@,\\'
-  zle .backward-kill-word
-  while [[ $BUFFER[CURSOR-1] == \\ ]]; do
-    zle .backward-kill-word
-  done
-}
-zle -N backward-kill-to-space-or-/ _backward-kill-to-space-or-/
+
+autoload -U backward-kill-word-match
+zle -N backward-kill-to-space-or-/ backward-kill-word-match
+zstyle ':zle:backward-kill-to-space-or-/' word-chars '*?_-.[]~=&;!#$%^(){}<>:@,\\'
 bindkey "^W" backward-kill-to-space-or-/
 
 _sudo-command-line() {
