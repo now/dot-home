@@ -63,3 +63,8 @@ definekey applications d exec valknut -c ~/.qt --disable-splash
 definekey applications m exec muine
 definekey applications b exec firefox -chrome chrome://conkeror/content
 bind slash readkey applications
+
+newkmap class-selectors
+definekey class-selectors t exec ratpoison-select-by-class XTerm
+definekey class-selectors b exec ratpoison-select-by-class Firefox-bin
+bind comma readkey class-selectors
