@@ -238,6 +238,10 @@ bindkey -a "N" run-help
 bindkey -a "u" undo
 bindkey -a "~" vi-oper-swap-case
 
+autoload -Uz replace-string
+zle -N replace-pattern replace-string
+bindkey -a ":s" replace-pattern
+
 
 # 8.2  VI Insert Mode {{{2
 # -------------------
@@ -260,24 +264,11 @@ _complete-previous-output () {
 }
 zle -C complete-previous-output complete-word _complete-previous-output
 
-function keep {
-  setopt localoptions nomarkdirs nonomatch nocshnullglob nullglob
-  kept=()         # Erase old value in case of error on next line
-  kept=($~*)
-  if [[ ! -t 0 ]]; then
-    local line
-    while read line; do
-      kept+=( $line )
-    done
-  fi
-  print -Rc - ${^kept%/}(T)
-}
-
+source $fpath/keeper(N)
 _complete-kept () {
   compadd -a kept
 }
 zle -C complete-kept complete-word _complete-kept
-
 
 bindkey -r "^O"
 bindkey -rp "^X"
