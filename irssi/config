@@ -4,7 +4,7 @@
 
 servers = (
   {
-    address = "irc.servercentral.net";
+    address = "irc.df.lth.net";
     chatnet = "EFNet";
     autoconnect = "yes";
   },
@@ -41,7 +41,7 @@ aliases = {
   WI = "whois";
   WII = "whois $0 $0";
   WW = "whowas";
-  W = "who";
+  W = "window";
   N = "names";
   M = "msg";
   T = "topic";
