@@ -4,8 +4,8 @@
 
 include "/usr/share/themes/Clearlooks/gtk-2.0/gtkrc"
 
-gtk-icon-theme-name = "gnome"
-gtk-menu-images = 0
+gtk-icon-theme-name = "Tango"
+gtk-menu-images = 1
 
 style "clearlooks-default"
 {
