@@ -37,8 +37,9 @@ ORPHAN			1
 EXEC 			10
 SUID			46
 SGID			40
-WRO			201
-WROT			201
+STICKY_OTHER_WRITABLE   201
+OTHER_WRITABLE          201
+STICKY                  202
 
 # 1.2.2  Archives
 
