@@ -30,7 +30,7 @@
 *VT100*color14:         #80b0c0
 *VT100*color15:         #f6f6f6
 *VT100*cursorColor:     #000000
-*VT100*highlightColor:  #99a6bf
+*VT100*highlightColor:  #5598d7
 
 
 /* 1.2  XTerm Fonts
