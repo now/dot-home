@@ -63,6 +63,7 @@ DOTFILES = \
 	   vim/after/ftplugin/html.vim \
 	   vim/after/ftplugin/javascript.vim \
 	   vim/after/ftplugin/mail.vim \
+	   vim/after/ftplugin/racc.vim \
 	   vim/after/ftplugin/ruby.vim \
 	   vim/after/ftplugin/vim.vim \
 	   vim/after/ftplugin/xml.vim \
