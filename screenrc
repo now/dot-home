@@ -31,6 +31,9 @@ sorendition = dr
 # ===========
 
 
+escape ^Tt
+
+
 # 3.1  General
 # ------------
 
@@ -54,7 +57,7 @@ bind \' select 10
 bind -c applications f colon "screen -t 'edit' 6 vim --servername vim "
 bind -c applications m screen -t 'media' 7 $SHELL -c "LOCKTITLE=1 $SHELL"
 bind -c applications i screen -t 'irc' 8 irssi --home=~/.local/etc/irssi
-bind -c applications l screen -t 'log' -M 10 tail -F /var/log/critical/current /var/log/ftpd/current /var/log/pwdfail/current /var/log/sshd/current /var/log/mail/current
+bind -c applications l screen -t 'log' -M 10 tail -F /var/log/messages
 bind -c applications v screen -t 'mixer' alsamixer
 
 bind / command -c applications
@@ -82,8 +85,6 @@ bind Q
 bind r
 bind ^R
 bind ^S
-bind t
-bind ^T
 bind v
 bind ^W
 bind ^X
@@ -112,6 +113,6 @@ markkeys "j=t:k=n:l=s:L=S:n=k:^S=/"
 
 screen 0
 screen -t 'media' 7 $SHELL -c "LOCKTITLE=1 $SHELL"
-screen -t 'log' -M 10 tail -F /var/log/critical/current /var/log/ftpd/current /var/log/pwdfail/current /var/log/sshd/current /var/log/mail/current
+screen -t 'log' -M 10 tail -F /var/log/messages
 
 select 0
