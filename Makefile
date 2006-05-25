@@ -61,6 +61,10 @@ DOTFILES = \
 	   vim/after/ftplugin/vim.vim \
 	   vim/after/ftplugin/xml.vim \
 	   vim/after/ftplugin/zsh.vim \
+	   vim/after/syntax/c.vim \
+	   vim/after/syntax/mail.vim \
+	   vim/after/syntax/ruby.vim \
+	   vim/after/syntax/vim.vim \
 	   vim/colors/now.vim \
 	   zsh/.zlogin \
 	   zsh/.zprofile \
