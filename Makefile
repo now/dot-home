@@ -74,6 +74,7 @@ DOTFILES = \
 	   vim/colors/now.vim \
 	   vim/doc/ascii-tables.txt \
 	   vim/ftplugin/docbk.vim \
+	   vim/ftplugin/man.vim \
 	   zsh/.zlogin \
 	   zsh/.zprofile \
 	   zsh/.zshenv \
