@@ -76,6 +76,7 @@ DOTFILES = \
 	   vim/doc/ascii-tables.txt \
 	   vim/ftplugin/docbk.vim \
 	   vim/ftplugin/man.vim \
+	   vim/ftplugin/urlextract.vim \
 	   zsh/.zlogin \
 	   zsh/.zprofile \
 	   zsh/.zshenv \
