@@ -35,6 +35,7 @@ DOTDIRS = \
 	  vim/after/ftplugin \
 	  vim/after/syntax \
 	  vim/colors \
+	  vim/doc \
 	  zsh \
 	  zsh/functions
 
@@ -66,6 +67,7 @@ DOTFILES = \
 	   vim/after/syntax/ruby.vim \
 	   vim/after/syntax/vim.vim \
 	   vim/colors/now.vim \
+	   vim/doc/ascii-tables.txt \
 	   zsh/.zlogin \
 	   zsh/.zprofile \
 	   zsh/.zshenv \
