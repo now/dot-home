@@ -30,7 +30,10 @@ DOTDIRS = \
 	  lftp \
 	  mplayer \
 	  mutt \
-	  zsh
+	  vim \
+	  vim/colors \
+	  zsh \
+	  zsh/functions
 
 DOTFILES = \
 	   X11/Xresources \
@@ -49,6 +52,7 @@ DOTFILES = \
 	   sbclrc \
 	   screenrc \
 	   vim/vimrc \
+	   vim/colors/now.vim \
 	   zsh/.zlogin \
 	   zsh/.zprofile \
 	   zsh/.zshenv \

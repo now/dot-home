@@ -1,0 +1,164 @@
+" contents: vim(1) text editor user RC file.
+"
+" Copyright © 2002,2003,2004,2005 Nikolai Weibull <now@bitwi.se>
+
+set pastetoggle=<F12>
+let &runtimepath = substitute(&rtp, expand('~/\.vim'), '\~/.local/etc/vim', 'g')
+set nostartofline
+set incsearch
+set path+=./**
+let &fillchars = 'diff: ,fold: ,vert:' . (&encoding == 'utf-8' ? '│' : '|')
+" TODO: seriously, everyone wants this.  Why is this not enabled by default?
+syntax enable
+set hlsearch
+colorscheme now
+" TODO: perhaps unset this?
+set statusline=%F%(\ [%1*%M%*%(,%2*%R%*%)]%)\ %w%=%(\ %y%)\ line:\ %l\ of\ %L
+set hidden
+" TODO: can we remove this?
+set noesckeys
+set showcmd
+set confirm
+set visualbell t_vb=
+set textwidth=79
+set backspace=indent,eol,start
+set formatlistpat=^\\s*\\%(\\d\\+[\\]:.)}\\t\ ]\\\|[•‣][\\t\ ]\\)\\s*
+set expandtab softtabstop=8
+set shiftround
+set autoindent
+set cinoptions=:0,l1,t0,c0,C1,(0,u0
+set foldtext=substitute(substitute(foldtext(),'^+-\\+\\s*\\d\\+\ lines:','§',
+                       \'g'),'\\s\\+$','\ ⇱','')
+set foldmethod=marker
+" TODO: decide on this
+" set backupcopy=auto,breakhardlink
+set history=512
+set wildcharm=<C-Z>
+set wildmode=list:longest
+set wildignore=*.{o\\,l[oa]}
+set grepprg=grep\ -n\ $*\ /dev/null
+set viminfo+=<512
+" TODO: perhaps verify that $HOME exists instead...
+let s:lib_dir = '~/.local/var/lib/vim'
+if isdirectory(expand(s:lib_dir))
+  let &viewdir = s:lib_dir . '/views'
+  execute 'set viminfo+=n' . s:lib_dir . '/viminfo'
+endif
+unlet s:lib_dir
+set sessionoptions+=localoptions
+
+" FIXME: Reiser4
+set nofsync
+set swapsync=
+
+set guicursor=n-v-c:block-Cursor/lCursor,ve:ver35-Cursor,o:hor50-Cursor,
+      \i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor,sm:block-Cursor,
+      \a:blinkon0
+set guioptions=acM
+if has('gui_win32')
+  set guifont=Courier\ New
+endif
+
+" TODO: same as for syntax...why is this not the default?
+filetype plugin indent on
+
+let netrw_longlist = 1
+let netrw_list_hide = '^\%(\./\|\.[^.]\S*\s\|\.\.[^/]\S*\s\)'
+let netrw_maxfilenamelen = 64
+let netrw_timefmt = '%b %d, %Y %H:%M'
+
+let ruby_no_identifiers = 1
+let ruby_no_expensive = 1
+let zsh_syntax_variables = 'short,long'
+
+let mapleader = ","
+
+function! s:map_swap(lhs, rhs)
+  execute 'noremap' a:lhs a:rhs
+  execute 'noremap' a:rhs a:lhs
+endfunction
+
+function! s:map_swap_list(ms)
+  for [lhs, rhs] in a:ms
+    call s:map_swap(lhs, rhs)
+  endfor
+endfunction
+
+function! s:map_swap_both_cases(...)
+  call s:map_swap_list(a:000)
+  for [lhs, rhs] in a:000
+    let upper = [toupper(lhs), toupper(rhs)]
+    if upper != [lhs, rhs]
+      call s:map_swap(upper[0], upper[1])
+    endif
+  endfor
+endfunction
+
+call s:map_swap_both_cases(['t', 'j'], ['n', 'k'], ['s', 'l'])
+"noremap k nzv
+"noremap K Nzv
+noremap <silent> k <Esc>:call feedkeys('n', 'nt')<CR>
+noremap <silent> K <Esc>:call feedkeys('N', 'nt')<CR>
+
+call s:map_swap_both_cases(['<C-W>t', '<C-W>j'], ['<C-W><C-T>', '<C-W><C-J>'])
+call s:map_swap_both_cases(['<C-W>n', '<C-W>k'], ['<C-W><C-N>', '<C-W><C-K>'])
+call s:map_swap_both_cases(['<C-W>s', '<C-W>l'], ['<C-W><C-S>', '<C-W><C-L>'])
+call s:map_swap_list([['zt', 'zj'], ['zn', 'zk'], ['zs', 'zl']])
+noremap zS zL
+noremap zK zN
+noremap gt gj
+noremap gn gk
+
+noremap <Space> <C-F>
+ounmap <Space>
+noremap <Backspace> <C-B>
+omap <Backspace> <Delete>
+
+inoremap <silent> <C-Y> <Esc>"*pa
+
+noremap <Leader>p :cprevious<CR>
+noremap <Leader>n :cnext<CR>
+noremap <Leader>P :cpfile<CR>
+noremap <Leader>N :cnfile<CR>
+
+noremap <silent> <C-P> <Esc>:bprevious<CR>
+noremap <silent> <C-N> <Esc>:bnext<CR>
+
+noremap <silent> <Leader>h <Esc>:nohlsearch<CR>
+
+noremap <silent> <Leader>s <Esc>:setlocal invspell spelllang=en_us<CR>
+
+nnoremap <Leader>e :e <C-R>=expand('%:p:h')<CR>/<C-Z>
+nnoremap <Leader>E :e <C-Z>
+
+cnoremap <C-A>  <Home>
+cnoremap <C-B>  <Left>
+cnoremap <C-D>  <Delete>
+cnoremap <C-E>  <End>
+cnoremap <C-F>  <Right>
+cnoremap <C-N>  <Down>
+cnoremap <C-P>  <Up>
+cnoremap <M-b>  <S-Left>
+cnoremap <M-f>  <S-Right>
+cnoremap <C-S>  <Return>/<C-R>/
+
+noremap <silent> g: <Esc>:set operatorfunc=GetCommandModeRange<CR>g@
+
+function! GetCommandModeRange(type)
+  let b = line("'[")
+  let e = line("']")
+
+  if b < e
+    let range = '.,+' . (e - b)
+  elseif b == e
+    let range = '.'
+  else
+    let range = '.,+' . (b - e)
+  endif
+
+  call feedkeys(':' . range, 'n')
+endfunction
+
+autocmd VimLeave * if v:this_session != "" | exe "mks! ".v:this_session | endif
+
+digraphs cb 8226 tb 8227 .3 8230 ,3 8943 (/ 8713 <Y 8826 </ 10216 >/ 10217
