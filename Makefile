@@ -37,6 +37,7 @@ DOTDIRS = \
 	  vim/colors \
 	  vim/doc \
 	  vim/ftplugin \
+	  vim/macros \
 	  zsh \
 	  zsh/functions
 
@@ -77,6 +78,7 @@ DOTFILES = \
 	   vim/ftplugin/docbk.vim \
 	   vim/ftplugin/man.vim \
 	   vim/ftplugin/urlextract.vim \
+	   vim/macros/less.vim \
 	   zsh/.zlogin \
 	   zsh/.zprofile \
 	   zsh/.zshenv \
