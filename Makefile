@@ -31,6 +31,9 @@ DOTDIRS = \
 	  mplayer \
 	  mutt \
 	  vim \
+	  vim/after \
+	  vim/after/ftplugin \
+	  vim/after/syntax \
 	  vim/colors \
 	  zsh \
 	  zsh/functions
@@ -52,6 +55,12 @@ DOTFILES = \
 	   sbclrc \
 	   screenrc \
 	   vim/vimrc \
+	   vim/after/ftplugin/c.vim \
+	   vim/after/ftplugin/context.vim \
+	   vim/after/ftplugin/ruby.vim \
+	   vim/after/ftplugin/vim.vim \
+	   vim/after/ftplugin/xml.vim \
+	   vim/after/ftplugin/zsh.vim \
 	   vim/colors/now.vim \
 	   zsh/.zlogin \
 	   zsh/.zprofile \
