@@ -58,6 +58,7 @@ DOTFILES = \
 	   vim/vimrc \
 	   vim/after/ftplugin/c.vim \
 	   vim/after/ftplugin/context.vim \
+	   vim/after/ftplugin/css.vim \
 	   vim/after/ftplugin/ruby.vim \
 	   vim/after/ftplugin/vim.vim \
 	   vim/after/ftplugin/xml.vim \
