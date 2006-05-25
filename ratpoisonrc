@@ -22,7 +22,6 @@ exec xset +fp ~/.local/share/fonts r rate 240 30 m 2 20
 exec xrdb -merge ~/.local/etc/X11/Xresources
 exec xsetroot -cursor_name left_ptr -solid "#a4b0c0"
 exec xsetbg -center ~/img/backgrounds/OTHER-linux_1600.png
-#exec /usr/bin/gnome-volume-manager &
 exec ivman -c $XDG_CONFIG_HOME/ivman &
 exec unrat &
 exec rpws -i -b
