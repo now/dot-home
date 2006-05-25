@@ -79,6 +79,8 @@ DOTFILES = \
 	   vim/ftplugin/man.vim \
 	   vim/ftplugin/urlextract.vim \
 	   vim/macros/less.vim \
+	   vim/syntax/javascript.vim \
+	   vim/syntax/prolog.vim \
 	   zsh/.zlogin \
 	   zsh/.zprofile \
 	   zsh/.zshenv \
