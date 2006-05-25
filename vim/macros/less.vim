@@ -1,6 +1,6 @@
 " Vim macro file
-" NOTE:		    Based on Bram Moolenar's less.vim script. 
-" Maintainer:	    Nikolai Weibull <now@bitwi.se>
+" NOTE:             Based on Bram Moolenar's less.vim script. 
+" Maintainer:       Nikolai Weibull <now@bitwi.se>
 " Latest Revision:  2006-05-25
 
 let loaded_less = 1
@@ -12,7 +12,7 @@ if argc() > 0
   while 1
     if filereadable(argv(s:i))
       if s:i != 0
-	sleep 3
+        sleep 3
       endif
       break
     endif
