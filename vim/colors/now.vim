@@ -20,7 +20,7 @@ let colors_name = "now"
 "hi  Constant      ctermfg=88
 "hi  Identifier    ctermfg=95
 
-function s:term_color_to_rgb(color_offset)
+function! s:term_color_to_rgb(color_offset)
   let sequence = ""
   let xterm_sequence = '\e]4;' . a:color_offset . ';?\007'
   if $TERM =~ 'xterm'
