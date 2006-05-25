@@ -38,6 +38,7 @@ DOTDIRS = \
 	  vim/doc \
 	  vim/ftplugin \
 	  vim/macros \
+	  vim/templates \
 	  zsh \
 	  zsh/functions
 
@@ -81,6 +82,24 @@ DOTFILES = \
 	   vim/macros/less.vim \
 	   vim/syntax/javascript.vim \
 	   vim/syntax/prolog.vim \
+           vim/templates/CC.license \
+           vim/templates/FDL.license \
+           vim/templates/GPL.license \
+           vim/templates/LGPL.license \
+           vim/templates/automake.template \
+           vim/templates/c.template \
+           vim/templates/conf.template \
+           vim/templates/cpp.template \
+           vim/templates/default.license \
+           vim/templates/make.template \
+           vim/templates/mp.template \
+           vim/templates/ruby.template \
+           vim/templates/scheme.template \
+           vim/templates/screen.template \
+           vim/templates/vim.template \
+           vim/templates/xdefaults.template \
+           vim/templates/yaml.template \
+           vim/templates/zsh.template \
 	   zsh/.zlogin \
 	   zsh/.zprofile \
 	   zsh/.zshenv \
