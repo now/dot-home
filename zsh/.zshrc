@@ -83,6 +83,10 @@ preexec () {
       else
         cmd=(builtin jobs -l ${(Q)cmd[2]})
       fi ;;
+    (r)
+      cmd=($(builtin history -n -1))
+      _set_title $cmd[1]:t
+      return ;;
     (%*)
       cmd=(builtin jobs -l ${(Q)cmd[1]}) ;;
     (*)
@@ -209,6 +213,15 @@ bindkey -a "t" down-line-or-history
 bindkey -a "n" up-line-or-history
 bindkey -a "s" vi-forward-char
 
+autoload -U forward-word-match
+autoload -U backward-word-match
+zle -N forward-parameter forward-word-match
+zle -N backward-parameter backward-word-match
+zstyle ':zle:forward-parameter' word-style shell
+zstyle ':zle:backward-parameter' word-style shell
+bindkey -a ")" forward-parameter
+bindkey -a "(" backward-parameter
+
 # 8.1.2  Searching
 
 bindkey -a "/" history-incremental-search-backward
@@ -328,6 +341,7 @@ autoload -U cdup d zcalc
 autoload -U zmv
 alias mmv='noglob zmv -W'
 
+zstyle ':mime:*' mailcap $XDG_CONFIG_HOME/mailcap
 autoload -U zsh-mime-setup; zsh-mime-setup
 
 autoload -U zargs
@@ -345,6 +359,17 @@ autoload -U zargs
 alias v='vim'
 alias ro='vimless'
 alias view='vimless'
+e () {
+  if vim --serverlist | grep -q '^VIM$'; then
+    if (( $# )); then
+      vim --servername vim --remote $@
+    fi
+    screen -X select 6
+  else
+    screen -t 'edit' 6 vim --servername vim $@
+  fi
+}
+
 #alias vr='vim --remote'
 #es () {
 #  if vim --serverlist | grep '^VIM$' >& /dev/null; then
@@ -406,9 +431,9 @@ vgp () {
 
 alias ls='ls --color=auto'
 alias a='ls'
-alias o='ls -l -h'
-alias e='ls -A'
-alias u='ls -A -l -h'
+alias o='ls -lh'
+alias aa='a -A'
+alias oo='o -A'
 i () { command ls -A -l --color=always -b "$@" | ${LISTER:-less} }
 
 
