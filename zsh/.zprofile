@@ -7,6 +7,7 @@ path=(. ~/bin $path)
 
 declare -TU MAILCAPS mailcaps
 mailcaps=(~/.local/etc/mailcap)
+PERSONAL_MAILCAP=~/.local/etc/mailcap
 
 LANG=en_US.UTF-8
 LC_COLLATE=C
@@ -45,7 +46,7 @@ GIMP2_DIRECTORY=.local/var/lib/gimp-2.0
 GNOME22_USER_DIR=~/.local/var/lib/gnome2
 
 export                                                                \
-  PATH MAILCAPS                                                       \
+  PATH MAILCAPS PERSONAL_MAILCAP                                      \
   LANG LC_COLLATE                                                     \
   PAGER MANPAGER EDITOR                                               \
   VERSION_CONTROL VERSION_WIDTH GREP_COLOR EMAIL                      \
