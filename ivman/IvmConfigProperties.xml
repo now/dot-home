@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivm:PropertiesConfig version="0.1" xmlns:ivm="http://www.eikke.com/ivm">
+  <!-- Don’t start services on initialization. -->
+  <ivm:Option name="checkOnInit" value="false" />
+</ivm:PropertiesConfig>

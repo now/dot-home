@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivm:BaseConfig version="0.2" xmlns:ivm="http://www.eikke.com/ivm">
+  <!-- Don’t daemonize, as we want Ivman to stop once we log out. -->
+  <ivm:Option name="fork" value="false" />
+
+  <!-- Don’t produce debugging output -->
+  <ivm:Option name="debug" value="false" />
+</ivm:BaseConfig>

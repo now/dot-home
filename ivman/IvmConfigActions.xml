@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<ivm:ActionsConfig version="0.2" xmlns:ivm="http://www.eikke.com/ivm">
+  <!-- Mount all mountable devices. -->
+  <ivm:Match name="ivm.mountable" value="true">
+    <ivm:Option name="mount" value="true" />
+  </ivm:Match>
+</ivm:ActionsConfig>
