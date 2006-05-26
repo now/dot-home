@@ -20,7 +20,7 @@ VERSION_WIDTH=2
 GREP_COLOR="01;32"
 EMAIL="Nikolai Weibull <now@bitwi.se>"
 
-MAN_WIDTH=90
+MANWIDTH=79
 
 XDG_CONFIG_HOME=~/.local/etc
 XDG_CACHE_HOME=~/.local/var/cache
@@ -50,7 +50,7 @@ export                                                                \
   LANG LC_COLLATE                                                     \
   PAGER MANPAGER EDITOR                                               \
   VERSION_CONTROL VERSION_WIDTH GREP_COLOR EMAIL                      \
-  MAN_WIDTH                                                           \
+  MANWIDTH                                                            \
   XDG_CONFIG_HOME XDG_CACHE_HOME MONO_SHARED_DIR GEMCACHE             \
   VIMINIT XAUTHORITY ICEAUTHORITY CVS_PASSFILE INPUTRC INDENT_PROFILE \
   SCREENRC GST_REGISTRY GNUPGHOME IRBRC LFTP_HOME WINEPREFIX          \
