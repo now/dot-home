@@ -402,6 +402,7 @@ alias gp='grep --color=auto -n -P'
 alias top='top -u $USERNAME'    # run top with default user
 alias mp='mplayer'
 alias mpq='mplayer -nosound'
+alias tv='DISPLAY=:0.1 mplayer -ao alsa:device=secondary'
 alias ri='noglob ri'
 
 alias -g ...='../..'
