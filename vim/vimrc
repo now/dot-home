@@ -69,6 +69,7 @@ let netrw_timefmt = '%b %d, %Y %H:%M'
 
 let ruby_no_identifiers = 1
 let ruby_no_expensive = 1
+let vimsyntax_noerror = 1
 let zsh_syntax_variables = 'short,long'
 
 let mapleader = ","
