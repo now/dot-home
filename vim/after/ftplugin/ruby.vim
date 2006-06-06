@@ -6,7 +6,7 @@
 setlocal shiftwidth=2 softtabstop=2 expandtab
 setlocal path+=.;
 
-inoremap <buffer> <expr> <CR> <SID>CompleteStatement()
+inoremap <buffer> <CR> <C-O>:call <SID>CompleteStatement()<CR><CR>
 
 omap <buffer> <silent> ac :call <SID>SelectAComment()<CR>
 omap <buffer> <silent> ic :call <SID>SelectInnerComment()<CR>
@@ -31,16 +31,9 @@ function s:CompleteStatement()
   " TODO: we can check contents of ". register to make sure that they were
   " inserted while typing here...
   if getline('.') =~ '^\s*\%(begin\|case\|class\|def\|for\|if\|module\|unless\|until\|while\)\>\|do\%(\s*|[^|]*|\s*\)\=$'
-    let n = indent('.')
-    let ind = ''
-    let i = 0
-    while i < n
-      let ind .= ' '
-      let i += 1
-    endwhile
+    let ind = repeat(' ', indent('.'))
     call append(line('.'), ind . 'end')
   endif
-  return "\n"
 endfunction
 
 " TODO: make this into a script instead and have each filetype that wants to
