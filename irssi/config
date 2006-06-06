@@ -3,7 +3,7 @@
 # Copyright © 2004,2005,2006 Nikolai Weibull <now@bitwi.se>
 
 servers = (
-  {
+  { 
     address = "irc.df.lth.net";
     chatnet = "EFNet";
     autoconnect = "yes";
@@ -84,10 +84,7 @@ settings = {
     hilight_color = "%B";
     names_max_columns = "0";
     hide_server_tags = "yes";
+    term_charset = "UTF-8";
   };
-  "fe-text" = {
-    indent = "19";
-    scrollback_lines = "4096";
-    term_type = "utf-8";
-  };
+  "fe-text" = { indent = "19"; scrollback_lines = "4096"; };
 };
