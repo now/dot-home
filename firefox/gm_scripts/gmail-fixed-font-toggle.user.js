@@ -5,42 +5,36 @@
 // @include       http://mail.google.com/*
 // @include       https://mail.google.com/*
 // ==/UserScript==
+//
+// This script is based on the script written by mihai@persistent.info.
 
-// Utility functions
-function getObjectMethodClosure(object, method) {
-  return function() {
-    return object[method].apply(object, arguments);
-  }
-}
+(function() {
 
-// Shorthand
-var newNode = getObjectMethodClosure(document, "createElement");
-var getNode = getObjectMethodClosure(document, "getElementById");
+const CSS_RULE_MONOSPACE = '.mb, textarea.tb { font-family: monospace !important; }';
+const CSS_RULE_NORMAL = '.mb, textarea.tb { }';
 
-// Contants
-const MONOSPACE_RULE = ".mb, textarea.tb {font-family: monospace !important;}";
-const NORMAL_RULE = ".mb, textarea.tb {}";
+const TOGGLE_FONT_IMAGE = 'data:image/gif;base64,' +
+              'R0lGODlhEAAQAIABAAAAzP%2F%2F%2FyH5BAEAAAEALAAAAAAQABAAAAImjI%' +
+              '2BJwO28wIGG1rjUlFrZvoHJVz0SGXBqymXphU5Y17Kg%2BnixKBYAOw%3D%3D';
 
-const TOGGLE_FONT_IMAGE = "data:image/gif;base64,R0lGODlhEAAQAIABAAAAzP%2F%2" +
-   "F%2FyH5BAEAAAEALAAAAAAQABAAAAImjI%2BJwO28wIGG1rjUlFrZvoHJVz0SGXBqymXphU5" +
-   "Y17Kg%2BnixKBYAOw%3D%3D";
+const LINKS_CONTAINER_ID = 'ap';
+const LINKS_CONTAINER_LINK_CLASSNAME = 'ar';
 
-// Globals
-var styleSheet = null;
-var currentRule = NORMAL_RULE;
-
+var styleSheet = { };
 var toggleFontLink = null;
 
-function initializeToggleFont() {
-  var linksContainer = getNode("ap");
-  
-  if (!linksContainer) {
-    return;
-  }
+function getLinksContainer() {
+  return document.getElementById(LINKS_CONTAINER_ID);
+}
 
-  toggleFontLink = newNode("div");
-  toggleFontLink.className = "ar";
-  toggleFontLink.addEventListener("click", toggleMessageBodyFont, false);
+function initializeToggleFont() {
+  var linksContainer = getLinksContainer();
+  if (!linksContainer)
+    return;
+
+  toggleFontLink = document.createElement('div');
+  toggleFontLink.className = LINKS_CONTAINER_LINK_CLASSNAME;
+  toggleFontLink.addEventListener('click', toggleMessageBodyFont, false);
   toggleFontLink.innerHTML =
     '<span class="l">' +
       '<img class="ai" width="16" height="16" src="' + TOGGLE_FONT_IMAGE + '">' +
@@ -48,37 +42,37 @@ function initializeToggleFont() {
     '</span>';
 
   linksContainer.appendChild(toggleFontLink);
-  
   checkToggleFontParent();
 }
 
 function checkToggleFontParent() {
-  if (toggleFontLink.parentNode != getNode("ap")) {
-    getNode("ap").appendChild(toggleFontLink);
-  }
+  var linksContainer = getLinksContainer();
+  if (!linksContainer)
+    return;
+
+  if (toggleFontLink.parentNode != linksContainer)
+    linksContainer.appendChild(toggleFontLink);
   
   window.setTimeout(checkToggleFontParent, 200);
 }
 
 function toggleMessageBodyFont() {
-  styleSheet.deleteRule(0);
-  if (currentRule == NORMAL_RULE) {
-    currentRule = MONOSPACE_RULE;
-  } else {
-    currentRule = NORMAL_RULE;
-  }  
-  styleSheet.insertRule(currentRule, 0);
+  styleSheet.currentRule = (styleSheet.currentRule == CSS_RULE_NORMAL) ? 
+                           CSS_RULE_MONOSPACE :
+                           CSS_RULE_NORMAL;
+  styleSheet.node.deleteRule(0);
+  styleSheet.node.insertRule(styleSheet.currentRule, 0);
 }
 
-function initializeStyles() {
-  var styleNode = newNode("style");
-  
+function initializeStyleSheet() {
+  var styleNode = document.createElement('style');
   document.body.appendChild(styleNode);
-
-  styleSheet = document.styleSheets[document.styleSheets.length - 1];
-
-  styleSheet.insertRule(NORMAL_RULE, 0);    
+  styleSheet.node = document.styleSheets[document.styleSheets.length - 1];
+  styleSheet.currentRule = CSS_RULE_NORMAL;
+  styleSheet.node.insertRule(styleSheet.currentRule, 0);    
 }
 
-initializeStyles();
+initializeStyleSheet();
 initializeToggleFont();
+
+})();
