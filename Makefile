@@ -7,13 +7,19 @@
 # it depends upon and then we can later add stuff with another prefix to the
 # same list so that we can reuse the rules.
 
+target_DOTDIRS :=
+target_DOTFILES :=
+target_DOTDIFFS :=
+
 define GROUP_template
-target_DOTDIRS += $$(addprefix $(1)/,$(2))
-target_DOTFILES += $$(addprefix $(1)/,$(3))
-target_DOTDIFFS += $$(addprefix $(1)/,$$(addsuffix .diff,$(3)))
+stripped_DOTDIRS := $(if firefox/,$(patsubst firefox/%,%,$(3)),$(3))
+stripped_DOTFILES := $(if firefox/,$(patsubst firefox/%,%,$(4)),$(4))
+target_DOTDIRS += $$(addprefix $(1)/,$$(stripped_DOTDIRS))
+target_DOTFILES += $$(addprefix $(1)/,$$(stripped_DOTFILES))
+target_DOTDIFFS += $$(addprefix $(1)/,$$(addsuffix .diff,$$(stripped_DOTFILES)))
 $(1)/%.diff:
-	-@$$(DIFF) -u $(addprefix $(1)/,$$*) $$*
-$(1)/%: %
+	-@$$(DIFF) -u $(1)/$$* $(if $(2),$(2)/)$$*
+$(1)/%: $(if $(2),$(2)/)%
 	$$(INSTALL) --mode=644 $$< $$@
 endef
 
@@ -115,7 +121,21 @@ DOTFILES = \
 	   zsh/functions/prompt_now_setup \
 	   zsh/functions/zcalc
 
-$(eval $(call GROUP_template,$(userconfdir),$(DOTDIRS),$(DOTFILES)))
+$(eval $(call GROUP_template,$(userconfdir),,$(DOTDIRS),$(DOTFILES)))
+
+userconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
+
+DOTDIRS = \
+	  firefox/gm_scripts
+
+DOTFILES = \
+	   firefox/gm_scripts/config.xml \
+	   firefox/gm_scripts/gmail-fixed-font-toggle.user.js \
+	   firefox/gm_scripts/gmail-macros.user.js \
+	   firefox/gm_scripts/gmail-secure.user.js \
+	   firefox/user.js
+
+$(eval $(call GROUP_template,$(userconfdir),firefox,$(DOTDIRS),$(DOTFILES)))
 
 #target_DOTDIRS += $(addprefix $(userconfdir)/,$(DOTDIRS))
 
