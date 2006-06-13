@@ -58,7 +58,7 @@ bind -c applications f colon "screen -t 'edit' 6 vim --servername vim "
 bind -c applications m screen -t 'media' 7 $SHELL -c "LOCKTITLE=1 $SHELL"
 bind -c applications i screen -t 'irc' 8 irssi --home=~/.local/etc/irssi
 bind -c applications l screen -t 'log' -M 10 tail -F /var/log/messages
-bind -c applications v screen -t 'mixer' alsamixer
+bind -c applications v screen -t 'mixer' $SHELL -c "TERMCAP= alsamixer -c 1"
 
 bind / command -c applications
 
