@@ -2,6 +2,7 @@
 "
 " Copyright © 2002,2003,2004,2005 Nikolai Weibull <now@bitwi.se>
 
+set cpoptions&vim
 set pastetoggle=<F12>
 let &runtimepath = substitute(&rtp, expand('~/\.vim'), '\~/.local/etc/vim', 'g')
 set nostartofline
@@ -37,6 +38,9 @@ set wildcharm=<C-Z>
 set wildmode=list:longest
 set wildignore=*.{o\\,l[oa]}
 set grepprg=grep\ -n\ $*\ /dev/null
+if &viminfo == ""
+  set viminfo='20
+endif
 set viminfo+=<512
 " TODO: perhaps verify that $HOME exists instead...
 let s:lib_dir = '~/.local/var/lib/vim'
