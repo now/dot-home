@@ -1,6 +1,6 @@
 " Vim color file
 " Maintainer:       Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2006-05-25
+" Latest Revision:  2006-06-14
 
 set background=light
 hi clear
@@ -9,16 +9,6 @@ if exists("syntax_on")
 endif
 
 let colors_name = "now"
-
-" Old, remove
-"hi  StatusLine    ctermfg=none        ctermbg=252         cterm=none
-"hi  StatusLineNC  ctermfg=White       ctermbg=238         cterm=none
-"hi  User1         ctermfg=DarkGreen   ctermbg=252
-"hi  User2         ctermfg=DarkRed     ctermbg=252
-"hi! link          VertSplit           StatusLine
-"hi  Comment       ctermfg=28
-"hi  Constant      ctermfg=88
-"hi  Identifier    ctermfg=95
 
 function! s:term_color_to_rgb(color_offset)
   let sequence = ""
@@ -105,3 +95,5 @@ hi! link          Number Normal
 hi  Error                                                                                   guibg=#f02626
 hi  Todo                                                                  guifg=Black       guibg=#f0a500
 hi  Normal                                                                guifg=#181818     guibg=#f6f6f6
+hi! link          NOWModernFileMod    User3
+hi! link          NOWModernFileRO     User4
