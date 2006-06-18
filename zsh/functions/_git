@@ -1606,7 +1606,19 @@ __git_remote_repository () {
 __git_any_repositories () {
   _alternative \
     'directories::_directories' \
+    'remotes::__git_remotes' \
     'remote repositories::__git_remote_repository'
+}
+
+__git_remotes () {
+  local expl
+
+#  zparseopts -a opts X+:
+#
+#  if (( !$opts[(I)-X] )); then
+#    descr=remote
+#  fi
+  _wanted remotes expl remote _files -W "($gitdir/remotes)" -g "$gitdir/remotes/*"
 }
 
 __git_ref_specs () {
