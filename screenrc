@@ -57,7 +57,7 @@ bind \' select 10
 bind -c applications f colon "screen -t 'edit' 6 vim --servername vim "
 bind -c applications m screen -t 'media' 7 $SHELL -c "LOCKTITLE=1 $SHELL"
 bind -c applications i screen -t 'irc' 8 irssi --home=~/.local/etc/irssi
-bind -c applications l screen -t 'log' -M 10 tail -F /var/log/messages
+bind -c applications l screen -t 'log' -M 10 sudo tail -F /var/log/messages
 bind -c applications v screen -t 'mixer' $SHELL -c "TERMCAP= alsamixer"
 
 bind / command -c applications
@@ -113,6 +113,6 @@ markkeys "j=t:k=n:l=s:L=S:n=k:^S=/"
 
 screen 0
 screen -t 'media' 7 $SHELL -c "LOCKTITLE=1 $SHELL"
-screen -t 'log' -M 10 tail -F /var/log/messages
+screen -t 'log' -M 10 sudo tail -F /var/log/messages
 
 select 0
