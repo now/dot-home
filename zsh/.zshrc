@@ -311,11 +311,18 @@ zle -N backward-kill-to-space-or-/ backward-kill-word-match
 zstyle ':zle:backward-kill-to-space-or-/' word-chars '*?_-.[]~=&;!#$%^(){}<>:@,\\'
 bindkey "^W" backward-kill-to-space-or-/
 
-_sudo-command-line() {
+_sudo-command-line () {
   [[ $BUFFER != sudo\ * ]] && LBUFFER="sudo $LBUFFER"
 }
 zle -N sudo-command-line _sudo-command-line
 bindkey "^Os" sudo-command-line
+
+_paste-x11-clipboard () {
+  [[ -x $(whence xclip) ]] || return
+  LBUFFER+=$(xclip -out)
+}
+zle -N paste-x11-clipboard _paste-x11-clipboard
+bindkey "^Y" paste-x11-clipboard
 
 
 # 8.3  List-scroll Mode {{{2
