@@ -11,7 +11,7 @@ set cpo&vim
 
 syn match   ilprecBegin         display '^' nextgroup=ilprecKey
 
-syn match   ilprecKey           display contained '\w\+'
+syn match   ilprecKey           display contained '[0-9A-Za-z_-]\+'
                                 \ nextgroup=ilprecEqual
 
 syn match   ilprecEqual         display contained '='
