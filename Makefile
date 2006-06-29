@@ -91,6 +91,7 @@ DOTFILES = \
 	   vim/ftplugin/man.vim \
 	   vim/ftplugin/urlextract.vim \
 	   vim/macros/less.vim \
+	   vim/syntax/ilprec.vim \
 	   vim/syntax/javascript.vim \
 	   vim/syntax/prolog.vim \
            vim/templates/CC.license \
