@@ -108,6 +108,7 @@ DOTFILES = \
            vim/templates/ruby.template \
            vim/templates/scheme.template \
            vim/templates/screen.template \
+           vim/templates/tex.template \
            vim/templates/vim.template \
            vim/templates/xdefaults.template \
            vim/templates/yaml.template \
