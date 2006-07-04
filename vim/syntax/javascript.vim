@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:         JavaScript
 " Maintainer:       Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2006-05-25
+" Latest Revision:  2006-07-04
 
 if exists("b:current_syntax")
   finish
@@ -12,17 +12,16 @@ set cpo&vim
 
 syn keyword javascriptTodo          contained TODO FIXME XXX NOTE
 
-syn match   javascriptComment       display '//.*' contains=javascriptTodo
-syn region  javascriptComment       start='/\*' end='\*/'
-                                    \ contains=javascriptTodo
-
 syn region  javascriptString        start=+"+ skip=+\\\\\|\\"+ end=+"+
                                     \ contains=javascriptSpecialChar
 syn region  javascriptString        start=+'+ skip=+\\\\\|\\'+ end=+'+
                                     \ contains=javascriptSpecialChar
-syn region  javascriptRegex         start=+/[^/*]+me=e-1 skip=+\\\\\|\\/+
-                                    \ end=+/[gim]*+
+syn match  javascriptRegex          '/[^/\\]*\%(\\.[^/\\]*\)*/[gim]*'
                                     \ contains=javascriptRegexSpecial
+
+syn match   javascriptComment       display '//.*' contains=javascriptTodo
+syn region  javascriptComment       start='/\*' end='\*/'
+                                    \ contains=javascriptTodo
 
 syn match   javascriptSpecialChar   contained display
                                     \ +\\\o\o\o\|\\[\\bfnrt'"]+
