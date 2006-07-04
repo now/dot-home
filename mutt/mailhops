@@ -1,0 +1,82 @@
+#! /usr/bin/ruby -w
+=begin
+  :contents: Calculate and output table of mail hops.
+  :arch-tag: 3a6d21ad-b6fa-476c-b57a-bd5e38cac7ca
+
+  Copyright (C) 2004 Nikolai Weibull <source@pcppopper.org>
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+=end
+
+
+
+require 'parsedate'
+
+headers = $stdin.read.sub(/\n\s*\n.*/m, '').split(/\n(?!\s)/m)
+headers.map! { |x| x.tr_s("\n\t", ' ') }
+hops = []
+headers.each do |header|
+	if header =~ /^Date:\s*(.*)/
+	elsif header =~ /^Received:/
+		host = '(unknown)'
+		if header =~ /\sby\s+([a-z0-9_+.-]+)\s/ && $~[1] != 'uid'
+			host = $~[1]
+		end
+		time = nil
+		if header =~ /;\s+(.+)$/
+			time = $~[1] 
+			time.sub!(/using.*/, '')
+			date_ary = ParseDate.parsedate time
+			sign = date_ary[6][0] == ?- ? -1 : +1
+			date_ary[4] -= sign * date_ary[6].slice(3..4).to_i
+			q, date_ary[4] = date_ary[4].divmod(60)
+			date_ary[3] -= sign * date_ary[6].slice(1..2).to_i - q
+			q, date_ary[3] = date_ary[3].divmod(24)
+			date_ary[2] += q
+			time = Time.utc(*date_ary[0..5])
+		end
+		hops << {'host' => host, 'time' => time}
+	end
+end
+
+def print_delta(time, compare)
+	delta = time - compare
+	sign = delta >= 0 ? ' ' : '-'
+	delta = delta.abs
+	delta_h = (delta / 3600).to_i
+	delta_m = ((delta - delta_h * 3600) / 60).to_i
+	delta_s = (delta - delta_h * 3600 - delta_m * 60).to_i
+	printf '  %s%02d:%02d:%02d', sign, delta_h, delta_m, delta_s
+end
+
+puts " #  Host                            Date Received (local)   Lag        \
+Total Lag"
+first = prev = nil
+hops.reverse.each_with_index do |hop,i|
+	time = hop['time']
+	first = prev = time if first == nil
+	printf '%2d. %-30.30s', i + 1, hop['host']
+	if time != nil
+		printf '  %20s', time.localtime.strftime('%b %d, %Y %H:%M:%S')
+		print_delta time, prev
+		print_delta time, first
+	end
+	print "\n"
+	prev = time
+end
+
+
+
+# vim: set sts=2 sw=2:
