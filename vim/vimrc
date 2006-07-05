@@ -119,7 +119,7 @@ ounmap <Space>
 noremap <Backspace> <C-B>
 omap <Backspace> <Delete>
 
-inoremap <silent> <C-Y> <Esc>"*pa
+inoremap <C-Y>  <C-R>*
 
 noremap <Leader>p :cprevious<CR>
 noremap <Leader>n :cnext<CR>
