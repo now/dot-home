@@ -179,6 +179,8 @@ zstyle ':completion:*:options' auto-description "specify ‘%d’"
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=8=9'
 
+zstyle ':completion:*:directory-stack' list-colors "=(#b)[0-9]#[[:space:]]#(*)=8=${${LS_COLORS#*di=}%%:*}"
+
 
 # 7.3. Completion Groups {{{2
 # ----------------------
@@ -323,6 +325,15 @@ _paste-x11-clipboard () {
 }
 zle -N paste-x11-clipboard _paste-x11-clipboard
 bindkey "^Y" paste-x11-clipboard
+
+_expand-or-complete-with-list-choices-after-local-directories () {
+  zle expand-or-complete
+  if [[ $_lastcomp[tags] == ' '*(directories|files)' ' && $BUFFER[-1] == '/' ]]; then
+    zle list-choices
+  fi
+}
+zle -N expand-or-complete-with-list-choices-after-local-directories _expand-or-complete-with-list-choices-after-local-directories
+bindkey "^I" expand-or-complete-with-list-choices-after-local-directories
 
 
 # 8.3  List-scroll Mode {{{2
