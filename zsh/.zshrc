@@ -326,6 +326,14 @@ _paste-x11-clipboard () {
 zle -N paste-x11-clipboard _paste-x11-clipboard
 bindkey "^Y" paste-x11-clipboard
 
+self-insert-redir () {
+  integer len=$#LBUFFER
+  zle self-insert
+  (( $len >= $#LBUFFER )) && LBUFFER[-1]=" $LBUFFER[-1]"
+}
+zle -N self-insert-redir
+bindkey ${(s: :):-${^${(s::):-"|<>&"}}" self-insert-redir"}
+
 
 # 8.3  List-scroll Mode {{{2
 # ---------------------
