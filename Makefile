@@ -2,25 +2,38 @@
 #
 # Copyright © 2006 Nikolai Weibull <now@bitwi.se>
 
-# TODO: As we want to maintain the mozilla stuff as well, we better break this
-# up a bit so that the ~/.local/etc part can register the directories and files
-# it depends upon and then we can later add stuff with another prefix to the
-# same list so that we can reuse the rules.
+.PHONY: all diff install
 
-target_DOTDIRS :=
-target_DOTFILES :=
-target_DOTDIFFS :=
+all: diff
+
+define GROUP_strip_prefix
+$(if $(1),$(patsubst $(1)/%,%,$(2)),$(2))
+endef
+
+define GROUP_diff_template
+GROUP_diff_target := $(1)/$(call GROUP_strip_prefix,$(2),$(3)).diff
+.PHONY: $$(GROUP_diff_target)
+diff: $$(GROUP_diff_target)
+$$(GROUP_diff_target):
+	-@$$(DIFF) -u $$(patsubst %.diff,%,$$@) $(3)
+
+endef
+
+define GROUP_install_template
+GROUP_install_target := $(1)/$(call GROUP_strip_prefix,$(2),$(3))
+install: $$(GROUP_install_target)
+$$(GROUP_install_target): $(3)
+	$$(INSTALL) --mode=$(4) $$< $$@
+
+endef
 
 define GROUP_template
-stripped_DOTDIRS := $(if firefox/,$(patsubst firefox/%,%,$(3)),$(3))
-stripped_DOTFILES := $(if firefox/,$(patsubst firefox/%,%,$(4)),$(4))
-target_DOTDIRS += $$(addprefix $(1)/,$$(stripped_DOTDIRS))
-target_DOTFILES += $$(addprefix $(1)/,$$(stripped_DOTFILES))
-target_DOTDIFFS += $$(addprefix $(1)/,$$(addsuffix .diff,$$(stripped_DOTFILES)))
-$(1)/%.diff:
-	-@$$(DIFF) -u $(1)/$$* $(if $(2),$(2)/)$$*
-$(1)/%: $(if $(2),$(2)/)%
-	$$(INSTALL) --mode=644 $$< $$@
+target_DIRS := $(addprefix $(1)/,$(call GROUP_strip_prefix,$(2),$(3)))
+install: $$(target_DIRS)
+$$(target_DIRS):
+	$$(INSTALL) --directory --mode=755 $$@
+$(foreach file,$(4),$(call GROUP_diff_template,$(1),$(2),$(file)))
+$(foreach file,$(4),$(call GROUP_install_template,$(1),$(2),$(file),$(5)))
 endef
 
 DIFF = diff
@@ -36,7 +49,6 @@ DOTDIRS = \
 	  ivman \
 	  lftp \
 	  mplayer \
-	  mutt \
 	  vim \
 	  vim/after \
 	  vim/after/ftplugin \
@@ -66,7 +78,6 @@ DOTFILES = \
 	   lftp/rc \
 	   mailcap \
 	   mplayer/config \
-	   ratpoisonrc \
 	   sbclrc \
 	   screenrc \
 	   vim/vimrc \
@@ -123,7 +134,14 @@ DOTFILES = \
 	   zsh/functions/prompt_now_setup \
 	   zsh/functions/zcalc
 
-$(eval $(call GROUP_template,$(userconfdir),,$(DOTDIRS),$(DOTFILES)))
+$(eval $(call GROUP_template,$(userconfdir),,$(DOTDIRS),$(DOTFILES),644))
+
+DOTDIRS =
+
+DOTFILES = \
+	   ratpoison/ratpoisonrc
+
+$(eval $(call GROUP_template,$(userconfdir),ratpoison,$(DOTDIRS),$(DOTFILES),644))
 
 userconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
 
@@ -137,32 +155,16 @@ DOTFILES = \
 	   firefox/gm_scripts/gmail-secure.user.js \
 	   firefox/user.js
 
-$(eval $(call GROUP_template,$(userconfdir),firefox,$(DOTDIRS),$(DOTFILES)))
+$(eval $(call GROUP_template,$(userconfdir),firefox,$(DOTDIRS),$(DOTFILES),644))
 
-#target_DOTDIRS += $(addprefix $(userconfdir)/,$(DOTDIRS))
+userbindir = ~
 
-#target_DOTFILES += $(addprefix $(userconfdir)/,$(DOTFILES))
+BINDIRS = \
+	  bin
 
-#target_DOTDIFFS += $(addprefix $(userconfdir)/,$(addsuffix .diff,$(DOTFILES)))
-#DOTFILES_DIFF += $(addsuffix .diff,$(DOTFILES))
+BINFILES = \
+	   ratpoison/bin/ratpoison-expose \
+	   ratpoison/bin/ratpoison-select-by-class \
+	   ratpoison/bin/ratpoison-workspaces
 
-.PHONY: all diff install
-#$(DOTFILES_DIFF) install
-
-all: diff
-
-diff: $(target_DOTDIFFS)
-
-#$(DOTFILES_DIFF):
-#	-@$(DIFF) -u $(addprefix $(userconfdir)/,$(basename $@)) $(basename $@)
-
-#$(userconfdir)/%.diff:
-#	-@$(DIFF) -u $(addprefix $(userconfdir)/,$*) $*
-
-install: $(target_DOTDIRS) $(target_DOTFILES)
-
-$(target_DOTDIRS):
-	$(INSTALL) --directory --mode=755 $@
-
-#$(userconfdir)/%: %
-#	$(INSTALL) --mode=644 $< $@
+$(eval $(call GROUP_template,$(userbindir),ratpoison,$(BINDIRS),$(BINFILES),755))
