@@ -24,6 +24,7 @@ set visualbell t_vb=
 set textwidth=79
 set backspace=indent,eol,start
 set formatlistpat=^\\s*\\%(\\d\\+[\\]:.)}\\t\ ]\\\|[•‣][\\t\ ]\\)\\s*
+set completeopt=menu,menuone,preview
 set expandtab softtabstop=8
 set shiftround
 set autoindent
@@ -37,6 +38,7 @@ set history=512
 set wildcharm=<C-Z>
 set wildmode=list:longest
 set wildignore=*.{o\\,l[oa]}
+set errorformat=%-G%.%#
 set grepprg=grep\ -n\ $*\ /dev/null
 if &viminfo == ""
   set viminfo='20
@@ -75,6 +77,8 @@ let ruby_no_identifiers = 1
 let ruby_no_expensive = 1
 let vimsyntax_noerror = 1
 let zsh_syntax_variables = 'short,long'
+
+let compiler_gcc_ignore_unmatched_lines = 1
 
 let mapleader = ","
 
@@ -119,7 +123,8 @@ ounmap <Space>
 noremap <Backspace> <C-B>
 omap <Backspace> <Delete>
 
-inoremap <C-Y>  <C-R>*
+inoremap <silent> <C-Y> <C-R>=pumvisible() ? "\<lt>C-Y>" : "\<lt>C-R>*"<CR>
+inoremap <silent> <Tab> <C-R>=pumvisible() ? "\<lt>C-Y>" : "\<lt>Tab>"<CR>
 
 noremap <Leader>p :cprevious<CR>
 noremap <Leader>n :cnext<CR>
@@ -133,6 +138,8 @@ noremap <silent> <Leader>h <Esc>:nohlsearch<CR>
 
 noremap <silent> <Leader>s <Esc>:setlocal invspell spelllang=en_us<CR>
 
+" TODO: use :cd or :lcd for this?
+nnoremap <Leader>c :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>e :e <C-R>=expand('%:p:h')<CR>/<C-Z>
 nnoremap <Leader>E :e <C-Z>
 
