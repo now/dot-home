@@ -29,7 +29,7 @@
 *VT100*color13:         #93376e
 *VT100*color14:         #80b0c0
 *VT100*color15:         #f6f6f6
-*VT100*cursorColor:     #000000
+*VT100*cursorColor:     #010101
 *VT100*highlightColor:  #5598d7
 
 
@@ -38,6 +38,10 @@
 
 *VT100.utf8Fonts.font:      -Bitwi.se-Fixed-Medium-R-SemiCondensed--13-120-75-75-C-60-ISO10646-1
 *VT100.utf8Fonts.boldFont:  -Bitwi.se-Fixed-Medium-R-SemiCondensed--13-120-75-75-C-60-ISO10646-1
+/*
+*VT100.faceName:            monospace
+*VT100.faceSize:            9
+*/
 
 
 /* 1.3  XTerm Input/Output
