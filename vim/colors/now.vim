@@ -1,6 +1,6 @@
 " Vim color file
 " Maintainer:       Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2006-06-14
+" Latest Revision:  2006-07-22
 
 set background=light
 hi clear
@@ -76,7 +76,7 @@ hi  SpellCap                                                                    
 hi  SpellRare                         ctermbg=253                                                                           guisp=#dadada
 hi  SpellLocal                                                                                                              guisp=#80b0b0
 hi  Pmenu                             ctermbg=253                                           guibg=#dadada
-hi  PmenuSel      ctermfg=White                           cterm=Standout  guifg=White       guibg=#5598d7
+hi  PmenuSel      ctermfg=White       ctermbg=32                          guifg=White       guibg=#5598d7
 hi  PmenuSBar                         ctermbg=250                                           guibg=#d9d2c7
 hi  PmenuThumb                        ctermbg=32          cterm=None                        guibg=#73acdc   gui=None
 hi  CursorColumn                      ctermbg=None        cterm=Reverse                     guibg=#5598d7
