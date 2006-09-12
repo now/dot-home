@@ -1,0 +1,25 @@
+colorscheme now
+
+bind -f common > player-next
+bind -f common p player-pause
+bind -f common P player-play
+bind -f common < player-prev
+bind -f common k search-next
+bind -f common K search-prev
+bind -f common h seek -5
+bind -f common s seek +5
+bind -f common t win-down
+bind -f common n win-up
+
+bind -f common T win-mv-after
+bind -f common N win-mv-before
+
+set  altformat_current=  │%F%=│%8d
+set altformat_playlist=  │%f%=│%8d
+# set altformat_trackwin=%f%= │ %8d
+
+#set  format_current=%2n│%-41a│%-41t│%-39l│%-10y│%8d
+#set format_playlist=%2n│%-41a│%-41t│%-39l│%-10y│%8d
+set  format_current=%2n│%-34a│%-34t│%-32l│%-10y│%8d
+set format_playlist=%2n│%-34a│%-34t│%-32l│%-10y│%8d
+# set format_trackwin=…
