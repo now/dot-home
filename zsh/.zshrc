@@ -32,6 +32,9 @@ hash -d ned=~/src/\{projects\}/ned
 hash -d context=/usr/local/share/texmf/tex/context
 hash -d mycontext=~/.local/share/texmf/tex/context
 
+zmodload -i zsh/parameter
+sleep 0
+[[ -n $(whence script) ]] && unhash script
 
 
 # 4  Shell Options {{{1
@@ -138,7 +141,8 @@ zstyle ':completion:::::' completer _expand_alias _expand _complete _prefix _ign
 zstyle ':completion::prefix:::' completer _complete
 
 zstyle ':completion:*' expand prefix suffix
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+#zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[:.,_-]=** r:|=**'
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 zstyle ':completion:*:expand:*' tag-order all-expansions
 
@@ -438,9 +442,18 @@ cd () {
   fi
 }
 
-vgp () {
+vg () {
+  if (( $# < 2 )); then
+    print -u 2 "Usage: $0 PATTERN FILE..."
+    return 1
+  fi
   local regex=$1; shift
-  vim -c "silent! vimgrep '$regex' $*"
+  vim \
+      -c 'set grepprg=pcregrep\ -u\ -n\ --\ $*\ /dev/null' \
+      -c 'set shellpipe=2>&1\ >' \
+      -c "silent! grep '$regex' $*" \
+      -c 'set shellpipe&' \
+      -c 'cwindow'
 }
 
 
