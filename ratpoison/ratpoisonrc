@@ -25,7 +25,7 @@ exec xrdb -merge ~/.local/etc/X11/Xresources
 exec xsetroot -cursor_name left_ptr -solid "#a4b0c0"
 exec xsetbg -center ~/media/images/backgrounds/OTHER-linux_1600.png
 exec unrat &
-exec rpws -i -b
+exec ratpoison-workspaces -i -b
 exec xterm -e screen -d -RR -U
 exec firefox
 
@@ -60,9 +60,7 @@ bind X exec gnome-screensaver-command --lock
 bind numbersign colon number 
 
 newkmap applications
-definekey applications d exec valknut -c ~/.qt --disable-splash
-definekey applications m exec muine
-definekey applications b exec firefox -chrome chrome://conkeror/content
+definekey applications b exec firefox
 bind slash readkey applications
 
 newkmap class-selectors
