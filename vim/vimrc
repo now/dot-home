@@ -39,7 +39,7 @@ set wildcharm=<C-Z>
 set wildmode=list:longest
 set wildignore=*.{o\\,l[oa]}
 set errorformat=%-G%.%#
-set grepprg=grep\ -n\ $*\ /dev/null
+set grepprg=pcregrep\ -u\ -n\ $*\ /dev/null
 if &viminfo == ""
   set viminfo='20
 endif
@@ -123,7 +123,7 @@ ounmap <Space>
 noremap <Backspace> <C-B>
 omap <Backspace> <Delete>
 
-inoremap <silent> <C-Y> <C-R>=pumvisible() ? "\<lt>C-Y>" : "\<lt>C-R>*"<CR>
+inoremap <silent> <C-Y> <C-R>=pumvisible() ? "\<lt>C-Y>" : "\<lt>C-R>\<lt>C-O>*"<CR>
 inoremap <silent> <Tab> <C-R>=pumvisible() ? "\<lt>C-Y>" : "\<lt>Tab>"<CR>
 
 noremap <Leader>p :cprevious<CR>
