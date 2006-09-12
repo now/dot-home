@@ -1,0 +1,115 @@
+#! /bin/zsh
+# contents: Workspace script for ratpoison(1) window manager.
+# arch-tag: 18711864-f9c7-4a47-99f6-63d2673c26fd 
+#
+# Copyright (C) 2003 Shawn Betts
+# Copyright (C) 2004 Nikolai Weibull <source@pcppopper.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+
+
+setopt extendedglob
+
+autoload -U zap-init
+zap-init $0:t "1.0.0" 
+
+SELF=$0
+RATPOISON=$(whence ratpoison)
+FRAMES=(
+#  "(frame :number 0 :x 242 :y 3 :width 796 :height 1018)"
+  "(frame :number 0 :x 200 :y 3 :width 880 :height 1018)"
+)
+local -a optdesc
+optdesc=(
+  ''  ''        ' [WORKSPACE]'                                      ''  0 0 -1
+  ''  ''        "Workspace support script for the ratpoison \
+X11 window manager."                                                ''  0 0 -1
+  -b  --bindings  'set up keyboard bindings for workspace switching' '' 0 0 0
+  -i  --initialize 'initialize workspace support'                   ''  0 0 0
+  ''  'WORKSPACE' 'workspace to switch to'                          ''  0 0 0
+)
+
+
+
+rp-call () {
+  $RATPOISON -c "$*"
+}
+
+
+select-workspace () {
+  rp-call gselect ${${1/#/ws}:/ws1/default}
+  rp-call frestore $(rp-call getenv fs$1)
+  rp-call setenv ws $1
+}
+
+
+save () {
+  rp-call setenv fs$(rp-call getenv ws) $(rp-call fdump)
+}
+
+
+restore () {
+  save $1
+  rp-call echo Workspace $1
+  select-workspace $1
+}
+
+
+initialize-workspace () {
+  (( $1 != 1 )) && rp-call gnew ws$1
+
+  rp-call setenv fs$1 ${FRAMES[$1]:-$(rp-call fdump)}
+}
+
+
+initialize () {
+  rp-call select -
+  rp-call only
+
+  for i in {1..6}; do
+    initialize-workspace $i
+  done
+
+  select-workspace 1
+}
+
+
+bindings () {
+  rp-call bind M-1 exec $SELF 1
+  rp-call bind M-2 exec $SELF 2
+  rp-call bind M-3 exec $SELF 3
+  rp-call bind M-4 exec $SELF 4
+  rp-call bind M-5 exec $SELF 5
+  rp-call bind M-6 exec $SELF 6
+}
+
+
+zap-parse-options optdesc "$@"
+(( $ZAP_OPTIONS[(I)--bindings] || $ZAP_OPTIONS[(I)-b] )) && bindings
+(( $ZAP_OPTIONS[(I)--initialize] || $ZAP_OPTIONS[(I)-i] )) && initialize
+if (( $#ZAP_ARGUMENTS > 0)); then
+  for workspace in "$ZAP_ARGUMENTS[@]"; do
+    if [[ $workspace == <1-6> ]]; then
+      restore $workspace
+    else
+      zap-error 1 "unrecognized workspace:" "    workspace: $workspace"
+    fi
+  done
+fi
+
+
+
+# vim: set sts=2 sw=2:
