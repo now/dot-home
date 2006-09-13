@@ -1,9 +1,9 @@
 <UserScriptConfig>
-	<Script filename="gmail-fixed-font-toggle.user.js" name="Gmail Fixed Font Toggle" namespace="http://persistent.info/greasemonkey" description="Adds a fixed font size toggle button." enabled="true">
+	<Script filename="gmail-fixed-font-toggle.user.js" name="Gmail Fixed Font Toggle" namespace="http://bitwi.se/greasemonkey" description="Adds a fixed font size toggle button." enabled="true">
 		<Include>http://mail.google.com/*</Include>
 		<Include>https://mail.google.com/*</Include>
 	</Script>
-	<Script filename="gmail-secure.user.js" name="GMailSecure" namespace="http://diveintomark.org/projects/greasemonkey/" description="force GMail to use secure connection" enabled="true">
+	<Script filename="gmail-secure.user.js" name="Secure GMail Connector" namespace="http://bitwi.se/greasemonkey" description="When connecting to GMail, makes sure that HTTPS is used." enabled="true">
 		<Include>http://mail.google.com/*</Include>
 	</Script>
 	<Script filename="gmail-macros.user.js" name="Gmail Macros" namespace="http://persistent.info/greasemonkey" description="Extra (customizable) keyboard shortcuts and macros." enabled="true">
