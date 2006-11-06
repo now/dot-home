@@ -6,7 +6,7 @@
 # ====================
 
 
-attrcolor b ".I"        # map bold attribute to bright, to maintain compat.
+attrcolor b ".I"        # Map bold attribute to bright, to maintain compat.
 deflogin off
 #defobuflimit 16384      # TODO: what's a good value?
 defscrollback 8192
@@ -111,8 +111,6 @@ markkeys "j=t:k=n:l=s:L=S:n=k:^S=/"
 # ==================
 
 
-screen 0
-screen -t 'media' 7 $SHELL -c "LOCKTITLE=1 $SHELL"
 screen -t 'log' -M 10 sudo tail -F /var/log/messages
-
-select 0
+screen -t 'media' 7 $SHELL -c "LOCKTITLE=1 $SHELL"
+screen 0
