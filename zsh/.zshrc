@@ -408,8 +408,8 @@ e () {
 #  fi
 #}
 
-alias mv='nocorrect mv -g'
-alias cp='nocorrect cp -g'
+alias mv='nocorrect mv'
+alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 alias duh='du -ch --max-depth=1'  # run `du' with human readable, short output
 alias dfh='df -h'               # run `df' with human readable output
