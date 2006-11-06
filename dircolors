@@ -80,6 +80,7 @@ STICKY                  202
 
 # 1.2.5  Video
 
+*.divx  101
 *.mpg   101
 *.mpeg  101
 *.avi   101
