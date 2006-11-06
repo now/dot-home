@@ -26,7 +26,7 @@ exec xsetroot -cursor_name left_ptr -solid "#a4b0c0"
 exec xsetbg -center ~/media/images/backgrounds/OTHER-linux_1600.png
 exec unrat &
 exec ratpoison-workspaces -i -b
-exec xterm -e screen -d -RR -U
+exec gnome-terminal -e 'sh -c "TERM=xterm-256color screen -d -RR -U"'
 exec firefox
 
 
@@ -40,7 +40,7 @@ set barpadding 2 0
 set border 0
 set bgcolor #f6f6f6
 set fgcolor #181818
-set font -Bitwi.se-Fixed-Medium-R-SemiCondensed--13-120-75-75-C-60-ISO10646-1
+set font -Bitwi.se-Fixed-Medium-R-SemiCondensed--13-120-75-75-C-60-*-*
 set waitcursor 0
 
 
@@ -51,8 +51,8 @@ set waitcursor 0
 
 escape C-m
 bind Escape abort
-bind c exec xterm -e screen -d -RR -U
-bind C-c exec xterm -e screen -d -RR -U
+bind c exec gnome-terminal -e 'sh -c "TERM=xterm-256color screen -d -RR -U"'
+bind C-c exec gnome-terminal -e 'sh -c "TERM=xterm-256color screen -d -RR -U"'
 bind e exec gnome-logout
 bind o only
 bind x remove
