@@ -126,6 +126,10 @@ omap <Backspace> <Delete>
 inoremap <silent> <C-Y> <C-R>=pumvisible() ? "\<lt>C-Y>" : "\<lt>C-R>\<lt>C-O>*"<CR>
 inoremap <silent> <Tab> <C-R>=pumvisible() ? "\<lt>C-Y>" : "\<lt>Tab>"<CR>
 
+for digit in [1, 2, 3, 4, 5, 6, 8, 9]
+  execute 'inoremap <silent> ' . digit . ' <C-R>=pumvisible() ? "' . repeat('\<lt>C-N>', digit) . '" : "' . digit . '"<CR>'
+endfor
+
 noremap <Leader>p :cprevious<CR>
 noremap <Leader>n :cnext<CR>
 noremap <Leader>P :cpfile<CR>
@@ -152,7 +156,8 @@ cnoremap <C-N>  <Down>
 cnoremap <C-P>  <Up>
 cnoremap <M-b>  <S-Left>
 cnoremap <M-f>  <S-Right>
-cnoremap <C-S>  <Return>/<C-R>/
+cnoremap <expr> <C-S> (getcmdtype() == '/' \|\| getcmdtype() == '?') ? '<Return>' . getcmdtype() . '<C-R>/' : ""
+cnoremap <expr> <C-O> (getcmdtype() == '/' \|\| getcmdtype() == '?') ? '<Return>' . (getcmdtype() == '/' ? '?' : '/') . '<C-R>/' : ""
 
 noremap <silent> g: <Esc>:set operatorfunc=GetCommandModeRange<CR>g@
 
