@@ -48,7 +48,7 @@ const NOT_SPAM = "us";
 const HANDLERS_TABLE = {
   69: [ARCHIVE], // E: always archivE (Y's context-dependent behavior is annoying)
   82: [MARK_AS_READ], // R: mark as Read
-  86: [MARK_AS_UNREAD], // V: mark as Read
+  86: [MARK_AS_UNREAD], // V: mark as UnRead
   84: [MOVE_TO_TRASH],// T: move to Trash
   68: [MARK_AS_READ, ARCHIVE] // D: Discard
 };
@@ -60,7 +60,9 @@ const LABEL_ACTIONS = {
     
     var event = unsafeWindow.document.createEvent("MouseEvents");
     
-    event.initMouseEvent("mousedown",
+    var eventType = labelName == "Contacts" ? "click" : "mousedown";
+
+    event.initMouseEvent(eventType,
                          true, // can bubble
                          true, // cancellable
                          window,
@@ -70,12 +72,8 @@ const LABEL_ACTIONS = {
                          false, false, false, false, // control/alt/shift/meta
                          0, // button,
                          labelDiv);
-    // event.target gets set to the document (and is read-only, so we can't set
-    // it by hand). Unfortunately, labelDiv.createEvent doesn't work either. 
-    // However, Gmail checks for both srcElement and target, so we can fake
-    // it this way.
     event.srcElement = labelDiv;
-    document.dispatchEvent(event);
+    labelDiv.dispatchEvent(event);
   },
   // l: apply label
   76: function (labelName) {
@@ -86,6 +84,16 @@ const LABEL_ACTIONS = {
     }
     
     runCommands([APPLY_LABEL + labelName]);
+  },
+  //~ b: remove label
+  66: function (labelName) {
+    // we don't do special labels (there's other commands, like "archive" for
+    // that)
+    if (labelName in SPECIAL_LABELS) {
+      return;
+    }
+
+    runCommands([REMOVE_LABEL + labelName]);
   }
 };
 
@@ -145,6 +153,7 @@ const ADDED_KEYS_HELP = {
     "D" : "Discards (Read&Archive) a message or conversation",
     "G+<i>label</i>" : "Go to a <i>label</i> (including inbox/star/trash/etc).",
     "L+<i>label</i>" : "Applies <i>label</i> to conversation(s)",
+    "B+<i>label</i>" : "Removes <i>label</i> from conversation(s)",		//~
     "M+<i>key</i>" : "Mark (Select) <b>A</b>: all, <b>N</b>: none, <b>R</b>: read, <b>U</b>: Unread, <b>S</b>: starred, <b>T</b>: Unstarred",
     "=" : "Expands/Collapses all messages in conversation"
 }
@@ -152,6 +161,7 @@ const ADDED_KEYS_HELP = {
 // Utility functions
 function fireMouseEvent(selectDiv){
     var event = unsafeWindow.document.createEvent("MouseEvents");
+    var event2 = unsafeWindow.document.createEvent("MouseEvents");
     event.initMouseEvent("mousedown",
                          true, // can bubble
                          true, // cancellable
@@ -162,8 +172,18 @@ function fireMouseEvent(selectDiv){
                          false, false, false, false, // control/alt/shift/meta
                          0, // button,
                          selectDiv);
-    event.srcElement = selectDiv;
-    document.dispatchEvent(event);
+    event2.initMouseEvent("mouseup",
+                         true, // can bubble
+                         true, // cancellable
+                         window,
+                         1, // clicks
+                         50, 50, // screen coordinates
+                         50, 50, // client coordinates
+                         false, false, false, false, // control/alt/shift/meta
+                         0, // button,
+                         selectDiv);
+    selectDiv.dispatchEvent(event);
+    selectDiv.dispatchEvent(event2);
 }
 function getObjectMethodClosure1(object, method) {
   return function(arg) {
@@ -211,8 +231,8 @@ if (isLoaded()) {
 }
 
 function isLoaded() {
-  // Action menu is present
-  return getActionMenu() != null;
+  // Action or contacts menus is present
+  return (getActionMenu() != null) || (getNode("co") != null);
 }
 
 function getActionMenu() {
@@ -237,13 +257,9 @@ function keyHandler(event) {
   // We also don't want to interfere with regular user typing
   if (event.target && event.target.nodeName) {
     var targetNodeName = event.target.nodeName.toLowerCase();
-    var targetNodeType = event.target.type ? event.target.type.toLowerCase() : null;
     if (targetNodeName == "textarea" ||
-        (targetNodeName == "input" &&
-         targetNodeType &&
-         (targetNodeType == "text" ||
-          targetNodeType == "password" ||
-          targetNodeType == "file"))) {
+        (targetNodeName == "input" && event.target.type &&
+         event.target.type.toLowerCase() == "text")) {
       return false;
     }
   }
@@ -475,7 +491,7 @@ function getNodeSet() {
   with (boxNode.style) {
     display = "none";
     position = "fixed";
-    bottom = "50%";
+    bottom = "20%";
     left = "10%";
     margin = "0 10% 0 10%";
     width = "60%";
