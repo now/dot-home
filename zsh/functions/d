@@ -4,7 +4,7 @@
 
 emulate -L zsh
 
-if (( $1 )); then
+if (( $# )); then
   dir=$1
 else
   autoload -U colors
