@@ -9,7 +9,8 @@ gtk-menu-images = 1
 
 style "clearlooks-default"
 {
-        engine "clearlooks" {
+        engine "clearlooks"
+        {
                 menubarstyle = 0
                 menuitemstyle = 0
                 listviewitemstyle = 0
