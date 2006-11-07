@@ -142,8 +142,8 @@ noremap <silent> <Leader>h <Esc>:nohlsearch<CR>
 
 noremap <silent> <Leader>s <Esc>:setlocal invspell spelllang=en_us<CR>
 
-" TODO: use :cd or :lcd for this?
 nnoremap <Leader>c :cd %:p:h<CR>:pwd<CR>
+nnoremap <Leader>C :lcd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>e :e <C-R>=expand('%:p:h')<CR>/<C-Z>
 nnoremap <Leader>E :e <C-Z>
 
