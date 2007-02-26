@@ -4,4 +4,6 @@
 
 keychain --dir $XDG_CACHE_HOME/keychain id_dsa
 . $XDG_CACHE_HOME/keychain/$HOST-sh
-ivman -c $XDG_CONFIG_HOME/ivman &
+if [[ -z ${REMOTEHOST:-${SSH_CLIENT%% *}} ]]; then
+  ivman -c $XDG_CONFIG_HOME/ivman &
+fi
