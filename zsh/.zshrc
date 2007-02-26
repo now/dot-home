@@ -44,6 +44,7 @@ sleep 0
 setopt autocd                                 \
        autopushd                              \
        completeinword nolistambiguous         \
+       extendedhistory                        \
        rcexpandparam rcquotes                 \
        correct dvorak                         \
        nonotify                               \
@@ -69,6 +70,7 @@ _set_title () {
     (screen*)
       print -nR $'\ek'${1[1,18]}$'\e\\' ;;
   esac
+  return 0
 }
 
 precmd () {
@@ -77,7 +79,7 @@ precmd () {
 
 preexec () {
   local -a cmd
-
+  
   cmd=(${(z)1})
   case $cmd[1] in
     (fg)
@@ -92,6 +94,8 @@ preexec () {
       return ;;
     (%*)
       cmd=(builtin jobs -l ${(Q)cmd[1]}) ;;
+    (exec)
+      shift cmd ;&
     (*)
       _set_title $cmd[1]:t
       return ;;
@@ -268,13 +272,14 @@ bindkey -a ":s" replace-pattern
 # 8.2.1  Completion
 
 bindkey "^D" list-choices
+bindkey "^I" complete-word
 bindkey "^P" _history-complete-older
 bindkey "^N" _history-complete-newer
 bindkey "^U" undo
 
-autoload -Uz insert-composed-char
-zle -N insert-composed-char
-bindkey "^K" insert-composed-char
+autoload -Uz insert-digraph
+zle -N insert-digraph
+bindkey "^K" insert-digraph
 
 # 8.2.4  Miscellaneous
 
@@ -300,7 +305,6 @@ bindkey "^Om" _most_recent_file
 bindkey "^Oo" complete-previous-output
 bindkey "^O^O" complete-previous-output
 bindkey "^Op" copy-prev-shell-word
-bindkey "^X^L" history-beginning-search-backward
 bindkey "^O?" _complete_help                  
 bindkey "^E" list-expand
 bindkey "^F" describe-key-briefly
@@ -311,6 +315,10 @@ bindkey "^Q" push-line-or-edit
 bindkey " " magic-space
 bindkey "^H" backward-delete-char
 bindkey "^?" backward-delete-char
+
+autoload -U history-beginning-search-menu
+zle -N history-beginning-search-menu
+bindkey "^X^L" history-beginning-search-menu
 
 autoload -U backward-kill-word-match
 zle -N backward-kill-to-space-or-/ backward-kill-word-match
@@ -417,13 +425,12 @@ alias dfh='df -h'               # run `df' with human readable output
 alias p='ps --User $USERNAME --format "pid comm" -H'
 aspell () { command aspell --home-dir ~/.local/var/lib/aspell $* }
 sbcl () { command sbcl $* --userinit ~/.local/etc/sbclrc }
-offlineimap () { command offlineimap -c ~/.local/etc/offlineimaprc $* }
                                 # enable grep color output and print linenumber
 alias gp='grep --color=auto -n -P'
 alias top='top -u $USERNAME'    # run top with default user
 alias mp='mplayer'
 alias mpq='mplayer -nosound'
-alias tv='DISPLAY=:0.1 mplayer -ao alsa:device=secondary'
+alias tv='DISPLAY=:0.1 mplayer -vo gl2 -dr'
 alias ri='noglob ri'
 
 alias -g ...='../..'
@@ -449,11 +456,16 @@ vg () {
   fi
   local regex=$1; shift
   vim \
+      -c 'let saved_grepprg = &grepprg' \
       -c 'set grepprg=pcregrep\ -u\ -n\ --\ $*\ /dev/null' \
-      -c 'set shellpipe=2>&1\ >' \
-      -c "silent! grep '$regex' $*" \
-      -c 'set shellpipe&' \
-      -c 'cwindow'
+      -c 'let saved_shellpipe = &shellpipe' \
+      -c 'set shellpipe=>\ %s\ 2>&1' \
+      -c "silent! grep '${regex//(#m)[%#]/\\$MATCH}' ${^${(@qq)${(@)*//(#m)[%#]/\\$MATCH}}}" \
+      -c 'let &shellpipe = saved_shellpipe' \
+      -c 'unlet saved_shellpipe' \
+      -c 'let &grepprg = saved_grepprg' \
+      -c 'unlet saved_grepprg' \
+      -c 'if len(filter(getqflist(), "v:val.valid")) == 0 | quit | else | cwindow | endif' \
 }
 
 

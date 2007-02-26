@@ -1,0 +1,58 @@
+emulate -LR zsh
+
+setopt cbases extendedglob printeightbit
+
+local char1 char2 codepoint ochar error
+
+if [[ -n $WIDGET ]]; then
+  error=(zle -M)
+else
+  error=print
+fi
+
+if (( ${+zsh_digraphs} == 0 )); then
+  # Save quite a lot of memory by running and then erasing
+  # the function that defines the characters.
+  autoload -U define-digraphs
+  define-digraphs
+  unfunction define-digraphs
+fi
+
+if (( $# )); then
+  char1=${1[1]}
+  if [[ $1 = ? ]]; then
+    shift
+  else
+    1=${1[2,-1]}
+  fi
+else
+  read -k char1 || return 1
+fi
+
+if (( $# )); then
+  char2=${1[1]}
+else
+  read -k char2 || return 1
+fi
+
+if [[ -n $zsh_digraphs[$char1$char2] ]]; then
+  codepoint=$zsh_digraphs[$char1$char2]
+elif [[ -n $zsh_digraphs[$char2$char1] ]]; then
+  codepoint=$zsh_digraphs[$char1$char2]
+else
+  LBUFFER+=$char2
+  return
+fi
+
+if [[ -z $WIDGET ]]; then
+  [[ -t 1 ]] && print
+  print "\U${(l.8..0.)codepoint}"
+else
+  ochar="$(print -n "\U${(l.8..0.)codepoint}")"
+
+  if (( ${+NUMERIC} )); then
+    $error "Character ${(l.8..0.)codepoint}: $ochar"
+  else
+    LBUFFER+=$ochar
+  fi
+fi
