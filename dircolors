@@ -57,19 +57,25 @@ STICKY                  202
 *.z   	        3
 *.Z   	        3
 *.tbz2	        3
+*.ace           3
+*.cab           3
 
 # 1.2.3  Images
 
-*.jpg 5
-*.png 5
-*.gif 5
-*.bmp 5
-*.ppm 5
-*.tga 5
-*.xbm 5
-*.xpm 5
-*.tif 5
-*.xcf 5
+*.jpg   5
+*.jpeg  5
+*.png   5
+*.gif   5
+*.bmp   5
+*.ppm   5
+*.tga   5
+*.xbm   5
+*.xpm   5
+*.tif   5
+*.tiff  5
+*.xcf   5
+*.ai    5
+*.eps   5
 
 # 1.2.4  Audio
 
@@ -77,10 +83,10 @@ STICKY                  202
 *.ogg 139
 *.wav 139
 *.rm  139
+*.wma 139
 
 # 1.2.5  Video
 
-*.divx  101
 *.mpg   101
 *.mpeg  101
 *.avi   101
@@ -92,6 +98,8 @@ STICKY                  202
 *.wmv   101
 *.mp4   101
 *.ogm   101
+*.divx  101
+*.rmvb  101
 
 # 1.2.6  Documents
 
