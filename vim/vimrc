@@ -19,6 +19,7 @@ set hidden
 set noesckeys
 set showcmd
 set confirm
+set autowriteall
 set visualbell t_vb=
 set textwidth=79
 set backspace=indent,eol,start
