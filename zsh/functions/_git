@@ -910,7 +910,7 @@ _git-local-fetch () {
 _git-peek-remote () {
   _arguments \
     $exec_arg \
-    ':remote repository:__git_remote_repository' && ret=0
+    ':repository:__git_repository' && ret=0
 }
 
 (( $+functions[_git-receive-pack] )) ||
@@ -1786,10 +1786,15 @@ __git_remote_repository () {
   if compset -P '*:'; then
     _remote_files
   else
-    _alternative \
-      'directories::_directories' \
-      'hosts:host:_ssh_hosts -S:'
+    _ssh_hosts -S:
   fi
+}
+
+(( $+functions[__git_repository] )) ||
+__git_repository () {
+  _alternative \
+    'directories::_directories' \
+    'remote repositories::__git_remote_repository'
 }
 
 # should also be $GIT_DIR/remotes/origin
