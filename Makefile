@@ -131,6 +131,8 @@ DOTFILES = \
 	   zsh/functions/_unpack \
 	   zsh/functions/cdup \
 	   zsh/functions/d \
+	   zsh/functions/define-digraphs \
+	   zsh/functions/insert-digraph \
 	   zsh/functions/prompt_now_setup \
 	   zsh/functions/zcalc
 
