@@ -209,6 +209,7 @@ _git_commands () {
     'request-pull:generate summary of pending changes'
     'rerere:reuse recorded resolve'
     'resolve:merge two commits'
+    'rev-list:list commit object in reverse chronological order'
     'shortlog:summarize git log output'
     'show-index:display contents of a pack idx file'
     'symbolic-ref:read and modify symbolic references'
@@ -237,8 +238,8 @@ _git_commands () {
     'cvsimport:import a CVS "repository" into a git repository'
     'svnimport:import SVN repository into git')
 
-  local -a rarely_used_commands
-  rarely_used_commands=(
+  local -a ancillary_commands
+  ancillary_commands=(
     'convert-objects:convert old-style git repository'
     'get-tar-commit-id:extract commit ID from an archive created using tar-tree'
     'hash-object:compute object ID from a file'
@@ -246,33 +247,53 @@ _git_commands () {
     'fsck-objects:verify the connectivity and validity of the objects in the database'
     'lost-found:recover lost references that luckily have not yet been pruned')
 
-  local -a mostly_useless_commands
-  mostly_useless_commands=(
+  local -a internal_commands
+  internal_commands=(
     'daemon:start a really simple server for git repositories'
     'http-fetch:download remote git repository via HTTP'
     'http-push:push missing objects using HTTP/DAV'
     'receive-pack:command invoked by send-pack to receive what is pushed to it'
+    'rev-parse:pick out and massage parameters for other git commands'
     'send-pack:push to remote repository, intelligently'
     'ssh-fetch:pull from remote repository over an SSH connection'
     'ssh-upload:"server-side" helper program used by ssh-fetch'
     'stripspace:filter out empty lines'
     'upload-pack:command invoked by clone-pack and fetch-pack')
 
-  local -a internal_commands
-  internal_commands=(
-    'rev-list:list commit object in reverse chronological order'
-    'rev-parse:pick out and massage parameters for other git commands')
-
   local wanted_commands
-  zstyle -s ':completion:${curcontext}:' commands wanted_commands || wanted_commands="base useful"
+  zstyle -s ':completion:${curcontext}:' commands wanted_commands || wanted_commands="all -internal"
+
+  local -aU unique_wanted_commands
+  unique_wanted_commands=($=wanted_commands)
+
+  integer index_of_all=$(( $unique_wanted_commands[(I)all] ))
+  if (( index_of_all > 0 )); then
+    unique_wanted_commands[index_of_all]=()
+    unique_wanted_commands+=(base additional useful interoperability ancillary internal)
+  fi
+
+  for (( i = 0; i < $#unique_wanted_commands; i++ )); do
+    if [[ $unique_wanted_commands[i] == (#bq)-(*) ]]; then
+      unique_wanted_commands[i]=()
+      unique_wanted_commands[(I)$match[1]]=()
+    fi
+  done
 
   local -a commands
-  for wanted_command in $=wanted_commands; do
+  for wanted_command in $unique_wanted_commands; do
     case $wanted_command in
-      (all) commands=($commands $additional_commands) ;;
-      (base) commands=($commands $base_commands) ;;
-      (interoperability) commands=($commands $interoperability_commands) ;;
-      (useful) commands=($commands $useful_commands) ;;
+      (base)
+        commands+=($base_commands) ;;
+      (additional)
+        commands+=($additional_commands) ;;
+      (useful)
+        commands+=($useful_commands) ;;
+      (interoperability)
+        commands+=($interoperability_commands) ;;
+      (ancillary)
+        commands+=($ancillary_commands) ;;
+      (internal)
+        commands+=($internal_commands) ;;
     esac
   done
 
