@@ -58,6 +58,7 @@ bind o only
 bind x remove
 bind X exec gnome-screensaver-command --lock
 bind numbersign colon number 
+bind C-v digraph
 
 newkmap applications
 definekey applications b exec firefox
