@@ -1049,7 +1049,7 @@ _git-branch () {
     '(-D -d -f -r 2)-d[delete a branch, which must be fully merged]' \
     '(-D -d -f -r 2)-D[delete a branch]' \
     '(-D -d -f -r)-f[force a reset of <branch-name> to <start-point>]' \
-    ':branch-name' \
+    ':branch-name:__git_branch_names' \
     '::start-point:__git_revisions' && ret=0
 }
 
@@ -1127,7 +1127,7 @@ _git-diff () {
     $diff_args \
     '::original revision:__git_revisions' \
     '::new revision:__git_revisions' \
-    '*::index file:__git_cached_files' && ret=0
+    '*::index file:__git_modified_files' && ret=0
 }
 
 (( $+functions[_git-fetch] )) ||
@@ -1324,7 +1324,8 @@ _git-whatchanged () {
     '-r[how git internal diff output for the whole tree]' \
     $pretty_arg \
     '-m[show differences from all parents]' \
-    '*:commit id:__git_commits2' && ret=0
+    '1::commit id:__git_commits2' \
+    '*:managed file:__git_cached_files' && ret=0
 }
 
 (( $+functions[_git-applypatch] )) ||
@@ -1642,6 +1643,16 @@ __git_guard () {
   [[ -n "$PREFIX$SUFFIX" ]]
 }
 
+(( $+functions[__git_command_successful] )) ||
+__git_command_successful () {
+  if (( ${#pipestatus:#0} > 0 )); then
+    _message 'not a git repository'
+    return 1
+  fi
+  return 0
+}
+
+(( $+functions[__git_objects] )) ||
 __git_objects () {
   __git_guard $* "[[:xdigit:]]#" "object"
 }
@@ -1723,12 +1734,11 @@ __git_unmerged_files () {
 __git_tree_files () {
   local expl tree_files
 
-  tree_files=(${"${(@f)$(git-ls-tree -r $@[-1] 2>/dev/null)}"#*$'\t'})
-  if (( $? == 0 )); then
-    _wanted files expl 'tree file' _multi_parts $@[1,-2] - / tree_files
-  else
-    _message 'not a git repository'
-  fi
+  tree_files=(${(ps:\0:)"$(_call_program files git-ls-tree --name-only -z -r $*[-1] 2>/dev/null)"})
+  __git_command_successful || return
+
+  # FIXME: Why doesn’t -f to compadd work here?
+  _wanted files expl 'tree file' _multi_parts $*[1,-2] - / tree_files
 }
 
 # TODO: deal with things that __git_heads and __git_tags has in common (i.e.,
@@ -1907,15 +1917,12 @@ __git_references () {
 
   # TODO: deal with GIT_DIR
   if [[ $_git_refs_cache_pwd != $PWD ]]; then
-    _git_refs_cache=(${${"${(@f)$(git ls-remote ./. 2>/dev/null)}"#*$'\t'}#refs/(heads|tags)/})
+    _git_refs_cache=(${${${(f)"$(_call_program references git ls-remote ./. 2>/dev/null)"}#*$'\t'}#refs/(heads|tags)/})
+    __git_command_successful || return
     _git_refs_cache_pwd=$PWD
   fi
 
-  if (( $? == 0 )); then
-    _wanted references expl 'references' compadd - $_git_refs_cache
-  else
-    _message 'not a git repository'
-  fi
+  _wanted references expl 'references' compadd - $_git_refs_cache
 }
 
 (( $+functions[__git_local_references] )) ||
@@ -1923,15 +1930,23 @@ __git_local_references () {
   local expl
 
   if [[ $_git_local_refs_cache_pwd != $PWD ]]; then
-    _git_local_refs_cache=(${${"${(@f)$(git ls-remote ./. 2>/dev/null)}"#*$'\t'}#refs/})
+    _git_local_refs_cache=(${${${(f)"$(_call_program references git ls-remote ./. 2>/dev/null)"}#*$'\t'}#refs/})
+    __git_command_successful || return
     _git_local_refs_cache_pwd=$PWD
   fi
 
-  if (( $? == 0 )); then
-    _wanted references expl 'references' compadd - $_git_local_refs_cache
-  else
-    _message 'not a git repository'
-  fi
+  _wanted references expl 'references' compadd - $_git_local_refs_cache
+}
+
+(( $+functions[__git_branch_names] )) ||
+__git_branch_names () {
+  local expl
+  declare -a branch_names
+
+  branch_names=(${${(f)"$(_call_program branch-names git branch)"}#[* ] })
+  __git_command_successful || return
+
+  _wanted branch-names expl branch-name compadd - $branch_names
 }
 
 (( $+functions[__git_repo-config_name] )) ||
