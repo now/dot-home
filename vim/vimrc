@@ -11,7 +11,6 @@ set path+=./**
 let &fillchars = 'diff: ,fold: ,vert:' . (&encoding == 'utf-8' ? '│' : '|')
 " TODO: seriously, everyone wants this.  Why is this not enabled by default?
 syntax enable
-set hlsearch
 colorscheme now
 " TODO: perhaps unset this?
 set statusline=%F%(\ [%1*%M%*%(,%2*%R%*%)]%)\ %w%=%(\ %y%)\ line:\ %l\ of\ %L
@@ -138,7 +137,7 @@ noremap <Leader>N :cnfile<CR>
 noremap <silent> <C-P> <Esc>:bprevious<CR>
 noremap <silent> <C-N> <Esc>:bnext<CR>
 
-noremap <silent> <Leader>h <Esc>:nohlsearch<CR>
+noremap <silent> <Leader>h <Esc>:set invhlsearch<CR>
 
 noremap <silent> <Leader>s <Esc>:setlocal invspell spelllang=en_us<CR>
 
