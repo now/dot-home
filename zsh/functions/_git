@@ -765,7 +765,7 @@ _git-ls-tree () {
 
 (( $+functions[_git-imap-send] )) ||
 _git-imap-send () {
-_message 'no arguments allowed; accepts mailbox file on standard input'
+  _message 'no arguments allowed; accepts mailbox file on standard input'
 }
 
 (( $+functions[_git-merge-base] )) ||
