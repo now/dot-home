@@ -7,10 +7,10 @@
 # git-show
 # git-sh-setup
 
-# TODO: most commands need a valid git repository to run, so add a check for it
-# so that we can make our handling a little bit cleaner (need to deal with
-# GIT_DIR=... stuff as pre-command modifier)
-typeset -g gitdir="${GIT_DIR:-.git}"
+# TODO: All if (( $words[(I)-option] )) should be turned into
+# if (( $words[(I)-option] > 0 && $words[(I)-option] < CURRENT )), as the user
+# may go back and want to add an option before -option and in that case should
+# be able to complete whatever may come before -option.
 
 # TODO: suggested zstyles:
 #
@@ -1668,19 +1668,20 @@ __git_stages () {
 
 (( $+functions[__git_files] )) ||
 __git_files () {
-  local expl files ls_opts opts
+  local expl files ls_opts opts gitdir
 
   zparseopts -D -E -a opts -- -cached -deleted -modified -others -ignored -unmerged -killed
 
-  ls_opts=( "--exclude-per-directory=.gitignore" )
-  [[ -f "$gitdir/info/exclude" ]] && ls_opts=( $ls_opts "--exclude-from=$gitdir/info/exclude")
+  gitdir=$(_call_program gitdir git rev-parse --git-dir 2>/dev/null)
+  __git_command_successful || return
 
-  files=("${(@f)$(GIT_DIR="$gitdir" git-ls-files "$ls_opts[@]" "$opts[@]" 2>/dev/null)}")
-  if (( $? == 0 )); then
-    _wanted files expl 'index file' _multi_parts $@ - / files
-  else
-    _message 'not a git repository'
-  fi
+  ls_opts=("--exclude-per-directory=.gitignore")
+  [[ -f "$gitdir/info/exclude" ]] && ls_opts+="--exclude-from=$gitdir/info/exclude"
+
+  files=(${(ps:\0:)"$(_call_program files git ls-files -z $ls_opts $opts 2>/dev/null)"})
+  __git_command_successful || return
+
+  _wanted files expl 'index file' _multi_parts $@ - / files
 }
 
 (( $+functions[__git_cached_files] )) ||
@@ -1817,14 +1818,26 @@ __git_any_repositories () {
 
 (( $+functions[__git_remotes] )) ||
 __git_remotes () {
-  local expl
+  local expl gitdir remotes
+
+  gitdir=$(_call_program gitdir git rev-parse --git-dir 2>/dev/null)
+  __git_command_successful || return
 
 #  zparseopts -a opts X+:
 #
 #  if (( !$opts[(I)-X] )); then
 #    descr=remote
 #  fi
-  _wanted remotes expl remote _files -W "($gitdir/remotes)" -g "$gitdir/remotes/*"
+
+  remotes=(${${(f)"$(_call_program remotes git repo-config --get-regexp '"^remote\..*\.url$"')"}//#(#b)remote.(*).url */$match[1]})
+  __git_command_successful || return
+
+  # TODO: Should combine the two instead of either or.
+  if (( $#remotes > 0 )); then
+    _wanted remotes expl remote compadd - $remotes
+  else
+    _wanted remotes expl remote _files -W "($gitdir/remotes)" -g "$gitdir/remotes/*"
+  fi
 }
 
 (( $+functions[__git_ref_specs] )) ||
@@ -1862,12 +1875,10 @@ __git_heads_or_tags () {
 
   (( $+ours[-P] )) || ours[-P]=./.
 
-  refs=(${${"${(@f)$(git ls-remote --$ours[-T] $ours[-P] 2>/dev/null)}"#*$'\t'}#refs/$ours[-T]/})
-  if (( $? == 0 )); then
-    _wanted $ours[-T] expl $ours[-T] compadd $opts - $refs
-  else
-    _message 'not a git repository'
-  fi
+  refs=(${${${${(f)"$(_call_program $ours[-T] git ls-remote --$ours[-T] $ours[-P] 2>/dev/null)"}#*$'\t'}:#*\^*}#refs/$ours[-T]/})
+  __git_command_successful || return
+
+  _wanted $ours[-T] expl $ours[-T] compadd $opts - $refs
 }
 
 (( $+functions[__git_heads] )) ||
