@@ -508,6 +508,8 @@ _git-repo-config () {
 
   if (( $words[(I)--get-regexp] )); then
     name_arg=':name regex'
+  elif (( $words[(I)--get(-all|)] )); then
+    name_arg=':name:__git_repo-config_gettable_name'
   else
     name_arg=':name:__git_repo-config_name'
   fi
@@ -1886,7 +1888,77 @@ __git_local_references () {
 
 (( $+functions[__git_repo-config_name] )) ||
 __git_repo-config_name () {
-  __git_guard $* "[[:print:]]#" "name"
+  typeset -a names
+
+  # TODO: How to we deal with prefixes like “branch.” and “remote.”?
+  names=(
+    'core.fileMode:whether differences in the executable bit is relevant'
+    'core.gitProxy:command to execute to establish a connection to remote server'
+    'core.ignoreStat:whether modification times of files are ignored'
+    'core.preferSymlinkRefs:whether symbolic-reference files should be symlinks'
+    'core.logAllRefUpdates:whether to log updates of references'
+    'core.repositoryFormatVersion:internal variable determining the repository version'
+    'core.sharedRepository:what kind of sharing is done for this repository'
+    'core.warnAmbiguousRefs:whether to warn if a ref name is ambiguous'
+    'core.compression:level of compression to apply to packs'
+    'core.legacyheaders:whether to use the legacy object-header-format'
+    'alias.:command aliases'
+    'apply.whitespace:default value for the --whitespace option to git-apply'
+    'branch.:prefix for branch-specific variables'
+    'pager.color:whether the pager is fed colored output'
+    'diff.color:determines when diff output is colored'
+    'diff.renameLimit:number of files to consider when detecting copy/renames'
+    'diff.renames:how hard to try to detect renames'
+    'format.headers:additional email headers to include in email patches'
+    'gitcvs.enabled:whether the cvs pserver interface is enabled'
+    'gitcvs.logfile:name of log file for cvs pserver'
+    'http.sslVerify:whether to verify the SSL certificate for HTTPS'
+    'http.sslCert:file containing SSL certificates for HTTPS'
+    'http.sslKey:file containing the SSL private key for HTTPS'
+    'http.sslCAInfo:file containing CA certificates to verify against for HTTPS'
+    'http.sslCAPath:path containing files with CA certificates to verify against for HTTPS'
+    'http.maxRequests:how many HTTP requests to launch in parallel'
+    'http.lowSpeedLimit:lower limit for HTTP transfer-speed'
+    'http.lowSpeedTime:duration for http.lowSpeedLimit'
+    'http.noEPSV:whether to disable the use of the EPSV ftp-command'
+    'i18n.commitEncoding:character encoding commit messages are stored in'
+    'merge.summary:whether to include summaries of merged commits'
+    'pack.window:size of window used by git-pack-objects'
+    'pull.octopus:default merge strategy to use when pulling multiple branches'
+    'pull.twohead:default merge strategy to use when pulling a single branch'
+    'remote.:prefix for remote-repository variables'
+    'show.difftree:default git-diff-tree options for git-show'
+    'showbranch.default:default set of branches for git-show-branch'
+    'status.color:whether git-status produces output in color'
+    'status.color.:prefix for parts of the output of git-status'
+    'tar.umask:umask to apply for git-tar-tree'
+    'user.email:email address used for commits'
+    'user.name:full name used for commits'
+    'whatchanged.difftree:default git-diff-tree arguments for git-whatchanged'
+    'imap.Folder:IMAP folder to use with git-imap-send'
+    'imap.Tunnel:tunneling command to use for git-imap-send'
+    'imap.Host:host git-imap-send should connect to'
+    'imap.User:user git-imap-send should log in as'
+    'imap.Pass:password git-imap-send should use when logging in'
+    'imap.Port:port git-imap-send should connect on'
+    'receive.denyNonFastforwards:whether git-receive-pack denies ref updates which are not fast-forwards')
+
+  _describe -t names 'name' names -M 'm:{a-zA-Z}={A-Za-z}' -M 'r:|.=* r:|=*' && ret=0
+}
+
+(( $+functions[__git_repo-config_gettable_name] )) ||
+__git_repo-config_gettable_name () {
+  local expl
+  typeset -a names
+
+  # TODO: This is strictly not correct, as names can have equal signs in them
+  # as well.  However, there’s no good way to tell from the output of
+  # git-repo-config, so this’ll have to do until we write our own .git/config
+  # parser (which will never happen because it’s not worth the trouble).
+  names=(${${(f)"$(_call_program names git repo-config --list)"}%%\=*})
+  __git_command_successful || return
+
+  _wanted names expl 'names' compadd $names
 }
 
 # ---
