@@ -130,6 +130,7 @@ whitespace_arg=(
 # is just too long.
 # NOTE: I'm coming to the opinion that skipping the description is the right
 # thing to do…, but not 100% sure yet.
+(( $+functions[_git_commands] )) ||
 _git_commands () {
   local -a base_commands
   base_commands=(
@@ -316,6 +317,7 @@ else
   _call_function ret _$words[1]
 fi
 
+(( $+functions[_git-annotate] )) ||
 _git-annotate () {
   _arguments -S \
     '(-l --long)'{-l,--long}'[show long rev]' \
@@ -327,6 +329,7 @@ _git-annotate () {
     '::revision:__git_revisions' && ret=0
 }
 
+(( $+functions[_git-apply] )) ||
 _git-apply () {
   _arguments \
     $nul_arg \
@@ -346,6 +349,7 @@ _git-apply () {
     '*::patch:_files' && ret=0
 }
 
+(( $+functions[_git-blame] )) ||
 _git-blame () {
   _arguments -S \
     '(-c --compability)'{-c,--compability}'[use the same output mode as git-annotate]' \
@@ -356,6 +360,7 @@ _git-blame () {
     '::revision:__git_revisions' && ret=0
 }
 
+(( $+functions[_git-checkout-index] )) ||
 _git-checkout-index () {
   _arguments -S \
     $nul_arg \
@@ -371,6 +376,7 @@ _git-checkout-index () {
     '*::file:__git_cached_files' && ret=0
 }
 
+(( $+functions[_git-clean] )) ||
 _git-clean () {
   _arguments \
     '-d[remove untracked directories]' \
@@ -380,6 +386,7 @@ _git-clean () {
     '(-X -x)-X[remove only files ignored by git]' && ret=0
 }
 
+(( $+functions[_git-commit-tree] )) ||
 _git-commit-tree () {
   if (( CURRENT == 2 )); then
     __git_trees && ret=0
@@ -392,6 +399,7 @@ _git-commit-tree () {
   fi
 }
 
+(( $+functions[_git-hash-object] )) ||
 _git-hash-object () {
   _arguments \
     '(:)--stdin[read object from standard input]' \
@@ -403,18 +411,21 @@ _git-hash-object () {
     '(--stdin):file:_files' && ret=0
 }
 
+(( $+functions[_git-index-pack] )) ||
 _git-index-pack () {
   _arguments \
     '-o[write generated pack index into specified file]:file:_files' \
     ':pack file:_files -g "*.pack"' && ret=0
 }
 
+(( $+functions[_git-init-db] )) ||
 _git-init-db () {
   _arguments \
     '--shared[share repository amongst several users]' \
     '--template=-[directory to use as a template for the object database]:directory:_directories' && ret=0
 }
 
+(( $+functions[_git-merge-index] )) ||
 _git-merge-index () {
   if (( CURRENT > 2 )) && [[ $words[CURRENT-1] != -[oq] ]]; then
     _arguments -S \
@@ -431,6 +442,7 @@ _git-merge-index () {
   fi
 }
 
+(( $+functions[_git-merge-tree] )) ||
 _git-merge-tree () {
   _arguments \
     ':base-tree:__git_tree_ishs' \
@@ -438,15 +450,18 @@ _git-merge-tree () {
     ':branch 2:__git_tree_ishs' && ret=0
 }
 
+(( $+functions[_git-mktag] )) ||
 _git-mktag () {
   _message 'no arguments allowed; only accepts tags on standard input'
 }
 
+(( $+functions[_git-mktree] )) ||
 _git-mktree () {
   _arguments \
     $nul_arg && ret=0
 }
 
+(( $+functions[_git-pack-objects] )) ||
 _git-pack-objects () {
   _arguments \
     '--depth=-[maximum delta depth]: :_guard "[[\:digit\:]]#" number' \
@@ -460,11 +475,13 @@ _git-pack-objects () {
     '(--stdout):base-name:_files' && ret=0
 }
 
+(( $+functions[_git-prune-packed] )) ||
 _git-prune-packed () {
   _arguments \
     '-n[only list the objects that would be removed]' && ret=0
 }
 
+(( $+functions[_git-read-tree] )) ||
 _git-read-tree () {
   if (( CURRENT == 2 )); then
     _arguments \
@@ -485,6 +502,7 @@ _git-read-tree () {
   fi
 }
 
+(( $+functions[_git-repo-config] )) ||
 _git-repo-config () {
   local name_arg
 
@@ -508,12 +526,14 @@ _git-repo-config () {
     '::value regex' && ret=0
 }
 
+(( $+functions[_git-unpack-objects] )) ||
 _git-unpack-objects () {
   _arguments \
     '-n[only list the objects that would be unpacked]' \
     '-q[run quietly]' && ret=0
 }
 
+(( $+functions[_git-update-index] )) ||
 _git-update-index () {
   local -a refreshables
 
@@ -544,11 +564,13 @@ _git-update-index () {
     '*::file:_files' && ret=0
 }
 
+(( $+functions[_git-write-tree] )) ||
 _git-write-tree () {
   _arguments \
     '--missing-ok[ignore objects in the index that are missing in the object database]' && ret=0
 }
 
+(( $+functions[_git-cat-file] )) ||
 _git-cat-file () {
   if (( CURRENT == 2 )); then
     _arguments \
@@ -564,6 +586,7 @@ _git-cat-file () {
   fi
 }
 
+(( $+functions[_git-describe] )) ||
 _git-describe () {
   _arguments \
     $abbrev_arg \
@@ -572,6 +595,8 @@ _git-describe () {
     '*:committish:__git_commits' && ret=0
 }
 
+# TODO: Use __git_modified_files instead?
+(( $+functions[_git-diff-index] )) ||
 _git-diff-index () {
   _arguments -S \
     $diff_args \
@@ -581,6 +606,8 @@ _git-diff-index () {
     '*::index file:__git_cached_files' && ret=0
 }
 
+# TODO: Use __git_modified_files instead?
+(( $+functions[_git-diff-files] )) ||
 _git-diff-files () {
   _arguments \
     $diff_args \
@@ -593,6 +620,8 @@ _git-diff-files () {
     '*::file:_files' && ret=0
 }
 
+# TODO: Use __git_modified_files instead?
+(( $+functions[_git-diff-stages] )) ||
 _git-diff-stages () {
   _arguments \
     $diff_args \
@@ -601,6 +630,8 @@ _git-diff-stages () {
     '*::index file:_files' && ret=0
 }
 
+# TODO: Use __git_modified_files instead?
+(( $+functions[_git-diff-tree] )) ||
 _git-diff-tree () {
   local curcontext=$curcontext state line
   typeset -A opt_args
@@ -645,10 +676,12 @@ _git-diff-tree () {
   esac
 }
 
+(( $+functions[_git-fmt-merge-msg] )) ||
 _git-fmt-merge-msg () {
   _message "you probably should not be issuing this command"
 }
 
+(( $+functions[_git-fsck-objects] )) ||
 _git-fsck-objects () {
   _arguments -S \
     '--cache[consider objects recorded in the index as head nodes for reachability traces]' \
@@ -660,6 +693,7 @@ _git-fsck-objects () {
     '*::object:__git_objects' && ret=0
 }
 
+(( $+functions[_git-ls-files] )) ||
 _git-ls-files () {
   _arguments -S \
     $nul_arg \
@@ -682,6 +716,7 @@ _git-ls-files () {
     '*::index file:_files' && ret=0
 }
 
+(( $+functions[_git-ls-tree] )) ||
 _git-ls-tree () {
   local curcontext=$curcontext state line
   typeset -A opt_args
@@ -703,10 +738,12 @@ _git-ls-tree () {
   esac
 }
 
+(( $+functions[_git-imap-send] )) ||
 _git-imap-send () {
 _message 'no arguments allowed; accepts mailbox file on standard input'
 }
 
+(( $+functions[_git-merge-base] )) ||
 _git-merge-base () {
   _arguments \
     '(-a --all)'{-a,--all}'[show all common ancestors]' \
@@ -714,6 +751,7 @@ _git-merge-base () {
     ':commit 2:__git_commits' && ret=0
 }
 
+(( $+functions[_git-name-rev] )) ||
 _git-name-rev () {
   _arguments -S \
     '--tags[only use tags to name the commits]' \
@@ -722,6 +760,7 @@ _git-name-rev () {
     '(--stdin --all)*:commit-ish:__git_revisions' && ret=0
 }
 
+(( $+functions[_git-pack-redundant] )) ||
 _git-pack-redundant () {
   _arguments \
     '(:)--all[process all packs]' \
@@ -731,6 +770,7 @@ _git-pack-redundant () {
 }
 
 # TODO: lots of option undocumented (revision.c)
+(( $+functions[_git-rev-list] )) ||
 _git-rev-list () {
   if (( $words[(I)--] && $words[(I)--] != CURRENT )); then
     _arguments \
@@ -761,21 +801,25 @@ _git-rev-list () {
   fi
 }
 
+(( $+functions[_git-show-index] )) ||
 _git-show-index () {
   _message 'no arguments allowed; accepts index file on standard input'
 }
 
+(( $+functions[_git-tar-tree] )) ||
 _git-tar-tree () {
   _arguments \
     ':tree-ish:__git_tree_ishs' \
     ':base:_files' && ret=0
 }
 
+(( $+functions[_git-unpack-file] )) ||
 _git-unpack-file () {
   _arguments \
     ':blob id:__git_blobs' && ret=0
 }
 
+(( $+functions[_git-var] )) ||
 _git-var () {
   _arguments \
     '(:)-l[show logical variables]' \
@@ -783,12 +827,14 @@ _git-var () {
                     GIT_COMMITTER_IDENT\:"name and email of committer"))' && ret=0
 }
 
+(( $+functions[_git-verify-pack] )) ||
 _git-verify-pack () {
   _arguments -S \
     '-v[show objects contained in pack]' \
     '*:index file:_files -g "*.idx"' && ret=0
 }
  
+(( $+functions[_git-clone-pack] )) ||
 _git-clone-pack () {
   _arguments \
     $exec_arg \
@@ -796,6 +842,7 @@ _git-clone-pack () {
     '*:head:__git_heads' && ret=0
 }
 
+(( $+functions[_git-fetch-pack] )) ||
 _git-fetch-pack () {
   _arguments \
     $exec_arg \
@@ -805,6 +852,7 @@ _git-fetch-pack () {
     '*:head:__git_heads' && ret=0
 }
 
+(( $+functions[_git-http-fetch] )) ||
 _git-http-fetch () {
   _arguments \
     $fetch_args \
@@ -812,6 +860,7 @@ _git-http-fetch () {
     ':URL:_urls' && ret=0
 }
 
+(( $+functions[_git-http-push] )) ||
 _git-http-push () {
   _arguments \
     '--complete[do not assume that the remote repository is complete]' \
@@ -821,6 +870,7 @@ _git-http-push () {
     '*:remote refs' && ret=0
 }
 
+(( $+functions[_git-local-fetch] )) ||
 _git-local-fetch () {
   _arguments \
     $fetch_args \
@@ -831,16 +881,19 @@ _git-local-fetch () {
     ':directory:_directories' && ret=0
 }
 
+(( $+functions[_git-peek-remote] )) ||
 _git-peek-remote () {
   _arguments \
     $exec_arg \
     ':remote repository:__git_remote_repository' && ret=0
 }
 
+(( $+functions[_git-receive-pack] )) ||
 _git-receive-pack () {
   _message "you probably should not be issuing this command"
 }
 
+(( $+functions[_git-send-pack] )) ||
 _git-send-pack () {
   _arguments \
     $exec_arg \
@@ -850,6 +903,7 @@ _git-send-pack () {
     '*:remote refs' && ret=0
 }
 
+(( $+functions[_git-ssh-fetch] )) ||
 _git-ssh-fetch () {
   _arguments \
     $fetch_args \
@@ -857,6 +911,7 @@ _git-ssh-fetch () {
     ':URL:_urls' && ret=0
 }
 
+(( $+functions[_git-ssh-upload] )) ||
 _git-ssh-upload () {
   _arguments \
     $fetch_args \
@@ -864,16 +919,19 @@ _git-ssh-upload () {
     ':URL:_urls' && ret=0
 }
 
+(( $+functions[_git-update-server-info] )) ||
 _git-update-server-info () {
   _arguments \
     '(-f --force)'{-f,--force}'[update the info files from scratch]' && ret=0
 }
 
+(( $+functions[_git-upload-pack] )) ||
 _git-upload-pack () {
   _arguments \
     ':directory:_directories' && ret=0
 }
 
+(( $+functions[_git-add] )) ||
 _git-add () {
   _arguments -S \
     '-n[do not actually add files; only show which ones would be added]' \
@@ -881,6 +939,7 @@ _git-add () {
     '*:file:__git_other_files' && ret=0
 }
 
+(( $+functions[_git-am] )) ||
 _git-am () {
   _arguments \
     '--3way[use 3-way merge if patch does not apply cleanly]' \
@@ -896,6 +955,7 @@ _git-am () {
     '*:mbox file:_files' && ret=0
 }
 
+(( $+functions[_git-applymbox] )) ||
 _git-applymbox () {
   _arguments \
     '-k[do not modify "Subject:" header]' \
@@ -907,6 +967,7 @@ _git-applymbox () {
     '::signoff file:__git_signoff_file' && ret=0
 }
 
+(( $+functions[_git-bisect] )) ||
 _git-bisect () {
   local bisect_cmds
 
@@ -949,6 +1010,7 @@ _git-bisect () {
 }
 
 # TODO: complete branch names?
+(( $+functions[_git-branch] )) ||
 _git-branch () {
   _arguments \
     '(-D -d -f :)-r[list only the "remote" branches]' \
@@ -962,6 +1024,7 @@ _git-branch () {
 # FIXME:
 # 'git-checkout' [-f] [-b <new_branch>] [-m] [<branch>]
 # 'git-checkout' [-m] [<branch>] <paths>...
+(( $+functions[_git-checkout] )) ||
 _git-checkout () {
   _arguments \
     '-b[create a new branch based at given branch]:branch-name' \
@@ -971,6 +1034,7 @@ _git-checkout () {
     '(-b -f)*:file:__git_cached_files' && ret=0
 }
 
+(( $+functions[_git-cherry-pick] )) ||
 _git-cherry-pick () {
   _arguments \
     '(-e --edit)'{-e,--edit}'[edit commit before committing the revert]' \
@@ -980,6 +1044,7 @@ _git-cherry-pick () {
 }
 
 # TODO: complete branch names?
+(( $+functions[_git-clone] )) ||
 _git-clone () {
   local -a shared
 
@@ -1000,6 +1065,7 @@ _git-clone () {
     '*:directory:_directories' && ret=0
 }
 
+(( $+functions[_git-commit] )) ||
 _git-commit () {
   _arguments -S \
     '(-a --all)'{-a,--all}'[update all paths in the index file]' \
@@ -1021,6 +1087,7 @@ _git-commit () {
 
 # TODO: __git_files should be __git_tree_files (do like in git-diff-tree and
 # such)
+(( $+functions[_git-diff] )) ||
 _git-diff () {
   _arguments \
     $diff_args \
@@ -1029,6 +1096,7 @@ _git-diff () {
     '*::index file:__git_cached_files' && ret=0
 }
 
+(( $+functions[_git-fetch] )) ||
 _git-fetch () {
   _arguments \
     $common_fetch_args \
@@ -1037,6 +1105,7 @@ _git-fetch () {
 }
 
 # TODO: should support R1..R2 syntax
+(( $+functions[_git-format-patch] )) ||
 _git-format-patch () {
   _arguments \
     $diff_args \
@@ -1056,17 +1125,20 @@ _git-format-patch () {
 }
 
 # TODO: something better
+(( $+functions[_git-grep] )) ||
 _git-grep () {
   service=grep _grep
   ret=0
 }
 
 # TODO: this isn't strictly right, but close enough
+(( $+functions[_git-log] )) ||
 _git-log () {
   _git-rev-list
 }
 
 # TODO: repository needs fixing
+(( $+functions[_git-ls-remote] )) ||
 _git-ls-remote () {
   _arguments \
     '(-h --heads)'{-h,--heads}'[show only refs under refs/heads]' \
@@ -1075,6 +1147,7 @@ _git-ls-remote () {
     '*: :__git_references' && ret=0
 }
 
+(( $+functions[_git-merge] )) ||
 _git-merge () {
   _arguments \
     $merge_args \
@@ -1084,6 +1157,7 @@ _git-merge () {
     '*:remote:__git_revisions' && ret=0
 }
 
+(( $+functions[_git-mv] )) ||
 _git-mv () {
   _arguments \
     '-f[force renaming/moving even if targets exist]' \
@@ -1093,10 +1167,12 @@ _git-mv () {
     ':destination:_files' && ret=0
 }
 
+(( $+functions[_git-octupus] )) ||
 _git-octupus () {
   _nothing
 }
 
+(( $+functions[_git-pull] )) ||
 _git-pull () {
   _arguments \
     $merge_args \
@@ -1106,6 +1182,7 @@ _git-pull () {
     '*:refspec:__git_ref_specs' && ret=0
 }
 
+(( $+functions[_git-push] )) ||
 _git-push () {
   _arguments \
     $force_ref_arg \
@@ -1115,6 +1192,7 @@ _git-push () {
     '*:refspec:__git_ref_specs' && ret=0
 }
 
+(( $+functions[_git-rebase] )) ||
 _git-rebase () {
   if [[ $words[2] == (--abort|--continue) ]]; then
     _message 'no more options'
@@ -1128,6 +1206,7 @@ _git-rebase () {
   fi
 }
 
+(( $+functions[_git-repack] )) ||
 _git-repack () {
   _arguments \
     '-a[pack all objects into a single pack]' \
@@ -1138,10 +1217,12 @@ _git-repack () {
     '-q[pass "-q" option to "git pack-objects"]' && ret=0
 }
 
+(( $+functions[_git-rerere] )) ||
 _git-rerere () {
   _nothing
 }
 
+(( $+functions[_git-reset] )) ||
 _git-reset () {
   _arguments \
     '(        --soft --hard)--mixed[like --soft but report what has not been updated (default)]' \
@@ -1150,6 +1231,7 @@ _git-reset () {
     '::commit-ish:__git_revisions' && ret=0
 }
 
+(( $+functions[_git-resolve] )) ||
 _git-resolve () {
   _arguments \
     ':current commit:__git_revisions' \
@@ -1157,6 +1239,7 @@ _git-resolve () {
     ':commit message' && ret=0
 }
 
+(( $+functions[_git-revert] )) ||
 _git-revert () {
   _arguments \
     '(-e --edit --no-edit)'{-e,--edit}'[edit the commit before committing the revert]' \
@@ -1165,10 +1248,12 @@ _git-revert () {
     ':commit:__git_revisions' && ret=0
 }
 
+(( $+functions[_git-shortlog] )) ||
 _git-shortlog () {
   _nothing
 }
 
+(( $+functions[_git-show-branch] )) ||
 _git-show-branch () {
   _arguments \
     '--all[show all refs under $GIT_DIR/refs]' \
@@ -1185,16 +1270,19 @@ _git-show-branch () {
     '*:reference:__git_revisions' && ret=0
 }
 
+(( $+functions[_git-status] )) ||
 _git-status () {
   _nothing
 }
 
+(( $+functions[_git-verify-tag] )) ||
 _git-verify-tag () {
   _arguments \
     ':tag:__git_tag_ids' && ret=0
 }
 
 # TODO: this should be a combination of git-rev-list and git-diff-tree
+(( $+functions[_git-whatchanged] )) ||
 _git-whatchanged () {
   _arguments \
     '-p[show textual diffs]' \
@@ -1205,6 +1293,7 @@ _git-whatchanged () {
     '*:commit id:__git_commits2' && ret=0
 }
 
+(( $+functions[_git-applypatch] )) ||
 _git-applypatch () {
   _arguments \
     ':message file:_files' \
@@ -1214,6 +1303,7 @@ _git-applypatch () {
 }
 
 # TODO: archive/branch can use _arch_archives perhaps?
+(( $+functions[_git-archimport] )) ||
 _git-archimport () {
   _arguments \
     '-a[auto-register archives at http://mirrors.sourcecontrol.net]' \
@@ -1228,10 +1318,12 @@ _git-archimport () {
     '::archive/branch'
 }
 
+(( $+functions[_git-convert-objects] )) ||
 _git-convert-objects () {
   _nothing
 }
 
+(( $+functions[_git-cvsexportcommit] )) ||
 _git-cvsexportcommit () {
   _arguments \
     '-c[commit automatically if the patch applied cleanly]' \
@@ -1243,6 +1335,7 @@ _git-cvsexportcommit () {
 }
 
 # TODO: _cvs_root for -d would be nice
+(( $+functions[_git-cvsimport] )) ||
 _git-cvsimport () {
   _arguments \
     $author_conversion_file_arg \
@@ -1263,6 +1356,7 @@ _git-cvsimport () {
     ':cvsmodule' && ret=0
 }
 
+(( $+functions[_git-cvsexportcommit] )) ||
 _git-cvsexportcommit () {
   _arguments \
     '-c[commit automatically if the patch applies cleanly]' \
@@ -1270,21 +1364,25 @@ _git-cvsexportcommit () {
     $verbose_arg && ret=0
 }
 
+(( $+functions[_git-lost-found] )) ||
 _git-lost-found () {
   _nothing
 }
 
 # TODO: something better
+(( $+functions[_git-merge-one-file] )) ||
 _git-merge-one-file () {
   _message "you probably should not be issuing this command"
 }
 
+(( $+functions[_git-prune] )) ||
 _git-prune () {
   _arguments -S \
     '-n[do not remove anything; just report what would have been removed]'
     '*::heads:__git_heads' && ret=0
 }
 
+(( $+functions[_git-relink] )) ||
 _git-relink () {
   _arguments \
     '--safe[stop if two objects with the same hash exist but have different sizes]' \
@@ -1293,6 +1391,7 @@ _git-relink () {
 }
 
 # TODO: import stuff from _svn
+(( $+functions[_git-svnimport] )) ||
 _git-svnimport () {
   _arguments \
     $author_conversion_file_arg \
@@ -1317,6 +1416,7 @@ _git-svnimport () {
 
 # TODO: how do we complete argument 1?
 # TODO: argument 2 should be __git_heads, but with full path
+(( $+functions[_git-symbolic-ref] )) ||
 _git-symbolic-ref () {
   _arguments \
     ':symbolic reference' \
@@ -1326,6 +1426,7 @@ _git-symbolic-ref () {
 # TODO: first argument right?
 # TODO: document options once they are in man
 # key-id for -u could perhaps be completed from _gpg somehow
+(( $+functions[_git-tag] )) ||
 _git-tag () {
   local message=
 
@@ -1346,6 +1447,7 @@ _git-tag () {
       '-d[delete]:tag:__git_tags' && ret=0
 }
 
+(( $+functions[_git-update-ref] )) ||
 _git-update-ref () {
   _arguments \
     ':symbolic reference:__git_revisions' \
@@ -1353,12 +1455,14 @@ _git-update-ref () {
     '::old reference:__git_revisions' && ret=0
 }
 
+(( $+functions[_git-check-ref-format] )) ||
 _git-check-ref-format () {
   _arguments \
     ':reference:__git_revisions' && ret=0
 }
 
 
+(( $+functions[_git-cherry] )) ||
 _git-cherry () {
   _arguments \
     $verbose_arg \
@@ -1366,6 +1470,7 @@ _git-cherry () {
     '::head:__git_revisions' && ret=0
 }
 
+(( $+functions[_git-count-objects] )) ||
 _git-count-objects () {
   _arguments \
     '-v[also report number of in-pack objects and objects that can be removed]' && ret=0
@@ -1373,6 +1478,7 @@ _git-count-objects () {
 
 # TODO: do better than _directories?  The directory needs to be a git-repository,
 # so one could check for a required file in the given directory.
+(( $+functions[_git-daemon] )) ||
 _git-daemon () {
   _arguments -S \
     '--strict-paths[match paths exactly]' \
@@ -1388,10 +1494,12 @@ _git-daemon () {
     '*:repository:_directories' && ret=0
 }
 
+(( $+functions[_git-get-tar-commit-id] )) ||
 _git-get-tar-commit-id () {
   _message 'no arguments allowed; accepts tar-file on standard input'
 }
 
+(( $+functions[_git-mailinfo] )) ||
 _git-mailinfo () {
   _arguments \
     '-k[do not strip/add \[PATCH\] from the first line of the commit message]' \
@@ -1404,6 +1512,7 @@ _git-mailinfo () {
 # TODO:
 # /* Backwards compatibility: if no -o specified, accept
 #    <mbox> <dir> or just <dir> */
+(( $+functions[_git-mailsplit] )) ||
 _git-mailsplit () {
   _arguments -S \
     '-b[if file does not begin with "From " line, assume it is a single mail message]' \
@@ -1413,10 +1522,12 @@ _git-mailsplit () {
     '*::mbox file:_files' && ret=0
 }
 
+(( $+functions[_git-patch-id] )) ||
 _git-patch-id () {
   _message 'no arguments allowed; accepts patch on standard input'
 }
 
+(( $+functions[_git-request-pull] )) ||
 _git-request-pull () {
   _arguments \
     ':start commit:__git_revisions' \
@@ -1424,6 +1535,7 @@ _git-request-pull () {
     '::end commit:__git_revisions'
 }
 
+(( $+functions[_git-rev-parse] )) ||
 _git-rev-parse () {
   _arguments \
     '(--revs-only --no-revs)--revs-only[do not output flags and parameters not meant for "git-rev-list"]' \
@@ -1445,6 +1557,7 @@ _git-rev-parse () {
     '*:args' && ret=0
 }
 
+(( $+functions[_git-rm] )) ||
 _git-rm () {
   _arguments -S \
     '-f[remove files from the working tree as well as from the index]' \
@@ -1453,6 +1566,7 @@ _git-rm () {
     '*:files:__git_cached_files' && ret=0
 }
 
+(( $+functions[_git-send-email] )) ||
 _git-send-email () {
   _arguments \
     '--cc=[starting "Cc:" value for each email]:email' \
@@ -1470,12 +1584,14 @@ _git-send-email () {
     '*:file:_files' && ret=0
 }
 
+(( $+functions[_git-stripspace] )) ||
 _git-stripspace () {
   _message 'no arguments allowed; accepts input file on standard input'
 }
 
 # ---
 
+(( $+functions[__git_guard] )) ||
 __git_guard () {
   typeset -A opts
 
@@ -1496,22 +1612,27 @@ __git_objects () {
   __git_guard $* "[[:xdigit:]]#" "object"
 }
 
+(( $+functions[__git_trees] )) ||
 __git_trees () {
   __git_guard $* "[[:xdigit:]]#" "tree"
 }
 
+(( $+functions[__git_tree_ishs] )) ||
 __git_tree_ishs () {
   __git_guard $* "[[:xdigit:]]#" "tree-ish"
 }
 
+(( $+functions[__git_blobs] )) ||
 __git_blobs () {
   _git_guard $* "[[:xdigit:]]#" 'blob id'
 }
 
+(( $+functions[__git_stages] )) ||
 __git_stages () {
   __git_guard $* "[[:digit:]]#" 'stage'
 }
 
+(( $+functions[__git_files] )) ||
 __git_files () {
   local expl files ls_opts opts
 
@@ -1528,34 +1649,42 @@ __git_files () {
   fi
 }
 
+(( $+functions[__git_cached_files] )) ||
 __git_cached_files () {
   __git_files $* --cached
 }
 
+(( $+functions[__git_deleted_files] )) ||
 __git_deleted_files () {
   __git_files $* --deleted
 }
 
+(( $+functions[__git_ignored_files] )) ||
 __git_ignored_files () {
   __git_files $* --ignored
 }
 
+(( $+functions[__git_killed_files] )) ||
 __git_killed_files () {
   __git_files $* --killed
 }
 
+(( $+functions[__git_modified_files] )) ||
 __git_modified_files () {
   __git_files $* --modified
 }
 
+(( $+functions[__git_other_files] )) ||
 __git_other_files () {
   __git_files $* --others
 }
 
+(( $+functions[__git_unmerged_files] )) ||
 __git_unmerged_files () {
   __git_files $* --unmerged
 }
 
+(( $+functions[__git_tree_files] )) ||
 __git_tree_files () {
   local expl tree_files
 
@@ -1569,6 +1698,7 @@ __git_tree_files () {
 
 # TODO: deal with things that __git_heads and __git_tags has in common (i.e.,
 # if both exists, they need to be completed to heads/x and tags/x.
+(( $+functions[__git_commits] )) ||
 __git_commits () {
   _alternative \
     'heads::__git_heads' \
@@ -1576,10 +1706,12 @@ __git_commits () {
 }
 
 # TODO: deal with prefixes and suffixes listed in git-rev-parse
+(( $+functions[__git_revisions] )) ||
 __git_revisions () {
   __git_commits $*
 }
 
+(( $+functions[__git_commits2] )) ||
 __git_commits2 () {
   compset -P '\\\^'
   __git_commits
@@ -1620,6 +1752,7 @@ _remote_files () {
   fi
 }
 
+(( $+functions[__git_remote_repository] )) ||
 __git_remote_repository () {
   local service
 
@@ -1635,6 +1768,7 @@ __git_remote_repository () {
 }
 
 # should also be $GIT_DIR/remotes/origin
+(( $+functions[__git_any_repositories] )) ||
 __git_any_repositories () {
   _alternative \
     'directories::_directories' \
@@ -1642,6 +1776,7 @@ __git_any_repositories () {
     'remote repositories::__git_remote_repository'
 }
 
+(( $+functions[__git_remotes] )) ||
 __git_remotes () {
   local expl
 
@@ -1653,6 +1788,7 @@ __git_remotes () {
   _wanted remotes expl remote _files -W "($gitdir/remotes)" -g "$gitdir/remotes/*"
 }
 
+(( $+functions[__git_ref_specs] )) ||
 __git_ref_specs () {
   if compset -P '*:'; then
     __git_heads
@@ -1666,15 +1802,18 @@ __git_ref_specs () {
   fi
 }
 
+(( $+functions[__git_signoff_file] )) ||
 __git_signoff_file () {
   _alternative \
     'signoffs:signoff:(yes true me please)' \
     'files:signoff file:_files'
 }
 
+(( $+functions[__git_tag_ids] )) ||
 __git_tag_ids () {
 }
 
+(( $+functions[__git_heads_or_tags] )) ||
 __git_heads_or_tags () {
   local expl
   typeset -a refs opts
@@ -1692,10 +1831,12 @@ __git_heads_or_tags () {
   fi
 }
 
+(( $+functions[__git_heads] )) ||
 __git_heads () {
   __git_heads_or_tags $* -T heads && ret=0
 }
 
+(( $+functions[__git_tags] )) ||
 __git_tags () {
   __git_heads_or_tags $* -T tags && ret=0
 }
@@ -1707,6 +1848,7 @@ __git_tags () {
 # __git_heads and __git_tags)
 # TODO: instead of "./.", we should be looking in the repository specified as
 # an argument to the command (but default to "./." I suppose (why not "."?))
+(( $+functions[__git_references] )) ||
 __git_references () {
 #  _alternative \
 #    'heads::__git_heads' \
@@ -1726,6 +1868,7 @@ __git_references () {
   fi
 }
 
+(( $+functions[__git_local_references] )) ||
 __git_local_references () {
   local expl
 
@@ -1741,12 +1884,14 @@ __git_local_references () {
   fi
 }
 
+(( $+functions[__git_repo-config_name] )) ||
 __git_repo-config_name () {
   __git_guard $* "[[:print:]]#" "name"
 }
 
 # ---
 
+(( $+functions[__git_is_indexed] )) ||
 __git_is_indexed () {
   [[ -n $(git ls-files $REPLY) ]]
 }
