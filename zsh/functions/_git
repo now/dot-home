@@ -126,6 +126,13 @@ whitespace_arg=(
 												  strip\:"output warning and strip trailing whitespace"))'
 )
 
+__git_zstyle_default () {
+  zstyle -t $1 $2
+  if (( $status == 2 )); then
+    zstyle $*
+  fi
+}
+
 # TODO: Either skip uninteresting commands or skip the description - the list
 # is just too long.
 # NOTE: I'm coming to the opinion that skipping the description is the right
@@ -1109,6 +1116,8 @@ _git-commit () {
       '(-F --file)'{-F,--file=}'[read commit message from given file]:file:_files' \
       '(-m --message)'{-m,--message=}'[use the given message as the commit message]:message' && ret=0
 }
+__git_zstyle_default ':completion::complete:git-commit:argument-rest:*' ignore-line yes
+
 
 # TODO: __git_files should be __git_tree_files (do like in git-diff-tree and
 # such)
