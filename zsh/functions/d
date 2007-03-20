@@ -4,24 +4,56 @@
 
 emulate -L zsh
 
+# TODO: maintain a stack instead.
+# Also, write a zle function that lets you change directory on the fly, using a
+# menu.
+local dir=
+
 if (( $# )); then
   dir=$1
 else
   autoload -U colors
 
+  local previous_dir=
   local color=$fg_bold[blue]
-  integer i=0
+  integer num=0
+  integer removed_slashes=0
   dirs -p | while read dir; do
-    local num="${$(printf "%-4d " $i)/ /.}"
-    printf " %s  $color%s$reset_color\n" $num $dir
-    (( i++ ))
+    local dir_display=$dir suffix=
+    if [[ -n $previous_dir ]]; then
+      if [[ $dir == $previous_dir?* ]]; then
+        dir_display=$(printf "%*s%s" $(( ${#previous_dir} - removed_slashes )) " " ${dir#$previous_dir/})
+        (( removed_slashes++ ))
+      else
+        (( removed_slashes = 0 ))
+        integer start=1
+        for (( i = 1; i <= $#dir; i++ )); do
+          if [[ $dir[i] != $previous_dir[i] ]]; then
+            break
+          fi
+          (( start = i ))
+        done
+        if (( start > 1 )); then
+          if (( start == $#dir )); then
+            head=$dir:h
+            tail=$dir:t
+            (( removed_slashes = $#head - ${#head//\/} ))
+            dir_display=$(printf "%*s%s" $(( $#head - removed_slashes )) " " $tail)
+          else
+            dir_display=$(printf "%*s%s" $(( $start - 1 )) " " $dir[start,-1])
+          fi
+        fi
+      fi
+    fi
+    printf "%3d. $color%s$reset_color\n" $num $dir_display
+    previous_dir=$dir
+    (( num++ ))
   done
-  local dir=
   read -r 'dir?Jump to directory: ' || return
   [[ -z $dir ]] && return
-  if (( dir < 0 || dir >= i )); then
-    echo d: no such directory stack entry: $dir
-    return 1
-  fi
+#  if (( dir < 0 || dir >= i )); then
+#   echo d: no such directory stack entry: $dir
+#   return 1
+# fi
 fi
 cd ~$dir
