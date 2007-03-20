@@ -311,19 +311,6 @@ _git () {
   # TODO: this needs to be cleaned up and fixed
   local curcontext=$curcontext ret=1
 
-  #if [[ $words[1] == git ]]; then
-  #  if (( CURRENT == 2 )); then
-  #    _git_commands
-  #  else
-  #    shift words
-  #    (( CURRENT-- ))
-  #    curcontext="${curcontext%:*:*}:git-$words[1]:"
-  #    _call_function ret _git-$words[1]
-  #  fi
-  #else
-  #  _call_function ret _$words[1]
-  #fi
-
   if [[ $words[1] == git ]]; then
     local context state line
     typeset -A opt_args
@@ -331,6 +318,9 @@ _git () {
       '(- :)--version[display version information]' \
       '(- :)--help[display help message]' \
       '--exec-path=-[path containing core git-programs]::directory:_directories' \
+      '(-p --paginate)'{-p,--paginate}'[pipe output into $PAGER]' \
+      '--git-dir=-[path to repository]:directory:_directories' \
+      '--bare[use $PWD as repository]' \
       ':command:->command' \
       '*::options:->options' && ret=0
     case $state in
