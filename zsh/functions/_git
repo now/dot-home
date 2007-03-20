@@ -979,6 +979,47 @@ _git-am () {
     '*:mbox file:_files' && ret=0
 }
 
+(( $+functions[_git-archive] )) ||
+_git-archive () {
+  local curcontext=$curcontext state line
+  typeset -A opt_args
+
+  declare -a backend_args
+
+  if (( $words[(I)--format=*] > 0 && $words[(I)--format=*] < CURRENT )); then
+    case ${words[$words[(I)--format=*]]#--format=} in
+      (zip)
+        backend_args=(
+          '-0[do not deflate files]'
+          '-1[minimum compression]'
+          '-2[a little more compression]'
+          '-3[slightly more compression]'
+          '-4[a bit more compression]'
+          '-5[even more compression]'
+          '-6[slightly even more compression]'
+          '-7[getting there]'
+          '-8[close to maximum compression]'
+          '-9[maximum compression]')
+        ;;
+    esac
+  fi
+
+  _arguments \
+    '--format=-[format of the resulting archive]:archive format:__git_archive_formats' \
+    '(- :)--list[list available archive formats]' \
+    '--prefix=-[prepend the given path prefix to to each filename]' \
+    $backend_args \
+    '--remote=-[archive remote repository]:remote repository:__git_any_repositories' \
+    ':tree-ish:__git_tree_ishs' \
+    '*:tree file:->files' && ret=0
+
+  case $state in
+    (files)
+      __git_tree_files $line[1] && ret=0
+      ;;
+  esac
+}
+
 (( $+functions[_git-applymbox] )) ||
 _git-applymbox () {
   _arguments \
@@ -2014,6 +2055,17 @@ __git_repo-config_gettable_name () {
   __git_command_successful || return
 
   _wanted names expl 'names' compadd $names
+}
+
+(( $+functions[__git_archive_formats] )) ||
+__git_archive_formats () {
+  local expl
+  declare -a formats
+
+  formats=(${${(f)"$(_call_program archive-formats git archive --list)"}})
+  __git_command_successful || return
+
+  _wanted archive-formats expl 'archive format' compadd $formats
 }
 
 # ---
