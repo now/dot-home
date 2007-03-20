@@ -955,12 +955,31 @@ _git-upload-pack () {
 
 (( $+functions[_git-add] )) ||
 _git-add () {
+  local curcontext=$curcontext state line
+  typeset -A opt_args
+
   _arguments -S \
     '-n[do not actually add files; only show which ones would be added]' \
     '-v[show files as they are added]' \
     '-f[allow adding otherwise ignored files]' \
     '(-i --interactive)'{-i,--interactive}'[add contents interactively to the index]' \
-    '*:file:_files' && ret=0
+    '*:file:->files' && ret=0
+
+  local ignored_files_alternatives
+  if (( $words[(I)-f] )); then
+    ignored_files_alternatives=(
+      'ignored-modified-files:ignored modified files:__git_modified_files --ignored'
+      'ignored-other-files:ignored other files:__git_other_files --ignored')
+  fi
+
+  case $state in
+    (files)
+      _alternative \
+        'modified-files:modified files:__git_modified_files' \
+        'other-files:other files:__git_other_files' \
+        $ignored_files_alternatives && ret=0
+      ;;
+  esac
 }
 __git_zstyle_default ':completion::complete:git-add:argument-rest:*' ignore-line yes
 
@@ -1738,11 +1757,6 @@ __git_cached_files () {
 (( $+functions[__git_deleted_files] )) ||
 __git_deleted_files () {
   __git_files $* --deleted
-}
-
-(( $+functions[__git_ignored_files] )) ||
-__git_ignored_files () {
-  __git_files $* --ignored
 }
 
 (( $+functions[__git_killed_files] )) ||
