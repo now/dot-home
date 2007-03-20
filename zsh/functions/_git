@@ -116,15 +116,16 @@ common_fetch_args=(
   '(-u --update-head-ok)'{-u,--update-head-ok}'[allow updates of current branch head]'
 )
 
-typeset -ga whitespace_arg
+typeset -ga common_apply_args
 
-whitespace_arg=(
+common_apply_args=(
   '--whitespace=-[detect a new or modified line that ends with trailing whitespaces]:whitespace:((nowarn\:"turn off the trailing whitespace warning"
-												  warn\:"output warning, but apply patch"
-												  error\:"output warning and refuse to apply patch"
-												  error-all\:"similar to error but show all errors"
-												  strip\:"output warning and strip trailing whitespace"))'
-)
+                                                                                                  warn\:"output warning, but apply patch"
+                                                                                                  error\:"output warning and refuse to apply patch"
+                                                                                                  error-all\:"similar to error but show all errors"
+                                                                                                  strip\:"output warning and strip trailing whitespace"))'
+  '-p-[remove N leading slashes from traditional diff paths]: :_guard  "[[\:digit\:]]#" number'
+  '-C-[ensure at least N lines of context match before and after each change]: :_guard  "[[\:digit\:]]#" number')
 
 __git_zstyle_default () {
   zstyle -t $1 $2
@@ -363,9 +364,7 @@ _git-apply () {
     '--numstat[same as --stat but in decimal notation and complete pathnames (turns off "apply")]' \
     '--stat[output diffstat for the input (turns off "apply")]' \
     '--summary[output summary of git-diff extended headers (turns off "apply")]' \
-    '-p-[remove N leading slashes from traditional diff paths]: :_guard  "[[\:digit\:]]#" number' \
-    '-C-[ensure at least N lines of context match before and after each change]: :_guard  "[[\:digit\:]]#" number' \
-    $whitespace_arg \
+    $common_apply_args \
     '*::patch:_files' && ret=0
 }
 
@@ -975,7 +974,8 @@ _git-am () {
     '--signoff[add "Signed-off-by:" line to the commit message]' \
     '--skip[skip the current patch]' \
     '--utf8[pass "-u" flag to "git-mailinfo"]' \
-    $whitespace_arg \
+    '--no-utf8[do not pass "-u" flag to "git-mailinfo"]' \
+    $common_apply_args \
     '*:mbox file:_files' && ret=0
 }
 
