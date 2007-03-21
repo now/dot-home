@@ -965,15 +965,15 @@ _git-add () {
     '(-i --interactive)'{-i,--interactive}'[add contents interactively to the index]' \
     '*:file:->files' && ret=0
 
-  declare -a ignored_files_alternatives
-  if (( $words[(I)-f] )); then
-    ignored_files_alternatives=(
-      'ignored-modified-files:ignored modified files:__git_modified_files --ignored'
-      'ignored-other-files:ignored other files:__git_other_files --ignored')
-  fi
-
   case $state in
     (files)
+      declare -a ignored_files_alternatives
+      if (( $words[(I)-f] )); then
+        ignored_files_alternatives=(
+          'ignored-modified-files:ignored modified files:__git_modified_files --ignored'
+          'ignored-other-files:ignored other files:__git_other_files --ignored')
+      fi
+
       _alternative \
         'modified-files:modified files:__git_modified_files' \
         'other-files:other files:__git_other_files' \
