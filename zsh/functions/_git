@@ -310,13 +310,12 @@ _git_commands () {
 }
 
 _git () {
-  # TODO: this needs to be cleaned up and fixed
   local curcontext=$curcontext ret=1
 
   if [[ $words[1] == git ]]; then
-    local context state line
+    local state line
     declare -A opt_args
-    _arguments \
+    _arguments -C \
       '(- :)--version[display version information]' \
       '(- :)--help[display help message]' \
       '--exec-path=-[path containing core git-programs]::directory:_directories' \
@@ -658,7 +657,7 @@ _git-diff-tree () {
   local curcontext=$curcontext state line
   declare -A opt_args
 
-  _arguments -S \
+  _arguments -C -S \
     $diff_args \
     $pretty_arg \
     '--no-commit-id[skip output of commit IDs]' \
@@ -743,7 +742,7 @@ _git-ls-tree () {
   local curcontext=$curcontext state line
   declare -A opt_args
 
-  _arguments \
+  _arguments -C \
     $nul_arg \
     $abbrev_arg \
     '(-t)-d[do not show children of given tree (implies -t)]' \
@@ -958,7 +957,7 @@ _git-add () {
   local curcontext=$curcontext state line
   declare -A opt_args
 
-  _arguments -S \
+  _arguments -C -S \
     '-n[do not actually add files; only show which ones would be added]' \
     '-v[show files as they are added]' \
     '-f[allow adding otherwise ignored files]' \
@@ -1025,7 +1024,7 @@ _git-archive () {
     esac
   fi
 
-  _arguments \
+  _arguments -C \
     '--format=-[format of the resulting archive]:archive format:__git_archive_formats' \
     '(- :)--list[list available archive formats]' \
     '--prefix=-[prepend the given path prefix to to each filename]' \
