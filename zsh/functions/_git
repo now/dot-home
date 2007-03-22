@@ -1790,7 +1790,7 @@ __git_trees () {
 
 (( $+functions[__git_tree_ishs] )) ||
 __git_tree_ishs () {
-  __git_guard $* "[[:xdigit:]]#" "tree-ish"
+  __git_commits 
 }
 
 (( $+functions[__git_blobs] )) ||
