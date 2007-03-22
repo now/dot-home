@@ -1098,14 +1098,49 @@ _git-bisect () {
 # TODO: complete branch names?
 (( $+functions[_git-branch] )) ||
 _git-branch () {
-  _arguments \
-    '(-D -d -f :)-r[list only the "remote" branches]' \
-    '(-D -d -f -r 2)-d[delete a branch, which must be fully merged]' \
-    '(-D -d -f -r 2)-D[delete a branch]' \
-    '(-D -d -f -r)-f[force a reset of <branch-name> to <start-point>]' \
-    ':branch-name:__git_branch_names' \
-    '::start-point:__git_revisions' && ret=0
+  local abbrev_arg
+  if (( $words[(I)-v] > 0 && $words[(I)-v] < CURRENT )); then
+    abbrev_arg='--abbrev=-[set minimum SHA1 display-length]: :_guard "[[\:digit\:]]##" length'
+  fi
+
+  declare -a dependent_deletion_args
+  if (( $words[(I)-d] || $words[(I)-D] )); then
+    dependent_deletion_args=(
+      '-r[delete remote-tracking branches]'
+      '*:branch-name:__git_branch_names')
+  fi
+
+  declare -a dependent_modification_args
+  if (( $words[(I)-m] || $words[(I)-M] )); then
+    dependent_modification_args=(
+      ':old or new branch-name:__git_branch_names'
+      '::new branch-name:__git_branch_names')
+  fi
+
+  # TODO: I’m not happy with having to force a pattern with -A.
+  _arguments -S -A "-*" \
+    - list \
+      '(        --no-color)--color[turn on branch coloring]' \
+      '(--color           )--no-color[turn off branch coloring]' \
+      '(   -a)-r[list only the remote-tracking branches]' \
+      '(-r   )-a[list both remote-tracking branches and local branches]' \
+      '-v[show SHA1 and commit subject line for each head]' \
+      $abbrev_arg \
+    - create \
+      "-l[create the branch's reflog]" \
+      '-f[force the creation of a new branch]' \
+      ':branch-name:__git_branch_names' \
+      '::start-point:__git_revisions' \
+    - modify \
+      '(   -M)-m[rename a branch and the corresponding reflog]' \
+      '(-m   )-M[rename a branch even if the new branch-name already exists]' \
+      $dependent_modification_args \
+    - delete \
+      '(   -D)-d[delete a fully merged branch]' \
+      '(-d   )-D[delete a branch]' \
+      $dependent_deletion_args && ret=0
 }
+__git_zstyle_default ':completion::complete:git-branch:delete-argument-rest:*' ignore-line yes
 
 # FIXME:
 # 'git-checkout' [-f] [-b <new_branch>] [-m] [<branch>]
