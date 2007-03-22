@@ -1141,17 +1141,44 @@ _git-branch () {
 }
 __git_zstyle_default ':completion::complete:git-branch:delete-argument-rest:*' ignore-line yes
 
-# FIXME:
-# 'git-checkout' [-f] [-b <new_branch>] [-m] [<branch>]
-# 'git-checkout' [-m] [<branch>] <paths>...
+# TODO: __git_tree_ishs is just stupid.  It should be giving us a list of tags
+# and perhaps also allow all that just with ^{tree} and so on.  Not quite sure
+# how to do that, though.
 (( $+functions[_git-checkout] )) ||
 _git-checkout () {
-  _arguments \
-    '-b[create a new branch based at given branch]:branch-name' \
-    '-f[force a complete re-read]' \
-    '-m[3way merge current branch, working tree and new branch]' \
-    '::branch:__git_revisions' \
-    '(-b -f)*:file:__git_cached_files' && ret=0
+  local curcontext=$curcontext state line
+  declare -A opt_args
+
+  local new_branch_reflog_arg
+
+  if (( $words[(I)-b] > 0 )); then
+    new_branch_reflog_arg="-l[create the new branch's reflog]"
+  fi
+
+  # TODO: This isn’t quite correct in regards of the handling of the “--”
+  # option, as it should prevent us from seeing a branch, not stop matching
+  # options.
+  _arguments -C -S -A "-*" \
+    - switch-branch \
+      '-q[suppress feedback messages]' \
+      '-f[force a complete re-read]' \
+      '-b[create a new branch based at given branch]: :__git_guard_branch-name' \
+      $new_branch_reflog_arg \
+      '-m[3way merge current branch, working tree and new branch]' \
+      '::branch:__git_revisions' \
+    - update-files \
+      '::tree-ish:__git_tree_ishs' \
+      '::file:->files' && ret=0
+
+  case $state in
+    (files)
+      if [[ -n $line[1] ]]; then
+        __git_tree_files $line[1] && ret=0
+      else
+        __git_cached_files && ret=0
+      fi
+      ;;
+  esac
 }
 
 (( $+functions[_git-cherry-pick] )) ||
@@ -1727,6 +1754,17 @@ __git_guard () {
   else
     _message -e $2
   fi
+
+  [[ -n "$PREFIX$SUFFIX" ]]
+}
+
+__git_guard_branch-name () {
+  if [[ -n "$PREFIX$SUFFIX" ]]; then
+    _call_program check-ref-format git check-ref-format "refs/heads/$PREFIX$SUFFIX" &>/dev/null
+    (( ${#pipestatus:#0} > 0 )) && return 1
+  fi
+
+  _message -e 'branch-name'
 
   [[ -n "$PREFIX$SUFFIX" ]]
 }
