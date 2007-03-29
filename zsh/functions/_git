@@ -127,6 +127,10 @@ common_apply_args=(
   '-p-[remove N leading slashes from traditional diff paths]: :_guard  "[[\:digit\:]]#" number'
   '-C-[ensure at least N lines of context match before and after each change]: :_guard  "[[\:digit\:]]#" number')
 
+declare -g template_arg=
+
+template_arg='--template=-[directory to use as a template for the object database]:directory:_directories'
+
 __git_zstyle_default () {
   zstyle -t $1 $2
   if (( $status == 2 )); then
@@ -441,7 +445,7 @@ _git-index-pack () {
 _git-init-db () {
   _arguments \
     '--shared[share repository amongst several users]' \
-    '--template=-[directory to use as a template for the object database]:directory:_directories' && ret=0
+    $template_arg && ret=0
 }
 
 (( $+functions[_git-merge-index] )) ||
@@ -1202,7 +1206,7 @@ _git-clean () {
     '*:file:_files' && ret=0
 }
 
-# TODO: complete branch names?
+# TODO: The --no-checkout is undocumented.
 (( $+functions[_git-clone] )) ||
 _git-clone () {
   local -a shared
@@ -1212,14 +1216,16 @@ _git-clone () {
   fi
 
   _arguments \
-    '--bare[make a "bare" GIT repository]' \
+    '--bare[make a bare GIT repository]' \
     '(-l --local)'{-l,--local}'[perform a local cloning of a repository]' \
     $shared \
     '--reference[reference repository]:repository:_directories' \
     '(-q --quiet)'{-q,--quiet}'[operate quietly]' \
     '-n[do not checkout HEAD after clone is complete]' \
-    '-o[use given name instead of "origin" as branch name]:name' \
+    '(-o --origin)'{-o,--origin}'[use given name instead of "origin" as branch name]:name:__git_guard_branch-name' \
     '(-u --upload-pack)'{-u,--uploadpack}'[specify path to git-upload-pack on remote side]:remote path' \
+    $template_arg \
+    '--depth[create a shallow clone, given number of revisions deep]: :_guard "[[\:digit\:]]##" depth' \
     ':repository:__git_any_repositories' \
     '*:directory:_directories' && ret=0
 }
