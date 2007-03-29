@@ -1191,6 +1191,17 @@ _git-cherry-pick () {
     ':commit:__git_revisions' && ret=0
 }
 
+(( $+functions[_git-clean] )) ||
+_git-clean () {
+  _arguments -S \
+    '-d[also remove untracked directories]' \
+    '-n[do a dry run]' \
+    '-q[run quietly]' \
+    '(-X   )-x[also remove ignored files]' \
+    '(   -x)-X[remove only ignored files]' \
+    '*:file:_files' && ret=0
+}
+
 # TODO: complete branch names?
 (( $+functions[_git-clone] )) ||
 _git-clone () {
