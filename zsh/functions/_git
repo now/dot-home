@@ -1187,6 +1187,7 @@ _git-cherry-pick () {
     '(-e --edit)'{-e,--edit}'[edit commit before committing the revert]' \
     '(-n --no-commit)'{-n,--no-commit}'[do not make the actually commit]' \
     '(-r --replay)'{-r,--replay}'[use original commit message intact]' \
+    '-x[append information about what commit was cherry-picked]' \
     ':commit:__git_revisions' && ret=0
 }
 
