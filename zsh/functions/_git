@@ -125,6 +125,7 @@ common_fetch_args=(
   $tags_fetch_arg
   '(-k --keep)'{-k,--keep}'[keep downloaded pack]'
   '(-u --update-head-ok)'{-u,--update-head-ok}'[allow updates of current branch head]'
+  '--depth=-[deepen the history of a shallow repository by the given number of commits]: :_guard "[[\:guard\:]]" "depth"'
 )
 
 declare -ga common_apply_args
