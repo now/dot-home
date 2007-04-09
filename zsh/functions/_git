@@ -615,7 +615,10 @@ _git-describe () {
     $abbrev_arg \
     '--all[use any ref found in "$GIT_DIR/refs/"]' \
     '--tags[use any tag found in "$GIT_DIR/refs/tags/"]' \
-    '*:committish:__git_commits' && ret=0
+    $abbrev_arg \
+    '--candidates=-[consider up to given number of canditates]: :_guard "[[\:digit\:]]##" "number of canditates"' \
+    '--debug[display information about the searching strategy]' \
+    '*:committish:__git_committishs' && ret=0
 }
 
 # TODO: Use __git_modified_files instead?
@@ -1887,6 +1890,11 @@ __git_commits () {
   _alternative \
     'heads::__git_heads' \
     'tags::__git_tags'
+}
+
+(( $+functions[__git_committishs] )) ||
+__git_committishs () {
+  __git_commits
 }
 
 # TODO: deal with prefixes and suffixes listed in git-rev-parse
