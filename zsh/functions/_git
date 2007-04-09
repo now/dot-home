@@ -1234,7 +1234,6 @@ _git-clone () {
 _git-commit () {
   _arguments -S \
     '(-a --all)'{-a,--all}'[update all paths in the index file]' \
-    '--amend[amend the tip of the current branch]' \
     '--author[override the author name used in the commit]:author name' \
     '(-e --edit)'{-e,--edit}'[edit the commit message before committing]' \
     '(-o --only -i --include)'{-i,--include}'[update the given files and commit the whole index]' \
@@ -1244,10 +1243,11 @@ _git-commit () {
     '(-v --verify -n --no-verify)'{-v,--verify}'[look for suspicious lines the commit introduces]' \
     '*:file:__git_modified_files' \
     - '(message)' \
-      '(-c -C --reedit-message --reuse-message)'{-c,--reedit-message=}'[use existing commit object and edit log message]:commit id:__git_commits' \
-      '(-c -C --reedit-message --reuse-message)'{-C,--reuse-message=}'[use existing commit object with same log message]:commit id:__git_commits' \
-      '(-F --file)'{-F,--file=}'[read commit message from given file]:file:_files' \
-      '(-m --message)'{-m,--message=}'[use the given message as the commit message]:message' && ret=0
+      '--amend[amend the tip of the current branch]' \
+      {-c,--reedit-message=}'[use existing commit object and edit log message]:commit:__git_commits' \
+      {-C,--reuse-message=}'[use existing commit object with same log message]:commit:__git_commits' \
+      {-F,--file=}'[read commit message from given file]:file:_files' \
+      {-m,--message=}'[use the given message as the commit message]:message' && ret=0
 }
 __git_zstyle_default ':completion::complete:git-commit:argument-rest:*' ignore-line yes
 
