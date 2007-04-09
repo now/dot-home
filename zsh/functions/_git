@@ -29,12 +29,16 @@ declare -ga diff_args
 diff_args=(
   '--diff-filter=-[select certain kinds of files for diff]: :_guard "[ACDMRTUXB*]#" kinds'
   '--find-copies-harder[try harder to find copies]'
-  '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw)--name-only[show only names of changed files]'
-  '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw)--name-status[show only names and status of changed files]'
-  '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw)'{-u,-p}'[generate diff in patch format]'
-  '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw)--stat[generate a diffstat instead of a patch]' \
-  '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw)--patch-with-stat[generate patch and prepend its diffstat]' \
-  '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw)--patch-with-raw[generate patch but keep also the default raw diff output]' \
+  '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw --raw --numstat --shortstat --summary)--name-only[show only names of changed files]'
+  '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw --raw --numstat --shortstat --summary)--name-status[show only names and status of changed files]'
+  '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw --raw --numstat --shortstat --summary)'{-u,-p}'[generate diff in patch format]'
+  '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw --raw --numstat --shortstat --summary)--stat=-[generate a diffstat instead of a patch]:: :__git_guard_diff-stat-width' \
+  '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw --raw --numstat --shortstat --summary)--patch-with-stat[generate patch and prepend its diffstat]' \
+  '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw --raw --numstat --shortstat --summary)--patch-with-raw[generate patch but also keep the default raw diff output]' \
+  '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw --raw --numstat --shortstat --summary)--raw[generate the default raw diff output]' \
+  '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw --raw --numstat --shortstat --summary)--numstat[generate a more machine-friendly diffstat]' \
+  '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw --raw --numstat --shortstat --summary)--shortstat[generate a summary diffstat]' \
+  '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw --raw --numstat --shortstat --summary)--summary[generate a condensed summary of extended header information]' \
   '-B-[break complete rewrite changes into pairs of given size]: :_guard "[[\:digit\:]]#" size'
   '-C-[detect copies as well as renames with given scope]: :_guard "[[\:digit\:]]#" size'
   '-l-[limit number of rename/copy targets to run]: :_guard "[[\:digit\:]]#" number'
@@ -45,6 +49,15 @@ diff_args=(
   '--pickaxe-all[when -S finds a change, show all changes in that changeset]'
   '--pickaxe-regex[treat argument of -S as regular expression]'
   '--full-index[show full object name of pre- and post-image blob]'
+  '(--full-index)--binary[in addition to --full-index, output binary diffs for git-apply]'
+  '(        --no-color --color-words)--color[show colored diff]'
+  '(--color            --color-words)--no-color[turn off colored diff]'
+  '(--color --no-color              )--color-words[show colored-word diff]'
+  '--no-renames[turn off rename detection]'
+  '--check[warn if changes introduce trailing whitespace or space/tab indents]'
+  '(-a --text)'{-a,--text}'[treat all files as text]'
+  '(-b --ignore-space-change -w --ignore-all-space)'{-b,--ignore-space-change}'[ignore changes in amount of white space]'
+  '(-b --ignore-space-change -w --ignore-all-space)'{-w,--ignore-all-space}'[ignore white space when comparing lines]'
   $abbrev_arg \
   $nul_arg
 )
@@ -1259,10 +1272,10 @@ __git_zstyle_default ':completion::complete:git-commit:argument-rest:*' ignore-l
 # such)
 (( $+functions[_git-diff] )) ||
 _git-diff () {
-  _arguments \
+  _arguments -S \
     $diff_args \
-    '::original revision:__git_revisions' \
-    '::new revision:__git_revisions' \
+    '::original revision:__git_commits' \
+    '::new revision:__git_commits' \
     '*::index file:__git_modified_files' && ret=0
 }
 
@@ -1788,6 +1801,16 @@ __git_guard_branch-name () {
   _message -e 'branch-name'
 
   [[ -n "$PREFIX$SUFFIX" ]]
+}
+
+__git_guard_diff-stat-width () {
+  if [[ $PREFIX == *,* ]]; then
+    compset -P '*,'
+    _guard "[[:digit:]]#" "filename width"
+  else
+    compset -S ',*'
+    _guard "[[:digit:]]#" "width"
+  fi
 }
 
 (( $+functions[__git_command_successful] )) ||
