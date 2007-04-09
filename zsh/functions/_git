@@ -1238,9 +1238,11 @@ _git-commit () {
     '(-e --edit)'{-e,--edit}'[edit the commit message before committing]' \
     '(-o --only -i --include)'{-i,--include}'[update the given files and commit the whole index]' \
     '(-o --only -i --include)'{-o,--only}'[commit only the given files]' \
-    '(-n --no-verify -v --verify)'{-n,--no-verify}'[do not look for suspicious lines the commit introduces]' \
+    '(-n --no-verify)'{-n,--no-verify}'[do not look for suspicious lines the commit introduces]' \
     '(-s --signoff)'{-s,--signoff}'[add Signed-off-by line at the end of the commit message]' \
-    '(-v --verify -n --no-verify)'{-v,--verify}'[look for suspicious lines the commit introduces]' \
+    '(-q --quiet -v --verbose)'{-q,--quiet}'[suppress commit summary message]' \
+    '(-q --quiet -v --verbose)'{-v,--verbose}'[show unified diff of all file changes]' \
+    '(-u --untracked-files)'{-u,--untracked-files}'[show files in untracked directories]' \
     '*:file:__git_modified_files' \
     - '(message)' \
       '--amend[amend the tip of the current branch]' \
