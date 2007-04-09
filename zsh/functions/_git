@@ -1288,24 +1288,23 @@ _git-fetch () {
     '*:refspec:__git_ref_specs' && ret=0
 }
 
-# TODO: should support R1..R2 syntax
 (( $+functions[_git-format-patch] )) ||
 _git-format-patch () {
   _arguments \
     $diff_args \
-    '(-a --author)'{-a,--author}'[output From: header for your own commits as well]' \
-    '(-c --check)'{-c,--check}'[display suspicious lines in the patch]' \
-    '(-d --date)'{-d,--date}'[output Date: header for your own commits as well]' \
     '(-h --help)'{-h,--help}'[display usage information]' \
-    '(-k --keep-subject)'{-k,--keep-subject}'[do not strip/add \[PATCH\] from the first line of the commit message]' \
-    '(-m --mbox)'{-m,--mbox}'[use true mbox formatted output]' \
-    '(-n --numbered)'{-n,--numbered}'[name output in \[PATCH n/m\] format]' \
+    '(-k --keep-subject -n --numbered)'{-k,--keep-subject}'[do not strip/add \[PATCH\] from the first line of the commit message]' \
+    '(-k --keep-subject -n --numbered)'{-n,--numbered}'[name output in \[PATCH n/m\] format]' \
+    '--start-number=[start numbering patches at given number]: :_guard "[[\:digit\:]]" "patch number"' \
     '(-o --output-directory --stdout)'{-o,--output-directory}'[store resulting files in given directory]:directory:_directories' \
-    '(-o --output-directory --mbox)--stdout[output the generated mbox on standard output (implies --mbox)]' \
+    '(-o --output-directory)--stdout[output the generated mbox on standard output (implies --mbox)]' \
     '(-s --signoff)'{-s,--signoff}'[add "Signed-off-by:" line to the commit message]' \
-    '--attach[create attachments instead of inlining patches]' \
-    ':their revision:__git_revisions' \
-    '::my revision:__git_revisions' && ret=0
+    '--attach=-[create attachments instead of inlining patches]::git version string' \
+    '--thread[make the second and subsequent mails refer to the first]' \
+    '--in-reply-to=[make the first mail a reply to the given message]:message id' \
+    '--ignore-if-in-upstream[do not include a patch that matches a commit in the given range]' \
+    '--suffix[use the given suffix for filenames]:filename suffix' \
+    ':commit range:__git_commit_ranges' && ret=0
 }
 
 # TODO: something better
@@ -1931,6 +1930,12 @@ __git_revisions () {
 __git_commits2 () {
   compset -P '\\\^'
   __git_commits
+}
+
+(( $+functions[__git_commit_ranges] )) ||
+__git_commit_ranges () {
+  compset -P '*..'
+  __git_commits $*
 }
 
 # FIXME: these should be imported from _ssh
