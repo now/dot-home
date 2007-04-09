@@ -20,11 +20,9 @@ declare -g nul_arg=
 
 nul_arg='-z[use NUL termination on output]'
 
-declare -ga abbrev_arg
+declare -g abbrev_arg
 
-abbrev_arg=(
-  '--abbrev=-[show only handful hexdigits prefix]: :_guard "[[\:digit\:]]#" number'
-)
+abbrev_arg='--abbrev=-[set minimum SHA1 display-length]: :_guard "[[\:digit\:]]##" length'
 
 declare -ga diff_args
 
@@ -1101,9 +1099,9 @@ _git-bisect () {
 # TODO: complete branch names?
 (( $+functions[_git-branch] )) ||
 _git-branch () {
-  local abbrev_arg
+  local my_abbrev_arg
   if (( $words[(I)-v] > 0 && $words[(I)-v] < CURRENT )); then
-    abbrev_arg='--abbrev=-[set minimum SHA1 display-length]: :_guard "[[\:digit\:]]##" length'
+    my_abbrev_arg=$abbrev_arg
   fi
 
   declare -a dependent_deletion_args
@@ -1128,7 +1126,7 @@ _git-branch () {
       '(   -a)-r[list only the remote-tracking branches]' \
       '(-r   )-a[list both remote-tracking branches and local branches]' \
       '-v[show SHA1 and commit subject line for each head]' \
-      $abbrev_arg \
+      $my_abbrev_arg \
     - create \
       "-l[create the branch's reflog]" \
       '-f[force the creation of a new branch]' \
