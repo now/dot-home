@@ -1,4 +1,4 @@
-#compdef git git-add git-am git-annotate git-apply git-applymbox git-applypatch git-archimport git-archive git-bisect git-blame git-branch git-cat-file git-check-ref-format git-checkout git-checkout-index git-cherry git-cherry-pick git-clean git-clone git-clone-pack git-commit git-commit-tree git-convert-objects git-count-objects git-cvsexportcommit git-cvsimport git-daemon git-describe git-diff git-diff-files git-diff-index git-diff-stages git-diff-tree git-fetch git-fetch-pack git-fmt-merge-msg git-format-patch git-fsck-objects git-gc git-get-tar-commit-id git-grep git-hash-object git-http-fetch git-http-push git-imap-send git-index-pack git-init-db git-local-fetch git-log git-lost-found git-ls-files git-ls-remote git-ls-tree git-mailinfo git-mailsplit git-merge git-merge-base git-merge-index git-merge-one-file git-merge-tree git-mktag git-mktree git-mv git-name-rev git-octopus git-pack-objects git-pack-redundant git-patch-id git-peek-remote git-prune git-prune-packed git-pull git-push git-read-tree git-rebase git-receive-pack git-relink git-repack git-repo-config git-request-pull git-rerere git-reset git-resolve git-rev-list git-rev-parse git-revert git-rm git-send-email git-send-pack git-shortlog git-show-branch git-show-index git-ssh-fetch git-ssh-upload git-status git-stripspace git-svnimport git-symbolic-ref git-tag git-tar-tree git-unpack-file git-unpack-objects git-update-index git-update-ref git-update-server-info git-upload-pack git-var git-verify-pack git-verify-tag git-whatchanged git-write-tree
+#compdef git git-add git-am git-annotate git-apply git-applymbox git-applypatch git-archimport git-archive git-bisect git-blame git-branch git-cat-file git-check-ref-format git-checkout git-checkout-index git-cherry git-cherry-pick git-clean git-clone git-clone-pack git-commit git-commit-tree git-convert-objects git-count-objects git-cvsexportcommit git-cvsimport git-daemon git-describe git-diff git-diff-files git-diff-index git-diff-stages git-diff-tree git-fetch git-fetch-pack git-fmt-merge-msg git-format-patch git-fsck-objects git-gc git-get-tar-commit-id git-grep git-hash-object git-http-fetch git-http-push git-imap-send git-index-pack git-init git-local-fetch git-log git-lost-found git-ls-files git-ls-remote git-ls-tree git-mailinfo git-mailsplit git-merge git-merge-base git-merge-index git-merge-one-file git-merge-tree git-mktag git-mktree git-mv git-name-rev git-octopus git-pack-objects git-pack-redundant git-patch-id git-peek-remote git-prune git-prune-packed git-pull git-push git-read-tree git-rebase git-receive-pack git-relink git-repack git-repo-config git-request-pull git-rerere git-reset git-resolve git-rev-list git-rev-parse git-revert git-rm git-send-email git-send-pack git-shortlog git-show-branch git-show-index git-ssh-fetch git-ssh-upload git-status git-stripspace git-svnimport git-symbolic-ref git-tag git-tar-tree git-unpack-file git-unpack-objects git-update-index git-update-ref git-update-server-info git-upload-pack git-var git-verify-pack git-verify-tag git-whatchanged git-write-tree
 
 # Commands not completed:
 # git-cvsserver
@@ -170,7 +170,7 @@ _git_commands () {
     'fetch:download objects and a head from another repository'
     'gc:cleanup unnecessary files and optimize thee local repository'
     'grep:print lines matching a pattern'
-    'init-db:create empty git object database'
+    'init:create empty git object database'
     'log:show commit logs'
     'merge:grand unified merge driver'
     'mv:move or rename file, directory, or symlink'
@@ -454,10 +454,16 @@ _git-index-pack () {
     ':pack file:_files -g "*.pack"' && ret=0
 }
 
-(( $+functions[_git-init-db] )) ||
-_git-init-db () {
+(( $+functions[_git-init] )) ||
+_git-init () {
   _arguments \
-    '--shared[share repository amongst several users]' \
+    '--shared=-[share repository amongst several users]::permissions:((false\:"use umask permissions"
+                                                                       true\:"make repository group-writable"
+                                                                       umask\:"use umask permissions"
+                                                                       group\:"make repository group-writable"
+                                                                       all\:"make repository world-writable"
+                                                                       world\:"make repository world-writable"
+                                                                       everybody\:"make repository world-writable"))' \
     $template_arg && ret=0
 }
 
