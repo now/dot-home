@@ -85,15 +85,11 @@ fetch_args=(
 
 declare -ga merge_args
 
+# TODO: Add descriptions to strategies (stupid is undocumented).
 merge_args=(
   '(-n --no-summary)'{-n,--no-summary}'[do not show diffstat at the end of the merge]'
   '--no-commit[perform the merge but do not autocommit]'
-)
-
-declare -ga merge_strategy
-
-# TODO: Add descriptions to strategies (stupid is undocumented).
-merge_strategy=(
+  '--squash[merge, but do not make a commit]'
   '*'{-s,--strategy=-}'[use given merge strategy]:strategy:(recursive octopus resolve stupid ours)'
 )
 
@@ -1418,8 +1414,6 @@ _git-ls-remote () {
 _git-merge () {
   _arguments \
     $merge_args \
-    $merge_strategy \
-    '--squash[merge, but do not make a commit]' \
     ':merge message' \
     '*:remote:__git_commits' && ret=0
 }
@@ -1443,7 +1437,6 @@ _git-octupus () {
 _git-pull () {
   _arguments \
     $merge_args \
-    $merge_strategy \
     $common_fetch_args \
     ':repository:__git_any_repositories' \
     '*:refspec:__git_ref_specs' && ret=0
