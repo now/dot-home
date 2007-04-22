@@ -1442,14 +1442,23 @@ _git-pull () {
     '*:refspec:__git_ref_specs' && ret=0
 }
 
+# NOTE: For --receive-pack we use _files to complete, even though this will
+# only complete files on the local end, not the remote end.  Still, it may be
+# helpful to get some sort of completion going, perhaps modifying the path
+# later on to match the remote end.
 (( $+functions[_git-push] )) ||
 _git-push () {
   _arguments \
     $force_ref_arg \
     '--all[fetch all refs]' \
     '--tags[all tags under "$GIT_DIR/refs/tags" are pushed]' \
-    ':repository:__git_any_repositories' \
-    '*:refspec:__git_ref_specs' && ret=0
+    '(--receive-pack --exec)'{--receive-pack=-,--exec=-}'[path to git-receive-pack on remote]:remote path:_files' \
+    '--repo=-[default repository to use]:repository:__git_any_repositories' \
+    '(       --no-thin)--thin[try to minimize number of objects to be sent]' \
+    '(--thin          )--no-thin[do not try to minimize number of objects to be sent]' \
+    $verbose_arg \
+    '::repository:__git_any_repositories' \
+    '*::refspec:__git_ref_specs' && ret=0
 }
 
 (( $+functions[_git-rebase] )) ||
