@@ -1524,7 +1524,7 @@ _git-revert () {
     '(-e --edit --no-edit)'{-e,--edit}'[edit the commit before committing the revert]' \
     '(-e --edit --no-edit)--no-edit[do not start the commit message editor]' \
     '(-n --no-commit)'{-n,--no-commit}'[do not commit the reversion]' \
-    ':commit:__git_revisions' && ret=0
+    ':commit:__git_commits' && ret=0
 }
 
 (( $+functions[_git-shortlog] )) ||
