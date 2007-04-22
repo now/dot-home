@@ -92,8 +92,9 @@ merge_args=(
 
 declare -ga merge_strategy
 
+# TODO: Add descriptions to strategies (stupid is undocumented).
 merge_strategy=(
-  '(-s --strategy)'{-s,--strategy=}'[use given merge strategy]:strategy:(recursive octopus resolve stupid ours)'
+  '*'{-s,--strategy=-}'[use given merge strategy]:strategy:(recursive octopus resolve stupid ours)'
 )
 
 declare -ga force_ref_arg
@@ -1418,9 +1419,9 @@ _git-merge () {
   _arguments \
     $merge_args \
     $merge_strategy \
+    '--squash[merge, but do not make a commit]' \
     ':merge message' \
-    ':head:__git_revisions' \
-    '*:remote:__git_revisions' && ret=0
+    '*:remote:__git_commits' && ret=0
 }
 
 (( $+functions[_git-mv] )) ||
