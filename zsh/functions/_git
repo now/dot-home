@@ -83,6 +83,10 @@ fetch_args=(
   '-w[write commit-id into the filename under "$GIT_DIR/refs/<filename>"]:filename'
 )
 
+declare -g merge_strategy_arg
+
+merge_strategy_arg='*'{-s,--strategy=-}'[use given merge strategy]:strategy:(recursive octopus resolve stupid ours)'
+
 declare -ga merge_args
 
 # TODO: Add descriptions to strategies (stupid is undocumented).
@@ -90,7 +94,7 @@ merge_args=(
   '(-n --no-summary)'{-n,--no-summary}'[do not show diffstat at the end of the merge]'
   '--no-commit[perform the merge but do not autocommit]'
   '--squash[merge, but do not make a commit]'
-  '*'{-s,--strategy=-}'[use given merge strategy]:strategy:(recursive octopus resolve stupid ours)'
+  $merge_strategy_arg
 )
 
 declare -ga force_ref_arg
@@ -1463,13 +1467,18 @@ _git-push () {
 
 (( $+functions[_git-rebase] )) ||
 _git-rebase () {
-  if [[ $words[2] == (--abort|--continue) ]]; then
+  if [[ $words[2] == --(abort|continue|skip) ]]; then
     _message 'no more options'
   else
     _arguments \
       '--onto[start new branch with HEAD equal to "newbase"]:newbase' \
       '--continue[continue after failure]' \
       '--abort[abort current rebase]' \
+      '--skip[skip the current patch]' \
+      '--merge[use merging strategies to rebase]' \
+      $merge_strategy_arg \
+      $verbose_arg \
+      '-C-[ensure that given lines of surrounding context match]: :_guard "[[\:digit\:]]##" "lines of context"'
       ':upstream branch:__git_revisions' \
       '::working branch:__git_revisions' && ret=0
   fi
