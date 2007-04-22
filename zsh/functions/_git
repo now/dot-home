@@ -1839,10 +1839,11 @@ _git-rev-parse () {
 
 (( $+functions[_git-rm] )) ||
 _git-rm () {
-  _arguments -S \
-    '-f[remove files from the working tree as well as from the index]' \
-    '-n[do actually remove the files, just show if they exist in the index]' \
-    $verbose_arg \
+  _arguments -S -A '-*' \
+    '-f[override the up-to-date check]' \
+    "-n[don't actually remove the files, just show if they exist in the index]" \
+    '-r[allow recursive removal when a leading directory-name is given]' \
+    '--cached[only remove files from the index]' \
     '*:files:__git_cached_files' && ret=0
 }
 
