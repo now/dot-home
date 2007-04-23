@@ -845,7 +845,8 @@ _git-show () {
   __git_setup_revision_arguments
 
   _arguments -S \
-    $revision_arguments && ret=0
+    $revision_arguments \
+    '*:object:__git_revisions' && ret=0
 }
 
 (( $+functions[_git-show-index] )) ||
