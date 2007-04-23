@@ -1720,29 +1720,32 @@ _git-symbolic-ref () {
     '::reference' && ret=0
 }
 
-# TODO: first argument right?
-# TODO: document options once they are in man
-# key-id for -u could perhaps be completed from _gpg somehow
 (( $+functions[_git-tag] )) ||
 _git-tag () {
-  local message=
+  local message_args=
 
-  if (( $words[(I)-[asu]] )); then
-    message='-m[specify tag message]'
+  if (( words[(I)-[asu]] )); then
+    message_args=(
+      '(   -F)-m[specify tag message]:message'
+      '(-m   )-F[read tag message from given file]:message file:_files')
   fi
 
-  _arguments \
-    $message \
-    ':tag-name:__git_tags' \
-    '::head:__git_revisions' \
-    - '(creation)' \
-      '(-s -u)-a[annotate]' \
-      '-f[create a new tag even if one with the same name already exists]' \
-      '(-a -u)-s[annotate and sign]' \
-      '(-a -s)-u[annotate and sign with given key-id]:key-id' \
-    - '(deletion)' \
-      '-d[delete]:tag:__git_tags' && ret=0
+  _arguments -A '-*' \
+    - creation \
+      '(   -s -u)-a[create an unsigned, annotated tag]' \
+      '(-a    -u)-s[create an signed and annotated tag]' \
+      '(-a -s   )-u[create a tag, annotated and signed with the given key]:secret key:__git_gpg_secret_keys' \
+      '(   -v)-f[create a new tag even if one with the same name already exists]' \
+      '(-f   )-v[verifies the gpg signutare of the given tag]' \
+      $message_args \
+      ':tag name:__git_tags' \
+      '::head:__git_revisions' \
+    - deletion \
+      '-d[delete tags]:*:tag names:__git_tags' \
+    - listing \
+      '-l[list tags matching pattern]:pattern' && ret=0
 }
+__git_zstyle_default ':completion::complete:git-tag:deletion-option-d-rest:*' ignore-line yes
 
 (( $+functions[_git-update-ref] )) ||
 _git-update-ref () {
@@ -2338,6 +2341,14 @@ __git_archive_formats () {
   __git_command_successful || return
 
   _wanted archive-formats expl 'archive format' compadd $formats
+}
+
+(( $+functions[__git_gpg_secret_keys] )) ||
+__git_gpg_secret_keys () {
+  local expl
+
+  _wanted secret-keys expl 'secret key' compadd \
+    ${${(Mo)$(_call_program secret-keys gpg $needed --list-secret-keys 2>/dev/null):%<*>}//(<|>)/}
 }
 
 # ---
