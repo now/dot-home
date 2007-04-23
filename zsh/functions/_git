@@ -85,7 +85,7 @@ fetch_args=(
 
 declare -g merge_strategy_arg
 
-merge_strategy_arg='*:'{-s,--strategy=-}'[use given merge strategy]:strategy:(recursive octopus resolve stupid ours)'
+merge_strategy_arg='*'{-s,--strategy=-}'[use given merge strategy]:strategy:(recursive octopus resolve stupid ours)'
 
 declare -ga merge_args
 
@@ -816,34 +816,24 @@ _git-pack-redundant () {
     '(--all)*::packs:_files -g "*.pack"' && ret=0
 }
 
-# TODO: lots of option undocumented (revision.c)
+# TODO: --timestamp undocumented.
+# TODO: __git_commits2 should be reworked/reworded.
 (( $+functions[_git-rev-list] )) ||
 _git-rev-list () {
   if (( $words[(I)--] && $words[(I)--] != CURRENT )); then
     _arguments \
       '*:index file:__git_cached_files' && ret=0
   else
-    local show_breaks unpacked
+    declare -ga revision_arguments
 
-    (( $words[(I)--merge-order] )) && show_breaks='--show-breaks[show commit prefixes]'
-    (( $words[(I)--objects(|-edge)] )) && unpacked='--unpacked[print object IDs that are not in packs]'
+    __git_setup_revision_arguments
+
     _arguments -S \
-      '--all[show all commits from refs]' \
-      '--bisect[show only the middlemost commit object]' \
-      '(--sparse)--dense[this is the inverse of --sparse, and is also the default]' \
+      $revision_arguments \
       '(--pretty)--header[show commit headers]' \
-      '(--objects --objects-edge)--objects[show object ids of objects referenced by the listed commits]' \
-      '(--objects --objects-edge)--objects-edge[show object ids of objects referenced by the listed and excluded commits]' \
-      '--max-age[maximum age of commits to output]: :_guard "[[\:digit\:]]#" timestamp' \
-      '--max-count[maximum number of commits to output]: :_guard "[[\:digit\:]]#" number' \
-      '(--topo-order)--merge-order[decompose into minimal and maximal epochs]' \
-      '--min-age[minimum age of commits to output]: :_guard "[[\:digit\:]]#" timestamp' \
-      '--parents[show parent commits]' \
-      '(--header)'$pretty_arg \
-      '(--dense)--sparse[when paths are given, output only commits that changes any of them]' \
-      '(--merge-order)--topo-order[show commits in topological order]' \
-      $show_breaks \
-      $unpacked \
+      '--timestamp[undocumented]' \
+      '--bisect[show only the middlemost commit object]' \
+      '--stdin[read commit objects from standard input]' \
       '*:commit id:__git_commits2' && ret=0
   fi
 }
@@ -1397,10 +1387,14 @@ _git-grep () {
   esac
 }
 
-# TODO: this isn't strictly right, but close enough
 (( $+functions[_git-log] )) ||
 _git-log () {
-  _git-rev-list
+  declare -ga revision_arguments
+
+  __git_setup_revision_arguments
+
+  _arguments -S \
+    $revision_arguments && ret=0
 }
 
 # TODO: repository needs fixing
@@ -1527,9 +1521,20 @@ _git-revert () {
     ':commit:__git_commits' && ret=0
 }
 
+# TODO: should take all arguments found in setup_revisions() (probably more or
+# less what git-rev-list takes).
 (( $+functions[_git-shortlog] )) ||
 _git-shortlog () {
-  _nothing
+  declare -ga revision_arguments
+
+  __git_setup_revision_arguments
+
+  _arguments -S \
+    $revision_arguments \
+    '(: -)'{-h,--help}'[print a short usage message and exit]' \
+    '(-n --numbered)'{-n,--numbered}'[sort according to number of commits]' \
+    '(-s --summary)'{-s,--summary}'[suppress commit description]' \
+    '*::commitish:__git_committishs' && ret=0
 }
 
 (( $+functions[_git-show-branch] )) ||
@@ -2321,6 +2326,76 @@ __git_archive_formats () {
   __git_command_successful || return
 
   _wanted archive-formats expl 'archive format' compadd $formats
+}
+
+# ---
+
+# TODO: How do we do -/n/ here?
+# --reflog undocumented
+# --left-right undocumented
+# -m undocumented
+# -v undocumented
+# --root undocumented
+# --no-commit-id undocumented
+# --always undocumented
+# --abbrev undocumented
+# --abbrev-commit undocumented
+# --full-diff undocumented
+# --full-history undocumented
+# --all-match undocumented
+# option to --encoding undocumented
+# optional argument to --unpacked undocumented
+(( $+functions[__git_setup_revision_arguments] )) ||
+__git_setup_revision_arguments () {
+  revision_arguments=(
+    '(-n --max-count -)'{-n+,--max-count=-}'[maximum number of commits to output]: :_guard "[[\:digit\:]]#" number'
+    '--skip=-[skip given number of commits before output]: :_guard "[[\:digit\:]]#" number'
+    '(          --since --after)--max-age=-[maximum age of commits to output]: :_guard "[[\:digit\:]]#" timestamp'
+    '(--max-age --since --after)'{--since=-,--after=-}'[show commits more recent than given date]:date'
+    '(          --until --before)--min-age[minimum age of commits to output]: :_guard "[[\:digit\:]]#" timestamp'
+    '(--min-age --until --before)'{--until=-,--before=-}'[show commits older than given date]: :_guard "[[\:digit\:]]#" timestamp'
+    '--all[show all commits from refs]'
+    '--reflog[show all commits from reflogs]'
+    '(-g --walk-reflogs)'{-g,--walk-reflogs}'[walk reflog entries from most recent to oldest]'
+    '*--not[reverses meaning of ^ prefix for revisions that follow]'
+    '--default[use argument as default revision]:default revision:__git_revisions'
+    '--merge[after a failed merge, show refs that touch files having a conflict]'
+    '(             --date-order)--topo-order[show commits in topological order]'
+    '(--topo-order             )--date-order[show commits in date order]'
+    '--parents[show parent commits]'
+    '(        --sparse)--dense[this is the inverse of --sparse, and is also the default]'
+    '(--dense         )--sparse[when paths are given, output only commits that changes any of them]'
+    '--remove-empty[stop when a given path disappears from the tree]'
+    '--no-merges[do not print commits with more than one parent]'
+    '--boundary[output uninteresting commits at the boundary]'
+    '--left-right[undocumented]'
+    '(          --objects-edge)--objects[show object ids of objects referenced by the listed commits]'
+    '(--objects               )--objects-edge[show object ids of objects referenced by the listed and excluded commits]'
+    '(   -t)-r[show recursive diffs]'
+    '(-r   )-t[show the tree objects in the diff output]'
+    '-m[do not ignore merges]'
+    '(   --cc --full-diff)-c[show merge diffs from parents simultaneously]'
+    '(-c      --full-diff)--cc[show merge diffs from parents simultaneously without one-parent diffs]'
+    '(-c --cc            )--full-diff[undocumented]'
+    '(   --pretty --header)-v[show verbose header]'
+    '(-v          --header)'$pretty_arg
+    '--root[show root diff]'
+    '--no-commit-id[do not show commit ids]'
+    '--always[always show header]'
+    $abbrev_arg
+    '--abbrev-commit[undocumented]'
+    '--full-history[undocumented]'
+    '--relative-date[show dates relative to the current time]'
+    '--author=-[limit commits to those by the given author]:author'
+    '--committer=-[limit commits to those by the given committer]:committer'
+    '--grep=-[limit commits to those with log messages matching the given pattern]:pattern'
+    '--all-match[undocumented]'
+    '--encoding=-[output log messages in given encoding]::encoding:(none)'
+    $diff_args)
+
+  if (( $words[(I)--objects(|-edge)] )); then
+    revision_arguments+=('--unpacked=-[print object IDs that are not in packs]::object')
+  fi
 }
 
 # ---
