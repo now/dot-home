@@ -1,10 +1,9 @@
-#compdef git git-add git-am git-annotate git-apply git-applymbox git-applypatch git-archimport git-archive git-bisect git-blame git-branch git-cat-file git-check-ref-format git-checkout git-checkout-index git-cherry git-cherry-pick git-clean git-clone git-clone-pack git-commit git-commit-tree git-convert-objects git-count-objects git-cvsexportcommit git-cvsimport git-daemon git-describe git-diff git-diff-files git-diff-index git-diff-stages git-diff-tree git-fetch git-fetch-pack git-fmt-merge-msg git-format-patch git-fsck-objects git-gc git-get-tar-commit-id git-grep git-hash-object git-http-fetch git-http-push git-imap-send git-index-pack git-init git-local-fetch git-log git-lost-found git-ls-files git-ls-remote git-ls-tree git-mailinfo git-mailsplit git-merge git-merge-base git-merge-index git-merge-one-file git-merge-tree git-mktag git-mktree git-mv git-name-rev git-octopus git-pack-objects git-pack-redundant git-patch-id git-peek-remote git-prune git-prune-packed git-pull git-push git-read-tree git-rebase git-receive-pack git-relink git-repack git-repo-config git-request-pull git-rerere git-reset git-rev-list git-rev-parse git-revert git-rm git-send-email git-send-pack git-shortlog git-show-branch git-show-index git-ssh-fetch git-ssh-upload git-status git-stripspace git-svnimport git-symbolic-ref git-tag git-tar-tree git-unpack-file git-unpack-objects git-update-index git-update-ref git-update-server-info git-upload-pack git-var git-verify-pack git-verify-tag git-whatchanged git-write-tree
+#compdef git git-add git-am git-annotate git-apply git-applymbox git-applypatch git-archimport git-archive git-bisect git-blame git-branch git-cat-file git-check-ref-format git-checkout git-checkout-index git-cherry git-cherry-pick git-clean git-clone git-clone-pack git-commit git-commit-tree git-convert-objects git-count-objects git-cvsexportcommit git-cvsimport git-daemon git-describe git-diff git-diff-files git-diff-index git-diff-stages git-diff-tree git-fetch git-fetch-pack git-fmt-merge-msg git-format-patch git-fsck-objects git-gc git-get-tar-commit-id git-grep git-hash-object git-http-fetch git-http-push git-imap-send git-index-pack git-init git-local-fetch git-log git-lost-found git-ls-files git-ls-remote git-ls-tree git-mailinfo git-mailsplit git-merge git-merge-base git-merge-index git-merge-one-file git-merge-tree git-mktag git-mktree git-mv git-name-rev git-octopus git-pack-objects git-pack-redundant git-patch-id git-peek-remote git-prune git-prune-packed git-pull git-push git-read-tree git-rebase git-receive-pack git-relink git-repack git-repo-config git-request-pull git-rerere git-reset git-rev-list git-rev-parse git-revert git-rm git-send-email git-send-pack git-shortlog git-show git-show-branch git-show-index git-ssh-fetch git-ssh-upload git-status git-stripspace git-svnimport git-symbolic-ref git-tag git-tar-tree git-unpack-file git-unpack-objects git-update-index git-update-ref git-update-server-info git-upload-pack git-var git-verify-pack git-verify-tag git-whatchanged git-write-tree
 
 # Commands not completed:
 # git-cvsserver
 # git-parse-remote 
 # git-shell
-# git-show
 # git-sh-setup
 
 # TODO: All if (( $words[(I)-option] )) should be turned into
@@ -237,6 +236,7 @@ _git_commands () {
     'rerere:reuse recorded resolve'
     'rev-list:list commit object in reverse chronological order'
     'shortlog:summarize git log output'
+    'show:show various types of objects'
     'show-index:display contents of a pack idx file'
     'symbolic-ref:read and modify symbolic references'
     'tar-tree:create tar archive of the files in the named tree'
@@ -824,7 +824,7 @@ _git-rev-list () {
     _arguments \
       '*:index file:__git_cached_files' && ret=0
   else
-    declare -ga revision_arguments
+    declare -a revision_arguments
 
     __git_setup_revision_arguments
 
@@ -836,6 +836,16 @@ _git-rev-list () {
       '--stdin[read commit objects from standard input]' \
       '*:commit id:__git_commits2' && ret=0
   fi
+}
+
+(( $+functions[_git-show] )) ||
+_git-show () {
+  declare -a revision_arguments
+
+  __git_setup_revision_arguments
+
+  _arguments -S \
+    $revision_arguments && ret=0
 }
 
 (( $+functions[_git-show-index] )) ||
@@ -1389,7 +1399,7 @@ _git-grep () {
 
 (( $+functions[_git-log] )) ||
 _git-log () {
-  declare -ga revision_arguments
+  declare -a revision_arguments
 
   __git_setup_revision_arguments
 
@@ -1525,7 +1535,7 @@ _git-revert () {
 # less what git-rev-list takes).
 (( $+functions[_git-shortlog] )) ||
 _git-shortlog () {
-  declare -ga revision_arguments
+  declare -a revision_arguments
 
   __git_setup_revision_arguments
 
