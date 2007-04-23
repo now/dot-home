@@ -6,8 +6,8 @@
 # git-shell
 # git-sh-setup
 
-# TODO: All if (( $words[(I)-option] )) should be turned into
-# if (( $words[(I)-option] > 0 && $words[(I)-option] < CURRENT )), as the user
+# TODO: All if (( words[(I)-option] )) should be turned into
+# if (( words[(I)-option] > 0 && words[(I)-option] < CURRENT )), as the user
 # may go back and want to add an option before -option and in that case should
 # be able to complete whatever may come before -option.
 
@@ -548,9 +548,9 @@ _git-read-tree () {
 _git-repo-config () {
   local name_arg
 
-  if (( $words[(I)--get-regexp] )); then
+  if (( words[(I)--get-regexp] )); then
     name_arg=':name regex'
-  elif (( $words[(I)--get(-all|)] )); then
+  elif (( words[(I)--get(-all|)] )); then
     name_arg=':name:__git_repo-config_gettable_name'
   else
     name_arg=':name:__git_repo-config_name'
@@ -581,7 +581,7 @@ _git-unpack-objects () {
 _git-update-index () {
   local -a refreshables
 
-  if (( $words[(I)--refresh] )); then
+  if (( words[(I)--refresh] )); then
     refreshables=(
       '--ignore-missing[ignore missing files when refreshing the index]'
       '--unmerged[if unmerged changes exists, ignore them instead of exiting]'
@@ -820,7 +820,7 @@ _git-pack-redundant () {
 # TODO: __git_commits2 should be reworked/reworded.
 (( $+functions[_git-rev-list] )) ||
 _git-rev-list () {
-  if (( $words[(I)--] && $words[(I)--] != CURRENT )); then
+  if (( words[(I)--] && words[(I)--] != CURRENT )); then
     _arguments \
       '*:index file:__git_cached_files' && ret=0
   else
@@ -994,7 +994,7 @@ _git-add () {
   case $state in
     (files)
       declare -a ignored_files_alternatives
-      if (( $words[(I)-f] )); then
+      if (( words[(I)-f] )); then
         ignored_files_alternatives=(
           'ignored-modified-files:ignored modified files:__git_modified_files --ignored'
           'ignored-other-files:ignored other files:__git_other_files --ignored')
@@ -1033,7 +1033,7 @@ _git-archive () {
 
   declare -a backend_args
 
-  if (( $words[(I)--format=*] > 0 && $words[(I)--format=*] < CURRENT )); then
+  if (( words[(I)--format=*] > 0 && words[(I)--format=*] < CURRENT )); then
     case ${words[$words[(I)--format=*]]#--format=} in
       (zip)
         backend_args=(
@@ -1125,19 +1125,19 @@ _git-bisect () {
 (( $+functions[_git-branch] )) ||
 _git-branch () {
   local my_abbrev_arg
-  if (( $words[(I)-v] > 0 && $words[(I)-v] < CURRENT )); then
+  if (( words[(I)-v] > 0 && words[(I)-v] < CURRENT )); then
     my_abbrev_arg=$abbrev_arg
   fi
 
   declare -a dependent_deletion_args
-  if (( $words[(I)-d] || $words[(I)-D] )); then
+  if (( words[(I)-d] || words[(I)-D] )); then
     dependent_deletion_args=(
       '-r[delete remote-tracking branches]'
       '*:branch-name:__git_branch_names')
   fi
 
   declare -a dependent_modification_args
-  if (( $words[(I)-m] || $words[(I)-M] )); then
+  if (( words[(I)-m] || words[(I)-M] )); then
     dependent_modification_args=(
       ':old or new branch-name:__git_branch_names'
       '::new branch-name:__git_branch_names')
@@ -1178,7 +1178,7 @@ _git-checkout () {
 
   local new_branch_reflog_arg
 
-  if (( $words[(I)-b] > 0 )); then
+  if (( words[(I)-b] > 0 )); then
     new_branch_reflog_arg="-l[create the new branch's reflog]"
   fi
 
@@ -1234,7 +1234,7 @@ _git-clean () {
 _git-clone () {
   local -a shared
 
-  if (( $words[(I)(-l|--local)] )); then
+  if (( words[(I)(-l|--local)] )); then
     shared=('(-s --shared)'{-s,--shared}'[share the objects with the source repository]')
   fi
 
@@ -2416,7 +2416,7 @@ __git_setup_revision_arguments () {
     '--encoding=-[output log messages in given encoding]::encoding:(none)'
     $diff_args)
 
-  if (( $words[(I)--objects(|-edge)] )); then
+  if (( words[(I)--objects(|-edge)] )); then
     revision_arguments+=('--unpacked=-[print object IDs that are not in packs]::object')
   fi
 }
