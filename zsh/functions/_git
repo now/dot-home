@@ -1,4 +1,4 @@
-#compdef git git-add git-am git-annotate git-apply git-applymbox git-applypatch git-archimport git-archive git-bisect git-blame git-branch git-cat-file git-check-ref-format git-checkout git-checkout-index git-cherry git-cherry-pick git-clean git-clone git-clone-pack git-commit git-commit-tree git-convert-objects git-count-objects git-cvsexportcommit git-cvsimport git-daemon git-describe git-diff git-diff-files git-diff-index git-diff-stages git-diff-tree git-fetch git-fetch-pack git-fmt-merge-msg git-format-patch git-fsck-objects git-gc git-get-tar-commit-id git-grep git-hash-object git-http-fetch git-http-push git-imap-send git-index-pack git-init git-local-fetch git-log git-lost-found git-ls-files git-ls-remote git-ls-tree git-mailinfo git-mailsplit git-merge git-merge-base git-merge-index git-merge-one-file git-merge-tree git-mktag git-mktree git-mv git-name-rev git-octopus git-pack-objects git-pack-redundant git-patch-id git-peek-remote git-prune git-prune-packed git-pull git-push git-read-tree git-rebase git-receive-pack git-relink git-repack git-repo-config git-request-pull git-rerere git-reset git-rev-list git-rev-parse git-revert git-rm git-send-email git-send-pack git-shortlog git-show git-show-branch git-show-index git-ssh-fetch git-ssh-upload git-status git-stripspace git-svnimport git-symbolic-ref git-tag git-tar-tree git-unpack-file git-unpack-objects git-update-index git-update-ref git-update-server-info git-upload-pack git-var git-verify-pack git-verify-tag git-whatchanged git-write-tree
+#compdef git git-add git-am git-annotate git-apply git-applymbox git-applypatch git-archimport git-archive git-bisect git-blame git-branch git-cat-file git-check-ref-format git-checkout git-checkout-index git-cherry git-cherry-pick git-clean git-clone git-clone-pack git-commit git-commit-tree git-convert-objects git-count-objects git-cvsexportcommit git-cvsimport git-daemon git-describe git-diff git-diff-files git-diff-index git-diff-stages git-diff-tree git-fast-import git-fetch git-fetch-pack git-fmt-merge-msg git-format-patch git-fsck-objects git-gc git-get-tar-commit-id git-grep git-hash-object git-http-fetch git-http-push git-imap-send git-index-pack git-init git-local-fetch git-log git-lost-found git-ls-files git-ls-remote git-ls-tree git-mailinfo git-mailsplit git-merge git-merge-base git-merge-index git-merge-one-file git-merge-tree git-mktag git-mktree git-mv git-name-rev git-octopus git-pack-objects git-pack-redundant git-patch-id git-peek-remote git-prune git-prune-packed git-pull git-push git-read-tree git-rebase git-receive-pack git-relink git-repack git-repo-config git-request-pull git-rerere git-reset git-rev-list git-rev-parse git-revert git-rm git-send-email git-send-pack git-shortlog git-show git-show-branch git-show-index git-ssh-fetch git-ssh-upload git-status git-stripspace git-svnimport git-symbolic-ref git-tag git-tar-tree git-unpack-file git-unpack-objects git-update-index git-update-ref git-update-server-info git-upload-pack git-var git-verify-pack git-verify-tag git-whatchanged git-write-tree
 
 # Commands not completed:
 # git-cvsserver
@@ -276,6 +276,7 @@ _git_commands () {
   local -a internal_commands
   internal_commands=(
     'daemon:start a really simple server for git repositories'
+    'fast-import:import information into git directly'
     'http-fetch:download remote git repository via HTTP'
     'http-push:push missing objects using HTTP/DAV'
     'receive-pack:command invoked by send-pack to receive what is pushed to it'
@@ -898,6 +899,22 @@ _git-fetch-pack () {
     '-q[pass "-q" flag to "git-unpack-objects"]' \
     ':repository:__git_any_repositories' \
     '*:head:__git_heads' && ret=0
+}
+
+(( $+functions[_git-fast-import] )) ||
+_git-fast-import () {
+  _arguments \
+    '--date-format=-[specify the types of dates being passed]:((raw\:"native git format"
+                                                                rfc2822\:"standard email format"
+                                                                now\:"use current time and timezone"))' \
+    '--max-pack-size=-[maximum size of each packfile]: :_guard "[[\:digit\:]]#" "maximum pack size"' \
+    '--depth=-[maximum delta depth for blob and tree deltification]: :_guard "[[\:digit\:]]#" "maximum delta depth"' \
+    '--active-branches=-[maximum number of branches to maintain active at once]: :_guard "[[\:digit\:]]#" "maximum number of branches"' \
+    '--export-marks=-[dump the internal marks table to given file]:export file:_files' \
+    '--export-pack-edges=-[list packfiles and last commit on branches in them in given file]:export file:_files' \
+    '--force[force updating modified existing branches]' \
+    '--quiet[disable all non-fatal output]' \
+    '--stats[display statistics about object created]' && ret=0
 }
 
 (( $+functions[_git-http-fetch] )) ||
