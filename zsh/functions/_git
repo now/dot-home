@@ -1,4 +1,4 @@
-#compdef git git-add git-am git-annotate git-apply git-applymbox git-applypatch git-archimport git-archive git-bisect git-blame git-branch git-cat-file git-check-ref-format git-checkout git-checkout-index git-cherry git-cherry-pick git-clean git-clone git-clone-pack git-commit git-commit-tree git-convert-objects git-count-objects git-cvsexportcommit git-cvsimport git-daemon git-describe git-diff git-diff-files git-diff-index git-diff-stages git-diff-tree git-fast-import git-fetch git-fetch-pack git-fmt-merge-msg git-format-patch git-fsck-objects git-gc git-get-tar-commit-id git-grep git-hash-object git-http-fetch git-http-push git-imap-send git-index-pack git-init git-local-fetch git-log git-lost-found git-ls-files git-ls-remote git-ls-tree git-mailinfo git-mailsplit git-merge git-merge-base git-merge-index git-merge-one-file git-merge-tree git-mktag git-mktree git-mv git-name-rev git-octopus git-pack-objects git-pack-redundant git-pack-refs git-patch-id git-peek-remote git-prune git-prune-packed git-pull git-push git-read-tree git-rebase git-receive-pack git-reflog git-relink git-repack git-repo-config git-request-pull git-rerere git-reset git-rev-list git-rev-parse git-revert git-rm git-send-email git-send-pack git-shortlog git-show git-show-branch git-show-index git-ssh-fetch git-ssh-upload git-status git-stripspace git-svnimport git-symbolic-ref git-tag git-tar-tree git-unpack-file git-unpack-objects git-update-index git-update-ref git-update-server-info git-upload-pack git-var git-verify-pack git-verify-tag git-whatchanged git-write-tree
+#compdef git git-add git-am git-annotate git-apply git-applymbox git-applypatch git-archimport git-archive git-bisect git-blame git-branch git-cat-file git-check-ref-format git-checkout git-checkout-index git-cherry git-cherry-pick git-clean git-clone git-clone-pack git-commit git-commit-tree git-convert-objects git-count-objects git-cvsexportcommit git-cvsimport git-daemon git-describe git-diff git-diff-files git-diff-index git-diff-stages git-diff-tree git-fast-import git-fetch git-fetch-pack git-fmt-merge-msg git-format-patch git-fsck-objects git-gc git-get-tar-commit-id git-grep git-hash-object git-http-fetch git-http-push git-imap-send git-index-pack git-init git-local-fetch git-log git-lost-found git-ls-files git-ls-remote git-ls-tree git-mailinfo git-mailsplit git-merge git-merge-base git-merge-index git-merge-one-file git-merge-tree git-mktag git-mktree git-mv git-name-rev git-octopus git-pack-objects git-pack-redundant git-pack-refs git-patch-id git-peek-remote git-prune git-prune-packed git-pull git-push git-read-tree git-rebase git-receive-pack git-reflog git-relink git-repack git-config git-request-pull git-rerere git-reset git-rev-list git-rev-parse git-revert git-rm git-send-email git-send-pack git-shortlog git-show git-show-branch git-show-index git-ssh-fetch git-ssh-upload git-status git-stripspace git-svnimport git-symbolic-ref git-tag git-tar-tree git-unpack-file git-unpack-objects git-update-index git-update-ref git-update-server-info git-upload-pack git-var git-verify-pack git-verify-tag git-whatchanged git-write-tree
 
 # Commands not completed:
 # git-cvsserver
@@ -255,7 +255,7 @@ _git_commands () {
   useful_commands=(
     'format-patch:prepare patches for e-mail submission'
     'ls-files:information about files in the index/working directory'
-    'repo-config:get and set options in "$GIT_DIR/config"'
+    'config:get and set options in "$GIT_DIR/config"'
     'send-email:send patch-e-mails out of "format-patch" output'
     'update-index:modify index in some given way')
 
@@ -547,30 +547,37 @@ _git-read-tree () {
   fi
 }
 
-(( $+functions[_git-repo-config] )) ||
-_git-repo-config () {
+(( $+functions[_git-config] )) ||
+_git-config () {
   local name_arg
 
   if (( words[(I)--get-regexp] )); then
     name_arg=':name regex'
   elif (( words[(I)--get(-all|)] )); then
-    name_arg=':name:__git_repo-config_gettable_name'
+    name_arg=':name:__git_config_gettable_name'
   else
-    name_arg=':name:__git_repo-config_name'
+    name_arg=':name:__git_config_name'
   fi
 
-  _arguments \
+  _arguments -A '--*' \
+    '(         --global)--system[use system-wide config file]' \
+    '(--system         )--global[use user-global config file]' \
     '(      --bool)--int[setting is an integer]' \
     '(--int       )--bool[setting is a boolean]' \
-    '(-)--replace-all[replace all values of the given key]' \
-    '(- 2)--get[get the value of the given key]' \
-    '(- 2)--get-all[get all values of the given key]' \
-    '(- 2)--get-regexp[like "--get-all", but interpret "name" as regular expression]' \
-    '(- 2)--unset[remove the given key]' \
-    '(- 2)--unset-all[remove all values of the key]' \
     $name_arg \
-    '::value' \
-    '::value regex' && ret=0
+    ':value' \
+    '::value regex' \
+    - '(actions)' \
+    '(: -)--rename-section[rename the given section]:section:__git_config_section_names:new name'  \
+    '(: -)--remove-section[remove the given section]:section:__git_config_section_names' \
+    '(3 -)--add[add new value without altering any existing ones]' \
+    '(2 -)--unset[remove the first matching value of the key]' \
+    '(2 -)--unset-all[remove all matching values of the key]' \
+    '(2 -)--get[get the first matching value of the key]' \
+    '(2 -)--get-all[get all matching values of the key]' \
+    '(2 -)--get-regexp[like "--get-all", but interpret "name" as a regular expression]' \
+    '(-)--replace-all[replace all values of the given key]' \
+    '(: --int --bool)'{-l,--list}'[list all variables set in config file]' && ret=0
 }
 
 (( $+functions[_git-unpack-objects] )) ||
@@ -1565,7 +1572,9 @@ _git-repack () {
     '-f[pass "--no-reuse-delta" option to "git pack-objects"]' \
     '-l[pass "--local" option to "git pack-objects"]' \
     '-n[do not update server information]' \
-    '-q[pass "-q" option to "git pack-objects"]' && ret=0
+    '-q[pass "-q" option to "git pack-objects"]' \
+    '--window=-[number of objects to consider when doing delta compression]' \
+    '--depth=-[maximum delta depth]' && ret=0
 }
 
 (( $+functions[_git-rerere] )) ||
@@ -2225,7 +2234,7 @@ __git_remotes () {
 #    descr=remote
 #  fi
 
-  remotes=(${${(f)"$(_call_program remotes git repo-config --get-regexp '"^remote\..*\.url$"')"}//#(#b)remote.(*).url */$match[1]})
+  remotes=(${${(f)"$(_call_program remotes git config --get-regexp '"^remote\..*\.url$"')"}//#(#b)remote.(*).url */$match[1]})
   __git_command_successful || return
 
   # TODO: Should combine the two instead of either or.
@@ -2335,8 +2344,8 @@ __git_branch_names () {
   _wanted branch-names expl branch-name compadd - $branch_names
 }
 
-(( $+functions[__git_repo-config_name] )) ||
-__git_repo-config_name () {
+(( $+functions[__git_config_name] )) ||
+__git_config_name () {
   declare -a names
 
   # TODO: How to we deal with prefixes like “branch.” and “remote.”?
@@ -2395,19 +2404,25 @@ __git_repo-config_name () {
   _describe -t names 'name' names -M 'm:{a-zA-Z}={A-Za-z}' -M 'r:|.=* r:|=*' && ret=0
 }
 
-(( $+functions[__git_repo-config_gettable_name] )) ||
-__git_repo-config_gettable_name () {
+(( $+functions[__git_config_gettable_name] )) ||
+__git_config_gettable_name () {
   local expl
   declare -a names
 
   # TODO: This is strictly not correct, as names can have equal signs in them
   # as well.  However, there’s no good way to tell from the output of
-  # git-repo-config, so this’ll have to do until we write our own .git/config
+  # git-config, so this’ll have to do until we write our own .git/config
   # parser (which will never happen because it’s not worth the trouble).
-  names=(${${(f)"$(_call_program names git repo-config --list)"}%%\=*})
+  names=(${${(f)"$(_call_program names git config --list)"}%%\=*})
   __git_command_successful || return
 
   _wanted names expl 'names' compadd $names
+}
+
+(( $+functions[__git_config_section_names] )) ||
+__git_config_section_names () {
+  # TODO: Come up with a good way of extracting this information.
+  _guard "?#" "section name"
 }
 
 (( $+functions[__git_archive_formats] )) ||
