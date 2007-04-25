@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:         JavaScript
 " Maintainer:       Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2006-07-04
+" Latest Revision:  2007-04-25
 
 if exists("b:current_syntax")
   finish
@@ -45,7 +45,7 @@ syn keyword javascriptConditional   if else switch
 
 syn keyword javascriptRepeat        for do in while
 
-syn keyword javascriptStatement     break continue function return
+syn keyword javascriptStatement     break continue function return with
 
 syn keyword javascriptLabel         case default label
 
