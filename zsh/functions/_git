@@ -1761,6 +1761,7 @@ _git-relink () {
   _arguments \
     '--safe[stop if two objects with the same hash exist but have different sizes]' \
     ':directory:_directories' \
+    ':directory:_directories' \
     '*:directory:_directories' && ret=0
 }
 
