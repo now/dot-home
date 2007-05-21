@@ -84,7 +84,7 @@ fetch_args=(
 
 declare -g merge_strategy_arg
 
-merge_strategy_arg='*'{-s,--strategy=-}'[use given merge strategy]:strategy:(recursive octopus resolve stupid ours)'
+merge_strategy_arg='*'{-s,--strategy=-}'[use given merge strategy]:merge strategy:__git_merge_strategies'
 
 declare -ga merge_args
 
@@ -547,6 +547,7 @@ _git-read-tree () {
   fi
 }
 
+# TODO: Complete value regex somehow?
 (( $+functions[_git-config] )) ||
 _git-config () {
   local name_arg
@@ -565,7 +566,7 @@ _git-config () {
     '(      --bool)--int[setting is an integer]' \
     '(--int       )--bool[setting is a boolean]' \
     $name_arg \
-    ':value' \
+    ":value:__git_config_values $words[CURRENT-1]" \
     '::value regex' \
     - '(actions)' \
     '(: -)--rename-section[rename the given section]:section:__git_config_section_names:new name'  \
@@ -2239,9 +2240,9 @@ __git_remotes () {
 
   # TODO: Should combine the two instead of either or.
   if (( $#remotes > 0 )); then
-    _wanted remotes expl remote compadd - $remotes
+    _wanted remotes expl remote compadd $* - $remotes
   else
-    _wanted remotes expl remote _files -W "($gitdir/remotes)" -g "$gitdir/remotes/*"
+    _wanted remotes expl remote _files $* - -W "($gitdir/remotes)" -g "$gitdir/remotes/*"
   fi
 }
 
@@ -2338,68 +2339,149 @@ __git_branch_names () {
   local expl
   declare -a branch_names
 
-  branch_names=(${${(f)"$(_call_program branch-names git branch)"}#[* ] })
+  branch_names=(${${(f)"$(_call_program branch-names git branch 2>/dev/null)"}#[* ] })
   __git_command_successful || return
 
-  _wanted branch-names expl branch-name compadd - $branch_names
+  _wanted branch-names expl branch-name compadd $* - $branch_names
 }
 
 (( $+functions[__git_config_name] )) ||
 __git_config_name () {
   declare -a names
 
-  # TODO: How to we deal with prefixes like “branch.” and “remote.”?
-  names=(
-    'core.fileMode:whether differences in the executable bit is relevant'
-    'core.gitProxy:command to execute to establish a connection to remote server'
-    'core.ignoreStat:whether modification times of files are ignored'
-    'core.preferSymlinkRefs:whether symbolic-reference files should be symlinks'
-    'core.logAllRefUpdates:whether to log updates of references'
-    'core.repositoryFormatVersion:internal variable determining the repository version'
-    'core.sharedRepository:what kind of sharing is done for this repository'
-    'core.warnAmbiguousRefs:whether to warn if a ref name is ambiguous'
-    'core.compression:level of compression to apply to packs'
-    'core.legacyheaders:whether to use the legacy object-header-format'
-    'alias.:command aliases'
-    'apply.whitespace:default value for the --whitespace option to git-apply'
-    'branch.:prefix for branch-specific variables'
-    'pager.color:whether the pager is fed colored output'
-    'diff.color:determines when diff output is colored'
-    'diff.renameLimit:number of files to consider when detecting copy/renames'
-    'diff.renames:how hard to try to detect renames'
-    'format.headers:additional email headers to include in email patches'
-    'gitcvs.enabled:whether the cvs pserver interface is enabled'
-    'gitcvs.logfile:name of log file for cvs pserver'
-    'http.sslVerify:whether to verify the SSL certificate for HTTPS'
-    'http.sslCert:file containing SSL certificates for HTTPS'
-    'http.sslKey:file containing the SSL private key for HTTPS'
-    'http.sslCAInfo:file containing CA certificates to verify against for HTTPS'
-    'http.sslCAPath:path containing files with CA certificates to verify against for HTTPS'
-    'http.maxRequests:how many HTTP requests to launch in parallel'
-    'http.lowSpeedLimit:lower limit for HTTP transfer-speed'
-    'http.lowSpeedTime:duration for http.lowSpeedLimit'
-    'http.noEPSV:whether to disable the use of the EPSV ftp-command'
-    'i18n.commitEncoding:character encoding commit messages are stored in'
-    'merge.summary:whether to include summaries of merged commits'
-    'pack.window:size of window used by git-pack-objects'
-    'pull.octopus:default merge strategy to use when pulling multiple branches'
-    'pull.twohead:default merge strategy to use when pulling a single branch'
-    'remote.:prefix for remote-repository variables'
-    'show.difftree:default git-diff-tree options for git-show'
-    'showbranch.default:default set of branches for git-show-branch'
-    'status.color:whether git-status produces output in color'
-    'status.color.:prefix for parts of the output of git-status'
-    'tar.umask:umask to apply for git-tar-tree'
-    'user.email:email address used for commits'
-    'user.name:full name used for commits'
-    'whatchanged.difftree:default git-diff-tree arguments for git-whatchanged'
-    'imap.Folder:IMAP folder to use with git-imap-send'
-    'imap.Tunnel:tunneling command to use for git-imap-send'
-    'imap.Host:host git-imap-send should connect to'
-    'imap.User:user git-imap-send should log in as'
-    'imap.Pass:password git-imap-send should use when logging in'
-    'imap.Port:port git-imap-send should connect on'
-    'receive.denyNonFastforwards:whether git-receive-pack denies ref updates which are not fast-forwards')
+  if [[ -prefix alias.* ]]; then
+    _message 'command-alias name'
+  elif [[ -prefix branch.*.* ]]; then
+    compset -P 'branch.*.'
+
+    names=(
+      'remote:what remote git-fetch should fetch'
+      'merge:default refspec to be marked for merging')
+  elif [[ -prefix branch.* ]]; then
+    compset -P 'branch.'
+
+    __git_branch_names -S '.' -r '.'
+    return
+  elif [[ -prefix remote.*.* ]]; then
+    compset -P 'remote.*.'
+
+    names=(
+      'url:URL of a remote repository'
+      'fetch:default set of refspecs for git-fetch'
+      'push:default set of refspecs for git-push'
+      'skipDefaultUpdate:whether to skip this remote when running git-remote'
+      'receivepack:default program to execute on remote when pushing'
+      'uploadpack:default program to execute on remote when fetching'
+      'tagopt:options for retrieving remote tags')
+    return
+  elif [[ -prefix remote.* ]]; then
+    compset -P 'remote.'
+
+    __git_remotes -S '.' -r '.'
+    return
+  elif [[ -prefix remotes.* ]]; then
+    compset -P 'remotes.'
+
+    __git_remote-groups
+    return
+  else
+    names=(
+      'core.fileMode:whether differences in the executable bit is relevant'
+      "core.autocrlf:what type of conversion of CRLF's git should do"
+      'core.symlinks:whether symlinks are treated as special files or not'
+      'core.gitProxy:command to execute to establish a connection to remote server'
+      'core.ignoreStat:whether modification times of files are ignored'
+      'core.preferSymlinkRefs:whether symbolic-reference files should be symlinks'
+      'core.bare:whether this repository has a working tree or not'
+      'core.logAllRefUpdates:whether to log updates of references'
+      'core.repositoryFormatVersion:internal variable determining the repository version'
+      'core.sharedRepository:what kind of sharing is done for this repository'
+      'core.warnAmbiguousRefs:whether to warn if a ref name is ambiguous'
+      'core.compression:level of compression to apply to packs'
+      'core.legacyheaders:whether to use the legacy object-header-format'
+      'core.packedGitWindowSize:size of mappings of pack files'
+      'core.packedGitLimit:maximum number of bytes to map from pack files'
+      'core.deltaBaseCacheLimit:maximum size of cache for base objects'
+      'apply.whitespace:default value for the --whitespace option to git-apply'
+      'color.branch:when to color output of git-branch'
+      'color.branch.current:color of the current branch'
+      'color.branch.local:color of a local branch'
+      'color.branch.remote:color of a remote branch'
+      'color.branch.plain:color of other branches'
+      'color.diff:when to color diff output'
+      'color.diff.plain:color of context text'
+      'color.diff.meta:color of metainformation'
+      'color.diff.frag:color of hunk headers'
+      'color.diff.old:color of removed lines'
+      'color.diff.new:color of added lines'
+      'color.diff.commit:color of commit headers'
+      'color.diff.whitespace:color of dubious whitespace'
+      'color.pager:whether the pager is fed colored output'
+      'color.status:when to color output of git-status'
+      'color.status.header:color of header text'
+      'color.status.added:color of added, but not yet committed, files'
+      'color.status.updated:color of updated, but not yet committed, files'
+      'color.status.changed:color of changed, but not yet added in the index, files'
+      'color.status.untracked:color of files not currently being tracked'
+      'diff.renameLimit:number of files to consider when detecting copy/renames'
+      'diff.renames:how hard to try to detect renames'
+      'fetch.unpackLimit:maximum number of objects to unpack when fetching'
+      'format.headers:additional email headers to include in email patches'
+      'format.suffix:default suffix for output files from git-format-patch'
+      'gc.packrefs:whether to allow git-gc to run git-pack-refs or not'
+      'gc.reflogexpire:default age for "git reflog expire"'
+      'gc.reflogexpireunreachable:default age for "git reflog expire" for unreachable'
+      'gc.rerereresolved:number of days to keep records of resolved merges'
+      'gc.rerereunresolved:number of days to keep records of unresolved merges'
+      'gitcvs.enabled:whether the cvs pserver interface is enabled'
+      'gitcvs.logfile:name of log file for cvs pserver'
+      'gitcvs.allbinary:whether to treat all files from CVS as binary'
+      'http.sslVerify:whether to verify the SSL certificate for HTTPS'
+      'http.sslCert:file containing SSL certificates for HTTPS'
+      'http.sslKey:file containing the SSL private key for HTTPS'
+      'http.sslCAInfo:file containing CA certificates to verify against for HTTPS'
+      'http.sslCAPath:path containing files with CA certificates to verify against for HTTPS'
+      'http.maxRequests:how many HTTP requests to launch in parallel'
+      'http.lowSpeedLimit:lower limit for HTTP transfer-speed'
+      'http.lowSpeedTime:duration for http.lowSpeedLimit'
+      'http.noEPSV:whether to disable the use of the EPSV ftp-command'
+      'i18n.commitEncoding:character encoding commit messages are stored in'
+      'i18n.logOutputEncoding:character encoding commit messages are output in'
+      'log.showroot:whether to show initial commit as a diff against an empty tree or not'
+      'merge.summary:whether to include summaries of merged commits'
+      'merge.tool:tool to use for merges (by git-mergetool)'
+      'merge.verbosity:amount of output shown by recursive merge strategy'
+      'pack.window:size of window used by git-pack-objects'
+      'pull.octopus:default merge strategy to use when pulling multiple branches'
+      'pull.twohead:default merge strategy to use when pulling a single branch'
+      'repack.usedeltabaseoffset:whether to allow git-repack to use delta-base offsets'
+      'show.difftree:default git-diff-tree options for git-show'
+      'showbranch.default:default set of branches for git-show-branch'
+      'tar.umask:umask to apply for git-tar-tree'
+      'user.email:email address used for commits'
+      'user.name:full name used for commits'
+      'user.signingkey:default GPG key to use when creating signed tags'
+      'whatchanged.difftree:default git-diff-tree arguments for git-whatchanged'
+      'imap.Folder:IMAP folder to use with git-imap-send'
+      'imap.Tunnel:tunneling command to use for git-imap-send'
+      'imap.Host:host git-imap-send should connect to'
+      'imap.User:user git-imap-send should log in as'
+      'imap.Pass:password git-imap-send should use when logging in'
+      'imap.Port:port git-imap-send should connect on'
+      'receive.unpackLimit:maximum number of objects to unpack when pushing'
+      'receive.denyNonFastforwards:whether git-receive-pack denies ref updates which are not fast-forwards'
+      'transfer.unpackLimit:default value for fetch.unpackLimit and receive.unpackLimit')
+
+    declare -a suffixed_names
+
+    suffixed_names=(
+      'alias:command aliases'
+      'branch:prefix for branch-specific variables'
+      'remote:prefix for remote-repository variables'
+      'remotes:prefix for remote-groups')
+
+    _describe -t suffixed-names 'special name' suffixed_names -M 'm:{a-zA-Z}={A-Za-z}' -M 'r:|.=* r:|=*' -S '.' -r '.' && ret=0
+  fi
 
   _describe -t names 'name' names -M 'm:{a-zA-Z}={A-Za-z}' -M 'r:|.=* r:|=*' && ret=0
 }
@@ -2417,6 +2499,495 @@ __git_config_gettable_name () {
   __git_command_successful || return
 
   _wanted names expl 'names' compadd $names
+}
+
+(( $+functions[__git_remote-groups] )) ||
+__git_remote-groups () {
+  local expl
+  declare -a groups
+
+  # TODO: See __git_config_gettable_name for discussion on how to actually get
+  # out the names, skipping the values.
+  groups=(${${(M)${${(f)"$(_call_program names git config --list)"}%%\=*}:#remotes.*}#remotes.})
+  __git_command_successful || return
+
+  _wanted remote-groups expl 'remote-groups' compadd $groups
+}
+
+# TODO: It’d be really cool if both the default and the current value could be
+# shown for all values.
+(( $+functions[__git_config_values] )) ||
+__git_config_values () {
+  local compadd_opts
+
+  zparseopts -D -E -a compadd_opts M: J: V: 1 2 n F: X:
+
+  case $1 in
+    ((#i)core.fileMode)
+      declare -a booleans
+
+      booleans=(
+        {true,yes}':track changes to executable bit of files'
+        {false,no}':ignore changes to executable bit of files')
+
+      _describe -t boolean 'boolean' booleans
+      ;;
+    ((#i)core.autocrlf)
+      declare -a modes
+
+      modes=(
+        {true,yes}':convert CRLF to LF when reading and LF to CRLF when writing'
+        {false,no}':leave CRLF at the end of lines in text files as is'
+        'input:convert CRLF to LF when reading')
+
+      _describe -t crlfmode 'crlf mode' modes
+      ;;
+    ((#i)core.symlinks)
+      declare -a booleans
+
+      booleans=(
+        {true,yes}':record symlink files as such'
+        {false,no}':check out symlinks as plain files that contain the link text')
+
+      _describe -t boolean 'boolean' booleans
+      ;;
+    ((#i)core.gitProxy)
+      _message 'proxy command'
+      ;;
+    ((#i)core.ignoreStat)
+      declare -a booleans
+
+      booleans=(
+        {true,yes}':working-copy files are unchanged until marked as changed'
+        {false,no}':use lstat() to determine if a file has changed')
+
+      _describe -t boolean 'boolean' booleans
+      ;;
+    ((#i)core.preferSymlinkRefs)
+      declare -a booleans
+
+      booleans=(
+        {true,yes}':use symbolic links for symbolic reference files'
+        {false,no}':use "symref" files for symbolic reference files')
+
+      _describe -t boolean 'boolean' booleans
+      ;;
+    ((#i)core.bare)
+      declare -a booleans
+
+      booleans=(
+        {true,yes}':the repository does not have a working directory'
+        {false,no}':the repository has a working directory')
+
+      _describe -t boolean 'boolean' booleans
+      ;;
+    ((#i)core.logAllRefUpdates)
+      declare -a booleans
+
+      booleans=(
+        {true,yes}':create ref files for branch heads'
+        {false,no}":don't automatically create ref files")
+
+      _describe -t boolean 'boolean' booleans
+      ;;
+    ((#i)core.repositoryFormatVersion)
+      _message 'repository format version string (internal)'
+      ;;
+    ((#i)core.sharedRepository)
+      declare -a permissions
+
+      permissions=(
+        {group,true,yes}':files and objects are group-writable'
+        {all,world,everybody}':files and objects are readable by all users and group-shareable'
+        {umask,false}':use permissions reported by umask()')
+
+      _describe -t permissions 'permission' permissions
+      ;;
+    ((#i)core.warnAmbiguousRefs)
+      declare -a booleans
+
+      booleans=(
+        {true,yes}':warn if a ref name matches multiple refs'
+        {false,no}':ignore ambiguous ref names')
+      
+      _describe -t boolean 'boolean' booleans
+      ;;
+    ((#i)core.compression)
+      declare -a levels
+
+      levels=(
+        '-1:default level of compression'
+        '0:do not deflate files'
+        '1:minimum compression'
+        '2:a little more compression'
+        '3:slightly more compression'
+        '4:a bit more compression'
+        '5:even more compression'
+        '6:slightly even more compression'
+        '7:getting there'
+        '8:close to maximum compression'
+        '9:maximum compression')
+
+      _describe -t compression-level 'compression level' levels
+      ;;
+    ((#i)core.legacyheaders)
+      declare -a booleans
+
+      booleans=(
+        {true,yes}':use compatiblity format for loose objects'
+        {false,no}':use new, more efficient, format for loose objects')
+
+      _describe -t boolean 'boolean' booleans
+      ;;
+    ((#i)core.(packedGit(WindowSize|Limit)|deltaBaseCacheLimit))
+      _guard '[[:digit:]]#([kmg]|)' 'number of bytes'
+      ;;
+    ((#i)alias.*)
+      _message 'git sub-command with arguments'
+      ;;
+    ((#i)apply.whitespace)
+      declare -a values
+
+      values=(
+        'nowarn:turn off the trailing-whitespace warning'
+        'warn:output trailing-whitespace warning, but apply patch'
+        'error:output trailing-whitespace warning and refuse to apply patch'
+        'error-all:same as "error", but output warnings for all files'
+        'strip:output trailing-whitespace warning and string trailing whitespace')
+
+      _describe -t value 'value' values
+      ;;
+    ((#i)branch.*.remote)
+      __git_remotes
+      ;;
+    ((#i)branch.*.merge)
+      __git_references
+      ;;
+    ((#i)color.(branch|diff|pager|status))
+      declare -a booleans
+
+      booleans=(
+        {always,true}':always output in color'
+        {never,false}':never output in color'
+        'auto:output in color if to a terminal')
+
+      _describe -t boolean 'boolean' booleans
+      ;;
+    ((#i)color.*.*)
+      compset -P '* '
+
+      case ($words[CURRENT]) in
+        (?*' '?*' '*)
+          if [[ $words[CURRENT] == *(bold|dim|ul|blink|reverse)* ]]; then
+            __git_colors
+          else
+            __git_color_attributes
+          fi
+          ;;
+        (*)
+          local suffix q_flag
+          if [[ $words[CURRENT] == [\"\']* ]]; then
+            suffix=' '
+            q_flag=-q
+          else
+            suffix='\ '
+          fi
+
+          if [[ $words[CURRENT] == *(bold|dim|ul|blink|reverse)* ]]; then
+            __git_colors -S $suffix $q_flag
+          else
+            _alternative \
+              'colors:color:__git_colors -S $suffix $q_flag' \
+              'attributes:attribute:__git_color_attributes -S $suffix $q_flag'
+          fi
+          ;;
+      esac
+      ;;
+    ((#i)diff.renameLimit)
+      _guard "[[:digit:]]#" number
+      ;;
+    ((#i)diff.renames)
+      declare -a settings
+
+      settings=(
+        {true,yes}':enable basic rename detection'
+        {false,no}":don't try to detect renames"
+        {copies,copy}':detect file renames and copies')
+
+      _describe -t values 'rename-detection setting' settings
+      ;;
+    ((#i)(fetch|receive|transfer).unpackLimit)
+      _guard "[[:digit:]]#" 'maximum number of objects to unpack'
+      ;;
+    ((#i)format.headers)
+      _message 'email header'
+      ;;
+    ((#i)format.suffix)
+      _message 'filename suffix'
+      ;;
+    ((#i)gc.packrefs)
+      declare -a values
+
+      values=(
+        {true,yes}':pack references when collecting garbage'
+        {false,no}':leave references alone when collecting garbage'
+        'notbare:pack references if the repository has a working directory')
+
+      _describe -t values 'value' values
+      ;;
+    ((#i)gc.(reflogexpire(unreachable|)|rerere(un|)resolved))
+      # TODO: It would be nice if the default value was shown under a separate
+      # description/tag.
+      __git_datetimes
+      ;;
+    ((#i)gitcvs.enabled)
+      declare -a booleans
+
+      booleans=(
+        {true,yes}':enable the cvs server interface'
+        {false,no}":don't enable the cvs server interface")
+
+      _describe -t booleans 'boolean' booleans
+      ;;
+    ((#i)gitcvs.logfile)
+      _files
+      ;;
+    ((#i)gitcvs.allbinary)
+      declare -a booleans
+
+      booleans=(
+        {true,yes}':tell the client to treat all files as binary'
+        {false,no}':treat files normally')
+
+      _describe -t booleans 'boolean' booleans
+      ;;
+    ((#i)http.sslVerify)
+      declare -a booleans
+
+      booleans=(
+        {true,yes}':verify SSL certificates when fetching or pushing over HTTP'
+        {false,no}':skip verification of SSL certificates')
+
+      _describe -t booleans 'boolean' booleans
+      ;;
+    ((#i)http.sslCert)
+      local expl
+
+      _wanted files expl 'SSL certificate file' _files
+      ;;
+    ((#i)http.sslKey)
+      local expl
+
+      _wanted files expl 'SSL private-key file' _files
+      ;;
+    ((#i)http.sslCAInfo)
+      local expl
+
+      _wanted files expl 'certificates file' _files
+      ;;
+    ((#i)http.sslCAPath)
+      local expl
+
+      _wanted files expl 'CA certificates file' _files
+      ;;
+    ((#i)http.maxRequests)
+      _guard "[[:digit:]]#" 'maximum number of requests'
+      ;;
+    ((#i)http.lowSpeedLimit)
+      # TODO: Need a better description
+      _guard "[[:digit:]]#([kmg]|)" number
+      ;;
+    ((#i)http.lowSpeedTime)
+      _guard "[[:digit:]]#" seconds
+      ;;
+    ((#i)http.noEPSV)
+      declare -a booleans
+
+      booleans=(
+        {true,yes}":don't use EPSV mode over FTP (for stupid servers)"
+        {false,no}':use EPSV mode over FTP')
+
+      _describe -t booleans 'boolean' booleans
+      ;;
+    ((#i)i18n.(commitEncoding|logOutputEncoding))
+      __git_encodings
+      ;;
+    ((#i)log.showroot)
+      declare -a booleans
+
+      booleans=(
+        {true,yes}':show initial commit as a diff against an empty tree'
+        {false,no}':hide initial commit')
+
+      _describe -t booleans 'boolean' booleans
+      ;;
+    ((#i)merge.summary)
+      declare -a booleans
+
+      # TODO: Use (default) in more descriptions.
+      booleans=(
+        {true,yes}':include summaries in merge commit messages'
+        {false,no}":don't add summaries to merge commit messages (default)")
+
+      _describe -t booleans 'boolean' booleans
+      ;;
+    ((#i)merge.tool)
+      declare -a tools
+
+      tools=(kdiff3 tkdiff meld xxdiff emerge vimdiff)
+
+      _describe -t merge-tools 'merge tool' tools
+      ;;
+    ((#i)merge.verbosity)
+      declare -a levels
+
+      levels=(
+        '0:only final error message if conflicts were detected'
+        '1:conflicts'
+        '2:conflicts and file changes'
+        '5:debugging information')
+
+      _describe -t verbosity-levels 'verbosity level' levels
+      ;;
+    ((#i)pack.window)
+      _guard '[[:digit:]]#' 'window size'
+      ;;
+    ((#i)pull.(octopus|twohead))
+      __git_merge_strategies
+      ;;
+    ((#i)remote.*.url)
+      _urls
+      ;;
+    ((#i)remote.*.fetch)
+      : TODO
+      ;;
+    ((#i)remote.*.push)
+      : TODO
+      ;;
+    ((#i)remote.*.skipDefaultUpdate)
+      declare -a booleans
+
+      booleans=(
+        {true,yes}':skip this remote by default'
+        {false,no}':update this remote by default')
+
+      _describe -t booleans 'boolean' booleans
+      ;;
+    ((#i)remote.*.(receivepack|uploadpack))
+      # TODO: Perhaps actually use SSH here?
+      local expl
+
+      _wanted files expl "remote git-${${1##*.}%pack}-pack program" _files -g *(*)
+      ;;
+    ((#i)remote.*.tagopt)
+      declare -a opts
+
+      opts=(
+        "--no-tags:don't fetch tags automatically"
+        '"":fetch tags as usual')
+
+      _describe -t tag-options 'tag retrieval' opts
+      ;;
+    ((#i)remotes.*)
+      compset -P '* '
+
+      local suffix
+      if [[ $words[CURRENT] == [\"\']* ]]; then
+        suffix=' '
+      else
+        suffix='\ '
+      fi
+
+      # TODO: Should really only complete unique remotes, that is, not the same
+      # remote more than once in the list.
+      __git_remotes -S $suffix -q
+      ;;
+    ((#i)repack.usedeltabaseoffset)
+      declare -a booleans
+
+      booleas=(
+        {true,yes}':allow creation of delta-base-offset packs'
+        {false,no}":don't create delta-base-offset packs")
+
+      _describe -t booleans 'boolean' booleans
+      ;;
+    ((#i)show.difftree)
+      # TODO: This should complete the options available to these two commands.
+      _message 'default options to git-diff-tree and git-show'
+      ;;
+    ((#i)showbranch.default)
+      __git_branch_names
+      ;;
+    ((#i)tar.umask)
+      _alternative \
+        'number: :_guard "[0-7]#" "numeric mode"' \
+        "values:special value:((user:\"use user's current umask\"))"
+      ;;
+    ((#i)user.email)
+      _email_addresses
+      ;;
+    ((#i)user.name)
+      _users
+      ;;
+    ((#i)user.signingkey)
+      __git_gpg_secret_keys
+      ;;
+    ((#i)whatchanged.difftree)
+      # TODO: This should complete the options available to git-diff-tree.
+      _message 'default options to git-diff-tree when invoking git-whatchanged'
+      ;;
+    ((#i)imap.folder)
+      _mailboxes
+      ;;
+    ((#i)imap.tunnel)
+      _message -e commands 'imap tunneling command'
+      ;;
+    ((#i)imap.host)
+      _hosts
+      ;;
+    ((#i)imap.user)
+      # TODO: If imap.host is set, complete users on that system?
+      _users
+      ;;
+    ((#i)imap.pass)
+      _message -e passwords 'imap password'
+      ;;
+    ((#i)imap.port)
+      _ports
+      ;;
+    ((#i)receive.denyNonFastForwards)
+      declare -a booleans
+
+      booleans=(
+        {true,yes}":git-receive-pack will deny a ref update that isn't a fast forward"
+        {false,no}":allow a ref update that isn't a fast forward")
+
+      _describe -t booleans 'boolean' booleans
+      ;;
+    (*)
+      _message 'value'
+      ;;
+  esac
+}
+
+# TODO: Use this function in other places.
+(( $+functions[__git_colors] )) ||
+__git_colors () {
+  declare -a colors
+
+  colors=(black red green yellow blue magenta cyan white)
+
+  _describe -t colors 'color' colors $*
+}
+
+# TODO: Use this function in other places.
+(( $+functions[__git_color_attributes] )) ||
+__git_color_attributes () {
+  declare -a attributes
+
+  attributes=(bold dim ul blink reverse)
+
+  _describe -t attributes 'attribute' attributes $*
 }
 
 (( $+functions[__git_config_section_names] )) ||
@@ -2441,7 +3012,34 @@ __git_gpg_secret_keys () {
   local expl
 
   _wanted secret-keys expl 'secret key' compadd \
-    ${${(Mo)$(_call_program secret-keys gpg $needed --list-secret-keys 2>/dev/null):%<*>}//(<|>)/}
+    ${${(Mo)$(_call_program secret-keys gpg --list-secret-keys 2>/dev/null):%<*>}//(<|>)/}
+}
+
+(( $+functions[__git_merge_strategies] )) ||
+__git_merge_strategies () {
+  declare -a merge_strategies_cache
+
+  merge_strategies_cache=(${${=${${(M)${(f)"$(<$(git --exec-path)/git-merge)"}:#all_strategies*}##all_strategies=\'}%%\'}:#recur})
+
+  local expl
+  _wanted merge-strategies expl 'merge strategy' compadd - $merge_strategies_cache
+}
+
+# TODO: Use this in more places.
+(( $+functions[__git_datetimes] )) ||
+__git_datetimes () {
+  _guard "*" 'time specification'
+}
+
+# TODO: Use this in more places.
+# TODO: Use better algorithm, as shown in iconv completer (separate it to a new
+# Type).
+(( $+functions[__git_encodings] )) ||
+__git_encodings () {
+  local expl
+  _wanted encodings expl 'encoding' compadd "$@" \
+    -M 'm:{a-zA-Z}={A-Za-z} r:|-=* r:|=*' \
+    ${${${(f)"$(_call_program encodings iconv --list)"}## #}%//}
 }
 
 # ---
