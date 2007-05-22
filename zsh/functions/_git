@@ -1,4 +1,4 @@
-#compdef git git-add git-am git-annotate git-apply git-applymbox git-applypatch git-archimport git-archive git-bisect git-blame git-branch git-cat-file git-check-ref-format git-checkout git-checkout-index git-cherry git-cherry-pick git-clean git-clone git-clone-pack git-commit git-commit-tree git-convert-objects git-count-objects git-cvsexportcommit git-cvsimport git-daemon git-describe git-diff git-diff-files git-diff-index git-diff-stages git-diff-tree git-fast-import git-fetch git-fetch-pack git-fmt-merge-msg git-format-patch git-fsck-objects git-gc git-get-tar-commit-id git-grep git-hash-object git-http-fetch git-http-push git-imap-send git-index-pack git-init git-local-fetch git-log git-lost-found git-ls-files git-ls-remote git-ls-tree git-mailinfo git-mailsplit git-merge git-merge-base git-merge-index git-merge-one-file git-merge-tree git-mktag git-mktree git-mv git-name-rev git-octopus git-pack-objects git-pack-redundant git-pack-refs git-patch-id git-peek-remote git-prune git-prune-packed git-pull git-push git-read-tree git-rebase git-receive-pack git-reflog git-relink git-repack git-config git-request-pull git-rerere git-reset git-rev-list git-rev-parse git-revert git-rm git-send-email git-send-pack git-shortlog git-show git-show-branch git-show-index git-ssh-fetch git-ssh-upload git-status git-stripspace git-svnimport git-symbolic-ref git-tag git-tar-tree git-unpack-file git-unpack-objects git-update-index git-update-ref git-update-server-info git-upload-pack git-var git-verify-pack git-verify-tag git-whatchanged git-write-tree
+#compdef git git-add git-am git-annotate git-apply git-applymbox git-applypatch git-archimport git-archive git-bisect git-blame git-branch git-cat-file git-check-ref-format git-checkout git-checkout-index git-cherry git-cherry-pick git-clean git-clone git-clone-pack git-commit git-commit-tree git-convert-objects git-count-objects git-cvsexportcommit git-cvsimport git-daemon git-describe git-diff git-diff-files git-diff-index git-diff-stages git-diff-tree git-fast-import git-fetch git-fetch-pack git-fmt-merge-msg git-format-patch git-fsck-objects git-gc git-get-tar-commit-id git-grep git-hash-object git-http-fetch git-http-push git-imap-send git-index-pack git-init git-local-fetch git-log git-lost-found git-ls-files git-ls-remote git-ls-tree git-mailinfo git-mailsplit git-merge git-merge-base git-merge-index git-merge-one-file git-merge-tree git-mktag git-mktree git-mv git-name-rev git-octopus git-pack-objects git-pack-redundant git-pack-refs git-patch-id git-peek-remote git-prune git-prune-packed git-pull git-push git-read-tree git-rebase git-receive-pack git-reflog git-relink git-remote git-repack git-config git-request-pull git-rerere git-reset git-rev-list git-rev-parse git-revert git-rm git-send-email git-send-pack git-shortlog git-show git-show-branch git-show-index git-ssh-fetch git-ssh-upload git-status git-stripspace git-svnimport git-symbolic-ref git-tag git-tar-tree git-unpack-file git-unpack-objects git-update-index git-update-ref git-update-server-info git-upload-pack git-var git-verify-pack git-verify-tag git-whatchanged git-write-tree
 
 # Commands not completed:
 # git-cvsserver
@@ -256,6 +256,7 @@ _git_commands () {
     'format-patch:prepare patches for e-mail submission'
     'ls-files:information about files in the index/working directory'
     'config:get and set options in "$GIT_DIR/config"'
+    'remote:manage set of tracked repositories'
     'send-email:send patch-e-mails out of "format-patch" output'
     'update-index:modify index in some given way')
 
@@ -602,6 +603,52 @@ _git-config () {
     '(2 -)--get-regexp[like "--get-all", but interpret "name" as a regular expression]' \
     '(-)--replace-all[replace all values of the given key]' \
     '(: --int --bool)'{-l,--list}'[list all variables set in config file]' && ret=0
+}
+
+# NOTE: --track is undocumented.
+# TODO: --track, -t, --master, and -m should take remote branches, I guess.
+# NOTE: --master is undocumented.
+# NOTE: --fetch is undocumented.
+(( $+functions[_git-remote] )) ||
+_git-remote () {
+  local curcontext=$curcontext state line
+  declare -A opt_args
+
+  _arguments -C \
+    ':command:->command' \
+    '*::options:->options' && ret=0
+
+  case $state in
+    (command)
+      declare -a commands
+
+      commands=(
+        'add:add a new remote'
+        'show:show information about a given remote'
+        'prune:delete all stale tracking branches for a given remote'
+        'update:fetch updates for a set of remotes')
+
+      _describe -t commands 'sub-command' commands && ret=0
+      ;;
+    (options)
+      case $line[1] in
+        (add)
+          _arguments \
+            '*'{--track,-t}'[track given branch instead of default glob refspec]:branch:__git_branch_names' \
+            '(--master -m)'{--master,-m}"[set the remote's HEAD to point to given master branch]:branch:__git_branch_names" \
+            '(--fetch -f)'{--fetch,-f}'[run git-fetch on the new remote after it has been created]' \
+            ':branch name:__git_remotes' \
+            ':url:_urls' && ret=0
+          ;;
+        (show|name|prune)
+          __git_remotes && ret=0
+          ;;
+        (update)
+          __git_remote-groups && ret=0
+          ;;
+      esac
+      ;;
+  esac
 }
 
 (( $+functions[_git-unpack-objects] )) ||
