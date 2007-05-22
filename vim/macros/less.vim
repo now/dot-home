@@ -1,7 +1,7 @@
 " Vim macro file
 " NOTE:             Based on Bram Moolenar's less.vim script. 
 " Maintainer:       Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2006-05-25
+" Latest Revision:  2007-05-16
 
 let loaded_less = 1
 
@@ -57,9 +57,35 @@ au VimEnter * set nomod
 " Can't modify the text
 set noma
 
+let s:saved_mappings = {}
+
+function s:push_map(lhs, rhs, maptype, ...)
+  " TODO: Need to figure out what modes a:lhs is actually defined in, so that
+  " we can restore that later on.
+  let saved_mapping = maparg(a:lhs)
+  if saved_mapping != ""
+    let s:saved_mappings[a:lhs] = [saved_mapping, a:maptype]
+  else
+    let s:saved_mappings[a:lhs] = [saved_mapping, 2]
+  endif
+  if a:maptype == 0
+    let mapcmd = 'map'
+  elseif a:maptype == 1
+    let mapcmd = 'noremap'
+  elseif a:maptype == 3
+    let mapcmd = 'cnoremap'
+  endif
+  execute mapcmd join(a:000) a:lhs a:rhs
+endfunction
+
+function s:push_maps(lhss, rhs, noremap, ...)
+  for lhs in a:lhss
+    call call('s:push_map', [lhs, a:rhs, a:noremap] + a:000)
+  endfor
+endfunction
+
 " Give help
-noremap H :call <SID>Help()<CR>
-map ? H
+call s:push_map('H', ':call <SID>Help()<CR>', 1)
 fun! s:Help()
   echo "<Space>   One page forward          b, <BS>   One page backward"
   echo "d         Half a page forward       u         Half a page backward"
@@ -73,16 +99,12 @@ fun! s:Help()
   echo ":n<Enter> Next file                 :p<Enter> Previous file"
   echo "\n"
   echo "q         Quit                      v         Edit file"
-  let i = input("Hit Enter to continue")
+  call input("Hit Enter to continue")
 endfun
 
 " Scroll one page forward
-noremap <script> <Space> :call <SID>NextPage()<CR><SID>L
-map <C-V> <Space>
-map f <Space>
-map <C-F> <Space>
-map z <Space>
-map <Esc><Space> <Space>
+call s:push_map('<Space>', ':call <SID>NextPage()<CR><SID>L', 1, '<script>')
+call s:push_maps(['<C-V>', 'f', '<C-F>', 'z', '<Esc><Space>'], '<Space>', 0)
 fun! s:NextPage()
   if line(".") == line("$")
     if argidx() + 1 >= argc()
@@ -96,137 +118,107 @@ fun! s:NextPage()
 endfun
 
 " Re-read file and page forward "tail -f"
-map F :e<CR>G<SID>L:sleep 1<CR>F
+call s:push_map('F', ':e<CR>G<SID>L:sleep 1<CR>F', 1)
 
 " Scroll half a page forward
-noremap <script> d <C-D><SID>L
-map <C-D> d
+call s:push_map('d', '<C-D><SID>L', 1, '<script>')
+call s:push_map('<C-D>', 'd', 0)
 
 " Scroll one line forward
-noremap <script> <CR> <C-E><SID>L
-map <C-N> <CR>
-map e <CR>
-map <C-E> <CR>
-map t <CR>
-map <C-J> <CR>
+call s:push_map('t', '<C-E><SID>L', 1, '<script>')
+call s:push_maps(['<C-N>', 'e', '<C-E>', '<CR>', '<C-J>'], '<CR>', 0)
 
 " Scroll one page backward
-noremap <script> b <C-B><SID>L
-map <C-B> b
-map <BS> b
-map w b
-map <Esc>v b
+call s:push_map('b', '<C-B><SID>L', 1, '<script>')
+call s:push_maps(['<C-B>', '<BS>', 'w', '<Esc>v'], 'b', 0)
 
 " Scroll half a page backward
-noremap <script> u <C-U><SID>L
-noremap <script> <C-U> <C-U><SID>L
+call s:push_map('u', '<C-U><SID>L', 1, '<script>')
+call s:push_map('<C-U>', '<C-U><SID>L', 1, '<script>')
 
 " Scroll one line backward
-noremap <script> n <C-Y><SID>L
-map y n
-map <C-Y> n
-map <C-P> n
-map <C-K> n
+call s:push_map('n', '<C-Y><SID>L', 1, '<script>')
+call s:push_maps(['y', '<C-Y>', '<C-P>', '<C-K>'], 'n', 0)
 
 " Redraw
-noremap <script> r <C-L><SID>L
-noremap <script> <C-R> <C-L><SID>L
-noremap <script> R <C-L><SID>L
+call s:push_map('r', '<C-L><SID>L', 1, '<script>')
+call s:push_map('<C-R>', '<C-L><SID>L', 1, '<script>')
+call s:push_map('R', '<C-L><SID>L', 1, '<script>')
 
 " Start of file
-noremap <script> gg gg<SID>L
-map < gg
-map <Esc>< gg
+call s:push_map('gg', 'gg<SID>L', 1, '<script>')
+call s:push_maps(['<', '<Esc><'], 'gg', 0)
 
 " End of file
-noremap <script> G G<SID>L
-map > G
-map <Esc>> G
+call s:push_map('G', 'G<SID>L', 1, '<script>')
+call s:push_maps(['>', '<Esc>>'], 'G', 0)
 
 " Go to percentage
-noremap <script> % %<SID>L
-map p %
+call s:push_map('%', '%<SID>L', 1, '<script>')
+call s:push_maps(['p'], '%', 0)
 
 " Search
-noremap <script> / H$:call <SID>Forward()<CR>/
+call s:push_map('/', 'H$:call <SID>Forward(0)<CR>/', 1, '<script>')
 if &wrap
-  noremap <script> ? H0:call <SID>Backward()<CR>?
+  call s:push_map('?', 'H0:call <SID>Backward(0)<CR>?', 1, '<script>')
 else
-  noremap <script> ? Hg0:call <SID>Backward()<CR>?
+  call s:push_map('?', 'Hg0:call <SID>Backward(0)<CR>?', 1, '<script>')
 endif 
 
-fun! s:Forward()
-  " Searching forward
-  noremap <script> k H$nzt<SID>L
-  if &wrap
-    noremap <script> K H0Nzt<SID>L
+function s:pop_map(lhs, rhs, mode)
+  if a:mode == 2
+    execute 'unmap' a:lhs
   else
-    noremap <script> K Hg0Nzt<SID>L
+    execute 'noremap' a:lhs a:rhs
   endif
-  cnoremap <script> <CR> <CR>:cunmap <lt>CR><CR>zt<SID>L
+endfunction
+
+fun! s:Forward(initialize)
+  if !a:initialize
+    for lhs in ['k', 'K', '<CR>']
+      let mapping = s:saved_mappings[lhs]
+      call s:pop_map(lhs, mapping[0], mapping[1])
+    endfor
+  endif
+  " Searching forward
+  call s:push_map('k', 'H$nzt<SID>L', 1, '<script>')
+  if &wrap
+    call s:push_map('K', 'H0Nzt<SID>L', 1, '<script>')
+  else
+    call s:push_map('K', 'Hg0Nzt<SID>L', 1, '<script>')
+  endif
+  call s:push_map('<CR>', '<CR>:cunmap <lt>CR><CR>zt<SID>L', 3, '<script')
 endfun
     
-fun! s:Backward()
+fun! s:Backward(initialize)
+  if !a:initialize
+    for lhs in ['k', 'K', '<CR>']
+      let mapping = s:saved_mappings[lhs]
+      call s:pop_map(lhs, mapping[0], mapping[1])
+    endfor
+  endif
   " Searching backward
   if &wrap
-    noremap <script> k H0nzt<SID>L
+    call s:push_map('k', 'H0nzt<SID>L', 1, '<script>')
   else
-    noremap <script> k Hg0nzt<SID>L
+    call s:push_map('k', 'Hg0nzt<SID>L', 1, '<script>')
   endif
-  noremap <script> K H$Nzt<SID>L
-  cnoremap <script> <CR> <CR>:cunmap <lt>CR><CR>zt<SID>L
+  call s:push_map('K', 'H$Nzt<SID>L', 1, '<script>')
+  call s:push_map('<CR>', '<CR>:cunmap <lt>CR><CR>zt<SID>L', 3, '<script')
 endfun
 
-call s:Forward() 
+call s:Forward(1)
 
 " Quitting
-noremap q :q<CR>
+call s:push_map('q', ':q<CR>', 1)
 
 " Switch to editing (switch off less mode)
-map v :call <SID>End()<CR>
+call s:push_map('v', ':call <SID>End()<CR>', 1, '<silent>')
 fun! s:End()
   set ma
-  unmap h
-  unmap H
-  unmap <Space>
-  unmap <C-V>
-  unmap f
-  unmap <C-F>
-  unmap z
-  unmap <Esc><Space>
-  unmap F
-  unmap d
-  unmap <C-D>
-  unmap <CR>
-  unmap <C-N>
-  unmap e
-  unmap <C-E>
-  unmap t
-  unmap <C-J>
-  unmap b
-  unmap <C-B>
-  unmap w
-  unmap <Esc>v
-  unmap u
-  unmap <C-U>
-  unmap n
-  unmap y
-  unmap <C-Y>
-  unmap <C-P>
-  unmap <C-K>
-  unmap r
-  unmap <C-R>
-  unmap R
-  unmap g
-  unmap <
-  unmap <Esc><
-  unmap G
-  unmap >
-  unmap <Esc>>
-  unmap %
-  unmap p
-  unmap k
-  unmap K
-  unmap q
-  unmap v
+  for lhs in keys(s:saved_mappings)
+    let mapping = s:saved_mappings[lhs]
+    call s:pop_map(lhs, mapping[0], mapping[1])
+  endfor
+  echo 'Buffer is now modifiable'
 endfun
