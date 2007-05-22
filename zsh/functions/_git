@@ -382,13 +382,30 @@ _git () {
   fi
 }
 
+# NOTE: -c is undocumented.
+# TODO: Perhaps provide some sort of completion or guard for line range (-L).
+# NOTE: --score-debug is undocumented.
+# NOTE: --show-name is undocumented.
+# NOTE: --show-number is undocumented.
 (( $+functions[_git-annotate] )) ||
 _git-annotate () {
   _arguments -S \
-    '(-l --long)'{-l,--long}'[show long rev]' \
-    '(-t --time)'{-t,--time}'[show raw timestamp]' \
-    '(-r --rename)'{-r,--rename}'[follow renames]' \
-    '(-S --rev-file)'{-S,--rev-file=}'[use revs from revs-file]:revs-file:_files' \
+    '-b[show blank SHA-1 for boundary commits]' \
+    '--root[do not treat root commits as boundaries]' \
+    '--show-stats[include additional statistics at the end of blame output]' \
+    '-c[undocumented]' \
+    '-l[show long rev]' \
+    '-t[show raw timestamp]' \
+    '-S[use revs from revs-file]:revs-file:_files' \
+    '-M-[detect moving lines in the file as well]:: :_guard "[[\:digit\:]]" "number of characters"' \
+    '*-C-[detect copied lines from other files from same commit as well]:: :_guard "[[\:digit\:]]" "number of characters"' \
+    '-L[annotate only the given line range]:line range' \
+    '--contents[annotate against the given file if no rev is specified]:file:_files' \
+    '--incremental[show results incrementally for machine processing]' \
+    '--score-debug[uncodumented]' \
+    '(-f --show-name)'{-f,--show-name}'[undocumented]' \
+    '(-n --show-number)'{-n,--show-number}'[undocumented]' \
+    '(-p --porcelain)'{-p,--porcelain}'[show results designed for machine processing]' \
     '(-h --help)'{-h,--help}'[show help message]' \
     ':file:__git_cached_files' \
     '::revision:__git_revisions' && ret=0
