@@ -2501,17 +2501,22 @@ __git_config_gettable_name () {
   _wanted names expl 'names' compadd $names
 }
 
-(( $+functions[__git_remote-groups] )) ||
-__git_remote-groups () {
+(( $+functions[__git_config_filtered_gettable_name] )) ||
+__git_config_filtered_gettable_name () {
   local expl
-  declare -a groups
+  declare -a names
 
   # TODO: See __git_config_gettable_name for discussion on how to actually get
   # out the names, skipping the values.
-  groups=(${${(M)${${(f)"$(_call_program names git config --list)"}%%\=*}:#remotes.*}#remotes.})
+  names=(${${(M)${${(f)"$(_call_program $2 git config --list)"}%%\=*}:#$1.*}#$1.})
   __git_command_successful || return
 
-  _wanted remote-groups expl 'remote-groups' compadd $groups
+  _wanted $2 expl $3 compadd $names
+}
+
+(( $+functions[__git_remote-groups] )) ||
+__git_remote-groups () {
+  __git_config_filtered_gettable_name 'remotes' remote-groups 'remote-groups'
 }
 
 # TODO: It’d be really cool if both the default and the current value could be
