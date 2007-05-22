@@ -329,6 +329,29 @@ _git_commands () {
   _describe -t commands 'git command' commands && ret=0
 }
 
+(( $+functions[__git_aliases] )) ||
+__git_aliases () {
+  declare -a aliases
+
+  # TODO: See __git_config_gettable_name for discussion on how to actually get
+  # out the names, skipping the values.
+  # TODO: Should check if the terminal is unicode capable.  If so, use ‘ and ’
+  # instead of '.
+  aliases=(${^${${(M)${(f)"$(_call_program aliases git config --list)"}:#alias.*}#alias.}/(#b)=(*)/:alias for \'$match[1]}\')
+  __git_command_successful || return 0
+
+  local expl
+
+  _describe -t aliases 'git alias' aliases
+}
+
+(( $+functions[__git_aliases_and_commands] )) ||
+__git_aliases_and_commands () {
+  _alternative \
+    'aliases: :__git_aliases' \
+    'commands: :_git_commands'
+}
+
 _git () {
   local curcontext=$curcontext ret=1
 
@@ -346,7 +369,7 @@ _git () {
       '*::options:->options' && ret=0
     case $state in
       (command)
-        _git_commands
+        __git_aliases_and_commands
         ;;
       (options)
         curcontext="${curcontext%:*:*}:git-$words[1]:"
