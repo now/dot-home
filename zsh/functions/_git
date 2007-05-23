@@ -2040,13 +2040,16 @@ _git-rev-parse () {
     '--default[use "arg" if there is no parameter given]:arg' \
     '--verify[verify parameter to be usable]' \
     '--sq[output single shell-quoted line]' \
-    '--not' \
-    '--symbolic' \
-    '--all[show all refs found in "$GIT_DIR/refs"]' \
+    '--not[toggle ^ prefix of object names]' \
+    '--symbolic[output in a format as true to input as possible]' \
+    '--all[show all refs found in $GIT_DIR/refs]' \
+    '--branches[show branch refs found in $GIT_DIR/refs/heads]' \
+    '--tags[show tag refs found in $GIT_DIR/refs/tags]' \
+    '--remotes[show tag refs found in $GIT_DIR/refs/remotes]' \
     '--show-prefix[show path of current directory relative to top-leve directory]' \
     '--show-cdup[show path of top-level directory relative to current directory]' \
     '--git-dir[show "$GIT_DIR" if defined else show path to ".git" directory]' \
-    '--short=-[show only handful hexdigits prefix]: :_guard "[[\:digit\:]]#" number' \
+    '--short=-[show only handful hexdigits prefix]:: :_guard "[[\:digit\:]]#" number' \
     {--after=-,--since=-}'[show "--max-age=" parameter corresponding given date string]:datestring' \
     {--berore=-,--until=-}'[show "--min-age=" parameter corresponding given date string]:datestring' \
     '*:args' && ret=0
