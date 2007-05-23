@@ -1721,21 +1721,29 @@ _git-shortlog () {
     '*::commitish:__git_committishs' && ret=0
 }
 
+# TODO: --date-order is undocumented.
+# TODO: Better completion of --reflog.
 (( $+functions[_git-show-branch] )) ||
 _git-show-branch () {
-  _arguments \
-    '--all[show all refs under $GIT_DIR/refs]' \
-    '--current[include current branch to the list of revs]' \
-    '--heads[show all refs under $GIT_DIR/refs/heads]' \
-    '--tags[show all refs under $GIT_DIR/refs/tags]' \
-    '--topo-order[show commits in topological order]' \
-    '(--more --list --independent --merge-base)--independent[show only the reference that can not be reached from any of the other]' \
-    '(--more --list --independent --merge-base)--list[synonym to "--more=-1"]' \
-    '(--more --list --independent --merge-base)--merge-base[act like "git-merge-base -a" but with two heads]' \
-    '(--more --list --independent --merge-base)--more=-[go given number of commit beyond common ancestor (no ancestry if negative)]:number' \
-    '(--no-name --sha1-name)--no-name[do not show naming strings for each commit]' \
-    '(--no-name --sha1-name)--sha1-name[name commits with unique prefix of object names]' \
-    '*:reference:__git_revisions' && ret=0
+  _arguments -S \
+    '(--more        --independent --merge-base)--list[synonym to "--more=-1"]' \
+    - branches \
+      '(-a --all)'{-a,--all}'[show both remote-tracking branches and local branches]' \
+      '(-r --remotes)'{-r,--remotes}'[show remote-tracking branches]' \
+      '(       --list --independent --merge-base)--more=-[go given number of commit beyond common ancestor (no ancestry if negative)]:: :_guard "[[\:digit\:]]" limit' \
+      '(--more --list               --merge-base)--independent[show only the reference that can not be reached from any of the other]' \
+      '(--more --list --independent             )--merge-base[act like "git-merge-base -a" but with two heads]' \
+      '--current[include current branch to the list of revs]' \
+      '(          --sha1-name)--no-name[do not show naming strings for each commit]' \
+      '(--no-name            )--sha1-name[name commits with unique prefix of object names]' \
+      '--topo-order[show commits in topological order]' \
+      '--topics[show only commits that are NOT on the first branch given]' \
+      '--sparse[output merges that are reachable from multiple tips being shown]' \
+      '--date-order[undocumented]' \
+      '*:revision:__git_revisions' \
+    - reflogs \
+      '(-g --reflog)'{-g,--reflog=-}'[show reflog entries for given ref]::number of entries and base' \
+      ':reference:__git_references' && ret=0
 }
 
 (( $+functions[_git-status] )) ||
