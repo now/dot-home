@@ -1938,7 +1938,8 @@ _git-cherry () {
   _arguments \
     $verbose_arg \
     ':upstream:__git_revisions' \
-    '::head:__git_revisions' && ret=0
+    '::head:__git_revisions' \
+    '::limit:__git_revisions' && ret=0
 }
 
 (( $+functions[_git-count-objects] )) ||
