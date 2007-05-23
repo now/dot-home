@@ -429,15 +429,11 @@ _git-apply () {
     '*::patch:_files' && ret=0
 }
 
+# NOTE: Documentation mentions options that don’t exist anymore, for example,
+# --since, and shows -C twice!aa
 (( $+functions[_git-blame] )) ||
 _git-blame () {
-  _arguments -S \
-    '(-c --compability)'{-c,--compability}'[use the same output mode as git-annotate]' \
-    '(-l --long)'{-l,--long}'[show long rev]' \
-    '-S[use revs from revs-file]:revs-file:_files' \
-    '(-h --help)'{-h,--help}'[show help message]' \
-    ':file:__git_cached_files' \
-    '::revision:__git_revisions' && ret=0
+  _git-annotate
 }
 
 (( $+functions[_git-checkout-index] )) ||
