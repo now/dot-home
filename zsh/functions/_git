@@ -1233,13 +1233,13 @@ _git-archive () {
 
 (( $+functions[_git-applymbox] )) ||
 _git-applymbox () {
-  _arguments \
+  _arguments -A '-*' \
     '-k[do not modify "Subject:" header]' \
     '-m[apply patches with "git-apply" and fail if patch is unclean]' \
     '-q[apply patches interactively]' \
     '-u[encode commit information in UTF-8]' \
     '(1)-c[restart command after fixing an unclean patch]:patch:_files -g ".dotest/0*"' \
-    '(-c):mbox file:_files' \
+    ':mbox file:_files' \
     '::signoff file:__git_signoff_file' && ret=0
 }
 
