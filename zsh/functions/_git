@@ -1801,11 +1801,18 @@ _git-convert-objects () {
   _nothing
 }
 
+# TODO: Could use _cvs_root from _cvs for completing argument to -d.
+# TODO: -h is undocumented.
 (( $+functions[_git-cvsexportcommit] )) ||
 _git-cvsexportcommit () {
   _arguments \
     '-c[commit automatically if the patch applied cleanly]' \
     '-p[be pedantic (paranoid) when applying patches]' \
+    '-a[add authorship information]' \
+    '-d[set an alternative CVSROOT to use]:cvsroot' \
+    '-f[force the merge, even if the files are not up to date]' \
+    '-P[force the parent commit, even if it is not a direct parent]' \
+    '-m[prepend the commit message with the provided prefix]:message prefix' \
     $verbose_arg \
     $help_arg \
     '::parent commit id:__git_commits' \
