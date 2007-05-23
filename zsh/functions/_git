@@ -1,4 +1,4 @@
-#compdef git git-add git-am git-annotate git-apply git-applymbox git-applypatch git-archimport git-archive git-bisect git-blame git-branch git-cat-file git-check-ref-format git-checkout git-checkout-index git-cherry git-cherry-pick git-clean git-clone git-clone-pack git-commit git-commit-tree git-convert-objects git-count-objects git-cvsexportcommit git-cvsimport git-daemon git-describe git-diff git-diff-files git-diff-index git-diff-stages git-diff-tree git-fast-import git-fetch git-fetch-pack git-fmt-merge-msg git-format-patch git-fsck git-gc git-get-tar-commit-id git-grep git-hash-object git-http-fetch git-http-push git-imap-send git-index-pack git-init git-local-fetch git-log git-lost-found git-ls-files git-ls-remote git-ls-tree git-mailinfo git-mailsplit git-merge git-merge-base git-merge-index git-merge-one-file git-merge-tree git-mktag git-mktree git-mv git-name-rev git-octopus git-pack-objects git-pack-redundant git-pack-refs git-patch-id git-peek-remote git-prune git-prune-packed git-pull git-push git-read-tree git-rebase git-receive-pack git-reflog git-relink git-remote git-repack git-config git-request-pull git-rerere git-reset git-rev-list git-rev-parse git-revert git-rm git-send-email git-send-pack git-shortlog git-show git-show-branch git-show-index git-ssh-fetch git-ssh-upload git-status git-stripspace git-svnimport git-symbolic-ref git-tag git-tar-tree git-unpack-file git-unpack-objects git-update-index git-update-ref git-update-server-info git-upload-pack git-var git-verify-pack git-verify-tag git-whatchanged git-write-tree
+#compdef git git-add git-am git-annotate git-apply git-applymbox git-applypatch git-archimport git-archive git-bisect git-blame git-branch git-cat-file git-check-ref-format git-checkout git-checkout-index git-cherry git-cherry-pick git-clean git-clone git-clone-pack git-commit git-commit-tree git-convert-objects git-count-objects git-cvsexportcommit git-cvsimport git-daemon git-describe git-diff git-diff-files git-diff-index git-diff-stages git-diff-tree git-fast-import git-fetch git-fetch-pack git-fmt-merge-msg git-format-patch git-fsck git-gc git-get-tar-commit-id git-grep git-hash-object git-http-fetch git-http-push git-imap-send git-index-pack git-init git-instaweb git-local-fetch git-log git-lost-found git-ls-files git-ls-remote git-ls-tree git-mailinfo git-mailsplit git-merge git-merge-base git-merge-index git-merge-one-file git-merge-tree git-mktag git-mktree git-mv git-name-rev git-octopus git-pack-objects git-pack-redundant git-pack-refs git-patch-id git-peek-remote git-prune git-prune-packed git-pull git-push git-read-tree git-rebase git-receive-pack git-reflog git-relink git-remote git-repack git-config git-request-pull git-rerere git-reset git-rev-list git-rev-parse git-revert git-rm git-send-email git-send-pack git-shortlog git-show git-show-branch git-show-index git-ssh-fetch git-ssh-upload git-status git-stripspace git-svnimport git-symbolic-ref git-tag git-tar-tree git-unpack-file git-unpack-objects git-update-index git-update-ref git-update-server-info git-upload-pack git-var git-verify-pack git-verify-tag git-whatchanged git-write-tree
 
 # Commands not completed:
 # git-cvsserver
@@ -256,6 +256,7 @@ _git_commands () {
     'format-patch:prepare patches for e-mail submission'
     'ls-files:information about files in the index/working directory'
     'config:get and set options in "$GIT_DIR/config"'
+    'instaweb:insantly browse your working repository in gitweb'
     'remote:manage set of tracked repositories'
     'send-email:send patch-e-mails out of "format-patch" output'
     'update-index:modify index in some given way')
@@ -1971,6 +1972,19 @@ _git-get-tar-commit-id () {
   _message 'no arguments allowed; accepts tar-file on standard input'
 }
 
+(( $+functions[_git-instaweb] )) ||
+_git-instaweb () {
+  _arguments \
+    '(-l --local)'{-l,--local}'[bind the web server to 127.0.0.1]' \
+    '(-d --httpd)'{-d,--httpd=}'[HTTP-daemon command-line that will be executed]:command line' \
+    '(-m --module-path)'{-m,--module-path=}'[module path for the Apache HTTP-daemon]:module path:_directories' \
+    '(-p --port)'{-p,--port=}'[port to bind web server to]: :_guard "[[\:digit\:]]" port' \
+    '(-b --browser)'{-b,--browser=}'[web-browser command-line that will be executed]:command line' \
+    '--start[start the HTTP-daemon and exit]' \
+    '--stop[start the HTTP-daemon and exit]' \
+    '--restart[restart the HTTP-daemon and exit]' && ret=0
+}
+
 (( $+functions[_git-mailinfo] )) ||
 _git-mailinfo () {
   _arguments \
@@ -2546,15 +2560,20 @@ __git_config_name () {
       'user.name:full name used for commits'
       'user.signingkey:default GPG key to use when creating signed tags'
       'whatchanged.difftree:default git-diff-tree arguments for git-whatchanged'
+      'receive.unpackLimit:maximum number of objects to unpack when pushing'
+      'receive.denyNonFastforwards:whether git-receive-pack denies ref updates which are not fast-forwards'
+      'transfer.unpackLimit:default value for fetch.unpackLimit and receive.unpackLimit'
       'imap.Folder:IMAP folder to use with git-imap-send'
       'imap.Tunnel:tunneling command to use for git-imap-send'
       'imap.Host:host git-imap-send should connect to'
       'imap.User:user git-imap-send should log in as'
       'imap.Pass:password git-imap-send should use when logging in'
       'imap.Port:port git-imap-send should connect on'
-      'receive.unpackLimit:maximum number of objects to unpack when pushing'
-      'receive.denyNonFastforwards:whether git-receive-pack denies ref updates which are not fast-forwards'
-      'transfer.unpackLimit:default value for fetch.unpackLimit and receive.unpackLimit')
+      'instaweb.local:whether instaweb should bind to 127.0.0.1'
+      'instaweb.httpd:HTTP-daemon command-line to execute for instaweb'
+      'instaweb.port:port to bind HTTP daemon to for instaweb'
+      'instaweb.browser:web-browser command-line to execute for instaweb'
+      'instaweb.modulepath:module path for the Apache HTTP-daemon for instaweb')
 
     declare -a suffixed_names
 
@@ -3025,6 +3044,15 @@ __git_config_values () {
       # TODO: This should complete the options available to git-diff-tree.
       _message 'default options to git-diff-tree when invoking git-whatchanged'
       ;;
+    ((#i)receive.denyNonFastForwards)
+      declare -a booleans
+
+      booleans=(
+        {true,yes}":git-receive-pack will deny a ref update that isn't a fast forward"
+        {false,no}":allow a ref update that isn't a fast forward")
+
+      _describe -t booleans 'boolean' booleans
+      ;;
     ((#i)imap.folder)
       _mailboxes
       ;;
@@ -3044,14 +3072,29 @@ __git_config_values () {
     ((#i)imap.port)
       _ports
       ;;
-    ((#i)receive.denyNonFastForwards)
+    ((#i)instaweb.local)
       declare -a booleans
 
       booleans=(
-        {true,yes}":git-receive-pack will deny a ref update that isn't a fast forward"
-        {false,no}":allow a ref update that isn't a fast forward")
+        {true,yes}':bind the HTTP daemon to 127.0.0.1'
+        {false,no}":don't bind the HTTP daemon to a specific address")
 
       _describe -t booleans 'boolean' booleans
+      ;;
+    ((#i)instaweb.httpd)
+      _message -e command-lines 'HTTP-daemon command-line'
+      ;;
+    ((#i)instaweb.port)
+      _ports
+      ;;
+    ((#i)instaweb.browser)
+      _message -e command-lines 'web-browser command-line'
+      ;;
+    ((#i)instaweb.modulepath)
+      local expl
+
+      _description directories expl 'module path'
+      _directories $expl
       ;;
     (*)
       _message 'value'
