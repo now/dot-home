@@ -525,6 +525,7 @@ _git-merge-index () {
   fi
 }
 
+# TODO: Shouldn’t we add a __git_branches type completion?
 (( $+functions[_git-merge-tree] )) ||
 _git-merge-tree () {
   _arguments \
@@ -1664,7 +1665,15 @@ _git-repack () {
 
 (( $+functions[_git-rerere] )) ||
 _git-rerere () {
-  _nothing
+  declare -a commands
+
+  commands=(
+    'clear:reset the metadata used by rerere'
+    'diff:output diffs for the current state of the resolution'
+    'status:like diff, but only output filesames'
+    'gc:prune old records of conflicted merges')
+
+  _describe -t commands 'command' commands
 }
 
 (( $+functions[_git-reset] )) ||
