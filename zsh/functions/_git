@@ -1758,15 +1758,15 @@ _git-verify-tag () {
     ':tag:__git_tag_ids' && ret=0
 }
 
-# TODO: this should be a combination of git-rev-list and git-diff-tree
+# TODO: This should take those arguments that git-diff-tree can take, as well.
 (( $+functions[_git-whatchanged] )) ||
 _git-whatchanged () {
-  _arguments \
-    '-p[show textual diffs]' \
-    '--max-count=-[imit output to N commits]: :_guard "[[\:digit\:]]#" number' \
-    '-r[how git internal diff output for the whole tree]' \
-    $pretty_arg \
-    '-m[show differences from all parents]' \
+  declare -a revision_arguments
+
+  __git_setup_revision_arguments
+
+  _arguments -S \
+    $revision_arguments \
     '1::commit id:__git_commits2' \
     '*:managed file:__git_cached_files' && ret=0
 }
