@@ -267,7 +267,7 @@ _git_commands () {
     'cvsexportcommit:export a commit to a CVS checkout'
     'cvsimport:import a CVS "repository" into a git repository'
     'svnimport:import SVN repository into git'
-    'quiltimport:apply a quilt patchset onto the current branch')
+    'quiltimport:apply a quilt patchset)
 
   local -a ancillary_commands
   ancillary_commands=(
@@ -2045,9 +2045,9 @@ _git-patch-id () {
 (( $+functions[_git-request-pull] )) ||
 _git-request-pull () {
   _arguments \
-    ':start commit:__git_revisions' \
+    ':start commit:__git_commits' \
     ':url:_urls' \
-    '::end commit:__git_revisions'
+    '::end commit:__git_commits'
 }
 
 (( $+functions[_git-rev-parse] )) ||
