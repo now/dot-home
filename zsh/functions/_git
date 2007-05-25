@@ -2504,7 +2504,6 @@ __git_config_name () {
       'receivepack:default program to execute on remote when pushing'
       'uploadpack:default program to execute on remote when fetching'
       'tagopt:options for retrieving remote tags')
-    return
   elif [[ -prefix remote.* ]]; then
     compset -P 'remote.'
 
@@ -2514,6 +2513,38 @@ __git_config_name () {
     compset -P 'remotes.'
 
     __git_remote-groups
+    return 
+  elif [[ -prefix gitcvs.* ]]; then
+    names=(
+      'enabled:whether the cvs pserver interface is enabled'
+      'logfile:name of log file for cvs pserver'
+      'allbinary:whether to treat all files from CVS as binary')
+
+    local label
+    if [[ -prefix gitcvs.*.* ]]; then
+      compset -P 'gitcvs.*.'
+
+      label="gitcvs ${${words[CURRENT]#gitcvs.}%.*}-specific setting"
+    else
+      compset -P 'gitcvs.'
+
+      label='gitcvs setting'
+
+      names+=(
+        'dbname:name of database to use'
+        'dbdriver:name of DBI driver to use'
+        'dbuser:username to connect to database as'
+        'dbpass:password to use when connecting to database')
+
+      declare -a suffixed_names
+      suffixed_names=(
+        'ext:ext-connection-method-specific settings'
+        'pserver:pserver-connection-method-specific settings')
+
+      _describe -t suffixed-names 'gitcvs connection-specific setting' suffixed_names -M 'm:{a-zA-Z}={A-Za-z}' -M 'r:|.=* r:|=*' -S '.' -r '.' && ret=0
+    fi
+
+    _describe -t names $label names -M 'm:{a-zA-Z}={A-Za-z}' -M 'r:|.=* r:|=*' && ret=0
     return
   else
     names=(
@@ -2564,9 +2595,6 @@ __git_config_name () {
       'gc.reflogexpireunreachable:default age for "git reflog expire" for unreachable'
       'gc.rerereresolved:number of days to keep records of resolved merges'
       'gc.rerereunresolved:number of days to keep records of unresolved merges'
-      'gitcvs.enabled:whether the cvs pserver interface is enabled'
-      'gitcvs.logfile:name of log file for cvs pserver'
-      'gitcvs.allbinary:whether to treat all files from CVS as binary'
       'http.sslVerify:whether to verify the SSL certificate for HTTPS'
       'http.sslCert:file containing SSL certificates for HTTPS'
       'http.sslKey:file containing the SSL private key for HTTPS'
@@ -2614,7 +2642,8 @@ __git_config_name () {
       'alias:command aliases'
       'branch:prefix for branch-specific variables'
       'remote:prefix for remote-repository variables'
-      'remotes:prefix for remote-groups')
+      'remotes:prefix for remote-groups'
+      'gitcvs:prefix for git-cvsserver-specific variables')
 
     _describe -t suffixed-names 'special name' suffixed_names -M 'm:{a-zA-Z}={A-Za-z}' -M 'r:|.=* r:|=*' -S '.' -r '.' && ret=0
   fi
@@ -2881,7 +2910,7 @@ __git_config_values () {
       # description/tag.
       __git_datetimes
       ;;
-    ((#i)gitcvs.enabled)
+    ((#i)gitcvs.(*.|)enabled)
       declare -a booleans
 
       booleans=(
@@ -2890,10 +2919,10 @@ __git_config_values () {
 
       _describe -t booleans 'boolean' booleans
       ;;
-    ((#i)gitcvs.logfile)
+    ((#i)gitcvs.(*.|)logfile)
       _files
       ;;
-    ((#i)gitcvs.allbinary)
+    ((#i)gitcvs.(*.|)allbinary)
       declare -a booleans
 
       booleans=(
@@ -2902,6 +2931,33 @@ __git_config_values () {
 
       _describe -t booleans 'boolean' booleans
       ;;
+    ((#i)gitcvs.dbname)
+      # TODO: In the future, when computers are self-aware and this won’t
+      # really matter anymore, one could inspect what gitcvs.dbdriver is set to
+      # and complete possible databases for that DBI driver.
+      _message -e 'database name'
+      ;;
+    ((#i)gitcvs.dbdriver)
+      declare -a drivers
+
+      # TODO: Would be nice to only include those that are installed, but I
+      # couldn’t figure out a good way of doing that when I wrote this code.
+      drivers=(
+        'SQLite:use the SQLite database driver (default)'
+        'Pg:use the Pg database driver')
+
+      _describe -t dbi-drivers 'DBI driver' drivers
+      ;;
+    ((#i)gitcvs.dbuser)
+      local expl
+
+      _description users expl 'database user'
+      _users $expl
+      ;;
+    ((#i)gitcvs.dbpass)
+      _message -e 'database password'
+      ;;
+    ((#i)
     ((#i)http.sslVerify)
       declare -a booleans
 
