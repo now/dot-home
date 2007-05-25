@@ -2098,18 +2098,21 @@ _git-rm () {
 (( $+functions[_git-send-email] )) ||
 _git-send-email () {
   _arguments \
-    '--cc=[starting "Cc:" value for each email]:email' \
+    '--bcc=["Bcc:" value for each email]:email address:_email_addresses' \
+    '--cc=[starting "Cc:" value for each email]:email address:_email_addresses' \
     '(--no-chain-reply-to)--chain-reply-to[each email will be sent as a reply to the previous one sent]' \
     '(--chain-reply-to)--no-chain-reply-to[all emails after the first will be sent as replies to the first one]' \
     '--compose[use $EDITOR to edit an introductory message for the patch series]' \
-    '--from=[specify the sender of the emails]:email' \
+    '--from=[specify the sender of the emails]:email address:_email_addresses' \
     '--in-reply-to=[specify the contents of the first In-Reply-To header]:message-id' \
     '--no-signed-off-by-cc[do not add emails foudn in "Signed-off-by:" lines to the "Cc:" list]' \
     '--quiet[be less verbose]' \
     '--smtp-server=[specify the outgoing smtp server]:smtp server:_hosts' \
     '--subject=[specify the initial subject of the email thread]:subject' \
     '--suppress-from[do not add the "From:" address to the "Cc:" list]' \
-    '--to=[specify the primary recipient of the emails]:email' \
+    '--dry-run[do everything except actually send the emails]' \
+    '--envelope-sender[specify the envelope sender used to send the emails]:email address:_email_addresses' \
+    '--to=[specify the primary recipient of the emails]:email address:_email_addresses' \
     '*:file:_files' && ret=0
 }
 
