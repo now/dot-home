@@ -1831,22 +1831,17 @@ _git-cvsimport () {
     '-k[remove keywords from source files in the CVS archive]' \
     '-m[attempt to detect merges based on the commit message]' \
     '-M[attempt to detect merges based on the commit message with custom pattern]:pattern' \
-    '-o[specify the branch into which you wish to import]:branch' \
+    '-o[specify the branch into which you wish to import]:branch:__git_branches' \
     '-P[read cvsps output file]:file:_files' \
     '-p[specify additionaly options for cvsps]:cvsps-options' \
     '-s[substitute the "/" character in branch names with given substitution]:substitute' \
     '-u[convert underscores in tag and branch names to dots]' \
+    '-S[skip paths matching given regex]:regex' \
+    '-a[import all commits, including recent ones]' \
+    '-L[limit the number of commits imported]: :_guard "[[\:digit\:]]" limit' \
     $verbose_arg \
     '-z[specify timestamp fuzz factor to cvsps]:fuzz-factor' \
     ':cvsmodule' && ret=0
-}
-
-(( $+functions[_git-cvsexportcommit] )) ||
-_git-cvsexportcommit () {
-  _arguments \
-    '-c[commit automatically if the patch applies cleanly]' \
-    '-p[be pedantic/paranoid when applying patches]' \
-    $verbose_arg && ret=0
 }
 
 (( $+functions[_git-lost-found] )) ||
