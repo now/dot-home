@@ -2,3 +2,10 @@
 " Maintainer:       <name>
 " Latest Revision:  
 
+let s:cpo_save = &cpo
+set cpo&vim
+
+
+
+let s:cpo_save = &cpo
+set cpo&vim
