@@ -439,14 +439,20 @@ _git-apply () {
     $nul_arg \
     '--allow-binary-replacement[allow binary files to be patched]' \
     '--apply[apply patches that would otherwise not be applied]' \
+    '--cached[apply patches without touching the working tree]' \
     '--check[check if patches are applicable (turns off "apply")]' \
     '--exclude=-[skip files matching specified pattern]:pattern' \
+    '--inaccurate-eof[work around missing-new-line-at-EOF bugs]' \
     '--index[make sure that the patch is applicable to the index]' \
     '--index-info[output information about original version of a blob if available]' \
     '--no-add[ignore additions made by the patch]' \
     '--numstat[same as --stat but in decimal notation and complete pathnames (turns off "apply")]' \
+    '(-R --reverse)'{-R,--reverse}'[apply patches in reverse]' \
+    '--reject[apply as much as possible, and leave rejected hunks in .rej files]' \
     '--stat[output diffstat for the input (turns off "apply")]' \
     '--summary[output summary of git-diff extended headers (turns off "apply")]' \
+    '--unidiff-zero[disable unified-diff-context check]' \
+    '(-v --verbose)'{-v,--verbose}'[report progress to stderr]' \
     $common_apply_args \
     '*::patch:_files' && ret=0
 }
