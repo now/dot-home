@@ -513,8 +513,19 @@ _git-hash-object () {
 
 (( $+functions[_git-index-pack] )) ||
 _git-index-pack () {
+  local -a stdin_arguments
+
+  if (( words[(I)--stdin] )); then
+    stdin_arguments=(
+      '--fix-thin[record deltified objects, based on objects not included]'
+      '--keep=-[create .keep file]::reason:')
+  fi
+
   _arguments \
+    '-v[report progress to stderr]' \
     '-o[write generated pack index into specified file]:file:_files' \
+    '--stdin[read pack from stdin and instead write to specified file]' \
+    $stdin_arguments \
     ':pack file:_files -g "*.pack"' && ret=0
 }
 
