@@ -2881,7 +2881,7 @@ __git_config_name () {
       'instaweb.modulepath:module path for the Apache HTTP-daemon for instaweb'
       'svn.noMetadata:disable git-svn-id\: lines at end of commits (fetch, clone, dcommit, set-tree, rebase)'
       'svn.useSvmProps:whether to use remappings of URLs and UUIDs from mirrors (fetch, clone, dcommit, set-tree, rebase)'
-      'svn.useSvnsyncProps:similar to useSvmProps, but for the svnsync command (fetch, clone, dcommit, set-tree, rebase)')
+      'svn.useSvnsyncProps:similar to useSvmProps, but for the svnsync command (fetch, clone, dcommit, set-tree, rebase)'
       'svn.followparent:whether to follow parent commit (fetch, clone, dcommit, set-tree, rebase)'
       'svn.authorsfile:default authors file to use (fetch, clone, dcommit, set-tree, rebase)'
       'svn.username:username to use for SVN transport (fetch, clone, dcommit, set-tree, rebase, init)'
