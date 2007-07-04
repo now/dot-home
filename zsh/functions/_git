@@ -599,13 +599,19 @@ _git-mktree () {
 (( $+functions[_git-pack-objects] )) ||
 _git-pack-objects () {
   _arguments \
+    '(--revs)--all[include all refs as well as revisions already specified]' \
+    '--all-progress[force progress output, even during write-out phase]' \
+    '--delta-base-offset[use delta-base-offset packing]' \
     '--depth=-[maximum delta depth]: :_guard "[[\:digit\:]]#" number' \
     '--incremental[ignore objects that have already been packed]' \
     '--no-reuse-delta[do not reuse existing deltas, but compute them from scratch]' \
     '--non-empty[only create a package if it contains at least one object]' \
     '--local[similar to --incremental, but only ignore unpacked non-local objects]' \
+    '--progress[force progress output]' \
+    '--revs[read revision arguments from standard input]' \
     '(:)--stdout[write the pack to standard output]' \
     '-q[do not report progress]' \
+    '(--revs)--unpacked[limit objects to pack to those not already packed]' \
     '--window=-[number of objects to use per delta compression]: :_guard "[[\:digit\:]]#" number' \
     '(--stdout):base-name:_files' && ret=0
 }
