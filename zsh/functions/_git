@@ -1902,6 +1902,7 @@ _git-relink () {
 }
 
 # TODO: import stuff from _svn
+# TODO: Improve completion of -P argument.
 (( $+functions[_git-svnimport] )) ||
 _git-svnimport () {
   _arguments \
@@ -1920,6 +1921,9 @@ _git-svnimport () {
     '-s[specify the change number to start importing from:start-revision' \
     '-T[specify the name of the SVN tags directory]:directory:_directories' \
     '-t[specify the name of the SVN trunk]:trunk:_directories' \
+    '-I[import svn:ignore directory property to files with given name]:ignored file:_files' \
+    '-R[specify how often git repository should be repacked]: :_guard "[[\:digit\:]]#" "number of revisions"' \
+    '-P[import only given path of the SVN tree]::_directory' \
     $verbose_arg \
     ':svn-repositry-url:_urls' \
     '::directory:_directories' && ret=0
