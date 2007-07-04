@@ -145,11 +145,7 @@ common_fetch_args=(
 declare -ga common_apply_args
 
 common_apply_args=(
-  '--whitespace=-[detect a new or modified line that ends with trailing whitespaces]:whitespace:((nowarn\:"turn off the trailing whitespace warning"
-                                                                                                  warn\:"output warning, but apply patch"
-                                                                                                  error\:"output warning and refuse to apply patch"
-                                                                                                  error-all\:"similar to error but show all errors"
-                                                                                                  strip\:"output warning and strip trailing whitespace"))'
+  '--whitespace=-[detect a new or modified line that ends with trailing whitespaces]: :__git_apply_whitespace_strategies'
   '-p-[remove N leading slashes from traditional diff paths]: :_guard  "[[\:digit\:]]#" number'
   '-C-[ensure at least N lines of context match before and after each change]: :_guard  "[[\:digit\:]]#" number')
 
@@ -3101,16 +3097,7 @@ __git_config_values () {
       _message 'git sub-command with arguments'
       ;;
     ((#i)apply.whitespace)
-      declare -a values
-
-      values=(
-        'nowarn:turn off the trailing-whitespace warning'
-        'warn:output trailing-whitespace warning, but apply patch'
-        'error:output trailing-whitespace warning and refuse to apply patch'
-        'error-all:same as "error", but output warnings for all files'
-        'strip:output trailing-whitespace warning and string trailing whitespace')
-
-      _describe -t value 'value' values
+      __git_apply_whitespace_strategies
       ;;
     ((#i)branch.*.remote)
       __git_remotes
@@ -3732,6 +3719,20 @@ __git_repository_permissions () {
     {umask,false}':use permissions reported by umask()')
 
   _describe -t permissions 'permission' permissions
+}
+
+(( $+functions[__git_apply_whitespace_strategies] )) ||
+__git_apply_whitespace_strategies () {
+  declare -a strategies
+
+  strategies=(
+    'nowarn:turn off the trailing-whitespace warning'
+    'warn:output trailing-whitespace warning, but apply patch'
+    'error:output trailing-whitespace warning and refuse to apply patch'
+    'error-all:same as "error", but output warnings for all files'
+    'strip:output trailing-whitespace warning and strip trailing whitespace')
+
+  _describe -t strategies 'trailing-whitespace resolution strategy' strategies
 }
 
 (( $+functions[__git_svn_revisions] )) ||
