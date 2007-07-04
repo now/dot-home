@@ -593,7 +593,7 @@ _git-mktag () {
 (( $+functions[_git-mktree] )) ||
 _git-mktree () {
   _arguments \
-    $nul_arg && ret=0
+    '-z[read NUL-terminated ls-tree -z output]' && ret=0
 }
 
 (( $+functions[_git-pack-objects] )) ||
