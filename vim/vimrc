@@ -159,9 +159,9 @@ cnoremap <M-f>  <S-Right>
 cnoremap <expr> <C-S> (getcmdtype() == '/' \|\| getcmdtype() == '?') ? '<Return>' . getcmdtype() . '<C-R>/' : ""
 cnoremap <expr> <C-O> (getcmdtype() == '/' \|\| getcmdtype() == '?') ? '<Return>' . (getcmdtype() == '/' ? '?' : '/') . '<C-R>/' : ""
 
-noremap <silent> g: <Esc>:set operatorfunc=GetCommandModeRange<CR>g@
+noremap <silent> g: <Esc>:set operatorfunc=<SID>get_command_mode_range<CR>g@
 
-function! GetCommandModeRange(type)
+function! s:get_command_mode_range(type)
   let b = line("'[")
   let e = line("']")
 
