@@ -1209,7 +1209,7 @@ _git-add () {
     '-n[do not actually add files; only show which ones would be added]' \
     '-v[show files as they are added]' \
     '-f[allow adding otherwise ignored files]' \
-    '(-i --interactive)'{-i,--interactive}'[add contents interactively to the index]' \
+    '(-i --interactive : -)'{-i,--interactive}'[add contents interactively to the index]' \
     '*:file:->files' && ret=0
 
   case $state in
