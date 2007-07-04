@@ -501,7 +501,7 @@ _git-commit-tree () {
 
 (( $+functions[_git-hash-object] )) ||
 _git-hash-object () {
-  _arguments \
+  _arguments -S \
     '(:)--stdin[read object from standard input]' \
     '-t[the type of object to create]:object type:((blob\:"a blob of data"
                                                     commit\:"a tree with parent commits"
