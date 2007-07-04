@@ -1986,12 +1986,13 @@ _git-svnimport () {
 }
 
 # TODO: how do we complete argument 1?
-# TODO: argument 2 should be __git_heads, but with full path
 (( $+functions[_git-symbolic-ref] )) ||
 _git-symbolic-ref () {
-  _arguments \
+  _arguments -A '-*' \
+    '-q[do not issue error if specified name is not a symbolic ref]' \
+    '-m[update reflog for specified name with specied reason]:reason for update' \
     ':symbolic reference' \
-    '::reference' && ret=0
+    '::reference:__git_references' && ret=0
 }
 
 (( $+functions[_git-tag] )) ||
