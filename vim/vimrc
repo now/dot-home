@@ -3,7 +3,6 @@
 " Copyright © 2002,2003,2004,2005 Nikolai Weibull <now@bitwi.se>
 
 set cpoptions&vim
-set pastetoggle=<F12>
 let &runtimepath = substitute(&rtp, expand('~/\.vim'), '\~/.local/etc/vim', 'g')
 set nostartofline
 set incsearch
