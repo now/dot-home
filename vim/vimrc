@@ -1,6 +1,6 @@
 " contents: vim(1) text editor user RC file.
 "
-" Copyright © 2002,2003,2004,2005 Nikolai Weibull <now@bitwi.se>
+" Copyright © 2002,2003,2004,2005,2006,2007 Nikolai Weibull <now@bitwi.se>
 
 set cpoptions&vim
 let &runtimepath = substitute(&rtp, expand('~/\.vim'), '\~/.local/etc/vim', 'g')
@@ -11,7 +11,6 @@ let &fillchars = 'diff: ,fold: ,vert:' . (&encoding == 'utf-8' ? '│' : '|')
 " TODO: seriously, everyone wants this.  Why is this not enabled by default?
 syntax enable
 colorscheme now
-" TODO: perhaps unset this?
 set statusline=%F%(\ [%1*%M%*%(,%2*%R%*%)]%)\ %w%=%(\ %y%)\ line:\ %l\ of\ %L
 set hidden
 " TODO: can we remove this?
@@ -103,10 +102,8 @@ function! s:map_swap_both_cases(...)
 endfunction
 
 call s:map_swap_both_cases(['t', 'j'], ['n', 'k'], ['s', 'l'])
-"noremap k nzv
-"noremap K Nzv
-noremap <silent> k <Esc>:call feedkeys('n', 'nt')<CR>
-noremap <silent> K <Esc>:call feedkeys('N', 'nt')<CR>
+noremap <silent> k :<C-U>call feedkeys(v:count1 . 'n', 'nt')<CR>
+noremap <silent> K :<C-U>call feedkeys(v:count1 . 'N', 'nt')<CR>
 
 call s:map_swap_both_cases(['<C-W>t', '<C-W>j'], ['<C-W><C-T>', '<C-W><C-J>'])
 call s:map_swap_both_cases(['<C-W>n', '<C-W>k'], ['<C-W><C-N>', '<C-W><C-K>'])
@@ -116,6 +113,10 @@ noremap zS zL
 noremap zK zN
 noremap gt gj
 noremap gn gk
+
+delfunction s:map_swap_both_cases
+delfunction s:map_swap_list
+delfunction s:map_swap
 
 noremap <Space> <C-F>
 ounmap <Space>
