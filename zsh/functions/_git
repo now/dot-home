@@ -1,4 +1,4 @@
-#compdef git git-add git-am git-annotate git-apply git-applymbox git-applypatch git-archimport git-archive git-bisect git-blame git-branch git-cat-file git-check-ref-format git-checkout git-checkout-index git-cherry git-cherry-pick git-clean git-clone git-clone-pack git-commit git-commit-tree git-convert-objects git-count-objects git-cvsexportcommit git-cvsimport git-daemon git-describe git-diff git-diff-files git-diff-index git-diff-stages git-diff-tree git-fast-import git-fetch git-fetch-pack git-fmt-merge-msg git-format-patch git-fsck git-gc git-get-tar-commit-id git-grep git-hash-object git-http-fetch git-http-push git-imap-send git-index-pack git-init git-instaweb git-local-fetch git-log git-lost-found git-ls-files git-ls-remote git-ls-tree git-mailinfo git-mailsplit git-merge git-merge-base git-merge-index git-merge-one-file git-merge-tree git-mktag git-mktree git-mv git-name-rev git-octopus git-pack-objects git-pack-redundant git-pack-refs git-patch-id git-peek-remote git-prune git-prune-packed git-pull git-push git-quiltimport git-read-tree git-rebase git-receive-pack git-reflog git-relink git-remote git-repack gut-runstatus git-config git-request-pull git-rerere git-reset git-rev-list git-rev-parse git-revert git-rm git-send-email git-send-pack git-shortlog git-show git-show-branch git-show-index git-ssh-fetch git-ssh-upload git-status git-stripspace git-svnimport git-symbolic-ref git-tag git-tar-tree git-unpack-file git-unpack-objects git-update-index git-update-ref git-update-server-info git-upload-pack git-var git-verify-pack git-verify-tag git-whatchanged git-write-tree
+#compdef git git-add git-am git-annotate git-apply git-applymbox git-applypatch git-archimport git-archive git-bisect git-blame git-branch git-cat-file git-check-ref-format git-checkout git-checkout-index git-cherry git-cherry-pick git-clean git-clone git-clone-pack git-commit git-commit-tree git-convert-objects git-count-objects git-cvsexportcommit git-cvsimport git-daemon git-describe git-diff git-diff-files git-diff-index git-diff-stages git-diff-tree git-fast-import git-fetch git-fetch-pack git-fmt-merge-msg git-format-patch git-fsck git-gc git-get-tar-commit-id git-grep git-hash-object git-http-fetch git-http-push git-imap-send git-index-pack git-init git-instaweb git-local-fetch git-log git-lost-found git-ls-files git-ls-remote git-ls-tree git-mailinfo git-mailsplit git-merge git-merge-base git-merge-index git-merge-one-file git-merge-tree git-mktag git-mktree git-mv git-name-rev git-octopus git-pack-objects git-pack-redundant git-pack-refs git-patch-id git-peek-remote git-prune git-prune-packed git-pull git-push git-quiltimport git-read-tree git-rebase git-receive-pack git-reflog git-relink git-remote git-repack gut-runstatus git-config git-request-pull git-rerere git-reset git-rev-list git-rev-parse git-revert git-rm git-send-email git-send-pack git-shortlog git-show git-show-branch git-show-index git-ssh-fetch git-ssh-upload git-status git-stripspace git-svn git-svnimport git-symbolic-ref git-tag git-tar-tree git-unpack-file git-unpack-objects git-update-index git-update-ref git-update-server-info git-upload-pack git-var git-verify-pack git-verify-tag git-whatchanged git-write-tree
 
 # Commands not completed:
 # git-cvsserver
@@ -23,11 +23,19 @@ declare -g abbrev_arg
 
 abbrev_arg='--abbrev=-[set minimum SHA1 display-length]: :_guard "[[\:digit\:]]##" length'
 
+declare -g find_copies_harder_arg=
+
+find_copies_harder_arg='--find-copies-harder[try harder to find copies]'
+
+declare -g diff_l_arg
+
+diff_l_arg='-l-[limit number of rename/copy targets to run]: :_guard "[[\:digit\:]]#" number'
+
 declare -ga diff_args
 
 diff_args=(
   '--diff-filter=-[select certain kinds of files for diff]: :_guard "[ACDMRTUXB*]#" kinds'
-  '--find-copies-harder[try harder to find copies]'
+  $find_copies_harder_arg
   '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw --raw --numstat --shortstat --summary)--name-only[show only names of changed files]'
   '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw --raw --numstat --shortstat --summary)--name-status[show only names and status of changed files]'
   '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw --raw --numstat --shortstat --summary)'{-u,-p}'[generate diff in patch format]'
@@ -40,7 +48,7 @@ diff_args=(
   '(--name-only --name-status -u -p --stat --patch-with-stat --patch-with-raw --raw --numstat --shortstat --summary)--summary[generate a condensed summary of extended header information]' \
   '-B-[break complete rewrite changes into pairs of given size]: :_guard "[[\:digit\:]]#" size'
   '-C-[detect copies as well as renames with given scope]: :_guard "[[\:digit\:]]#" size'
-  '-l-[limit number of rename/copy targets to run]: :_guard "[[\:digit\:]]#" number'
+  $diff_l_arg
   '-M-[detect renames with given scope]: :_guard "[[\:digit\:]]#" size'
   '-O-[output patch in the order of glob-pattern lines in given file]:file:_files'
   '-R[do a reverse diff]'
@@ -107,8 +115,14 @@ tags_fetch_arg=(
   '(--no-tags -t --tags)'{-t,--tags}'[fetch remote tags]'
 )
 
+
+author_conversion_file_arg_spec='[specify author-conversion file]:author-conversion file:_files'
+
 declare -g author_conversion_file_arg=
-author_conversion_file_arg='-A[specify author-conversion file]:author-conversion file:_files'
+author_conversion_file_arg='-A'$author_conversion_file_arg_spec
+
+declare -g long_author_conversion_file_arg=
+long_author_conversion_file_arg='--authors-file=-'$author_conversion_file_arg_spec
 
 declare -g verbose_arg=
 verbose_arg='-v[produce verbose output]'
@@ -142,6 +156,10 @@ common_apply_args=(
 declare -g template_arg=
 
 template_arg='--template=-[directory to use as a template for the object database]:directory:_directories'
+
+declare -g shared_arg=
+
+shared_arg='--shared=-[share repository amongst several users]::permissions:__git_repository_permissions'
 
 __git_zstyle_default () {
   zstyle -t $1 $2
@@ -267,7 +285,8 @@ _git_commands () {
     'cvsexportcommit:export a commit to a CVS checkout'
     'cvsimport:import a CVS "repository" into a git repository'
     'svnimport:import SVN repository into git'
-    'quiltimport:apply a quilt patchset)
+    'quiltimport:apply a quilt patchset'
+    'svn:bidirectional operation between a single Subversion branch and git')
 
   local -a ancillary_commands
   ancillary_commands=(
@@ -500,13 +519,7 @@ _git-index-pack () {
 (( $+functions[_git-init] )) ||
 _git-init () {
   _arguments \
-    '--shared=-[share repository amongst several users]::permissions:((false\:"use umask permissions"
-                                                                       true\:"make repository group-writable"
-                                                                       umask\:"use umask permissions"
-                                                                       group\:"make repository group-writable"
-                                                                       all\:"make repository world-writable"
-                                                                       world\:"make repository world-writable"
-                                                                       everybody\:"make repository world-writable"))' \
+    $shared_arg \
     $template_arg && ret=0
 }
 
@@ -2116,6 +2129,194 @@ _git-send-email () {
     '*:file:_files' && ret=0
 }
 
+# TODO: -h, -H, and --help are undocumented.
+# TODO: -V and --version are undocumented.
+# TODO: --minimize-connections is undocumented.
+# TODO: --remote is undocumented.
+# TODO: --log-window-size is undocumented.
+# TODO: --config-dir is undocumented.
+# TODO: --no-auth-cache is undocumented.
+# TODO: -C and --copy-similarity are undocumented.
+# TODO: --fetch-all and --all are undocumented.
+# TODO: -v and --verbose are undocumented.
+# TODO: -r and --revisions for show-ignore are undocumented.
+# TODO: migrate is undocumented.
+# TODO: --minimize for migrate is undocumented.
+# TODO: -r, --color, --pager, and --non-recursive for log are undocumented.
+# TODO: --local for rebase is undocumented.
+# TODO: --message, -m, --file, -F, --revision, and -r for commit-diff are
+# undocumented.
+(( $+functions[_git-svn] )) ||
+_git-svn () {
+  local curcontext=$curcontext state line
+  declare -A opt_args
+
+  _arguments -C \
+    '(- :)--version[display version information]' \
+    '(- :)--help[display help message]' \
+    ':command:->command' \
+    '*::options:->options' && ret=0
+
+  case $state in
+    (command)
+      declare -a commands
+
+      commands=(
+        'init:initialize an empty git repository with additional svn data'
+        'fetch:fetch revisions from the SVN remote'
+        'clone:same as init, followed by fetch'
+        'rebase:fetch revs from SVN parent of HEAD and rebase current work on it'
+        'dcommit:commit diffs from given head onto SVN repository'
+        'log:output SVN log-messages'
+        "find-rev:output git commit corresponding to the given SVN revision's hash"
+        'set-tree:commit given commit or tree to SVN repository'
+        'show-ignore:output corresponding .gitignore file of svn:ignore'
+        'commit-diff:commit diff of two tree-ishs')
+      ;;
+    (options)
+      declare -a arguments
+
+      if [[ $line[1] == (fetch|clone|dcommit|set-tree|rebase|migrate|init) ]]; then
+        arguments+=(
+          '--username=[username to use for SVN transport]:username:_users'
+          '--config-dir=[undocumented]:configuration directory:_directories'
+          '--no-auth-cache[undocumented]')
+      fi
+
+      if [[ $line[1] == (fetch|clone|dcommit|set-tree|rebase|log) ]]; then
+        arguments+=(
+          '(   --authors-file)'$author_conversion_file_arg
+          '(-A               )'$long_author_conversion_file_arg)
+      fi
+
+      # TODO: --repack-flags can be improved by actually completing the legal
+      # flags to git-repack.
+      if [[ $line[1] == (fetch|clone|dcommit|set-tree|rebase) ]]; then
+        arguments+=(
+          '(-q --quiet)'{-q,--quiet}'[make git-svn less verbose]'
+          '--repack=[repack files (for given number of revisions)]:: :_guard "[[\:digit\:]]#" "revision limit"'
+          '(--repack-flags --repack-args --repack-opts)'{--repack-flags=,--repack-args=,--repack-opts=}'[flags to pass to git-repack]:git-repack flags'
+          '(                --no-follow-parent)--follow-parent[follow parent commit]'
+          '(--follow-parent                   )--no-follow-parent[do not follow parent commit]'
+          '--log-window-size=[undocumented]')
+      fi
+
+      if [[ $line[1] == (clone|init) ]]; then
+        arguments+=(
+          $shared_arg
+          $template_arg
+          '(-T --trunk)'{-T-,--trunk=}'[set trunk sub-directory]:trunk sub-directory:->subdirectory'
+          '(-t --tags)'{-t-,--tags=}'[set tags sub-directory]:tags sub-directory:->subdirectory'
+          '(-b --branches)'{-b-,--branches=}'[set branches sub-directory]:branches sub-directory:->subdirectory'
+          '--no-metadata[set svn-remote.X.noMetadata]'
+          '--use-svm-props[set svn-remote.X.useSvmProps]'
+          '--use-svnsync-props[set svn-remote.X.useSvnsyncProps]'
+          '--rewrite-root=[set svn-remote.X.rewriteRoot]:new root'
+          '--prefix=[prefix to use for names of remotes]:prefix')
+      fi
+
+      if [[ $line[1] == (dcommit|set-tree|commit-diff) ]]; then
+        arguments+=(
+          '--rmdir[remove empty directories from SVN tree after commit]'
+          '(-e --edit)'{-e,--edit}'[edit commit message before committing]'
+          $find_copies_harder_arg
+          $diff_l_arg
+          '(-C --copy-similarity)'{-C-,--copy-similarity=}'[undocumented]:number')
+      fi
+
+      # FIXME: What arguments does clone actually take here?
+      if [[ $line[1] == (fetch|clone) ]]; then
+        arguments+=(
+          '(-r --revision)'{-r,--revision}'[only fetch given revision or revision range]:revision:->__git_svn_revisions'
+          '::svn remote:__git_svn-remotes')
+      fi
+
+      if [[ $line[1] == (dcommit|rebase) ]]; then
+        arguments+=(
+          '(-m --merge)'{-m,--merge}'[use merging strategies, if necessary]')
+      fi
+
+      if [[ $line[1] == (fetch|dcommit|rebase) ]]; then
+        arguments+=(
+          '(--fetch-all --all)'{--fetch-all,--all}'[undocumented]')
+      fi
+
+      if [[ $line[1] == (dcommit|rebase) ]]; then
+        arguments+=(
+            $merge_strategy_arg)
+      fi
+
+      if [[ $line[1] == (dcommit|log|rebase) ]]; then
+        arguments+=(
+          '(- --verbose)'{-v,--verbose}'[output extra information]')
+      fi
+
+      case $line[1] in
+        (clone)
+          arguments+=(
+            ':url:_urls'
+            '::directory:_directories')
+          ;;
+        (set-tree)
+          arguments+=('--stdin[read list of commits to commit from stdin]')
+          ;;
+        (show-ignore)
+          arguments+=('-r --revision)'{-r,--revision)'[undocumented]:revision:->__git_svn_revisions'
+        (dcommit)
+          arguments+=(
+            '(-n --dry-run)'{-n,--dry-run}'[output git-commands that would show diffs that would be committed]')
+          ;;
+        (migrate)
+          arguments+=(
+            '--minimize[undocumented]')
+          ;;
+        (log)
+          declare -a revision_arguments
+
+          __git_setup_revision_arguments
+
+          arguments+=(
+            $revision_arguments
+            '(-r --revision)'{-r-,--revision=}'[revisions to output log information for]: :__git_svn_revision_numbers'
+            '--limit=[like --max-count, but not counting merged/excluded commits]: :_guard "[[\:digit\:]]#" limit'
+            '--incremental[give output suitable for concatenation]'
+            '--show-commit[output git commit SHA-1, as well]'
+            '--oneline[similar to --pretty=oneline]'
+            '--color[undocumented]'
+            '--pager[undocumented]:pager:_files -g *(*)'
+            '--non-recursive[undocumented]')
+          ;;
+        (rebase)
+          arguments+=(
+            '--local[undocumented]')
+          ;;
+        (commit-diff)
+          arguments+=(
+            '(-m --message)'{-m-,--message=}'[undocumented]:message'
+            '(-F --file)'{-F-,--file=}'[undocumented]:file:_files'
+            '(-r --revision)'{-r-,--revision=}'[undocumented]:revision:__git_svn_revisions')
+          ;;
+      esac
+
+      _arguments -C \
+        '(-h -H --help)'{-h,-H,--help}'[display usage information]' \
+        '(-V --version)'{-V,--version}'[display version information]' \
+        '--minimize-connections[undocumented]' \
+        '(-R --svn-remote --remote)'{-R,--svn-remote,--remote}'[svn remote to use]:svn remote:__git_svn-remotes'
+        '(-i --id)'{-i,--id}'[set GIT_SVN_ID]:GIT_SVN_ID'
+        $arguments && ret=0
+
+      case $state in
+        (subdirectory)
+          _alternative \
+            'sub-directories:sub-directory:_directories' \
+            'urls: :_urls' && ret=0
+          ;;
+      esac
+      ;;
+  esac
+}
+
 (( $+functions[_git-stripspace] )) ||
 _git-stripspace () {
   _message 'no arguments allowed; accepts input file on standard input'
@@ -2490,6 +2691,8 @@ __git_branch_names () {
 
 (( $+functions[__git_config_name] )) ||
 __git_config_name () {
+  local label=names
+
   declare -a names
 
   if [[ -prefix alias.* ]]; then
@@ -2532,7 +2735,6 @@ __git_config_name () {
       'logfile:name of log file for cvs pserver'
       'allbinary:whether to treat all files from CVS as binary')
 
-    local label
     if [[ -prefix gitcvs.*.* ]]; then
       compset -P 'gitcvs.*.'
 
@@ -2555,8 +2757,21 @@ __git_config_name () {
 
       _describe -t suffixed-names 'gitcvs connection-specific setting' suffixed_names -M 'm:{a-zA-Z}={A-Za-z}' -M 'r:|.=* r:|=*' -S '.' -r '.' && ret=0
     fi
+  elif [[ -prefix svn-remote.*.* ]]; then
+    compset -P 'svn.*.'
 
-    _describe -t names $label names -M 'm:{a-zA-Z}={A-Za-z}' -M 'r:|.=* r:|=*' && ret=0
+    label="git-svn ${${words[CURRENT]#svn.}%.*}-specific setting"
+
+    names=(
+      'noMetadata:disable git-svn-id\: lines at end of commits (fetch, clone, dcommit, set-tree, rebase)'
+      'useSvmProps:whether to use remappings of URLs and UUIDs from mirrors (fetch, clone, dcommit, set-tree, rebase)'
+      'useSvnsyncProps:similar to useSvmProps, but for the svnsync command (fetch, clone, dcommit, set-tree, rebase)'
+      'rewriteRoot:alternate root URL to use')
+
+  elif [[ -prefix svn-remote.* ]]; then
+    compset -P 'svn-remote.'
+
+    __git_svn-remotes -M 'm:{a-zA-Z}={A-Za-z}' -M 'r:|.=* r:|=*' -S '.' -r '.' && ret=0
     return
   else
     names=(
@@ -2646,7 +2861,48 @@ __git_config_name () {
       'instaweb.httpd:HTTP-daemon command-line to execute for instaweb'
       'instaweb.port:port to bind HTTP daemon to for instaweb'
       'instaweb.browser:web-browser command-line to execute for instaweb'
-      'instaweb.modulepath:module path for the Apache HTTP-daemon for instaweb')
+      'instaweb.modulepath:module path for the Apache HTTP-daemon for instaweb'
+      'svn.noMetadata:disable git-svn-id\: lines at end of commits (fetch, clone, dcommit, set-tree, rebase)'
+      'svn.useSvmProps:whether to use remappings of URLs and UUIDs from mirrors (fetch, clone, dcommit, set-tree, rebase)'
+      'svn.useSvnsyncProps:similar to useSvmProps, but for the svnsync command (fetch, clone, dcommit, set-tree, rebase)')
+      'svn.followparent:whether to follow parent commit (fetch, clone, dcommit, set-tree, rebase)'
+      'svn.authorsfile:default authors file to use (fetch, clone, dcommit, set-tree, rebase)'
+      'svn.username:username to use for SVN transport (fetch, clone, dcommit, set-tree, rebase, init)'
+      'svn.configdir:configuration directory to use (fetch, clone, dcommit, set-tree, rebase, init)'
+      'svn.noauthcache:undocumented (fetch, clone, dcommit, set-tree, rebase, init)'
+      'svn.quiet:make git-svn less verbose (fetch, clone, dcommit, set-tree, rebase)'
+      'svn.repack:repack files (for given number of revisions) (fetch, clone, dcommit, set-tree, rebase)'
+      'svn.repackflags:flags to pass to git-repack (fetch, clone, dcommit, set-tree, rebase)'
+      'svn.logwindowsize:undocumented (fetch, clone, dcommit, set-tree, rebase)'
+      'svn.shared:share repository amongst several users (init, clone)'
+      'svn.template:directory to use as a template for the object database (init, clone)'
+      'svn.trunk:trunk sub-directory to use (init, clone)'
+      'svn.tags:tags sub-directory to use (init, clone)'
+      'svn.branches:branches sub-directory to use (init, clone)'
+      'svn.prefix:prefix to use for names on remotes (init, clone)'
+      'svn.rmdir:remove empty directories from SVN tree after commit (dcommit, set-tree, commit-diff)'
+      'svn.edit:edit commit message before committing (dcommit, set-tree, commit-diff)'
+      'svn.findcopiesharder:try harder to find copies (dcommit, set-tree, commit-diff)'
+      'svn.l:limit number of rename/copy targets to run (dcommit, set-tree, commit-diff)'
+      'svn.copysimilarity:undocumented (dcommit, set-tree, commit-diff)'
+      'svn.revision:only use given revision or revision range (fetch, clone, show-ignore, log, commit-diff)'
+      'svn.merge:use merging strategies, if necessary (dcommit, rebase)'
+      'svn.fetch-all:undocumented (fetch, dcommit, rebase)'
+      'svn.stdin:read list of commits to commit from stdin (set-tree)'
+      'svn.strategy:use given merge strategy (dcommit, rebase)'
+      'svn.verbose:output extra information (dcommit, log, rebase)'
+      'svn.dryrun:output git-commands that would show diffs that would be committed (dcommit)'
+      'svn.minimize:undocumented (migrate)'
+      'svn.limit:like --max-count, but not counting merged/excluded commits (log)'
+      'svn.incremental:give output suitable for concatenation (log)'
+      'svn.showcommit:output git commit SHA-1, as well (log)'
+      'svn.oneline:similar to --pretty=oneline (log)'
+      'svn.color:undocumented (log)'
+      'svn.pager:undocumented (log)'
+      'svn.nonrecursive:undocumented (log)'
+      'svn.local:undocumented (rebase)'
+      'svn.message:undocumented (commit-diff)'
+      'svn.file:(commit-diff) undocumented')
 
     declare -a suffixed_names
 
@@ -2655,12 +2911,13 @@ __git_config_name () {
       'branch:prefix for branch-specific variables'
       'remote:prefix for remote-repository variables'
       'remotes:prefix for remote-groups'
-      'gitcvs:prefix for git-cvsserver-specific variables')
+      'gitcvs:prefix for git-cvsserver-specific variables'
+      'svn-remote:prefix for git-svn remote-repository variables')
 
     _describe -t suffixed-names 'special name' suffixed_names -M 'm:{a-zA-Z}={A-Za-z}' -M 'r:|.=* r:|=*' -S '.' -r '.' && ret=0
   fi
 
-  _describe -t names 'name' names -M 'm:{a-zA-Z}={A-Za-z}' -M 'r:|.=* r:|=*' && ret=0
+  _describe -t names $label names -M 'm:{a-zA-Z}={A-Za-z}' -M 'r:|.=* r:|=*' && ret=0
 }
 
 (( $+functions[__git_config_gettable_name] )) ||
@@ -2694,6 +2951,19 @@ __git_config_filtered_gettable_name () {
 (( $+functions[__git_remote-groups] )) ||
 __git_remote-groups () {
   __git_config_filtered_gettable_name 'remotes' remote-groups 'remote-groups'
+}
+
+(( $+functions[__git_svn-remotes] )) ||
+__git_svn-remotes () {
+  local expl
+  declare -a names
+
+  # TODO: See __git_config_gettable_name for discussion on how to actually get
+  # out the names, skipping the values.
+  names=(${${${(M)${${(f)"$(_call_program $2 git config --list)"}%%\=*}:#svn-remote.*}#svn-remote.}%%.*})
+  __git_command_successful || return
+
+  _wanted svn-remotes expl 'svn remote' compadd $names
 }
 
 # TODO: It’d be really cool if both the default and the current value could be
@@ -2776,14 +3046,7 @@ __git_config_values () {
       _message 'repository format version string (internal)'
       ;;
     ((#i)core.sharedRepository)
-      declare -a permissions
-
-      permissions=(
-        {group,true,yes}':files and objects are group-writable'
-        {all,world,everybody}':files and objects are readable by all users and group-shareable'
-        {umask,false}':use permissions reported by umask()')
-
-      _describe -t permissions 'permission' permissions
+      __git_repository_permissions
       ;;
     ((#i)core.warnAmbiguousRefs)
       declare -a booleans
@@ -2969,7 +3232,6 @@ __git_config_values () {
     ((#i)gitcvs.dbpass)
       _message -e 'database password'
       ;;
-    ((#i)
     ((#i)http.sslVerify)
       declare -a booleans
 
@@ -3197,10 +3459,185 @@ __git_config_values () {
       _description directories expl 'module path'
       _directories $expl
       ;;
+    ((#i)(svn.|svn-remote.*.)noMetaData)
+      declare -a booleans
+
+      booleans=(
+        {true,yes}':disable git-svn-id: lines at end of commits'
+        {false,no}':add git-svn-id: lines at end of commits')
+
+      _describe -t booleans 'boolean' booleans
+      ;;
+    ((#i)(svn.|svn-remote.*.)(useSvmProps|useSvnsyncProps))
+      declare -a booleans
+
+      booleans=(
+        {true,yes}':remap URLs and UUIDs for mirrors'
+        {false,no}":don't remap URLs and UUIDs for mirrors")
+
+      _describe -t booleans 'boolean' booleans
+      ;;
+    ((#i)svn.followparent)
+      __git_boolean_settings true 'follow parent commit'
+      ;;
+    ((#i)svn.authorsfile)
+      local expl
+
+      _description files expl 'authors-conversion file'
+      _files $expl
+      ;;
+    ((#i)svn.username)
+      _users
+      ;;
+    ((#i)svn.configdir)
+      _directories
+      ;;
+    ((#i)svn.noauthcache)
+      # TODO: Update description once this gets documented.
+      __git_boolean_settings false 'use auth cache'
+      ;;
+    ((#i)svn.quiet)
+      __git_boolean_settings false 'make git-svn less verbose' 'let git-svn produce verbose output'
+      ;;
+    ((#i)svn.repack)
+      _guard '[[:digit:]]#' 'revision limit'
+      ;;
+    ((#i)svn.repackflags)
+      # TODO: Should complete git-repack arguments
+      _message -e 'git-repack flags'
+      ;;
+    ((#i)svn.logwindowsize)
+      # TODO: Update description once this gets documented.
+      _guard '[[:digit:]]#' 'log-window size'
+      ;;
+    ((#i)svn.shared)
+      __git_repository_permissions
+      ;;
+    ((#i)svn.template)
+      # NOTE: This is of course ridiculous, as this can never be useful.  Only
+      # here for completeness.
+      _directories
+      ;;
+    ((#i)svn.(trunk|tags|branches))
+      _alternative \
+        'sub-directories:sub-directory:_directories' \
+        'urls: :_urls' && ret=0
+      ;;
+    ((#i)svn.prefix)
+      _message -e 'prefix'
+      ;;
+    ((#i)svn.rmdir)
+      __git_boolean_settings false 'remove empty directories from SVN tree after commit' 'leave empty directories from SVN tree after commit'
+      ;;
+    ((#i)svn.edit)
+      __git_boolean_settings false 'edit commit message before committing' 'use commit message from SVN'
+      ;;
+    ((#i)svn.findcopiesharder)
+      __git_boolean_settings false 'try harder to find copies' 'use simple copy-finding algorithm'
+      ;;
+    ((#i)svn.l)
+      _guard "[[:digit:]]#" number
+      ;;
+    ((#i)svn.copysimilarity)
+      __git_boolean_settings false 'undocumented'
+      ;;
+    ((#i)svn.revision)
+      __git_svn_revisions
+      ;;
+    ((#i)svn.merge)
+      __git_boolean_settings false 'use merging strategies' "don't try to merge"
+      ;;
+    ((#i)svn.fetch-all)
+      __git_boolean_settings false 'undocumented'
+      ;;
+    ((#i)svn.stdin)
+      __git_boolean_settings false 'read list of commits to commit from stdin' "don't necessarily read list of commits to commit from stdin"
+      ;;
+    ((#i)svn.strategy)
+      __git_merge_strategies
+      ;;
+    ((#i)svn.verbose)
+      __git_boolean_settings false 'output extra information'
+      ;;
+    ((#i)svn.dryrun)
+      __git_boolean_settings false 'output git-commands that would show diffs that would be committed' 'actually run the git commands'
+      ;;
+    ((#i)svn.minimize)
+      __git_boolean_settings false 'undocumented'
+      ;;
+    ((#i)svn.limit)
+      _guard "[[:digit:]]#" limit
+      ;;
+    ((#i)svn.incremental)
+      __git_boolean_settings false 'give output suitable for concatenation'
+      ;;
+    ((#i)svn.showcommit)
+      __git_boolean_settings false 'output git commit SHA-1, as well' "don't output git commit SHA-1"
+      ;;
+    ((#i)svn.online)
+      __git_boolean_settings false 'produce output similar to --pretty=oneline'
+      ;;
+    ((#i)svn.color)
+      __git_boolean_settings false 'undocumented'
+      ;;
+    ((#i)svn.pager)
+      _message -e 'undocumented'
+      ;;
+    ((#i)svn.nonrecursive)
+      __git_boolean_settings false 'undocumented'
+      ;;
+    ((#i)svn.local)
+      __git_boolean_settings false 'undocumented'
+      ;;
+    ((#i)svn.message)
+      _message -e 'undocumented'
+      ;;
+    ((#i)svn.file)
+      _message -e 'undocumented'
+      ;;
+    ((#i)svn-remote.*.rewriteRoot)
+      _message -e 'new root'
+      ;;
     (*)
       _message 'value'
       ;;
   esac
+}
+
+# __git_boolean_settings [-t TAG] [-l LABEL] DEFAULT 'follow parent commit' ['follow HEAD commit']
+#
+# -t can be used to specify a tag to use (default: booleans).
+# -l can be used to specify a label to use (default: 'boolean').
+# 
+# The first argument is the default value, so that the description of the
+# default value can be suffixed with " (default)".  The second argument
+# is the description for the true value.  If a third argument is given,
+# it is used as the description for the false value.  If it is not given,
+# the description will be the true value's description with the prefix
+# "don't ".
+(( $+functions[__git_boolean_settings] )) ||
+__git_boolean_settings () {
+  local tag label garbage 
+
+  zparseopts -D -E -a garba S: M: J: V: 1 2 n F: X: -t=tag -l=label
+
+  declare -A descriptions
+
+  descriptions=(true $2 false "don't $2")
+
+  if (( $# > 2 )); then
+    descriptions[false]=$3
+  fi
+
+  descriptions[$1]+=" (default)"
+
+  declare -a booleans
+
+  booleans=(
+    {true,yes}':'$descriptions[true]
+    {false,no}':'$descriptions[false])
+
+  _describe -t ${tag:-booleans} ${label:-boolean} booleans
 }
 
 # TODO: Use this function in other places.
@@ -3273,6 +3710,49 @@ __git_encodings () {
   _wanted encodings expl 'encoding' compadd "$@" \
     -M 'm:{a-zA-Z}={A-Za-z} r:|-=* r:|=*' \
     ${${${(f)"$(_call_program encodings iconv --list)"}## #}%//}
+}
+
+(( $+functions[__git_repository_permissions] )) ||
+__git_repository_permissions () {
+  declare -a permissions
+
+  permissions=(
+    {group,true,yes}':files and objects are group-writable'
+    {all,world,everybody}':files and objects are readable by all users and group-shareable'
+    {umask,false}':use permissions reported by umask()')
+
+  _describe -t permissions 'permission' permissions
+}
+
+(( $+functions[__git_svn_revisions] )) ||
+__git_svn_revisions () {
+  if [[ -prefix *: ]]; then
+    compset -P '*:'
+
+    _alternative \
+      'revision-numbers: :__git_svn_revision_numbers' \
+      'symbolic-revisions:symbolic revision:((HEAD\:"the topmost revision of the SVN repository"))'
+  else
+    _alternative \
+      'revision-numbers: :__git_svn_revision_numbers' \
+      'symbolic-revisions:symbolic revision:__git_svn_base_revisions'
+  fi
+}
+
+(( $+functions[__git_svn_revision_numbers] )) ||
+__git_svn_revision_numbers () {
+  _guard "[[:digit:]]#" "revision number"
+}
+
+(( $+functions[__git_svn_base_revisions] )) ||
+__git_svn_base_revisions () {
+  declare -a revisions
+
+  revisions=(
+    'BASE:the bottommost revision of the SVN repository')
+
+  # TODO: How do we deal with $*?
+  _describe -t symbolic-revisions 'symbolic revision' revisions -S ':' -r ': '
 }
 
 # ---
