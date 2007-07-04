@@ -625,23 +625,36 @@ _git-prune-packed () {
 
 (( $+functions[_git-read-tree] )) ||
 _git-read-tree () {
-  if (( CURRENT == 2 )); then
-    _arguments \
-      '--reset[perform a merge, not just a read, ignoring unmerged entries]' \
-      '--trivial[only perform trivial merges]' \
-      '-m[perform a merge, not just a read]' \
-      ':tree-ish:__git_tree_ishs' && ret=0
-  elif [[ $words[2] == (-m|--reset) ]]; then
-    _arguments \
-      '(--reset)--aggressive[resolve a few more merge cases]' \
-      '(-u)-i[update only the index; ignore changes in work tree]' \
-      '(-i)-u[update the work tree after successful merge]' \
-      '2:first tree-ish to be read/merged:__git_tree_ishs' \
-      '3:second tree-ish to be read/merged:__git_tree_ishs' \
-      '4:third tree-ish to be read/merged:__git_tree_ishs' && ret=0
-  else
-    _message 'no more arguments'
+  local aggressive_arg
+
+  if (( words[(I)-m] )); then
+    aggressive_arg='--aggressive[try harder to resolve merge conflicts]'
   fi
+
+  local -a ui_args
+
+  if (( words[(I)(-m|--reset|--prefix)] )); then
+    ui_args=(
+      '(   -i)-u[update the work tree after successful merge]'
+      '(-u   )-i[update only the index; ignore changes in work tree]')
+  fi
+
+  local exclude_per_directory_arg
+
+  if (( words[(I)-u] )); then
+    exclude_per_directory_arg='--exclude-per-directory=-[specify .gitignore file]:.gitignore file:_files'
+  fi
+
+  _arguments -A '-*' \
+    '(   --reset --prefix)-m[perform a merge, not just a read]' \
+    '(-m         --prefix)--reset[perform a merge, not just a read, ignoring unmerged entries]' \
+    '(-m --reset          2 3)--prefix=-[read the contents of specified tree-ish under specified directory]:prefix:_directories -r ""' \
+    $aggressive_arg \
+    $ui_args \
+    $exclude_per_directory_arg \
+    '1:first tree-ish to be read/merged:__git_tree_ishs' \
+    '2:second tree-ish to be read/merged:__git_tree_ishs' \
+    '3:third tree-ish to be read/merged:__git_tree_ishs' && ret=0
 }
 
 # TODO: Complete value regex somehow?
