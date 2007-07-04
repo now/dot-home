@@ -619,7 +619,8 @@ _git-pack-objects () {
 (( $+functions[_git-prune-packed] )) ||
 _git-prune-packed () {
   _arguments -S \
-    '-n[only list the objects that would be removed]' && ret=0
+    '-n[only list the objects that would be removed]' \
+    '-q[suppress progress output]' && ret=0
 }
 
 (( $+functions[_git-read-tree] )) ||
