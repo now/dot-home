@@ -780,7 +780,8 @@ _git-update-index () {
 (( $+functions[_git-write-tree] )) ||
 _git-write-tree () {
   _arguments \
-    '--missing-ok[ignore objects in the index that are missing in the object database]' && ret=0
+    '--missing-ok[ignore objects in the index that are missing in the object database]'
+    '--prefix=-[write tree representing given sub-directory]:sub-directory:_directories -r ""' && ret=0
 }
 
 (( $+functions[_git-cat-file] )) ||
