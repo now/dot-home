@@ -65,8 +65,10 @@ diff_args=(
   '(-a --text)'{-a,--text}'[treat all files as text]'
   '(-b --ignore-space-change -w --ignore-all-space)'{-b,--ignore-space-change}'[ignore changes in amount of white space]'
   '(-b --ignore-space-change -w --ignore-all-space)'{-w,--ignore-all-space}'[ignore white space when comparing lines]'
-  $abbrev_arg \
+  $abbrev_arg
   $nul_arg
+  '--exit-code[report exit code 1 if differences, 0 otherwise]'
+  '(--exit-code)--quiet[disable all output]'
 )
 
 declare -g pretty_arg=
@@ -823,12 +825,15 @@ _git-diff-index () {
 _git-diff-files () {
   _arguments \
     $diff_args \
-    '(-0 -1 -2 -3 --base --ours --theirs -c --cc)-0[omit diff output for unmerged entries]' \
-    '(-0 -1 -2 -3 --base --ours --theirs -c --cc)'{-1,--base}'[diff against "base" version]' \
-    '(-0 -1 -2 -3 --base --ours --theirs -c --cc)'{-2,--ours}'[diff against "our branch" version]' \
-    '(-0 -1 -2 -3 --base --ours --theirs -c --cc)'{-3,--theirs}'[diff against "their branch" version]' \
-    '(-0 -1 -2 -3 --base --ours --theirs -c --cc)'{-c,--cc}'[compare "our branch", "their branch" and working tree files]' \
+    '(-0 -1 -2 -3 --base --ours --theirs -c --cc --no-index)-0[omit diff output for unmerged entries]' \
+    '(-0 -1 -2 -3 --base --ours --theirs -c --cc --no-index)'{-1,--base}'[diff against "base" version]' \
+    '(-0 -1 -2 -3 --base --ours --theirs -c --cc --no-index)'{-2,--ours}'[diff against "our branch" version]' \
+    '(-0 -1 -2 -3 --base --ours --theirs -c --cc --no-index)'{-3,--theirs}'[diff against "their branch" version]' \
+    '(-0 -1 -2 -3 --base --ours --theirs -c --cc --no-index)'{-c,--cc}'[compare "our branch", "their branch" and working tree files]' \
+    '(-0 -1 -2 -3 --base --ours --theirs -c --cc --no-index --exit-code *)--no-index[compare given files / directories]' \
     '-q[remain silent even on nonexisting files]' \
+    '1:file:_files' \
+    '2:file:_files' \
     '*::file:_files' && ret=0
 }
 
