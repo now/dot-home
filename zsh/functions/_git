@@ -2027,6 +2027,8 @@ __git_zstyle_default ':completion::complete:git-tag:deletion-option-d-rest:*' ig
 (( $+functions[_git-update-ref] )) ||
 _git-update-ref () {
   _arguments \
+    '-m[update reflog for specified name with specied reason]:reason for update' \
+    '(:)-d[delete given reference after verifying its value]:symbolic reference:__git_revisions:old reference:__git_revisions' \
     ':symbolic reference:__git_revisions' \
     ':new reference:__git_revisions' \
     '::old reference:__git_revisions' && ret=0
