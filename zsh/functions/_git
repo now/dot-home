@@ -786,18 +786,13 @@ _git-write-tree () {
 
 (( $+functions[_git-cat-file] )) ||
 _git-cat-file () {
-  if (( CURRENT == 2 )); then
-    _arguments \
-      '-e[exit with zero status if object exists]' \
-      '-s[show the size of the given object]' \
-      '-t[show the type of the given object]' \
-      '-p[pretty-print the given object]' \
-      ':object type:(blob commit tag tree)' && ret=0
-  elif (( CURRENT == 3 )); then
-    __git_objects && ret=0
-  else
-    _message 'no more arguments'
-  fi
+  _arguments \
+    '(   -s -e -p 1)-t[show the type of the given object]' \
+    '(-t    -e -p 1)-s[show the size of the given object]' \
+    '(-t -s    -p 1)-e[exit with zero status if object exists]' \
+    '(-t -s -e    1)-p[pretty-print the given object]' \
+    '(-t -s -e -p  ):object type:(blob commit tag tree)' \
+    '(-t -s -e -p  ):object:__git_objects' && ret=0
 }
 
 (( $+functions[_git-describe] )) ||
