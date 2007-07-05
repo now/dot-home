@@ -2099,7 +2099,7 @@ _git-mailinfo () {
   _arguments \
     '-k[do not strip/add \[PATCH\] from the first line of the commit message]' \
     '(-u --encoding)-u[encode commit information in UTF-8]' \
-    '(-u --encoding)--encoding[encode commit information in given encoding]:encoding' \
+    '(-u --encoding)--encoding[encode commit information in given encoding]:encoding:__git_encodings' \
     ':message file:_files' \
     ':patch file:_files' && ret=0
 }
@@ -3842,7 +3842,6 @@ __git_svn_base_revisions () {
 # --full-diff undocumented
 # --full-history undocumented
 # --all-match undocumented
-# option to --encoding undocumented
 # optional argument to --unpacked undocumented
 (( $+functions[__git_setup_revision_arguments] )) ||
 __git_setup_revision_arguments () {
@@ -3889,7 +3888,7 @@ __git_setup_revision_arguments () {
     '--committer=-[limit commits to those by the given committer]:committer'
     '--grep=-[limit commits to those with log messages matching the given pattern]:pattern'
     '--all-match[undocumented]'
-    '--encoding=-[output log messages in given encoding]::encoding:(none)'
+    '--encoding=-[output log messages in given encoding]::encoding:__git_encodings'
     $diff_args)
 
   if (( words[(I)--objects(|-edge)] )); then
