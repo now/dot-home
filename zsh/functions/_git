@@ -741,37 +741,39 @@ _git-remote () {
 _git-unpack-objects () {
   _arguments \
     '-n[only list the objects that would be unpacked]' \
-    '-q[run quietly]' && ret=0
+    '-q[run quietly]' \
+    '-r[try recovering objects from corrupt packs]' && ret=0
 }
 
 (( $+functions[_git-update-index] )) ||
 _git-update-index () {
-  local -a refreshables
+  local nul_arg
 
-  if (( words[(I)--refresh] )); then
-    refreshables=(
-      '--ignore-missing[ignore missing files when refreshing the index]'
-      '--unmerged[if unmerged changes exists, ignore them instead of exiting]'
-      '-q[run quietly]')
+  if (( words[(I)--stdin] )); then
+    nul_arg='-z[paths are separated with NUL instead of LF for --stdin]'
   fi
 
   _arguments -S \
     $refreshables \
     '--add[add files not already in the index]' \
-    '(--no-assume-unchanged)--assume-unchanged[set the "assume unchanged" bit for the given paths]' \
+    '(         --force-remove)--remove[remove files that are in the index but are missing from the work tree]' \
+    '(--remove               )--force-remove[remove files from both work tree and the index]' \
+    '(-q --unmerged --ignore-missing)--refresh[refresh the index]' \
+    '-q[run quietly]' \
+    '--unmerged[if unmerged changes exists, ignore them instead of exiting]' \
+    '--ignore-missing[ignore missing files when refreshing the index]' \
     '*--cacheinfo[insert information directly into the cache]: :_guard "[0-7]#" "octal file mode": :_guard "[[\:xdigit\:]]#" "object id":file:_files' \
+    '(: -)--index-info[read index information from stdin.]' \
     '--chmod=-[set the execute permissions on the updated files]:permission:((-x\:executable +x\:"not executable"))' \
-    '(--remove)--force-remove[remove files from both work tree and the index]' \
-    '--index-info[read index information from stdin.]' \
+    '(                   --no-assume-unchanged)--assume-unchanged[set the "assume unchanged" bit for the given paths]' \
+    '(--assume-unchanged                      )--no-assume-unchanged[unset the "assume unchanged" bit for the given paths]' \
+    '(-)'{-g,--again}'[run git-update-index on differing index entries]' \
+    '(-)--unresolve[restore "unmerged" or "needs updating" state of files]' \
     '--info-only[only insert files object-IDs into index]' \
-    '(--assume-unchanged)--no-assume-unchanged[unset the "assume unchanged" bit for the given paths]' \
-    '--refresh[refresh the index]' \
-    '(--force-remove)--remove[remove files that are in the index but are missing from the work tree]' \
     '--replace[replace files already in the index if necessary]' \
-    '--stdin[read list of paths from standard input]' \
-    '--unresolve[restore "unmerged" or "needs updating" state of files]' \
+    '(: -)--stdin[read list of paths from standard input]' \
     '--verbose[report what is being added and removed from the index]' \
-    '-z[paths are separated with NUL instead of LF for --stdin]' \
+    $nul_arg \
     '*::file:_files' && ret=0
 }
 
