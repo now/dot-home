@@ -273,7 +273,7 @@ _git_commands () {
     'format-patch:prepare patches for e-mail submission'
     'ls-files:information about files in the index/working directory'
     'config:get and set options in "$GIT_DIR/config"'
-    'instaweb:insantly browse your working repository in gitweb'
+    'instaweb:instantly browse your working repository in gitweb'
     'remote:manage set of tracked repositories'
     'send-email:send patch-e-mails out of "format-patch" output'
     'update-index:modify index in some given way')
