@@ -856,12 +856,13 @@ _git-diff-tree () {
   _arguments -C -S \
     $diff_args \
     $pretty_arg \
+    '--encoding=-[re-code commit log-message in given encoding]::log-message encoding:__git_encodings' \
     '--no-commit-id[skip output of commit IDs]' \
     '--root[show diff against the empty tree]' \
     '--stdin[read commit and tree information from standard input]' \
     '-m[show merge commits]' \
-    '(-t)-r[recurse into subdirectories]' \
-    '-t[show tree entry itself as well as subtrees (implies -r)]' \
+    '-r[recurse into subdirectories]' \
+    '(-r)-t[show tree entry itself as well as subtrees (implies -r)]' \
     '-s[do not show differences]' \
     '-v[show commit message before the differences]' \
     '(-c --cc)-c[show differences from each of the parents to the merge result]' \
