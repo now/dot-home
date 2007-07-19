@@ -1012,6 +1012,7 @@ _git-merge-base () {
 _git-name-rev () {
   _arguments -S \
     '--tags[only use tags to name the commits]' \
+    '--refs=-[only use refs matching given pattern]: :_guard "?#" "shell pattern"' \
     '(--stdin :)--all[list all commits reachable from all refs]' \
     '(--all :)--stdin[read from stdin and append revision-name]' \
     '(--stdin --all)*:commit-ish:__git_revisions' && ret=0
