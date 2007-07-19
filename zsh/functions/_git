@@ -3927,7 +3927,7 @@ __git_ref_sort_keys () {
     'body:the body of the message'
     'body:the contents of the message (subject and body)')
 
-  _describe -t sort-keys 'sort keys' keys
+  _describe -t sort-keys 'sort key' keys
 }
 
 (( $+functions[__git_daemon_service] )) ||
