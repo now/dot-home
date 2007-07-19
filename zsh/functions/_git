@@ -21,7 +21,7 @@ nul_arg='-z[use NUL termination on output]'
 
 declare -g abbrev_arg
 
-abbrev_arg='--abbrev=-[set minimum SHA1 display-length]: :_guard "[[\:digit\:]]##" length'
+abbrev_arg='--abbrev=-[set minimum SHA1 display-length]: :_guard "[[\:digit\:]]#" length'
 
 declare -g find_copies_harder_arg=
 
@@ -932,6 +932,12 @@ _git-fsck () {
 
 (( $+functions[_git-ls-files] )) ||
 _git-ls-files () {
+  local no_empty_directory_arg
+
+  if (( words[(I)--directory] )); then
+    no_empty_directory_arg='--no-empty-directory[do not list empty directories]'
+  fi
+
   _arguments -S \
     $nul_arg \
     '(-c --cached)'{-c,--cached}'[show cached files in the output]' \
@@ -941,15 +947,17 @@ _git-ls-files () {
     '(-m --modified)'{-m,--modified}'[show modified files in the output]' \
     '(-o --others)'{-o,--others}'[show other files in the output]' \
     '(-s --stage)'{-s,--stage}'[show stage files in the output]' \
-    '(-t -v)-t[identify each files status (HMRCK?)]' \
     '(-u --unmerged)'{-u,--unmerged}'[show unmerged files in the output]' \
-    '(-t -v)-v[identify each files status (hmrck?)]' \
+    '(   -v)-t[identify each files status (HMRCK?)]' \
+    '(-t   )-v[identify each files status (hmrck?)]' \
     '*'{-x,--exclude=-}'[skip files matching given pattern]:file pattern' \
     '*'{-X,--exclude-from=-}'[skip files matching patterns in given file]:file:_files' \
     '*--exclude-per-directory=-[skip directories matching patterns in given file]:file:_files' \
     '--directory[if a whole directory is classified as "other", show just its name]' \
+    $no_empty_directory_arg \
     '--error-unmatch[if any <file> does not appear in the index, treat this as an error]' \
     '--full-name[force paths to be output relative to the project top directory]' \
+    $abbrev_arg \
     '*::index file:_files' && ret=0
 }
 
