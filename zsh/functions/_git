@@ -1042,8 +1042,10 @@ _git-rev-list () {
     _arguments -S \
       $revision_arguments \
       '(--pretty)--header[show commit headers]' \
+      '--remote-empty[stop when a given path disappears from the tree]' \
       '--timestamp[undocumented]' \
-      '--bisect[show only the middlemost commit object]' \
+      '(         --bisect-vars)--bisect[show only the middlemost commit object]' \
+      '(--bisect              )--bisect-vars[same as --bisect, outputing shell-evalable code]' \
       '--stdin[read commit objects from standard input]' \
       '*:commit id:__git_commits2' && ret=0
   fi
@@ -3901,7 +3903,6 @@ __git_ref_sort_keys () {
 
 # TODO: How do we do -/n/ here?
 # --reflog undocumented
-# --left-right undocumented
 # -m undocumented
 # -v undocumented
 # --root undocumented
@@ -3923,6 +3924,7 @@ __git_setup_revision_arguments () {
     '(          --until --before)--min-age[minimum age of commits to output]: :_guard "[[\:digit\:]]#" timestamp'
     '(--min-age --until --before)'{--until=-,--before=-}'[show commits older than given date]: :_guard "[[\:digit\:]]#" timestamp'
     '--all[show all commits from refs]'
+    '--cherry-pick[omit any same-change commits]'
     '--reflog[show all commits from reflogs]'
     '(-g --walk-reflogs)'{-g,--walk-reflogs}'[walk reflog entries from most recent to oldest]'
     '*--not[reverses meaning of ^ prefix for revisions that follow]'
@@ -3936,7 +3938,7 @@ __git_setup_revision_arguments () {
     '--remove-empty[stop when a given path disappears from the tree]'
     '--no-merges[do not print commits with more than one parent]'
     '--boundary[output uninteresting commits at the boundary]'
-    '--left-right[undocumented]'
+    '--left-right[mark which side of a symmetric diff a commit is reachable from]'
     '(          --objects-edge)--objects[show object ids of objects referenced by the listed commits]'
     '(--objects               )--objects-edge[show object ids of objects referenced by the listed and excluded commits]'
     '(   -t)-r[show recursive diffs]'
@@ -3954,6 +3956,9 @@ __git_setup_revision_arguments () {
     '--abbrev-commit[undocumented]'
     '--full-history[undocumented]'
     '--relative-date[show dates relative to the current time]'
+    "--date=-[format of date output]:date format:((relative\:'show dates relative to the current time'
+                                                   local\:\"show timestamps in user's local timezone\"
+                                                   default\:'show timestamp in the original timezone\""
     '--author=-[limit commits to those by the given author]:author'
     '--committer=-[limit commits to those by the given committer]:committer'
     '--grep=-[limit commits to those with log messages matching the given pattern]:pattern'
