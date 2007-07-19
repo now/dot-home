@@ -1,4 +1,4 @@
-#compdef git git-add git-am git-annotate git-apply git-applymbox git-applypatch git-archimport git-archive git-bisect git-blame git-branch git-cat-file git-check-ref-format git-checkout git-checkout-index git-cherry git-cherry-pick git-clean git-clone git-clone-pack git-commit git-commit-tree git-convert-objects git-count-objects git-cvsexportcommit git-cvsimport git-daemon git-describe git-diff git-diff-files git-diff-index git-diff-stages git-diff-tree git-fast-import git-fetch git-fetch-pack git-fmt-merge-msg git-format-patch git-fsck git-gc git-get-tar-commit-id git-grep git-hash-object git-http-fetch git-http-push git-imap-send git-index-pack git-init git-instaweb git-local-fetch git-log git-lost-found git-ls-files git-ls-remote git-ls-tree git-mailinfo git-mailsplit git-merge git-merge-base git-merge-file git-merge-index git-merge-one-file git-merge-tree git-mktag git-mktree git-mv git-name-rev git-octopus git-pack-objects git-pack-redundant git-pack-refs git-patch-id git-peek-remote git-prune git-prune-packed git-pull git-push git-quiltimport git-read-tree git-rebase git-receive-pack git-reflog git-relink git-remote git-repack gut-runstatus git-config git-request-pull git-rerere git-reset git-rev-list git-rev-parse git-revert git-rm git-send-email git-send-pack git-shortlog git-show git-show-branch git-show-index git-ssh-fetch git-ssh-upload git-status git-stripspace git-svn git-svnimport git-symbolic-ref git-tag git-tar-tree git-unpack-file git-unpack-objects git-update-index git-update-ref git-update-server-info git-upload-pack git-var git-verify-pack git-verify-tag git-whatchanged git-write-tree
+#compdef git git-add git-am git-annotate git-apply git-applymbox git-applypatch git-archimport git-archive git-bisect git-blame git-branch git-cat-file git-check-ref-format git-checkout git-checkout-index git-cherry git-cherry-pick git-clean git-clone git-clone-pack git-commit git-commit-tree git-convert-objects git-count-objects git-cvsexportcommit git-cvsimport git-daemon git-describe git-diff git-diff-files git-diff-index git-diff-stages git-diff-tree git-fast-import git-fetch git-fetch-pack git-fmt-merge-msg git-for-each-ref git-format-patch git-fsck git-gc git-get-tar-commit-id git-grep git-hash-object git-http-fetch git-http-push git-imap-send git-index-pack git-init git-instaweb git-local-fetch git-log git-lost-found git-ls-files git-ls-remote git-ls-tree git-mailinfo git-mailsplit git-merge git-merge-base git-merge-file git-merge-index git-merge-one-file git-merge-tree git-mktag git-mktree git-mv git-name-rev git-octopus git-pack-objects git-pack-redundant git-pack-refs git-patch-id git-peek-remote git-prune git-prune-packed git-pull git-push git-quiltimport git-read-tree git-rebase git-receive-pack git-reflog git-relink git-remote git-repack gut-runstatus git-config git-request-pull git-rerere git-reset git-rev-list git-rev-parse git-revert git-rm git-send-email git-send-pack git-shortlog git-show git-show-branch git-show-index git-ssh-fetch git-ssh-upload git-status git-stripspace git-svn git-svnimport git-symbolic-ref git-tag git-tar-tree git-unpack-file git-unpack-objects git-update-index git-update-ref git-update-server-info git-upload-pack git-var git-verify-pack git-verify-tag git-whatchanged git-write-tree
 
 # Commands not completed:
 # git-cvsserver
@@ -290,6 +290,7 @@ _git_commands () {
   local -a ancillary_commands
   ancillary_commands=(
     'convert-objects:convert old-style git repository'
+    'for-each-ref:output information on each ref'
     'get-tar-commit-id:extract commit ID from an archive created using tar-tree'
     'hash-object:compute object ID from a file'
     'patch-id:compute unique ID for a patch'
@@ -892,6 +893,24 @@ _git-diff-tree () {
       fi
       ;;
   esac
+}
+
+# TODO: Better completion for --format: should complete %(field) stuff, that
+# is, %(refname), %(objecttype), %(objectsize), %(objectname) with optional ‘*’
+# in front.
+# TODO: Documentation says that --count can be given * number of times, but
+# sources beg to differ, allowing only one.
+(( $+functions[_git-for-each-ref] )) ||
+_git-for-each-ref () {
+  _arguments -S \
+    '--format=-[output format of ref information]:format' \
+    '(-s --shell -p --perl --python --tcl)'{-s,--shell}'[use string literals suitable for sh]' \
+    '(-s --shell -p --perl --python --tcl)'{-p,--perl}'[use string literals suitable for Perl]' \
+    '(-s --shell -p --perl          --tcl)'--python'[use string literals suitable for Python]' \
+    '(-s --shell -p --perl --python      )'--tcl'[use string literals suitable for Tcl]' \
+    '--count=-[maximum number of refs to iterate over]: :_guard "[[\:digit\:]]#" "maximum number of refs"' \
+    '--sort=-[key to sort refs by]:sort key:__git_ref_sort_keys' \
+    '::pattern[pattern to match refs against]:pattern' && ret=0
 }
 
 (( $+functions[_git-fmt-merge-msg] )) ||
@@ -3825,6 +3844,43 @@ __git_svn_base_revisions () {
 
   # TODO: How do we deal with $*?
   _describe -t symbolic-revisions 'symbolic revision' revisions -S ':' -r ': '
+}
+
+# TODO: numparent is undocumented.
+(( $+functions[__git_ref_sort_keys] )) ||
+__git_ref_sort_keys () {
+  compset -P '-'
+
+  local -a keys
+
+  keys=(
+    'refname:the name of the ref'
+    'objecttype:the type of the object'
+    'objectsize:the size of the object'
+    'objectname:the object name (SHA-1)'
+    'tree:the tree header-field'
+    'parent:the parent header-field'
+    'numparent:undocumented'
+    'object:the object header-field'
+    'type:the type header-field'
+    'tag:the tag header-field'
+    'author:the author header-field'
+    'authorname:the name component of the author header-field'
+    'authoremail:the email component of the author header-field'
+    'authordate:the date component of the author header-field'
+    'committername:the name component of the committer header-field'
+    'committeremail:the email component of the committer header-field'
+    'committerdate:the date component of the committer header-field'
+    'taggername:the name component of the tagger header-field'
+    'taggeremail:the email component of the tagger header-field'
+    'taggerdate:the date component of the tagger header-field'
+    'creatorname:the name component of the creator header-field'
+    'creatordate:the date component of the creator header-field'
+    'subject:the subject of the message'
+    'body:the body of the message'
+    'body:the contents of the message (subject and body)')
+
+  _describe -t sort-keys 'sort keys' keys
 }
 
 # ---
