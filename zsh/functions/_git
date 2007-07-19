@@ -914,7 +914,7 @@ _git-for-each-ref () {
     '(-s --shell -p --perl --python      )'--tcl'[use string literals suitable for Tcl]' \
     '--count=-[maximum number of refs to iterate over]: :_guard "[[\:digit\:]]#" "maximum number of refs"' \
     '--sort=-[key to sort refs by]:sort key:__git_ref_sort_keys' \
-    '::pattern[pattern to match refs against]:pattern' && ret=0
+    ':: :_guard "([^-]?#|)" pattern' && ret=0
 }
 
 (( $+functions[_git-fmt-merge-msg] )) ||
