@@ -2114,19 +2114,31 @@ _git-count-objects () {
 
 # TODO: do better than _directories?  The directory needs to be a git-repository,
 # so one could check for a required file in the given directory.
+# TODO: --interpolated-path should complete %H, %CH, %IP, %P, and %D.
 (( $+functions[_git-daemon] )) ||
 _git-daemon () {
   _arguments -S \
     '--strict-paths[match paths exactly]' \
-    '--base-path=[remap all the path requests as relative to the given path]:path:_directories' \
+    '--base-path=-[remap all the path requests as relative to the given path]:path:_directories' \
+    '--interpolated-path=-[dynamically construct alternate paths]:path:_directories' \
     '--export-all[allow pulling from all repositories without verification]' \
-    '(--port)--inetd[run server as an inetd service]' \
-    '(--inetd)--port=-[specify port to listen to]' \
-    '--init-timeout=-[specify timeout between connection and request]' \
-    '--timeout=-[specify timeout for sub-requests]' \
+    '(--port --listen --user --group)--inetd[run server as an inetd service]' \
+    '(--inetd)--listen=-[listen on a specific IP address or hostname]:hostname:_hosts' \
+    '(--inetd)--port=-[specify port to listen to]:port:_ports' \
+    '--init-timeout=-[specify timeout between connection and request]: :_guard "[[\:digit\:]]#" timeout' \
+    '--timeout=-[specify timeout for sub-requests]: :_guard "[[\:digit\:]]#" timeout' \
     '--syslog[log to syslog instead of stderr]' \
-    '--user-path=[allow ~user notation to be used in requests]::path:_directories' \
+    '--user-path=-[allow ~user notation to be used in requests]::path:_directories' \
     '--verbose[log details about incoming connections and requested files]' \
+    '--reuseaddr[reuse addresses when already bound]' \
+    '(--syslog)--detach[detach from the shell]' \
+    '--pid-file=-[save the process id in given file]:pid file:_files' \
+    '--user=-[set uid of daemon]:user:_users' \
+    '--group=-[set gid of daemon]:group:_groups' \
+    '--enable=-[enable site-wide service]:service:__git_daemon_service' \
+    '--disable=-[disable site-wide service]:service:__git_daemon_service' \
+    '--allow-override[allow overriding site-wide service]:service:__git_daemon_service' \
+    '--forbid-override[forbid overriding site-wide service]:service:__git_daemon_service' \
     '*:repository:_directories' && ret=0
 }
 
@@ -3916,6 +3928,17 @@ __git_ref_sort_keys () {
     'body:the contents of the message (subject and body)')
 
   _describe -t sort-keys 'sort keys' keys
+}
+
+(( $+functions[__git_daemon_service] )) ||
+__git_daemon_service () {
+  local -a services
+
+  services=(
+    'upload-pack:serve git-fetch-pack and git-peek-remote clients'
+    'upload-archive:serve git-archive --remote clients')
+
+  _describe -t services 'service' services
 }
 
 # ---
