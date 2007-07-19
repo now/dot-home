@@ -976,6 +976,7 @@ _git-ls-tree () {
     {--name-only,--name-status}'[list only filenames, one per line]' \
     '-r[recurse into subdirectories]' \
     '-t[show tree entries even when going to recurse them]' \
+    '--full-name[output full path-names]' \
     ':tree-ish:__git_tree_ishs' \
     '*::tree file:->files' && ret=0
 
