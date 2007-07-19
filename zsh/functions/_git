@@ -1088,6 +1088,7 @@ _git-show-index () {
 (( $+functions[_git-tar-tree] )) ||
 _git-tar-tree () {
   _arguments \
+    '--remote=-[retrieve a tar archive from a remote repository]:__git_remote_repository' \
     ':tree-ish:__git_tree_ishs' \
     ':base:_files' && ret=0
 }
