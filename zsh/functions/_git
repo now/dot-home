@@ -163,6 +163,9 @@ declare -g shared_arg=
 
 shared_arg='--shared=-[share repository amongst several users]::permissions:__git_repository_permissions'
 
+declare -g thin_arg=
+thin_arg'--thin[minimize number of objects to be sent]'
+
 __git_zstyle_default () {
   zstyle -t $1 $2
   if (( $status == 2 )); then
@@ -1129,9 +1132,8 @@ _git-fetch-pack () {
     '--all[fetch all remote refs]' \
     '(-q --quiet)'{-q,--quiet}'[make output less verbose]' \
     '(-k --keep)'{-k,--keep}'[do not invoke git-unpack-objects on received data]' \
-    '--thin[minimize number of objects to be sent]' \
-    '(              --exec)--upload-pack=-[specify path to git-upload-pack on remote side]:remote path' \
-    '(--upload-pack       )--exec=-[specify path to git-upload-pack on remote side]:remote path' \
+    $thin_arg \
+    '(--upload-pack --exec)'{--upload-pack=-,--exec=-}'[specify path to git-upload-pack on remote side]:remote path' \
     '--depth=-[limit fetching to ancestor-chains not longer than given number]: :_guard "[[\:digit\:]]#" "maximum ancestor-chain length"' \
     '--no-progress[do not show progress]' \
     $verbose_arg \
@@ -1250,11 +1252,13 @@ _git-receive-pack () {
 (( $+functions[_git-send-pack] )) ||
 _git-send-pack () {
   _arguments \
-    $exec_arg \
+    '(--receive-pack --exec)'{--receive-pack=-,--exec=-}'[specify path to git-receive-pack on remote side]:remote path'
     '--all[update all refs that exist locally]' \
     '--force[update remote orphaned refs]' \
+    $verbose_arg \
+    $thin_arg \
     ':repository:__git_any_repositories' \
-    '*:remote refs' && ret=0
+    '*:remote refs:__git_remote_references' && ret=0
 }
 
 (( $+functions[_git-ssh-fetch] )) ||
@@ -2817,6 +2821,11 @@ __git_local_references () {
   fi
 
   _wanted references expl 'references' compadd - $_git_local_refs_cache
+}
+
+(( $+functions[__git_remote_references] )) ||
+__git_remote_references () {
+  __git_references
 }
 
 (( $+functions[__git_branch_names] )) ||
