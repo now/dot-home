@@ -132,11 +132,14 @@ verbose_arg='-v[produce verbose output]'
 declare -g help_arg=
 help_arg='-h[display usage information]'
 
+declare -g upload_pack_arg=
+upload_pack_arg='--upload-pack[pass --exec=<upload-pack> to git-fetch-pack]:remote pack'
+
 declare -ga common_fetch_args
 
 common_fetch_args=(
   '(-a --append)'{-a,--append}'[append ref names and object names of fetched refs to "$GIT_DIR/FETCH_HEAD"]'
-  '--upload-pack[pass --exec=<upload-pack> to git-fetch-pack]:remote pack'
+  $upload_pack_arg
   $force_ref_arg
   $tags_fetch_arg
   '(-k --keep)'{-k,--keep}'[keep downloaded pack]'
@@ -1125,11 +1128,17 @@ _git-clone-pack () {
 (( $+functions[_git-fetch-pack] )) ||
 _git-fetch-pack () {
   _arguments \
-    $exec_arg \
-    '-k[do not invoke "git-unpack-objects" on received data]'
-    '-q[pass "-q" flag to "git-unpack-objects"]' \
+    '--all[fetch all remote refs]' \
+    '(-q --quiet)'{-q,--quiet}'[make output less verbose]' \
+    '(-k --keep)'{-k,--keep}'[do not invoke git-unpack-objects on received data]' \
+    '--thin[minimize number of objects to be sent]' \
+    '(--exec)'$upload_pack_arg \
+    '(--upload-pack)'$exec_arg \
+    '--depth=-[limit fetching to ancestor-chains not longer than given number]: :_guard "[[\:digit\:]]#" "maximum ancestor-chain length"' \
+    '--no-progress[do not show progress]' \
+    $verbose_arg \
     ':repository:__git_any_repositories' \
-    '*:head:__git_heads' && ret=0
+    '*:references:__git_references' && ret=0
 }
 
 (( $+functions[_git-fast-import] )) ||
