@@ -1333,6 +1333,8 @@ _git-update-server-info () {
 (( $+functions[_git-upload-pack] )) ||
 _git-upload-pack () {
   _arguments \
+    '--strict[do not try <directory>/.git/ if <directory> is not a git directory' \
+    '--timeout=-[interrupt transfer after given number of seconds of inactivity]: :_guard "[[\:digit\:]]" "inactivity timeout"' \
     ':directory:_directories' && ret=0
 }
 
