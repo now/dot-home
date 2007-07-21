@@ -1161,6 +1161,7 @@ _git-fast-import () {
 _git-http-fetch () {
   _arguments \
     $fetch_args \
+    '(1)--stdin[read commit ids and refs from standard input]' \
     ':commit id:__git_commits' \
     ':URL:_urls' && ret=0
 }
