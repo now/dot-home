@@ -1169,11 +1169,14 @@ _git-http-fetch () {
 (( $+functions[_git-http-push] )) ||
 _git-http-push () {
   _arguments \
+    '--all[verify that all objects in local ref history exist remotely]' \
     '--complete[do not assume that the remote repository is complete]' \
-    $force_ref_arg \
+    '--force[allow refs that are not ancestors to be updated]' \
     '--verbose[report the list of objects being walked locally and sent to the remote]' \
+    '(   -D)-d[remove refs from remote repository]' \
+    '(-d   )-D[forcefully remove refs from remote repository]' \
     ':URL:_urls' \
-    '*:remote refs' && ret=0
+    '*:remote refs:__git_remote_references' && ret=0
 }
 
 (( $+functions[_git-local-fetch] )) ||
