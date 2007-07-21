@@ -1249,7 +1249,8 @@ _git-reflog () {
 
 (( $+functions[_git-receive-pack] )) ||
 _git-receive-pack () {
-  _message "you probably should not be issuing this command"
+  _arguments \
+    ':directory to sync into:_directories' && ret=0
 }
 
 (( $+functions[_git-send-pack] )) ||
