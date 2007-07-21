@@ -132,8 +132,9 @@ verbose_arg='-v[produce verbose output]'
 declare -g help_arg=
 help_arg='-h[display usage information]'
 
-declare -g upload_pack_arg=
-upload_pack_arg='--upload-pack[pass --exec=<upload-pack> to git-fetch-pack]:remote pack'
+declare -ga upload_pack_arg
+upload_pack_arg=('(-u --upload-pack)'{-u,--upload-pack=-}'[specify path to git-upload-pack on remote side]:remote path')
+
 
 declare -ga common_fetch_args
 
@@ -161,9 +162,6 @@ template_arg='--template=-[directory to use as a template for the object databas
 declare -g shared_arg=
 
 shared_arg='--shared=-[share repository amongst several users]::permissions:__git_repository_permissions'
-
-declare -ga upload_pack_arg
-upload_pack_arg=('(-u --upload-pack)'{-u,--uploadpack=-}'[specify path to git-upload-pack on remote side]:remote path')
 
 __git_zstyle_default () {
   zstyle -t $1 $2
@@ -1132,8 +1130,8 @@ _git-fetch-pack () {
     '(-q --quiet)'{-q,--quiet}'[make output less verbose]' \
     '(-k --keep)'{-k,--keep}'[do not invoke git-unpack-objects on received data]' \
     '--thin[minimize number of objects to be sent]' \
-    '(--exec)'$upload_pack_arg \
-    '(--upload-pack)'$exec_arg \
+    '(              --exec)--upload-pack=-[specify path to git-upload-pack on remote side]:remote path' \
+    '(--upload-pack       )--exec=-[specify path to git-upload-pack on remote side]:remote path' \
     '--depth=-[limit fetching to ancestor-chains not longer than given number]: :_guard "[[\:digit\:]]#" "maximum ancestor-chain length"' \
     '--no-progress[do not show progress]' \
     $verbose_arg \
