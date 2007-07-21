@@ -84,12 +84,12 @@ exec_arg='--exec=-[specify path to git-upload-pack on remote side]:remote path'
 declare -ga fetch_args
 
 fetch_args=(
-  '-a[fetch all objects]'
   '-c[fetch commit objects]'
-  '--recover[recover from a failed fetch]'
   '-t[fetch trees associated with commit objects]'
+  '-a[fetch all objects]'
   '-v[show what is downloaded]'
   '-w[write commit-id into the filename under "$GIT_DIR/refs/<filename>"]:filename'
+  '--recover[recover from a failed fetch]'
 )
 
 declare -g merge_strategy_arg
