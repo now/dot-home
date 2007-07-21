@@ -1180,6 +1180,7 @@ _git-local-fetch () {
     '-l[hard-link objects]' \
     '-n[do not copy objects]' \
     '-s[sym-link objects]' \
+    '(1)--stdin[read commit ids and refs from standard input]' \
     ':commit id:__git_commits' \
     ':directory:_directories' && ret=0
 }
