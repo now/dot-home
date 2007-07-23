@@ -68,3 +68,12 @@ newkmap class-selectors
 definekey class-selectors t exec ratpoison-select-by-class XTerm
 definekey class-selectors b exec ratpoison-select-by-class Firefox-bin
 bind comma readkey class-selectors
+
+definedigraph c b U2022
+definedigraph t b U2023
+definedigraph . 3 U2026
+definedigraph , 3 U22ef
+definedigraph ( / U2209
+definedigraph < Y U227a
+definedigraph < / U27e8
+definedigraph > / U27e9
