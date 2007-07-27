@@ -92,7 +92,6 @@ merge_strategy_arg='*'{-s,--strategy=-}'[use given merge strategy]:merge strateg
 
 declare -ga merge_args
 
-# TODO: Add descriptions to strategies (stupid is undocumented).
 merge_args=(
   '(-n --no-summary)'{-n,--no-summary}'[do not show diffstat at the end of the merge]'
   '--no-commit[perform the merge but do not autocommit]'
