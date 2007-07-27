@@ -230,7 +230,6 @@ _git_commands () {
     'diff-stages:compare two "merge states" in the index file'
     'diff-tree:compare the content and mode of blobs found via two tree objects'
     'fetch-pack:receive missing objects from another repository'
-    'fmt-merge-msg:produce merge commit message'
     'imap-send:dump mailbox from stdin into imap folder'
     'index-pack:build pack index file for an existing packed archive'
     'local-fetch:duplicate another git repository on a local system'
@@ -308,6 +307,7 @@ _git_commands () {
   internal_commands=(
     'daemon:start a really simple server for git repositories'
     'fast-import:import information into git directly'
+    'fmt-merge-msg:produce merge commit message'
     'http-fetch:download remote git repository via HTTP'
     'http-push:push missing objects using HTTP/DAV'
     'receive-pack:command invoked by send-pack to receive what is pushed to it'
@@ -924,7 +924,10 @@ _git-for-each-ref () {
 
 (( $+functions[_git-fmt-merge-msg] )) ||
 _git-fmt-merge-msg () {
-  _message "you probably should not be issuing this command"
+  arguments \
+    '(          --no-summary)--summary[add one-line descriptions from commits being merged]' \
+    '(--summary             )--no-summary[do not add one-line descriptions from commits being merged]' \
+    '(-F --file)'{-F,--file}'[specify list of merged objects from file]:file:_files' && ret=0
 }
 
 (( $+functions[_git-fsck] )) ||
@@ -2913,6 +2916,8 @@ __git_branch_names () {
   _wanted branch-names expl branch-name compadd $* - $branch_names
 }
 
+# TODO: Add merge.*.(name|driver|recursive) and diff.*.(command|funcname) (see
+# gitattributes(5)).
 (( $+functions[__git_config_name] )) ||
 __git_config_name () {
   local label=names
