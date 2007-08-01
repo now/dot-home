@@ -150,14 +150,22 @@ nnoremap <Leader>E :e <C-Z>
 cnoremap <C-A>  <Home>
 cnoremap <C-B>  <Left>
 cnoremap <C-D>  <Delete>
-cnoremap <C-E>  <End>
 cnoremap <C-F>  <Right>
 cnoremap <C-N>  <Down>
 cnoremap <C-P>  <Up>
 cnoremap <M-b>  <S-Left>
 cnoremap <M-f>  <S-Right>
+cmap <M-d>  <C-\>e<SID>command_line_delete_word_to_right()<CR>
 cnoremap <expr> <C-S> (getcmdtype() == '/' \|\| getcmdtype() == '?') ? '<Return>' . getcmdtype() . '<C-R>/' : ""
 cnoremap <expr> <C-O> (getcmdtype() == '/' \|\| getcmdtype() == '?') ? '<Return>' . (getcmdtype() == '/' ? '?' : '/') . '<C-R>/' : ""
+
+function! s:command_line_delete_word_to_right()
+  let cmd = getcmdline()
+  let pos = getcmdpos()
+  let before = strpart(cmd, 0, pos - 1)
+  let after = substitute(strpart(cmd, pos), '^\s*\w\+\ze\%(\s\+\|$\)', '', '')
+  return before . after
+endfunction
 
 noremap <silent> g: <Esc>:set operatorfunc=<SID>get_command_mode_range<CR>g@
 
