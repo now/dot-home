@@ -159,6 +159,13 @@ DOTFILES = \
 
 $(eval $(call GROUP_template,$(userconfdir),firefox,$(DOTDIRS),$(DOTFILES),644))
 
+DOTDIRS =
+
+DOTFILES = \
+	   .vimperatorrc
+
+$(eval $(call GROUP_template,~,,$(DOTDIRS),$(DOTFILES),644))
+
 userbindir = ~
 
 BINDIRS = \
