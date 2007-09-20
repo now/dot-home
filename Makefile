@@ -44,6 +44,7 @@ userconfdir = $(prefix)/etc
 
 DOTDIRS = \
 	  X11 \
+	  cmus \
 	  gnupg \
 	  irssi \
 	  ivman \
@@ -58,11 +59,14 @@ DOTDIRS = \
 	  vim/ftplugin \
 	  vim/macros \
 	  vim/templates \
+	  vim/templates/vim \
 	  zsh \
 	  zsh/functions
 
 DOTFILES = \
 	   X11/Xresources \
+	   cmus/now.theme \
+	   cmus/rc \
 	   dircolors \
 	   gnupg/gpg.conf \
 	   gtkrc \
@@ -120,7 +124,8 @@ DOTFILES = \
            vim/templates/scheme.template \
            vim/templates/screen.template \
            vim/templates/tex.template \
-           vim/templates/vim.template \
+           vim/templates/vim/default.template \
+           vim/templates/vim/syntax.template \
            vim/templates/xdefaults.template \
            vim/templates/yaml.template \
            vim/templates/zsh.template \
@@ -162,6 +167,8 @@ $(eval $(call GROUP_template,$(userconfdir),firefox,$(DOTDIRS),$(DOTFILES),644))
 DOTDIRS =
 
 DOTFILES = \
+	   .cdrdao \
+	   .gitconfig \
 	   .vimperatorrc
 
 $(eval $(call GROUP_template,~,,$(DOTDIRS),$(DOTFILES),644))
