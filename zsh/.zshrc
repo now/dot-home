@@ -284,7 +284,7 @@ bindkey "^K" insert-digraph
 # 8.2.4  Miscellaneous
 
 _complete-previous-output () {
-  compadd - ${=:-$(eval $(fc -l -n -1))}
+  compadd - ${(f)"$(eval $(fc -l -n -1))"}
 }
 zle -C complete-previous-output complete-word _complete-previous-output
 
