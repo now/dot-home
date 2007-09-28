@@ -8,7 +8,6 @@
 
 attrcolor b ".I"        # Map bold attribute to bright, to maintain compat.
 deflogin off
-#defobuflimit 16384      # TODO: what's a good value?
 defscrollback 8192
 maptimeout 10
 term "screen-256color"
