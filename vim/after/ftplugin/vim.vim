@@ -1,10 +1,7 @@
 " Vim filetype plugin file 
 " Language:	    VimL
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2007-06-24
-
-let b:pcp_header_author_regex = '^\(.\{1,3}\<Maintainer\>\s*:\s*\).*$'
-let b:pcp_header_file_description_format = '%s'
+" Latest Revision:  2007-09-26
 
 setlocal softtabstop=2 shiftwidth=2
 
@@ -12,9 +9,12 @@ command! -nargs=0 -buffer GenerateHighlightDefaultLinks
       \ call s:GenerateHighlightDefaultLinks()
 
 let b:undo_ftplugin .= ' | setl sts< sw<'
-      \ . ' | unlet! b:pcp_header_file_description_format'
-      \ .          ' b:pcp_header_author_regex'
       \ . ' | delc GenerateHighlightDefaultLinks'
+      \ . ' | augroup filetype-plugin-vim | autocmd! | augroup end'
+
+augroup filetype-plugin-vim
+  autocmd BufWritePre,FileWritePre <buffer> call s:update_syntax_definitions()
+augroup end
 
 if exists('s:did_load')
   finish
@@ -35,7 +35,7 @@ function s:GenerateHighlightDefaultLinks()
   endwhile
   $
   let lnum = line('.')
-  if search('^\s*let b:current_syntax\s*=\s*[''"][^''"]\+[''"]', 'bc')
+  if search('^\s*let b:current_syntax\s*=\s*[''"][^''"]*[''"]', 'bc')
     let lnum = line('.') - 2
   endif
   let cursor_lnum = lnum
@@ -92,4 +92,15 @@ function s:GenerateHighlightDefaultLinks()
     let lnum += 1
   endfor
   call cursor(cursor_lnum, 1)
+endfunction
+
+function s:update_syntax_definitions()
+  if getline(1) !~ '^" Vim syntax file$'
+    return
+  endif
+
+  let name = expand('%:t:r')
+
+  silent! execute 'keepjumps /^let b:current_syntax = [''"].*\%('.name.'\)\@<![''"]/s/[''"].*[''"]/\="''".name."''"'
+  execute 'keepjumps %s/^\s*syn\s\+\(\%(keyword\|match\|region\|cluster\)\s\+\)\l*\%('.name.'\)\@<!\(\S\+\)/\="syn ".submatch(1).name.submatch(2)/e'
 endfunction
