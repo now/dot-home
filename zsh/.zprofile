@@ -45,6 +45,8 @@ LESSHISTFILE=~/.local/var/lib/less/history
 GIMP2_DIRECTORY=.local/var/lib/gimp-2.0
 GNOME22_USER_DIR=~/.local/var/lib/gnome2
 MYSQL_HISTFILE=~/.local/var/lib/mysql/history
+CMUS_HOME=$XDG_CONFIG_HOME/cmus
+DVDCSS_CACHE=$XDG_CACHE_HOME/dvdcss
 
 export                                                                \
   PATH MAILCAPS PERSONAL_MAILCAP                                      \
@@ -56,4 +58,4 @@ export                                                                \
   VIMINIT XAUTHORITY ICEAUTHORITY CVS_PASSFILE INPUTRC INDENT_PROFILE \
   SCREENRC GST_REGISTRY GNUPGHOME IRBRC LFTP_HOME WINEPREFIX          \
   MPLAYER_HOME GTK2_RC_FILES LESSHISTFILE GIMP2_DIRECTORY             \
-  GNOME22_USER_DIR MYSQL_HISTFILE
+  GNOME22_USER_DIR MYSQL_HISTFILE CMUS_HOME DVDCSS_CACHE
