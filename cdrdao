@@ -1,0 +1,2 @@
+read_device: "/dev/dvd"
+write_device: "/dev/dvd"

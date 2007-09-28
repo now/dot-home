@@ -6,34 +6,71 @@
 
 all: diff
 
+# 1: prefix to strip
+# 2: text
 define GROUP_strip_prefix
 $(if $(1),$(patsubst $(1)/%,%,$(2)),$(2))
 endef
 
+# 1: parent directory
+# 2: prefix to strip
+# 3: file
+# 4: prefix to add
+define GROUP_build_target
+$(1)/$(4)$(call GROUP_strip_prefix,$(2),$(3))
+endef
+
+# 1: file
+# 2: target
 define GROUP_diff_template
-GROUP_diff_target := $(1)/$(call GROUP_strip_prefix,$(2),$(3)).diff
+GROUP_diff_target := $(2).diff
 .PHONY: $$(GROUP_diff_target)
 diff: $$(GROUP_diff_target)
 $$(GROUP_diff_target):
-	-@$$(DIFF) -u $$(patsubst %.diff,%,$$@) $(3)
+	-@$$(DIFF) -u $(2) $(1)
 
 endef
 
+# 1: file
+# 2: target
+# 3: file mode
 define GROUP_install_template
-GROUP_install_target := $(1)/$(call GROUP_strip_prefix,$(2),$(3))
-install: $$(GROUP_install_target)
-$$(GROUP_install_target): $(3)
-	$$(INSTALL) --mode=$(4) $$< $$@
+install: $(2)
+$(2): $(1)
+	$$(INSTALL) --mode=$(3) $$< $$@
 
 endef
 
-define GROUP_template
+# 1: parent directory
+# 2: prefix to strip
+# 3: directories
+define GROUP_template_directories
 target_DIRS := $(addprefix $(1)/,$(call GROUP_strip_prefix,$(2),$(3)))
 install: $$(target_DIRS)
 $$(target_DIRS):
 	$$(INSTALL) --directory --mode=755 $$@
-$(foreach file,$(4),$(call GROUP_diff_template,$(1),$(2),$(file)))
-$(foreach file,$(4),$(call GROUP_install_template,$(1),$(2),$(file),$(5)))
+
+endef
+
+# 1: parent directory
+# 2: prefix to strip
+# 3: file
+# 4: prefix to add
+# 5: file mode
+define GROUP_template_file
+$(call GROUP_diff_template,$(3),$(call GROUP_build_target,$(1),$(2),$(3),$(4)))
+$(call GROUP_install_template,$(3),$(call GROUP_build_target,$(1),$(2),$(3),$(4)),$(5))
+endef
+
+# 1: parent directory
+# 2: prefix to strip
+# 3: directories to install
+# 4: files to install
+# 5: file mode
+# 6: prefix to add
+define GROUP_template
+$(call GROUP_template_directories,$(1),$(2),$(3))
+$(foreach file,$(4),$(call GROUP_template_file,$(1),$(2),$(file),$(6),$(5)))
 endef
 
 DIFF = diff
@@ -41,6 +78,8 @@ INSTALL = install
 
 prefix = ~/.local
 userconfdir = $(prefix)/etc
+
+-include config.mk
 
 DOTDIRS = \
 	  X11 \
@@ -137,6 +176,7 @@ DOTFILES = \
 	   zsh/functions/cdup \
 	   zsh/functions/d \
 	   zsh/functions/define-digraphs \
+	   zsh/functions/history-beginning-search-menu \
 	   zsh/functions/insert-digraph \
 	   zsh/functions/prompt_now_setup \
 	   zsh/functions/zcalc
@@ -167,11 +207,11 @@ $(eval $(call GROUP_template,$(userconfdir),firefox,$(DOTDIRS),$(DOTFILES),644))
 DOTDIRS =
 
 DOTFILES = \
-	   .cdrdao \
-	   .gitconfig \
-	   .vimperatorrc
+	   cdrdao \
+	   gitconfig \
+	   vimperatorrc
 
-$(eval $(call GROUP_template,~,,$(DOTDIRS),$(DOTFILES),644))
+$(eval $(call GROUP_template,~,,$(DOTDIRS),$(DOTFILES),644,.))
 
 userbindir = ~
 
