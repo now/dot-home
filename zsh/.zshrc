@@ -296,6 +296,7 @@ zle -C complete-kept complete-word _complete-kept
 
 bindkey -r "^O"
 bindkey -rp "^X"
+bindkey -r "^X"
 bindkey -r "^?"
 bindkey -rp "^["
 bindkey "^O$" insert-last-word
