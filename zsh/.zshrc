@@ -77,6 +77,39 @@ precmd () {
   _set_title zsh
 }
 
+preexec () {
+  local -a cmd
+  
+  cmd=(${(z)1})
+  case $cmd[1] in
+    (fg)
+      if (( $#cmd == 1 )); then
+        cmd=(builtin jobs -l %+)
+      else
+        cmd=(builtin jobs -l ${(Q)cmd[2]})
+      fi ;;
+    (r)
+      cmd=($(builtin history -n -1))
+      _set_title $cmd[1]:t
+      return ;;
+    (%*)
+      cmd=(builtin jobs -l ${(Q)cmd[1]}) ;;
+    (exec)
+      shift cmd ;&
+    (*)
+      _set_title $cmd[1]:t
+      return ;;
+  esac
+
+  local -A jt
+
+  jt=(${(kv)jobtexts})
+
+  $cmd >>(read num rest
+          cmd=(${(z)${(e):-\$jt$num}})
+          _set_title $cmd[1]:t) 2>/dev/null
+}
+
 
 
 # 6  Modules {{{1
@@ -216,63 +249,13 @@ bindkey -a "l" vi-substitute
 
 # 8.1.4  Miscellaneous
 
-_update-title-from-command-line () {
-  local -a cmd
-  
-  cmd=(${(z)1})
-  case $cmd[1] in
-    (fg)
-      if (( $#cmd == 1 )); then
-        cmd=(builtin jobs -l %+)
-      else
-        cmd=(builtin jobs -l ${(Q)cmd[2]})
-      fi ;;
-    (r)
-      cmd=($(builtin history -n -1))
-      _set_title $cmd[1]:t
-#      zle $1
-      return ;;
-    (%*)
-      cmd=(builtin jobs -l ${(Q)cmd[1]}) ;;
-    (exec)
-      shift cmd ;&
-    (*)
-      _set_title $cmd[1]:t
-#      zle $1
-      return ;;
-  esac
-
-  local -A jt
-
-  jt=(${(kv)jobtexts})
-
-  $cmd >>(read num rest
-          cmd=(${(z)${(e):-\$jt$num}})
-          _set_title $cmd[1]:t) 2>/dev/null
-#  zle $1
-}
-
-preexec_functions+=(_update-title-from-command-line)
-
-update-title-and-accept-line () {
-  _update-title-from-command-line .accept-line
-}
-zle -N update-title-and-accept-line
-#bindkey -a "^J" update-title-and-accept-line
-#bindkey -a "^M" update-title-and-accept-line
-
-update-title-and-accept-line-and-down-history () {
-  _update-title-from-command-line .accept-line-and-down-history
-}
-zle -N update-title-and-accept-line-and-down-history
-bindkey -a "^L" accept-line-and-down-history
-
 bindkey -arp "^["
 bindkey -ar "#"
 bindkey -ar "+"
 bindkey -ar "\-"
 bindkey -ar "^?"
 bindkey -a "^[" vi-cmd-mode
+bindkey -a "^L" accept-line-and-down-history
 bindkey -a "^R" redo
 bindkey -a "N" run-help
 bindkey -a "u" undo
@@ -301,7 +284,7 @@ bindkey "^K" insert-digraph
 # 8.2.4  Miscellaneous
 
 _complete-previous-output () {
-  compadd - ${(f)"$(eval $(fc -l -n -1))"}
+  compadd - ${=:-$(eval $(fc -l -n -1))}
 }
 zle -C complete-previous-output complete-word _complete-previous-output
 
@@ -313,7 +296,6 @@ zle -C complete-kept complete-word _complete-kept
 
 bindkey -r "^O"
 bindkey -rp "^X"
-bindkey -r "^X"
 bindkey -r "^?"
 bindkey -rp "^["
 bindkey "^O$" insert-last-word
@@ -363,10 +345,6 @@ self-insert-redir () {
 }
 zle -N self-insert-redir
 bindkey ${(s: :):-${^${(s::):-"|<>&"}}" self-insert-redir"}
-
-#bindkey "^J" update-title-and-accept-line
-#bindkey "^M" update-title-and-accept-line
-#bindkey "^L" update-title-and-accept-line-and-down-history
 
 
 # 8.3  List-scroll Mode {{{2
@@ -454,7 +432,6 @@ alias mp='mplayer'
 alias mpq='mplayer -nosound'
 alias tv='DISPLAY=:0.1 mplayer -vo gl2 -dr'
 alias ri='noglob ri'
-alias h='fc -lfiD'
 
 alias -g ...='../..'
 alias -g ....='../../..'
