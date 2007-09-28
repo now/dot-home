@@ -433,6 +433,7 @@ alias mp='mplayer'
 alias mpq='mplayer -nosound'
 alias tv='DISPLAY=:0.1 mplayer -vo gl2 -dr'
 alias ri='noglob ri'
+alias h='fc -lfiD'
 
 alias -g ...='../..'
 alias -g ....='../../..'
