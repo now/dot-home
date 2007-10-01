@@ -207,7 +207,6 @@ $(eval $(call GROUP_template,$(userconfdir),firefox,$(DOTDIRS),$(DOTFILES),644))
 DOTDIRS =
 
 DOTFILES = \
-	   cdrdao \
 	   gitconfig \
 	   vimperatorrc
 
