@@ -210,6 +210,11 @@ DOTFILES = \
 	   gitconfig \
 	   vimperatorrc
 
+ifdef ICANTMODIFYETC
+DOTFILES += \
+	    zshenv
+endif
+
 $(eval $(call GROUP_template,~,,$(DOTDIRS),$(DOTFILES),644,.))
 
 userbindir = ~
