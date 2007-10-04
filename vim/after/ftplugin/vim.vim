@@ -1,7 +1,7 @@
 " Vim filetype plugin file 
 " Language:	    VimL
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2007-09-26
+" Latest Revision:  2007-09-28
 
 setlocal softtabstop=2 shiftwidth=2
 
@@ -101,6 +101,8 @@ function s:update_syntax_definitions()
 
   let name = expand('%:t:r')
 
+  let saved_cursor = getpos('.')
   silent! execute 'keepjumps /^let b:current_syntax = [''"].*\%('.name.'\)\@<![''"]/s/[''"].*[''"]/\="''".name."''"'
-  execute 'keepjumps %s/^\s*syn\s\+\(\%(keyword\|match\|region\|cluster\)\s\+\)\l*\%('.name.'\)\@<!\(\S\+\)/\="syn ".submatch(1).name.submatch(2)/e'
+  execute 'silent! keepjumps v/^\%(\s*syn\%[tax]\s\+\%(keyword\|match\|region\|cluster\)\s\+\l*\)\@!\|^\s*syn\%[tax]\s\+\%(keyword\|match\|region\|cluster\)\s\+'.name.'/s/^\s*syn\%[tax]\s\+\(keyword\|match\|region\|cluster\)\s\+\l*/\="syn ".submatch(1).repeat(" ", 8 - len(submatch(1))).name'
+  call setpos('.', saved_cursor)
 endfunction
