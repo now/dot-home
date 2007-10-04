@@ -207,6 +207,7 @@ $(eval $(call GROUP_template,$(userconfdir),firefox,$(DOTDIRS),$(DOTFILES),644))
 DOTDIRS =
 
 DOTFILES = \
+	   fonts.conf \
 	   gitconfig \
 	   vimperatorrc
 
