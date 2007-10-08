@@ -97,6 +97,7 @@ DOTDIRS = \
 	  vim/doc \
 	  vim/ftplugin \
 	  vim/macros \
+	  vim/syntax \
 	  vim/templates \
 	  vim/templates/vim \
 	  zsh \
