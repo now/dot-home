@@ -20,7 +20,7 @@ unset BAUD
 # =========
 
 
-limit coredumpsize  30m
+limit coredumpsize 30m >& /dev/null
 
 
 
@@ -449,6 +449,12 @@ cd () {
     dir: \2/p"
     (( $pipestatus[0] == 0 )) && builtin cd $1
   fi
+}
+
+chpwd_functions+=(chpwd_list)
+
+chpwd_list () {
+  ls --color=auto
 }
 
 vg () {
