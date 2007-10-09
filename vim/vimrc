@@ -2,6 +2,9 @@
 "
 " Copyright © 2002,2003,2004,2005,2006,2007 Nikolai Weibull <now@bitwi.se>
 
+" TODO: Should we modify the 'complete' option?  Scanning included files is
+" perhaps a bit much, better to leave that to Ctrl-X Ctrl-I.
+
 set cpoptions&vim
 let &runtimepath = substitute(&rtp, expand('~/\.vim'), '\~/.local/etc/vim', 'g')
 set nostartofline
@@ -15,6 +18,7 @@ set statusline=%F%(\ [%1*%M%*%(,%2*%R%*%)]%)\ %w%=%(\ %y%)\ line:\ %l\ of\ %L
 set hidden
 " TODO: can we remove this?
 set noesckeys
+" TODO: Perhaps dump this?
 set showcmd
 set confirm
 set autowriteall
@@ -29,6 +33,8 @@ set autoindent
 set cinoptions=:0,l1,t0,c0,C1,(0,u0
 set foldtext=substitute(substitute(foldtext(),'^+-\\+\\s*\\d\\+\ lines:','§',
                        \'g'),'\\s\\+$','\ ⇱','')
+" TODO: Set this by default?  I’m becoming more and more unsure of using fold
+" markers.
 set foldmethod=marker
 " TODO: decide on this
 " set backupcopy=auto,breakhardlink
@@ -153,9 +159,9 @@ cnoremap <C-D>  <Delete>
 cnoremap <C-F>  <Right>
 cnoremap <C-N>  <Down>
 cnoremap <C-P>  <Up>
-cnoremap <M-b>  <S-Left>
-cnoremap <M-f>  <S-Right>
-cmap <M-d>  <C-\>e<SID>command_line_delete_word_to_right()<CR>
+cnoremap <Esc>b <S-Left>
+cnoremap <Esc>f <S-Right>
+cmap     <Esc>d <C-\>e<SID>command_line_delete_word_to_right()<CR>
 cnoremap <expr> <C-S> (getcmdtype() == '/' \|\| getcmdtype() == '?') ? '<Return>' . getcmdtype() . '<C-R>/' : ""
 cnoremap <expr> <C-O> (getcmdtype() == '/' \|\| getcmdtype() == '?') ? '<Return>' . (getcmdtype() == '/' ? '?' : '/') . '<C-R>/' : ""
 
@@ -163,7 +169,7 @@ function! s:command_line_delete_word_to_right()
   let cmd = getcmdline()
   let pos = getcmdpos()
   let before = strpart(cmd, 0, pos - 1)
-  let after = substitute(strpart(cmd, pos), '^\s*\w\+\ze\%(\s\+\|$\)', '', '')
+  let after = substitute(strpart(cmd, pos), '^\s*\w\+\ze\%(\s\+\|$\)', "", "")
   return before . after
 endfunction
 
