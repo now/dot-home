@@ -164,6 +164,7 @@ cnoremap <Esc>f <S-Right>
 cmap     <Esc>d <C-\>e<SID>command_line_delete_word_to_right()<CR>
 cnoremap <expr> <C-S> (getcmdtype() == '/' \|\| getcmdtype() == '?') ? '<Return>' . getcmdtype() . '<C-R>/' : ""
 cnoremap <expr> <C-O> (getcmdtype() == '/' \|\| getcmdtype() == '?') ? '<Return>' . (getcmdtype() == '/' ? '?' : '/') . '<C-R>/' : ""
+cnoremap <C-Y> <C-R><C-O>*
 
 function! s:command_line_delete_word_to_right()
   let cmd = getcmdline()
