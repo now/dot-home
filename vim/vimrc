@@ -11,6 +11,7 @@ set nostartofline
 set incsearch
 set path+=./**
 let &fillchars = 'diff: ,fold: ,vert:' . (&encoding == 'utf-8' ? '│' : '|')
+let &listchars .= (&encoding == 'utf-8' ? ',tab:»·,trail:·' : ',tab:>.,trail:.')
 " TODO: seriously, everyone wants this.  Why is this not enabled by default?
 syntax enable
 colorscheme now
