@@ -1,118 +1,165 @@
-# contents: The `pcp' prompt definition.
-# arch-tag: 775239e8-3447-4ced-829f-095b101ee867 
+# contents: The “now” prompt definition.
 #
-# Copyright (C) 2002,2003,2004 Nikolai Weibull <source@pcppopper.org>
+# Copyright © 2002,2003,2004,2007 Nikolai Weibull <now@bitwi.se>
+
+# prompt_now_help {{{1
 #
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-
-
-# prompt_pcp_help {{{1
-#
-# Called by `prompt' when help for this theme is requested.
-prompt_pcp_help () {
+# Called by PROMPT when help for this theme is requested.
+prompt_now_help () {
   cat <<EOH
 This prompt is color-scheme-able.  You can invoke it thusly:
 
-  prompt pcp [<color1> [<color2> [<color3>]]]
+  prompt now COLOR...
 
-where the colors are for the items, the separators, and the item names.
-The default colors are default, yellow, and blue.  This theme works best
-with a light background.
+The colors’ uses and default values are
+
+COLOR   Use         Default
+---------------------------
+1       items       default
+2       separators  yellow
+3       item names  blue
+4       messages    green
+5       warnings    red
+6       success     bright green
+7       error       bright red
+8       background  white
+9       colons      default
 EOH
 }
 
-# prompt_pcp_setup {{{1
+integer PSCOL=-1
+
+# prompt_now_setup {{{1
 #
-# Called by `prompt' when the theme is selected.
-prompt_pcp_setup () {
+# Called by PROMPT when the theme is selected.
+prompt_now_setup () {
   emulate -L zsh
-  setopt extended_glob
+  setopt extendedglob nolocaltraps
+  prompt_opts=(cr percent subst)
 
-  local c1=$fg[${1:-default}]
-  local c2=$fg[${2:-yellow}]
-  local c3=$fg[${3:-blue}]
-  local reset=$reset_color
-  local beg end sep user path_comp dir pstatus line_1 line_2
+  prompt_now_teardown
 
-  beg="%{$c2%}:::%{$reset%} "
-  end=" %{$c2%}:::%{$reset%}"
-  sep=" %{$c2%}::%{$reset%} "
+  # Set up color arrays.  C contains the raw color sequences, while D contains
+  # %{…%}-surrounded entries for prompts that need to determine the width of
+  # the prompt.
+  declare -a default_colors d
+  default_colors=(default yellow blue green red green red white default)
+  set -- $* $default_colors[$#,-1]
+  d=($fg[$1] $fg[$2] $fg[$3] $fg[$4] $fg[$5] $fg_bold[$6] $fg_bold[$7] $bg[$8] $bg[$9])
+  d=('%{'$^d'%}')
 
-  # XXX: this can probably be cleaned up some
-  dir="%{$c3%}dir%{$reset%}: %{$c1%}$path_comp%{$reset%}"
-  user="%{$c3%}user%{$reset%}: %{$c1%}%n@%m%{$reset%}"
-  line_1="$beg$dir$sep$user$end"
-  line_1=${line_1//\%{[^%]#%}/}
-  path_comp="%$((COLUMNS - ${(c)#$(print -P -- $line_1)}))<...<%(25~|.../|)%24~%<<"
+  local r="%{$reset_color%}"
 
-  dir="%{$c3%}dir%{$reset%}: %{$c1%}$path_comp%{$reset%}"
-  pstatus="%(?..$beg%{$c3%}err%{$reset%}: %{$fg_bold[red]%}%?%{$reset%}$end$prompt_newline)"
-  line_1="$beg$dir$sep$user$end"
-  line_2="$pstatus"
+  s="$d[9]:$r"
 
-  # XXX: PS{2,3,4} should be looked into
-  PS1="$line_1$prompt_newline$line_2"
-  PS2="%_$sep"
-  PS3="?$sep"
+  prompt_now_tag () { print -- ${*/(#b)(*):(*):(*):(*)/$d[$match[1]]$match[2]$r$s $d[$match[3]]$match[4]$r} }
 
-  SPROMPT="zsh: correct ‘$fg_bold[red]%R${reset}’ to ‘$fg_bold[green]%r${reset}’? "
+  prompt_now_item () { print -- $(prompt_now_tag ${*/(#b)(*):(*)/3:$match[1]:1:$match[2]}) }
 
-  local cmd real system
+  # TODO: Should display user’s PSVARs?
 
-  cmd="${c3}job$reset: %J"
-  real="${c3}real$reset: %*E"
-  user="${c3}user$reset: %*U"
-  system="${c3}system$reset: %*S (%P)"
+  declare -a e
+  if [[ $(stty 2> /dev/null) == *iutf8* ]]; then
+    e=('…' '———' '———' '“' '”')
+  else
+    e=('...' '---' '---' '"' '"')
+  fi
 
-  TIMEFMT=${${:-"$beg$cmd$sep$real$sep$user$sep$system$end"}//(%{|%})}
+  prompt_now_line () {
+    print -- "$d[2]:::$r $* $d[2]:::$r"
+  }
 
-  local tty time
+  prompt_now_pair () {
+    if (( $# == 5 )); then
+      print -- $d[$1]$2$r$s $d[$4]$5$r
+    else
+      print -- $d[3]$1$r$s $d[1]$2$r
+    fi
+  }
 
-  user="$c3%(a.logon.logoff)$reset: %n (%M)" 
-  tty="${c3}tty$reset: %l"
-  time="${c3}time$reset: %T (%D)"
+  prompt_now_pairs () {
+    local sep=" $d[2]::$r "
+    local i='([^:]##)'; local p=$i:$i
+    eval "local middle=\${(pj:${sep//:/\\072}:)\${*/(#b)(#s)$p(:$p)#(#e)/\$(prompt_now_pair $ary \$match)}}"
+    prompt_now_line $middle
+  }
 
-  WATCHFMT=${${:-"$beg$user$sep$tty$sep$time$end"}//(%{|%})}
+  prompt_now_clean_pairs () {
+    print -- ${$(prompt_now_pairs $*)//(%{|%})}
+  }
 
-  local mail fmts p
-  integer i
-  mail=${${:-"$beg${c3}new$reset: \$_$end"}//(%{|%})}
-  for (( i = 1; i <= $#mailpath; i++ )); do
-    mailpath[i]=$mailpath[i]?$mail
-  done
+  eval "$(<<EOF
+    prompt_now_precmd () {
+      (( COLUMNS == PSCOL )) && return
+      (( PSCOL = COLUMNS ))
 
-  local ec=$fg[red]
+      prompt_now_setup_dir () {
+        line_1="$(prompt_now_pairs dir:\$path_component user:%n@%m)"
+      }
 
-  zstyle ':completion:*:default' list-prompt \
-    "%{$bg[white]%}-- More --$(printf '%*s' $((COLUMNS - ${#:-'-- More --page: Top'})) '')page: %p%{$reset%}"
+      local line_1 line_2 path_component
+      integer columns_left
+      prompt_now_setup_dir
+      line_1=\${line_1//\%{[^%]#%}}
+      (( columns_left = COLUMNS - \${(c)#\$(print -P -- \$line_1)} ))
+      path_component="%\$columns_left<$e[1]<%(25~|$e[1]/|)%24~%<<"
+      prompt_now_setup_dir
+      unfunction prompt_now_setup_dir
 
-  zstyle ':completion:*:descriptions' format "$beg%{$c3%}%d%{$reset%}$end"
-  zstyle ':completion:*:messages' format "%{$fg[green]%}%d%{$reset_color%}"
-  zstyle ':completion:*:warnings' format "%{$ec%}no matches for %d%{$reset_color%}"
- #zstyle ':completion:*:warnings' format "%{$bg[red]$fg_bold[white]%}no matches for %d%{$reset_color%}"
-				# corrections
-  zstyle ':completion:*:corrections' format "$beg%{$c3%}%d%{$reset%}$sep%{$c3%}errors%{$reset%}: %{$ec%}%e%{$reset%})$end"
+      line_2="%(?..$(prompt_now_pairs '3:err:7:%?')$prompt_newline)"
+
+      PS1="\$line_1$prompt_newline\$line_2"
+
+      zstyle ':completion:*:default' list-prompt \
+        "$d[8]$e[2] More $e[3]\${(l:\$((COLUMNS - ${#:-'$e[2] More $e[3]page: Top'})):)}page: %p$r"
+    }
+EOF)"
+  precmd_functions+=(prompt_now_precmd)
+
+  PS2='${(l:$((2 * (${(w)#$(print -P %_)} - 1))):)}'
+  PS3="$d[1]Your selection$r: "
+  PS4="$d[2]+$r$d[3]%N$r:$d[1]%i$r: "
+
+  SPROMPT="zsh: correct $e[4]$d[7]%R$r$e[5] to $e[4]$d[6]%r$r$e[5]? "
+
+  TIMEFMT=$(prompt_now_clean_pairs job:%J)$'\n'$(prompt_now_clean_pairs 'real:%*E' 'user:%*U' 'system:%*S (%P)')
+
+  WATCHFMT=$(prompt_now_clean_pairs '%(a.logon.logoff):%n (%M)' tty:%l 'time:%T (%D)')
+
+  local mail="$(prompt_now_clean_pairs 'new:\$_')"
+  (( $#mailpath > 0 )) && mailpath=(${mailpath%?*}$^mail)
+
+  zstyle ':completion:*:descriptions' format "$(prompt_now_line %d)"
+  zstyle ':completion:*:messages' format "$d[4]%d$r"
+  zstyle ':completion:*:warnings' format "$d[5]no matches for %d$r"
+  zstyle ':completion:*:corrections' format "$(prompt_now_line %d \($d[3]errors$r$s $d[7]%e$r\))"
+
+  unfunction prompt_now_clean_pairs prompt_now_pairs prompt_now_line
+
+  functions[TRAPWINCH]="${functions[TRAPWINCH]//$'\n'    prompt_now_winch}
+    prompt_now_winch"
 }
 
 # }}}1
 
+prompt_now_teardown () {
+  if (( $+functions[prompt_now_precmd] )); then
+    precmd_functions[(I)prompt_now_precmd]=()
+    unfunction prompt_now_precmd
+  fi
+  functions[TRAPWINCH]="${functions[TRAPWINCH]//$'\n'    prompt_now_winch}"
+}
 
+prompt_now_winch () {
+  prompt_now_precmd
+  zle && zle reset-prompt
+}
 
-[[ -o kshautoload ]] || prompt_pcp_setup "$@"
+prompt_now_preview () {
+  local +h PS1='%# '
+  prompt_preview_theme now "$@"
+}
 
+[[ -o kshautoload ]] || prompt_now_setup "$@"
 
-
-# vim: set ft=zsh sts=2 sw=2:
+# vim: ft=zsh
