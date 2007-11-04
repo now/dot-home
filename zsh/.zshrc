@@ -261,6 +261,12 @@ bindkey -a "N" run-help
 bindkey -a "u" undo
 bindkey -a "~" vi-oper-swap-case
 
+autoload -Uz vim-increase-number
+zle -N vim-increase-number vim-increase-number
+zle -N vim-decrease-number vim-increase-number
+bindkey -a "^A" vim-increase-number
+bindkey -a "^X" vim-decrease-number
+
 autoload -Uz replace-string
 zle -N replace-pattern replace-string
 bindkey -a ":s" replace-pattern

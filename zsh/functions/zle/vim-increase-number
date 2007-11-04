@@ -1,0 +1,31 @@
+emulate -L zsh
+setopt extendedglob
+
+# Use the numeric argument (defaulting to 1).  Negate if called as
+# vim-decrease-number.
+integer delta=${NUMERIC:-1}
+if [[ $WIDGET == vim-decrease-number ]]; then
+  (( delta = -delta ))
+fi
+
+# Find the first (possibly negative) number to the right of the cursor.
+integer begin end
+if [[ $BUFFER[CURSOR+1] == [[:digit:]] ]]; then
+  (( begin = ${BUFFER[1,CURSOR+1][(I)[^[:digit:]]]} + 1 ))
+else
+  local right=$BUFFER[CURSOR+1,-1]
+  (( begin = right[(i)[[:digit:]]] ))
+  (( begin > $#right )) && return
+  (( begin += CURSOR ))
+fi
+(( end = begin + ${BUFFER[begin,-1][(i)[^[:digit:]]]} - 2 ))
+
+if (( begin > 1 )) && [[ $BUFFER[begin-1] == - ]]; then
+  (( begin-- ))
+fi
+
+# Add DELTA to the number between BEGIN and END and move the cursor to the end
+# of the new number.
+integer length_before=$#BUFFER
+(( BUFFER[begin,end] += delta ))
+(( CURSOR = (end - 1) + ($#BUFFER - length_before) ))

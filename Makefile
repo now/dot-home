@@ -101,7 +101,8 @@ DOTDIRS = \
 	  vim/templates \
 	  vim/templates/vim \
 	  zsh \
-	  zsh/functions
+	  zsh/functions \
+	  zsh/functions/zle
 
 DOTFILES = \
 	   X11/Xresources \
@@ -180,7 +181,8 @@ DOTFILES = \
 	   zsh/functions/history-beginning-search-menu \
 	   zsh/functions/insert-digraph \
 	   zsh/functions/prompt_now_setup \
-	   zsh/functions/zcalc
+	   zsh/functions/zcalc \
+	   zsh/functions/zle/vim-increase-number
 
 $(eval $(call GROUP_template,$(userconfdir),,$(DOTDIRS),$(DOTFILES),644))
 

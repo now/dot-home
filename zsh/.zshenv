@@ -2,6 +2,6 @@
 #
 # Copyright © 2004,2005,2006 Nikolai Weibull <now@bitwi.se>
 
-fpath=(~/.local/etc/zsh/functions ~/.local/etc/zsh/functions/zap $fpath)
+fpath=(~/.local/etc/zsh/functions{,/{zap,zle}} $fpath)
 
 setopt extendedglob
