@@ -170,10 +170,6 @@ DOTFILES = \
            vim/templates/xdefaults.template \
            vim/templates/yaml.template \
            vim/templates/zsh.template \
-	   zsh/.zlogin \
-	   zsh/.zprofile \
-	   zsh/.zshenv \
-	   zsh/.zshrc \
 	   zsh/functions/_unpack \
 	   zsh/functions/cdup \
 	   zsh/functions/d \
@@ -185,6 +181,16 @@ DOTFILES = \
 	   zsh/functions/zle/vim-increase-number
 
 $(eval $(call GROUP_template,$(userconfdir),,$(DOTDIRS),$(DOTFILES),644))
+
+DOTDIRS =
+
+DOTFILES = \
+	   zsh/zlogin \
+	   zsh/zprofile \
+	   zsh/zshenv \
+	   zsh/zshrc
+
+$(eval $(call GROUP_template,$(userconfdir)/zsh,zsh,$(DOTDIRS),$(DOTFILES),644,.))
 
 DOTDIRS =
 
