@@ -471,7 +471,7 @@ vg () {
   local regex=$1; shift
   vim \
       -c 'let saved_grepprg = &grepprg' \
-      -c 'set grepprg=pcregrep\ -u\ -n\ --\ $*\ /dev/null' \
+      -c 'set grepprg=grep\ -n\ -P\ --\ $*\ /dev/null' \
       -c 'let saved_shellpipe = &shellpipe' \
       -c 'set shellpipe=>\ %s\ 2>&1' \
       -c "silent! grep '${regex//(#m)[%#]/\\$MATCH}' ${^${(@qq)${(@)*//(#m)[%#]/\\$MATCH}}}" \

@@ -44,7 +44,7 @@ set wildcharm=<C-Z>
 set wildmode=list:longest
 set wildignore=*.{o\\,l[oa]}
 set errorformat=%-G%.%#
-set grepprg=pcregrep\ -u\ -n\ $*\ /dev/null
+set grepprg=grep\ -n\ -P\ $*\ /dev/null
 if &viminfo == ""
   set viminfo='20
 endif
