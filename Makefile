@@ -86,7 +86,6 @@ DOTDIRS = \
 	  cmus \
 	  gnupg \
 	  irssi \
-	  ivman \
 	  lftp \
 	  mplayer \
 	  vim \
@@ -116,10 +115,6 @@ DOTFILES = \
 	   irbrc \
 	   irssi/clean.theme \
 	   irssi/config \
-	   ivman/IvmConfigActions.xml \
-	   ivman/IvmConfigBase.xml \
-	   ivman/IvmConfigConditions.xml \
-	   ivman/IvmConfigProperties.xml \
 	   lftp/rc \
 	   mailcap \
 	   mplayer/config \
