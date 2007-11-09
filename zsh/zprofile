@@ -1,13 +1,20 @@
 # contents: zsh(1) user profile RC.
 #
-# Copyright © 2002,2003,2004,2005,2006 Nikolai Weibull <now@bitwi.se>
+# Copyright © 2002,2003,2004,2005,2006,2007 Nikolai Weibull <now@bitwi.se>
+
+local prefix=~/.local
+
+XDG_CONFIG_HOME=$prefix/etc
+XDG_CACHE_HOME=$prefix/var/cache
 
 declare -U path
 path=(. ~/bin $path)
 
 declare -TU MAILCAPS mailcaps
-mailcaps=(~/.local/etc/mailcap)
-PERSONAL_MAILCAP=~/.local/etc/mailcap
+mailcaps=($XDG_CONFIG_HOME/mailcap)
+PERSONAL_MAILCAP=$mailcaps[1]
+
+EMAIL="Nikolai Weibull <now@bitwi.se>"
 
 LANG=en_US.UTF-8
 LC_COLLATE=C
@@ -17,45 +24,53 @@ MANPAGER="col -b | vimless +'setf man' -"
 EDITOR=vim
 VERSION_CONTROL=numbered
 VERSION_WIDTH=2
+
 GREP_COLOR="01;32"
-EMAIL="Nikolai Weibull <now@bitwi.se>"
 
 MANWIDTH=79
 
-XDG_CONFIG_HOME=~/.local/etc
-XDG_CACHE_HOME=~/.local/var/cache
-MONO_SHARED_DIR=~/.local/var/run/mono
-GEMCACHE=$XDG_CACHE_HOME/rubygems
-
-VIMINIT="so ~/.local/etc/vim/vimrc"
-XAUTHORITY=~/.local/var/lib/misc/Xauthority
-ICEAUTHORITY=~/.local/var/lib/misc/ICEauthority
-CVS_PASSFILE=$XDG_CACHE_HOME/cvs/cvspass
+VIMINIT="so $XDC_CONFIG_HOME/vim/vimrc"
 INPUTRC=$XDG_CONFIG_HOME/inputrc
 INDENT_PROFILE=$XDG_CONFIG_HOME/indentrc
 SCREENRC=$XDG_CONFIG_HOME/screenrc
-GST_REGISTRY=$XDG_CACHE_HOME/gst/registry.xml
-GNUPGHOME=$XDG_CONFIG_HOME/gnupg
 IRBRC=$XDG_CONFIG_HOME/irbrc
+GNUPGHOME=$XDG_CONFIG_HOME/gnupg
 LFTP_HOME=$XDG_CONFIG_HOME/lftp
-WINEPREFIX=~/.local/lib/wine
 MPLAYER_HOME=$XDG_CONFIG_HOME/mplayer
 GTK2_RC_FILES=$XDG_CONFIG_HOME/gtkrc
-LESSHISTFILE=~/.local/var/lib/less/history
-GIMP2_DIRECTORY=.local/var/lib/gimp-2.0
-GNOME22_USER_DIR=~/.local/var/lib/gnome2
-MYSQL_HISTFILE=~/.local/var/lib/mysql/history
 CMUS_HOME=$XDG_CONFIG_HOME/cmus
+
+MONO_SHARED_DIR=$prefix/var/run/mono
+
+WINEPREFIX=$prefix/lib/wine
+
+CVS_PASSFILE=$XDG_CACHE_HOME/cvs/cvspass
 DVDCSS_CACHE=$XDG_CACHE_HOME/dvdcss
+GEMCACHE=$XDG_CACHE_HOME/rubygems
+GST_REGISTRY=$XDG_CACHE_HOME/gst/registry.xml
+
+XAUTHORITY=$prefix/var/lib/misc/Xauthority
+ICEAUTHORITY=$XAUTHORITY:h/ICEauthority
+LESSHISTFILE=$prefix/var/lib/less/history
+GIMP2_DIRECTORY=${${${prefix#~}#/}:+${${prefix#~}#/}/}var/lib/gimp-2.0
+GNOME22_USER_DIR=$prefix/var/lib/gnome2
+MYSQL_HISTFILE=$prefix/var/lib/mysql/history
+
+unset prefix
 
 export                                                                \
+  XDG_CONFIG_HOME XDG_CACHE_HOME                                      \
   PATH MAILCAPS PERSONAL_MAILCAP                                      \
+  EMAIL                                                               \
   LANG LC_COLLATE                                                     \
   PAGER MANPAGER EDITOR                                               \
-  VERSION_CONTROL VERSION_WIDTH GREP_COLOR EMAIL                      \
+  VERSION_CONTROL VERSION_WIDTH                                       \
+  GREP_COLOR                                                          \
   MANWIDTH                                                            \
-  XDG_CONFIG_HOME XDG_CACHE_HOME MONO_SHARED_DIR GEMCACHE             \
-  VIMINIT XAUTHORITY ICEAUTHORITY CVS_PASSFILE INPUTRC INDENT_PROFILE \
-  SCREENRC GST_REGISTRY GNUPGHOME IRBRC LFTP_HOME WINEPREFIX          \
-  MPLAYER_HOME GTK2_RC_FILES LESSHISTFILE GIMP2_DIRECTORY             \
-  GNOME22_USER_DIR MYSQL_HISTFILE CMUS_HOME DVDCSS_CACHE
+  VIMINIT INPUTRC INDENT_PROFILE SCREENRC IRBRC GNUPGHOME LFTP_HOME   \
+  MPLAYER_HOME GTK2_RC_FILES CMUS_HOME                                \
+  MONO_SHARED_DIR                                                     \
+  WINEPREFIX                                                          \
+  CVS_PASSFILE DVDCSS_CACHE GEMCACHE GST_REGISTRY                     \
+  XAUTHORITY ICEAUTHORITY LESSHISTFILE GIMP2_DIRECTORY                \
+  GNOME22_USER_DIR MYSQL_HISTFILE
