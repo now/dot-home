@@ -10,7 +10,7 @@ rp-error () {
   exit
 }
 
-if [[ $# < 1 ]]; then
+if (( $# < 1 )); then
   rp-error 'Missing argument'
 fi
 
