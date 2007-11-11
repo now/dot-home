@@ -271,6 +271,14 @@ autoload -Uz replace-string
 zle -N replace-pattern replace-string
 bindkey -a ":s" replace-pattern
 
+_up-directory () {
+  print
+  up $NUMERIC
+  zle reset-prompt
+}
+zle -N up-directory _up-directory
+bindkey -a "^U" up-directory
+
 
 # 8.2  VI Insert Mode {{{2
 # -------------------
@@ -372,7 +380,7 @@ bindkey -M listscroll 'q' send-break
 autoload -U promptinit; promptinit
 prompt now
 
-autoload -U cdup d zcalc
+autoload -U up d zcalc
 
 autoload -U zmv
 alias mmv='noglob zmv -W'

@@ -166,7 +166,7 @@ DOTFILES = \
            vim/templates/yaml.template \
            vim/templates/zsh.template \
 	   zsh/functions/_unpack \
-	   zsh/functions/cdup \
+	   zsh/functions/up \
 	   zsh/functions/d \
 	   zsh/functions/define-digraphs \
 	   zsh/functions/history-beginning-search-menu \
