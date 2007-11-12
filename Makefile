@@ -166,6 +166,7 @@ DOTFILES = \
            vim/templates/yaml.template \
            vim/templates/zsh.template \
 	   zsh/functions/_unpack \
+	   zsh/functions/_up \
 	   zsh/functions/up \
 	   zsh/functions/d \
 	   zsh/functions/define-digraphs \

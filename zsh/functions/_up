@@ -1,0 +1,30 @@
+#compdef up
+
+integer ret=1
+local curcontext=$curcontext state line
+declare -A opt_args
+
+_arguments \
+  '1:levels:->levels' \
+  '2:directory:->directories' && ret=0
+
+case $state in
+  (levels)
+    _alternative \
+      'levels::_guard "[[:digit:]]#" levels' \
+      'directories:directory:_directories -W "(..)"' && ret=0
+    ;;
+  (directories)
+    if [[ $line[1] == [[:digit:]]## ]]; then
+      if (( line[1] == 0 )); then
+        _directories && ret=0
+      else
+        _directories -W "(${(l,line[1]*3,,../,)})" && ret=0
+      fi
+    else
+      _message 'no more arguments'
+    fi
+    ;;
+esac
+
+return $ret
