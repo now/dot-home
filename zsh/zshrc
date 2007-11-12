@@ -447,6 +447,7 @@ alias top='top -u $USERNAME'    # run top with default user
 alias mp='mplayer'
 alias mpq='mplayer -nosound'
 alias tv='DISPLAY=:0.1 mplayer -vo gl2 -dr'
+alias hp='mplayer -ao alsa:device=secondary'
 alias ri='noglob ri'
 alias h='fc -lfiD'
 
