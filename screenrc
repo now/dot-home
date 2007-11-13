@@ -6,7 +6,6 @@
 # ====================
 
 
-attrcolor b ".I"        # Map bold attribute to bright, to maintain compat.
 deflogin off
 defscrollback 8192
 maptimeout 10
@@ -18,8 +17,7 @@ term "screen-256color"
 # ==========
 
 
-# TODO: Once screen can have UTF-8-encoded strings, the quotes will be changed
-activity "activity in window %n, \"%t\", at %0c"
+activity "%0c activity: %n %t"
 caption splitonly "%{= wd}%?%F%{..g}%?%n %t"
 hardstatus alwayslastline "%{= dd}%?%-w%?%{..g}%n %t%?[%u]%?%{-}%+w%-014= %M %d, %0c"
 sorendition = dr
