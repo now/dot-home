@@ -188,6 +188,17 @@ DOTFILES = \
 
 $(eval $(call GROUP_template,$(userconfdir)/zsh,zsh,$(DOTDIRS),$(DOTFILES),644,.))
 
+DOTDIRS = \
+	  vimperator \
+	  vimperator/.vimperator \
+	  vimperator/.vimperator/plugin
+
+DOTFILES = \
+	   vimperator/vimperator/plugin/bookmarks.js \
+	   vimperator/vimperatorrc
+
+$(eval $(call GROUP_template,$(userconfdir)/vimperator,vimperator,$(DOTDIRS),$(DOTFILES),644,.))
+
 DOTDIRS =
 
 DOTFILES = \
@@ -213,8 +224,7 @@ DOTDIRS =
 
 DOTFILES = \
 	   fonts.conf \
-	   gitconfig \
-	   vimperatorrc
+	   gitconfig
 
 ifdef ICANTMODIFYETC
 DOTFILES += \
