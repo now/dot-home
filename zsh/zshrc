@@ -273,12 +273,19 @@ zle -N replace-pattern replace-string
 bindkey -a ":s" replace-pattern
 
 _up-directory () {
-  print
   up $NUMERIC
   zle reset-prompt
 }
 zle -N up-directory _up-directory
 bindkey -a "^U" up-directory
+
+_cd-list () {
+  print
+  d
+  zle reset-prompt
+}
+zle -N cd-list _cd-list
+bindkey -a "^G" cd-list
 
 
 # 8.2  VI Insert Mode {{{2
@@ -470,7 +477,7 @@ cd () {
 chpwd_functions+=(chpwd_list)
 
 chpwd_list () {
-  ls --color=auto
+  zle || ls --color=auto
 }
 
 vg () {
