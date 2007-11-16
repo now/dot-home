@@ -1,59 +1,73 @@
 # contents: d command.
 #
-# Copyright © 2005 Nikolai Weibull <nikolai@bitwi.se>
+# Copyright © 2007 Nikolai Weibull
 
 emulate -L zsh
+setopt extendedglob
 
-# TODO: maintain a stack instead.
-# Also, write a zle function that lets you change directory on the fly, using a
-# menu.
-local dir=
+zmodload -i zsh/mathfunc
+zmodload -i zsh/parameter
+zmodload -i zsh/terminfo
 
-if (( $# )); then
-  dir=$1
-else
-  autoload -U colors
+autoload -U zap/path/common-prefix
+autoload -U zap/format/columns
 
-  local previous_dir=
-  local color=$fg_bold[blue]
-  integer num=0
-  integer removed_slashes=0
-  dirs -p | while read dir; do
-    local dir_display=$dir suffix=
-    if [[ -n $previous_dir ]]; then
-      if [[ $dir == $previous_dir?* ]]; then
-        dir_display=$(printf "%*s%s" $(( ${#previous_dir} - removed_slashes )) " " ${dir#$previous_dir/})
-        (( removed_slashes++ ))
-      else
-        (( removed_slashes = 0 ))
-        integer start=1
-        for (( i = 1; i <= $#dir; i++ )); do
-          if [[ $dir[i] != $previous_dir[i] ]]; then
-            break
-          fi
-          (( start = i ))
-        done
-        if (( start > 1 )); then
-          if (( start == $#dir )); then
-            head=$dir:h
-            tail=$dir:t
-            (( removed_slashes = $#head - ${#head//\/} ))
-            dir_display=$(printf "%*s%s" $(( $#head - removed_slashes )) " " $tail)
-          else
-            dir_display=$(printf "%*s%s" $(( $start - 1 )) " " $dir[start,-1])
-          fi
-        fi
-      fi
-    fi
-    printf "%3d. $color%s$reset_color\n" $num $dir_display
-    previous_dir=$dir
-    (( num++ ))
-  done
-  read -r 'dir?Jump to directory: ' || return
-  [[ -z $dir ]] && return
-#  if (( dir < 0 || dir >= i )); then
-#   echo d: no such directory stack entry: $dir
-#   return 1
-# fi
+if (( $# > 0)); then
+  cd ~-$1
+  return $status
 fi
-cd ~$dir
+
+declare -A colors
+colors=(new "$(echoti setaf 12)" old "$(echoti setaf 7)")
+
+declare -aU actual_dirs dirs
+actual_dirs=(${dirstack:#$PWD})
+dirs=(${(ps:\0:)"$(print -DN $actual_dirs)"})
+
+(( $#dirs == 0 )) && return 1
+
+local dir= previous_dir=
+declare -a display
+for dir in $dirs; do
+  local prefix= suffix=
+  prefix="$(zap/path/common-prefix ${previous_dir:-""} $dir)"
+  suffix=$dir[$#prefix+1,-1]
+
+  if (( $#suffix == 0 )); then
+    # Highlight the last path component if the directory is a parent of the
+    # previously listed one.
+    suffix=$prefix:t
+    prefix=$prefix:h/
+  elif [[ $#suffix > 1 && $suffix[1] == / ]]; then
+    # A leading slash is considered part of the prefix, unless SUFFIX is the
+    # root directory.
+    suffix[1]=
+    prefix+=/
+  fi
+
+  # PREFIX can equal “./” if DIR is “~”, as $dir:h will be “.”.
+  if (( $#prefix == 0 || $#suffix == 0 )) || [[ $prefix == ./ ]]; then
+    display+="%{$colors[new]%}${dir//\%/%%}%{$reset_color%}"
+  else
+    display+="%{$colors[old]%}${prefix//\%/%%}%{$reset_color$colors[new]%}${suffix//\%/%%}%{$reset_color%}"
+  fi
+
+  previous_dir=$dir
+done
+
+integer num width=${#${#dirs}}
+zap/format/columns -P ${display/(#m)/${(l.$width..0.):-$((++num))}. $MATCH}
+
+dir=
+print -n -- 'Jump to directory: '
+for (( i = 0; i < $width; i++ )); do
+  read -k char
+  if [[ $char != [[:digit:]] ]]; then
+    (( #char != 0x0a && #char != 0x0d )) && print
+    return
+  fi
+  dir+=$char
+done
+print
+
+cd $actual_dirs[dir]
