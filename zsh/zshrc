@@ -457,6 +457,8 @@ alias tv='DISPLAY=:0.1 mplayer -vo gl2 -dr'
 alias hp='mplayer -ao alsa:device=secondary'
 alias ri='noglob ri'
 alias h='fc -lfiD'
+alias t='cd -'
+alias svn='svn --config-dir ~/.local/var/lib/subversion'
 
 alias -g ...='../..'
 alias -g ....='../../..'
