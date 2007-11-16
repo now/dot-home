@@ -39,6 +39,7 @@ LFTP_HOME=$XDG_CONFIG_HOME/lftp
 MPLAYER_HOME=$XDG_CONFIG_HOME/mplayer
 GTK2_RC_FILES=$XDG_CONFIG_HOME/gtkrc
 CMUS_HOME=$XDG_CONFIG_HOME/cmus
+VIMPERATOR_HOME=$XDG_CONFIG_HOME/vimperator
 
 MONO_SHARED_DIR=$prefix/var/run/mono
 
@@ -68,7 +69,7 @@ export                                                                \
   GREP_COLOR                                                          \
   MANWIDTH                                                            \
   VIMINIT INPUTRC INDENT_PROFILE SCREENRC IRBRC GNUPGHOME LFTP_HOME   \
-  MPLAYER_HOME GTK2_RC_FILES CMUS_HOME                                \
+  MPLAYER_HOME GTK2_RC_FILES CMUS_HOME VIMPERATOR_HOME                \
   MONO_SHARED_DIR                                                     \
   WINEPREFIX                                                          \
   CVS_PASSFILE DVDCSS_CACHE GEMCACHE GST_REGISTRY                     \
