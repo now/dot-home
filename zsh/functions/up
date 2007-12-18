@@ -5,5 +5,5 @@
 emulate -L zsh
 setopt extendedglob
 
-(( $# == 1 )) && [[ $1 != [[:digit:]]## ]] && set 1 $1
+(( $# == 1 )) && [[ $1 != [[:digit:]]## || -d ../$1 ]] && set 1 $1
 cd ${(l,$#2+${1:-1}*3,,../,)2}
