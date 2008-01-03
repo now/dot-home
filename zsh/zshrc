@@ -28,7 +28,6 @@ limit coredumpsize 30m >& /dev/null
 # =================
 
 
-hash -d ned=~/src/\{projects\}/ned
 hash -d context=/usr/local/share/texmf/tex/context
 hash -d mycontext=~/.local/share/texmf/tex/context
 hash -d tv=~ftp/data/tv-series
