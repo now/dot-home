@@ -160,7 +160,7 @@ zstyle ':completion:*:processes' command 'ps -U ${EUID} 2>/dev/null'
 
 zstyle '*:users' ignored-patterns \
   adm alias apache at avahi beagleindex bin cl-builder cron cvs cyrus daemon \
-  ddclient dhcp ftp ftpuser games games-ded gdm guest haldaemon halt ldap \
+  ddclient dhcp ftp ftpuser games games-ded gdm guest haldaemon halt ivman ldap \
   lighttpd lp mail man messagebus mserv mysql named news nobody ntp nut \
   operator polkituser portage postfix postgres postmaster privoxy qmaild \
   qmaill qmailp qmailq qmailr qmails rpc shutdown smmsp squid sshd sync uucp \
