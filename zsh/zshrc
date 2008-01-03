@@ -159,11 +159,12 @@ zstyle ':completion:*:kill:*' force-list always
 zstyle ':completion:*:processes' command 'ps -U ${EUID} 2>/dev/null'
 
 zstyle '*:users' ignored-patterns \
-  adm alias apache at bin cl-builder cron cvs cyrus daemon ftp ftpuser games \
-  games-ded gdm guest haldaemon halt ldap lp mail man messagebus mserv mysql \
-  named news nobody ntp nut operator portage postfix postgres postmaster \
-  privoxy qmaild qmaill qmailp qmailq qmailr qmails rpc shutdown smmsp squid \
-  sshd sync uucp vpopmail xfs
+  adm alias apache at avahi beagleindex bin cl-builder cron cvs cyrus daemon \
+  ddclient dhcp ftp ftpuser games games-ded gdm guest haldaemon halt ldap \
+  lighttpd lp mail man messagebus mserv mysql named news nobody ntp nut \
+  operator polkituser portage postfix postgres postmaster privoxy qmaild \
+  qmaill qmailp qmailq qmailr qmails rpc shutdown smmsp squid sshd sync uucp \
+  vpopmail xfs
 zstyle ':completion:*:functions' ignored-patterns '_*'
 zstyle ':completion:*:*:(^rm):*:*files' ignored-patterns \
   '*?.o' '*?.~*~' '*?.class' '*?.obj' '*?.sw[po]'
