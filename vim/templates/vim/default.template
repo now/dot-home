@@ -7,5 +7,4 @@ set cpo&vim
 
 
 
-let s:cpo_save = &cpo
-set cpo&vim
+let &cpo = s:cpo_save
