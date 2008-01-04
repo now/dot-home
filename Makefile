@@ -234,3 +234,11 @@ DOTFILES = \
 	   xsession
 
 $(eval $(call GROUP_template,~,,$(DOTDIRS),$(DOTFILES),755,.))
+
+BINDIRS = \
+	  bin
+
+BINFILES = \
+	   bin/dfs
+
+$(eval $(call GROUP_template,~,,$(BINDIRS),$(BINFILES),755))
