@@ -63,10 +63,35 @@ zap/format/columns -P ${display/(#m)/${(l.$width..0.):-$((++num))}. $MATCH}
 dir=
 print -n -- 'Jump to directory: '
 for (( i = 0; i < $width; i++ )); do
-  read -k char || return
-  [[ $char != [[:digit:]] ]] && break
-  dir+=$char
+  read -ks char || { print; return }
+  case $char in
+    ([[:digit:]])
+      print -n -- $char
+      dir+=$char
+      ;;
+    ($'\177')
+      if (( i == 0 )); then
+        (( i = -1 ))
+        continue
+      fi
+      dir[-1]=
+      print -n -- $'\b \b'
+      (( i -= 2 ))
+      ;;
+    ($'\027')
+      dir=
+      local back
+      repeat $i; do
+        back+=$'\b'
+      done
+      print -n -- $back${(l.i.. .)}$back
+      (( i = -1 ))
+      ;;
+    (*)
+      break
+      ;;
+  esac
 done
-(( #char != 0x0a && #char != 0x0d )) && print
+print
 
 [[ -n $actual_dirs[dir] ]] && cd $actual_dirs[dir]
