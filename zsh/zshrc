@@ -448,7 +448,8 @@ alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 alias duh='du --si --max-depth=1'
                                 # run `ps' with nice output format
-alias p='ps --User $USERNAME --format "pid comm" -H'
+alias p='ps --User $USERNAME --format "pid= comm=" -H'
+alias pp='ps --User $USERNAME --format "pid= command=" -H'
 aspell () { command aspell --home-dir ~/.local/var/lib/aspell $* }
 sbcl () { command sbcl $* --userinit ~/.local/etc/sbclrc }
                                 # enable grep color output and print linenumber
