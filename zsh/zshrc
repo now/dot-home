@@ -452,7 +452,7 @@ alias p='ps --User $USERNAME --format "pid comm" -H'
 aspell () { command aspell --home-dir ~/.local/var/lib/aspell $* }
 sbcl () { command sbcl $* --userinit ~/.local/etc/sbclrc }
                                 # enable grep color output and print linenumber
-alias gp='grep --color=auto -n -P'
+alias gp='grep --color -n -P'
 alias top='top -u $USERNAME'    # run top with default user
 alias mp='mplayer'
 alias mpq='mplayer -nosound'
@@ -482,7 +482,7 @@ cd () {
 chpwd_functions+=(chpwd_list)
 
 chpwd_list () {
-  zle || ls --color=auto
+  zle || ls --color
 }
 
 vg () {
@@ -508,7 +508,7 @@ vg () {
 # 10.2  ls Aliases {{{2
 # ----------------
 
-alias ls='ls --color=auto'
+alias ls='ls --color'
 alias a='ls'
 alias o='ls -l --si'
 alias aa='a -A'
