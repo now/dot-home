@@ -414,13 +414,13 @@ alias v='vim'
 alias ro='vimless'
 alias view='vimless'
 e () {
-  if vim --serverlist | grep -q '^VIM$'; then
-    if (( $# )); then
-      vim --servername vim --remote $@
+  if vim --serverlist 2>/dev/null | grep -q '^VIM$'; then
+    if (( $# > 0 )); then
+      vim --servername vim --remote $*
     fi
     screen -X select 6
   else
-    screen -t 'edit' 6 vim --servername vim $@
+    screen -t 'edit' 6 vim --servername vim $*
   fi
 }
 
