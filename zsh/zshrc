@@ -447,7 +447,6 @@ alias mv='nocorrect mv'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 alias duh='du --si --max-depth=1'
-alias dfh='df --exclude-type=tmpfs --si'
                                 # run `ps' with nice output format
 alias p='ps --User $USERNAME --format "pid comm" -H'
 aspell () { command aspell --home-dir ~/.local/var/lib/aspell $* }
