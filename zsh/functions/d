@@ -21,7 +21,9 @@ declare -A colors
 colors=(new "$(echoti setaf 12)" old "$(echoti setaf 7)")
 
 declare -aU actual_dirs dirs
-actual_dirs=(${dirstack:#$PWD})
+for dir in ${dirstack:#$PWD}; do
+  [[ -d $dir ]] && actual_dirs+=$dir
+done
 dirs=(${(ps:\0:)"$(print -DN $actual_dirs)"})
 
 (( $#dirs == 0 )) && return 1
@@ -61,13 +63,10 @@ zap/format/columns -P ${display/(#m)/${(l.$width..0.):-$((++num))}. $MATCH}
 dir=
 print -n -- 'Jump to directory: '
 for (( i = 0; i < $width; i++ )); do
-  read -k char
-  if [[ $char != [[:digit:]] ]]; then
-    (( #char != 0x0a && #char != 0x0d )) && print
-    return
-  fi
+  read -k char || return
+  [[ $char != [[:digit:]] ]] && break
   dir+=$char
 done
-print
+(( #char != 0x0a && #char != 0x0d )) && print
 
-cd $actual_dirs[dir]
+[[ -n $actual_dirs[dir] ]] && cd $actual_dirs[dir]
