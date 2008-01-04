@@ -40,7 +40,6 @@ sleep 0
 # 4  Shell Options {{{1
 # ================
 
-# magicequalsubst 
 setopt autocd                                 \
        autopushd                              \
        completeinword nolistambiguous         \
@@ -411,7 +410,6 @@ autoload -U zargs
 # 10.1  Convenience Aliases/Macros {{{2
 # --------------------------------
 
-#alias conkeror='firefox -chrome chrome://conkeror/content'
 alias v='vim'
 alias ro='vimless'
 alias view='vimless'
@@ -426,35 +424,16 @@ e () {
   fi
 }
 
-#alias vr='vim --remote'
-#es () {
-#  if vim --serverlist | grep '^VIM$' >& /dev/null; then
-#    vim --servername vim --remote $@
-#  else
-#    screen -t 'edit' 6 vim --servername vim -S $@
-#  fi
-#}
-#:e () {
-#  if vim --serverlist | grep -q '^VIM$'; then
-#    vim --servername vim --remote $@
-#    exit
-#  else
-#    vim --servername vim $@
-#  fi
-#}
-
 alias mv='nocorrect mv'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 alias duh='du --si --max-depth=1'
-                                # run `ps' with nice output format
 alias p='ps --User $USERNAME --format "pid= comm=" -H'
 alias pp='ps --User $USERNAME --format "pid= command=" -H'
 aspell () { command aspell --home-dir ~/.local/var/lib/aspell $* }
 sbcl () { command sbcl $* --userinit ~/.local/etc/sbclrc }
-                                # enable grep color output and print linenumber
 alias gp='grep --color -n -P'
-alias top='top -u $USERNAME'    # run top with default user
+alias top='top -u $USERNAME'
 alias mp='mplayer'
 alias mpq='mplayer -nosound'
 alias tv='DISPLAY=:0.1 mplayer -vo gl2 -dr'
