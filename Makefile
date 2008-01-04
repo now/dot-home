@@ -199,13 +199,6 @@ DOTFILES = \
 
 $(eval $(call GROUP_template,$(userconfdir)/vimperator,vimperator,$(DOTDIRS),$(DOTFILES),644,.))
 
-DOTDIRS =
-
-DOTFILES = \
-	   ratpoison/ratpoisonrc
-
-$(eval $(call GROUP_template,$(userconfdir),ratpoison,$(DOTDIRS),$(DOTFILES),644))
-
 userconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
 
 DOTDIRS = \
@@ -220,11 +213,13 @@ DOTFILES = \
 
 $(eval $(call GROUP_template,$(userconfdir),firefox,$(DOTDIRS),$(DOTFILES),644))
 
-DOTDIRS =
+DOTDIRS = \
+	  .xmonad
 
 DOTFILES = \
 	   fonts.conf \
-	   gitconfig
+	   gitconfig \
+	   xmonad/xmonad.hs
 
 ifdef ICANTMODIFYETC
 DOTFILES += \
@@ -233,14 +228,9 @@ endif
 
 $(eval $(call GROUP_template,~,,$(DOTDIRS),$(DOTFILES),644,.))
 
-userbindir = ~
+DOTDIRS =
 
-BINDIRS = \
-	  bin
+DOTFILES = \
+	   xsession
 
-BINFILES = \
-	   ratpoison/bin/ratpoison-expose \
-	   ratpoison/bin/ratpoison-select-by-class \
-	   ratpoison/bin/ratpoison-workspaces
-
-$(eval $(call GROUP_template,$(userbindir),ratpoison,$(BINDIRS),$(BINFILES),755))
+$(eval $(call GROUP_template,~,,$(DOTDIRS),$(DOTFILES),755,.))
