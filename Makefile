@@ -6,71 +6,28 @@
 
 all: diff
 
-# 1: prefix to strip
-# 2: text
-define GROUP_strip_prefix
-$(if $(1),$(patsubst $(1)/%,%,$(2)),$(2))
-endef
-
-# 1: parent directory
-# 2: prefix to strip
-# 3: file
-# 4: prefix to add
-define GROUP_build_target
-$(1)/$(4)$(call GROUP_strip_prefix,$(2),$(3))
-endef
-
-# 1: file
-# 2: target
-define GROUP_diff_template
+# 1: File
+# 2: Target
+# 3: Mode
+define GROUP_template_file
 GROUP_diff_target := $(2).diff
-.PHONY: $$(GROUP_diff_target)
-diff: $$(GROUP_diff_target)
+.PHONY diff: $$(GROUP_diff_target)
 $$(GROUP_diff_target):
-	-@$$(DIFF) -u $(2) $(1)
+	@test "$(2)" -ot "$(1)" -o "$(2)" -nt "$(1)" && $$(DIFF) -u "$(2)" "$(1)" || true
 
-endef
-
-# 1: file
-# 2: target
-# 3: file mode
-define GROUP_install_template
 install: $(2)
 $(2): $(1)
-	$$(INSTALL) --mode=$(3) $$< $$@
+	$$(INSTALL) -D --mode=$(if $(3),$(3),644) --preserve-timestamps "$$<" "$$@"
 
 endef
 
-# 1: parent directory
-# 2: prefix to strip
-# 3: directories
-define GROUP_template_directories
-target_DIRS := $(addprefix $(1)/,$(call GROUP_strip_prefix,$(2),$(3)))
-install: $$(target_DIRS)
-$$(target_DIRS):
-	$$(INSTALL) --directory --mode=755 $$@
-
-endef
-
-# 1: parent directory
-# 2: prefix to strip
-# 3: file
-# 4: prefix to add
-# 5: file mode
-define GROUP_template_file
-$(call GROUP_diff_template,$(3),$(call GROUP_build_target,$(1),$(2),$(3),$(4)))
-$(call GROUP_install_template,$(3),$(call GROUP_build_target,$(1),$(2),$(3),$(4)),$(5))
-endef
-
-# 1: parent directory
-# 2: prefix to strip
-# 3: directories to install
-# 4: files to install
-# 5: file mode
-# 6: prefix to add
+# 1: Files
+# 2: Parent directory
+# 3: Prefix to add
+# 4: Prefix to strip
+# 5: Mode
 define GROUP_template
-$(call GROUP_template_directories,$(1),$(2),$(3))
-$(foreach file,$(4),$(call GROUP_template_file,$(1),$(2),$(file),$(6),$(5)))
+$(eval $(foreach file,$(1),$(call GROUP_template_file,$(file),$(2)/$(3)$(file:$(4)%=%),$(5))))
 endef
 
 DIFF = diff
@@ -78,30 +35,9 @@ INSTALL = install
 
 prefix = ~/.local
 userconfdir = $(prefix)/etc
+firefoxuserconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
 
 -include config.mk
-
-DOTDIRS = \
-	  X11 \
-	  cmus \
-	  gnupg \
-	  irssi \
-	  lftp \
-	  mplayer \
-	  vim \
-	  vim/after \
-	  vim/after/ftplugin \
-	  vim/after/syntax \
-	  vim/colors \
-	  vim/doc \
-	  vim/ftplugin \
-	  vim/macros \
-	  vim/syntax \
-	  vim/templates \
-	  vim/templates/vim \
-	  zsh \
-	  zsh/functions \
-	  zsh/functions/zle
 
 DOTFILES = \
 	   X11/Xresources \
@@ -128,6 +64,7 @@ DOTFILES = \
 	   vim/after/ftplugin/javascript.vim \
 	   vim/after/ftplugin/mail.vim \
 	   vim/after/ftplugin/racc.vim \
+	   vim/after/ftplugin/rnc.vim \
 	   vim/after/ftplugin/ruby.vim \
 	   vim/after/ftplugin/vim.vim \
 	   vim/after/ftplugin/xml.vim \
@@ -176,9 +113,7 @@ DOTFILES = \
 	   zsh/functions/zcalc \
 	   zsh/functions/zle/vim-increase-number
 
-$(eval $(call GROUP_template,$(userconfdir),,$(DOTDIRS),$(DOTFILES),644))
-
-DOTDIRS =
+$(call GROUP_template,$(DOTFILES),$(userconfdir))
 
 DOTFILES = \
 	   zsh/zlogin \
@@ -186,23 +121,13 @@ DOTFILES = \
 	   zsh/zshenv \
 	   zsh/zshrc
 
-$(eval $(call GROUP_template,$(userconfdir)/zsh,zsh,$(DOTDIRS),$(DOTFILES),644,.))
-
-DOTDIRS = \
-	  vimperator \
-	  vimperator/.vimperator \
-	  vimperator/.vimperator/plugin
+$(call GROUP_template,$(DOTFILES),$(userconfdir)/zsh,.,zsh/)
 
 DOTFILES = \
 	   vimperator/vimperator/plugin/bookmarks.js \
 	   vimperator/vimperatorrc
 
-$(eval $(call GROUP_template,$(userconfdir)/vimperator,vimperator,$(DOTDIRS),$(DOTFILES),644,.))
-
-userconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
-
-DOTDIRS = \
-	  firefox/gm_scripts
+$(call GROUP_template,$(DOTFILES),$(userconfdir)/vimperator,.,vimperator/)
 
 DOTFILES = \
 	   firefox/gm_scripts/config.xml \
@@ -211,10 +136,7 @@ DOTFILES = \
 	   firefox/gm_scripts/gmail-secure.user.js \
 	   firefox/user.js
 
-$(eval $(call GROUP_template,$(userconfdir),firefox,$(DOTDIRS),$(DOTFILES),644))
-
-DOTDIRS = \
-	  .xmonad
+$(call GROUP_template,$(DOTFILES),$(firefoxuserconfdir),,firefox/)
 
 DOTFILES = \
 	   fonts.conf \
@@ -226,19 +148,14 @@ DOTFILES += \
 	    zshenv
 endif
 
-$(eval $(call GROUP_template,~,,$(DOTDIRS),$(DOTFILES),644,.))
+$(call GROUP_template,$(DOTFILES),~,.)
 
-DOTDIRS =
-
-DOTFILES = \
+BINFILES = \
 	   xsession
 
-$(eval $(call GROUP_template,~,,$(DOTDIRS),$(DOTFILES),755,.))
-
-BINDIRS = \
-	  bin
+$(call GROUP_template,$(BINFILES),~,.,,755)
 
 BINFILES = \
 	   bin/dfs
 
-$(eval $(call GROUP_template,~,,$(BINDIRS),$(BINFILES),755))
+$(call GROUP_template,$(BINFILES),~,,,755)
