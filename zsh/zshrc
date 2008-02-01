@@ -72,12 +72,13 @@ _set_title () {
   return 0
 }
 
+# NOTE: 20 seems to be the limit for a window that isn’t active in screen.
 _set_truncated_title () {
-  _set_title ${1[1,28]}
+  _set_title ${1[1,20]}
 }
 
 precmd () {
-  _set_title "$(print -P "%28<^<%~")"
+  _set_title "$(print -P "%20<^<%~")"
 }
 
 preexec () {
