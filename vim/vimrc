@@ -154,6 +154,8 @@ nnoremap <Leader>C :lcd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>e :e <C-R>=expand('%:p:h')<CR>/<C-Z>
 nnoremap <Leader>E :e <C-Z>
 
+nnoremap <silent> ,k :bn <Bar> :bd #<CR>
+
 cnoremap <C-A>  <Home>
 cnoremap <C-B>  <Left>
 cnoremap <C-D>  <Delete>
