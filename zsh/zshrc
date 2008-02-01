@@ -441,22 +441,26 @@ alias tv='DISPLAY=:0.1 mplayer -vo gl2 -dr'
 alias hp='mplayer -ao alsa:device=secondary'
 alias ri='noglob ri'
 alias h='fc -lfiD'
-alias t='cd -'
+alias t='cd ~-1'
 alias svn='svn --config-dir ~/.local/var/lib/subversion'
+alias y='xview'
 
 alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
 
 cd () {
-  if [[ -f $1 ]]; then
-    builtin cd $1:h
+  local dir=$1
+  if [[ -f $dir ]]; then
+    dir=$dir:h
+  fi
+
+  local result="${${:-"$(builtin cd $dir 2>&1 1>/dev/null)"}#cd:cd:1: }"
+  if (( $#result == 0 )); then
+    builtin cd $dir
   else
-    builtin cd $1 |& \
-      sed -n \
-      's/^cd:cd:4: \([^:]\+\): \(.*\)$/'"$0: can't change directory (\1):\n\
-    dir: \2/p"
-    (( $pipestatus[0] == 0 )) && builtin cd $1
+    print -u 2 "cd: $result"
+    return 1
   fi
 }
 
@@ -466,24 +470,24 @@ chpwd_list () {
   zle || ls --color
 }
 
-vg () {
-  if (( $# < 2 )); then
-    print -u 2 "Usage: $0 PATTERN FILE..."
-    return 1
-  fi
-  local regex=$1; shift
-  vim \
-      -c 'let saved_grepprg = &grepprg' \
-      -c 'set grepprg=grep\ -n\ -P\ --\ $*\ /dev/null' \
-      -c 'let saved_shellpipe = &shellpipe' \
-      -c 'set shellpipe=>\ %s\ 2>&1' \
-      -c "silent! grep '${regex//(#m)[%#]/\\$MATCH}' ${^${(@qq)${(@)*//(#m)[%#]/\\$MATCH}}}" \
-      -c 'let &shellpipe = saved_shellpipe' \
-      -c 'unlet saved_shellpipe' \
-      -c 'let &grepprg = saved_grepprg' \
-      -c 'unlet saved_grepprg' \
-      -c 'if len(filter(getqflist(), "v:val.valid")) == 0 | quit | else | cwindow | endif' \
+dp () {
+  dirstack=($* $dirstack)
 }
+
+dr () {
+  if (( $# == 0 )); then
+    declare -a existing_dirs
+    for dir in $dirstack; do
+      if [[ -d $dir ]]; then
+        existing_dirs+=$dir
+      fi
+    done
+    dirstack=($existing_dirs)
+  else
+    dirstack=(${dirstack:#$~1})
+  fi
+}
+alias dr='noglob dr'
 
 
 # 10.2  ls Aliases {{{2
