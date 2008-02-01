@@ -46,6 +46,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- launch a terminal
     [ ((modMask, xK_c), spawn $ XMonad.terminal conf)
  
+    , ((modMask .|. mod1Mask, xK_c), spawn "xterm -e 'sh -c \"TERM=xterm-256color screen -d -RR\"'")
+
     -- close focused window 
     , ((modMask .|. shiftMask, xK_c     ), kill)
  
