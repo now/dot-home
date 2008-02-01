@@ -43,7 +43,7 @@ sleep 0
 setopt autocd                                 \
        autopushd                              \
        completeinword nolistambiguous         \
-       extendedhistory                        \
+       extendedhistory histnostore            \
        rcexpandparam rcquotes                 \
        correct dvorak                         \
        nonotify                               \
