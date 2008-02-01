@@ -76,6 +76,7 @@ DOTFILES = \
 	   vim/colors/now.vim \
 	   vim/doc/ascii-tables.txt \
 	   vim/ftplugin/docbk.vim \
+	   vim/ftplugin/gitcommit.vim \
 	   vim/ftplugin/man.vim \
 	   vim/ftplugin/urlextract.vim \
 	   vim/macros/less.vim \
