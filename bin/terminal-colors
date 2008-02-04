@@ -1,0 +1,75 @@
+#! /bin/zsh
+# contents: Shows terminal colors using the echoti module for zsh(1).
+#
+# Copyright © 2004,2008 Nikolai Weibull <now@bitwi.se>
+
+autoload zsh/terminfo
+
+if (( $# > 0 )); then
+  xterm_rgb () {
+    if [[ -z $XTERM_VERSION ]]; then
+      print -n ""
+      return
+    fi
+
+    local sequence='\e]4;'$1';?\007'
+    if [[ $XTERM_SHELL == */screen ]]; then
+      sequence='\eP'$sequence'\e\'
+    fi
+
+    exec </dev/tty
+    old=$(stty -g)
+    stty raw -echo min 0 time 1
+    print -n -- $sequence > /dev/tty
+    IFS="" read -r response
+    stty $old
+    print -n $response | sed 's@^.*rgb:\(..\)../\(..\)../\(..\)...$@#\1\2\3@'
+  }
+
+  for color_offset in $*; do
+    print "$color_offset: $(xterm_rgb $color_offset)"
+  done
+
+  exit
+fi
+
+print "$terminfo[colors] Color Table:\n"
+print -n "      " "   "{0..7}"    "
+for (( i = 0; i < 256; i++ )); do
+  if (( i % 8 == 0 )); then
+    print -n "\n${(l:5:)i} "
+  fi
+  echoti setaf $i; echoti setab $i; print -n "${(l:6:)i}   "; echoti sgr0
+done
+print
+
+print "\n\nSystem Colors:\n"
+print -n "  "
+for (( i = 0; i < 16; i++ )); do
+  echoti setab $i; print -n "  "
+  if (( i == 7 || i == 15 )); then
+    echoti sgr0; print -n "\n  "
+  fi
+done
+
+print "\n\nColor Cube (6×6×6):\n"
+print -n "  "
+for (( g = 0; g < 36; g += 6 )); do
+  for (( r = 0; r < 216; r += 36 )); do
+    for (( b = 0; b < 6; b++ )); do
+      (( c = r + g + b + 16 ))
+      echoti setab $c; print -n "  "
+    done
+    echoti sgr0; print -n " "
+  done
+  print -n "\n  "
+done
+
+print "\n\nGrayscale Ramp:\n"
+print "     " {0..9}" " {10..23}
+print -n "  232 "
+for (( i = 232; i < 256; i++ )); do
+  echoti setab $i; print -n "   "
+done
+echoti sgr0
+print

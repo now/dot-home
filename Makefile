@@ -157,9 +157,11 @@ BINFILES = \
 $(call GROUP_template,$(BINFILES),~,.,,755)
 
 BINFILES = \
+	   bin/backup-home \
 	   bin/burn \
 	   bin/dfs \
 	   bin/emv \
+	   bin/terminal-colors \
 	   bin/vg
 
 $(call GROUP_template,$(BINFILES),~,,,755)
