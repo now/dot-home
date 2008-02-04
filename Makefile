@@ -162,6 +162,7 @@ BINFILES = \
 	   bin/dfs \
 	   bin/emv \
 	   bin/terminal-colors \
-	   bin/vg
+	   bin/vg \
+	   bin/vimless
 
 $(call GROUP_template,$(BINFILES),~,,,755)
