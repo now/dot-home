@@ -1,0 +1,40 @@
+#! /bin/zsh
+# contents: Burn files to disk.
+#
+# Copyright © 2007 Nikolai Weibull <now@bitwi.se>
+
+setopt extendedglob
+
+local device=${${${${(M)${(f):-"$(cat /etc/defaults/cdrdao 2>/dev/null)"}:#read_device: \"*\"}#read_device: \"}%\"}:-/dev/dvd}
+
+if (( $# == 1 )) && [[ $1 == *.(img|iso) ]]; then
+  growisofs -dvd-compat -Z $device=$1 -quiet
+  exit $status
+fi
+
+local label=${1:-$PWD:t}
+(( $# > 1 )) && shift
+
+for arg in ${*:-.}; do
+  if [[ -d $arg ]]; then
+    print -l $arg/**/*(e:'REPLY=$REPLY=$REPLY':)
+  else
+    print -l $arg(e:'REPLY=$REPLY=$REPLY':)
+  fi
+done | \
+  growisofs -Z $device -quiet -V $label -iso-level 3 -r -hide-rr-moved \
+            -joliet-long -graft-points -path-list - && \
+  eject && \
+  sleep 1 && \
+  eject --trayclose && \
+  sleep 10 && \
+  ls -lhR /media/hdc && \
+  for arg in ${*:-.}; do
+    if [[ -d $arg ]]; then
+      for f in $arg/**/*; do
+        cmp $f /media/hdc/$f
+      done
+    else
+      cmp $arg /media/hdc/$arg
+    fi
+  done

@@ -157,6 +157,7 @@ BINFILES = \
 $(call GROUP_template,$(BINFILES),~,.,,755)
 
 BINFILES = \
+	   bin/burn \
 	   bin/dfs \
 	   bin/vg
 
