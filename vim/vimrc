@@ -191,7 +191,8 @@ function! s:get_command_mode_range(type)
     let range = '.,+' . (b - e)
   endif
 
-  call feedkeys(':' . range, 'n')
+  call inputsave()
+  call feedkeys(':' . range . "\<C-R>=''[inputrestore()]\<CR>", 'n')
 endfunction
 
 autocmd VimLeave * if v:this_session != "" | exe "mks! ".v:this_session | endif
