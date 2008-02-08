@@ -1,0 +1,45 @@
+#! /bin/zsh
+# contents: Create a tarball of a directory.
+#
+# Copyright © 2008 Nikolai Weibull <now@bitwi.se>
+
+autoload -U zap/init
+zap/init $0:t "1.0.0" 
+
+
+
+local optdesc
+optdesc=(
+  ""  ""        ' DIR...'                                           ""  0 0 -1
+  ""  ""        'Package directories as tarballs.'                  ""  0 0 -1
+  -b  --bzip    'use bzip2 for packaging'                           ""  0 0 0
+  -g  --gzip    'use gzip for packaging (default)'                  ""  0 0 0
+  ""  'DIR'     'directory to package'                              ""  0 0 0
+)
+
+PACKER=gzip
+
+
+
+pack () {
+  declare -A extensions
+  extensions=(
+    bzip2 bz2
+    gzip gz
+  )
+  tar chf - ${1%/} | gzip -c > $dir:t.tar.$extensions[$PACKER]
+}
+
+
+
+zap/parse-options optdesc $*
+if (( $#ZAP_ARGUMENTS == 0 )); then
+  zap/error 1 "missing directory argument"
+else
+  if (( $ZAP_OPTIONS[(I)(--bzip|-b)] > $ZAP_OPTIONS[(I)(--gzip|-g)] )); then
+    PACKER=bzip2
+  fi
+  for dir in $ZAP_ARGUMENTS; do
+    pack $dir
+  done
+fi
