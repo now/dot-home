@@ -1,0 +1,46 @@
+#! /bin/zsh
+# contents: Unpack various kinds of archives.
+#
+# Copyright © 2004,2008 Nikolai Weibull <now@bitwi.se>
+
+autoload -U zap/init
+zap/init $0:t "1.0.0" 
+
+local optdesc
+optdesc=(
+  ""  ""        ' FILE...'                                          ""  0 0 -1
+  ""  ""        'File unpacking utility.'                           ""  0 0 -1
+  ""  'FILE'    'file to unpack'                                    ""  0 0 0
+)
+
+# TODO: Add handling for verboseness.
+
+unpack () {
+  case $1 in
+    *.tar) tar xf $1 ;;
+    *.tgz|*.tar.gz) gzip -d < $1 | tar x ;;
+    *.tbz2|*.tar.bz2) bzip2 -d < $1 | tar x ;;
+    *.tar.Z) uncompress < $1 | tar x ;;
+    *.gz) gzip -d -- $1 ;;
+    *.bz2) bzip2 -d -- $1 ;;
+    *.rar) unrar x -c- -o+ -idq -- $1 ;;
+    *.zip|*.jar) unzip -q -o $1 ;;
+    *.Z) uncompress -f $1 ;;
+    *) zap/error "can't find a decompressor for file (unrecognized extension):" \
+                 "    file: $1"
+  esac
+}
+
+
+zap/parse-options optdesc $*
+if (( $#ZAP_ARGUMENTS == 0 )); then
+  zap/error 1 "missing file argument"
+else
+  for file in "$ZAP_ARGUMENTS[@]"; do
+    if [[ ! -f $file ]]; then
+      zap/error "can't unpack file (no such file):" "    file: $file"
+    else
+      unpack $file
+    fi
+  done
+fi

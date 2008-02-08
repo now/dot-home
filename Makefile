@@ -162,6 +162,7 @@ BINFILES = \
 	   bin/dfs \
 	   bin/emv \
 	   bin/terminal-colors \
+	   bin/unpack \
 	   bin/vg \
 	   bin/vimless
 
