@@ -89,9 +89,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
  
     -- Restart xmonad
     , ((modMask              , xK_q     ),
-          broadcastMessage ReleaseResources >> restart (Just "xmonad") True)
+          broadcastMessage ReleaseResources >> restart "xmonad" True)
     , ((controlMask .|. shiftMask, xK_q     ),
-          broadcastMessage ReleaseResources >> restart (Just "xmonad") True)
+          broadcastMessage ReleaseResources >> restart "xmonad" True)
 
     , ((modMask              , xK_a     ), digraphPrompt greenXPConfig)
     ]
@@ -108,11 +108,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 myLayout =
   onWorkspace "terminal" (smartBorders (Full)) $
   smartBorders $
-    Mirror tiled |||
     tiled |||
+    Mirror tiled |||
     Full
   where
-    tiled = Tall 2 (1/2) (3/100)
+    tiled = Tall 1 (1/2) (3/100)
  
 myManageHook = composeAll . concat $
     [ [ className =? "Firefox-bin"  --> doF (W.shift "web") ] ]
