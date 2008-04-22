@@ -1,6 +1,6 @@
 (function () {
 
-const oldGetSearchURL = vimperator.bookmarks.getSearchURL;
+const oldGetSearchURL = liberator.bookmarks.getSearchURL;
 const keywords = {
   mark: 'http://del.icio.us/post?v=4;url=%h;title=%t',
   del: 'http://del.icio.us/search?all=%s',
@@ -27,7 +27,7 @@ const keywords = {
   '/c': 'http://google.com/codesearch?q=%s'
 };
 
-vimperator.bookmarks.getSearchURL = function(text, keyword) {
+liberator.bookmarks.getSearchURL = function(text, keyword) {
   text = (text == null ? "" : text);
   var url = keywords[keyword];
   if (url) {
