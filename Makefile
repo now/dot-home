@@ -35,6 +35,7 @@ INSTALL = install
 
 prefix = ~/.local
 userconfdir = $(prefix)/etc
+usersharedir = $(prefix)/share
 firefoxuserconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
 
 -include config.mk
@@ -103,6 +104,7 @@ DOTFILES = \
            vim/templates/xdefaults.template \
            vim/templates/yaml.template \
            vim/templates/zsh.template \
+	   zsh/functions/_mem-map \
 	   zsh/functions/_unpack \
 	   zsh/functions/_up \
 	   zsh/functions/up \
@@ -140,6 +142,15 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(firefoxuserconfdir),,firefox/)
 
 DOTFILES = \
+	   share/emacs/rect-mark.el \
+	   share/emacs/redo.el \
+	   share/emacs/ruby-mode.el \
+	   share/emacs/vimpulse.el
+
+$(call GROUP_template,$(DOTFILES),$(usersharedir),,share/)
+
+DOTFILES = \
+	   emacs \
 	   fonts.conf \
 	   gitconfig \
 	   xmonad/xmonad.hs
@@ -161,6 +172,7 @@ BINFILES = \
 	   bin/burn \
 	   bin/dfs \
 	   bin/emv \
+	   bin/mem-map \
 	   bin/terminal-colors \
 	   bin/pack \
 	   bin/unpack \
