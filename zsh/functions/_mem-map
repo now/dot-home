@@ -1,0 +1,3 @@
+#compdef mem-map
+_arguments \
+  '*:process:_pids' && ret=0
