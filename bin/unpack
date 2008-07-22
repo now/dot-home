@@ -26,6 +26,7 @@ unpack () {
     *.rar) unrar x -c- -o+ -idq -- $1 ;;
     *.zip|*.jar) unzip -q -o $1 ;;
     *.Z) uncompress -f $1 ;;
+    *.7z) 7z x $1 ;;
     *) zap/error "can't find a decompressor for file (unrecognized extension):" \
                  "    file: $1"
   esac
