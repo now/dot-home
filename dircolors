@@ -59,6 +59,7 @@ STICKY                  202
 *.tbz2	        3
 *.ace           3
 *.cab           3
+*.7z            3
 
 # 1.2.3  Images
 
@@ -103,6 +104,7 @@ STICKY                  202
 *.rmvb  101
 *.mkv   101
 *.flv   101
+*.m4v   101
 
 # 1.2.6  Documents
 
