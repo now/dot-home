@@ -30,7 +30,7 @@ endif
 
 set viminfo=
 
-au VimEnter * setlocal nomodified
+au VimEnter * set nomodified
 
 noremap <buffer> <silent> q <Esc>:q<CR>
 noremap <buffer> v <Esc>:call <SID>start_edit_mode()<CR>
