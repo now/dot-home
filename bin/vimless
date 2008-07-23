@@ -3,4 +3,4 @@
 #
 # Copyright © 2004,2008 Nikolai Weibull <now@bitwi.se>
 
-exec vim -c 'so ~/.local/etc/vim/macros/less.vim' ${*:--}
+exec vim -c "so ${XDG_CONFIG_HOME:-$HOME/.config}/vim/macros/less.vim" ${*:--}
