@@ -291,6 +291,13 @@ _cd-list () {
 zle -N cd-list _cd-list
 bindkey -a "^G" cd-list
 
+_cd-to-alternate-directory () {
+  cd ~+1
+  zle reset-prompt
+}
+zle -N cd-to-alternate-directory _cd-to-alternate-directory
+bindkey -a "^^" cd-to-alternate-directory
+
 
 # 8.2  VI Insert Mode {{{2
 # -------------------
@@ -372,6 +379,8 @@ _self-insert-redir () {
 }
 zle -N _self-insert-redir
 bindkey ${(s: :):-${^${(s::):-"|<>&"}}" _self-insert-redir"}
+
+bindkey "^^" cd-to-alternate-directory
 
 
 # 8.3  List-scroll Mode {{{2
