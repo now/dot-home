@@ -28,13 +28,10 @@ limit coredumpsize 30m >& /dev/null
 # =================
 
 
-hash -d context=/usr/local/share/texmf/tex/context
-hash -d mycontext=~/.local/share/texmf/tex/context
-hash -d tv=~ftp/data/tv-series
-
 zmodload -i zsh/parameter
 sleep 0
 [[ -n $(whence script) ]] && unhash script
+
 
 
 # 4  Shell Options {{{1
@@ -483,6 +480,14 @@ freload () {
 
 
 # }}}2
+
+
+
+# 11  Host Specific Settings {{{1
+# ==========================
+
+
+[[ -f $ZDOTDIR/rc/hosts/$HOST ]] && source $ZDOTDIR/rc/hosts/$HOST
 
 
 
