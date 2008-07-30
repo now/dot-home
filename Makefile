@@ -114,8 +114,11 @@ DOTFILES = \
 	   zsh/functions/history-beginning-search-menu \
 	   zsh/functions/insert-digraph \
 	   zsh/functions/prompt_now_setup \
+	   zsh/functions/set-terminal-title-from-command \
+	   zsh/functions/terminal-title \
 	   zsh/functions/zcalc \
-	   zsh/functions/zle/vim-increase-number
+	   zsh/functions/zle/vim-increase-number \
+	   zsh/rc/hosts/puritan
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir))
 
@@ -131,6 +134,7 @@ DOTFILES = \
 	   vimperator/vimperator/plugin/bookmarks.js \
 	   vimperator/vimperatorrc
 
+# TODO: Don’t add . prefix to vimperator directory on win32.
 $(call GROUP_template,$(DOTFILES),$(userconfdir)/vimperator,.,vimperator/)
 
 DOTFILES = \
