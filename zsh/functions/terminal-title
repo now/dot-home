@@ -1,0 +1,16 @@
+# contents: Set terminal’s title.
+#
+# Copyright © 2008 Nikolai Weibull <now@bitwi.se>
+
+emulate -L zsh
+
+[[ $LOCKTITLE == 1 ]] && return
+
+case $TERM in
+  (screen*)
+    # We truncate to the first twenty characters, as that’s the limit for
+    # the title of inactive windows in screen.  This way we guarantee that the
+    # title will remain the same, regardless of whether the window is active or
+    # not.
+    print -nR $'\ek'${1[1,20]}$'\e\\' ;;
+esac

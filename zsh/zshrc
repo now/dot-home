@@ -63,56 +63,16 @@ export TERMCAP=
 # 5.1. Screen Title Updating
 # --------------------------
 
-_set_title () {
-  [[ $LOCKTITLE == 1 ]] && return
-  case $TERM in
-    (screen*)
-      print -nR $'\ek'$1$'\e\\' ;;
-  esac
-  return 0
+autoload -U add-zsh-hook
+autoload -U terminal-title
+
+_terminal-title-restore-to-pwd () {
+  # TODO: There should be a TERMTITLEMAX variable defined by terminal-title?
+  terminal-title "$(print -P "%20<^<%~")"
 }
 
-# NOTE: 20 seems to be the limit for a window that isn’t active in screen.
-_set_truncated_title () {
-  _set_title ${1[1,20]}
-}
-
-precmd () {
-  _set_title "$(print -P "%20<^<%~")"
-}
-
-preexec () {
-  local -a cmd
-  
-  cmd=(${(z)1})
-  case $cmd[1] in
-    (fg)
-      if (( $#cmd == 1 )); then
-        cmd=(builtin jobs -l %+)
-      else
-        cmd=(builtin jobs -l ${(Q)cmd[2]})
-      fi ;;
-    (r)
-      cmd=($(builtin history -n -1))
-      _set_truncated_title $cmd[1]:t
-      return ;;
-    (%*)
-      cmd=(builtin jobs -l ${(Q)cmd[1]}) ;;
-    (exec)
-      shift cmd ;&
-    (*)
-      _set_truncated_title $cmd[1]:t
-      return ;;
-  esac
-
-  local -A jt
-
-  jt=(${(kv)jobtexts})
-
-  $cmd >>(read num rest
-          cmd=(${(z)${(e):-\$jt$num}})
-          _set_truncated_title $cmd[1]:t) 2>/dev/null
-}
+add-zsh-hook precmd _terminal-title-restore-to-pwd
+add-zsh-hook -U preexec set-terminal-title-from-command
 
 
 
