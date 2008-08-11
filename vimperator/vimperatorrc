@@ -1,1 +1,4 @@
+" One possibility is to
+" set showstatuslinks=2 and then use C-g for information
+set newtab=addons,downloads,help,prefs
 set wildmode=list:longest
