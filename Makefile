@@ -50,8 +50,6 @@ DOTFILES = \
 	   indentrc \
 	   inputrc \
 	   irbrc \
-	   irssi/clean.theme \
-	   irssi/config \
 	   lftp/rc \
 	   mailcap \
 	   mplayer/config \
