@@ -444,6 +444,14 @@ alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
 
+hc () {
+  local tmp="$(mktemp history.XXXXXXXXXX)"
+  fc -W $tmp
+  ${FCEDIT:-${EDITOR:-vi}} $tmp
+  fc -R $tmp
+  rm $tmp
+}
+
 cd () {
   local dir=$1
   if [[ -f $dir ]]; then
