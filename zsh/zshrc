@@ -156,9 +156,7 @@ zstyle ':completion:*:rm:*' ignore-line yes
 # 7.2. Completion Formats and Messages {{{2
 # ------------------------------------
 
-if [[ -x $(whence dircolors) && -r ~/.local/etc/dircolors ]]; then
-  eval $(dircolors ~/.local/etc/dircolors)
-fi
+eval $(dircolors ~/.local/etc/dircolors 2> /dev/null)
 
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS} tc=7
 
