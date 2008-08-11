@@ -19,8 +19,6 @@ set statusline=%F%(\ [%1*%M%*%(,%2*%R%*%)]%)\ %w%=%(\ %y%)\ line:\ %l\ of\ %L
 set hidden
 " TODO: can we remove this?
 set noesckeys
-" TODO: Perhaps dump this?
-set showcmd
 set confirm
 set autowriteall
 set visualbell t_vb=
@@ -34,9 +32,6 @@ set autoindent
 set cinoptions=:0,l1,t0,c0,C1,(0,u0
 set foldtext=substitute(substitute(foldtext(),'^+-\\+\\s*\\d\\+\ lines:','§',
                        \'g'),'\\s\\+$','\ ⇱','')
-" TODO: Set this by default?  I’m becoming more and more unsure of using fold
-" markers.
-set foldmethod=marker
 " TODO: decide on this
 " set backupcopy=auto,breakhardlink
 set history=512
