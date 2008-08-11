@@ -120,9 +120,13 @@ autoload -U compinit; compinit -d ~/.local/var/cache/zsh/compdump
 # 7.1. Completion Styles {{{2
 # ----------------------
 
-zstyle '*' hosts remote1.tekno.chalmers.se \
-  panini.cling.gu.se vetlanda.tekno.chalmers.se \
-  shell.scorpionshops.com ${REMOTEHOST:-${SSH_CLIENT%% *}}
+zstyle '*' hosts ${REMOTEHOST:-${SSH_CLIENT%% *}} shell.scorpionshops.com
+
+# Ignore users that don’t have a login shell listed in /etc/shells.
+#zstyle '*:users' ignored-patterns \
+#  ${${(M)${(f)"$(</etc/passwd)"}:#*:(${~${(j:|:)${(f)"$(</etc/shells)"}:#[[:space:]]#\#*}})}%%:*}
+zstyle ':completion:*:*:(^rm):*:*files' ignored-patterns \
+  '*?.o' '*?.~*~' '*?.class' '*?.obj' '*?.sw[po]'
 
 zstyle ':completion:*' squeeze-slashes yes
 
@@ -133,29 +137,17 @@ zstyle ':completion:::::' completer _expand_alias _expand _complete _prefix _ign
 zstyle ':completion::prefix:::' completer _complete
 
 zstyle ':completion:*' expand prefix suffix
-#zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[:.,_-]=** r:|=**'
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 zstyle ':completion:*:expand:*' tag-order all-expansions
 
 zstyle ':completion::*:(-command-|export):*' fake-parameters \
-  ACCEPT_KEYWORDS:scalar USE:scalar
+  ACCEPT_KEYWORDS:scalar \
+  USE:scalar
 zstyle ':completion:*:ignored:*' single-ignored menu
 
-zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:kill:*' force-list always
 zstyle ':completion:*:processes' command 'ps -U ${EUID} 2>/dev/null'
-
-zstyle '*:users' ignored-patterns \
-  adm alias apache at avahi beagleindex bin cl-builder cron cvs cyrus daemon \
-  ddclient dhcp ftp ftpuser games games-ded gdm guest haldaemon halt ivman ldap \
-  lighttpd lp mail man messagebus mserv mysql named news nobody ntp nut \
-  operator polkituser portage postfix postgres postmaster privoxy qmaild \
-  qmaill qmailp qmailq qmailr qmails rpc shutdown smmsp squid sshd sync uucp \
-  vpopmail xfs
-zstyle ':completion:*:functions' ignored-patterns '_*'
-zstyle ':completion:*:*:(^rm):*:*files' ignored-patterns \
-  '*?.o' '*?.~*~' '*?.class' '*?.obj' '*?.sw[po]'
 
 zstyle ':completion:*' ignore-parents parent pwd
 zstyle ':completion:*:rm:*' ignore-line yes
