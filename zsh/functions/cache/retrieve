@@ -1,0 +1,15 @@
+# Retrieve values from cache.
+
+emulate -L zsh
+
+local context="$1" ident="$2" cache_path
+
+autoload -U cache/path
+cache/path -v $context $ident || return 1
+
+[[ -e $cache_path ]] || return 1
+
+autoload -U cache/invalid
+cache/invalid $context $ident && return 1
+
+source $cache_path

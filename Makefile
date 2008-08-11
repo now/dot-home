@@ -117,6 +117,11 @@ DOTFILES = \
 	   zsh/functions/set-terminal-title-from-command \
 	   zsh/functions/terminal-title \
 	   zsh/functions/zcalc \
+	   zsh/functions/cache/invalid \
+	   zsh/functions/cache/path \
+	   zsh/functions/cache/retrieve \
+	   zsh/functions/cache/store \
+	   zsh/functions/zsh-mime-setup \
 	   zsh/functions/zle/vim-increase-number \
 	   zsh/rc/hosts/puritan
 
