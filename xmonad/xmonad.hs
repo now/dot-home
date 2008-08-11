@@ -44,24 +44,22 @@ greenXPConfig = defaultXPConfig { font        = "xft:DejaVu Sans Mono-10"
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
  
     -- launch a terminal
-    [ ((modMask, xK_c), spawn $ XMonad.terminal conf)
+    [ ((modMask, xK_c                  ), spawn $ XMonad.terminal conf)
  
-    , ((modMask .|. mod1Mask, xK_c), spawn "xterm -e 'sh -c \"TERM=xterm-256color screen -d -RR\"'")
+    -- launch an xterm (for when gnome-terminal is broken)
+    , ((modMask .|. mod1Mask, xK_c     ), spawn "xterm -e 'sh -c \"TERM=xterm-256color screen -d -RR\"'")
 
-    -- close focused window 
-    , ((modMask .|. shiftMask, xK_c     ), kill)
+    -- close focused window
+    , ((modMask,              xK_w     ), kill)
  
      -- Rotate through the available layout algorithms
-    , ((modMask,               xK_space ), sendMessage NextLayout)
+    , ((modMask,               xK_r     ), sendMessage NextLayout)
  
     --  Reset the layouts on the current workspace to default
-    , ((modMask .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
+    , ((modMask .|. shiftMask, xK_r     ), setLayout $ XMonad.layoutHook conf)
  
     -- Resize viewed windows to the correct size
-    , ((modMask,               xK_n     ), refresh)
- 
-    -- Move focus to the next window
-    , ((modMask,               xK_Tab   ), windows W.focusDown)
+    , ((modMask,               xK_l     ), refresh)
  
     -- Move focus to the next window
     , ((modMask,               xK_j     ), windows W.focusDown)
@@ -73,7 +71,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask,               xK_m     ), windows W.focusMaster  )
  
     -- Swap the focused window and the master window
-    , ((modMask,               xK_Return), windows W.swapMaster)
+    , ((modMask,               xK_s     ), windows W.swapMaster)
  
     -- Swap the focused window with the next window
     , ((modMask .|. shiftMask, xK_j     ), windows W.swapDown  )
@@ -90,7 +88,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- Restart xmonad
     , ((modMask              , xK_q     ),
           broadcastMessage ReleaseResources >> restart "xmonad" True)
-    , ((controlMask .|. shiftMask, xK_q     ),
+    , ((controlMask .|. shiftMask, xK_q ),
           broadcastMessage ReleaseResources >> restart "xmonad" True)
 
     , ((modMask              , xK_a     ), digraphPrompt greenXPConfig)
@@ -115,7 +113,7 @@ myLayout =
     tiled = Tall 1 (1/2) (3/100)
  
 myManageHook = composeAll . concat $
-    [ [ className =? "Firefox-bin"  --> doF (W.shift "web") ] ]
+    [ [ className =? "Firefox"  --> doF (W.shift "web") ] ]
 
 main = xmonad $ defaultConfig {
         terminal           = myTerminal,
