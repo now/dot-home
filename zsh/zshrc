@@ -2,7 +2,11 @@
 #
 # Copyright © 2002,2003,2004,2005,2006 Nikolai Weibull <now@bitwi.se>
 
-local start="$(date +'%s.%N')"
+local -A timings
+
+timings[start]=$(date +%s.%N)
+
+
 
 # 1  Parameters {{{1
 # =============
@@ -17,12 +21,18 @@ watch=(notme)
 unset BAUD
 
 
+timings[parameters]=$(date +%s.%N)
+
+
 
 # 2  Limits {{{1
 # =========
 
 
 limit coredumpsize 30m >& /dev/null
+
+
+timings[limits]=$(date +%s.%N)
 
 
 
@@ -33,6 +43,9 @@ limit coredumpsize 30m >& /dev/null
 zmodload -i zsh/parameter
 sleep 0
 [[ -n $(whence script) ]] && unhash script
+
+
+timings[settings]=$(date +%s.%N)
 
 
 
@@ -49,6 +62,9 @@ setopt autocd                                 \
        nobeep
 
 
+timings[options]=$(date +%s.%N)
+
+
 
 # 5  Terminal Settings {{{1
 # ====================
@@ -56,6 +72,9 @@ setopt autocd                                 \
 
 stty -ixon                    # turn off flowcontrol for the terminal
 export TERMCAP=
+
+
+timings[terminal]=$(date +%s.%N)
 
 
 
@@ -71,7 +90,10 @@ _terminal-title-restore-to-pwd () {
 }
 
 add-zsh-hook precmd _terminal-title-restore-to-pwd
-add-zsh-hook -U preexec set-terminal-title-from-command
+add-zsh-hook preexec set-terminal-title-from-command
+
+
+timings[title]=$(date +%s.%N)
 
 
 
@@ -82,6 +104,9 @@ add-zsh-hook -U preexec set-terminal-title-from-command
 zmodload -a zsh/stat stat
 zmodload -a zsh/zprof zprof
 zmodload -i zsh/complist
+
+
+timings[modules]=$(date +%s.%N)
 
 
 
@@ -171,6 +196,9 @@ zstyle ':completion:*:history-words' menu yes
 
 
 # }}}2
+
+
+timings[completion]=$(date +%s.%N)
 
 
 
@@ -352,11 +380,15 @@ bindkey -M listscroll 'q' send-break
 # }}}2
 
 
+timings[keys]=$(date +%s.%N)
+
+
 
 # 9  Function Autoloading {{{1
 # =======================
 
 
+# Takes about 4–5 ms..  TODO: Cache prompt results.
 autoload -U promptinit; promptinit
 prompt now
 
@@ -365,10 +397,15 @@ autoload -U up d zcalc
 autoload -U zmv
 alias mmv='noglob zmv -W'
 
+# Takes about 13 ms.  Now takes 1.3 ms (due to caching).
 zstyle ':mime:*' mailcap $XDG_CONFIG_HOME/mailcap
+zstyle ':mime:*' use-cache yes
 autoload -U zsh-mime-setup; zsh-mime-setup
 
 autoload -U zargs
+
+
+timings[functions]=$(date +%s.%N)
 
 
 
@@ -484,6 +521,9 @@ freload () {
 # }}}2
 
 
+timings[aliases]=$(date +%s.%N)
+
+
 
 # 11  Host Specific Settings {{{1
 # ==========================
@@ -492,10 +532,23 @@ freload () {
 [[ -f $ZDOTDIR/rc/hosts/$HOST ]] && source $ZDOTDIR/rc/hosts/$HOST
 
 
+timings[host]=$(date +%s.%N)
+
+
 
 # }}}1
 
-local end="$(date +"%s.%N")"
+
+timings[end]=$(date +%s.%N)
 
 # About 0.28 seconds at the moment.
-echo time: $((end - start))
+for key in ${(k)timings:#(start|end)}; do
+  float smallest="$timings[end]" timing="$timings[$key]"
+  for other in ${(k)timings:#(end|$key)}; do
+    float delta
+    (( delta = $timings[$key] - $timings[$other] ))
+    (( smallest = delta > 0.00000000001 && delta < smallest ? delta : smallest ))
+  done
+  printf "%s: %.3f\n" $key smallest
+done | sort -k 2rn
+printf "total: %.3f\n" $(($timings[end] - $timings[start]))
