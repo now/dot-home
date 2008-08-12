@@ -150,9 +150,16 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(firefoxuserconfdir),,firefox/)
 
 DOTFILES = \
+	   share/emacs/color-theme.el \
+	   share/emacs/color-theme-autoloads.el \
+	   share/emacs/cygwin-mount.el \
+	   share/emacs/digraph.el \
+	   share/emacs/hide-mode-line.el \
+	   share/emacs/ned/ned-info-on-file.el \
 	   share/emacs/rect-mark.el \
 	   share/emacs/redo.el \
 	   share/emacs/ruby-mode.el \
+	   share/emacs/themes/color-theme-now.el \
 	   share/emacs/vimpulse.el
 
 $(call GROUP_template,$(DOTFILES),$(usersharedir),,share/)
