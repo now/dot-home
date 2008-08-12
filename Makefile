@@ -1,6 +1,6 @@
 # contents: dot files Makefile.
 #
-# Copyright © 2006 Nikolai Weibull <now@bitwi.se>
+# Copyright © 2006,2008 Nikolai Weibull <now@bitwi.se>
 
 .PHONY: all diff install
 
