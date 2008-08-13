@@ -1,0 +1,27 @@
+#! /bin/zsh
+
+wget http://pragma-ade.com/context/install/justtex.zip \
+     http://pragma-ade.com/context/install/linuxtex.zip
+for zip in justtex.zip linuxtex.zip; do unzip $zip && rm $zip; done
+cd tex/texmf-linux/bin
+chmod 755 *
+chmod 644 xpdfsuite.zip
+ln -s mktexlsr texhash
+PATH="$PWD:$PATH"
+cd ../..
+cp texmf-local/scripts/context/ruby/texmfstart.rb
+texmf-linux/bin/texmfstart
+mktexlsr
+ed texmf-local/web2c/texmf.cnf <<'EOS'
+,s/.$//
+/^TEXMFPROJECT /a
+TEXMFOS       = $SELFAUTOPARENT/texmf-linux
+.
+/^TEXMF /c
+TEXMF         =
+{!!$TEXMFOS,!!$TEXMFPROJECTS,!!$TEXMFFONTS,!!$TEXMFLOCAL,!!$TEXMFEXTRA,!!$TEXMFMAIN}
+.
+wq
+EOS
+texexec --make --alone
+mktexlsr

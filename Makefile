@@ -191,6 +191,7 @@ BINFILES = \
 	   bin/terminal-colors \
 	   bin/pack \
 	   bin/unpack \
+	   bin/update-context \
 	   bin/vg \
 	   bin/vimless
 
