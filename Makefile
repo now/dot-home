@@ -140,11 +140,31 @@ DOTFILES = \
 # TODO: Don’t add . prefix to vimperator directory on win32.
 $(call GROUP_template,$(DOTFILES),$(userconfdir)/vimperator,.,vimperator/)
 
+GM_SCRIPTS = \
+	     firefox/gm_scripts/secure-google-docs-connection.user.js \
+	     firefox/gm_scripts/zshare-mp3-links.user.js
+
+GM_CONFIG = $(firefoxuserconfdir)/gm_scripts/config.xml
+
+$(GM_CONFIG): $(GM_SCRIPTS)
+	{ \
+	  echo '<UserScriptConfig>'; \
+	  for f in $^; do \
+	    echo -n "  <Script filename=\"`basename $$f`\""; \
+	    for field in name namespace description; do \
+	      echo -n " $$field=\"`sed -n 's,^[ 	]*//[ 	]*@'$$field'[ 	]\\+\\(.*\\)\$$,\\1,p' < $$f`\""; \
+	    done; \
+	    echo ' enabled="true" basedir=".">'; \
+	    echo "    <Include>`sed -n 's,^[ 	]*//[ 	]*@include[ 	]\\+\\(.*\\)\$$,\\1,p' < $$f`</Include>"; \
+	    echo '  </Script>'; \
+	  done; \
+	  echo '</UserScriptConfig>'; \
+	} > $@
+
+install: $(GM_CONFIG)
+
 DOTFILES = \
-	   firefox/gm_scripts/config.xml \
-	   firefox/gm_scripts/gmail-fixed-font-toggle.user.js \
-	   firefox/gm_scripts/gmail-macros.user.js \
-	   firefox/gm_scripts/gmail-secure.user.js \
+	   $(GM_SCRIPTS) \
 	   firefox/user.js
 
 $(call GROUP_template,$(DOTFILES),$(firefoxuserconfdir),,firefox/)
