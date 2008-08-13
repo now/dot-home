@@ -1,0 +1,127 @@
+#! /bin/zsh
+# contents: valgrind(1) wrapper for Ruby 1.8.*.
+#
+# Copyright © 2008 Nikolai Weibull <now@bitwi.se>
+
+valgrind --tool=memcheck --leak-check=full --suppressions==(<<'EOX'
+{
+  memcpy/rb_thread_save_context(Value4)
+  Addrcheck,Memcheck:Addr4
+  fun:rb_thread_save_context
+}
+
+{
+  memcpy/rb_thread_save_context(Value1)
+  Addrcheck,Memcheck:Addr1
+  fun:memcpy
+  fun:rb_thread_save_context
+}
+
+{
+  memcpy/rb_thread_restore_context(Value1)
+  Addrcheck,Memcheck:Addr1
+  fun:memcpy
+  fun:rb_thread_restore_context
+}
+
+{
+  strchr/_dl_catch_error(Cond)
+  Addrcheck,Memcheck:Cond
+  fun:strchr
+  obj:/lib/libc-2.2.5.so
+  fun:_dl_catch_error
+}
+
+{
+  _dl_relocate_object_internal(Cond)
+  Addrcheck,Memcheck:Cond
+  fun:_dl_relocate_object_internal
+  obj:/lib/libc-2.3.2.so
+  fun:_dl_catch_error_internal
+}
+
+{
+  _dl_relocate_object_internal(Cond)
+  Addrcheck,Memcheck:Cond
+  obj:/usr/lib/i686/cmov/libcrypto.so.0.9.7
+}
+
+{
+  BN_bin2bn(Cond)
+  Addrcheck,Memcheck:Cond
+  fun:BN_bin2bn
+}
+
+{
+  BN_add_word(Cond)
+  Addrcheck,Memcheck:Cond
+  fun:BN_add_word
+}
+
+{
+  BN_sub_word(Cond)
+  Addrcheck,Memcheck:Cond
+  fun:BN_sub_word
+}
+
+{
+  BN_rshift(Cond)
+  Addrcheck,Memcheck:Cond
+  fun:BN_rshift
+}
+
+{
+  BN_num_bits(Cond)
+  Addrcheck,Memcheck:Cond
+  fun:BN_num_bits
+}
+
+{
+  __umoddi3/BN_mod_word(Cond)
+  Addrcheck,Memcheck:Cond
+  fun:__umoddi3
+  fun:BN_mod_word
+}
+
+{
+  mark_locations_array(Cond)
+  Addrcheck,Memcheck:Cond
+  fun:mark_locations_array
+}
+
+{
+  mark_locations_array(Value4)
+  Addrcheck,Memcheck:Value4
+  fun:mark_locations_array
+}
+
+{
+  mark_locations_array(Value4)
+  Addrcheck,Memcheck:Addr4
+  fun:mark_locations_array
+}
+
+{
+  gc_mark(Cond)
+  Addrcheck,Memcheck:Cond
+  fun:gc_mark
+}
+
+{
+  gc_mark(Value4)
+  Addrcheck,Memcheck:Value4
+  fun:gc_mark
+}
+
+{
+  gc_mark_children(Value4)
+  Addrcheck,Memcheck:Value4
+  fun:gc_mark_children
+}
+
+{
+  gc_mark_children(Cond)
+  Addrcheck,Memcheck:Cond
+  fun:gc_mark_children
+}
+EOX) ${RUBY:-ruby} $*
