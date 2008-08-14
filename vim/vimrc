@@ -69,6 +69,7 @@ set swapsync=
 set guicursor=n-v-c:block-Cursor/lCursor,ve:ver35-Cursor,o:hor50-Cursor,
       \i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor,sm:block-Cursor,
       \a:blinkon0
+set notitle
 set guioptions=acM
 if has('gui_win32')
   set guifont=DejaVu_Sans_Mono:h10
