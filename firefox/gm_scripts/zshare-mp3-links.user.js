@@ -15,7 +15,7 @@ if (url == null)
 
 var link = document.createElement('a');
 link.href = url.value;
-link.textContent = document.getElementsByTagName('title')[0].textContent.replace('^\s*zSHARE\s*-\s*', "");
+link.textContent = document.getElementsByTagName('title')[0].textContent.replace(/^\s*zSHARE\s*-\s*/, "");
 
 var title = document.createElement('p');
 title.appendChild(link);
