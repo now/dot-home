@@ -6,6 +6,10 @@
 
 all: diff
 
+empty :=
+space := $(empty) $(empty)
+shell_quote = $(subst $(space),\ ,$(1))
+
 # 1: File
 # 2: Target
 # 3: Mode
@@ -17,7 +21,7 @@ $$(GROUP_diff_target):
 
 install: $(2)
 $(2): $(1)
-	$$(INSTALL) -D --mode=$(if $(3),$(3),644) --preserve-timestamps $$< $$@
+	$$(INSTALL) -D --mode=$(if $(3),$(3),644) --preserve-timestamps $$< $$(call shell_quote,$$@)
 
 endef
 
@@ -217,3 +221,11 @@ BINFILES = \
 	   bin/vimless
 
 $(call GROUP_template,$(BINFILES),~,,,755)
+
+ifeq ($(shell uname -n), new-work)
+  firefoxprofilesdir=$(call shell_quote,$(shell cygpath -u "$(APPDATA)")/Mozilla/Firefox)
+  DOTFILES = \
+	     firefox/profiles.ini
+
+  $(call GROUP_template,$(DOTFILES),$(firefoxprofilesdir),,firefox/)
+endif
