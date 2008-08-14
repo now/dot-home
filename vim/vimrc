@@ -5,8 +5,15 @@
 " TODO: Should we modify the 'complete' option?  Scanning included files is
 " perhaps a bit much, better to leave that to Ctrl-X Ctrl-I.
 
+let s:on_windows = has("win32") || has("win64")
+
 set cpoptions&vim
-let &runtimepath = substitute(&rtp, expand('~/\.vim'), '\~/.local/etc/vim', 'g')
+set encoding=utf-8
+let &runtimepath = substitute(&rtp,
+                            \ '\V' . escape(expand('~') . '/' .
+                                          \ (s:on_windows ? 'vimfiles' : '.vim'),
+                                          \ '\'),
+                            \ '\~/.local/etc/vim', 'g')
 set nostartofline
 set incsearch
 set path+=./**
@@ -32,6 +39,8 @@ set autoindent
 set cinoptions=:0,l1,t0,c0,C1,(0,u0
 set foldtext=substitute(substitute(foldtext(),'^+-\\+\\s*\\d\\+\ lines:','§',
                        \'g'),'\\s\\+$','\ ⇱','')
+set fileformat=unix
+set fileformats=unix,dos
 " TODO: decide on this
 " set backupcopy=auto,breakhardlink
 set history=512
@@ -62,7 +71,9 @@ set guicursor=n-v-c:block-Cursor/lCursor,ve:ver35-Cursor,o:hor50-Cursor,
       \a:blinkon0
 set guioptions=acM
 if has('gui_win32')
-  set guifont=DejaVu_Sans_Mono:h12
+  set guifont=DejaVu_Sans_Mono:h10
+  winpos 719 0
+  set lines=63 columns=118
 endif
 
 " TODO: same as for syntax...why is this not the default?
@@ -194,5 +205,8 @@ function! s:get_command_mode_range(type)
 endfunction
 
 autocmd VimLeave * if v:this_session != "" | exe "mks! ".v:this_session | endif
+autocmd GuiEnter * set t_vb=
 
 digraphs cb 8226 tb 8227 .3 8230 ,3 8943 (/ 8713 <Y 8826 </ 10216 >/ 10217
+
+unlet s:on_windows
