@@ -125,7 +125,8 @@ DOTFILES = \
 	   zsh/functions/cache/store \
 	   zsh/functions/zsh-mime-setup \
 	   zsh/functions/zle/vim-increase-number \
-	   zsh/rc/hosts/puritan
+	   zsh/rc/hosts/puritan \
+	   zsh/rc/os/Cygwin
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir))
 

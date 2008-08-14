@@ -1,0 +1,7 @@
+_paste-cygwin-clipboard-path () {
+  [[ -x $(whence xclip) ]] || return
+  LBUFFER+=${(q)"$(cygpath "$(xclip -out)" 2> /dev/null)"}
+}
+zle -N paste-cygwin-clipboard-path _paste-cygwin-clipboard-path
+bindkey "^O^Y" paste-cygwin-clipboard-path
+bindkey "^Oy" paste-cygwin-clipboard-path

@@ -523,6 +523,17 @@ timings[aliases]=$(date +%s.%N)
 
 
 
+# 11  Operating System Specific Settings {{{1
+# ======================================
+
+
+[[ -f $ZDOTDIR/rc/os/$(uname -o 2> /dev/null) ]] && source $ZDOTDIR/rc/os/$(uname -o)
+
+
+timings[os]=$(date +%s.%N)
+
+
+
 # 11  Host Specific Settings {{{1
 # ==========================
 
