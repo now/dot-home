@@ -1,4 +1,8 @@
 " One possibility is to
 " set showstatuslinks=2 and then use C-g for information
 set newtab=addons,downloads,help,prefs
-set wildmode=list:longest
+set complete=fl
+set wildmode=list:full
+set wildoptions=auto
+noremap <BS> <PageUp>
+noremap s l
