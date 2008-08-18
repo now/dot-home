@@ -146,21 +146,24 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(userconfdir)/vimperator,.,vimperator/)
 
 GM_SCRIPTS = \
+	     firefox/gm_scripts/delicious-favicons.user.js \
 	     firefox/gm_scripts/secure-google-docs-connection.user.js \
 	     firefox/gm_scripts/zshare-mp3-links.user.js
 
 GM_CONFIG = $(firefoxuserconfdir)/gm_scripts/config.xml
 
-$(GM_CONFIG): $(GM_SCRIPTS)
+$(GM_CONFIG): Makefile $(GM_SCRIPTS)
 	{ \
 	  echo '<UserScriptConfig>'; \
 	  for f in $^; do \
+	    test $$f = Makefile && continue; \
 	    echo -n "  <Script filename=\"`basename $$f`\""; \
 	    for field in name namespace description; do \
 	      echo -n " $$field=\"`sed -n 's,^[ 	]*//[ 	]*@'$$field'[ 	]\\+\\(.*\\)\$$,\\1,p' < $$f`\""; \
 	    done; \
 	    echo ' enabled="true" basedir=".">'; \
-	    echo "    <Include>`sed -n 's,^[ 	]*//[ 	]*@include[ 	]\\+\\(.*\\)\$$,\\1,p' < $$f`</Include>"; \
+	    sed -n 's,^[ 	]*//[ 	]*@include[ 	]\+\(.*\)$$,    <Include>\1</Include>,p' < $$f; \
+	    sed -n 's,^[ 	]*//[ 	]*@exclude[ 	]\+\(.*\)$$,    <Exclude>\1</Exclude>,p' < $$f; \
 	    echo '  </Script>'; \
 	  done; \
 	  echo '</UserScriptConfig>'; \
