@@ -157,13 +157,14 @@ $(GM_CONFIG): Makefile $(GM_SCRIPTS)
 	  echo '<UserScriptConfig>'; \
 	  for f in $^; do \
 	    test $$f = Makefile && continue; \
-	    echo -n "  <Script filename=\"`basename $$f`\""; \
+	    echo "  <Script filename=\"`basename $$f`\""; \
 	    for field in name namespace description; do \
-	      echo -n " $$field=\"`sed -n 's,^[ 	]*//[ 	]*@'$$field'[ 	]\\+\\(.*\\)\$$,\\1,p' < $$f`\""; \
+	      sed -n 's,^[ 	]*//[ 	]*@'$$field'[ 	]\+\(.*\),          '$$field'="\1",p' < $$f; \
 	    done; \
-	    echo ' enabled="true" basedir=".">'; \
-	    sed -n 's,^[ 	]*//[ 	]*@include[ 	]\+\(.*\)$$,    <Include>\1</Include>,p' < $$f; \
-	    sed -n 's,^[ 	]*//[ 	]*@exclude[ 	]\+\(.*\)$$,    <Exclude>\1</Exclude>,p' < $$f; \
+	    echo '          enabled="true" basedir=".">'; \
+	    for field in include exclude; do \
+	      sed -n 's,^[ 	]*//[ 	]*@'$$field'[ 	]\+\(.*\)$$,    <\u'$$field'>\1</\u'$$field'>,p' < $$f; \
+	    done; \
 	    echo '  </Script>'; \
 	  done; \
 	  echo '</UserScriptConfig>'; \
