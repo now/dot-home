@@ -6,3 +6,4 @@ set wildmode=list:full
 set wildoptions=auto
 noremap <BS> <PageUp>
 noremap s l
+noremap <C-q> <Nop>
