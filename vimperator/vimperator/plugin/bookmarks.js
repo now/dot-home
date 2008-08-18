@@ -1,6 +1,6 @@
 (function () {
 
-const oldGetSearchURL = liberator.Bookmarks.getSearchURL;
+const oldGetSearchURL = liberator.bookmarks.getSearchURL;
 const keywords = {
   mark: 'http://del.icio.us/post?v=4;url=%h;title=%t',
   del: 'http://del.icio.us/search?all=%s',
@@ -27,10 +27,11 @@ const keywords = {
   '/c': 'http://google.com/codesearch?q=%s'
 };
 
-liberator.Bookmarks.getSearchURL = function(text, keyword) {
+liberator.bookmarks.getSearchURL = function(text, useDefsearch) {
   text = (text == null ? "" : text);
-  var url = keywords[keyword];
+  var url = keywords[text.replace(/^\s*(\S+).*/, '$1')];
   if (url) {
+    text = text.replace(/^\s*\S+\s*/, "");
     var words = text.split(/\s+/)
     var expanded = [];
     var add_javascript = false;
