@@ -147,6 +147,7 @@ $(call GROUP_template,$(DOTFILES),$(userconfdir)/vimperator,.,vimperator/)
 
 GM_SCRIPTS = \
 	     firefox/gm_scripts/delicious-favicons.user.js \
+	     firefox/gm_scripts/google-favicons.user.js \
 	     firefox/gm_scripts/secure-google-docs-connection.user.js \
 	     firefox/gm_scripts/zshare-mp3-links.user.js
 
