@@ -11,7 +11,7 @@ for (var links = document.evaluate('//li[contains(@class, "post")]//h4/a[1]', do
      link = links.snapshotItem(i);
      i++) {
   var favicon = new Image();
-  favicon.src = 'http://' + link.hostname + '/favicon.ico';
+  favicon.src = 'http://google.com/s2/favicons?domain=' + link.hostname + '/favicon.ico';
   favicon.width = favicon.height = 16;
   favicon.setAttribute('style', 'float: left; margin-right: 1ex; border: 0;');
   link.parentNode.insertBefore(favicon, link);
