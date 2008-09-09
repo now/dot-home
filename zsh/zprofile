@@ -33,6 +33,7 @@ VIMINIT="so $XDG_CONFIG_HOME/vim/vimrc"
 INPUTRC=$XDG_CONFIG_HOME/inputrc
 INDENT_PROFILE=$XDG_CONFIG_HOME/indentrc
 SCREENRC=$XDG_CONFIG_HOME/screenrc
+SYSSCREENRC=/dev/null
 IRBRC=$XDG_CONFIG_HOME/irbrc
 GNUPGHOME=$XDG_CONFIG_HOME/gnupg
 LFTP_HOME=$XDG_CONFIG_HOME/lftp
@@ -68,8 +69,8 @@ export                                                                \
   VERSION_CONTROL VERSION_WIDTH                                       \
   GREP_COLOR                                                          \
   MANWIDTH                                                            \
-  VIMINIT INPUTRC INDENT_PROFILE SCREENRC IRBRC GNUPGHOME LFTP_HOME   \
-  MPLAYER_HOME GTK2_RC_FILES CMUS_HOME VIMPERATOR_HOME                \
+  VIMINIT INPUTRC INDENT_PROFILE SCREENRC SYSSCREENRC IRBRC GNUPGHOME \
+  LFTP_HOME MPLAYER_HOME GTK2_RC_FILES CMUS_HOME VIMPERATOR_HOME      \
   MONO_SHARED_DIR                                                     \
   WINEPREFIX                                                          \
   CVS_PASSFILE DVDCSS_CACHE GEMCACHE GST_REGISTRY                     \
