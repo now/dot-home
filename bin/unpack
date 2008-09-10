@@ -17,17 +17,18 @@ optdesc=(
 
 unpack () {
   case $1 in
-    *.tar) tar xf $1 ;;
-    *.tgz|*.tar.gz) gzip -d < $1 | tar x ;;
-    *.tbz2|*.tar.bz2) bzip2 -d < $1 | tar x ;;
-    *.tar.Z) uncompress < $1 | tar x ;;
-    *.gz) gzip -d -- $1 ;;
-    *.bz2) bzip2 -d -- $1 ;;
-    *.rar) unrar x -c- -o+ -idq -- $1 ;;
-    *.zip|*.jar) unzip -q -o $1 ;;
-    *.Z) uncompress -f $1 ;;
-    *.7z) 7z x $1 ;;
-    *) zap/error "can't find a decompressor for file (unrecognized extension):" \
+    (*.tar) tar xf $1 ;;
+    (*.tgz|*.tar.gz) gzip -d < $1 | tar x ;;
+    (*.tbz2|*.tar.bz2) bzip2 -d < $1 | tar x ;;
+    (*.tar.lzma) lzma -d < $1 | tar x ;;
+    (*.tar.Z) uncompress < $1 | tar x ;;
+    (*.gz) gzip -d -- $1 ;;
+    (*.bz2) bzip2 -d -- $1 ;;
+    (*.rar) unrar x -c- -o+ -idq -- $1 ;;
+    (*.zip|*.jar) unzip -q -o $1 ;;
+    (*.Z) uncompress -f $1 ;;
+    (*.7z) 7z x $1 ;;
+    (*) zap/error "can't find a decompressor for file (unrecognized extension):" \
                  "    file: $1"
   esac
 }
