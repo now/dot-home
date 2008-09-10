@@ -7,6 +7,7 @@ import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
 import XMonad.Layout
+import XMonad.Layout.Gaps
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
  
@@ -25,9 +26,6 @@ myWorkspaces    = ["terminal", "web", "document" ] ++ map show [4..9]
  
 myNormalBorderColor  = "#dddddd"
 myFocusedBorderColor = "#ff0000"
- 
--- (top, bottom, left, right)
-myDefaultGaps   = [(0,0,0,0)]
  
 greenXPConfig :: XPConfig
 greenXPConfig = defaultXPConfig { font        = "xft:DejaVu Sans Mono-10"
@@ -104,13 +102,13 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
  
 myLayout =
-  onWorkspace "terminal" (smartBorders (Full)) $
+  onWorkspace "terminal" (gaps [(L, 177), (R, 177), (U, 0), (D, 0)] $ smartBorders (Full)) $
   smartBorders $
     tiled |||
     Mirror tiled |||
     Full
   where
-    tiled = Tall 1 (1/2) (3/100)
+    tiled = Tall 1 (3/100) (1/2)
  
 myManageHook = composeAll . concat $
     [ [ className =? "Firefox"  --> doF (W.shift "web") ] ]
@@ -122,7 +120,6 @@ main = xmonad $ defaultConfig {
         workspaces         = myWorkspaces,
         normalBorderColor  = myNormalBorderColor,
         focusedBorderColor = myFocusedBorderColor,
-        defaultGaps        = myDefaultGaps,
  
         keys               = myKeys,
  
