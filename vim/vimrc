@@ -118,18 +118,20 @@ endfunction
 " TODO: This is bugged.  Braw will fix?
 "set langmap=tj;jt,nk;kn,sl;ls
 
-call s:map_swap_both_cases(['t', 'j'], ['n', 'k'], ['s', 'l'])
-noremap <silent> k :<C-U>call feedkeys(v:count1 . 'n', 'nt')<CR>
-noremap <silent> K :<C-U>call feedkeys(v:count1 . 'N', 'nt')<CR>
+call s:map_swap_both_cases(['s', 'l'])
+"call s:map_swap_both_cases(['t', 'j'], ['n', 'k'], ['s', 'l'])
+"noremap <silent> k :<C-U>call feedkeys(v:count1 . 'n', 'nt')<CR>
+"noremap <silent> K :<C-U>call feedkeys(v:count1 . 'N', 'nt')<CR>
 
-call s:map_swap_both_cases(['<C-W>t', '<C-W>j'], ['<C-W><C-T>', '<C-W><C-J>'])
-call s:map_swap_both_cases(['<C-W>n', '<C-W>k'], ['<C-W><C-N>', '<C-W><C-K>'])
+"call s:map_swap_both_cases(['<C-W>t', '<C-W>j'], ['<C-W><C-T>', '<C-W><C-J>'])
+"call s:map_swap_both_cases(['<C-W>n', '<C-W>k'], ['<C-W><C-N>', '<C-W><C-K>'])
 call s:map_swap_both_cases(['<C-W>s', '<C-W>l'], ['<C-W><C-S>', '<C-W><C-L>'])
-call s:map_swap_list([['zt', 'zj'], ['zn', 'zk'], ['zs', 'zl']])
+"call s:map_swap_list([['zt', 'zj'], ['zn', 'zk'], ['zs', 'zl']])
+call s:map_swap_list([['zs', 'zl']])
 noremap zS zL
-noremap zK zN
-noremap gt gj
-noremap gn gk
+"noremap zK zN
+"noremap gt gj
+"noremap gn gk
 
 delfunction s:map_swap_both_cases
 delfunction s:map_swap_list
