@@ -1,14 +1,14 @@
 # contents: readline(3) RC file.
 #
-# Copyright © 2002,2003,2004,2005,2006 Nikolai Weibull <now@bitwi.se>
+# Copyright © 2002,2003,2004,2005,2006,2008 Nikolai Weibull <now@bitwi.se>
  
 set bell-style none
 set editing-mode vi
 
 $if mode=vi
   set keymap vi
-    "t": next-history
-    "n": previous-history
+    "L": vi-subst
+    "l": vi-subst
   set keymap vi-move
     "s": forward-char
 $endif

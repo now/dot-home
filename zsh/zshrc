@@ -201,8 +201,6 @@ timings[completion]=$(date +%s.%N)
 
 # 8.1.1  Movement
 
-bindkey -a "t" down-line-or-history
-bindkey -a "n" up-line-or-history
 bindkey -a "s" vi-forward-char
 
 autoload -U forward-word-match
@@ -218,15 +216,10 @@ bindkey -a "(" backward-parameter
 
 bindkey -a "/" history-incremental-search-backward
 bindkey -a "?" history-incremental-search-forward
-bindkey -a "j" vi-find-next-char-skip
-bindkey -a "J" vi-find-prev-char-skip
-bindkey -a "k" vi-repeat-search
-bindkey -a "K" vi-rev-repeat-search 
 
 # 8.1.3  Change
 
 bindkey -a "L" vi-change-whole-line
-bindkey -a "T" vi-join
 bindkey -a "l" vi-substitute
 
 # 8.1.4  Miscellaneous
@@ -239,7 +232,6 @@ bindkey -ar "^?"
 bindkey -a "^[" vi-cmd-mode
 bindkey -a "^L" accept-line-and-down-history
 bindkey -a "^R" redo
-bindkey -a "N" run-help
 bindkey -a "u" undo
 bindkey -a "~" vi-oper-swap-case
 
@@ -363,7 +355,6 @@ bindkey "^^" cd-to-alternate-directory
 # 8.3  List-scroll Mode {{{2
 # ---------------------
 
-bindkey -M listscroll 't' down-line-or-history
 bindkey -M listscroll 'q' send-break
 
 
@@ -432,7 +423,7 @@ alias gp='grep --color -n -P'
 alias top='top -u $USERNAME'
 alias mp='mplayer'
 alias mpq='mplayer -nosound'
-alias tv='DISPLAY=:0.1 mplayer'
+alias tv='DISPLAY=:0.1 mplayer -nofs -geometry 1024x600+0+75'
 alias hp='mplayer -ao alsa:device=secondary'
 alias ri='noglob ri'
 alias h='fc -lfiD'

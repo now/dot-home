@@ -1,6 +1,6 @@
 # contents: screen(1) user RC file.
 #
-# Copyright © 2002,2003,2004,2005,2006,2007 Nikolai Weibull <now@bitwi.se>
+# Copyright © 2002,2003,2004,2005,2006,2007,2008 Nikolai Weibull <now@bitwi.se>
 
 # 1  Terminal Settings
 # ====================
@@ -53,7 +53,6 @@ bind \' select 10
 
 bind -c applications f colon "screen -t 'edit' 6 vim --servername vim "
 bind -c applications m screen -t 'media' 7 $SHELL -c "LOCKTITLE=1 $SHELL"
-bind -c applications i screen -t 'irc' 8 irssi --home=~/.local/etc/irssi
 bind -c applications l screen -t 'log' -M 10 sudo tail -F /var/log/messages
 bind -c applications v screen -t 'mixer' alsamixer
 
@@ -100,7 +99,7 @@ bind ,
 # 3.4  Mark Keys
 # --------------
 
-markkeys "j=t:k=n:l=s:L=S:n=k:^S=/"
+markkeys "l=s:L=S:^S=/"
 
 
 
