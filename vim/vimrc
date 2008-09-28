@@ -149,6 +149,8 @@ for digit in [1, 2, 3, 4, 5, 6, 8, 9]
   execute 'inoremap <silent> ' . digit . ' <C-R>=pumvisible() ? "' . repeat('\<lt>C-N>', digit) . '" : "' . digit . '"<CR>'
 endfor
 
+inoremap <C-Z> <C-C>
+
 noremap <Leader>p :cprevious<CR>
 noremap <Leader>n :cnext<CR>
 noremap <Leader>P :cpfile<CR>
