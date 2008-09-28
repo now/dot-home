@@ -444,14 +444,18 @@ hc () {
 }
 
 cd () {
-  local dir=$1
-  if [[ -f $dir ]]; then
-    dir=$dir:h
+  if (( $# > 0 )); then
+    local first=$1
+    shift
+    if [[ -f $first ]]; then
+      first=$first:h
+    fi
+    set $first $*
   fi
 
-  local result="${${:-"$(builtin cd $dir 2>&1 1>/dev/null)"}#cd:cd:1: }"
+  local result="${${:-"$(builtin cd $* 2>&1 1>/dev/null)"}#cd:cd:1: }"
   if (( $#result == 0 )); then
-    builtin cd $dir
+    builtin cd $*
   else
     print -u 2 "cd: $result"
     return 1
