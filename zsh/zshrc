@@ -444,13 +444,8 @@ hc () {
 }
 
 cd () {
-  if (( $# > 0 )); then
-    local first=$1
-    shift
-    if [[ -f $first ]]; then
-      first=$first:h
-    fi
-    set $first $*
+  if (( $# == 1 )) && [[ -f $1 ]]; then
+    set $1:h
   fi
 
   local result="${${:-"$(builtin cd $* 2>&1 1>/dev/null)"}#cd:cd:1: }"
