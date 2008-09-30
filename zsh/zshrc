@@ -498,10 +498,9 @@ i () { command ls -A -l --si --color=always -b "$@" | ${LISTER:-less} }
 # -------------------
 
 freload () {
-  while (( $# )); do
-    unfunction $1
-    autoload -U $1
-    shift
+  for f in $*; do
+    unfunction $f
+    autoload -U $f
   done
 }
 
