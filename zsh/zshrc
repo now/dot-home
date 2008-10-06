@@ -17,8 +17,8 @@ HISTSIZE=1024
 READNULLCMD=$PAGER
 REPORTTIME=300
 SAVEHIST=$HISTSIZE
-watch=(notme)
-unset BAUD
+# TODO: Remove, I don’t think anyone’s going to be setting it.
+#unset BAUD
 
 
 timings[parameters]=$(date +%s.%N)
@@ -38,11 +38,6 @@ timings[limits]=$(date +%s.%N)
 
 # 3  Shell Settings {{{1
 # =================
-
-
-zmodload -i zsh/parameter
-sleep 0
-[[ -n $(whence script) ]] && unhash script
 
 
 timings[settings]=$(date +%s.%N)
@@ -144,13 +139,10 @@ zstyle ':completion:*:expand:*' tag-order all-expansions
 zstyle ':completion::*:(-command-|export):*' fake-parameters \
   ACCEPT_KEYWORDS:scalar \
   USE:scalar
-zstyle ':completion:*:ignored:*' single-ignored menu
 
-zstyle ':completion:*:kill:*' force-list always
-zstyle ':completion:*:processes' command 'ps -U ${EUID} 2>/dev/null'
+zstyle ':completion:*:processes' command 'ps -U $EUID 2>/dev/null'
 
 zstyle ':completion:*' ignore-parents parent pwd
-zstyle ':completion:*:rm:*' ignore-line yes
 
 
 # 7.2. Completion Formats and Messages {{{2
@@ -163,8 +155,6 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS} tc=7
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*' list-separator "                "
 zstyle ':completion:*:options' auto-description "specify ‘%d’"
-
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=8=9'
 
 zstyle ':completion:*:directory-stack' list-colors "=(#b)[0-9]#[[:space:]]#(*)=8=${${LS_COLORS#*di=}%%:*}"
 
@@ -179,10 +169,7 @@ zstyle ':completion:*:manuals' separate-sections true
 # 7.4. History Completion {{{2
 # -----------------------
 
-zstyle ':completion:*:history-words' stop yes
-zstyle ':completion:*:history-words' remove-all-dups yes
-zstyle ':completion:*:history-words' list no
-zstyle ':completion:*:history-words' menu yes
+zstyle ':completion:*' remove-all-dups yes
 
 
 # }}}2
@@ -225,15 +212,10 @@ bindkey -a "l" vi-substitute
 # 8.1.4  Miscellaneous
 
 bindkey -arp "^["
-bindkey -ar "#"
-bindkey -ar "+"
-bindkey -ar "\-"
-bindkey -ar "^?"
 bindkey -a "^[" vi-cmd-mode
 bindkey -a "^L" accept-line-and-down-history
 bindkey -a "^R" redo
 bindkey -a "u" undo
-bindkey -a "~" vi-oper-swap-case
 
 autoload -Uz vim-increase-number
 zle -N vim-increase-number vim-increase-number
@@ -261,6 +243,7 @@ zle -N cd-list _cd-list
 bindkey -a "^G" cd-list
 
 _cd-to-alternate-directory () {
+  (( $#dirstack > 1 )) || return
   cd ~+1
   zle reset-prompt
 }
@@ -296,11 +279,10 @@ _complete-kept () {
 }
 zle -C complete-kept complete-word _complete-kept
 
-bindkey -r "^O"
 bindkey -rp "^X"
 bindkey -r "^X"
-bindkey -r "^?"
 bindkey -rp "^["
+bindkey -r "^O"
 bindkey "^O$" insert-last-word
 bindkey "^Ok" complete-kept
 bindkey "^O^k" complete-kept
@@ -311,13 +293,13 @@ bindkey "^Op" copy-prev-shell-word
 bindkey "^O?" _complete_help                  
 bindkey "^E" list-expand
 bindkey "^F" describe-key-briefly
-bindkey "^C" vi-cmd-mode
 bindkey "^L" accept-line-and-down-history
 bindkey "^R" redisplay
 bindkey "^Q" push-line-or-edit
 bindkey " " magic-space
 bindkey "^H" backward-delete-char
 bindkey "^?" backward-delete-char
+bindkey "^Z" vi-cmd-mode
 
 autoload -U history-beginning-search-menu
 zle -N history-beginning-search-menu
