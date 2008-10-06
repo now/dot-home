@@ -149,6 +149,7 @@ GM_SCRIPTS = \
 	     firefox/gm_scripts/delicious-favicons.user.js \
 	     firefox/gm_scripts/google-favicons.user.js \
 	     firefox/gm_scripts/secure-google-docs-connection.user.js \
+	     firefox/gm_scripts/vbulletin-cleanup.user.js \
 	     firefox/gm_scripts/zshare-mp3-links.user.js
 
 GM_CONFIG = $(firefoxuserconfdir)/gm_scripts/config.xml
@@ -175,6 +176,7 @@ install: $(GM_CONFIG)
 
 DOTFILES = \
 	   $(GM_SCRIPTS) \
+	   firefox/stylish.rdf \
 	   firefox/user.js
 
 $(call GROUP_template,$(DOTFILES),$(firefoxuserconfdir),,firefox/)

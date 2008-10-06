@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:stylish="urn:stylish#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="rdf:#$00zzv1"
+                   stylish:global="false"
+                   stylish:urlPrefix="http://bikeguide.org/forums/showthread.php"
+                   stylish:description="vBulletin Cleanup"
+                   stylish:enabled="true"
+                   stylish:neverUpdate="false"
+                   stylish:customized="true">
+    <stylish:code>@-moz-document url-prefix(http://bikeguide.org/forums/showthread.php),
+      url-prefix(http://www.bikeguide.org/forums/showthread.php) {
+  body {
+    margin: 0 !important;
+  }
+
+  .bigusername {
+    font-size: 10pt !important;
+  }
+
+  /* Remove header. */
+  body &gt; table:first-child {
+    display: none !important;
+  }
+
+  /* Remove junk below each post. */
+  table.tborder &gt; tbody &gt; tr + tr + tr {
+    display: none;
+  }
+
+  /* Add border as we remove it when removing junk in previous rule. */
+  table.tborder &gt; tbody &gt; tr + tr &gt; td {
+    border-bottom: 1px solid rgb(69, 92, 139) !important;
+  }
+
+  /* Deindent quostes. */
+  div[style='margin: 5px 20px 20px;'] {
+    margin: 5px 0 10px 0 !important;
+  }
+
+  /* Remove “Quote:” text. */
+  div[style='margin: 5px 20px 20px;'] &gt; div:first-child {
+    display: none;
+  }
+
+  /* Add space between name of quotee and quoted text. */
+  div[style='margin: 5px 20px 20px;'] &gt; table &gt; tbody &gt; tr &gt; td &gt; div:first-child {
+    margin-bottom: 5px !important;
+  }
+
+  div.page &gt; div &gt; table &gt; tbody &gt; tr &gt; td:first-child {
+    display: none;
+  }
+
+  /* Remove previous/next thread links. */
+  div.page &gt; div &gt; table + br + div {
+    display: none;
+  }
+
+  /* Remove comment about becoming a premium member. */
+  div#pagenav_menu + div &gt; div &gt; div {
+    display: none;
+  }
+}</stylish:code>
+  </RDF:Description>
+</RDF:RDF>
