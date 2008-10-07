@@ -2,13 +2,17 @@
 <RDF:RDF xmlns:stylish="urn:stylish#"
          xmlns:NC="http://home.netscape.com/NC-rdf#"
          xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Seq RDF:about="urn:stylish:userstyles">
+    <RDF:li RDF:resource="rdf:#$00zzv1"/>
+  </RDF:Seq>
   <RDF:Description RDF:about="rdf:#$00zzv1"
                    stylish:global="false"
-                   stylish:urlPrefix="http://bikeguide.org/forums/showthread.php"
                    stylish:description="vBulletin Cleanup"
                    stylish:enabled="true"
                    stylish:neverUpdate="false"
                    stylish:customized="true">
+    <stylish:urlPrefix>http://bikeguide.org/forums/showthread.php</stylish:urlPrefix>
+    <stylish:urlPrefix>http://www.bikeguide.org/forums/showthread.php</stylish:urlPrefix>
     <stylish:code>@-moz-document url-prefix(http://bikeguide.org/forums/showthread.php),
       url-prefix(http://www.bikeguide.org/forums/showthread.php) {
   body {
