@@ -1,0 +1,15 @@
+# contents: zsh(1) user login RC.
+#
+# Copyright © 2004,2005,2006,2008 Nikolai Weibull <now@bitwi.se>
+
+# TODO: This remains until pam_ssh can add keys that aren’t available until
+# pam_mount has started its session.  The problem is that pam_ssh tries to
+# decrypt the keys in the authentication phase.  This makes sense if you want
+# to authenticate the whole session by authenticating against one of the keys,
+# but not if you only want to provide single sign-on behavior for the session.
+# 
+# I’m not sure how to best solve this, so I’ll have to contact the pam_ssh
+# developers and ask if this is something they can look into.
+if whence keychain > /dev/null; then
+  eval $(keychain --eval --quiet --dir $XDG_CACHE_HOME/keychain id_dsa)
+fi
