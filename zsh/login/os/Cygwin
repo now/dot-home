@@ -1,0 +1,5 @@
+# contents: zsh(1) user login RC for Cygwin environment.
+#
+# Copyright © 2008 Nikolai Weibull <now@bitwi.se>
+
+exec screen -D -RR
