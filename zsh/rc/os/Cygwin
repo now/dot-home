@@ -10,7 +10,7 @@ zle -N paste-cygwin-clipboard-path _paste-cygwin-clipboard-path
 bindkey "^O^Y" paste-cygwin-clipboard-path
 bindkey "^Oy" paste-cygwin-clipboard-path
 
-alias p='ps --user $USERNAME --windows"
-alias pp='ps --user $USERNAME"
+alias p='ps --user $USERNAME --windows'
+alias pp='ps --user $USERNAME'
 
 alias kill='command kill -f'
