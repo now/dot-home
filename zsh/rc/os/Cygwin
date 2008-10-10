@@ -3,8 +3,7 @@
 # Copyright © 2008 Nikolai Weibull <now@bitwi.se>
 
 _paste-cygwin-clipboard-path () {
-  [[ -x $(whence xclip) ]] || return
-  LBUFFER+=${(q)"$(cygpath "$(xclip -out)" 2> /dev/null)"}
+  LBUFFER+=${(q)"$(cygpath "$(xclip -out 2> /dev/null)" 2> /dev/null)"}
 }
 zle -N paste-cygwin-clipboard-path _paste-cygwin-clipboard-path
 bindkey "^O^Y" paste-cygwin-clipboard-path
@@ -14,3 +13,24 @@ alias p='ps --user $USERNAME --windows'
 alias pp='ps --user $USERNAME'
 
 alias kill='command kill -f'
+
+xclip () {
+  local mode=in
+  integer filter=0
+  declare -a files
+  while (( $# > 0 )); do
+    case $1 in
+      (-i|-in) mode=in ;;
+      (-o|-out) mode=out ;;
+      (-f|-filter) (( filter == 1 )) ;;
+      (-l|-loops|-d|-display|-silent|-quiet|-verbose) ;;
+      (-h|-help|-v|-version) exit ;;
+      (*) files+=$1 ;;
+    esac
+    shift
+  done
+  case $mode in
+    (in) cat $files | putclip ;;
+    (out) getclip ;;
+  esac
+}
