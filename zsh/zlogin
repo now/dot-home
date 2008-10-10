@@ -13,3 +13,5 @@
 if whence keychain > /dev/null; then
   eval $(keychain --eval --quiet --dir $XDG_CACHE_HOME/keychain id_dsa)
 fi
+
+[[ -f $ZDOTDIR/login/os/$(uname -o 2> /dev/null) ]] && source $ZDOTDIR/login/os/$(uname -o)
