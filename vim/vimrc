@@ -43,6 +43,9 @@ set fileformat=unix
 set fileformats=unix,dos
 " TODO: decide on this
 " set backupcopy=auto,breakhardlink
+if s:on_windows
+  set backupcopy=yes
+endif
 set history=512
 set wildcharm=<C-Z>
 set wildmode=list:longest
