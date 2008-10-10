@@ -1,3 +1,7 @@
+# contents: zsh(1) user RC for Cygwin environment.
+#
+# Copyright © 2008 Nikolai Weibull <now@bitwi.se>
+
 _paste-cygwin-clipboard-path () {
   [[ -x $(whence xclip) ]] || return
   LBUFFER+=${(q)"$(cygpath "$(xclip -out)" 2> /dev/null)"}
