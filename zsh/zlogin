@@ -14,4 +14,6 @@ if whence keychain > /dev/null; then
   eval $(keychain --eval --quiet --dir $XDG_CACHE_HOME/keychain id_dsa)
 fi
 
+[[ -x /usr/sbin/lighttpd ]] && /usr/sbin/lighttpd -f $XDG_CONFIG_HOME/lighttpd/lighttpd.conf
+
 [[ -f $ZDOTDIR/login/os/$(uname -o 2> /dev/null) ]] && source $ZDOTDIR/login/os/$(uname -o)
