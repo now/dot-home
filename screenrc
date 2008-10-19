@@ -6,10 +6,22 @@
 # ====================
 
 
+# TODO: The only reason to set this is that it’s not a sane default and that it
+# clutters the window list by suffixing the window number with a ‘$’ to show
+# that the window is “logged in”.
 deflogin off
+# TODO: 100 is way too low a default under any normal circumstances.
 defscrollback 8192
+# NOTE: Leaving maptimeout at the default of 300, Esc key will be delayed.
 maptimeout 10
+# TODO: Screen should really set this, provided that the base terminal is
+# capable and screen has been compiled with 256 color support.
 term "screen-256color"
+# TODO: Set msgminwait 0 so that we can do ^Tw followed by ^T<N> without a 1
+# second delay as is the default now.  We won’t have to set this if we don’t
+# set hardstatus below.  The reason behind the delay is that screen has to
+# update the hardstatus when we switch windows and that’s considered to be a
+# message, thus the timeout triggers.
 
 
 
@@ -17,10 +29,12 @@ term "screen-256color"
 # ==========
 
 
+# TODO: Do we really need to redefine this?
 activity "%0c activity: %n %t"
-caption splitonly "%{= wd}%?%F%{..g}%?%n %t"
+# TODO: Do we really need the hardstatus line?  Only real use right now is that
+# screen resizes correctly with it and not without it in a new gnome-terminal
+# (inside XMonad).
 hardstatus alwayslastline "%{= dd}%?%-w%?%{..g}%n %t%?[%u]%?%{-}%+w%-014= %M %d, %0c"
-sorendition = dr
 
 
 
@@ -30,83 +44,7 @@ sorendition = dr
 
 escape ^Tt
 
-
-# 3.1  General
-# ------------
-
+# TODO: How often do I need to do this, anyway?
 bind \# colon "number "
-bind ^I windowlist -b -m
-bind f fit
-bind o only
-bind M monitor
-bind s split
-bind S silence
-bind w focus down
-bind W focus up
-bind x remove
-bind X lockscreen
-bind \' select 10
-
-
-# 3.2  Applications
-# -----------------
-
-bind -c applications f colon "screen -t 'edit' 6 vim --servername vim "
-bind -c applications m screen -t 'media' 7 $SHELL -c "LOCKTITLE=1 $SHELL"
-bind -c applications l screen -t 'log' -M 10 sudo tail -F /var/log/messages
-bind -c applications v screen -t 'mixer' alsamixer
-
-bind / command -c applications
-
-
-# 3.3  Unbindings
-# ---------------
-
-# TODO: do we really need this?
-bind \"
-bind A
-bind b
-bind ^B
-bind B
-bind C
-bind ^D
-bind D
-bind ^F
-bind F
-bind ^G
-bind N
-bind q
-bind ^Q
-bind Q
-bind r
-bind ^R
-bind ^S
-bind v
-bind ^W
-bind ^X
-bind z
-bind ^Z
-bind .
-bind {
-bind }
-bind >
-bind <
-bind =
-bind _
-bind ,
-
-
-# 3.4  Mark Keys
-# --------------
 
 markkeys "l=s:L=S:^S=/"
-
-
-
-# 4  Session Loading
-# ==================
-
-
-screen -t 'log' -M 10 sudo tail -F /var/log/messages
-screen -t 'media' 7 $SHELL -c "LOCKTITLE=1 $SHELL"
-screen 0
