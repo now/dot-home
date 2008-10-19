@@ -54,7 +54,6 @@ DOTFILES = \
 	   indentrc \
 	   inputrc \
 	   irbrc \
-	   lftp/rc \
 	   mailcap \
 	   sbclrc \
 	   screenrc \
