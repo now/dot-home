@@ -54,6 +54,7 @@ DOTFILES = \
 	   indentrc \
 	   inputrc \
 	   irbrc \
+	   lighttpd/lighttpd.conf \
 	   mailcap \
 	   sbclrc \
 	   screenrc \
