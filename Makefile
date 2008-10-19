@@ -56,7 +56,6 @@ DOTFILES = \
 	   irbrc \
 	   lftp/rc \
 	   mailcap \
-	   mplayer/config \
 	   sbclrc \
 	   screenrc \
 	   vim/vimrc \

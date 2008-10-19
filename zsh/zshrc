@@ -403,10 +403,9 @@ aspell () { command aspell --home-dir ~/.local/var/lib/aspell $* }
 sbcl () { command sbcl $* --userinit ~/.local/etc/sbclrc }
 alias gp='grep --color -n -P'
 alias top='top -u $USERNAME'
-alias mp='mplayer'
-alias mpq='mplayer -nosound'
-alias tv='DISPLAY=:0.1 mplayer -nofs -geometry 1024x600+0+75'
-alias hp='mplayer -ao alsa:device=secondary'
+alias mp='mplayer -fs -stop-xscreensaver'
+alias tv='DISPLAY=:0.1 mplayer -geometry 1024x600+0+75 -stop-xscreensaver'
+alias hp='mplayer -ao alsa:device=secondary -fs -stop-xscreensaver'
 alias ri='noglob ri'
 alias h='fc -lfiD'
 alias t='cd ~+1'
