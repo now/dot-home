@@ -412,6 +412,7 @@ alias h='fc -lfiD'
 alias t='cd ~+1'
 alias svn='svn --config-dir ~/.local/var/lib/subversion'
 alias y='xview'
+alias lv='sudo tail -F /var/log/messages'
 
 alias -g ...='../..'
 alias -g ....='../../..'
