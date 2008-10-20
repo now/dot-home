@@ -91,7 +91,7 @@ fi
 
 local cache_policy
 zstyle -s ':mime:*' cache-policy cache_policy
-[[ -z cache_policy ]] && zstyle ':mime:*' cache-policy mime-cache-policy
+[[ -z $cache_policy ]] && zstyle ':mime:*' cache-policy mime-cache-policy
 {
   mime-cache-policy () {
     for f in $type_files $cap_files; do
