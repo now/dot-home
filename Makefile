@@ -49,7 +49,6 @@ DOTFILES = \
 	   cmus/now.theme \
 	   cmus/rc \
 	   dircolors \
-	   gnupg/gpg.conf \
 	   gtkrc \
 	   indentrc \
 	   inputrc \
