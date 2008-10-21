@@ -53,7 +53,7 @@ DOTFILES = \
 	   emacs \
 	   fonts.conf \
 	   gitconfig \
-	   gtkrc \
+	   gtkrc-2.0 \
 	   indent.pro \
 	   inputrc \
 	   irbrc \
