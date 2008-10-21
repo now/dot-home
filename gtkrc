@@ -6,4 +6,3 @@ include "/usr/share/themes/Clearlooks/gtk-2.0/gtkrc"
 
 gtk-cursor-blink = 0
 gtk-icon-theme-name = "Tango"
-#gtk-menu-images = 1
