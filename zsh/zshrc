@@ -460,6 +460,21 @@ dr () {
 }
 alias dr='noglob dr'
 
+foldl () {
+  local command=$1; shift
+  for arg in $*; do
+    eval $command $arg
+  done
+}
+alias foldl='noglob foldl'
+
+foldr () {
+  local arg=$*[-1]
+  for command in $*[1,-2]; do
+    eval $command $arg
+  done
+}
+alias foldr='noglob foldr'
 
 # 10.2  ls Aliases {{{2
 # ----------------
