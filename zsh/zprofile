@@ -2,19 +2,8 @@
 #
 # Copyright © 2002,2003,2004,2005,2006,2007 Nikolai Weibull <now@bitwi.se>
 
-local prefix=~/.local
-
-XDG_CONFIG_HOME=$prefix/etc
-XDG_CACHE_HOME=$prefix/var/cache
-
 declare -U path
 path=(. ~/bin $path)
-
-declare -TU MAILCAPS mailcaps
-mailcaps=($XDG_CONFIG_HOME/mailcap)
-PERSONAL_MAILCAP=$mailcaps[1]
-
-EMAIL="Nikolai Weibull <now@bitwi.se>"
 
 LANG=en_US.UTF-8
 LC_COLLATE=C
@@ -22,57 +11,17 @@ LC_COLLATE=C
 PAGER=vimless
 MANPAGER="col -b | vimless +'setf man' -"
 EDITOR=vim
+
 VERSION_CONTROL=numbered
 VERSION_WIDTH=2
 
 GREP_COLOR="01;32"
-
 MANWIDTH=79
-
-VIMINIT="so $XDG_CONFIG_HOME/vim/vimrc"
-INPUTRC=$XDG_CONFIG_HOME/inputrc
-INDENT_PROFILE=$XDG_CONFIG_HOME/indentrc
-SCREENRC=$XDG_CONFIG_HOME/screenrc
 SYSSCREENRC=/dev/null
-IRBRC=$XDG_CONFIG_HOME/irbrc
-GNUPGHOME=$XDG_CONFIG_HOME/gnupg
-LFTP_HOME=$XDG_CONFIG_HOME/lftp
-MPLAYER_HOME=$XDG_CONFIG_HOME/mplayer
-GTK2_RC_FILES=$XDG_CONFIG_HOME/gtkrc
-CMUS_HOME=$XDG_CONFIG_HOME/cmus
-VIMPERATOR_HOME=$XDG_CONFIG_HOME/vimperator
-
-MONO_SHARED_DIR=$prefix/var/run/mono
-
-WINEPREFIX=$prefix/lib/wine
-
-CVS_PASSFILE=$XDG_CACHE_HOME/cvs/cvspass
-DVDCSS_CACHE=$XDG_CACHE_HOME/dvdcss
-GEMCACHE=$XDG_CACHE_HOME/rubygems
-GST_REGISTRY=$XDG_CACHE_HOME/gst/registry.xml
-
-XAUTHORITY=$prefix/var/lib/misc/Xauthority
-ICEAUTHORITY=$XAUTHORITY:h/ICEauthority
-LESSHISTFILE=$prefix/var/lib/less/history
-GIMP2_DIRECTORY=${${${prefix#~}#/}:+${${prefix#~}#/}/}var/lib/gimp-2.0
-GNOME22_USER_DIR=$prefix/var/lib/gnome2
-MYSQL_HISTFILE=$prefix/var/lib/mysql/history
-
-unset prefix
 
 export                                                                \
-  XDG_CONFIG_HOME XDG_CACHE_HOME                                      \
-  PATH MAILCAPS PERSONAL_MAILCAP                                      \
-  EMAIL                                                               \
+  PATH                                                                \
   LANG LC_COLLATE                                                     \
   PAGER MANPAGER EDITOR                                               \
   VERSION_CONTROL VERSION_WIDTH                                       \
-  GREP_COLOR                                                          \
-  MANWIDTH                                                            \
-  VIMINIT INPUTRC INDENT_PROFILE SCREENRC SYSSCREENRC IRBRC GNUPGHOME \
-  LFTP_HOME MPLAYER_HOME GTK2_RC_FILES CMUS_HOME VIMPERATOR_HOME      \
-  MONO_SHARED_DIR                                                     \
-  WINEPREFIX                                                          \
-  CVS_PASSFILE DVDCSS_CACHE GEMCACHE GST_REGISTRY                     \
-  XAUTHORITY ICEAUTHORITY LESSHISTFILE GIMP2_DIRECTORY                \
-  GNOME22_USER_DIR MYSQL_HISTFILE
+  GREP_COLOR MANWIDTH SYSSCREENRC

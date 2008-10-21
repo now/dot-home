@@ -12,7 +12,7 @@ timings[start]=$(date +%s.%N)
 # =============
 
 
-HISTFILE=~/.local/var/lib/zsh/history
+HISTFILE=~/.zshistory
 HISTSIZE=1024
 READNULLCMD=$PAGER
 REPORTTIME=300
@@ -109,7 +109,7 @@ timings[modules]=$(date +%s.%N)
 # ==========================
 
 
-autoload -U compinit; compinit -d ~/.local/var/cache/zsh/compdump
+autoload -U compinit; compinit
 
 
 # 7.1. Completion Styles {{{2
@@ -126,7 +126,6 @@ zstyle ':completion:*:*:(^rm):*:*files' ignored-patterns \
 zstyle ':completion:*' squeeze-slashes yes
 
 zstyle ':completion::complete:*' use-cache yes
-zstyle ':completion::complete:*' cache-path $XDG_CACHE_HOME/zsh/completion-$HOST
 
 zstyle ':completion:::::' completer _expand_alias _expand _complete _prefix _ignored
 zstyle ':completion::prefix:::' completer _complete
@@ -148,7 +147,7 @@ zstyle ':completion:*' ignore-parents parent pwd
 # 7.2. Completion Formats and Messages {{{2
 # ------------------------------------
 
-eval $(dircolors ~/.local/etc/dircolors 2> /dev/null)
+eval $(dircolors ~/.dircolors 2> /dev/null)
 
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS} tc=7
 
@@ -361,7 +360,6 @@ autoload -U zmv
 alias mmv='noglob zmv -W'
 
 # Takes about 13 ms.  Now takes 1.3 ms (due to caching).
-zstyle ':mime:*' mailcap $XDG_CONFIG_HOME/mailcap
 zstyle ':mime:*' use-cache yes
 autoload -U zsh-mime-setup; zsh-mime-setup
 
@@ -399,8 +397,6 @@ alias mkdir='nocorrect mkdir'
 alias duh='du --si --max-depth=1'
 alias p='ps --User $USERNAME --format "pid= comm=" -H'
 alias pp='ps --User $USERNAME --format "pid= command=" -H'
-aspell () { command aspell --home-dir ~/.local/var/lib/aspell $* }
-sbcl () { command sbcl $* --userinit ~/.local/etc/sbclrc }
 alias gp='grep --color -n -P'
 alias top='top -u $USERNAME'
 alias mp='mplayer -fs -stop-xscreensaver'
@@ -409,7 +405,6 @@ alias hp='mplayer -ao alsa:device=secondary -fs -stop-xscreensaver'
 alias ri='noglob ri'
 alias h='fc -lfiD'
 alias t='cd ~+1'
-alias svn='svn --config-dir ~/.local/var/lib/subversion'
 alias y='xview'
 alias lv='sudo tail -F /var/log/messages'
 alias pv='evince -f'

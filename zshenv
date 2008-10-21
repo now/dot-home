@@ -2,6 +2,9 @@
 #
 # Copyright © 2006 Nikolai Weibull <now@bitwi.se>
 
-ZDOTDIR=~/.local/etc/zsh
+ZDOTDIR=~/.zsh
 
-source $ZDOTDIR/.zshenv
+fpath=($ZDOTDIR/functions{,/{zap,zle}} $fpath)
+
+# We use this as we want to use extended globs from, for example, Vim.
+setopt extendedglob

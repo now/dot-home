@@ -2,7 +2,7 @@
 
 (require 'cl)
 
-(let ((my-share-emacs-path (concat (expand-file-name "~") "/.local/share/emacs")))
+(let ((my-share-emacs-path (concat (expand-file-name "~") "/share/emacs")))
   (push my-share-emacs-path load-path)
   (labels ((add (path)
                 (push (concat my-share-emacs-path "/" path) load-path)))
@@ -162,7 +162,7 @@
                     viper-search-history))
   (add-to-list 'desktop-globals-to-save variable))
 
-(lexical-let ((global-desktop-dirname (expand-file-name "~/.local/var/cache/emacs")))
+(lexical-let ((global-desktop-dirname (expand-file-name "~/var/cache/emacs")))
   (setq desktop-path (list "." global-desktop-dirname))
   (defun desktop-save-globally ()
     (interactive)

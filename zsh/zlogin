@@ -11,14 +11,16 @@
 # I’m not sure how to best solve this, so I’ll have to contact the pam_ssh
 # developers and ask if this is something they can look into.
 if whence keychain > /dev/null; then
-  eval $(keychain --eval --quiet --dir $XDG_CACHE_HOME/keychain id_dsa)
+  eval $(keychain --eval --quiet id_dsa)
 fi
 
 if [[ -x /usr/sbin/lighttpd ]]; then
-  local pid="${$(< ~/.local/var/run/lighttpd/lighttpd.pid):-0}"
+  local pid="${$(< ~/.lighttpd/lighttpd.pid 2> /dev/null):-0}"
   if (( $pid == 0 )) || ! ps --pid $pid | grep -q $pid; then
-    /usr/sbin/lighttpd -f $XDG_CONFIG_HOME/lighttpd/lighttpd.conf
+    /usr/sbin/lighttpd -f ~/.lighttpd/lighttpd.conf
   fi
 fi
 
-[[ -f $ZDOTDIR/login/os/$(uname -o 2> /dev/null) ]] && source $ZDOTDIR/login/os/$(uname -o)
+if [[ -f $ZDOTDIR/login/os/$(uname -o 2> /dev/null) ]]; then
+  source $ZDOTDIR/login/os/$(uname -o)
+fi

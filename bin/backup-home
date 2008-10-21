@@ -29,13 +29,12 @@ dar_options="--fs-root $root
              --prune .gconfd
              --prune .gnome
              --prune .gnome2
-             --prune .local/etc
-             --prune .local/opt
-             --prune .local/lib/wine
-             --prune .local/var/cache
-             --prune .local/var/log
-             --prune .local/var/run
-             --prune .local/var/tmp
+             --prune opt
+             --prune .wine
+             --prune var/cache
+             --prune var/log
+             --prune var/run
+             --prune var/tmp
              --prune .revdep-rebuild*
              --prune .mozilla/Default*
              --prune .mozilla/firefox/*/Cache
@@ -64,7 +63,7 @@ dar_options="--fs-root $root
              --exclude *.o
              --exclude *.swp
 
-             --batch $HOME/.local/var/lib/dar/password"
+             --batch $HOME/var/lib/dar/password"
 backupdest=~/tmp/backup
 datestring=$(date +%Y-%m-%d)
 filename=$backupdest/${${root#/}//\//-}-$datestring
@@ -94,6 +93,6 @@ dar --create $filename ${=dar_options} |& \
         /^ Total number of inode considered: [0-9]\+$/d
         /^ EA saved for [0-9]\+ inode(s)$/d'
 
-eval $(keychain --eval --quiet --noask --dir $HOME/.local/var/cache/keychain id_dsa)
+eval $(keychain --eval --quiet --noask id_dsa)
 ssh-add -l 2>/dev/null | grep -q id_dsa || { print -u 2 'Can’t find id_dsa key'; exit 1 }
 scp -q $filename.[[:digit:]]##.dar shell.scorpionshops.com:

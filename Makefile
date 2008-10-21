@@ -37,27 +37,30 @@ endef
 DIFF = diff
 INSTALL = install
 
-prefix = ~/.local
-userconfdir = $(prefix)/etc
-usersharedir = $(prefix)/share
+prefix = ~
+userconfdir = $(prefix)
 firefoxuserconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
+
+on_cygwin := $(if $(subst Cygwin,,$(shell uname -o)),,1)
 
 -include config.mk
 
 DOTFILES = \
-	   X11/Xresources \
+	   Xresources \
 	   cmus/now.theme \
 	   cmus/rc \
 	   dircolors \
+	   emacs \
+	   fonts.conf \
+	   gitconfig \
 	   gtkrc \
-	   indentrc \
+	   indent.pro \
 	   inputrc \
 	   irbrc \
 	   lighttpd/lighttpd.conf \
 	   mailcap \
 	   sbclrc \
 	   screenrc \
-	   vim/vimrc \
 	   vim/after/ftplugin/c.vim \
 	   vim/after/ftplugin/context.vim \
 	   vim/after/ftplugin/css.vim \
@@ -105,6 +108,9 @@ DOTFILES = \
            vim/templates/xdefaults.template \
            vim/templates/yaml.template \
            vim/templates/zsh.template \
+	   vimperatorrc \
+	   vimrc \
+	   xmonad/xmonad.hs \
 	   zsh/functions/_mem-map \
 	   zsh/functions/_unpack \
 	   zsh/functions/_up \
@@ -116,7 +122,6 @@ DOTFILES = \
 	   zsh/functions/prompt_now_setup \
 	   zsh/functions/set-terminal-title-from-command \
 	   zsh/functions/terminal-title \
-	   zsh/functions/zcalc \
 	   zsh/functions/cache/invalid \
 	   zsh/functions/cache/path \
 	   zsh/functions/cache/retrieve \
@@ -125,24 +130,41 @@ DOTFILES = \
 	   zsh/functions/zle/vim-increase-number \
 	   zsh/login/os/Cygwin \
 	   zsh/rc/hosts/puritan \
-	   zsh/rc/os/Cygwin
+	   zsh/rc/os/Cygwin \
+	   zshenv
+
+$(call GROUP_template,$(DOTFILES),$(userconfdir),.)
+
+DOTFILES = \
+	   share/emacs/color-theme.el \
+	   share/emacs/color-theme-autoloads.el \
+	   share/emacs/cygwin-mount.el \
+	   share/emacs/digraph.el \
+	   share/emacs/hide-mode-line.el \
+	   share/emacs/ned/ned-info-on-file.el \
+	   share/emacs/rect-mark.el \
+	   share/emacs/redo.el \
+	   share/emacs/ruby-mode.el \
+	   share/emacs/themes/color-theme-now.el \
+	   share/emacs/vimpulse.el \
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir))
 
 DOTFILES = \
 	   zsh/zlogin \
 	   zsh/zprofile \
-	   zsh/zshenv \
 	   zsh/zshrc
 
-$(call GROUP_template,$(DOTFILES),$(userconfdir)/zsh,.,zsh/)
+$(call GROUP_template,$(DOTFILES),$(userconfdir)/.zsh,.,zsh/)
 
 DOTFILES = \
-	   vimperator/vimperator/plugin/bookmarks.js \
-	   vimperator/vimperatorrc
+	   vimperator/plugin/bookmarks.js
 
-# TODO: Don’t add . prefix to vimperator directory on win32.
-$(call GROUP_template,$(DOTFILES),$(userconfdir)/vimperator,.,vimperator/)
+ifdef on_cygwin
+  $(call GROUP_template,$(DOTFILES),$(userconfdir))
+else
+  $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
+endif
 
 GM_SCRIPTS = \
 	     firefox/gm_scripts/delicious-favicons.user.js \
@@ -180,34 +202,6 @@ DOTFILES = \
 
 $(call GROUP_template,$(DOTFILES),$(firefoxuserconfdir),,firefox/)
 
-DOTFILES = \
-	   share/emacs/color-theme.el \
-	   share/emacs/color-theme-autoloads.el \
-	   share/emacs/cygwin-mount.el \
-	   share/emacs/digraph.el \
-	   share/emacs/hide-mode-line.el \
-	   share/emacs/ned/ned-info-on-file.el \
-	   share/emacs/rect-mark.el \
-	   share/emacs/redo.el \
-	   share/emacs/ruby-mode.el \
-	   share/emacs/themes/color-theme-now.el \
-	   share/emacs/vimpulse.el
-
-$(call GROUP_template,$(DOTFILES),$(usersharedir),,share/)
-
-DOTFILES = \
-	   emacs \
-	   fonts.conf \
-	   gitconfig \
-	   xmonad/xmonad.hs
-
-ifdef ICANTMODIFYETC
-DOTFILES += \
-	    zshenv
-endif
-
-$(call GROUP_template,$(DOTFILES),~,.)
-
 BINFILES = \
 	   xsession
 
@@ -229,7 +223,7 @@ BINFILES = \
 
 $(call GROUP_template,$(BINFILES),~,,,755)
 
-ifeq ($(shell uname -n), new-work)
+ifdef on_cygwin
   firefoxprofilesdir=$(call shell_quote,$(shell cygpath -u "$(APPDATA)")/Mozilla/Firefox)
   DOTFILES = \
 	     firefox/profiles.ini

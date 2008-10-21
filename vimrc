@@ -9,11 +9,11 @@ let s:on_windows = has("win32") || has("win64")
 
 set cpoptions&vim
 set encoding=utf-8
-let &runtimepath = substitute(&rtp,
-                            \ '\V' . escape(expand('~') . '/' .
-                                          \ (s:on_windows ? 'vimfiles' : '.vim'),
-                                          \ '\'),
-                            \ '\~/.local/etc/vim', 'g')
+if s:on_windows
+  let &runtimepath = substitute(&rtp,
+        \                       '\V' . escape(expand('~') . '/vimfiles', '\'),
+        \                       '\~/.vim', 'g')
+endif
 set nostartofline
 set incsearch
 set path+=./**
@@ -56,13 +56,6 @@ if &viminfo == ""
   set viminfo='20
 endif
 set viminfo+=<512
-" TODO: perhaps verify that $HOME exists instead...
-let s:lib_dir = '~/.local/var/lib/vim'
-if isdirectory(expand(s:lib_dir))
-  let &viewdir = s:lib_dir . '/views'
-  execute 'set viminfo+=n' . s:lib_dir . '/viminfo'
-endif
-unlet s:lib_dir
 set sessionoptions+=localoptions
 
 " FIXME: Reiser4
