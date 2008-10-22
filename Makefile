@@ -229,4 +229,10 @@ ifdef on_cygwin
 	     firefox/profiles.ini
 
   $(call GROUP_template,$(DOTFILES),$(firefoxprofilesdir),,firefox/)
+else
+  LDLIBS = -lX11
+  BINFILES = \
+	     bin/xdigraph
+
+  $(call GROUP_template,$(BINFILES),~,,,755)
 endif
