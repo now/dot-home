@@ -17,8 +17,6 @@ HISTSIZE=1024
 READNULLCMD=$PAGER
 REPORTTIME=300
 SAVEHIST=$HISTSIZE
-# TODO: Remove, I don’t think anyone’s going to be setting it.
-#unset BAUD
 
 
 timings[parameters]=$(date +%s.%N)
@@ -47,8 +45,7 @@ timings[settings]=$(date +%s.%N)
 # 4  Shell Options {{{1
 # ================
 
-setopt autocd                                 \
-       autopushd                              \
+setopt autocd autopushd                       \
        completeinword nolistambiguous         \
        extendedhistory histnostore            \
        rcexpandparam rcquotes                 \
@@ -96,8 +93,6 @@ timings[title]=$(date +%s.%N)
 # ==========
 
 
-zmodload -a zsh/stat stat
-zmodload -a zsh/zprof zprof
 zmodload -i zsh/complist
 
 
@@ -130,9 +125,7 @@ zstyle ':completion::complete:*' use-cache yes
 zstyle ':completion:::::' completer _expand_alias _expand _complete _prefix _ignored
 zstyle ':completion::prefix:::' completer _complete
 
-zstyle ':completion:*' expand prefix suffix
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[:.,_-]=** r:|=**'
-zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[:.,_-]=** r:|=**'
 zstyle ':completion:*:expand:*' tag-order all-expansions
 
 zstyle ':completion::*:(-command-|export):*' fake-parameters \
@@ -161,7 +154,7 @@ zstyle ':completion:*:directory-stack' list-colors "=(#b)[0-9]#[[:space:]]#(*)=8
 # 7.3. Completion Groups {{{2
 # ----------------------
 
-zstyle ':completion:*' group-name ''
+zstyle ':completion:*' group-name ""
 zstyle ':completion:*:manuals' separate-sections true
 
 
@@ -187,7 +180,7 @@ timings[completion]=$(date +%s.%N)
 
 # 8.1.1  Movement
 
-bindkey -a "s" vi-forward-char
+bindkey -a 's' vi-forward-char
 
 autoload -U forward-word-match
 autoload -U backward-word-match
@@ -195,43 +188,42 @@ zle -N forward-parameter forward-word-match
 zle -N backward-parameter backward-word-match
 zstyle ':zle:forward-parameter' word-style shell
 zstyle ':zle:backward-parameter' word-style shell
-bindkey -a ")" forward-parameter
-bindkey -a "(" backward-parameter
+bindkey -a ')' forward-parameter
+bindkey -a '(' backward-parameter
 
 # 8.1.2  Searching
 
-bindkey -a "/" history-incremental-search-backward
-bindkey -a "?" history-incremental-search-forward
+bindkey -a '/' history-incremental-search-backward
+bindkey -a '?' history-incremental-search-forward
 
 # 8.1.3  Change
 
-bindkey -a "L" vi-change-whole-line
-bindkey -a "l" vi-substitute
+bindkey -a 'L' vi-change-whole-line
+bindkey -a 'l' vi-substitute
 
 # 8.1.4  Miscellaneous
 
-bindkey -arp "^["
-bindkey -a "^[" vi-cmd-mode
-bindkey -a "^L" accept-line-and-down-history
-bindkey -a "^R" redo
-bindkey -a "u" undo
+bindkey -arp '^['
+bindkey -a '^L' accept-line-and-down-history
+bindkey -a '^R' redo
+bindkey -a 'u' undo
 
 autoload -Uz vim-increase-number
 zle -N vim-increase-number vim-increase-number
 zle -N vim-decrease-number vim-increase-number
-bindkey -a "^A" vim-increase-number
-bindkey -a "^X" vim-decrease-number
+bindkey -a '^A' vim-increase-number
+bindkey -a '^X' vim-decrease-number
 
 autoload -Uz replace-string
 zle -N replace-pattern replace-string
-bindkey -a ":s" replace-pattern
+bindkey -a ':s' replace-pattern
 
 _up-directory () {
   up $NUMERIC
   zle reset-prompt
 }
 zle -N up-directory _up-directory
-bindkey -a "^U" up-directory
+bindkey -a '^U' up-directory
 
 _cd-list () {
   print
@@ -239,7 +231,7 @@ _cd-list () {
   zle reset-prompt
 }
 zle -N cd-list _cd-list
-bindkey -a "^G" cd-list
+bindkey -a '^G' cd-list
 
 _cd-to-alternate-directory () {
   (( $#dirstack > 1 )) || return
@@ -247,7 +239,7 @@ _cd-to-alternate-directory () {
   zle reset-prompt
 }
 zle -N cd-to-alternate-directory _cd-to-alternate-directory
-bindkey -a "^^" cd-to-alternate-directory
+bindkey -a '^^' cd-to-alternate-directory
 
 
 # 8.2  VI Insert Mode {{{2
@@ -255,15 +247,15 @@ bindkey -a "^^" cd-to-alternate-directory
 
 # 8.2.1  Completion
 
-bindkey "^D" list-choices
-bindkey "^I" complete-word
-bindkey "^P" _history-complete-older
-bindkey "^N" _history-complete-newer
-bindkey "^U" undo
+bindkey '^D' list-choices
+bindkey '^I' complete-word
+bindkey '^P' _history-complete-older
+bindkey '^N' _history-complete-newer
+bindkey '^U' undo
 
 autoload -Uz insert-digraph
 zle -N insert-digraph
-bindkey "^K" insert-digraph
+bindkey '^K' insert-digraph
 
 # 8.2.4  Miscellaneous
 
@@ -278,49 +270,48 @@ _complete-kept () {
 }
 zle -C complete-kept complete-word _complete-kept
 
-bindkey -rp "^X"
-bindkey -r "^X"
-bindkey -rp "^["
-bindkey -r "^O"
-bindkey "^O$" insert-last-word
-bindkey "^Ok" complete-kept
-bindkey "^O^k" complete-kept
-bindkey "^Om" _most_recent_file
-bindkey "^Oo" complete-previous-output
-bindkey "^O^O" complete-previous-output
-bindkey "^Op" copy-prev-shell-word
-bindkey "^O?" _complete_help                  
-bindkey "^E" list-expand
-bindkey "^F" describe-key-briefly
-bindkey "^L" accept-line-and-down-history
-bindkey "^R" redisplay
-bindkey "^Q" push-line-or-edit
-bindkey " " magic-space
-bindkey "^H" backward-delete-char
-bindkey "^?" backward-delete-char
-bindkey "^Z" vi-cmd-mode
+bindkey -rp '^X'
+bindkey -r '^X'
+bindkey -rp '^['
+bindkey -r '^O'
+bindkey '^O$' insert-last-word
+bindkey '^Ok' complete-kept
+bindkey '^O^k' complete-kept
+bindkey '^Om' _most_recent_file
+bindkey '^Oo' complete-previous-output
+bindkey '^O^O' complete-previous-output
+bindkey '^Op' copy-prev-shell-word
+bindkey '^O?' _complete_help                  
+bindkey '^F' describe-key-briefly
+bindkey '^L' accept-line-and-down-history
+bindkey '^R' redisplay
+bindkey '^Q' push-line-or-edit
+bindkey ' ' magic-space
+bindkey '^H' backward-delete-char
+bindkey '^?' backward-delete-char
+bindkey '^Z' vi-cmd-mode
 
 autoload -U history-beginning-search-menu
 zle -N history-beginning-search-menu
-bindkey "^X^L" history-beginning-search-menu
+bindkey '^X^L' history-beginning-search-menu
 
 autoload -U backward-kill-word-match
 zle -N backward-kill-to-space-or-/ backward-kill-word-match
 zstyle ':zle:backward-kill-to-space-or-/' word-chars '*?_-.[]~=&;!#$%^(){}<>:@,\\'
-bindkey "^W" backward-kill-to-space-or-/
+bindkey '^W' backward-kill-to-space-or-/
 
 _sudo-command-line () {
   [[ $BUFFER != sudo\ * ]] && LBUFFER="sudo $LBUFFER"
 }
 zle -N sudo-command-line _sudo-command-line
-bindkey "^Os" sudo-command-line
+bindkey '^Os' sudo-command-line
 
 _paste-x11-clipboard () {
   [[ -x $(whence xclip) ]] || return
   LBUFFER+=$(xclip -out)
 }
 zle -N paste-x11-clipboard _paste-x11-clipboard
-bindkey "^Y" paste-x11-clipboard
+bindkey '^Y' paste-x11-clipboard
 
 _self-insert-redir () {
   integer len=$#LBUFFER
@@ -328,9 +319,9 @@ _self-insert-redir () {
   (( $len >= $#LBUFFER )) && LBUFFER[-1]=" $LBUFFER[-1]"
 }
 zle -N _self-insert-redir
-bindkey ${(s: :):-${^${(s::):-"|<>&"}}" _self-insert-redir"}
+bindkey ${(s: :):-${^${(s::):-'|<>&'}}' _self-insert-redir'}
 
-bindkey "^^" cd-to-alternate-directory
+bindkey '^^' cd-to-alternate-directory
 
 
 # 8.3  List-scroll Mode {{{2
