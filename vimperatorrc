@@ -1,9 +1,11 @@
-" One possibility is to
-" set showstatuslinks=2 and then use C-g for information
-set newtab=addons,downloads,help,prefs
 set complete=fl
+set laststatus=0
+set newtab=addons,downloads,help,prefs
+set showstatuslinks=2
 set wildmode=list:full
 set wildoptions=auto
+
 noremap <BS> <PageUp>
 noremap s l
 noremap <C-q> <Nop>
+noremap <C-c><C-g> g<C-g>
