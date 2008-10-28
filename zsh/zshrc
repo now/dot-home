@@ -236,13 +236,6 @@ bindkey ${(s: :):-${^${(s::):-'|<>&'}}' _self-insert-redir'}
 bindkey '^^' cd-to-alternate-directory
 
 
-# 8.3  List-scroll Mode
-# ---------------------
-
-# TODO: Simpler to just use C-c or just type what we want, so remove.
-#bindkey -M listscroll 'q' send-break
-
-
 timings[keys]=$(date +%s.%N)
 
 
