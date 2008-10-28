@@ -12,6 +12,7 @@ timings[start]=$(date +%s.%N)
 HISTFILE=~/.zshistory
 SAVEHIST=${HISTSIZE::=1024}
 REPORTTIME=300
+unset TERMCAP
 
 setopt autocd autopushd                           \
        completeinword nolistambiguous nolisttypes \
@@ -20,8 +21,6 @@ setopt autocd autopushd                           \
        correct dvorak                             \
        nonotify                                   \
        nobeep
-
-unset TERMCAP
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd set-terminal-title-to-pwd
