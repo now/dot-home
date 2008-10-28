@@ -137,7 +137,8 @@ bindkey -a '^R' redo
 bindkey -a 'u' undo
 
 for command in zle/vim-increase-number zle/self-insert-redir zle/up-directory \
-               zle/cd-from-list zle/cd-to-alternate-directory; do
+               zle/cd-from-list zle/cd-to-alternate-directory \
+               history-beginning-search-menu insert-digraph; do
   autoload -U $command
   zle -N $command
 done
@@ -166,23 +167,19 @@ bindkey '^P' _history-complete-older
 bindkey '^N' _history-complete-newer
 bindkey '^U' undo
 
-autoload -Uz insert-digraph
-zle -N insert-digraph
 bindkey '^K' insert-digraph
 
 source $fpath/keeper(N)
-_complete-kept () {
-  compadd -a kept
-}
-zle -C complete-kept complete-word _complete-kept
+zle -C complete-kept-result complete-word _generic
+zstyle ':completion:complete-kept-result:*' completer _insert_kept
 
 bindkey -rp '^X'
 bindkey -r '^X'
 bindkey -rp '^['
 bindkey -r '^O'
 bindkey '^O$' insert-last-word
-bindkey '^Ok' complete-kept
-bindkey '^O^k' complete-kept
+bindkey '^Ok' complete-kept-result
+bindkey '^O^k' complete-kept-result
 bindkey '^Om' _most_recent_file
 bindkey '^Oo' complete-previous-output
 bindkey '^O^O' complete-previous-output
@@ -196,8 +193,6 @@ bindkey '^H' backward-delete-char
 bindkey '^?' backward-delete-char
 bindkey '^Z' vi-cmd-mode
 
-autoload -U history-beginning-search-menu
-zle -N history-beginning-search-menu
 bindkey '^X^L' history-beginning-search-menu
 
 autoload -U backward-kill-word-match
