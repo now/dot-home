@@ -1,6 +1,5 @@
 # TODO: Also need to cache priorities saved in zstyles, as they may change
 # unexpectedly.
-local start="$(date +%s.%N)"
 emulate -L zsh
 setopt extendedglob cbases
 
@@ -394,8 +393,3 @@ else
     alias -s $suffix >& /dev/null || alias -s $suffix=zsh-mime-handler
   done
 fi
-
-local end="$(date +%s.%N)"
-echo setup: $((end - start))
-
-true
