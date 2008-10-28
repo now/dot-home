@@ -129,6 +129,7 @@ DOTFILES = \
 	   zsh/functions/list-directory-on-chpwd \
 	   zsh/functions/prompt_now_setup \
 	   zsh/functions/set-terminal-title-from-command \
+	   zsh/functions/set-terminal-title-to-pwd \
 	   zsh/functions/terminal-title \
 	   zsh/functions/cache/invalid \
 	   zsh/functions/cache/path \

@@ -1,0 +1,4 @@
+emulate -L zsh
+
+# TODO: There should be a TERMTITLEMAX variable defined by terminal-title.
+terminal-title "$(print -P "%20<^<%~")"
