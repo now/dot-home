@@ -138,7 +138,7 @@ bindkey -a 'u' undo
 
 for command in zle/vim-increase-number zle/self-insert-redir zle/up-directory \
                zle/cd-from-list zle/cd-to-alternate-directory \
-               zle/yank-x11-clipboard \
+               zle/yank-x11-clipboard zle/sudo-command-line \
                history-beginning-search-menu insert-digraph; do
   autoload -U $command
   zle -N $command
@@ -201,15 +201,11 @@ zle -N backward-kill-to-space-or-/ backward-kill-word-match
 zstyle ':zle:backward-kill-to-space-or-/' word-chars '*?_-.[]~=&;!#$%^(){}<>:@,\\'
 bindkey '^W' backward-kill-to-space-or-/
 
-_sudo-command-line () {
-  [[ $BUFFER != sudo\ * ]] && LBUFFER="sudo $LBUFFER"
-}
-zle -N sudo-command-line _sudo-command-line
-bindkey '^Os' sudo-command-line
+bindkey '^Os' zle/sudo-command-line
 
-bindkey '^Y' yank-x11-clipboard
+bindkey '^Y' zle/yank-x11-clipboard
 
-bindkey '^^' cd-to-alternate-directory
+bindkey '^^' zle/cd-to-alternate-directory
 
 
 timings[keys]=$(date +%s.%N)

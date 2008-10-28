@@ -138,6 +138,7 @@ DOTFILES = \
 	   zsh/functions/zle/cd-from-list \
 	   zsh/functions/zle/cd-to-alternate-directory \
 	   zsh/functions/zle/self-insert-redir \
+	   zsh/functions/zle/sudo-command-line \
 	   zsh/functions/zle/up-directory \
 	   zsh/functions/zle/vim-increase-number \
 	   zsh/functions/zle/yank-x11-clipboard \
