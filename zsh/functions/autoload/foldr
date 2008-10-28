@@ -1,0 +1,8 @@
+if (( $# < 1 )); then
+  print -- "Usage: $0 COMMANDS... ARG"
+  return 1
+fi
+local arg="$*[-1]"
+for command in $*[1,-2]; do
+  eval $command $arg
+done

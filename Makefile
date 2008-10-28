@@ -115,7 +115,11 @@ DOTFILES = \
 	   zsh/functions/_unpack \
 	   zsh/functions/_up \
 	   zsh/functions/autoload/d \
+	   zsh/functions/autoload/dr \
+	   zsh/functions/autoload/foldl \
+	   zsh/functions/autoload/foldr \
 	   zsh/functions/autoload/freload \
+	   zsh/functions/autoload/hc \
 	   zsh/functions/autoload/up \
 	   zsh/functions/define-digraphs \
 	   zsh/functions/history-beginning-search-menu \

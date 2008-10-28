@@ -1,0 +1,11 @@
+emulate -L zsh
+
+local tmp="$(mktemp history.XXXXXXXXXX)"
+local output="$(fc -W $tmp)"
+if [[ -n $output ]]; then
+  print -- $output
+  return 1
+fi
+${FCEDIT:-${EDITOR:-vi}} $tmp || return 1
+fc -R $tmp
+rm $tmp
