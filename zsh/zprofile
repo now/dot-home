@@ -2,7 +2,6 @@
 #
 # Copyright © 2002,2003,2004,2005,2006,2007 Nikolai Weibull <now@bitwi.se>
 
-declare -U path
 path=(. ~/bin $path)
 
 LANG=en_US.UTF-8
@@ -12,16 +11,10 @@ PAGER=vimless
 MANPAGER="col -b | vimless +'setf man' -"
 EDITOR=vim
 
-VERSION_CONTROL=numbered
-VERSION_WIDTH=2
-
-GREP_COLOR="01;32"
 MANWIDTH=79
 SYSSCREENRC=/dev/null
 
 export                                                                \
-  PATH                                                                \
   LANG LC_COLLATE                                                     \
   PAGER MANPAGER EDITOR                                               \
-  VERSION_CONTROL VERSION_WIDTH                                       \
-  GREP_COLOR MANWIDTH SYSSCREENRC
+  MANWIDTH SYSSCREENRC
