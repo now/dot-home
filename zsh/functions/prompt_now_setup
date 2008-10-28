@@ -126,8 +126,10 @@ EOF)"
 
   WATCHFMT=$(prompt_now_clean_pairs '%(a.logon.logoff):%n (%M)' tty:%l 'time:%T (%D)')
 
-  local mail="$(prompt_now_clean_pairs 'new:\$_')"
-  (( $#mailpath > 0 )) && mailpath=(${mailpath%?*}$^mail)
+  if (( $#mailpath > 0 )); then
+    local mail="$(prompt_now_clean_pairs 'new:\$_')"
+    mailpath=(${mailpath%?*}$^mail)
+  fi
 
   zstyle ':completion:*:descriptions' format "$(prompt_now_line %d)"
   zstyle ':completion:*:messages' format "$d[4]%d$r"
