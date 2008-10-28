@@ -384,7 +384,7 @@ alias a='ls'
 alias o='ls -l --si'
 alias aa='a -A'
 alias oo='o -A'
-i () { command ls -A -l --si --color=always -b "$@" | ${LISTER:-less} }
+i () { command ls -A -l --si --color=always -b $* | ${LISTER:-less} }
 
 
 # 10.3  Shell Aliases {{{2
