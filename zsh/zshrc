@@ -11,7 +11,6 @@ timings[start]=$(date +%s.%N)
 
 HISTFILE=~/.zshistory
 SAVEHIST=${HISTSIZE::=1024}
-READNULLCMD=$PAGER
 REPORTTIME=300
 
 setopt autocd autopushd                           \
@@ -25,7 +24,6 @@ setopt autocd autopushd                           \
 unset TERMCAP
 
 autoload -U add-zsh-hook
-
 add-zsh-hook precmd set-terminal-title-to-pwd
 add-zsh-hook preexec set-terminal-title-from-command
 add-zsh-hook chpwd list-directory-on-chpwd
