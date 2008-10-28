@@ -214,16 +214,6 @@ timings[functions]=$(date +%s.%N)
 
 alias v='vim'
 alias ro='vimless'
-e () {
-  if vim --serverlist 2>/dev/null | grep -q '^VIM$'; then
-    if (( $# > 0 )); then
-      vim --servername vim --remote $*
-    fi
-    screen -X select 6
-  else
-    screen -t 'edit' 6 vim --servername vim $*
-  fi
-}
 
 for command in cp mv mkdir; do
   alias $command="nocorrect $command"

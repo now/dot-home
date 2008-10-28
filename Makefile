@@ -225,6 +225,7 @@ BINFILES = \
 	   bin/backup-home \
 	   bin/burn \
 	   bin/dfs \
+	   bin/e \
 	   bin/emv \
 	   bin/mem-map \
 	   bin/terminal-colors \
