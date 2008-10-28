@@ -248,7 +248,7 @@ timings[keys]=$(date +%s.%N)
 
 
 
-# 9  Function Autoloading {{{1
+# 9  Function Autoloading
 # =======================
 
 
@@ -256,32 +256,26 @@ timings[keys]=$(date +%s.%N)
 autoload -U promptinit; promptinit
 prompt now
 
-autoload -U up d zcalc
-
-autoload -U zmv
-alias mmv='noglob zmv -W'
-
-# Takes about 13 ms.  Now takes 1.3 ms (due to caching).
 zstyle ':mime:*' use-cache yes
 autoload -U zsh-mime-setup; zsh-mime-setup
 
-autoload -U zargs
+autoload -U zargs zcalc zmv
+autoload -U $ZDOTDIR/functions/autoload/*(:t)
 
 
 timings[functions]=$(date +%s.%N)
 
 
 
-# 10  Aliases {{{1
+# 10  Aliases
 # ===========
 
 
-# 10.1  Convenience Aliases/Macros {{{2
+# 10.1  Convenience Aliases/Macros
 # --------------------------------
 
 alias v='vim'
 alias ro='vimless'
-alias view='vimless'
 e () {
   if vim --serverlist 2>/dev/null | grep -q '^VIM$'; then
     if (( $# > 0 )); then
@@ -293,9 +287,17 @@ e () {
   fi
 }
 
-alias mv='nocorrect mv'
-alias cp='nocorrect cp'
-alias mkdir='nocorrect mkdir'
+for command in cp mv mkdir; do
+  alias $command="nocorrect $command"
+done
+
+for command in dr foldl foldr ri; do
+  alias $command="noglob $command"
+done
+alias mmv='noglob zmv -W'
+
+unset command
+
 alias duh='du --si --max-depth=1'
 alias p='ps --User $USERNAME --format "pid= comm=" -H'
 alias pp='ps --User $USERNAME --format "pid= command=" -H'
@@ -304,9 +306,7 @@ alias top='top -u $USERNAME'
 alias mp='mplayer -fs -stop-xscreensaver'
 alias tv='DISPLAY=:0.1 mplayer -geometry 1024x600+0+75 -stop-xscreensaver'
 alias hp='mplayer -ao alsa:device=secondary -fs -stop-xscreensaver'
-alias ri='noglob ri'
 alias h='fc -lfiD'
-alias t='cd ~+1'
 alias y='xview'
 alias lv='sudo tail -F /var/log/messages'
 alias pv='evince -f'
@@ -378,7 +378,7 @@ foldr () {
 }
 alias foldr='noglob foldr'
 
-# 10.2  ls Aliases {{{2
+# 10.2  ls Aliases
 # ----------------
 
 alias ls='ls --color'
