@@ -159,7 +159,6 @@ timings[keys]=$(date +%s.%N)
 autoload -U promptinit; promptinit
 prompt now
 
-zstyle ':mime:*' use-cache yes
 autoload -U zsh-mime-setup; zsh-mime-setup
 
 autoload -U zargs zcalc zmv $ZDOTDIR/functions/autoload/*(:t)
