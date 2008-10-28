@@ -387,20 +387,6 @@ alias oo='o -A'
 i () { command ls -A -l --si --color=always -b $* | ${LISTER:-less} }
 
 
-# 10.3  Shell Aliases {{{2
-# -------------------
-
-freload () {
-  for f in $*; do
-    unfunction $f
-    autoload -U $f
-  done
-}
-
-
-# }}}2
-
-
 timings[aliases]=$(date +%s.%N)
 
 

@@ -114,8 +114,9 @@ DOTFILES = \
 	   zsh/functions/_mem-map \
 	   zsh/functions/_unpack \
 	   zsh/functions/_up \
-	   zsh/functions/up \
-	   zsh/functions/d \
+	   zsh/functions/autoload/d \
+	   zsh/functions/autoload/freload \
+	   zsh/functions/autoload/up \
 	   zsh/functions/define-digraphs \
 	   zsh/functions/history-beginning-search-menu \
 	   zsh/functions/insert-digraph \
