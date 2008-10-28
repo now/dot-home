@@ -39,6 +39,16 @@ add-zsh-hook precmd _terminal-title-restore-to-pwd
 add-zsh-hook preexec set-terminal-title-from-command
 add-zsh-hook chpwd list-directory-on-chpwd
 
+# TODO: Need to wrap this in a test so that we only call it if LS_COLORS
+# reflects the settings of another terminal.  The problem is that in most cases
+# this won’t help, as when we log in we set if for $TERM = linux and then
+# whenever we create a new window in screen that will be the parent terminal.
+# Thus, testing a variable that stores the last saved $TERM that dircolors was
+# called for doesn’t work.  One way would be to start screen in a terminal that
+# we then use in screen.
+#
+# We could also test the number of colors of the
+# terminal and set up things based on that.
 eval $(dircolors ~/.dircolors 2> /dev/null)
 
 timings[terminal]=$(date +%s.%N)
