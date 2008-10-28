@@ -220,8 +220,7 @@ zle -N sudo-command-line _sudo-command-line
 bindkey '^Os' sudo-command-line
 
 _paste-x11-clipboard () {
-  [[ -x $(whence xclip) ]] || return
-  LBUFFER+=$(xclip -out)
+  LBUFFER+=$(xclip -out 2> /dev/null)
 }
 zle -N paste-x11-clipboard _paste-x11-clipboard
 bindkey '^Y' paste-x11-clipboard
