@@ -37,6 +37,7 @@ _terminal-title-restore-to-pwd () {
 
 add-zsh-hook precmd _terminal-title-restore-to-pwd
 add-zsh-hook preexec set-terminal-title-from-command
+add-zsh-hook chpwd list-directory-on-chpwd
 
 eval $(dircolors ~/.dircolors 2> /dev/null)
 
@@ -309,18 +310,6 @@ alias y='xview'
 alias lv='sudo tail -F /var/log/messages'
 alias pv='evince -f'
 
-alias -g ...='../..'
-alias -g ....='../../..'
-alias -g .....='../../../..'
-
-hc () {
-  local tmp="$(mktemp history.XXXXXXXXXX)"
-  fc -W $tmp
-  ${FCEDIT:-${EDITOR:-vi}} $tmp
-  fc -R $tmp
-  rm $tmp
-}
-
 cd () {
   if (( $# == 1 )) && [[ -f $1 ]]; then
     set $1:h
@@ -335,46 +324,11 @@ cd () {
   fi
 }
 
-chpwd_functions+=(chpwd_list)
-
-chpwd_list () {
-  zle || ls --color
-}
-
 dp () {
   dirstack=($* $dirstack)
 }
 
-dr () {
-  if (( $# == 0 )); then
-    declare -a existing_dirs
-    for dir in $dirstack; do
-      if [[ -d $dir ]]; then
-        existing_dirs+=$dir
-      fi
-    done
-    dirstack=($existing_dirs)
-  else
-    dirstack=(${dirstack:#$~1})
-  fi
-}
-alias dr='noglob dr'
 
-foldl () {
-  local command=$1; shift
-  for arg in $*; do
-    eval $command $arg
-  done
-}
-alias foldl='noglob foldl'
-
-foldr () {
-  local arg=$*[-1]
-  for command in $*[1,-2]; do
-    eval $command $arg
-  done
-}
-alias foldr='noglob foldr'
 
 # 10.2  ls Aliases
 # ----------------
