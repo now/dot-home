@@ -6,11 +6,8 @@ local -A timings
 
 timings[start]=$(date +%s.%N)
 
-
-
 # 1  Shell and Terminal Settings
-# ==============================
-
+# ——————————————————————————————
 
 HISTFILE=~/.zshistory
 SAVEHIST=${HISTSIZE::=1024}
@@ -51,24 +48,19 @@ add-zsh-hook chpwd list-directory-on-chpwd
 # terminal and set up things based on that.
 eval $(dircolors ~/.dircolors 2> /dev/null)
 
+
 timings[terminal]=$(date +%s.%N)
 
-
-
-# 6  Modules
-# ==========
-
+# 2  Modules
+# ——————————
 
 zmodload -i zsh/complist
 
 
 timings[modules]=$(date +%s.%N)
 
-
-
-# 7  Command-line Completion
-# ==========================
-
+# 3  Command-line Completion
+# ——————————————————————————
 
 autoload -U compinit; compinit
 
@@ -107,11 +99,8 @@ zstyle ':completion:*:manuals' separate-sections true
 
 timings[completion]=$(date +%s.%N)
 
-
-
-# 8  ZLE Keybindings
-# ==================
-
+# 4  ZLE Keybindings
+# ——————————————————
 
 autoload -U forward-word-match backward-word-match \
             replace-string backward-kill-word-match
@@ -185,11 +174,7 @@ bindkey \
 
 timings[keys]=$(date +%s.%N)
 
-
-
-# 9  Function Autoloading
-# =======================
-
+# 5  Functions And Aliases
 
 # Takes about 4–5 ms..  TODO: Cache prompt results.
 autoload -U promptinit; promptinit
@@ -199,21 +184,6 @@ zstyle ':mime:*' use-cache yes
 autoload -U zsh-mime-setup; zsh-mime-setup
 
 autoload -U zargs zcalc zmv $ZDOTDIR/functions/autoload/*(:t)
-
-
-timings[functions]=$(date +%s.%N)
-
-
-
-# 10  Aliases
-# ===========
-
-
-# 10.1  Convenience Aliases/Macros
-# --------------------------------
-
-alias v='vim'
-alias ro='vimless'
 
 for command in cp mv mkdir; do
   alias $command="nocorrect $command"
@@ -231,17 +201,16 @@ alias p='ps --User $USERNAME --format "pid= comm=" -H'
 alias pp='ps --User $USERNAME --format "pid= command=" -H'
 alias gp='grep --color -n -P'
 alias top='top -u $USERNAME'
+alias h='fc -lfiD'
+
 alias mp='mplayer -fs -stop-xscreensaver'
 alias tv='DISPLAY=:0.1 mplayer -geometry 1024x600+0+75 -stop-xscreensaver'
 alias hp='mplayer -ao alsa:device=secondary -fs -stop-xscreensaver'
-alias h='fc -lfiD'
+alias ro='vimless'
+alias v='vim'
 alias y='xview'
 alias lv='sudo tail -F /var/log/messages'
 alias pv='evince -f'
-
-
-# 10.2  ls Aliases
-# ----------------
 
 alias ls='ls --color'
 alias a='ls'
@@ -251,30 +220,23 @@ alias oo='o -A'
 i () { command ls -A -l --si --color=always -b $* | ${LISTER:-less} }
 
 
-timings[aliases]=$(date +%s.%N)
-
-
+timings[functions]=$(date +%s.%N)
 
 # 11  Operating System Specific Settings
-# ======================================
-
+# ——————————————————————————————————————
 
 [[ -f $ZDOTDIR/rc/os/$(uname -o 2> /dev/null) ]] && source $ZDOTDIR/rc/os/$(uname -o)
 
 
 timings[os]=$(date +%s.%N)
 
-
-
 # 11  Host Specific Settings
-# ==========================
-
+# ——————————————————————————
 
 [[ -f $ZDOTDIR/rc/hosts/$HOST ]] && source $ZDOTDIR/rc/hosts/$HOST
 
 
 timings[host]=$(date +%s.%N)
-
 
 
 timings[end]=$(date +%s.%N)
