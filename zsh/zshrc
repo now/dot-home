@@ -151,7 +151,7 @@ zle -N cd-list _cd-list
 bindkey -a '^G' cd-list
 
 _cd-to-alternate-directory () {
-  (( $#dirstack > 1 )) || return
+  (( $#dirstack > 0 )) || return
   cd ~+1
   zle reset-prompt
 }
