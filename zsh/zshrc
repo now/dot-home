@@ -58,9 +58,6 @@ autoload -U compinit; compinit
 
 zstyle '*' hosts ${REMOTEHOST:-${SSH_CLIENT%% *}} shell.scorpionshops.com
 
-# TODO: Remove?  I mean, how often do they get in the way?
-zstyle ':completion:*:*:(^rm):*:*files' ignored-patterns \
-  '*?.o' '*?.~*~' '*?.class' '*?.obj' '*?.sw[po]'
 zstyle ':completion::*:(-command-|export):*' fake-parameters \
   ACCEPT_KEYWORDS:scalar \
   USE:scalar
