@@ -116,6 +116,7 @@ DOTFILES = \
 	   zsh/functions/_up \
 	   zsh/functions/autoload/cd \
 	   zsh/functions/autoload/d \
+	   zsh/functions/autoload/dp \
 	   zsh/functions/autoload/dr \
 	   zsh/functions/autoload/foldl \
 	   zsh/functions/autoload/foldr \

@@ -313,11 +313,6 @@ alias y='xview'
 alias lv='sudo tail -F /var/log/messages'
 alias pv='evince -f'
 
-dp () {
-  dirstack=($* $dirstack)
-}
-
-
 
 # 10.2  ls Aliases
 # ----------------
