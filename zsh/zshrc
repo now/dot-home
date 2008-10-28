@@ -8,70 +8,24 @@ timings[start]=$(date +%s.%N)
 
 
 
-# 1  Parameters {{{1
-# =============
+# 1  Shell and Terminal Settings
+# ==============================
 
 
 HISTFILE=~/.zshistory
-HISTSIZE=1024
+SAVEHIST=${HISTSIZE::=1024}
 READNULLCMD=$PAGER
 REPORTTIME=300
-SAVEHIST=$HISTSIZE
 
-
-timings[parameters]=$(date +%s.%N)
-
-
-
-# 2  Limits {{{1
-# =========
-
-
-limit coredumpsize 30m >& /dev/null
-
-
-timings[limits]=$(date +%s.%N)
-
-
-
-# 3  Shell Settings {{{1
-# =================
-
-
-timings[settings]=$(date +%s.%N)
-
-
-
-# 4  Shell Options {{{1
-# ================
-
-setopt autocd autopushd                       \
-       completeinword nolistambiguous         \
-       extendedhistory histnostore            \
-       rcexpandparam rcquotes                 \
-       correct dvorak                         \
-       nonotify                               \
+setopt autocd autopushd                           \
+       completeinword nolistambiguous nolisttypes \
+       extendedhistory histnostore                \
+       rcexpandparam rcquotes                     \
+       correct dvorak                             \
+       nonotify                                   \
        nobeep
 
-
-timings[options]=$(date +%s.%N)
-
-
-
-# 5  Terminal Settings {{{1
-# ====================
-
-
-stty -ixon                    # turn off flowcontrol for the terminal
 export TERMCAP=
-
-
-timings[terminal]=$(date +%s.%N)
-
-
-
-# 5.1. Screen Title Updating
-# --------------------------
 
 autoload -U add-zsh-hook
 autoload -U terminal-title
@@ -84,8 +38,9 @@ _terminal-title-restore-to-pwd () {
 add-zsh-hook precmd _terminal-title-restore-to-pwd
 add-zsh-hook preexec set-terminal-title-from-command
 
+eval $(dircolors ~/.dircolors 2> /dev/null)
 
-timings[title]=$(date +%s.%N)
+timings[terminal]=$(date +%s.%N)
 
 
 
