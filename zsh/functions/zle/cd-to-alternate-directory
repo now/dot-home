@@ -1,0 +1,5 @@
+emulate -L zsh
+
+(( $#dirstack > 0 )) || return
+cd ~+1
+zle reset-prompt

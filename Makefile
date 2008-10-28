@@ -135,7 +135,10 @@ DOTFILES = \
 	   zsh/functions/cache/retrieve \
 	   zsh/functions/cache/store \
 	   zsh/functions/zsh-mime-setup \
+	   zsh/functions/zle/cd-from-list \
+	   zsh/functions/zle/cd-to-alternate-directory \
 	   zsh/functions/zle/self-insert-redir \
+	   zsh/functions/zle/up-directory \
 	   zsh/functions/zle/vim-increase-number \
 	   zsh/login/os/Cygwin \
 	   zsh/rc/hosts/puritan \

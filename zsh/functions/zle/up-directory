@@ -1,0 +1,4 @@
+emulate -L zsh
+
+up $NUMERIC
+zle reset-prompt

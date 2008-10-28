@@ -1,0 +1,5 @@
+emulate -L zsh
+
+print
+d
+zle reset-prompt
