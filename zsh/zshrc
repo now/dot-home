@@ -113,28 +113,8 @@ timings[completion]=$(date +%s.%N)
 # ==================
 
 
-# 8.1  VI Command Mode
-# --------------------
-
-bindkey -a 's' vi-forward-char
-
-autoload -U forward-word-match backward-word-match
-zle -N forward-parameter forward-word-match
-zle -N backward-parameter backward-word-match
-zstyle ':zle:(forward|backward)-parameter' word-style shell
-bindkey -a ')' forward-parameter
-bindkey -a '(' backward-parameter
-
-bindkey -a '/' history-incremental-search-backward
-bindkey -a '?' history-incremental-search-forward
-
-bindkey -a 'L' vi-change-whole-line
-bindkey -a 'l' vi-substitute
-
-bindkey -arp '^['
-bindkey -a '^L' accept-line-and-down-history
-bindkey -a '^R' redo
-bindkey -a 'u' undo
+autoload -U forward-word-match backward-word-match \
+            replace-string backward-kill-word-match
 
 for command in zle/vim-increase-number zle/self-insert-redir zle/up-directory \
                zle/cd-from-list zle/cd-to-alternate-directory \
@@ -143,69 +123,64 @@ for command in zle/vim-increase-number zle/self-insert-redir zle/up-directory \
   autoload -U $command
   zle -N $command
 done
-zle -N zle/vim-decrease-number zle/vim-increase-number
-
-bindkey -a '^A' zle/vim-increase-number
-bindkey -a '^X' zle/vim-decrease-number
-
-bindkey ${(s: :):-${^${(s::):-'|<>&'}}' zle/self-insert-redir'}
-
-bindkey -a '^U' zle/up-directory
-bindkey -a '^G' zle/cd-from-list
-bindkey -a '^^' zle/cd-to-alternate-directory
-
-autoload -Uz replace-string
-zle -N replace-pattern replace-string
-bindkey -a ':s' replace-pattern
-
-
-# 8.2  VI Insert Mode
-# -------------------
-
-bindkey '^D' list-choices
-#bindkey '^I' complete-word
-bindkey '^P' _history-complete-older
-bindkey '^N' _history-complete-newer
-bindkey '^U' undo
-
-bindkey '^K' insert-digraph
 
 source $fpath/keeper(N)
+
+zle -N zle/vim-decrease-number zle/vim-increase-number
+zle -N replace-pattern replace-string
+
+zle -N backward-kill-to-space-or-/ backward-kill-word-match
+zstyle ':zle:backward-kill-to-space-or-/' word-chars '*?_-.[]~=&;!#$%^(){}<>:@,\\'
+
+zle -N forward-parameter forward-word-match
+zle -N backward-parameter backward-word-match
+zstyle ':zle:(forward|backward)-parameter' word-style shell
+
 zle -C complete-kept-result complete-word _generic
 zstyle ':completion:complete-kept-result:*' completer _insert_kept
 
-bindkey -rp '^X'
-bindkey -r '^X'
+bindkey -arp '^['
+bindkey -a \
+  '(' backward-parameter \
+  ')' forward-parameter \
+  '/' history-incremental-search-backward \
+  '?' history-incremental-search-forward \
+  '^A' zle/vim-increase-number \
+  '^G' zle/cd-from-list \
+  '^O' accept-line-and-down-history \
+  '^R' redo \
+  '^U' zle/up-directory \
+  '^X' zle/vim-decrease-number \
+  '^^' zle/cd-to-alternate-directory \
+  'L' vi-change-whole-line \
+  'l' vi-substitute \
+  's' vi-forward-char \
+  'u' undo \
+  ':s' replace-pattern
+
 bindkey -rp '^['
-bindkey -r '^O'
-bindkey '^O$' insert-last-word
-bindkey '^Ok' complete-kept-result
-bindkey '^O^k' complete-kept-result
-bindkey '^Om' _most_recent_file
-bindkey '^Oo' complete-previous-output
-bindkey '^O^O' complete-previous-output
-bindkey '^Op' copy-prev-shell-word
-bindkey '^O?' _complete_help                  
-bindkey '^L' accept-line-and-down-history
-bindkey '^R' redisplay
-bindkey '^Q' push-line-or-edit
-bindkey ' ' magic-space
-bindkey '^H' backward-delete-char
-bindkey '^?' backward-delete-char
-bindkey '^Z' vi-cmd-mode
-
-bindkey '^X^L' history-beginning-search-menu
-
-autoload -U backward-kill-word-match
-zle -N backward-kill-to-space-or-/ backward-kill-word-match
-zstyle ':zle:backward-kill-to-space-or-/' word-chars '*?_-.[]~=&;!#$%^(){}<>:@,\\'
-bindkey '^W' backward-kill-to-space-or-/
-
-bindkey '^Os' zle/sudo-command-line
-
-bindkey '^Y' zle/yank-x11-clipboard
-
-bindkey '^^' zle/cd-to-alternate-directory
+bindkey \
+  '^?' backward-delete-char \
+  '^D' list-choices \
+  '^H' backward-delete-char \
+  '^K' insert-digraph \
+  '^N' _history-complete-newer \
+  '^O' accept-line-and-down-history \
+  '^P' _history-complete-older \
+  '^Q' push-line-or-edit \
+  '^U' undo \
+  '^W' backward-kill-to-space-or-/ \
+  '^X$' insert-last-word \
+  '^X^K' complete-kept-result \
+  '^Xk' complete-kept-result \
+  '^X^L' history-beginning-search-menu \
+  '^Xp' copy-prev-shell-word \
+  '^X^S' zle/sudo-command-line \
+  '^Y' zle/yank-x11-clipboard \
+  '^Z' vi-cmd-mode \
+  '^^' zle/cd-to-alternate-directory \
+  ' ' magic-space \
+  ${(s: :):-${^${(s::):-'|<>&'}}' zle/self-insert-redir'}
 
 
 timings[keys]=$(date +%s.%N)
