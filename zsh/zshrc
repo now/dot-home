@@ -44,7 +44,7 @@ timings[terminal]=$(date +%s.%N)
 
 
 
-# 6  Modules {{{1
+# 6  Modules
 # ==========
 
 
