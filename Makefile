@@ -114,6 +114,7 @@ DOTFILES = \
 	   zsh/functions/_mem-map \
 	   zsh/functions/_unpack \
 	   zsh/functions/_up \
+	   zsh/functions/autoload/cd \
 	   zsh/functions/autoload/d \
 	   zsh/functions/autoload/dr \
 	   zsh/functions/autoload/foldl \
