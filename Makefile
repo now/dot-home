@@ -124,6 +124,7 @@ DOTFILES = \
 	   zsh/functions/define-digraphs \
 	   zsh/functions/history-beginning-search-menu \
 	   zsh/functions/insert-digraph \
+	   zsh/functions/list-directory-on-chpwd \
 	   zsh/functions/prompt_now_setup \
 	   zsh/functions/set-terminal-title-from-command \
 	   zsh/functions/terminal-title \
