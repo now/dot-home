@@ -405,7 +405,7 @@ timings[aliases]=$(date +%s.%N)
 
 
 
-# 11  Operating System Specific Settings {{{1
+# 11  Operating System Specific Settings
 # ======================================
 
 
@@ -416,7 +416,7 @@ timings[os]=$(date +%s.%N)
 
 
 
-# 11  Host Specific Settings {{{1
+# 11  Host Specific Settings
 # ==========================
 
 
@@ -425,9 +425,6 @@ timings[os]=$(date +%s.%N)
 
 timings[host]=$(date +%s.%N)
 
-
-
-# }}}1
 
 
 timings[end]=$(date +%s.%N)
