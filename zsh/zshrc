@@ -440,3 +440,4 @@ for key in ${(k)timings:#(start|end)}; do
   printf "%s: %.3f\n" $key smallest
 done | sort -k 2rn
 printf "total: %.3f\n" $(($timings[end] - $timings[start]))
+unset timings key other
