@@ -98,37 +98,27 @@ timings[completion]=$(date +%s.%N)
 
 
 
-# 8  ZLE Keybindings {{{1
+# 8  ZLE Keybindings
 # ==================
 
 
-# 8.1  VI Command Mode {{{2
+# 8.1  VI Command Mode
 # --------------------
-
-# 8.1.1  Movement
 
 bindkey -a 's' vi-forward-char
 
-autoload -U forward-word-match
-autoload -U backward-word-match
+autoload -U forward-word-match backward-word-match
 zle -N forward-parameter forward-word-match
 zle -N backward-parameter backward-word-match
-zstyle ':zle:forward-parameter' word-style shell
-zstyle ':zle:backward-parameter' word-style shell
+zstyle ':zle:(forward|backward)-parameter' word-style shell
 bindkey -a ')' forward-parameter
 bindkey -a '(' backward-parameter
-
-# 8.1.2  Searching
 
 bindkey -a '/' history-incremental-search-backward
 bindkey -a '?' history-incremental-search-forward
 
-# 8.1.3  Change
-
 bindkey -a 'L' vi-change-whole-line
 bindkey -a 'l' vi-substitute
-
-# 8.1.4  Miscellaneous
 
 bindkey -arp '^['
 bindkey -a '^L' accept-line-and-down-history
@@ -169,13 +159,11 @@ zle -N cd-to-alternate-directory _cd-to-alternate-directory
 bindkey -a '^^' cd-to-alternate-directory
 
 
-# 8.2  VI Insert Mode {{{2
+# 8.2  VI Insert Mode
 # -------------------
 
-# 8.2.1  Completion
-
 bindkey '^D' list-choices
-bindkey '^I' complete-word
+#bindkey '^I' complete-word
 bindkey '^P' _history-complete-older
 bindkey '^N' _history-complete-newer
 bindkey '^U' undo
@@ -183,8 +171,6 @@ bindkey '^U' undo
 autoload -Uz insert-digraph
 zle -N insert-digraph
 bindkey '^K' insert-digraph
-
-# 8.2.4  Miscellaneous
 
 _complete-previous-output () {
   compadd - ${(f)"$(eval $(fc -l -n -1))"}
@@ -251,13 +237,11 @@ bindkey ${(s: :):-${^${(s::):-'|<>&'}}' _self-insert-redir'}
 bindkey '^^' cd-to-alternate-directory
 
 
-# 8.3  List-scroll Mode {{{2
+# 8.3  List-scroll Mode
 # ---------------------
 
-bindkey -M listscroll 'q' send-break
-
-
-# }}}2
+# TODO: Simpler to just use C-c or just type what we want, so remove.
+#bindkey -M listscroll 'q' send-break
 
 
 timings[keys]=$(date +%s.%N)
