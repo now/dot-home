@@ -4,7 +4,7 @@
 
 ZDOTDIR=~/.zsh
 
-fpath=($ZDOTDIR/functions{,/{autoload,zap,zle}} $fpath)
+fpath=($ZDOTDIR/functions{,/{autoload,zap}} $fpath)
 
 # We use this as we want to use extended globs from, for example, Vim.
 setopt extendedglob

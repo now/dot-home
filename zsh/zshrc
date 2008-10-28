@@ -136,11 +136,16 @@ bindkey -a '^L' accept-line-and-down-history
 bindkey -a '^R' redo
 bindkey -a 'u' undo
 
-autoload -Uz vim-increase-number
-zle -N vim-increase-number vim-increase-number
-zle -N vim-decrease-number vim-increase-number
-bindkey -a '^A' vim-increase-number
-bindkey -a '^X' vim-decrease-number
+for command in zle/vim-increase-number zle/self-insert-redir; do
+  autoload -U $command
+  zle -N $command
+done
+zle -N zle/vim-decrease-number zle/vim-increase-number
+
+bindkey -a '^A' zle/vim-increase-number
+bindkey -a '^X' zle/vim-decrease-number
+
+bindkey ${(s: :):-${^${(s::):-'|<>&'}}' zle/self-insert-redir'}
 
 autoload -Uz replace-string
 zle -N replace-pattern replace-string
@@ -234,14 +239,6 @@ _paste-x11-clipboard () {
 }
 zle -N paste-x11-clipboard _paste-x11-clipboard
 bindkey '^Y' paste-x11-clipboard
-
-_self-insert-redir () {
-  integer len=$#LBUFFER
-  zle self-insert
-  (( $len >= $#LBUFFER )) && LBUFFER[-1]=" $LBUFFER[-1]"
-}
-zle -N _self-insert-redir
-bindkey ${(s: :):-${^${(s::):-'|<>&'}}' _self-insert-redir'}
 
 bindkey '^^' cd-to-alternate-directory
 
