@@ -55,71 +55,43 @@ timings[modules]=$(date +%s.%N)
 
 
 
-# 7  Command-line Completion {{{1
+# 7  Command-line Completion
 # ==========================
 
 
 autoload -U compinit; compinit
 
-
-# 7.1. Completion Styles {{{2
-# ----------------------
-
 zstyle '*' hosts ${REMOTEHOST:-${SSH_CLIENT%% *}} shell.scorpionshops.com
 
-# Ignore users that don’t have a login shell listed in /etc/shells.
-#zstyle '*:users' ignored-patterns \
-#  ${${(M)${(f)"$(</etc/passwd)"}:#*:(${~${(j:|:)${(f)"$(</etc/shells)"}:#[[:space:]]#\#*}})}%%:*}
+# TODO: Remove?  I mean, how often do they get in the way?
 zstyle ':completion:*:*:(^rm):*:*files' ignored-patterns \
   '*?.o' '*?.~*~' '*?.class' '*?.obj' '*?.sw[po]'
-
-zstyle ':completion:*' squeeze-slashes yes
-
-zstyle ':completion::complete:*' use-cache yes
-
-zstyle ':completion:::::' completer _expand_alias _expand _complete _prefix _ignored
-zstyle ':completion::prefix:::' completer _complete
-
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[:.,_-]=** r:|=**'
-zstyle ':completion:*:expand:*' tag-order all-expansions
-
 zstyle ':completion::*:(-command-|export):*' fake-parameters \
   ACCEPT_KEYWORDS:scalar \
   USE:scalar
 
-zstyle ':completion:*:processes' command 'ps -U $EUID 2>/dev/null'
-
+zstyle ':completion:*' squeeze-slashes yes
 zstyle ':completion:*' ignore-parents parent pwd
-
-
-# 7.2. Completion Formats and Messages {{{2
-# ------------------------------------
-
-eval $(dircolors ~/.dircolors 2> /dev/null)
-
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS} tc=7
-
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*' list-separator "                "
-zstyle ':completion:*:options' auto-description "specify ‘%d’"
-
-zstyle ':completion:*:directory-stack' list-colors "=(#b)[0-9]#[[:space:]]#(*)=8=${${LS_COLORS#*di=}%%:*}"
-
-
-# 7.3. Completion Groups {{{2
-# ----------------------
-
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[:.,_-]=** r:|=**'
+zstyle ':completion:*' remove-all-dups yes
 zstyle ':completion:*' group-name ""
+zstyle ':completion:*' list-separator ""
+zstyle ':completion:*:options' auto-description "specify ‘%d’"
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion::complete:*' use-cache yes
+
+zstyle ':completion:*:processes' command 'ps -U $EUID 2>/dev/null'
 zstyle ':completion:*:manuals' separate-sections true
 
+#zstyle ':completion:::::' completer _expand_alias _expand _complete _prefix _ignored
+# TODO: Remove _prefix?  It doesn’t seem to change anything.
+#zstyle ':completion::*:::' completer _complete _prefix _ignored
+#zstyle ':completion::prefix:::' completer _complete
 
-# 7.4. History Completion {{{2
-# -----------------------
+#zstyle ':completion:*:expand:*' tag-order all-expansions
 
-zstyle ':completion:*' remove-all-dups yes
-
-
-# }}}2
+# TODO: Verbose seems to be default anyway?
+#zstyle ':completion:*' verbose yes
 
 
 timings[completion]=$(date +%s.%N)
