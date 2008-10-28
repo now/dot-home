@@ -195,7 +195,6 @@ bindkey '^Oo' complete-previous-output
 bindkey '^O^O' complete-previous-output
 bindkey '^Op' copy-prev-shell-word
 bindkey '^O?' _complete_help                  
-bindkey '^F' describe-key-briefly
 bindkey '^L' accept-line-and-down-history
 bindkey '^R' redisplay
 bindkey '^Q' push-line-or-edit
