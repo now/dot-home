@@ -136,7 +136,8 @@ bindkey -a '^L' accept-line-and-down-history
 bindkey -a '^R' redo
 bindkey -a 'u' undo
 
-for command in zle/vim-increase-number zle/self-insert-redir; do
+for command in zle/vim-increase-number zle/self-insert-redir zle/up-directory \
+               zle/cd-from-list zle/cd-to-alternate-directory; do
   autoload -U $command
   zle -N $command
 done
@@ -147,32 +148,13 @@ bindkey -a '^X' zle/vim-decrease-number
 
 bindkey ${(s: :):-${^${(s::):-'|<>&'}}' zle/self-insert-redir'}
 
+bindkey -a '^U' zle/up-directory
+bindkey -a '^G' zle/cd-from-list
+bindkey -a '^^' zle/cd-to-alternate-directory
+
 autoload -Uz replace-string
 zle -N replace-pattern replace-string
 bindkey -a ':s' replace-pattern
-
-_up-directory () {
-  up $NUMERIC
-  zle reset-prompt
-}
-zle -N up-directory _up-directory
-bindkey -a '^U' up-directory
-
-_cd-list () {
-  print
-  d
-  zle reset-prompt
-}
-zle -N cd-list _cd-list
-bindkey -a '^G' cd-list
-
-_cd-to-alternate-directory () {
-  (( $#dirstack > 0 )) || return
-  cd ~+1
-  zle reset-prompt
-}
-zle -N cd-to-alternate-directory _cd-to-alternate-directory
-bindkey -a '^^' cd-to-alternate-directory
 
 
 # 8.2  VI Insert Mode
@@ -187,11 +169,6 @@ bindkey '^U' undo
 autoload -Uz insert-digraph
 zle -N insert-digraph
 bindkey '^K' insert-digraph
-
-_complete-previous-output () {
-  compadd - ${(f)"$(eval $(fc -l -n -1))"}
-}
-zle -C complete-previous-output complete-word _complete-previous-output
 
 source $fpath/keeper(N)
 _complete-kept () {
