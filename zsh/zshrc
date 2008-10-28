@@ -198,8 +198,7 @@ prompt now
 zstyle ':mime:*' use-cache yes
 autoload -U zsh-mime-setup; zsh-mime-setup
 
-autoload -U zargs zcalc zmv
-autoload -U $ZDOTDIR/functions/autoload/*(:t)
+autoload -U zargs zcalc zmv $ZDOTDIR/functions/autoload/*(:t)
 
 
 timings[functions]=$(date +%s.%N)
