@@ -25,7 +25,7 @@ setopt autocd autopushd                           \
        nonotify                                   \
        nobeep
 
-export TERMCAP=
+unset TERMCAP
 
 autoload -U add-zsh-hook
 autoload -U terminal-title
