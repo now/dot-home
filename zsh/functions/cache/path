@@ -17,7 +17,7 @@ local context="$1" ident="$2"
 
 # If the cache is disabled, we never want to rebuild it, so pretend
 # it’s valid.
-zstyle -t $context use-cache || return 1
+zstyle -T $context use-cache || return 1
 
 zstyle -s $context cache-path cache_path
 : ${cache_path:=${XDG_CACHE_HOME:-$HOME/.cache}/zsh}
