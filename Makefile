@@ -140,6 +140,7 @@ DOTFILES = \
 	   zsh/functions/zle/self-insert-redir \
 	   zsh/functions/zle/up-directory \
 	   zsh/functions/zle/vim-increase-number \
+	   zsh/functions/zle/yank-x11-clipboard \
 	   zsh/login/os/Cygwin \
 	   zsh/rc/hosts/puritan \
 	   zsh/rc/os/Cygwin \

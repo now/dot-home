@@ -138,6 +138,7 @@ bindkey -a 'u' undo
 
 for command in zle/vim-increase-number zle/self-insert-redir zle/up-directory \
                zle/cd-from-list zle/cd-to-alternate-directory \
+               zle/yank-x11-clipboard \
                history-beginning-search-menu insert-digraph; do
   autoload -U $command
   zle -N $command
@@ -206,11 +207,7 @@ _sudo-command-line () {
 zle -N sudo-command-line _sudo-command-line
 bindkey '^Os' sudo-command-line
 
-_paste-x11-clipboard () {
-  LBUFFER+=$(xclip -out 2> /dev/null)
-}
-zle -N paste-x11-clipboard _paste-x11-clipboard
-bindkey '^Y' paste-x11-clipboard
+bindkey '^Y' yank-x11-clipboard
 
 bindkey '^^' cd-to-alternate-directory
 
