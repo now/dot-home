@@ -196,27 +196,30 @@ alias mmv='noglob zmv -W'
 
 unset command
 
-alias duh='du --si --max-depth=1'
-alias p='ps --User $USERNAME --format "pid= comm=" -H'
-alias pp='ps --User $USERNAME --format "pid= command=" -H'
-alias gp='grep --color -n -P'
-alias top='top -u $USERNAME'
-alias h='fc -lfiD'
+alias \
+  duh='du --si --max-depth=1' \
+  gp='grep --color -n -P' \
+  h='fc -lfiD' \
+  p='ps --User $USERNAME --format "pid= comm=" -H' \
+  pp='ps --User $USERNAME --format "pid= command=" -H' \
+  top='top -u $USERNAME'
 
-alias mp='mplayer -fs -stop-xscreensaver'
-alias tv='DISPLAY=:0.1 mplayer -geometry 1024x600+0+75 -stop-xscreensaver'
-alias hp='mplayer -ao alsa:device=secondary -fs -stop-xscreensaver'
-alias ro='vimless'
-alias v='vim'
-alias y='xview'
-alias lv='sudo tail -F /var/log/messages'
-alias pv='evince -f'
+alias \
+  mp='mplayer -fs -stop-xscreensaver' \
+  tv='DISPLAY=:0.1 mplayer -geometry 1024x600+0+75 -stop-xscreensaver' \
+  hp='mplayer -ao alsa:device=secondary -fs -stop-xscreensaver' \
+  ro='vimless' \
+  v='vim' \
+  y='xview' \
+  lv='sudo tail -F /var/log/messages' \
+  pv='evince -f'
 
-alias ls='ls --color'
-alias a='ls'
-alias o='ls -l --si'
-alias aa='a -A'
-alias oo='o -A'
+alias \
+  ls='ls --color' \
+  a='ls' \
+  o='ls -l --si' \
+  aa='a -A' \
+  oo='o -A'
 i () { command ls -A -l --si --color=always -b $* | ${LISTER:-less} }
 
 
