@@ -20,6 +20,7 @@ text/*; vimless %s              ; needsterminal; edit=vim %s
 audio/*                 ; mplayer %s    ; needsterminal
 image/*                 ; xview %s      ; test=test -n "$DISPLAY"; edit=gimp %s
 video/*                 ; mplayer %s    ; needsterminal; test=test -n "$DISPLAY"
+application/ogg         ; mplayer %s    ; needsterminal
 
 
 
