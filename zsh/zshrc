@@ -78,16 +78,6 @@ zstyle ':completion::complete:*' use-cache yes
 zstyle ':completion:*:processes' command 'ps -U $EUID 2>/dev/null'
 zstyle ':completion:*:manuals' separate-sections true
 
-#zstyle ':completion:::::' completer _expand_alias _expand _complete _prefix _ignored
-# TODO: Remove _prefix?  It doesn’t seem to change anything.
-#zstyle ':completion::*:::' completer _complete _prefix _ignored
-#zstyle ':completion::prefix:::' completer _complete
-
-#zstyle ':completion:*:expand:*' tag-order all-expansions
-
-# TODO: Verbose seems to be default anyway?
-#zstyle ':completion:*' verbose yes
-
 
 timings[completion]=$(date +%s.%N)
 
