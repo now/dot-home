@@ -25,7 +25,6 @@ setopt autocd autopushd                           \
 unset TERMCAP
 
 autoload -U add-zsh-hook
-autoload -U terminal-title
 
 add-zsh-hook precmd set-terminal-title-to-pwd
 add-zsh-hook preexec set-terminal-title-from-command
