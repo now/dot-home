@@ -24,3 +24,5 @@ fi
 if [[ -f $ZDOTDIR/login/os/$(uname -o 2> /dev/null) ]]; then
   source $ZDOTDIR/login/os/$(uname -o)
 fi
+
+limit coredumpsize 30m 2> /dev/null
