@@ -90,6 +90,10 @@ source $fpath/keeper(N)
 zle -N zle/vim-decrease-number zle/vim-increase-number
 zle -N replace-pattern replace-string
 
+# TODO: Look into how we use this?  If all we use ^W for is to “undo”
+# completion mistakes and such, then use ^U instead.  If we actually use ^W for
+# removing up to a / or a space, then it stays but needs to be reworked to
+# handle escaped spaces.
 zle -N backward-kill-to-space-or-/ backward-kill-word-match
 zstyle ':zle:backward-kill-to-space-or-/' word-chars '*?_-.[]~=&;!#$%^(){}<>:@,\\'
 
