@@ -69,8 +69,6 @@ set notitle
 set guioptions=acM
 if has('gui_win32')
   set guifont=DejaVu_Sans_Mono:h10
-  winpos 719 0
-  set lines=63 columns=118
 endif
 
 " TODO: same as for syntax...why is this not the default?
