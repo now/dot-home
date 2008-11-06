@@ -140,7 +140,7 @@ bindkey \
   '^Xk' complete-kept-result \
   '^X^L' history-beginning-search-menu \
   '^Xp' copy-prev-shell-word \
-  '^X^S' zle/sudo-command-line \
+  '^Xs' zle/sudo-command-line \
   '^Y' zle/yank-x11-clipboard \
   '^Z' vi-cmd-mode \
   '^^' zle/cd-to-alternate-directory \
