@@ -1,7 +1,5 @@
 import XMonad
-import List
 import System.Exit
-import Text.Printf
  
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -16,90 +14,29 @@ import XMonad.Util.Run
 import XMonad.Prompt
 import XMonad.Prompt.Input
 
-myTerminal      = "gnome-terminal -e 'sh -c \"TERM=xterm-256color screen -d -RR\"'"
+myTerminal = "gnome-terminal -e 'sh -c \"TERM=xterm-256color screen -d -RR\"'"
  
-myBorderWidth   = 1
+myModMask = mod4Mask
  
-myModMask       = mod4Mask
+myWorkspaces = ["terminal", "web", "document" ] ++ map show [4..9]
  
-myWorkspaces    = ["terminal", "web", "document" ] ++ map show [4..9]
- 
-myNormalBorderColor  = "#dddddd"
-myFocusedBorderColor = "#ff0000"
- 
-greenXPConfig :: XPConfig
-greenXPConfig = defaultXPConfig { font        = "xft:DejaVu Sans Mono-10"
-                                , bgColor     = "#181818"
-                                , fgColor     = "#f6f6f6"
-                                , promptBorderWidth = 0
-                                , position    = Bottom
-                                , height      = 16
-                                , historySize = 256 }
+myXPConfig = defaultXPConfig { font = "xft:DejaVu Sans Mono-10"
+                             , bgColor = "#181818"
+                             , fgColor = "#f6f6f6"
+                             , promptBorderWidth = 0
+                             , position = Bottom
+                             , height = 16
+                             , historySize = 256 }
 
-------------------------------------------------------------------------
--- Key bindings. Add, modify or remove key bindings here.
---
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
- 
-    -- launch a terminal
-    [ ((modMask, xK_c                  ), spawn $ XMonad.terminal conf)
- 
-    -- launch an xterm (for when gnome-terminal is broken)
-    , ((modMask .|. mod1Mask, xK_c     ), spawn "xterm -e 'sh -c \"TERM=xterm-256color screen -d -RR\"'")
-
-    -- close focused window
-    , ((modMask,              xK_w     ), kill)
- 
-     -- Rotate through the available layout algorithms
-    , ((modMask,               xK_r     ), sendMessage NextLayout)
- 
-    --  Reset the layouts on the current workspace to default
-    , ((modMask .|. shiftMask, xK_r     ), setLayout $ XMonad.layoutHook conf)
- 
-    -- Resize viewed windows to the correct size
-    , ((modMask,               xK_l     ), refresh)
- 
-    -- Move focus to the next window
-    , ((modMask,               xK_j     ), windows W.focusDown)
- 
-    -- Move focus to the previous window
-    , ((modMask,               xK_k     ), windows W.focusUp  )
- 
-    -- Move focus to the master window
-    , ((modMask,               xK_m     ), windows W.focusMaster  )
- 
-    -- Swap the focused window and the master window
-    , ((modMask,               xK_s     ), windows W.swapMaster)
- 
-    -- Swap the focused window with the next window
-    , ((modMask .|. shiftMask, xK_j     ), windows W.swapDown  )
- 
-    -- Swap the focused window with the previous window
-    , ((modMask .|. shiftMask, xK_k     ), windows W.swapUp    )
- 
-    -- Push window back into tiling
-    , ((modMask,               xK_t     ), withFocused $ windows . W.sink)
- 
-    -- Quit xmonad
-    , ((modMask .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
- 
-    -- Restart xmonad
-    , ((modMask              , xK_q     ),
-          broadcastMessage ReleaseResources >> restart "xmonad" True)
-    , ((controlMask .|. shiftMask, xK_q ),
-          broadcastMessage ReleaseResources >> restart "xmonad" True)
-
-    , ((modMask              , xK_a     ), digraphPrompt greenXPConfig)
+    [ ((modMask,                   xK_c), spawn $ XMonad.terminal conf)
+    , ((modMask .|. mod1Mask,      xK_c), spawn "xterm -e 'sh -c \"TERM=xterm-256color screen -d -RR\"'")
+    , ((modMask,                   xK_w), kill)
+    , ((modMask,                   xK_r), sendMessage NextLayout)
+    , ((modMask .|. shiftMask,     xK_r), setLayout $ XMonad.layoutHook conf)
+    , ((modMask,                   xK_l), refresh)
+    , ((modMask,                   xK_a), digraphPrompt myXPConfig)
     ]
-    ++
- 
-    --
-    -- mod-[1..9], Switch to workspace N
-    -- mod-shift-[1..9], Move client to workspace N
-    --
-    [((m .|. modMask, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
  
 myLayout =
   onWorkspace "terminal" (gaps [(L, 177), (R, 177), (U, 0), (D, 0)] $ smartBorders (Full)) $
@@ -113,21 +50,15 @@ myLayout =
 myManageHook = composeAll . concat $
     [ [ className =? "Firefox"  --> doF (W.shift "web") ] ]
 
-main = xmonad $ defaultConfig {
-        terminal           = myTerminal,
-        borderWidth        = myBorderWidth,
-        modMask            = myModMask,
-        workspaces         = myWorkspaces,
-        normalBorderColor  = myNormalBorderColor,
-        focusedBorderColor = myFocusedBorderColor,
- 
-        keys               = myKeys,
- 
-        layoutHook         = myLayout,
-        manageHook         = manageHook defaultConfig <+> myManageHook
+main = xmonad $ defaultConfig
+    { terminal = myTerminal
+    , modMask = myModMask
+    , workspaces = myWorkspaces
+    , keys = \c -> myKeys c `M.union` keys defaultConfig c
+    , layoutHook = myLayout
+    , manageHook = manageHook defaultConfig <+> myManageHook
     }
 
-digraphPrompt :: XPConfig -> X ()
 digraphPrompt c =
     inputPrompt c "Digraph" ?+ \digraph ->
     io $ runProcessWithInput "ratpoison-send-key" [digraph] ""
