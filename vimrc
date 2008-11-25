@@ -88,48 +88,19 @@ let compiler_gcc_ignore_unmatched_lines = 1
 
 let mapleader = ","
 
-function! s:map_swap(lhs, rhs)
-  execute 'noremap' a:lhs a:rhs
-  execute 'noremap' a:rhs a:lhs
-endfunction
-
-function! s:map_swap_list(ms)
-  for [lhs, rhs] in a:ms
-    call s:map_swap(lhs, rhs)
-  endfor
-endfunction
-
-function! s:map_swap_both_cases(...)
-  call s:map_swap_list(a:000)
-  for [lhs, rhs] in a:000
-    let upper = [toupper(lhs), toupper(rhs)]
-    if upper != [lhs, rhs]
-      call s:map_swap(upper[0], upper[1])
-    endif
-  endfor
-endfunction
-
-" TODO: This is bugged.  Braw will fix?
-"set langmap=tj;jt,nk;kn,sl;ls
-
-call s:map_swap_both_cases(['s', 'l'])
-"call s:map_swap_both_cases(['t', 'j'], ['n', 'k'], ['s', 'l'])
-"noremap <silent> k :<C-U>call feedkeys(v:count1 . 'n', 'nt')<CR>
-"noremap <silent> K :<C-U>call feedkeys(v:count1 . 'N', 'nt')<CR>
-
-"call s:map_swap_both_cases(['<C-W>t', '<C-W>j'], ['<C-W><C-T>', '<C-W><C-J>'])
-"call s:map_swap_both_cases(['<C-W>n', '<C-W>k'], ['<C-W><C-N>', '<C-W><C-K>'])
-call s:map_swap_both_cases(['<C-W>s', '<C-W>l'], ['<C-W><C-S>', '<C-W><C-L>'])
-"call s:map_swap_list([['zt', 'zj'], ['zn', 'zk'], ['zs', 'zl']])
-call s:map_swap_list([['zs', 'zl']])
+noremap s l
+noremap l s
+noremap S L
+noremap L S
+noremap <C-W>s <C-W>l
+noremap <C-W>l <C-W>s
+noremap <C-W>S <C-W>L
+noremap <C-W>L <C-W>S
+noremap <C-W><C-S> <C-W><C-L>
+noremap <C-W><C-L> <C-W><C-S>
+noremap zs zl
+noremap zl zs
 noremap zS zL
-"noremap zK zN
-"noremap gt gj
-"noremap gn gk
-
-delfunction s:map_swap_both_cases
-delfunction s:map_swap_list
-delfunction s:map_swap
 
 noremap <Space> <C-F>
 ounmap <Space>
