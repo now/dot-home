@@ -2,49 +2,12 @@
 #
 # Copyright © 2002,2003,2004,2005,2006,2007,2008 Nikolai Weibull <now@bitwi.se>
 
-# 1  Terminal Settings
-# ====================
-
-
-# TODO: The only reason to set this is that it’s not a sane default and that it
-# clutters the window list by suffixing the window number with a ‘$’ to show
-# that the window is “logged in”.
 deflogin off
-# TODO: 100 is way too low a default under any normal circumstances.
 defscrollback 8192
 # NOTE: Leaving maptimeout at the default of 300, Esc key will be delayed.
 maptimeout 10
-# TODO: Screen should really set this, provided that the base terminal is
-# capable and screen has been compiled with 256 color support.
 term "screen-256color"
-# TODO: Set msgminwait 0 so that we can do ^Tw followed by ^T<N> without a 1
-# second delay as is the default now.  We won’t have to set this if we don’t
-# set hardstatus below.  The reason behind the delay is that screen has to
-# update the hardstatus when we switch windows and that’s considered to be a
-# message, thus the timeout triggers.
-
-
-
-# 2  Formats
-# ==========
-
-
-# TODO: Do we really need to redefine this?
-activity "%0c activity: %n %t"
-# TODO: Do we really need the hardstatus line?  Only real use right now is that
-# screen resizes correctly with it and not without it in a new gnome-terminal
-# (inside XMonad).
-hardstatus alwayslastline "%{= dd}%?%-w%?%{..g}%n %t%?[%u]%?%{-}%+w%-014= %M %d, %0c"
-
-
-
-# 3  Bindings
-# ===========
-
 
 escape ^Tt
-
-# TODO: How often do I need to do this, anyway?
 bind \# colon "number "
-
 markkeys "l=s:L=S:^S=/"
