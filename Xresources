@@ -1,15 +1,5 @@
-/*
- * contents: X11 user resource file.
- *
- * Copyright © 2005,2006 Nikolai Weibull <now@bitwi.se>
- */
-
 /* 1  Terminals
- * ============ */
-
-
-/* 1.1  XTerm Colors
- * ----------------- */
+ * ———————————— */
 
 *VT100*background:      #f6f6f6
 *VT100*foreground:      #181818
@@ -32,38 +22,19 @@
 *VT100*cursorColor:     #010101
 *VT100*highlightColor:  #5598d7
 
-
-/* 1.2  XTerm Fonts
- * ---------------- */
+*VT100*boldMode:        false
 
 *VT100.utf8Fonts.font:      -Bitwi.se-Fixed-Medium-R-SemiCondensed--13-120-75-75-C-60-ISO10646-1
 *VT100.utf8Fonts.boldFont:  -Bitwi.se-Fixed-Medium-R-SemiCondensed--13-120-75-75-C-60-ISO10646-1
-/*
 *VT100.faceName:            monospace
 *VT100.faceSize:            9
-*/
-
-
-/* 1.3  XTerm Input/Output
- * ----------------------- */
-
-*VT100*boldMode:        false
-/* XXX: this is actually (probably) wrong, so remove: */
-/**VT100*eightBitInput:   false*/
-
-
-/* 1.4  XTerm Options
- * ------------------ */
 
 *VT100*saveLines:       0
 *termName:              xterm-256color
 *VT100*visualBell:      true
-/**backarrowKey:          false*/
 
 
-
-/* 2 XCursor
- * ========= */
-
+/* 2  XCursor
+ * —————————— */
 
 Xcursor.theme: Vanilla-DMZ
