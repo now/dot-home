@@ -5,36 +5,56 @@
 
 setopt extendedglob
 
-local device=${${${${(M)${(f):-"$(cat /etc/defaults/cdrdao 2>/dev/null)"}:#read_device: \"*\"}#read_device: \"}%\"}:-/dev/dvd}
+autoload -U zap/init
+zap/init $0:t "1.0.0" 
 
-if (( $# == 1 )) && [[ $1 == *.(img|iso) ]]; then
-  growisofs -dvd-compat -Z $device=$1 -quiet
+local -a optdesc
+optdesc=(
+  ''  ''                ' [PATH]'                                 ''    0 0 -1
+  ''  ''                "Disk burner."
+                                                                  ''    0 0 -1
+  -d  --device=DEVICE   'device to burn to'                       ''    1 0 0
+  -s  --speed=SPEED     'speed to burn at'                        ''    1 0 0
+  ''  'PATH'            'directory or file to burn'               ''    0 0 0
+)
+
+zap/parse-options optdesc "$@"
+
+: ${ZAP_OPTARGS[--device]:=${ZAP_OPTARGS[-d]:-${${${${(M)${(f):-"$(cat /etc/defaults/cdrdao 2>/dev/null)"}:#write_device: \"*\"}#write_device: \"}%\"}:-/dev/dvd}}}
+: ${ZAP_OPTARGS[--speed]:=${ZAP_OPTARGS[-s]:-$(dvd+rw-mediainfo $ZAP_OPTARGS[--device] 2> /dev/null | sed -n 's/^ Write Speed #0:[[:space:]]\+\([^.]\+\).*$/\1/p' 2> /dev/null)}}
+local mount_point="/media/$(readlink ${ZAP_OPTARGS[--device]})"
+
+if (( ${#ZAP_ARGUMENTS} == 1 )) && [[ $ZAP_ARGUMENTS[1] == *.(img|iso) ]]; then
+  growisofs -dvd-compat \
+    ${ZAP_OPTARGS[--speed]:+-speed=${ZAP_OPTARGS[--speed]}} \
+    -Z $ZAP_OPTARGS[--device]=$ZAP_ARGUMENTS[1] -quiet
   exit $status
 fi
 
-local label=${1:-$PWD:t}
-(( $# > 1 )) && shift
+local label=${ZAP_ARGUMENTS[1]:-$PWD:t}
+(( ${#ZAP_ARGUMENTS} > 1 )) && shift ZAP_ARGUMENTS
 
-for arg in ${*:-.}; do
+for arg in ${ZAP_ARGUMENTS:-.}; do
   if [[ -d $arg ]]; then
-    print -l $arg/**/*(e:'REPLY=$REPLY=$REPLY':)
+    print -r -l -- $arg/**/*(e:'REPLY=$REPLY=$REPLY':)
   else
-    print -l $arg(e:'REPLY=$REPLY=$REPLY':)
+    print -r -l -- $arg(e:'REPLY=$REPLY=$REPLY':)
   fi
 done | \
-  growisofs -Z $device -quiet -V $label -iso-level 3 -r -hide-rr-moved \
-            -joliet-long -graft-points -path-list - && \
-  eject && \
-  sleep 1 && \
-  eject --trayclose && \
-  sleep 10 && \
-  ls -lhR /media/hdc && \
-  for arg in ${*:-.}; do
+  growisofs ${ZAP_OPTARGS[--speed]:+-speed=${ZAP_OPTARGS[--speed]}} \
+            -Z $ZAP_OPTARGS[--device] -quiet -V $label -iso-level 3 -r \
+            -hide-rr-moved -joliet-long -graft-points -path-list - && \
+  eject $ZAP_OPTARGS[--device] && \
+  sleep 2 && \
+  eject --trayclose $ZAP_OPTARGS[--device] && \
+  sleep 30 && \
+  ls -lhR $mount_point && \
+  for arg in ${ZAP_ARGUMENTS:-.}; do
     if [[ -d $arg ]]; then
       for f in $arg/**/*; do
-        cmp $f /media/hdc/$f
+        cmp $f $mount_point/$f
       done
     else
-      cmp $arg /media/hdc/$arg
+      cmp $arg $mount_point/$arg
     fi
   done
