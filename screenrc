@@ -10,4 +10,4 @@ term "screen-256color"
 
 escape ^Tt
 bind \# colon "number "
-markkeys "l=s:L=S:^S=/"
+markkeys "l=s:^S=/:^R=?"
