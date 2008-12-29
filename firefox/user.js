@@ -13,3 +13,4 @@ user_pref("network.http.pipelining", true);
 user_pref("security.warn_entering_secure", false);
 user_pref("security.warn_leaving_secure", false);
 user_pref("security.warn_submit_insecure", false);
+user_pref("ui.key.generallAccessKey", 0);
