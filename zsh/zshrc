@@ -23,17 +23,24 @@ add-zsh-hook precmd set-terminal-title-to-pwd
 add-zsh-hook preexec set-terminal-title-from-command
 add-zsh-hook chpwd list-directory-on-chpwd
 
-# TODO: Need to wrap this in a test so that we only call it if LS_COLORS
-# reflects the settings of another terminal.  The problem is that in most cases
-# this won’t help, as when we log in we set if for $TERM = linux and then
-# whenever we create a new window in screen that will be the parent terminal.
-# Thus, testing a variable that stores the last saved $TERM that dircolors was
-# called for doesn’t work.  One way would be to start screen in a terminal that
-# we then use in screen.
-#
-# We could also test the number of colors of the
-# terminal and set up things based on that.
-eval $(dircolors ~/.dircolors 2> /dev/null)
+# TODO: Move this to its own function?
+zstyle ':dircolors:*' cache-policy dircolors-cache-policy
+{
+  dircolors-cache-policy () {
+    [[ ~/.dircolors -nt $1 ]]
+  }
+  autoload -U cache/retrieve
+  cache/retrieve ':dircolors:*' dircolors-$TERM
+} always {
+  unfunction dircolors-cache-policy >& /dev/null
+}
+if [[ -z $LS_COLORS ]]; then
+  eval $(dircolors ~/.dircolors 2> /dev/null)
+  autoload -U cache/store
+  cache/store ':dircolors:*' dircolors-$TERM LS_COLORS
+else
+  export LS_COLORS
+fi
 
 
 # 2  Modules
@@ -140,7 +147,6 @@ bindkey \
 
 # 5  Functions And Aliases
 
-# Takes about 4–5 ms..  TODO: Cache prompt results.
 autoload -U promptinit; promptinit
 prompt now
 
@@ -186,16 +192,12 @@ alias \
 i () { command ls -A -l --si --color=always -b $* | ${LISTER:-less} }
 
 
-# 11  Operating System Specific Settings
-# ——————————————————————————————————————
+# 11  Operating System And Host Specific Settings
+# ———————————————————————————————————————————————
 
-[[ -f $ZDOTDIR/rc/os/$(uname -o 2> /dev/null) ]] && source $ZDOTDIR/rc/os/$(uname -o)
-
-
-# 11  Host Specific Settings
-# ——————————————————————————
-
-[[ -f $ZDOTDIR/rc/hosts/$HOST ]] && source $ZDOTDIR/rc/hosts/$HOST
+for f in $ZDOTDIR/rc/{os/${OSTYPE%%[[:digit:].]##},hosts/$HOST}; do
+  [[ -f $f ]] && source $f
+done
 
 
 unset key other
