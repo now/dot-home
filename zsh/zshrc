@@ -1,10 +1,6 @@
 # contents: zsh(1) user RC.
 #
-# Copyright © 2002,2003,2004,2005,2006 Nikolai Weibull <now@bitwi.se>
-
-local -A timings
-
-timings[start]=$(date +%s.%N)
+# Copyright © 2002,2003,2004,2005,2006,2008 Nikolai Weibull <now@bitwi.se>
 
 # 1  Shell and Terminal Settings
 # ——————————————————————————————
@@ -40,15 +36,11 @@ add-zsh-hook chpwd list-directory-on-chpwd
 eval $(dircolors ~/.dircolors 2> /dev/null)
 
 
-timings[terminal]=$(date +%s.%N)
-
 # 2  Modules
 # ——————————
 
 zmodload -i zsh/complist
 
-
-timings[modules]=$(date +%s.%N)
 
 # 3  Command-line Completion
 # ——————————————————————————
@@ -68,8 +60,6 @@ zstyle ':completion::complete:*' use-cache yes
 zstyle ':completion:*:processes' command 'ps -U $EUID 2>/dev/null'
 zstyle ':completion:*:manuals' separate-sections true
 
-
-timings[completion]=$(date +%s.%N)
 
 # 4  ZLE Keybindings
 # ——————————————————
@@ -148,8 +138,6 @@ bindkey \
   ${(s: :):-${^${(s::):-'|<>&'}}' zle/self-insert-redir'}
 
 
-timings[keys]=$(date +%s.%N)
-
 # 5  Functions And Aliases
 
 # Takes about 4–5 ms..  TODO: Cache prompt results.
@@ -198,15 +186,11 @@ alias \
 i () { command ls -A -l --si --color=always -b $* | ${LISTER:-less} }
 
 
-timings[functions]=$(date +%s.%N)
-
 # 11  Operating System Specific Settings
 # ——————————————————————————————————————
 
 [[ -f $ZDOTDIR/rc/os/$(uname -o 2> /dev/null) ]] && source $ZDOTDIR/rc/os/$(uname -o)
 
-
-timings[os]=$(date +%s.%N)
 
 # 11  Host Specific Settings
 # ——————————————————————————
@@ -214,20 +198,4 @@ timings[os]=$(date +%s.%N)
 [[ -f $ZDOTDIR/rc/hosts/$HOST ]] && source $ZDOTDIR/rc/hosts/$HOST
 
 
-timings[host]=$(date +%s.%N)
-
-
-timings[end]=$(date +%s.%N)
-
-# About 0.28 seconds at the moment.
-for key in ${(k)timings:#(start|end)}; do
-  float smallest="$timings[end]" timing="$timings[$key]"
-  for other in ${(k)timings:#(end|$key)}; do
-    float delta
-    (( delta = $timings[$key] - $timings[$other] ))
-    (( smallest = delta > 0.00000000001 && delta < smallest ? delta : smallest ))
-  done
-  printf "%s: %.3f\n" $key smallest
-done | sort -k 2rn
-printf "total: %.3f\n" $(($timings[end] - $timings[start]))
-unset timings key other
+unset key other
