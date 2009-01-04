@@ -7,4 +7,4 @@ TMP=`mktemp -t emv.XXXXXXXXXX` || exit 1
 trap 'rm -f $TMP; exit' 0 1 2 3 15
 >| $TMP; for file in "$@"; do echo "/$file/ /$file/" >> $TMP; done
 ${EDITOR:-"vi"} $TMP
-sed -n 's/["\$]/\\&/g;s|^/\(.\+\)/ /\(.\+\)/$|mv -- "\2" "\1"|p' < $TMP | sh
+sed -n 's/["\$]/\\&/g;s|^/\(..*\)/ /\(..*\)/$|mv -- "\2" "\1"|p' < $TMP | sh
