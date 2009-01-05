@@ -37,11 +37,16 @@ endef
 DIFF = diff
 INSTALL = install
 
+on_cygwin := $(if $(subst Cygwin,,$(shell uname)),,1)
+on_darwin := $(if $(subst Darwin,,$(shell uname)),,1)
+
 prefix = ~
 userconfdir = $(prefix)
-firefoxuserconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
-
-on_cygwin := $(if $(subst Cygwin,,$(shell uname -o)),,1)
+ifdef on_darwin
+  firefoxuserconfdir = $(call shell_quote,$(wildcard ~/Library/Application\ Support/Firefox/Profiles/*.default))
+else
+  firefoxuserconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
+endif
 
 -include config.mk
 
@@ -207,7 +212,7 @@ $(GM_CONFIG): Makefile $(GM_SCRIPTS)
 	    echo '  </Script>'; \
 	  done; \
 	  echo '</UserScriptConfig>'; \
-	} > $@
+	} > $(call shell_quote,$@)
 
 install: $(GM_CONFIG)
 
@@ -217,6 +222,13 @@ DOTFILES = \
 	   firefox/user.js
 
 $(call GROUP_template,$(DOTFILES),$(firefoxuserconfdir),,firefox/)
+
+FIREFOXPERMISSIONS = $(firefoxuserconfdir)/permissions.sqlite
+
+$(FIREFOXPERMISSIONS): firefox/permissions.sql
+	sqlite3 $(call shell_quote,$@) < $<
+
+install: $(FIREFOXPERMISSIONS)
 
 BINFILES = \
 	   xsession

@@ -1,0 +1,18 @@
+BEGIN TRANSACTION;
+DROP TABLE IF EXISTS moz_hosts;
+CREATE TABLE moz_hosts (id INTEGER PRIMARY KEY, host TEXT, type TEXT, permission INTEGER);
+INSERT INTO moz_hosts (host, type, permission) VALUES('addons.mozilla.org', 'install', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('update.mozilla.org', 'install', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('tools.google.com', 'install', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('amesto.se', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('delicious.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('discogs.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('evernote.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('facebook.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('google.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('tvrage.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('vimeo.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('wikipedia.org', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('youtube.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('yoyoguy.com', 'cookie', 1);
+COMMIT;
