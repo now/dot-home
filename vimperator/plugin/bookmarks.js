@@ -1,6 +1,5 @@
 (function () {
 
-const oldGetSearchURL = liberator.bookmarks.getSearchURL;
 const keywords = {
   mark: 'http://del.icio.us/post?v=4;url=%h;title=%t',
   del: 'http://del.icio.us/search?all=%s',
@@ -27,98 +26,109 @@ const keywords = {
   '/c': 'http://google.com/codesearch?q=%s',
   note: 'javascript:(function(){EN_CLIP_HOST="http://www.evernote.com";try{var%20x=document.createElement("SCRIPT");x.type="text/javascript";x.src=EN_CLIP_HOST+"/public/bookmarkClipper.js?"+(new%20Date().getTime()/100000);document.getElementsByTagName("head")[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+"/clip.action?url="+encodeURIComponent(location.href)+"&title="+encodeURIComponent(document.title);}})();'
 };
+const oldGetSearchURL = liberator.bookmarks.getSearchURL;
 
 liberator.bookmarks.getSearchURL = function(text, useDefsearch) {
-  text = (text == null ? "" : text);
-  var url = keywords[text.replace(/^\s*(\S+).*/, '$1')];
-  if (url) {
-    text = text.replace(/^\s*\S+\s*/, "");
-    var words = text.split(/\s+/)
-    var expanded = [];
-    var add_javascript = false;
+  var safeText = (text == null ? "" : text);
+  var url = keywords[safeText.replace(/^\s*(\S+).*/, '$1')];
+  if (!url)
+    return oldGetSearchURL(text, useDefsearch);
 
-    for (var i = 0; i < url.length; i++) {
-      switch (url[i]) {
+  safeText = safeText.replace(/^\s*\S+\s*/, "");
+  var words = safeText.split(/\s+/)
+  var expanded = [];
+  var add_javascript = false;
+
+  for (var i = 0; i < url.length; i++) {
+    switch (url[i]) {
+    case '%':
+      var position = [];
+      if (url[i + 1].match(/^\d$/)) {
+        while (url[i + 1].match(/^\d$/))
+          position.push(url[++i]);
+        position = parseInt(position.join("")) - 1;
+      } else {
+        position = "";
+      }
+
+      var modifier = "";
+      if (url[i + 1].match(/^[ULCW]$/))
+        modifier = url[++i];
+
+      var quote = false;
+      switch (url[++i]) {
+      case 's':
+        var component = ""
+        if (position === "")
+          component = safeText;
+        else
+          component = (position < words.length ? words[position] : "");
+
+        switch (modifier) {
+        case 'U':
+          component = component.toUpperCase();
+          break;
+        case 'L':
+          component = component.toLowerCase();
+          break;
+        case 'C':
+          component = component.split(/\s+/).map(function(s){ if (s.length == 0) return ""; return s[0].toUpperCase() + s.slice(1).toLowerCase(); }).join(' ');
+          break;
+        case 'W':
+          component = component.split(/\s+/).map(function(s){ if (s.length == 0) return ""; return s[0].toUpperCase() + s.slice(1).toLowerCase(); }).join('_');
+          break;
+        }
+
+        expanded.push(encodeURIComponent(component));
+        break;
+      case 'h':
+        add_javascript = true;
+        quote = true;
+        if (modifier == 'L')
+          expanded.push("'+encodeURIComponent(location.href.replace(/^(?:http:\\/\\/)?([^\\/]+).*/, '$1'))");
+        else
+          expanded.push("'+encodeURIComponent(location.href)");
+        break;
+      case 't':
+        add_javascript = true;
+        quote = true;
+        expanded.push("'+encodeURIComponent(document.title)");
+        break;
       case '%':
-        var position = [];
-        if (url[i + 1].match(/^\d$/)) {
-          while (url[i + 1].match(/^\d$/))
-            position.push(url[++i]);
-          position = parseInt(position.join("")) - 1;
-        } else {
-          position = "";
-        }
-
-        var modifier = "";
-        if (url[i + 1].match(/^[ULCW]$/))
-          modifier = url[++i];
-
-        var quote = false;
-        switch (url[++i]) {
-        case 's':
-          var component = ""
-          if (position === "")
-            component = text;
-          else
-            component = (position < words.length ? words[position] : "");
-
-          switch (modifier) {
-          case 'U':
-            component = component.toUpperCase();
-            break;
-          case 'L':
-            component = component.toLowerCase();
-            break;
-          case 'C':
-            component = component.split(/\s+/).map(function(s){ if (s.length == 0) return ""; return s[0].toUpperCase() + s.slice(1).toLowerCase(); }).join(' ');
-            break;
-          case 'W':
-            component = component.split(/\s+/).map(function(s){ if (s.length == 0) return ""; return s[0].toUpperCase() + s.slice(1).toLowerCase(); }).join('_');
-            break;
-          }
-
-          expanded.push(encodeURIComponent(component));
-          break;
-        case 'h':
-          add_javascript = true;
-          quote = true;
-          if (modifier == 'L')
-            expanded.push("'+encodeURIComponent(location.href.replace(/^(?:http:\\/\\/)?([^\\/]+).*/, '$1'))");
-          else
-            expanded.push("'+encodeURIComponent(location.href)");
-          break;
-        case 't':
-          add_javascript = true;
-          quote = true;
-          expanded.push("'+encodeURIComponent(document.title)");
-          break;
-        case '%':
-          expanded.push('%');
-          break;
-        default:
-          expanded.push('%');
-          expanded.push(position + 1);
-          expanded.push(modifier);
-          expanded.push(url[i]);
-          break;
-        }
-        if (quote && i < url.length - 1)
-          expanded.push("+'");
+        expanded.push('%');
         break;
       default:
+        expanded.push('%');
+        expanded.push(position + 1);
+        expanded.push(modifier);
         expanded.push(url[i]);
         break;
       }
+      if (quote && i < url.length - 1)
+        expanded.push("+'");
+      break;
+    default:
+      expanded.push(url[i]);
+      break;
     }
-
-    if (add_javascript)
-      expanded.unshift("javascript:location.href='");
-
-    expanded = expanded.join("");
-    return expanded;
   }
 
-  return oldGetSearchURL(text, keyword);
+  if (add_javascript)
+    expanded.unshift("javascript:location.href='");
+
+  expanded = expanded.join("");
+  return expanded;
 }
 
+function addKeyword(args) {
+  var url = "";
+  for (var i = 2; i < args.length; i++)
+    url += args[i];
+  keywords[args[0]] = url;
+}
+
+commands.add(["bookmarkletadd"],
+             "Add a bookmarklet",
+             addKeyword,
+             { literal: 1, });
 })();
