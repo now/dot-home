@@ -150,8 +150,10 @@ DOTFILES = \
 	   zsh/functions/zle/vim-increase-number \
 	   zsh/functions/zle/yank-x11-clipboard \
 	   zsh/login/os/Cygwin \
+	   zsh/profile/os/darwin \
 	   zsh/rc/hosts/puritan \
 	   zsh/rc/os/Cygwin \
+	   zsh/rc/os/darwin \
 	   zshenv
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)

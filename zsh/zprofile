@@ -2,7 +2,7 @@
 #
 # Copyright © 2002,2003,2004,2005,2006,2007 Nikolai Weibull <now@bitwi.se>
 
-path=(. ~/bin $path)
+path[1,0]=(. ~/bin)
 
 LANG=en_US.UTF-8
 LC_COLLATE=C
@@ -14,7 +14,14 @@ EDITOR=vim
 MANWIDTH=79
 SYSSCREENRC=/dev/null
 
+declare -U path manpath
+
 export                                                                \
+  MANPATH                                                             \
   LANG LC_COLLATE                                                     \
   PAGER MANPAGER EDITOR                                               \
   MANWIDTH SYSSCREENRC
+
+for f in $ZDOTDIR/profile/{os/${OSTYPE%%[[:digit:].]##},hosts/$HOST}; do
+  [[ -f $f ]] && source $f
+done
