@@ -93,7 +93,7 @@ hi  Underlined    ctermfg=None                                            guifg=
 " TODO: decide
 hi! link          Number Normal
 hi  Error                                                                                   guibg=#f02626
-hi  Todo                                                                  guifg=Black       guibg=#f0a500
+hi  Todo          ctermfg=None        ctermbg=172                         guifg=Black       guibg=#f0a500
 hi  Normal                                                                guifg=#181818     guibg=#f6f6f6
 hi! link          NOWModernFileMod    User3
 hi! link          NOWModernFileRO     User4
