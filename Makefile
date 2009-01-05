@@ -165,6 +165,9 @@ DOTFILES = \
 	   share/emacs/digraph.el \
 	   share/emacs/hide-mode-line.el \
 	   share/emacs/ned/ned-info-on-file.el \
+	   share/emacs/rc/os/ns.el \
+	   share/emacs/rc/os/w32.el \
+	   share/emacs/rc/progmodes/ruby.el \
 	   share/emacs/rect-mark.el \
 	   share/emacs/redo.el \
 	   share/emacs/ruby-mode.el \

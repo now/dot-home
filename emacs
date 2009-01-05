@@ -2,14 +2,22 @@
 
 (require 'cl)
 
-(let ((my-share-emacs-path (concat (expand-file-name "~") "/share/emacs")))
-  (push my-share-emacs-path load-path)
-  (labels ((add (path)
-                (push (concat my-share-emacs-path "/" path) load-path)))
-    (add "ned")))
+(labels ((build-path (&rest components)
+                     (let ((directories (mapcar #'file-name-as-directory (butlast components)))
+                           (file (car (last components))))
+                       (concat (apply #'concat directories) file))))
+  (let ((my-share-emacs-path (build-path (expand-file-name "~") "share" "emacs")))
+    (add-to-list 'load-path my-share-emacs-path)
+    (labels ((add (path) (add-to-list 'load-path (build-path my-share-emacs-path path)))
+             (rc (missing-ok &rest components) (load (apply #'build-path my-share-emacs-path "rc" components) missing-ok))
+             (rc-progmode (mode) (rc nil "progmodes" mode)))
+      (add "ned")
+      (add "icicles")
+      (rc t "os" (symbol-name window-system))
+      ;; TODO: Rename ruby-mode.
+      (rc-progmode "ruby"))))
 
-(require 'ruby-mode)
-(require 'flymake)
+(require 'whitespace)
 
 ;; Turn off unnecessary UI clutter.
 ;; Add 'menu-bar-mode sooner or later.
@@ -18,15 +26,17 @@
     (funcall ui -1)))
 
 (setq inhibit-startup-message t)
-(setq inhibit-startup-echo-area-message "nweibull")
 (setq inhibit-startup-echo-area-message "now")
+(setq inhibit-startup-echo-area-message "nweibull")
 (setq initial-scratch-message nil)
 
 (fset 'yes-or-no-p 'y-or-n-p)
+;(setq ring-bell-function 'ignore)
+
+;(windmove-default-keybindings)
 
 ;; Set up rest of UI.
 (global-font-lock-mode 1)
-(set-frame-font "DejaVu Sans Mono-9")
 
 (blink-cursor-mode -1)
 
@@ -36,41 +46,10 @@
 (show-paren-mode 1)
 (setq show-paren-delay 0)
 
+(setq-default show-trailing-whitespace t)
+
 ;; Indentation.
 (setq-default indent-tabs-mode nil)
-;(setq-default tab-width 8)
-
-;; Invoke ruby with '-c' to get syntax checking
-(defun flymake-ruby-init ()
-  (let* ((temp-file   (flymake-init-create-temp-buffer-copy
-                       'flymake-create-temp-inplace))
-         (local-file  (file-relative-name
-                       temp-file
-                       (file-name-directory buffer-file-name))))
-    (list "ruby" (list "-c" local-file))))
-
-(push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
-(push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
-
-(push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3) flymake-err-line-patterns)
-
-(add-hook 'ruby-mode-hook
-          '(lambda ()
-
-             ;; Don't want flymake mode for ruby regions in rhtml files and also on read only files
-             (if (and (not (null buffer-file-name)) (file-writable-p buffer-file-name))
-                 (flymake-mode))
-             ))
-
-(if (eq window-system 'w32)
-  (progn
-;    (add-untranslated-filesystem (concat (user-login-name) "@" (system-name) ":"))
-    (setq default-buffer-file-coding-system
-          (coding-system-change-eol-conversion
-            default-buffer-file-coding-system
-            'unix))
-    (setq initial-frame-alist
-          `((width . 98) (height . 70)))))
 
 ;;;(require 'rnc-mode)
 
@@ -80,23 +59,24 @@
 
 (setq viper-mode t
       viper-mode-ex-style-editing nil
-      viper-ESC-moves-cursor-back nil
-      viper-want-ctl-h-help t)
-(setq viper-inhibit-startup-message 't)
-(setq viper-expert-level '5)
+      viper-want-ctl-h-help t
+      viper-inhibit-startup-message 't
+      viper-expert-level '5)
 (require 'viper)
 
-(setq woman-use-own-frame nil)
-(setq woman-use-topic-at-point t)
+(setq woman-use-own-frame nil
+      woman-bold-headings nil)
+; TODO: This is a bit overzealous, as we only want this under certain
+; conditions.  Check the evernote about a way to set this dynamically for one
+; keybinding.
+;(setq woman-use-topic-at-point t)
 
 (require 'rect-mark)
 
 (require 'vimpulse)
 
-(setq eol-mnemonic-unix ""
-      eol-mnemonic-mac "mac"
-      eol-mnemonic-dos "dos"
-      eol-mnemonic-undecided "?")
+; TODO: Undo/Redo for window configurations
+; (winner-mode t)
 
 (defun join-strings (strings &optional delim)
   (with-output-to-string
@@ -104,43 +84,92 @@
           do (princ string)
           when more? (princ delim))))
 
-(labels ((define-key-if (pair)
-                        (let ((definition (lookup-key viper-vi-basic-map (cadr pair))))
-                          (if definition (define-key viper-vi-global-user-map (car pair) definition))))
-         (swap (pair)
-               (define-key-if pair)
-               (define-key-if (reverse pair)))
-         (swap-case (pair)
-                    (swap pair)
-                    (swap (mapcar #'upcase pair))))
-  (loop for pair on '("t" "j" "n" "k" "s" "l") by #'cddr
-        do (swap-case (list (car pair) (cadr pair)))))
+(define-key viper-vi-global-user-map "s" 'viper-forward-char)
+(define-key viper-vi-global-user-map "l" 'viper-substitute)
+(define-key viper-vi-global-user-map "S" 'viper-window-bottom)
+(define-key viper-vi-global-user-map "L" 'viper-substitute-line)
 (define-key viper-vi-global-user-map "K" 'woman)
 (define-key viper-vi-global-user-map " " 'viper-scroll-screen)
 (define-key viper-vi-global-user-map [backspace] 'viper-scroll-screen-back)
 (define-key viper-vi-global-user-map "\C-n" 'bs-cycle-next)
 (define-key viper-vi-global-user-map "\C-p" 'bs-cycle-previous)
 
-; TODO:
-; 1.  Fix mode-line
+(define-key viper-insert-global-user-map "\C-m" 'newline-and-indent)
+(define-key viper-insert-global-user-map "\C-o" 'viper-toggle-key-action)
+(define-key viper-insert-global-user-map "\C-z" 'viper-intercept-ESC-key)
+(define-key viper-vi-global-user-map ",e" 'find-file)
+(defun find-vc-project-file ()
+  (interactive)
+  ;; TODO: Use actual vc-interface for this.  There should be a function to get
+  ;; the root of a file under vc.
+  (if vc-mode
+    (let ((default-directory (vc-git-root (buffer-file-name))))
+      (call-interactively 'find-file))
+  (call-interactively 'find-file)))
+(define-key viper-vi-global-user-map ",E" 'find-vc-project-file)
 
+; TODO: Figure out undo (to be like it is in Vim).  Look at undo-browse.el and
+; is there a way to make sure that <backspace><backspace> is combined into one
+; undo?
+
+;; Might need to move these to c hook.
+(setq-default fill-column 79)
+(auto-fill-mode 1)
+
+; TODO: Bind TAB to simply indent?
+; TODO: It seems like Viper is getting in the way of CC mode for hungry
+; submode.
+; (global-set-key "\\C-m" 'newline-and-indent)
+(defun my-make-CR-do-indent ()
+  (define-key c-mode-base-map "\C-m" 'c-context-line-break))
+(add-hook 'c-initialization-hook 'my-make-CR-do-indent)
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (c-toggle-hungry-state 1)
+            (c-toggle-auto-newline 1)))
+
+; TODO: Add (add-to-list 'c-cleanup-list 'defun-close-semi)?
+; We don’t need it right now.
+
+(defconst now-c-style
+  '("linux"
+    (c-hanging-braces-alist . ((brace-list-intro . ())
+                               (brace-list-close . ())
+                               (brace-entry-open . ())
+                               (class-close . ())))
+    (c-hanging-colons-alist . ((case-label . (after))
+                               (label . (after)))))
+  "now’s C Programming Style")
+(c-add-style "now-c-style" now-c-style)
+(setq c-default-style '((java-mode . "java")
+                        (awk-mode . "awk")
+                        (other . "now-c-style")))
+;; TODO: This doesn’t work.
 (define-key viper-vi-global-user-map ",f" (text-properties-at (point)))
+
+;; Look at what-cursor-position for suggested implementation for ga (g8 might
+;; be harder)
+
+;; TODO: This is probably uninteresting as we should implement Vim’s Ctrl-V
+;; instead.
+(setq read-quoted-char-radix 16)
 
 (require 'hide-mode-line)
 (hide-mode-line)
 
-(setq compilation-auto-jump-to-first-error t)
-(setq compilation-scroll-output t)
+(setq compilation-auto-jump-to-first-error t
+      compilation-scroll-output t)
 
 (add-hook
   'after-save-hook
   (lambda ()
-    (when (string= (buffer-file-name) "c:/home/nweibull/projects/dot-home/emacs")
-      (compile "make -k install"))))
+    (when (string-match-p "/dot-home/emacs$" (buffer-file-name))
+      (compile "make -k install")
+      (load-file "~/.emacs"))))
 
 (setq compilation-finish-functions 'compilation-finish-autoclose)
 (defun compilation-finish-autoclose (buffer string)
-  (when (not compilation-current-error)
+  (when (and (not compilation-current-error) (not (string-match-p "exited abnormally" string)))
     (bury-buffer)
     ;; TODO: We should really be able to tell how many windows there are opened
     ;; before we begin compiling.  If there are two, this should be
@@ -154,15 +183,19 @@
 (grep-compute-defaults)
 (setq grep-command "grep -nH -P -e ")
 
+(setq history-length 512
+      make-backup-files nil)
+
+(auto-save-mode -1)
+
 (desktop-save-mode 1)
-(setq history-length 512)
 (dolist (variable '(command-history
                     read-expression-history
                     viper-quote-region-history
                     viper-search-history))
   (add-to-list 'desktop-globals-to-save variable))
 
-(lexical-let ((global-desktop-dirname (expand-file-name "~/var/cache/emacs")))
+(lexical-let ((global-desktop-dirname (expand-file-name "~/.cache/emacs")))
   (setq desktop-path (list "." global-desktop-dirname))
   (defun desktop-save-globally ()
     (interactive)
@@ -185,71 +218,63 @@
 (require 'digraph)
 (define-key viper-insert-global-user-map "\C-k" 'digraph-read)
 
-(require 'cygwin-mount)
-(cygwin-mount-activate)
-
-;; (define-key viper-insert-global-user-map "\C-g" 'viper-intercept-ESC-key)
-
 (require 'ned-info-on-file)
 
 ;(require 'anything)
-(require 'anything-config)
-(add-to-list 'anything-sources 'anything-c-source-files-in-current-dir)
+;(require 'anything-config)
+;(add-to-list 'anything-sources 'anything-c-source-files-in-current-dir)
 (require 'ido)
 (ido-mode t)
-;(ido-everywhere t)
-;(setq ido-enable-flex-matching t)
-;(setq ido-use-filename-at-point t)
+(ido-everywhere t)
+(setq ido-enable-flex-matching t
+      ido-use-filename-at-point t)
+; TODO: What does this do?
 ;(setq ido-auto-merge-work-directories-length -1)
 (add-hook 'ido-setup-hook
           (lambda ()
             (define-key ido-completion-map "\C-p" 'ido-prev-match)
             (define-key ido-completion-map "\C-n" 'ido-next-match)
             (define-key ido-completion-map [remap backward-delete-char-untabify] 'ido-delete-backward-updir)))
+; TODO: (icomplete-mode 1)
 
+(setq tramp-default-method "ssh")
+
+(setq eol-mnemonic-unix ""
+      eol-mnemonic-mac "mac"
+      eol-mnemonic-dos "dos"
+      eol-mnemonic-undecided "?")
+
+(setq-default mode-line-remote '(:eval (if (file-remote-p default-directory) "@" ""))
+              mode-line-buffer-identification (propertized-buffer-identification "%b")
+              mode-line-frame-identification '(:eval (if (or (null window-system) (eq window-system 'pc)) "[%F] " ""))
+              mode-line-modes (butlast mode-line-modes)
+              ; TODO: 'mode-line-remote might be overkill.  Is it really
+              ; pertinent information?
+              mode-line-format (list
+                                 ""
+                                 'mode-line-client
+                                 'mode-line-remote
+                                 'mode-line-frame-identification
+                                 'mode-line-buffer-identification
+                                 '(:propertize " " 'help-echo help-echo)
+                                 'mode-line-modes
+                                 '(vc-mode vc-mode)))
+
+; (setq isearch-resume-in-command-history t)
+; (setq search-ring-max 100 regexp-search-ring-max 100)
+(define-key global-map "\C-s" 'isearch-forward-regexp)
+(define-key esc-map "\C-s" 'isearch-forward)
+(define-key global-map "\C-r" 'isearch-backward-regexp)
+(define-key esc-map "\C-r" 'isearch-backward)
 
 ;; Clear echo area.
 (message "")
 
-;set nostartofline
-;set path+=./**
-;let &listchars .= (&encoding == 'utf-8' ? ',tab:»·,trail:·' : ',tab:>.,trail:.')
-;set statusline=%F%(\ [%1*%M%*%(,%2*%R%*%)]%)\ %w%=%(\ %y%)\ line:\ %l\ of\ %L
-;set textwidth=79
 ;set formatlistpat=^\\s*\\%(\\d\\+[\\]:.)}\\t\ ]\\\|[•‣][\\t\ ]\\)\\s*
 ;set completeopt=menu,menuone,preview
-;set expandtab softtabstop=8
-;set shiftround
-;set autoindent
-;set cinoptions=:0,l1,t0,c0,C1,(0,u0
-;
-;noremap <silent> k :<C-U>call feedkeys(v:count1 . 'n', 'nt')<CR>
-;noremap <silent> K :<C-U>call feedkeys(v:count1 . 'N', 'nt')<CR>
-;
-;call s:map_swap_both_cases(['<C-W>t', '<C-W>j'], ['<C-W><C-T>', '<C-W><C-J>'])
-;call s:map_swap_both_cases(['<C-W>n', '<C-W>k'], ['<C-W><C-N>', '<C-W><C-K>'])
-;call s:map_swap_both_cases(['<C-W>s', '<C-W>l'], ['<C-W><C-S>', '<C-W><C-L>'])
-;call s:map_swap_list([['zt', 'zj'], ['zn', 'zk'], ['zs', 'zl']])
-;noremap zS zL
-;noremap zK zN
-;noremap gt gj
-;noremap gn gk
-;
-;delfunction s:map_swap_both_cases
-;delfunction s:map_swap_list
-;delfunction s:map_swap
-;
-;noremap <Space> <C-F>
-;ounmap <Space>
-;noremap <Backspace> <C-B>
-;omap <Backspace> <Delete>
 ;
 ;inoremap <silent> <C-Y> <C-R>=pumvisible() ? "\<lt>C-Y>" : "\<lt>C-R>\<lt>C-O>*"<CR>
 ;inoremap <silent> <Tab> <C-R>=pumvisible() ? "\<lt>C-Y>" : "\<lt>Tab>"<CR>
-;
-;for digit in [1, 2, 3, 4, 5, 6, 8, 9]
-;  execute 'inoremap <silent> ' . digit . ' <C-R>=pumvisible() ? "' . repeat('\<lt>C-N>', digit) . '" : "' . digit . '"<CR>'
-;endfor
 ;
 ;noremap <Leader>p :cprevious<CR>
 ;noremap <Leader>n :cnext<CR>
@@ -267,63 +292,11 @@
 ;
 ;nnoremap <silent> ,k :bn <Bar> :bd #<CR>
 ;
-;cnoremap <C-A>  <Home>
-;cnoremap <C-B>  <Left>
-;cnoremap <C-D>  <Delete>
-;cnoremap <C-F>  <Right>
-;cnoremap <C-N>  <Down>
-;cnoremap <C-P>  <Up>
-;cnoremap <Esc>b <S-Left>
-;cnoremap <Esc>f <S-Right>
-;cmap     <Esc>d <C-\>e<SID>command_line_delete_word_to_right()<CR>
-;cnoremap <expr> <C-S> (getcmdtype() == '/' \|\| getcmdtype() == '?') ? '<Return>' . getcmdtype() . '<C-R>/' : ""
-;cnoremap <expr> <C-O> (getcmdtype() == '/' \|\| getcmdtype() == '?') ? '<Return>' . (getcmdtype() == '/' ? '?' : '/') . '<C-R>/' : ""
 ;cnoremap <C-Y> <C-R><C-O>*
 ;
-;function! s:command_line_delete_word_to_right()
-;  let cmd = getcmdline()
-;  let pos = getcmdpos()
-;  let before = strpart(cmd, 0, pos - 1)
-;  let after = substitute(strpart(cmd, pos), '^\s*\w\+\ze\%(\s\+\|$\)', "", "")
-;  return before . after
-;endfunction
-;
-;noremap <silent> g: <Esc>:set operatorfunc=<SID>get_command_mode_range<CR>g@
-;
-;function! s:get_command_mode_range(type)
-;  let b = line("'[")
-;  let e = line("']")
-;
-;  if b < e
-;    let range = '.,+' . (e - b)
-;  elseif b == e
-;    let range = '.'
-;  else
-;    let range = '.,+' . (b - e)
-;  endif
-;
-;  call inputsave()
-;  call feedkeys(':' . range . "\<C-R>=''[inputrestore()]\<CR>", 'n')
-;endfunction
-;
-; (defconst use-backup-dir t)    
-; (setq backup-directory-alist (quote ((".*" . "~/.backups/"))) 
-;       version-control t		       ; Use version numbers for backups 
-;       kept-new-versions 16	       ; Number of newest versions to keep 
-;       kept-old-versions 2	       ; Number of oldest versions to keep 
-;       delete-old-versions t            ; Delete excess backup versions 
-;       history-delete-duplicates t      ; Delete dups in history 
-;       history-length 100               ; Larger history size than default 30 
 ;       dired-listing-switches "-l"      ; Don't display dot files 
 ;       dired-recursive-deletes 'top     ; Recursive deletes 
 ;       dired-recursive-copies 'top      ; Recursive copies 
-;       backup-by-copying-when-linked t) ; Copy linked files, don't rename
-;  
-; (iswitchb-mode)
-;  
-; ;; Global key overrides 
-; (global-set-key [(control c) (F)] 'ffap) 
-; (global-set-key [(control c) (j)] 'join-line)
 ;  
 ; ;;__________________________________________________________________________ 
 ; ;;;;    Programming - Common Lisp

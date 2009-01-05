@@ -34,15 +34,19 @@
                                  (t
                                    nil)))
          (flymake-errline ((((min-colors 16777216) (class color))
-                            (:background "#951616"))
+                            (:foreground "#f6f6f6"
+                             :background "#951616"))
                            (((min-colors 16) (class color))
-                            (:background "dark red"))
+                            (:foreground "white"
+                             :background "dark red"))
                            (t
                              (:weight bold))))
          (flymake-warnline ((((min-colors 88) (class color))
-                             (:background "RosyBrown1"))
+                             (:foreground "#f6f6f6"
+                              :background "RosyBrown1"))
                             (((min-colors 16) (class color))
-                             (:background "dark cyan"))
+                             (:foreground "white"
+                              :background "dark cyan"))
                             (t
                               (:weight bold))))
          (font-lock-comment-face ((((min-colors 16777216) (class color))
@@ -108,13 +112,13 @@
                    (:background "grey95"))))
          (isearch ((((min-colors 16777216) (class color))
                     (:foreground "white"
-                                 :background "#af5f00"))
+                     :background "#af5f00"))
                    (((min-colors 256) (class color))
                     (:foreground "white"
-                                 :background "DarkOrange3"))
+                     :background "DarkOrange3"))
                    (((min-colors 16) (class color))
                     (:foreground "white"
-                                 :background "dark yellow"))
+                     :background "dark yellow"))
                    (t
                      (:inverse-video t))))
          ; isearch-fail
@@ -150,9 +154,39 @@
                               (:inverse-video t))))
          (show-paren-mismatch ((((class color))
                                 (:foreground "white"
-                                             :background "red"))
+                                 :background "red"))
                                (t
                                  (:inverse-video t))))
+         (woman-italic ((((type x w32 mac))
+                              (:slant italic))
+                             (((class color))
+                              (:foreground "red"))
+                             (t
+                              (:inverse-video t))))
+         (woman-bold ((((type x w32 mac))
+                            (:weight bold))
+                           (((class color))
+                            (:foreground "blue"))
+                           (t
+                            (:inverse-video t))))
+         (ido-first-match ((((min-colors 16777216) (class color))
+                            (:foreground "white"
+                             :background "#af5f00"))
+                           (((min-colors 256) (class color))
+                            (:foreground "white"
+                             :background "DarkOrange3"))
+                           (((min-colors 16) (class color))
+                            (:foreground "white"
+                             :background "dark yellow"))
+                           (t
+                             (:inverse-video t))))
+         (ido-subdir ((((min-colors 16777216) (class color))
+                       (:foreground "#2080c0"))
+                      (((min-colors 16) (class color))
+                       (:foreground "blue"))))
+         (viper-minibuffer-emacs ((t)))
+         (viper-minibuffer-insert ((t)))
+         (viper-minibuffer-vi ((t)))
          )))
 
 ;hi  User1         ctermfg=DarkGreen   ctermbg=249                         guifg=#257325     guibg=#b2b2b2
