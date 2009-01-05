@@ -261,9 +261,11 @@ ifdef on_cygwin
 
   $(call GROUP_template,$(DOTFILES),$(firefoxprofilesdir),,firefox/)
 else
-  LDLIBS = -lX11
-  BINFILES = \
-	     bin/xdigraph
+  ifndef on_darwin
+    LDLIBS = -lX11
+    BINFILES = \
+	       bin/xdigraph
 
-  $(call GROUP_template,$(BINFILES),~,,,755)
+    $(call GROUP_template,$(BINFILES),~,,,755)
+  endif
 endif
