@@ -1,10 +1,13 @@
 #! /bin/zsh
 
-if vim --serverlist 2> /dev/null | grep -q '^VIM$'; then
-  if (( $# > 0 )); then
-    vim --servername vim --remote $*
-  fi
-  screen -X select 6
+local emacsclient="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
+local emacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
+
+# In the future we should check how many frames there are, if there are any
+# connected to a TTY or if it’s a window.  We can then daemonize and create a
+# frame when necessary.
+if $emacsclient -e '(frame-list)' > /dev/null 2>&1; then
+  exec $emacsclient -n $*
 else
-  screen -t 'edit' 6 vim --servername vim $*
+  exec $emacs -f server-start $* &!
 fi
