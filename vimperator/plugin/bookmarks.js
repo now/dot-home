@@ -24,7 +24,8 @@ const keywords = {
   q: 'http://answers.com/%s',
   related: 'http://google.com/search?related:%Lh',
   '/s': 'http://google.com/search?q=%s+site:%Lh',
-  '/c': 'http://google.com/codesearch?q=%s'
+  '/c': 'http://google.com/codesearch?q=%s',
+  note: 'javascript:(function(){EN_CLIP_HOST="http://www.evernote.com";try{var%20x=document.createElement("SCRIPT");x.type="text/javascript";x.src=EN_CLIP_HOST+"/public/bookmarkClipper.js?"+(new%20Date().getTime()/100000);document.getElementsByTagName("head")[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+"/clip.action?url="+encodeURIComponent(location.href)+"&title="+encodeURIComponent(document.title);}})();'
 };
 
 liberator.bookmarks.getSearchURL = function(text, useDefsearch) {
