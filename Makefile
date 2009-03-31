@@ -249,6 +249,7 @@ BINFILES = \
 	   bin/dfs \
 	   bin/e \
 	   bin/emv \
+	   bin/index-disc \
 	   bin/mem-map \
 	   bin/terminal-colors \
 	   bin/pack \

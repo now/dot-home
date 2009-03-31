@@ -1,0 +1,58 @@
+#! /bin/zsh
+
+discs=~/Discs
+ 
+die () {
+ print -r -- $* >&2
+ exit 1
+}
+
+with-discs-dir () {
+  with-lock $discs/.discs.lock $*
+}
+
+with-lock () {
+  setopt localoptions localtraps
+  local lock=$1
+  shift
+
+  until (setopt noclobber && print -r -- $$ > $lock) >& /dev/null; do
+    if kill -0 "$(<$lock)" >& /dev/null; then
+      sleep 1
+    else
+      rm -f $lock || die "Cannot remove stale lock file"
+    fi
+  done
+
+  trap 'rm -f $lock; exit 130' INT
+  trap 'rm -f $lock; exit 143' TERM
+  $*
+  local retval=$status
+  rm -f $lock || die "Cannot remove lock file"
+  return $retval
+}
+
+write-sha256sums () {
+  setopt localoptions noclobber
+  local -a last
+  local new file
+
+  last=($discs/[0-9][0-9][0-9].sha256sum(N.[-1]:t:r))
+  new=$(printf '%0.3d' $((${last:-0} + 1)))
+  file=$discs/$new.sha256sum
+
+  local saved_umask="$(umask)"
+  umask $((saved_umask | 0200))
+  print -r -- $1 > $file &&
+    print -r -- "Label $mount as $new"
+  umask $saved_umask
+}
+
+mkdir $discs >& /dev/null
+[[ -d $discs ]] || die "Cannot create disc directory: $discs"
+
+for mount in ${*:-.}; do
+  sha256sums=$(cd $mount && sha256sum **/*(.)) &&
+    with-discs-dir write-sha256sums $sha256sums &&
+    diskutil eject $mount > /dev/null
+done
