@@ -25,7 +25,9 @@
   (if (fboundp ui)
     (funcall ui -1)))
 
-(setq inhibit-startup-message t)
+;; TODO: This seems unimportant to set.
+;(setq inhibit-startup-message t)
+;; TODO: Is it really worth the trouble?
 (setq inhibit-startup-echo-area-message "now")
 (setq inhibit-startup-echo-area-message "nweibull")
 (setq initial-scratch-message nil)
@@ -34,9 +36,6 @@
 ;(setq ring-bell-function 'ignore)
 
 ;(windmove-default-keybindings)
-
-;; Set up rest of UI.
-(global-font-lock-mode 1)
 
 (blink-cursor-mode -1)
 
@@ -77,12 +76,6 @@
 
 ; TODO: Undo/Redo for window configurations
 ; (winner-mode t)
-
-(defun join-strings (strings &optional delim)
-  (with-output-to-string
-    (loop for (string . more?) on strings
-          do (princ string)
-          when more? (princ delim))))
 
 (define-key viper-vi-global-user-map "s" 'viper-forward-char)
 (define-key viper-vi-global-user-map "l" 'viper-substitute)
@@ -147,8 +140,12 @@
 ;; TODO: This doesn’t work.
 (define-key viper-vi-global-user-map ",f" (text-properties-at (point)))
 
+;; enable-recursive-minibuffers
+
 ;; Look at what-cursor-position for suggested implementation for ga (g8 might
 ;; be harder)
+;; TODO: Best way to do this is to call what-cursor-position with positive
+;; argument (C-u C-x =).
 
 ;; TODO: This is probably uninteresting as we should implement Vim’s Ctrl-V
 ;; instead.
@@ -186,7 +183,8 @@
 (setq history-length 512
       make-backup-files nil)
 
-(auto-save-mode -1)
+;; TODO: Set faces for diff mode.
+;; TODO: write-region-inhibit-fsync t?
 
 (desktop-save-mode 1)
 (dolist (variable '(command-history
@@ -205,8 +203,6 @@
     (setq desktop-dirname (expand-file-name "."))))
 (desktop-save-globally)
 
-(setq keyboard-coding-system 'utf-8)
-
 (setq digraph-table-user
   '((?\( ?/ ?\x2209)
     (?. ?3 ?\x2026)
@@ -224,10 +220,11 @@
 ;(require 'anything-config)
 ;(add-to-list 'anything-sources 'anything-c-source-files-in-current-dir)
 (require 'ido)
-(ido-mode t)
-(ido-everywhere t)
+(ido-mode 1)
+(ido-everywhere 1)
 (setq ido-enable-flex-matching t
       ido-use-filename-at-point t)
+;; ido-enter-matching-directory t?
 ; TODO: What does this do?
 ;(setq ido-auto-merge-work-directories-length -1)
 (add-hook 'ido-setup-hook
@@ -235,9 +232,16 @@
             (define-key ido-completion-map "\C-p" 'ido-prev-match)
             (define-key ido-completion-map "\C-n" 'ido-next-match)
             (define-key ido-completion-map [remap backward-delete-char-untabify] 'ido-delete-backward-updir)))
-; TODO: (icomplete-mode 1)
-
-(setq tramp-default-method "ssh")
+(icomplete-mode 1)
+(setq completion-show-help nil)
+;; TODO: Don’t know about this one.
+(defun my-completion-delete-prompt ()
+  (set-buffer standard-output)
+  (goto-char (point-min))
+  (delete-region (point) (search-forward "Possible completions are:\n")))
+(add-hook 'completion-setup-hook 'my-completion-delete-prompt 'append)
+;; TODO: Look into partial-completion-mode.
+(partial-completion-mode 1)
 
 (setq eol-mnemonic-unix ""
       eol-mnemonic-mac "mac"
@@ -268,27 +272,18 @@
 (define-key esc-map "\C-r" 'isearch-backward)
 
 ;; Clear echo area.
+;; TODO: This doesn’t clear messages from desktop, so it’s more or less
+;; useless.
 (message "")
 
-;set formatlistpat=^\\s*\\%(\\d\\+[\\]:.)}\\t\ ]\\\|[•‣][\\t\ ]\\)\\s*
 ;set completeopt=menu,menuone,preview
-;
-;inoremap <silent> <C-Y> <C-R>=pumvisible() ? "\<lt>C-Y>" : "\<lt>C-R>\<lt>C-O>*"<CR>
-;inoremap <silent> <Tab> <C-R>=pumvisible() ? "\<lt>C-Y>" : "\<lt>Tab>"<CR>
 ;
 ;noremap <Leader>p :cprevious<CR>
 ;noremap <Leader>n :cnext<CR>
 ;noremap <Leader>P :cpfile<CR>
 ;noremap <Leader>N :cnfile<CR>
 ;
-;noremap <silent> <Leader>h <Esc>:set invhlsearch<CR>
-;
 ;noremap <silent> <Leader>s <Esc>:setlocal invspell spelllang=en_us<CR>
-;
-;nnoremap <Leader>c :cd %:p:h<CR>:pwd<CR>
-;nnoremap <Leader>C :lcd %:p:h<CR>:pwd<CR>
-;nnoremap <Leader>e :e <C-R>=expand('%:p:h')<CR>/<C-Z>
-;nnoremap <Leader>E :e <C-Z>
 ;
 ;nnoremap <silent> ,k :bn <Bar> :bd #<CR>
 ;
