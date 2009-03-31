@@ -1,0 +1,19 @@
+#compdef j
+
+local -A weights
+source ~/.j 2> /dev/null
+
+local -A matches
+local pattern="*${(j:*:)words[2,-1]}*" key
+for key in ${${(kM)weights:#(#l)$~pattern}:-${(kM)weights:#(#i)$~pattern}}; do
+  matches[$key]=$weights[$key]
+done
+
+local -a combined
+for key in ${(k)matches}; do
+  combined+=$(printf '%3.0f  %s' $matches[$key] $key)
+done
+combined=(${(O)combined})
+
+local expl
+_wanted -V directories expl directory compadd -U -ld combined - ${(k)matches}

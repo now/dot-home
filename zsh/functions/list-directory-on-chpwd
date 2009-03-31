@@ -1,1 +1,2 @@
 zle || ls --color
+return 0

@@ -1,0 +1,34 @@
+emulate -L zsh
+setopt extendedglob
+
+if (( $# == 1 )) && [[ -d $1 ]]; then
+  cd $1
+  return $status
+fi
+
+local -A weights
+source ~/.j 2> /dev/null
+
+local -A matches
+local pattern="*${(j:*:)*}*" key
+for key in ${${(kM)weights:#(#l)$~pattern}:-${(kM)weights:#(#i)$~pattern}}; do
+  matches[$key]=$weights[$key]
+done
+
+local -a combined
+for key in ${(k)matches}; do
+  combined+=$(printf '%3.0f  %s' $matches[$key] $key)
+done
+combined=(${(O)combined})
+
+if (( $# == 0 )); then
+  print -r -l -- $combined
+  return
+fi
+
+if (( $#matches == 0 )); then
+  print -r "$0: No directories match the given pattern" >&2
+  return 1
+fi
+
+cd ${combined[1]##[[:space:]]#[[:digit:]]##[[:space:]]##}

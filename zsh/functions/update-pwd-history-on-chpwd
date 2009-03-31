@@ -1,0 +1,30 @@
+emulate -L zsh
+setopt extendedglob
+
+if [[ $PWD == $HOME ]]; then
+  return
+fi
+
+integer max_weight=1000
+
+local -A weights
+source ~/.j 2> /dev/null
+
+(( weights[$PWD] = ${weights[$PWD]:-0} + 1 ))
+
+float weight total
+for weight in $weights; do
+  (( total += weight ))
+done
+
+if (( total > max_weight )); then
+  float adjustment
+  (( adjustment = 0.9 * max_weight / total ))
+
+  local key
+  for key in ${(k)weights}; do
+    (( weights[$key] *= adjustment ))
+  done
+fi
+
+print -r "weights=(${(kv@qq)weights})" > ~/.j
