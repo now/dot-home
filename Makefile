@@ -187,7 +187,7 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(userconfdir)/.zsh,.,zsh/)
 
 DOTFILES = \
-	   vimperator/plugin/bookmarks.js
+	   vimperator/plugin/delicious.js
 
 ifdef on_cygwin
   $(call GROUP_template,$(DOTFILES),$(userconfdir))
