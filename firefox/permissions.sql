@@ -4,8 +4,10 @@ CREATE TABLE moz_hosts (id INTEGER PRIMARY KEY, host TEXT, type TEXT, permission
 INSERT INTO moz_hosts (host, type, permission) VALUES('addons.mozilla.org', 'install', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('update.mozilla.org', 'install', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('tools.google.com', 'install', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('adlibris.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('amesto.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('bikeguide.org', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('bolagret.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('childstore.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('delicious.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('discogs.com', 'cookie', 1);
@@ -15,6 +17,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('facebook.com', 'cookie', 
 INSERT INTO moz_hosts (host, type, permission) VALUES('github.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('google.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('hollywood.se', 'cookie', 8);
+INSERT INTO moz_hosts (host, type, permission) VALUES('iis.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('junkyard.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('juno.co.uk', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('juno.co.uk', 'popup', 1);
