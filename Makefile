@@ -37,7 +37,7 @@ endef
 DIFF = diff
 INSTALL = install
 
-on_cygwin := $(if $(subst Cygwin,,$(shell uname)),,1)
+on_cygwin := $(if $(subst Cygwin,,$(shell uname -o)),,1)
 on_darwin := $(if $(subst Darwin,,$(shell uname)),,1)
 
 prefix = ~
