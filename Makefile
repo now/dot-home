@@ -52,8 +52,6 @@ endif
 
 DOTFILES = \
 	   Xresources \
-	   cmus/now.theme \
-	   cmus/rc \
 	   dircolors \
 	   emacs \
 	   fonts.conf \
