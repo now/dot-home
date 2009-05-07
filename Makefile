@@ -62,7 +62,6 @@ DOTFILES = \
 	   indent.pro \
 	   inputrc \
 	   irbrc \
-	   lighttpd/lighttpd.conf \
 	   mailcap \
 	   sbclrc \
 	   screenrc \
