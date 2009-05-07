@@ -208,11 +208,12 @@ $(GM_CONFIG): Makefile $(GM_SCRIPTS)
 	    test $$f = Makefile && continue; \
 	    echo "  <Script filename=\"`basename $$f`\""; \
 	    for field in name namespace description; do \
-	      sed -n 's,^[ 	]*//[ 	]*@'$$field'[ 	]\+\(.*\),          '$$field'="\1",p' < $$f; \
+	      sed -n 's,^[ 	]*//[ 	]*@'$$field'[ 	][ 	]*\(.*\)$$,          '$$field'="\1",p' < $$f; \
 	    done; \
 	    echo '          enabled="true" basedir=".">'; \
 	    for field in include exclude; do \
-	      sed -n 's,^[ 	]*//[ 	]*@'$$field'[ 	]\+\(.*\)$$,    <\u'$$field'>\1</\u'$$field'>,p' < $$f; \
+	      upper=`awk -v field="$$field" 'END {print toupper(substr(field, 1, 1)) substr(field, 2)}' /dev/null`; \
+	      sed -n 's,^[ 	]*//[ 	]*@'$$field'[ 	][ 	]*\(.*\)$$,    <'$$upper'>\1</'$$upper'>,p' < $$f; \
 	    done; \
 	    echo '  </Script>'; \
 	  done; \
