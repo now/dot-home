@@ -1,8 +1,11 @@
 user_pref("app.update.auto", false);
 user_pref("browser.active_color", "#f02626");
 user_pref("browser.anchor_color", "#2f5a9b");
-user_pref("browser.contentHandlers.auto.application/vnd.mozilla.maybe.feed", "http://fusion.google.com/add?feedurl=%s");
-user_pref("browser.feeds.handlers.webservice", "http://fusion.google.com/add?feedurl=%s");
+user_pref("browser.contentHandlers.auto.application/vnd.mozilla.maybe.feed", "http://www.feedmyinbox.com/feeds/bookmark/?email=now%40bitwi.se&feed=%s");
+user_pref("browser.contentHandlers.types.6.title", "Feed My Inbox");
+user_pref("browser.contentHandlers.types.6.type", "application/vnd.mozilla.maybe.feed");
+user_pref("browser.contentHandlers.types.6.uri", "http://www.feedmyinbox.com/feeds/bookmark/?email=now%40bitwi.se&feed=%s");
+user_pref("browser.feeds.handlers.webservice", "http://www.feedmyinbox.com/feeds/bookmark/?email=now%40bitwi.se&feed=%s");
 user_pref("browser.feeds.showFirstRunUI", false);
 user_pref("browser.display.background_color", "#f6f6f6");
 user_pref("browser.display.foreground_color", "#181818");
