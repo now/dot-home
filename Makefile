@@ -224,6 +224,15 @@ install: $(GM_CONFIG)
 
 DOTFILES = \
 	   $(GM_SCRIPTS) \
+	   firefox/searchplugins/codesearch.xml \
+	   firefox/searchplugins/delicious-tag.xml \
+	   firefox/searchplugins/discogs.xml \
+	   firefox/searchplugins/hittase-where.xml \
+	   firefox/searchplugins/hittase-who.xml \
+	   firefox/searchplugins/imdb.xml \
+	   firefox/searchplugins/posix.xml \
+	   firefox/searchplugins/thepiratebayorg.xml \
+	   firefox/searchplugins/youtube.xml \
 	   firefox/stylish.rdf \
 	   firefox/user.js
 
@@ -235,6 +244,13 @@ $(FIREFOXPERMISSIONS): firefox/permissions.sql
 	sqlite3 $(call shell_quote,$@) < $<
 
 install: $(FIREFOXPERMISSIONS)
+
+FIREFOXSEARCH = $(firefoxuserconfdir)/search.sqlite
+
+$(FIREFOXSEARCH): firefox/search.sql
+	sqlite3 $(call shell_quote,$@) < $<
+
+install: $(FIREFOXSEARCH)
 
 BINFILES = \
 	   xsession
