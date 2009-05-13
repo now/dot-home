@@ -224,6 +224,7 @@ install: $(GM_CONFIG)
 
 DOTFILES = \
 	   $(GM_SCRIPTS) \
+	   firefox/searchplugins/adlibris.xml \
 	   firefox/searchplugins/codesearch.xml \
 	   firefox/searchplugins/delicious-tag.xml \
 	   firefox/searchplugins/discogs.xml \

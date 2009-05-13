@@ -1,0 +1,12 @@
+<SearchPlugin xmlns="http://www.mozilla.org/2006/browser/search/" xmlns:os="http://a9.com/-/spec/opensearch/1.1/">
+<os:ShortName>AdLibris</os:ShortName>
+<os:Description>Search for books on Adlibris Bokhandel</os:Description>
+<os:InputEncoding>ISO-8859-1</os:InputEncoding>
+<os:Image width="16" height="16">data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////AF1N2QCZs+cAMh7QAHqF4ACy2O0APSzSAIeZ4wBnZNwADw8PAKSc6gCPg+UApsfrAHtu4ABMPNUACqqqqqqqqqCkREd3d3d3eqzMJHd3d3d6oRG0d0REREqnf3d3lVVVmq7u53loiI3aoREfSW9/dTqiIid/Pd3WOqmZl3R3d3U6oREfR1MzPYqiKSd3mZmZeqIi93dERER6oRG0d3d3d3qu7vR3d3d3eqREd3d3d3d6CqqqqqqqqqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</os:Image>
+<UpdateInterval>7</UpdateInterval>
+<UpdateUrl>http://mycroft.mozdev.org/updateos.php/id0/adlibris.xml</UpdateUrl>
+<IconUpdateUrl>http://mycroft.mozdev.org/updateos.php/id0/adlibris.ico</IconUpdateUrl>
+<SearchForm>http://www.adlibris.se/default.aspx</SearchForm>
+<os:Url type="text/html" method="GET" template="http://www.adlibris.se/searchresult.aspx?checked=1&amp;search=quickfirstpage&amp;quickvalue={searchTerms}">
+</os:Url>
+</SearchPlugin>

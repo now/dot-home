@@ -1,9 +1,10 @@
 BEGIN TRANSACTION;
 DROP TABLE IF EXISTS engine_data;
 CREATE TABLE engine_data (id INTEGER PRIMARY KEY, engineid STRING, name STRING, value STRING);
-INSERT INTO engine_data (engineid, name, value) VALUES('[app]/google.xml', 'alias', '/');
+INSERT INTO engine_data (engineid, name, value) VALUES('[app]/google.xml', 'alias', 'google');
 INSERT INTO engine_data (engineid, name, value) VALUES('[app]/answers.xml', 'alias', 'answers');
 INSERT INTO engine_data (engineid, name, value) VALUES('[app]/wikipedia.xml', 'alias', 'wikipedia');
+INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/adlibris.xml', 'alias', 'adlibris');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/codesearch.xml', 'alias', 'codesearch');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/delicious-tag.xml', 'alias', 'tag');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/discogs.xml', 'alias', 'discogs');
