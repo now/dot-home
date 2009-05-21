@@ -32,6 +32,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('reddit.com', 'cookie', 1)
 INSERT INTO moz_hosts (host, type, permission) VALUES('skatteverket.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('sneakersnstuff.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('tvrage.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('tumblr.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('vimeo.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('wikipedia.org', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('youtube.com', 'cookie', 1);
