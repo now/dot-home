@@ -11,8 +11,10 @@ INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/discogs.xml', 
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/hittase-where.xml', 'alias', 'where');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/hittase-who.xml', 'alias', 'who');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/imdb.xml', 'alias', 'imdb');
+INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/juno-records.xml', 'alias', 'juno');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/posix.xml', 'alias', 'posix');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/thepiratebayorg.xml', 'alias', 'tpb');
+INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/tvragecom.xml', 'alias', 'tvrage');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/youtube.xml', 'alias', 'youtube');
 INSERT INTO engine_data (engineid, name, value) VALUES('[app]/amazondotcom.xml', 'hidden', '1');
 INSERT INTO engine_data (engineid, name, value) VALUES('[app]/creativecommons.xml', 'hidden', '1');
