@@ -17,6 +17,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('evernote.com', 'cookie', 
 INSERT INTO moz_hosts (host, type, permission) VALUES('facebook.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('github.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('google.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('google.se', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('hollywood.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('iis.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('junkyard.se', 'cookie', 8);
