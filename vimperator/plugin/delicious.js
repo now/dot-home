@@ -7,7 +7,7 @@ commands.addUserCommand(['deli[cious]'], 'Bookmark page at Delicious', function(
   [['url', target],
    ['description', description],
    ['extended', note],
-   ['tags', args[0]],
+   ['tags', args.join(" ")],
    ['shared', shared]].forEach(function(query) {
     if (query[1])
       url.push('&', query[0], '=', encodeURIComponent(query[1]));
@@ -28,7 +28,7 @@ commands.addUserCommand(['deli[cious]'], 'Bookmark page at Delicious', function(
   };
   xhr.send(null);
 }, {
-  argCount: '1',
+  argCount: '*',
   options: [[['-description', '-d'], commands.OPTION_STRING, null, function() [[buffer.title]]],
             [['-note', '-n'], commands.OPTION_STRING, null, null],
             [['-private', '-p'], commands.OPTION_NOARG]]
