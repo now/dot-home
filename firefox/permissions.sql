@@ -29,6 +29,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('paypal.com', 'cookie', 8)
 INSERT INTO moz_hosts (host, type, permission) VALUES('posten.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('epostboxen.posten.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('reddit.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('residentadvisor.net', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('skatteverket.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('sneakersnstuff.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('tvrage.com', 'cookie', 1);
