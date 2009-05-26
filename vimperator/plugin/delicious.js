@@ -1,6 +1,6 @@
 commands.addUserCommand(['deli[cious]'], 'Bookmark page at Delicious', function(args) {
   var target = buffer.URL;
-  var description = args['-description'] || buffer.title;
+  var description = args['-description'] || buffer.title || buffer.URL;
   var note = args['-note'];
   var shared = args['-private'] ? 'no' : null;
   var url = ['https://api.del.icio.us/v1/posts/add?'];
