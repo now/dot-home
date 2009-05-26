@@ -1,67 +1,78 @@
-commands.addUserCommand(['deli[cious]'], 'Bookmark page at Delicious', function(args) {
-  var target = buffer.URL;
-  var description = args['-description'] || buffer.title || buffer.URL;
-  var note = args['-note'];
-  var shared = args['-private'] ? 'no' : null;
-  var url = ['https://api.del.icio.us/v1/posts/add?'];
-  [['url', target],
-   ['description', description],
-   ['extended', note],
-   ['tags', args.join(" ")],
-   ['shared', shared]].forEach(function(query) {
-    if (query[1])
-      url.push('&', query[0], '=', encodeURIComponent(query[1]));
-  });
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', url.join(""));
-  xhr.onreadystatechange = function(event) {
-    if (xhr.readyState != 4)
-      return;
+(function() {
 
-    if (xhr.status != 200) {
-      liberator.echo('Bookmarking ' + target + ' at Delicious failed with status ' + xhr.status);
-      return;
+  function buildURL(url, queries) {
+    var result = [url];
+    for (var i = 0; i < queries.length; i++)
+      result.push('&', queries[i][0], '=', encodeURIComponent(queries[i][1]));
+    return result.join("");
+  }
+
+  function httpPost(url, callback) {
+    try {
+      let xmlhttp = new XMLHttpRequest();
+      xmlhttp.mozBackgroundRequest = true;
+      if (callback)
+        xmlhttp.onreadystatechange = function() {
+          if (xmlhttp.readyState == 4)
+            callback(xmlhttp);
+        }
+      xmlhttp.open('POST', url, !!callback);
+      xmlhttp.send(null);
+      return xmlhttp;
+    } catch (e) {
+      liberator.log('Error opening ' + url + ': ' + e, 1);
     }
+  }
 
-    liberator.echo('Bookmarking ' + target + ' at Delicious ' +
-                   xhr.responseXML.documentElement.getAttribute('code'));
-  };
-  xhr.send(null);
-}, {
-  argCount: '*',
-  options: [[['-description', '-d'], commands.OPTION_STRING, null, function() [[buffer.title]]],
-            [['-note', '-n'], commands.OPTION_STRING, null, null],
-            [['-private', '-p'], commands.OPTION_NOARG]],
-  completer: function(context) {
-    if (context.result) {
-      context.completions = context.result;
-      return;
-    }
+  commands.addUserCommand(['deli[cious]'], 'Bookmark page at Delicious', function(args) {
+    var url = buffer.URL;
+    var description = args['-description'] || buffer.title || url;
+    var note = args['-note'] || String(window.content.getSelection());
+    var shared = args['-private'] ? 'no' : null;
 
-    context.title = ['Tags', 'Type'];
-    context.incomplete = true;
-
-    var url = ['https://api.del.icio.us/v1/posts/suggest?'];
-    [['url', buffer.URL]].forEach(function(query) {
-      if (query[1])
-        url.push('&', query[0], '=', encodeURIComponent(query[1]));
+    httpPost(buildURL('https://api.del.icio.us/v1/posts/add?',
+                      [['url', url],
+                       ['description', description],
+                       ['extended', note],
+                       ['tags', args.join(" ")],
+                       ['shared', shared]]), function(xhr) {
+      var result = xhr.status == 200 ?
+                    xhr.responseXML.documentElement.getAttribute('code') :
+                    'failed with status ' + xhr.status;
+      liberator.echo('Bookmarking ' + url + ' at Delicious ' + result);
     });
-
-    var xhr = util.httpGet(url.join(""), function(xhr) {
-      context.incomplete = false;
-      var result = [];
-
-      if (xhr.status != 200) {
-        context.completions = [];
+  }, {
+    argCount: '*',
+    options: [[['-description', '-d'], commands.OPTION_STRING, null, function() [[buffer.title]]],
+              [['-note', '-n'], commands.OPTION_STRING, null, null],
+              [['-private', '-p'], commands.OPTION_NOARG]],
+    completer: function(context) {
+      if (context.result) {
+        context.completions = context.result;
         return;
       }
 
-      var tags = xhr.responseXML.documentElement.getElementsByTagName('*');
-      for (var i = 0; i < tags.length; i++)
-        result.push([tags[i].textContent, tags[i].localName]);
+      context.title = ['Tags', 'Type'];
+      context.incomplete = true;
 
-      context.completions = context.result = result;
-    });
-    context.cancel = function() xhr.abort();
-  }
-}, true);
+      var xhr = util.httpGet(buildURL('https://api.del.icio.us/v1/posts/suggest?',
+                                      [['url', buffer.URL]]), function(xhr) {
+        context.incomplete = false;
+
+        if (xhr.status != 200) {
+          context.completions = [];
+          return;
+        }
+
+        var result = [];
+        var tags = xhr.responseXML.documentElement.getElementsByTagName('*');
+        for (var i = 0; i < tags.length; i++)
+          result.push([tags[i].textContent, tags[i].localName]);
+
+        context.completions = context.result = result;
+      });
+      context.cancel = function() xhr.abort();
+    }
+  }, true);
+
+})();
