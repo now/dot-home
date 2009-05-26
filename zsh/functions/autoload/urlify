@@ -1,0 +1,4 @@
+emulate -L zsh
+setopt extendedglob
+
+REPLY=${REPLY/(#b)([^A-Za-z0-9_.!~*\'\(\)-])/%${(l:2::0:)$(([##16]#match))}}

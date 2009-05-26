@@ -128,6 +128,7 @@ DOTFILES = \
 	   zsh/functions/autoload/hc \
 	   zsh/functions/autoload/j \
 	   zsh/functions/autoload/up \
+	   zsh/functions/autoload/urlify \
 	   zsh/functions/define-digraphs \
 	   zsh/functions/history-beginning-search-menu \
 	   zsh/functions/insert-digraph \
@@ -261,6 +262,7 @@ $(call GROUP_template,$(BINFILES),~,.,,755)
 BINFILES = \
 	   bin/backup-home \
 	   bin/burn \
+	   bin/clipboard \
 	   bin/dfs \
 	   bin/e \
 	   bin/emv \
