@@ -3,14 +3,14 @@
   function buildURL(url, queries) {
     var result = [url];
     for (var i = 0; i < queries.length; i++)
-      result.push('&', queries[i][0], '=', encodeURIComponent(queries[i][1]));
+      if (queries[i][1])
+        result.push('&', queries[i][0], '=', encodeURIComponent(queries[i][1]));
     return result.join("");
   }
 
   function httpPost(url, callback) {
     try {
       let xmlhttp = new XMLHttpRequest();
-      xmlhttp.mozBackgroundRequest = true;
       if (callback)
         xmlhttp.onreadystatechange = function() {
           if (xmlhttp.readyState == 4)
