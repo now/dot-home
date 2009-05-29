@@ -15,6 +15,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('discogs.com', 'cookie', 1
 INSERT INTO moz_hosts (host, type, permission) VALUES('dyndns.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('evernote.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('facebook.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('ghisler.ch', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('github.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('google.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('google.se', 'cookie', 1);
@@ -28,6 +29,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('nordea.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('paypal.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('posten.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('epostboxen.posten.se', 'cookie', 8);
+INSERT INTO moz_hosts (host, type, permission) VALUES('pragprog.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('reddit.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('residentadvisor.net', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('skatteverket.se', 'cookie', 8);
