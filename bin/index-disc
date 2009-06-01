@@ -52,7 +52,13 @@ mkdir $discs >& /dev/null
 [[ -d $discs ]] || die "Cannot create disc directory: $discs"
 
 for mount in ${*:-.}; do
-  sha256sums=$(cd $mount && sha256sum **/*(.)) &&
+  local target="$mount" prefix=
+  if [[ -d $mount/VIDEO_TS ]]; then
+    prefix=$target:t/
+    target=$target:h
+  fi
+
+  sha256sums=$(cd $target && sha256sum $prefix**/*(.)) &&
     with-discs-dir write-sha256sums $sha256sums &&
     diskutil eject $mount > /dev/null
 done
