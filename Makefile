@@ -119,6 +119,7 @@ DOTFILES = \
 	   zsh/functions/_unpack \
 	   zsh/functions/_up \
 	   zsh/functions/autoload/cd \
+	   zsh/functions/autoload/cygify \
 	   zsh/functions/autoload/d \
 	   zsh/functions/autoload/dp \
 	   zsh/functions/autoload/dr \
@@ -129,6 +130,7 @@ DOTFILES = \
 	   zsh/functions/autoload/j \
 	   zsh/functions/autoload/up \
 	   zsh/functions/autoload/urlify \
+	   zsh/functions/autoload/winify \
 	   zsh/functions/define-digraphs \
 	   zsh/functions/history-beginning-search-menu \
 	   zsh/functions/insert-digraph \
