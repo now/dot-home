@@ -1,0 +1,19 @@
+#! /bin/zsh
+
+clipboard-put () {
+  print -r -- $* | pbcopy
+}
+
+clipboard-get () {
+  pbpaste
+}
+
+if (( $# > 0 )); then
+  clipboard-put $*
+elif [[ -s /dev/stdin ]]; then
+  local input=
+  IFS= read -d $'\0' -r input
+  clipboard-put ${input%$'\n'}
+else
+  clipboard-get
+fi
