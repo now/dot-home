@@ -60,7 +60,7 @@
         context.incomplete = false;
 
         if (xhr.status != 200) {
-          context.completions = [];
+          context.completions = context.result = [];
           return;
         }
 
