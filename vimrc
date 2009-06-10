@@ -7,7 +7,7 @@
 
 let s:on_windows = has("win32") || has("win64")
 
-set cpoptions&vim
+" TODO: Is this really needed?
 set encoding=utf-8
 if s:on_windows
   let &runtimepath = substitute(&rtp,
@@ -19,30 +19,21 @@ set incsearch
 set path+=./**
 let &fillchars = 'diff: ,fold: ,vert:' . (&encoding == 'utf-8' ? '│' : '|')
 let &listchars .= (&encoding == 'utf-8' ? ',tab:»·,trail:·' : ',tab:>.,trail:.')
-" TODO: seriously, everyone wants this.  Why is this not enabled by default?
 syntax enable
 colorscheme now
-set statusline=%F%(\ [%1*%M%*%(,%2*%R%*%)]%)\ %w%=%(\ %y%)\ line:\ %l\ of\ %L
+set statusline=%F%(\ [%1*%M%*%(,%2*%R%*%)]%)\ %w%(\ %y%)
 set hidden
-" TODO: can we remove this?
-set noesckeys
 set confirm
 set autowriteall
 set visualbell t_vb=
 set textwidth=79
 set backspace=indent,eol,start
-set formatlistpat=^\\s*\\%(\\d\\+[\\]:.)}\\t\ ]\\\|[•‣][\\t\ ]\\)\\s*
-set completeopt=menu,menuone,preview
 set expandtab softtabstop=8
 set shiftround
 set autoindent
-set cinoptions=:0,l1,t0,c0,C1,(0,u0
-set foldtext=substitute(substitute(foldtext(),'^+-\\+\\s*\\d\\+\ lines:','§',
-                       \'g'),'\\s\\+$','\ ⇱','')
+set cinoptions=:0,l1,t0,(0,u0
 set fileformat=unix
 set fileformats=unix,dos
-" TODO: decide on this
-" set backupcopy=auto,breakhardlink
 if s:on_windows
   set backupcopy=yes
 endif
@@ -52,32 +43,19 @@ set wildmode=list:longest
 set wildignore=*.{o\\,l[oa]}
 set errorformat=%-G%.%#
 set grepprg=grep\ -n\ -P\ $*\ /dev/null
-if &viminfo == ""
-  set viminfo='20
-endif
-set viminfo+=<512
+set viminfo-=<50
 set sessionoptions+=localoptions
-
-" FIXME: Reiser4
-set nofsync
-set swapsync=
 
 set guicursor=n-v-c:block-Cursor/lCursor,ve:ver35-Cursor,o:hor50-Cursor,
       \i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor,sm:block-Cursor,
       \a:blinkon0
 set notitle
-set guioptions=acM
+set guioptions=c
 if has('gui_win32')
   set guifont=DejaVu_Sans_Mono:h10
 endif
 
-" TODO: same as for syntax...why is this not the default?
 filetype plugin indent on
-
-let netrw_longlist = 1
-let netrw_list_hide = '^\%(\./\|\.[^.]\S*\s\|\.\.[^/]\S*\s\)'
-let netrw_maxfilenamelen = 64
-let netrw_timefmt = '%b %d, %Y %H:%M'
 
 let ruby_no_identifiers = 1
 let ruby_no_expensive = 1
@@ -108,6 +86,7 @@ noremap <Backspace> <C-B>
 omap <Backspace> <Delete>
 
 inoremap <silent> <C-Y> <C-R>=pumvisible() ? "\<lt>C-Y>" : "\<lt>C-R>\<lt>C-O>*"<CR>
+" TODO: Why do I have this?
 inoremap <silent> <Tab> <C-R>=pumvisible() ? "\<lt>C-Y>" : "\<lt>Tab>"<CR>
 
 for digit in [1, 2, 3, 4, 5, 6, 8, 9]
@@ -115,6 +94,7 @@ for digit in [1, 2, 3, 4, 5, 6, 8, 9]
 endfor
 
 inoremap <C-Z> <C-C>
+cnoremap <C-G> <C-C>
 
 noremap <Leader>p :cprevious<CR>
 noremap <Leader>n :cnext<CR>
