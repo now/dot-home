@@ -1,3 +1,7 @@
 [user]  
         name = Nikolai Weibull
         email = now@bitwi.se
+[url "git@github.com:now/"]
+        insteadOf = myhub:
+[alias]
+	up = pull --rebase
