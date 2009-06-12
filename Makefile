@@ -61,6 +61,7 @@ DOTFILES = \
 	   inputrc \
 	   irbrc \
 	   mailcap \
+	   mplayer/config \
 	   sbclrc \
 	   screenrc \
 	   vim/after/ftplugin/c.vim \
