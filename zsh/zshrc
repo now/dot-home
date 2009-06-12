@@ -171,9 +171,9 @@ alias \
   top='top -U $EUID'
 
 alias \
-  mp='mplayer -fs -stop-xscreensaver' \
-  tv='DISPLAY=:0.1 mplayer -geometry 1024x600+0+75 -stop-xscreensaver' \
-  hp='mplayer -ao alsa:device=secondary -fs -stop-xscreensaver' \
+  mp='mplayer' \
+  tv='DISPLAY=:0.1 mplayer -geometry 1024x600+0+75' \
+  hp='mplayer -ao alsa:device=secondary' \
   ro='vimless' \
   v='vim' \
   y='xview' \

@@ -158,7 +158,6 @@ DOTFILES = \
 	   zsh/profile/os/darwin \
 	   zsh/rc/hosts/puritan \
 	   zsh/rc/os/Cygwin \
-	   zsh/rc/os/darwin \
 	   zshenv
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
