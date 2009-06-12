@@ -34,8 +34,17 @@ define GROUP_template
 $(eval $(foreach file,$(1),$(call GROUP_template_file,$(file),$(2)/$(3)$(file:$(4)%=%),$(5))))
 endef
 
+# 1: File
+# 2: Target
+# 3: Mode
+define FILE_template
+$(eval $(call GROUP_template_file,$(1),$(2),$(3)))
+endef
+
 DIFF = diff
 INSTALL = install
+
+uname := $(shell uname -s)
 
 on_cygwin := $(if $(subst Cygwin,,$(shell uname -o)),,1)
 on_darwin := $(if $(subst Darwin,,$(shell uname)),,1)
@@ -296,4 +305,4 @@ else
   endif
 endif
 
-include os/Makefile.$(shell uname)
+include os/Makefile
