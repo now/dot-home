@@ -1,0 +1,4 @@
+DOTFILES = \
+	   os/Darwin/zsh/login/os
+
+$(call GROUP_template,$(DOTFILES),$(userconfdir)/.zsh,,os/Darwin/zsh/)

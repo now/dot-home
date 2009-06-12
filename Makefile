@@ -154,7 +154,6 @@ DOTFILES = \
 	   zsh/functions/zle/up-directory \
 	   zsh/functions/zle/vim-increase-number \
 	   zsh/functions/zle/yank-x11-clipboard \
-	   zsh/login/os/Cygwin \
 	   zsh/profile/os/darwin \
 	   zsh/rc/hosts/puritan \
 	   zsh/rc/os/Cygwin \
@@ -296,3 +295,5 @@ else
     $(call GROUP_template,$(BINFILES),~,,,755)
   endif
 endif
+
+include os/Makefile.$(shell uname)
