@@ -3,6 +3,7 @@
 # Copyright © 2006 Nikolai Weibull <now@bitwi.se>
 
 include "/usr/share/themes/Clearlooks/gtk-2.0/gtkrc"
+include "/opt/local/share/themes/Clearlooks/gtk-2.0/gtkrc"
 
 gtk-cursor-blink = 0
 gtk-icon-theme-name = "Tango"
