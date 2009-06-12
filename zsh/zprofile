@@ -22,6 +22,4 @@ export                                                                \
   PAGER MANPAGER EDITOR                                               \
   MANWIDTH SYSSCREENRC
 
-for f in $ZDOTDIR/profile/{os/${OSTYPE%%[[:digit:].]##},hosts/$HOST}; do
-  [[ -f $f ]] && source $f
-done
+source $ZDOTDIR/profile/os

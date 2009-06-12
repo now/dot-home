@@ -163,9 +163,6 @@ DOTFILES = \
 	   zsh/functions/zle/up-directory \
 	   zsh/functions/zle/vim-increase-number \
 	   zsh/functions/zle/yank-x11-clipboard \
-	   zsh/profile/os/darwin \
-	   zsh/rc/hosts/puritan \
-	   zsh/rc/os/Cygwin \
 	   zshenv
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
@@ -306,3 +303,4 @@ else
 endif
 
 include os/Makefile
+include host/Makefile
