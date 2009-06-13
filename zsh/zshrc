@@ -192,6 +192,6 @@ i () { command ls -A -l --si --color=always -b $* | ${LISTER:-less} }
 # 11  Operating System And Host Specific Settings
 # ———————————————————————————————————————————————
 
-source $ZDOTDIR/rc/{os,host}
+source $ZDOTDIR/{os,host}/rc
 
 unset f

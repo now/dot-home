@@ -1,6 +1,6 @@
 DOTFILES = \
-	   zsh/login/os \
-	   zsh/profile/os \
-	   zsh/rc/os
+	   zsh/os/login \
+	   zsh/os/profile \
+	   zsh/os/rc
 
 $(foreach file,$(DOTFILES),$(call FILE_template,$(or $(wildcard os/$(uname)/$(file)),os/$(file)),$(userconfdir)/.$(file)))

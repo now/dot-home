@@ -22,4 +22,4 @@ export                                                                \
   PAGER MANPAGER EDITOR                                               \
   MANWIDTH SYSSCREENRC
 
-source $ZDOTDIR/profile/os
+source $ZDOTDIR/os/profile
