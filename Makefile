@@ -76,6 +76,7 @@ DOTFILES = \
 	   vim/after/ftplugin/vb.vim \
 	   vim/after/ftplugin/vim.vim \
 	   vim/after/ftplugin/xml.vim \
+	   vim/after/ftplugin/xslt.vim \
 	   vim/after/ftplugin/zsh.vim \
 	   vim/after/syntax/c.vim \
 	   vim/after/syntax/mail.vim \
