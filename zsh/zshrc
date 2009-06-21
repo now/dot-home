@@ -54,10 +54,8 @@ zmodload -i zsh/complist
 
 autoload -U compinit; compinit
 
-zstyle ':completion:*' squeeze-slashes yes
 zstyle ':completion:*' ignore-parents parent pwd
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[:.,_-]=** r:|=**'
-zstyle ':completion:*' remove-all-dups yes
 zstyle ':completion:*' group-name ""
 zstyle ':completion:*' list-separator ""
 zstyle ':completion:*:options' auto-description "specify ‘%d’"
@@ -193,5 +191,3 @@ i () { command ls -A -l --si --color=always -b $* | ${LISTER:-less} }
 # ———————————————————————————————————————————————
 
 source $ZDOTDIR/{os,host}/rc
-
-unset f
