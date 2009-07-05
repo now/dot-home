@@ -9,6 +9,17 @@ fi
 local -A weights
 source ~/.j 2> /dev/null
 
+if (( $# == 0 )); then
+  integer changed
+  for key in ${(k)weights}; do
+    if [[ ! -d $key ]] || (( $weights[$key] < 1 )); then
+      unset "weights[$key]"
+      (( changed = 1 ))
+    fi
+  done
+  (( changed )) && print -r "weights=(${(kv@qq)weights})" > ~/.j
+fi
+
 local -A matches
 local pattern="*${(j:*:)*}*" key
 for key in ${${(kM)weights:#(#l)$~pattern}:-${(kM)weights:#(#i)$~pattern}}; do
@@ -22,7 +33,7 @@ done
 combined=(${(O)combined})
 
 if (( $# == 0 )); then
-  print -r -l -- $combined
+  print -r -l -- $combined | ${PAGER:-less}
   return
 fi
 
