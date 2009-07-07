@@ -45,6 +45,9 @@ DIFF = diff
 INSTALL = install
 
 uname := $(shell uname -s)
+ifeq ($(patsubst CYGWIN_%,,$(uname)),)
+  uname := Cygwin
+endif
 
 on_cygwin := $(if $(subst Cygwin,,$(shell uname -o)),,1)
 on_darwin := $(if $(subst Darwin,,$(shell uname)),,1)
