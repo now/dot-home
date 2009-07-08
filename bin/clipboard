@@ -1,11 +1,17 @@
 #! /bin/zsh
 
 clipboard-put () {
-  print -r -- $* | pbcopy
+  print -r -- $* | case $OSTYPE in
+    (cygwin) putclip ;;
+    (*) pbcopy ;;
+  esac
 }
 
 clipboard-get () {
-  pbpaste
+  case $OSTYPE in
+    (cygwin) getclip ;;
+    (*) pbpaste ;;
+  esac
 }
 
 if (( $# > 0 )); then
