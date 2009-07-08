@@ -74,6 +74,7 @@ autoload -U forward-word-match backward-word-match \
 
 for command in zle/vim-increase-number zle/self-insert-redir zle/up-directory \
                zle/cd-from-list zle/cd-to-alternate-directory \
+               zle/urlify-argument \
                zle/yank-x11-clipboard zle/sudo-command-line \
                history-beginning-search-menu insert-digraph; do
   autoload -U $command
@@ -132,6 +133,7 @@ bindkey \
   '^X^L' history-beginning-search-menu \
   '^Xp' copy-prev-shell-word \
   '^X^S' zle/sudo-command-line \
+  '^Xu' zle/urlify-argument \
   '^Y' zle/yank-x11-clipboard \
   '^Z' vi-cmd-mode \
   '^^' zle/cd-to-alternate-directory \

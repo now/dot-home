@@ -1,4 +1,11 @@
 emulate -L zsh
 setopt extendedglob
 
-REPLY=${REPLY/(#b)([^A-Za-z0-9_.!~*\'\(\)-])/%${(l:2::0:)$(([##16]#match))}}
+if (( $# > 0 )); then
+  local url="$1" protocol=
+  [[ $url != file://* ]] && protocol=file://
+  [[ $url != /* ]] && url=$PWD/$url
+  print -r -- $protocol${url//(#b)([^A-Za-z0-9_.!~*\'\(\)\/-])/%${(l:2::0:)$(([##16]#match))}}
+else
+  REPLY=${REPLY//(#b)([^A-Za-z0-9_.!~*\'\(\)\/-])/%${(l:2::0:)$(([##16]#match))}}
+fi
