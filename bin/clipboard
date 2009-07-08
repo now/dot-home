@@ -3,14 +3,16 @@
 clipboard-put () {
   print -r -- $* | case $OSTYPE in
     (cygwin) putclip ;;
-    (*) pbcopy ;;
+    (darwin*) pbcopy ;;
+    (*) xclip ;;
   esac
 }
 
 clipboard-get () {
   case $OSTYPE in
     (cygwin) getclip ;;
-    (*) pbpaste ;;
+    (darwin*) pbpaste ;;
+    (*) xclip -o ;;
   esac
 }
 
