@@ -166,7 +166,7 @@ DOTFILES = \
 	   zsh/functions/zle/up-directory \
 	   zsh/functions/zle/urlify-current-argument \
 	   zsh/functions/zle/vim-increase-number \
-	   zsh/functions/zle/yank-x11-clipboard \
+	   zsh/functions/zle/yank-clipboard \
 	   zshenv
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)

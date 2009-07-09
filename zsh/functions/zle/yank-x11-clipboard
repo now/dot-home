@@ -1,3 +1,0 @@
-emulate -L zsh
-
-LBUFFER+=$(xclip -out 2> /dev/null)
