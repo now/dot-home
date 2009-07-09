@@ -15,6 +15,8 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('cyclecomponents.se', 'coo
 INSERT INTO moz_hosts (host, type, permission) VALUES('delicious.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('discogs.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('dyndns.com', 'cookie', 8);
+INSERT INTO moz_hosts (host, type, permission) VALUES('ebay.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('ebay.co.uk', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('evernote.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('facebook.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('feedmyinbox.com', 'cookie', 8);
