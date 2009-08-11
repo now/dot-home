@@ -10,6 +10,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('amesto.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('bikeguide.org', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('blogg.se', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('bolagret.se', 'cookie', 8);
+INSERT INTO moz_hosts (host, type, permission) VALUES('camper.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('chainreactioncycles.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('childstore.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('cyclecomponents.se', 'cookie', 8);
