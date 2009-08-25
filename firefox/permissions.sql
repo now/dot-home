@@ -48,6 +48,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('residentadvisor.net', 'co
 INSERT INTO moz_hosts (host, type, permission) VALUES('shelta.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('skatteverket.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('sneakersnstuff.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('store.apple.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('tvrage.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('tumblr.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('vimeo.com', 'cookie', 1);
