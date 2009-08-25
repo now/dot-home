@@ -1,7 +1,10 @@
 set laststatus=0
 set newtab=addons,downloads,help,prefs
 set showstatuslinks=2
+set urlseparator=,\\s\\s
 set wildoptions=auto
 
 noremap <BS> <PageUp>
 noremap s l
+
+command! note :open javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title);}})();
