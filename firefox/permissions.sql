@@ -8,6 +8,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('adlibris.com', 'cookie', 
 INSERT INTO moz_hosts (host, type, permission) VALUES('store.apple.come', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('amesto.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('bikeguide.org', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('blogg.se', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('bolagret.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('chainreactioncycles.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('childstore.se', 'cookie', 8);
@@ -35,6 +36,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('nb.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('nordea.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('paypal.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('posten.se', 'cookie', 8);
+INSERT INTO moz_hosts (host, type, permission) VALUES('publishme.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('epostboxen.posten.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('on-one-shop.co.uk', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('pragprog.com', 'cookie', 1);
