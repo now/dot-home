@@ -24,6 +24,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('ghisler.ch', 'cookie', 1)
 INSERT INTO moz_hosts (host, type, permission) VALUES('github.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('google.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('google.se', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('hemnet.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('hollywood.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('iis.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('incab.se', 'cookie', 8);
