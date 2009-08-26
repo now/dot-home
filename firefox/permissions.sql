@@ -26,7 +26,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('ghisler.ch', 'cookie', 1)
 INSERT INTO moz_hosts (host, type, permission) VALUES('github.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('google.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('google.se', 'cookie', 1);
-INSERT INTO moz_hosts (host, type, permission) VALUES('hemnet.se', 'cookie', 8);
+INSERT INTO moz_hosts (host, type, permission) VALUES('hemnet.se', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('hollywood.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('iis.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('incab.se', 'cookie', 8);
@@ -48,7 +48,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('residentadvisor.net', 'co
 INSERT INTO moz_hosts (host, type, permission) VALUES('shelta.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('skatteverket.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('sneakersnstuff.com', 'cookie', 1);
-INSERT INTO moz_hosts (host, type, permission) VALUES('store.apple.com', 'cookie', 8);
+INSERT INTO moz_hosts (host, type, permission) VALUES('store.apple.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('tvrage.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('tumblr.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('vimeo.com', 'cookie', 1);
