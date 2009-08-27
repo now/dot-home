@@ -36,6 +36,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('junkyard.se', 'cookie', 8
 INSERT INTO moz_hosts (host, type, permission) VALUES('juno.co.uk', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('juno.co.uk', 'popup', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('nb.se', 'cookie', 8);
+INSERT INTO moz_hosts (host, type, permission) VALUES('nonoh.net', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('nordea.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('nytimes.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('paypal.com', 'cookie', 8);
