@@ -43,6 +43,9 @@ set wildmode=list:longest
 set wildignore=*.{o\\,l[oa]}
 set errorformat=%-G%.%#
 set grepprg=grep\ -n\ -P\ $*\ /dev/null
+if exists("+shellslash")
+  set shellslash
+endif
 set viminfo-=<50
 set sessionoptions+=localoptions
 
