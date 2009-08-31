@@ -88,6 +88,7 @@ DOTFILES = \
 	   vim/after/ftplugin/ruby.vim \
 	   vim/after/ftplugin/vb.vim \
 	   vim/after/ftplugin/vim.vim \
+	   vim/after/ftplugin/wsf.vim \
 	   vim/after/ftplugin/xml.vim \
 	   vim/after/ftplugin/xslt.vim \
 	   vim/after/ftplugin/zsh.vim \
