@@ -7,6 +7,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('tools.google.com', 'insta
 INSERT INTO moz_hosts (host, type, permission) VALUES('adlibris.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('store.apple.come', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('amesto.se', 'cookie', 8);
+INSERT INTO moz_hosts (host, type, permission) VALUES('auriganet.eu', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('bikeguide.org', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('blogg.se', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('bolagret.se', 'cookie', 8);
