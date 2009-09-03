@@ -81,6 +81,7 @@ DOTFILES = \
 	   vim/after/ftplugin/css.vim \
 	   vim/after/ftplugin/dtd.vim \
 	   vim/after/ftplugin/html.vim \
+	   vim/after/ftplugin/java.vim \
 	   vim/after/ftplugin/javascript.vim \
 	   vim/after/ftplugin/mail.vim \
 	   vim/after/ftplugin/racc.vim \
