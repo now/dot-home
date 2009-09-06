@@ -195,11 +195,7 @@ $(call GROUP_template,$(DOTFILES),$(userconfdir)/.zsh,.,zsh/)
 DOTFILES = \
 	   vimperator/plugin/delicious.js
 
-ifdef on_cygwin
-  $(call GROUP_template,$(DOTFILES),$(userconfdir))
-else
-  $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
-endif
+$(call GROUP_template,$(DOTFILES),$(userconfdir),$(if $(uname),Cygwin,,.))
 
 GM_SCRIPTS = \
 	     firefox/gm_scripts/delicious-favicons.user.js \
@@ -286,21 +282,5 @@ BINFILES = \
 
 $(call GROUP_template,$(BINFILES),~,,,755)
 
-ifdef on_cygwin
-  firefoxprofilesdir=$(call shell_quote,$(shell cygpath -u "$(APPDATA)")/Mozilla/Firefox)
-  DOTFILES = \
-	     firefox/profiles.ini
-
-  $(call GROUP_template,$(DOTFILES),$(firefoxprofilesdir),,firefox/)
-else
-  ifndef on_darwin
-    LDLIBS = -lX11
-    BINFILES = \
-	       bin/xdigraph
-
-    $(call GROUP_template,$(BINFILES),~,,,755)
-  endif
-endif
-
-include os/Makefile
-include host/Makefile
+include os/os.mk
+include host/host.mk
