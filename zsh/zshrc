@@ -163,7 +163,7 @@ alias mmv='noglob zmv -W'
 unset command
 
 alias \
-  duh='du --si --max-depth=1' \
+  duh=${(f)$(whence -p gdu du)[1]}' --si --max-depth=1'
   g='grep --color -n -P' \
   h='fc -lfiD' \
   p='ps -U $EUID -o "pid= comm=" -H' \
@@ -181,7 +181,7 @@ alias \
   pv='evince -f'
 
 alias \
-  ls='ls --color' \
+  ls=${(f)$(whence -p gls ls)[1]}' --color' \
   a='ls' \
   o='ls -l --si' \
   aa='a -A' \
