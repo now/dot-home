@@ -41,25 +41,19 @@ define FILE_template
 $(eval $(call GROUP_template_file,$(1),$(2),$(3)))
 endef
 
-DIFF = diff
-INSTALL = install
-
 uname := $(shell uname -s)
 ifeq ($(patsubst CYGWIN_%,,$(uname)),)
   uname := Cygwin
 endif
 
-on_cygwin := $(if $(subst Cygwin,,$(shell uname -o)),,1)
-on_darwin := $(if $(subst Darwin,,$(shell uname)),,1)
+DIFF = diff
+INSTALL = install
 
 prefix = ~
 userconfdir = $(prefix)
-ifdef on_darwin
-  firefoxuserconfdir = $(call shell_quote,$(wildcard ~/Library/Application\ Support/Firefox/Profiles/*.default))
-else
-  firefoxuserconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
-endif
+firefoxuserconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
 
+-include Config/$(uname)
 -include config.mk
 
 DOTFILES = \
