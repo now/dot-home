@@ -7,7 +7,7 @@ setopt extendedglob
 
 declare -a data
 data=(Filesystem Type Size Used Free Use% "Mounted on"
-      ${=${(f)"$(df --exclude-type=tmpfs --si --print-type --portability | tail -n +2 | sort -k 7)"}})
+      ${=${(f)"$(${(f)$(whence -p {g,}df)[1]} --exclude-type=devfs --exclude-type=tmpfs --si --print-type --portability | tail -n +2 | sort -k 7)"}})
 
 declare -a lengths
 lengths=(0 0 0 0 0 0 0)
