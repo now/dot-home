@@ -41,6 +41,23 @@ define FILE_template
 $(eval $(call GROUP_template_file,$(1),$(2),$(3)))
 endef
 
+# 1: File
+# 2: Database
+define SQLITE_template_file
+install: $(2)
+$(2): $(1)
+	$$(SQLITE) $$(call shell_quote,$$@) < $$<
+
+endef
+
+# 1: Files
+# 2: Parent directory
+# 3: Prefix to add
+# 4: Prefix to strip
+define SQLITE_template
+$(eval $(foreach file,$(1),$(call SQLITE_template_file,$(file),$(2)/$(3)$(file:$(4)%=%)ite)))
+endef
+
 uname := $(shell uname -s)
 ifeq ($(patsubst CYGWIN_%,,$(uname)),)
   uname := Cygwin
@@ -48,6 +65,7 @@ endif
 
 DIFF = diff
 INSTALL = install
+SQLITE = sqlite3
 
 prefix = ~
 userconfdir = $(prefix)
@@ -195,7 +213,7 @@ $(call GROUP_template,$(DOTFILES),$(userconfdir)/.zsh,.,zsh/)
 DOTFILES = \
 	   vimperator/plugin/delicious.js
 
-$(call GROUP_template,$(DOTFILES),$(userconfdir),$(if $(uname),Cygwin,,.))
+$(call GROUP_template,$(DOTFILES),$(userconfdir),$(if $(subst Cygwin,,$(uname)),.))
 
 GM_SCRIPTS = \
 	     firefox/gm_scripts/delicious-favicons.user.js \
@@ -244,19 +262,11 @@ DOTFILES = \
 
 $(call GROUP_template,$(DOTFILES),$(firefoxuserconfdir),,firefox/)
 
-FIREFOXPERMISSIONS = $(firefoxuserconfdir)/permissions.sqlite
+DOTFILES = \
+	   firefox/permissions.sql \
+	   firefox/search.sql
 
-$(FIREFOXPERMISSIONS): firefox/permissions.sql
-	sqlite3 $(call shell_quote,$@) < $<
-
-install: $(FIREFOXPERMISSIONS)
-
-FIREFOXSEARCH = $(firefoxuserconfdir)/search.sqlite
-
-$(FIREFOXSEARCH): firefox/search.sql
-	sqlite3 $(call shell_quote,$@) < $<
-
-install: $(FIREFOXSEARCH)
+$(call SQLITE_template,$(DOTFILES),$(firefoxuserconfdir),,firefox/)
 
 BINFILES = \
 	   xsession
