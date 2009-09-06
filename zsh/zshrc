@@ -171,14 +171,10 @@ alias \
   top='top -U $EUID'
 
 alias \
-  mp='mplayer' \
+  m='mplayer' \
   tv='DISPLAY=:0.1 mplayer -geometry 1024x600+0+75' \
-  hp='mplayer -ao alsa:device=secondary' \
   ro='vimless' \
   v='vim' \
-  y='xview' \
-  lv='sudo tail -F /var/log/messages' \
-  pv='evince -f'
 
 alias \
   ls=${(f)$(whence -p gls ls)[1]}' --color' \
@@ -186,7 +182,6 @@ alias \
   o='ls -l --si' \
   aa='a -A' \
   oo='o -A'
-i () { command ls -A -l --si --color=always -b $* | ${LISTER:-less} }
 
 
 # 11  Operating System And Host Specific Settings
