@@ -6,7 +6,7 @@
 setopt extendedglob
 
 declare -a data
-data=(Filesystem Type Size Used Free Use% "Mounted on"
+data=(Filesystem Type Size Used Free Used "Mounted on"
       ${=${(f)"$(${(f)$(whence -p {g,}df)[1]} --exclude-type=devfs --exclude-type=tmpfs --si --print-type --portability | tail -n +2 | sort -k 7)"}})
 
 declare -a lengths
@@ -26,9 +26,11 @@ print-row () {
   declare -a args
   integer i
   for (( i = 1; i <= 6; i++ )); do
-    args+=($lengths[i] ${(P)i})
+    args+=$lengths[i]
+    args+=$1
+    shift
   done
-  args+=($7)
+  args+=$*
 
   printf $format $args
 }
