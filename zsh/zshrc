@@ -36,7 +36,7 @@ zstyle ':dircolors:*' cache-policy dircolors-cache-policy
   unfunction dircolors-cache-policy >& /dev/null
 }
 if [[ -z $LS_COLORS ]]; then
-  eval $(${(f)$(whence -p {g,}dircolors)[1]} ~/.dircolors 2> /dev/null)
+  eval $(${commands[gdircolors]:-dircolors} ~/.dircolors 2> /dev/null)
   autoload -U cache/store
   cache/store ':dircolors:*' dircolors-$TERM LS_COLORS
 else
@@ -163,12 +163,13 @@ alias mmv='noglob zmv -W'
 unset command
 
 alias \
-  duh=${(f)$(whence -p {g,}du)[1]}' --si --max-depth=1'
   g='grep --color -n -P' \
   h='fc -lfiD' \
   p='ps -U $EUID -o "pid= comm=" -H' \
   pp='ps -U $EUID -o "pid= command=" -H' \
   top='top -U $EUID'
+
+duh () { ${commands[gdu]:-du} --si -s ${2:+-c} $* }
 
 alias \
   m='mplayer' \
@@ -177,7 +178,7 @@ alias \
   v='vim' \
 
 alias \
-  ls=${(f)$(whence -p {g,}ls)[1]}' --color' \
+  ls="${commands[gls]:-ls} --color" \
   a='ls' \
   o='ls -l --si' \
   aa='a -A' \
