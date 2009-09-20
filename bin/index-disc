@@ -58,7 +58,7 @@ for mount in ${*:-.}; do
     target=$target:h
   fi
 
-  sha256sums=$(cd $target && sha256sum $prefix**/*(.)) &&
+  sha256sums=$(cd $target && ${commands[sha256sum]:-$commands[gsha256sum]} $prefix**/*(.)) &&
     with-discs-dir write-sha256sums $sha256sums &&
     diskutil eject $mount > /dev/null
 done
