@@ -1,7 +1,7 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2006-05-25
+" Latest Revision:  2009-10-01
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
 setlocal path+=.;
@@ -11,6 +11,8 @@ inoremap <buffer> <CR> <C-O>:call <SID>CompleteStatement()<CR><CR>
 omap <buffer> <silent> ac :call <SID>SelectAComment()<CR>
 omap <buffer> <silent> ic :call <SID>SelectInnerComment()<CR>
 
+nnoremap <buffer> <silent> GF :call <SID>GoToOtherFile()<CR>
+
 "inoremap <buffer> ( (<C-O>:call <SID>InsertParentheses()<CR><C-O>l
 "
 "function! s:InsertParentheses()
@@ -18,6 +20,8 @@ omap <buffer> <silent> ic :call <SID>SelectInnerComment()<CR>
 "    call setline(line('.'), getline('.') . ')')
 "  endif
 "endfunction
+
+compiler rakexpectations
 
 let b:undo_ftplugin .= ' | setl sw< sts< et< | iunmap <buffer> <CR>'
 let b:undo_ftplugin .= ' | ounmap <buffer> ac | ounmap <buffer> ic'
@@ -140,4 +144,22 @@ function s:SelectInnerComment()
     call cursor(range[1], 1)
     call cursor(0, col('$') - (&selection == 'inclusive' ? 1 : 0))
   endif
+endfunction
+
+function s:GoToOtherFile()
+  if s:GoToFile('\%(^\|.*/\)test\(/.\+\)', 'lib') ||
+   \ s:GoToFile('\%(^\|.*/\)lib\(/.\+\)', 'test')
+    return
+  endif
+  echoerr "E447: Can't find alternate file"
+endfunction
+
+function s:GoToFile(pattern, new_head)
+  let path = expand('%')
+  let target = substitute(path, a:pattern, a:new_head . '\1', "")
+  if target == path
+    return 0
+  endif
+  execute 'edit ' . target
+  return 1
 endfunction

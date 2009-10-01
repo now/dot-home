@@ -111,6 +111,7 @@ DOTFILES = \
 	   vim/after/syntax/ruby.vim \
 	   vim/after/syntax/vim.vim \
 	   vim/colors/now.vim \
+	   vim/compiler/rakexpectations.vim \
 	   vim/doc/ascii-tables.txt \
 	   vim/ftplugin/docbk.vim \
 	   vim/ftplugin/man.vim \
