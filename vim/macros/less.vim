@@ -1,6 +1,6 @@
 " Vim macro file
 " Maintainer:       Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2008-07-23
+" Latest Revision:  2009-10-02
 
 if argc() > 0
   let s:i = 0
@@ -28,19 +28,21 @@ if argc() > 0
   unlet s:i
 endif
 
-set viminfo=
-
-au VimEnter * set nomodified
-
 noremap <buffer> <silent> q <Esc>:q<CR>
 noremap <buffer> v <Esc>:call <SID>start_edit_mode()<CR>
 
-function s:start_edit_mode()
-  setlocal modifiable
-  unmap <buffer> q
-  unmap <buffer> v
-  setlocal viminfo<
-  echomsg "Buffer is now editable"
+au VimEnter * call <SID>initialize()
+
+function! s:initialize()
+  if line('$') == 1 && len(getline(1)) == 0
+    quit
+  endif
+  setlocal viminfo= nomodified nomodifiable
 endfunction
 
-setlocal nomodifiable
+function! s:start_edit_mode()
+  unmap <buffer> q
+  unmap <buffer> v
+  setlocal modifiable viminfo<
+  echomsg "Buffer is now editable"
+endfunction
