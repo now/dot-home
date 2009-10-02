@@ -5,6 +5,8 @@
 " TODO: Should we modify the 'complete' option?  Scanning included files is
 " perhaps a bit much, better to leave that to Ctrl-X Ctrl-I.
 
+set cpo&vim
+
 let s:on_windows = has("win32") || has("win64")
 
 " TODO: Is this really needed?
