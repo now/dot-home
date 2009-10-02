@@ -5,3 +5,4 @@
         insteadOf = myhub:
 [alias]
 	up = pull --rebase
+        unstage = reset HEAD --
