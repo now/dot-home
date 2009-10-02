@@ -92,6 +92,7 @@ DOTFILES = \
 	   vim/after/ftplugin/context.vim \
 	   vim/after/ftplugin/css.vim \
 	   vim/after/ftplugin/dtd.vim \
+	   vim/after/ftplugin/gitcommit.vim \
 	   vim/after/ftplugin/html.vim \
 	   vim/after/ftplugin/java.vim \
 	   vim/after/ftplugin/javascript.vim \
@@ -112,7 +113,6 @@ DOTFILES = \
 	   vim/colors/now.vim \
 	   vim/doc/ascii-tables.txt \
 	   vim/ftplugin/docbk.vim \
-	   vim/ftplugin/gitcommit.vim \
 	   vim/ftplugin/man.vim \
 	   vim/ftplugin/urlextract.vim \
 	   vim/macros/less.vim \
