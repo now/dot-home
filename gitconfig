@@ -4,5 +4,6 @@
 [url "git@github.com:now/"]
         insteadOf = myhub:
 [alias]
-	up = pull --rebase
+        done = commit -a
         unstage = reset HEAD --
+	up = pull --rebase
