@@ -7,3 +7,8 @@
         done = commit -a
         unstage = reset HEAD --
 	up = pull --rebase
+[color]
+        pager = true
+        ui = auto
+[color.status]
+        header = green
