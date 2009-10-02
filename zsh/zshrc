@@ -76,7 +76,7 @@ for command in zle/vim-increase-number zle/self-insert-redir zle/up-directory \
                zle/cd-from-list zle/cd-to-alternate-directory \
                zle/urlify-current-argument \
                zle/yank-clipboard zle/sudo-command-line \
-               history-beginning-search-menu insert-digraph; do
+               history-beginning-search-menu insert-digraph copy-earlier-word; do
   autoload -U $command
   zle -N $command
 done
@@ -131,7 +131,7 @@ bindkey \
   '^X^K' complete-kept-result \
   '^Xk' complete-kept-result \
   '^X^L' history-beginning-search-menu \
-  '^Xp' copy-prev-shell-word \
+  '^X^P' copy-earlier-word \
   '^X^S' zle/sudo-command-line \
   '^Xu' zle/urlify-current-argument \
   '^Y' zle/yank-clipboard \
