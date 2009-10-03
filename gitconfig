@@ -8,6 +8,7 @@
         unstage = reset HEAD --
 	up = pull --rebase
 [color]
+        diff = false
         pager = false
         ui = auto
 [color.status]
