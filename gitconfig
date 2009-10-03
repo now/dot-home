@@ -5,6 +5,7 @@
         insteadOf = myhub:
 [alias]
         done = commit -a
+        pa = add --patch --
         unstage = reset HEAD --
 	up = pull --rebase
 [color]
