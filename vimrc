@@ -23,7 +23,7 @@ let &fillchars = 'diff: ,fold: ,vert:' . (&encoding == 'utf-8' ? '│' : '|')
 let &listchars .= (&encoding == 'utf-8' ? ',tab:»·,trail:·' : ',tab:>.,trail:.')
 syntax enable
 colorscheme now
-set statusline=%F%(\ [%1*%M%*%(,%2*%R%*%)]%)\ %w%(\ %y%)
+set statusline=%F%(\ [%1*%M%*%(,%2*%R%*%)]%)%(\ %w%)%(\ %y%)
 set hidden
 set confirm
 set autowriteall
