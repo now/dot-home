@@ -27,3 +27,5 @@ for (var i = 0; i < document.styleSheets.length; i++)
   document.styleSheets[i].disabled = true;
 
 document.body.appendChild(title);
+
+location.href = link.href;
