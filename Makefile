@@ -255,8 +255,10 @@ DOTFILES = \
 	   firefox/searchplugins/hittase-where.xml \
 	   firefox/searchplugins/hittase-who.xml \
 	   firefox/searchplugins/imdb.xml \
+	   firefox/searchplugins/juno-records.xml \
 	   firefox/searchplugins/posix.xml \
 	   firefox/searchplugins/thepiratebayorg.xml \
+	   firefox/searchplugins/tvragecom.xml \
 	   firefox/searchplugins/youtube.xml \
 	   firefox/stylish.rdf \
 	   firefox/user.js
