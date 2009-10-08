@@ -11,7 +11,7 @@ inoremap <buffer> <CR> <C-O>:call <SID>CompleteStatement()<CR><CR>
 omap <buffer> <silent> ac :call <SID>SelectAComment()<CR>
 omap <buffer> <silent> ic :call <SID>SelectInnerComment()<CR>
 
-nnoremap <buffer> <silent> GF :call <SID>GoToOtherFile()<CR>
+nnoremap <buffer> <silent> <Leader>gf :call <SID>GoToOtherFile()<CR>
 
 "inoremap <buffer> ( (<C-O>:call <SID>InsertParentheses()<CR><C-O>l
 "
