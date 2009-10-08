@@ -23,6 +23,8 @@ nnoremap <buffer> <silent> <Leader>gf :call <SID>GoToOtherFile()<CR>
 
 compiler rakexpectations
 
+set includeexpr='lib/'.substitute(substitute(v:fname,'::','/','g'),'$','.rb','')
+
 let b:undo_ftplugin .= ' | setl sw< sts< et< | iunmap <buffer> <CR>'
 let b:undo_ftplugin .= ' | ounmap <buffer> ac | ounmap <buffer> ic'
 
