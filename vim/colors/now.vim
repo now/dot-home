@@ -1,6 +1,6 @@
 " Vim color file
 " Maintainer:       Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2006-07-22
+" Latest Revision:  2009-10-03
 
 set background=light
 hi clear
@@ -97,3 +97,4 @@ hi  Todo          ctermfg=None        ctermbg=172                         guifg=
 hi  Normal                                                                guifg=#181818     guibg=#f6f6f6
 hi! link          NOWModernFileMod    User3
 hi! link          NOWModernFileRO     User4
+hi  NOWModernFileCommonPrefix ctermfg=Gray                                guifg=Gray
