@@ -8,7 +8,7 @@ LANG=en_US.UTF-8
 LC_COLLATE=C
 
 PAGER=vimless
-MANPAGER="col -b | vimless +'setf man' -"
+MANPAGER="vimless +'setf man|set ma|%s/.\b//ge|set noma|1' -"
 EDITOR=vim
 
 SYSSCREENRC=/dev/null
