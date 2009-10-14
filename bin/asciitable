@@ -1,0 +1,18 @@
+#! /bin/zsh
+
+zmodload zsh/mathfunc
+
+integer radix=${1:-16}
+(( radix > 36 )) && (( radix = 36 ))
+integer width=$((floor(log(radix))))
+
+table=(
+  NUL SOH STX ETX EOT ENQ ACK BEL  BS  HT  LF  VT  FF  CR  SO  SI
+  DLE DC1 DC2 DC3 DC4 NAK SYN ETB CAN  EM SUB ESC  FS  GS  RS  US
+  ${(#):-{32..126}} DEL)
+
+header=({0..9} ${(#):-{97..122}})
+print ${(l:width:)} ${(l:3:)header[1,radix]}
+for ((i = 0; i < ceil(128.0 / $radix); i++)); do
+  print ${(l:width:)i} ${(l:3:)table[i*radix+1,(i+1)*radix]}
+done

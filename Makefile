@@ -277,6 +277,7 @@ BINFILES = \
 $(call GROUP_template,$(BINFILES),~,.,,755)
 
 BINFILES = \
+	   bin/asciitable \
 	   bin/backup-home \
 	   bin/burn \
 	   bin/clipboard \
