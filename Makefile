@@ -260,14 +260,14 @@ DOTFILES = \
 	   firefox/searchplugins/thepiratebayorg.xml \
 	   firefox/searchplugins/tvragecom.xml \
 	   firefox/searchplugins/youtube.xml \
-	   firefox/stylish.rdf \
 	   firefox/user.js
 
 $(call GROUP_template,$(DOTFILES),$(firefoxuserconfdir),,firefox/)
 
 DOTFILES = \
 	   firefox/permissions.sql \
-	   firefox/search.sql
+	   firefox/search.sql \
+	   firefox/stylish.sql
 
 $(call SQLITE_template,$(DOTFILES),$(firefoxuserconfdir),,firefox/)
 
