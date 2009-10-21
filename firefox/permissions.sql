@@ -51,6 +51,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('on-one-shop.co.uk', 'cook
 INSERT INTO moz_hosts (host, type, permission) VALUES('pragprog.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('reddit.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('residentadvisor.net', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('rubyforge.org', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('shelta.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('skatteverket.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('sneakersnstuff.com', 'cookie', 1);
