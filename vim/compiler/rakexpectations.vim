@@ -1,7 +1,7 @@
 " Vim compiler file
 " Compiler:         Rake with expectations test framework
 " Maintainer:       Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2009-10-02
+" Latest Revision:  2009-10-19
 
 if exists('current_compiler')
   finish
@@ -14,11 +14,9 @@ set cpo-=C
 CompilerSet makeprg=rake\ $*
 
 CompilerSet errorformat=
-      \%E%f:%l:\ %m,
-      \%-Z%.%#String\ details:%.%#,
+      \%E%f:%l:%m,
       \%-Z%^%$,
       \%C%m,
-      \%+CExpected\ %m,
       \%+CGot\ %\\+%m,
       \%E%f:%l:in\ %*[^:]:\ %m,
       \%-C%\tfrom\ %f:%l:in\ %.%#,
