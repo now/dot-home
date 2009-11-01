@@ -5,6 +5,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('addons.mozilla.org', 'ins
 INSERT INTO moz_hosts (host, type, permission) VALUES('update.mozilla.org', 'install', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('tools.google.com', 'install', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('adlibris.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('arcot.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('store.apple.come', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('amesto.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('auriganet.eu', 'cookie', 8);
