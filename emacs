@@ -126,12 +126,15 @@
 
 (defconst now-c-style
   '("linux"
-    (c-hanging-braces-alist . ((brace-list-intro . ())
-                               (brace-list-close . ())
-                               (brace-entry-open . ())
-                               (class-close . ())))
-    (c-hanging-colons-alist . ((case-label . (after))
-                               (label . (after)))))
+    (c-hanging-braces-alist . ((brace-list-open)
+                               (brace-list-close)
+                               (brace-entry-open)
+                               (substatement-open after)
+                               (block-close . c-snug-do-while)
+                               (arglist-cont-nonempty)
+                               (class-close)))
+    (c-hanging-colons-alist . ((case-label after)
+                               (label after))))
   "now’s C Programming Style")
 (c-add-style "now-c-style" now-c-style)
 (setq c-default-style '((java-mode . "java")
