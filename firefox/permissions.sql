@@ -46,6 +46,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('nonoh.net', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('nordea.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('nytimes.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('paypal.com', 'cookie', 8);
+INSERT INTO moz_hosts (host, type, permission) VALUES('pay-read.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('posten.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('publishme.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('epostboxen.posten.se', 'cookie', 8);
