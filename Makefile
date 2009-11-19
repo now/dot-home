@@ -246,8 +246,35 @@ $(GM_CONFIG): Makefile $(GM_SCRIPTS)
 
 install: $(GM_CONFIG)
 
+CF_SCRIPTS = \
+	     firefox/chickenfoot/mediafire-automatic-download.js
+
+CF_TRIGGERS = $(firefoxuserconfdir)/chickenfoot/triggers.xml
+
+$(CF_TRIGGERS): Makefile $(CF_SCRIPTS)
+	{ \
+	  echo '<triggers version="0.5">'; \
+	  for f in $^; do \
+	    test $$f = Makefile && continue; \
+	    echo "  <trigger path=\"`basename $$f`\""; \
+	    for field in name when description; do \
+	      sed -n 's,^[ 	]*//[ 	]*@'$$field'[ 	][ 	]*\(.*\)$$,           '$$field'="\1",p' < $$f; \
+	    done; \
+	    echo '           enabled="true">'; \
+	    for field in includes; do \
+	      upper=`awk -v field="$$field" 'END {print toupper(substr(field, 1, 1)) substr(field, 2)}' /dev/null`; \
+	      sed -n 's,^[ 	]*//[ 	]*@'$$field'[ 	][ 	]*\(.*\)$$,    <'include'>\1</'include'>,p' < $$f; \
+	    done; \
+	    echo '  </trigger>'; \
+	  done; \
+	  echo '</triggers>'; \
+	} > $(call shell_quote,$@)
+
+install: $(CF_TRIGGERS)
+
 DOTFILES = \
 	   $(GM_SCRIPTS) \
+	   $(CF_SCRIPTS) \
 	   firefox/searchplugins/adlibris.xml \
 	   firefox/searchplugins/codesearch.xml \
 	   firefox/searchplugins/delicious-tag.xml \
