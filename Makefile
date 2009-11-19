@@ -219,7 +219,6 @@ GM_SCRIPTS = \
 	     firefox/gm_scripts/delicious-favicons.user.js \
 	     firefox/gm_scripts/divshare-auto-download.user.js \
 	     firefox/gm_scripts/google-favicons.user.js \
-	     firefox/gm_scripts/mediafire-auto-download.user.js \
 	     firefox/gm_scripts/secure-google-docs-connection.user.js \
 	     firefox/gm_scripts/vbulletin-cleanup.user.js \
 	     firefox/gm_scripts/zshare-mp3-links.user.js
