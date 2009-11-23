@@ -19,3 +19,4 @@ export                                                                \
   SYSSCREENRC
 
 source $ZDOTDIR/os/profile
+source $ZDOTDIR/host/profile
