@@ -130,6 +130,7 @@ DOTFILES = \
            vim/templates/cpp.template \
            vim/templates/default.license \
            vim/templates/mp.template \
+	   vim/templates/ruby.template \
            vim/templates/scheme.template \
            vim/templates/screen.template \
            vim/templates/tex.template \
