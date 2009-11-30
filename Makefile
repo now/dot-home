@@ -263,7 +263,7 @@ $(CF_TRIGGERS): Makefile $(CF_SCRIPTS)
 	    echo '           enabled="true">'; \
 	    for field in includes; do \
 	      upper=`awk -v field="$$field" 'END {print toupper(substr(field, 1, 1)) substr(field, 2)}' /dev/null`; \
-	      sed -n 's,^[ 	]*//[ 	]*@'$$field'[ 	][ 	]*\(.*\)$$,    <'include'>\1</'include'>,p' < $$f; \
+	      sed -n 's,^[ 	]*//[ 	]*@'$$field'[ 	][ 	]*\(.*\)$$,    <include urlPattern="\1"/>,p' < $$f; \
 	    done; \
 	    echo '  </trigger>'; \
 	  done; \

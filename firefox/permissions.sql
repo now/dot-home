@@ -18,6 +18,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('chainreactioncycles.com',
 INSERT INTO moz_hosts (host, type, permission) VALUES('childstore.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('complyfoam.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('cyclecomponents.se', 'cookie', 8);
+INSERT INTO moz_hosts (host, type, permission) VALUES('decks.co.uk', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('delicious.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('discogs.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('dyndns.com', 'cookie', 8);
