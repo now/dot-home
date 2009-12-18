@@ -238,6 +238,12 @@ DOTFILES = \
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),$(if $(subst Cygwin,,$(uname)),.))
 
+USERSCRIPT_field = s,^[ 	]*//[ 	]*@\($(1)\)[ 	][ 	]*\(.*\)$$,    $(2),p;
+
+USERSCRIPT_fields = $(call USERSCRIPT_field,$(1),\1="\2")
+
+GM_tag = $(call USERSCRIPT_field,$(1),<$(2)>\2</$(2)>)
+
 GM_SCRIPTS = \
 	     firefox/gm_scripts/delicious-favicons.user.js \
 	     firefox/gm_scripts/divshare-auto-download.user.js \
@@ -253,17 +259,11 @@ GM_CONFIG = $(firefoxuserconfdir)/gm_scripts/config.xml
 $(GM_CONFIG): Makefile $(GM_SCRIPTS)
 	{ \
 	  echo '<UserScriptConfig>'; \
-	  for f in $^; do \
-	    test $$f = Makefile && continue; \
+	  for f in $(wordlist 2,$(words $^),$^); do \
 	    echo "  <Script filename=\"`basename $$f`\""; \
-	    for field in name namespace description; do \
-	      sed -n 's,^[ 	]*//[ 	]*@'$$field'[ 	][ 	]*\(.*\)$$,          '$$field'="\1",p' < $$f; \
-	    done; \
-	    echo '          enabled="true" basedir=".">'; \
-	    for field in include exclude; do \
-	      upper=`awk -v field="$$field" 'END {print toupper(substr(field, 1, 1)) substr(field, 2)}' /dev/null`; \
-	      sed -n 's,^[ 	]*//[ 	]*@'$$field'[ 	][ 	]*\(.*\)$$,    <'$$upper'>\1</'$$upper'>,p' < $$f; \
-	    done; \
+	    sed -n '$(call USERSCRIPT_fields,name\|namespace\|description)' < $$f; \
+	    echo '    enabled="true" basedir=".">'; \
+	    sed -n '$(call GM_tag,include,Include) $(call GM_tag,exclude,Exclude)' < $$f; \
 	    echo '  </Script>'; \
 	  done; \
 	  echo '</UserScriptConfig>'; \
@@ -279,17 +279,11 @@ CF_TRIGGERS = $(firefoxuserconfdir)/chickenfoot/triggers.xml
 $(CF_TRIGGERS): Makefile $(CF_SCRIPTS)
 	{ \
 	  echo '<triggers version="0.5">'; \
-	  for f in $^; do \
-	    test $$f = Makefile && continue; \
+	  for f in $(wordlist 2,$(words $^),$^); do \
 	    echo "  <trigger path=\"`basename $$f`\""; \
-	    for field in name when description; do \
-	      sed -n 's,^[ 	]*//[ 	]*@'$$field'[ 	][ 	]*\(.*\)$$,           '$$field'="\1",p' < $$f; \
-	    done; \
-	    echo '           enabled="true">'; \
-	    for field in includes; do \
-	      upper=`awk -v field="$$field" 'END {print toupper(substr(field, 1, 1)) substr(field, 2)}' /dev/null`; \
-	      sed -n 's,^[ 	]*//[ 	]*@'$$field'[ 	][ 	]*\(.*\)$$,    <include urlPattern="\1"/>,p' < $$f; \
-	    done; \
+	    sed -n '$(call USERSCRIPT_fields,name\|when\|description)' < $$f; \
+	    echo '    enabled="true">'; \
+	    sed -n '$(call USERSCRIPT_field,includes,<include urlPattern="\2"/>)' < $$f; \
 	    echo '  </trigger>'; \
 	  done; \
 	  echo '</triggers>'; \
