@@ -46,7 +46,26 @@ endef
 define SQLITE_template_file
 install: $(2)
 $(2): $(1)
-	$$(SQLITE) $$(call shell_quote,$$@) < $$<
+	cat $$^ | $$(SQLITE) $$(call shell_quote,$$@)
+
+endef
+
+# 1: File
+# 2: Parent directory
+# 3: Prefix to add
+# 4: Prefix to strip
+SQLITE_construct_target = $(2)/$(3)$(1:$(4)%=%)ite
+
+# 1: Files
+# 2: Parent directory
+# 3: Prefix to add
+# 4: Prefix to strip
+define SQLITE_template
+$(eval $(foreach file,$(1),$(call SQLITE_template_file,$(file),$(call SQLITE_construct_target,$(file),$(2),$(3),$(4)))))
+endef
+
+define SQLITE_ADD_template_file
+$(2): $(1)
 
 endef
 
@@ -54,8 +73,8 @@ endef
 # 2: Parent directory
 # 3: Prefix to add
 # 4: Prefix to strip
-define SQLITE_template
-$(eval $(foreach file,$(1),$(call SQLITE_template_file,$(file),$(2)/$(3)$(file:$(4)%=%)ite)))
+define SQLITE_IF_EXISTS_template
+$(eval $(foreach file,$(1),$(if $(wildcard $(file)),$(call SQLITE_ADD_template_file,$(file),$(call SQLITE_construct_target,$(file),$(2),$(3),$(4))))))
 endef
 
 uname := $(shell uname -s)
@@ -66,6 +85,9 @@ endif
 DIFF = diff
 INSTALL = install
 SQLITE = sqlite3
+TOUCH = touch
+
+timestamps = .timestamps
 
 prefix = ~
 userconfdir = $(prefix)
