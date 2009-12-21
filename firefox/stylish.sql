@@ -22,6 +22,12 @@ INSERT INTO style_meta
 INSERT INTO style_meta
         (style_id, name, value)
         VALUES(2, 'type', 'site');
+INSERT INTO style_meta
+        (style_id, name, value)
+        VALUES(3, 'url-prefix', 'http://www.discogs.com');
+INSERT INTO style_meta
+        (style_id, name, value)
+        VALUES(3, 'type', 'ste');
 
 CREATE INDEX style_meta_style_id ON style_meta (style_id);
 
@@ -118,6 +124,138 @@ INSERT INTO styles
   #files .file .line-data,
   #files .meta .bubble {
     font-family: monospace !important;
+  }
+}');
+INSERT INTO styles
+        (name, enabled, code)
+        VALUES('Discogs cleanup', 1,
+'@-moz-document url-prefix(http://www.discogs.com/) {
+  body {
+    background: white !important;
+    font: 10pt sans-serif !important;
+  }
+
+  #page {
+    border: none !important;
+    background: white !important;
+    padding: 0 !important;
+  }
+
+  #header {
+    border-bottom: none !important;
+  }
+
+  #search_submit {
+    width: 5em !important;
+  }
+
+/*  div.left {
+    width: auto !important;
+  }*/
+
+  div.body div.image {
+    float: right !important;
+    margin-right: 20px !important;
+    margin-left: 5px !important;
+  }
+
+  div.body div.profile {
+    padding-left: 0 !important;
+  }
+
+  div.body div.profile h1 {
+    font-size: 2em !important;
+  }
+
+  div.body div.profile div.head {
+    color: inherit !important;
+  }
+
+  div.section h3 {
+    color: inherit !important;
+    font-size: 1.17em !important;
+    border-bottom: none !important;
+    padding: 0 0 1px !important
+  }
+
+  div.section.major h3 {
+    color: inherit !important;
+    background: none !important;
+    padding: 4px 0 2px !important;
+  }
+
+  div.section div.section_content {
+    padding: 5px 0 !important;
+  }
+
+  div.section.tracklist table {
+    width: auto !important;
+  }
+
+  div.section.tracklist td {
+    border-top: none !important;
+  }
+
+  div.section.tracklist td.track_duration {
+    padding-left: 1em !important;
+  }
+
+  div.section.tracklist tr.track_extra_artists td {
+    font-size: smaller !important;
+  }
+
+  div.section.credits span.role {
+    color: inherit !important;
+  }
+
+  span.rating_value {
+    font-size: 1em !important;
+  }
+
+  span.rating_value_sm {
+    font-size: 1em !important;
+  }
+
+  div.review div.head {
+    padding: 2px 0 !important;
+  }
+
+  div.review span.date {
+    color: inherit !important;
+    font-size: small !important;
+  }
+
+  div.review div.comment {
+    margin: 5px 0 8px !important;
+    width: 40em !important;
+    text-align: justify !important;
+  }
+
+  div.review div.bottom {
+    border-bottom: none !important;
+  }
+
+  div.review div.bottom span.tags {
+    border-left: none !important;
+  }
+
+  div.review div.bottom span.tags .tag {
+    color: #03b !important;
+    border-top: none !important;
+    border-right: none !important;
+  }
+
+  div.review div.bottom a.review_action1,
+  div.review div.bottom a.review_action2 {
+    font-size: small !important;
+  }
+
+  div.review div.bottom a.review_action2 {
+    color: #03b !important;
+  }
+
+  table.releases td, table.releases th {
+    border-bottom: none !important;
   }
 }');
 
