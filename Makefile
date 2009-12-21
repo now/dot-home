@@ -240,7 +240,7 @@ $(call GROUP_template,$(DOTFILES),$(userconfdir),$(if $(subst Cygwin,,$(uname)),
 
 USERSCRIPT_field = s,^[ 	]*//[ 	]*@\($(1)\)[ 	][ 	]*\(.*\)$$,    $(2),p;
 
-USERSCRIPT_fields = $(call USERSCRIPT_field,$(1),\1="\2")
+USERSCRIPT_fields = $(foreach field,$(1),$(call USERSCRIPT_field,$(field),\1="\2"))
 
 GM_tag = $(call USERSCRIPT_field,$(1),<$(2)>\2</$(2)>)
 
@@ -261,7 +261,7 @@ $(GM_CONFIG): Makefile $(GM_SCRIPTS)
 	  echo '<UserScriptConfig>'; \
 	  for f in $(wordlist 2,$(words $^),$^); do \
 	    echo "  <Script filename=\"`basename $$f`\""; \
-	    sed -n '$(call USERSCRIPT_fields,name\|namespace\|description)' < $$f; \
+	    sed -n '$(call USERSCRIPT_fields,name namespace description)' < $$f; \
 	    echo '    enabled="true" basedir=".">'; \
 	    sed -n '$(call GM_tag,include,Include) $(call GM_tag,exclude,Exclude)' < $$f; \
 	    echo '  </Script>'; \
@@ -281,7 +281,7 @@ $(CF_TRIGGERS): Makefile $(CF_SCRIPTS)
 	  echo '<triggers version="0.5">'; \
 	  for f in $(wordlist 2,$(words $^),$^); do \
 	    echo "  <trigger path=\"`basename $$f`\""; \
-	    sed -n '$(call USERSCRIPT_fields,name\|when\|description)' < $$f; \
+	    sed -n '$(call USERSCRIPT_fields,name when description)' < $$f; \
 	    echo '    enabled="true">'; \
 	    sed -n '$(call USERSCRIPT_field,includes,<include urlPattern="\2"/>)' < $$f; \
 	    echo '  </trigger>'; \
