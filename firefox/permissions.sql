@@ -66,6 +66,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('store.apple.com', 'cookie
 INSERT INTO moz_hosts (host, type, permission) VALUES('tvrage.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('tumblr.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('vimeo.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('voddler.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('wikipedia.org', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('yahoo.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('youtube.com', 'cookie', 1);
