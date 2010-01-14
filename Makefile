@@ -331,6 +331,7 @@ BINFILES = \
 	   bin/e \
 	   bin/emv \
 	   bin/index-disc \
+	   bin/m \
 	   bin/mem-map \
 	   bin/terminal-colors \
 	   bin/pack \

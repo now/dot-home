@@ -1,0 +1,35 @@
+#! /bin/zsh
+
+vlc-command-loop () {
+  local command="$1"; shift
+  for arg in $*; do
+    vlc-command $command $arg
+  done
+}
+
+vlc-file-command-loop () {
+  local command="$1"; shift
+  for arg in $*; do
+    [[ $arg != /* ]] && arg=$PWD/$arg
+    vlc-command $command $arg
+  done
+}
+
+vlc-command () {
+  print -n -- $* | nc -U /Users/now/var/run/vlc.sock
+}
+
+local command="$1"; shift
+
+case $command in
+  (a|ad|add) vlc-file-command-loop enqueue $* ;;
+  (ls) vlc-command playlist ;;
+  (pause|status) vlc-command $command ;;
+  (*)
+    if [[ -e $command ]]; then
+      vlc-file-command-loop enqueue $command $*
+    else
+      print -u2 "Unknown command: $command"
+    fi
+    ;;
+esac

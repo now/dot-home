@@ -173,7 +173,7 @@ alias \
 duh () { (($# > 0)) || set *; ${commands[gdu]:-du} --si -s ${2:+-c} $* }
 
 alias \
-  m='mplayer' \
+  mp='mplayer' \
   tv='DISPLAY=:0.1 mplayer -geometry 1024x600+0+75' \
   ro='vimless' \
   v='vim' \
