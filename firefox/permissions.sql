@@ -54,6 +54,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('evernote.com', 'cookie', 
 INSERT INTO moz_hosts (host, type, permission) VALUES('facebook.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('github.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('gotapi.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('gotlib.goteborg.se', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('hemnet.se', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('hypem.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('iis.se', 'cookie', 8);
