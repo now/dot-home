@@ -4,6 +4,12 @@ set showstatuslinks=2
 set urlseparator=,\\s\\s
 set wildoptions=auto
 
+highlight CmdLine font: 10pt monospace
+highlight ErrorMsg font: 10pt monospace
+highlight Hint font: 8pt bold monospace; color: white; text-shadow: black -1px 0 1px, black 0 1px 1px, black 1px 0 1px, black 0 -1px 1px
+highlight Normal font: 10pt monospace; color: #181818; background: #f6f6f6
+highlight URL color: #2f5a9b; background: inherit
+
 noremap <BS> <PageUp>
 noremap s l
 
