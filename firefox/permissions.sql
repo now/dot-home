@@ -68,8 +68,6 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('wikipedia.org', 'cookie',
 INSERT INTO moz_hosts (host, type, permission) VALUES('yahoo.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('youtube.com', 'cookie', 1);
 
-INSERT INTO moz_hosts (host, type, permission) VALUES('amesto.se', 'cookie', 8);
-
 /* Forums */
 INSERT INTO moz_hosts (host, type, permission) VALUES('bikeguide.org', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('ghisler.ch', 'cookie', 1);
