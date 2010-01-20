@@ -10,11 +10,10 @@ highlight CompTitle background: #b2b2b2
 highlight ErrorMsg font: 10pt monospace
 highlight Hint font: 8pt bold monospace; color: white; text-shadow: black -1px 0 1px, black 0 1px 1px, black 1px 0 1px, black 0 -1px 1px
 highlight HintActive color: white; background: #009000
-highlight HintElem color: black; background: #af5f00
+highlight HintElem color: black; background: #f0a000
 highlight NonText color: #2080c0
 highlight Normal font: 10pt monospace; color: #181818; background: #f6f6f6
-highlight Search color: white; background: #af5f00
-highlight Search background: #f0a000
+highlight Search color: white; background: #f0a000
 highlight StatusLine background: #b2b2b2
 highlight Title: color: #2080c0
 highlight URL color: #2f5a9b; background: inherit
