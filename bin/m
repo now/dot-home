@@ -16,7 +16,7 @@ vlc-file-command-loop () {
 }
 
 vlc-command () {
-  print -n -- $* | nc -U /Users/now/var/run/vlc.sock
+  print -- $* | nc -U /Users/now/var/run/vlc.sock
 }
 
 local command="$1"; shift
