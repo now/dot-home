@@ -18,7 +18,10 @@ highlight StatusLine background: #b2b2b2
 highlight Title: color: #2080c0
 highlight URL color: #2f5a9b; background: inherit
 
+let mapleader = ','
+
 noremap <BS> <PageUp>
 noremap s l
+noremap <silent> <Leader>h <Esc>:set invhlsearch<CR>
 
 command! note :open javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title);}})();
