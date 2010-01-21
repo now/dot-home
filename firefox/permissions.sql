@@ -48,6 +48,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('epostboxen.posten.se', 'c
 /* Utilities */
 INSERT INTO moz_hosts (host, type, permission) VALUES('delicious.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('discogs.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('dropbox.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('dyndns.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('evernote.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('facebook.com', 'cookie', 1);
