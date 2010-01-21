@@ -76,7 +76,9 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('rubyforge.org', 'cookie',
 INSERT INTO moz_hosts (host, type, permission) VALUES('skatteverket.se', 'cookie', 8);
 
 /* Storage Sites */
+INSERT INTO moz_hosts (host, type, permission) VALUES('divshare.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('mediafire.com', 'cookie', 8);
+INSERT INTO moz_hosts (host, type, permission) VALUES('zshare.net', 'cookie', 8);
 
 /* Banking */
 INSERT INTO moz_hosts (host, type, permission) VALUES('nb.se', 'cookie', 8);
