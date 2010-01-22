@@ -27,7 +27,7 @@ INSERT INTO style_meta
         VALUES(3, 'url-prefix', 'http://www.discogs.com');
 INSERT INTO style_meta
         (style_id, name, value)
-        VALUES(3, 'type', 'ste');
+        VALUES(3, 'type', 'site');
 
 CREATE INDEX style_meta_style_id ON style_meta (style_id);
 
