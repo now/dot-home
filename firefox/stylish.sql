@@ -272,6 +272,9 @@ INSERT INTO styles
   body, #outer-wrapper {
     font: 10pt sans-serif !important;
   }
+  #outer-wrapper {
+    text-align: justify !important;
+  }
 }');
 
 COMMIT;
