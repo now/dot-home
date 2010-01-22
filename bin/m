@@ -19,6 +19,8 @@ vlc-command () {
   print -- $* | nc -U /Users/now/var/run/vlc.sock
 }
 
+(( $# == 0 )) && set pause
+
 local command="$1"; shift
 
 case $command in
