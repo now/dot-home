@@ -270,7 +270,7 @@ INSERT INTO styles
         VALUES('Bikesnob Fixup', 1,
 '@-moz-document url-prefix(http://bikesnobnyc.blogspot.com) {
   body, #outer-wrapper {
-    font: 11pt sans-serif !important;
+    font: 10pt sans-serif !important;
   }
 }');
 
