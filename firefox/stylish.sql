@@ -28,6 +28,12 @@ INSERT INTO style_meta
 INSERT INTO style_meta
         (style_id, name, value)
         VALUES(3, 'type', 'site');
+INSERT INTO style_meta
+        (style_id, name, value)
+        VALUES(4, 'url-prefix', 'http://bikesnobnyc.blogspot.com');
+INSERT INTO style_meta
+        (style_id, name, value)
+        VALUES(4, 'type', 'site');
 
 CREATE INDEX style_meta_style_id ON style_meta (style_id);
 
@@ -256,6 +262,15 @@ INSERT INTO styles
 
   table.releases td, table.releases th {
     border-bottom: none !important;
+  }
+}');
+
+INSERT INTO styles
+        (name, enabled, code)
+        VALUES('Bikesnob Fixup', 1,
+'@-moz-document url-prefix(http://bikesnobnyc.blogspot.com) {
+  body, #outer-wrapper {
+    font: 11pt sans-serif !important;
   }
 }');
 
