@@ -62,6 +62,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('nonoh.net', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('nytimes.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('reddit.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('residentadvisor.net', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('sugarsync.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('tvrage.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('tumblr.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('vimeo.com', 'cookie', 1);
