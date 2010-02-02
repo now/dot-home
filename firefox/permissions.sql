@@ -19,6 +19,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('cyclecomponents.se', 'coo
 INSERT INTO moz_hosts (host, type, permission) VALUES('decks.co.uk', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('ebay.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('ebay.co.uk', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('flerbollar.e-butik.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('hollywood.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('jula.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('junkyard.se', 'cookie', 8);
