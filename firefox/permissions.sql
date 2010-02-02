@@ -38,7 +38,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('yoyonation.com', 'cookie'
 /* Merchant Payment Interfaces */
 INSERT INTO moz_hosts (host, type, permission) VALUES('arcot.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('auriganet.eu', 'cookie', 8);
-INSERT INTO moz_hosts (host, type, permission) VALUES('incab.se', 'cookie', 8);
+INSERT INTO moz_hosts (host, type, permission) VALUES('secure.incab.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('paypal.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('pay-read.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('posten.se', 'cookie', 8);
@@ -66,6 +66,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('reddit.com', 'cookie', 1)
 INSERT INTO moz_hosts (host, type, permission) VALUES('residentadvisor.net', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('soundcloud.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('sugarsync.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('telia.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('tvrage.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('tumblr.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('vimeo.com', 'cookie', 1);
