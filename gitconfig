@@ -6,6 +6,7 @@
 [alias]
         done = commit -a
         pa = add --patch --
+        s = status
         unstage = reset HEAD --
 	up = pull --rebase
 [color]
@@ -14,3 +15,5 @@
         ui = auto
 [color.status]
         header = green
+[help]
+        autocorrect = 20
