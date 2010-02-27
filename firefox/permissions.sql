@@ -72,6 +72,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('sugarsync.com', 'cookie',
 INSERT INTO moz_hosts (host, type, permission) VALUES('telia.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('tvrage.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('tumblr.com', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('vasttrafik.se', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('vimeo.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('voddler.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('wikipedia.org', 'cookie', 1);
