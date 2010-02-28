@@ -30,6 +30,7 @@ dar_options+=(--prune .Spotlight-V100
               --prune .adobe
               --prune .bash_history
               --prune .cache
+              --prune .dropbox
               --prune .dvdcss
               --prune .fontconfig
               --prune .fseventsd
@@ -46,6 +47,7 @@ dar_options+=(--prune .Spotlight-V100
               --prune .terminfo
               --prune .thumbnails
               --prune Documents/Native\ Instruments/Traktor/Backup
+              --prune Dropbox
               --prune Library/Caches
               --prune Library/Application\ Support/CrashReporter
               --prune Library/Application\ Support/Cultured\ Code/Things/Backups
@@ -55,8 +57,11 @@ dar_options+=(--prune .Spotlight-V100
               --prune Library/Application\ Support/Firefox/Profiles/\*/adblockplus
               --prune Library/Application\ Support/Firefox/Profiles/\*/bookmarkbackups
               --prune Library/Application\ Support/Firefox/Profiles/\*/downloads.sqlite
+              --prune Library/Application\ Support/Google/Chrome
+              --prune Library/Application\ Support/Google/Picasa3/cache
               --prune Library/Application\ Support/audacity
               --prune Library/Application\ Support/uTorrent/\*.old
+              --prune Library/Application\ Support/uTorrent/\*.torrent
               --prune Library/Logs
               --prune Library/Preferences/Macromedia
               --prune Library/PubSub
@@ -64,6 +69,7 @@ dar_options+=(--prune .Spotlight-V100
               --prune Library/Widgets
               --prune cbt
               --prune tmp
+              --prune var/run
               --prune \*/.generated
               --prune \*/autom4te.cache)
 
@@ -158,9 +164,6 @@ dar --create $filename $dar_options |& \
         /^ [0-9]* inode(s) recorded as deleted from reference backup$/d
         /^ Total number of inode considered: [0-9]*$/d
         /^ EA saved for [0-9]* inode(s)$/d' &&
-          eval $(ssh-agent -s) > /dev/null &&
-          echo $SSH_AGENT_PID > $HOME/temp.out &&
-          scp -q $filename.[[:digit:]]##.dar shell.scorpionshops.com:
-
-#eval $(keychain --eval --quiet --noask id_dsa)
-#ssh-add -l 2>/dev/null | grep -q id_dsa || { print -u 2 'Can’t find id_dsa key'; exit 1 }
+ eval $(ssh-agent -s) > /dev/null &&
+ { rsync -a --delete $backupdest hanjin.dreamhost.com:;
+   kill $SSH_AGENT_PID; }
