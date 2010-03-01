@@ -145,7 +145,7 @@ if [[ $1 == diff ]]; then
     exit 1
   fi
   filename=$filename-diff
-  dar_options+="--ref ${${filenames[1]:r}%%.[[:digit:]]##}"
+  dar_options+=(-A ${${filenames[1]:r}%%.[[:digit:]]##})
 fi
 
 dar --create $filename $dar_options |& \
