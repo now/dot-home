@@ -165,5 +165,5 @@ dar --create $filename $dar_options |& \
         /^ Total number of inode considered: [0-9]*$/d
         /^ EA saved for [0-9]* inode(s)$/d' &&
  eval $(ssh-agent -s) > /dev/null &&
- { rsync -a --delete $backupdest hanjin.dreamhost.com:;
+ { rsync -a $backupdest hanjin.dreamhost.com:;
    kill $SSH_AGENT_PID; }
