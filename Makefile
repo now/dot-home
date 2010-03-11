@@ -234,8 +234,7 @@ DOTFILES = \
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir)/.zsh,.,zsh/)
 
-DOTFILES = \
-	   vimperator/plugin/delicious.js
+DOTFILES =
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),$(if $(subst Cygwin,,$(uname)),.))
 
