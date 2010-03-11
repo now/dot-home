@@ -1,0 +1,40 @@
+﻿[rc]
+rc-fake-tty=1
+rc-unix=/Users/now/var/run/vlc.sock
+[quartztext]
+quartztext-font=Helvetica Neue
+
+[macosx]
+macosx-mediakeys=0
+# Black screens in fullscreen (boolean)
+#macosx-black=1
+
+[main]
+media-library=0
+extraintf=rc
+key-toggle-fullscreen=f
+key-faster=]
+key-slower=[
+key-rate-normal==
+key-next=Shift->
+key-prev=Shift-<
+key-jump-extrashort=Shift-Left
+key-jump+extrashort=Shift-Right
+key-jump-short=Left
+key-jump+short=Right
+key-jump-medium=Down
+key-jump+medium=Up
+key-jump-long=Page Down
+key-jump+long=Page Up
+key-frame-next=.
+key-nav-up=Command-Up
+key-nav-down=Command-Down
+key-nav-left=Command-Left
+key-nav-right=Command-Right
+key-vol-up=0
+key-vol-down=9
+key-vol-mute=m
+key-subdelay-up=q
+key-subdelay-down=;
+key-audiodelay-up=Shift-+
+key-audiodelay-down=-

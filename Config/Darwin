@@ -1,3 +1,4 @@
 INSTALL = ginstall
 
 firefoxuserconfdir = $(call shell_quote,$(wildcard ~/Library/Application\ Support/Firefox/Profiles/*.default))
+guiuserconfdir = ~/Library/Preferences

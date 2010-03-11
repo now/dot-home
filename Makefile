@@ -91,6 +91,7 @@ timestamps = .timestamps
 
 prefix = ~
 userconfdir = $(prefix)
+guiuserconfdir = $(prefix)
 firefoxuserconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
 
 -include Config/$(uname)
@@ -238,6 +239,12 @@ DOTFILES = \
 	   vimperator/plugin/edit-textarea-in-editor.js
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),$(if $(subst Cygwin,,$(uname)),.))
+
+DOTFILES = \
+	   vlc/vlcrc
+
+$(call GROUP_template,$(DOTFILES),$(guiuserconfdir))
+
 
 USERSCRIPT_field = s,^[ 	]*//[ 	]*@\($(1)\)[ 	][ 	]*\(.*\)$$,    $(2),p;
 
