@@ -234,7 +234,8 @@ DOTFILES = \
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir)/.zsh,.,zsh/)
 
-DOTFILES =
+DOTFILES = \
+	   vimperator/plugin/edit-textarea-in-editor.js
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),$(if $(subst Cygwin,,$(uname)),.))
 
