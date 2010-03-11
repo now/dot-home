@@ -297,8 +297,8 @@ DOTFILES = \
 	   $(CF_SCRIPTS) \
 	   firefox/searchplugins/adlibris.xml \
 	   firefox/searchplugins/codesearch.xml \
-	   firefox/searchplugins/delicious-tag.xml \
 	   firefox/searchplugins/discogs.xml \
+	   firefox/searchplugins/google-bookmarks.xml \
 	   firefox/searchplugins/hittase-where.xml \
 	   firefox/searchplugins/hittase-who.xml \
 	   firefox/searchplugins/imdb.xml \

@@ -1,8 +1,0 @@
-<SearchPlugin xmlns="http://www.mozilla.org/2006/browser/search/">
-<ShortName>del.icio.us tag</ShortName>
-<Description>A plugin to search del.icio.us tags</Description>
-<InputEncoding>UTF-8</InputEncoding>
-<Image width="16" height="16">data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAK0lEQVR4nGP8//8/AzbAyIhVmIEJuzBuMKqBGIAjtBkY7t69Sx0bRjUQAwAN8AW1I1hpeAAAAABJRU5ErkJggg==</Image>
-<SearchForm>http://delicious.com/now/</SearchForm>
-<Url type="text/html" method="GET" template="http://del.icio.us/now/{searchTerms}"/>
-</SearchPlugin>
