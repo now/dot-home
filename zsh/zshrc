@@ -140,6 +140,7 @@ bindkey \
   '^^' zle/cd-to-alternate-directory \
   ' ' magic-space \
   ${(s: :):-${^${(s::):-'|<>&'}}' zle/self-insert-redir'}
+bindkey -r '^[' 
 
 
 # 5  Functions And Aliases
