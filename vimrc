@@ -101,6 +101,16 @@ endfor
 inoremap <C-Z> <C-C>
 cnoremap <C-G> <C-C>
 
+inoremap <expr> <Esc> <SID>ignore_esc('<lt>C-Z>')
+cnoremap <expr> <Esc> <SID>ignore_esc('<lt>C-G>')
+
+function s:ignore_esc(alternative)
+  echohl ErrorMsg
+  echomsg 'Please use ' . a:alternative . ' instead of <Esc>'
+  echohl None
+  return ""
+endfunction
+
 noremap <Leader>p :cprevious<CR>
 noremap <Leader>n :cnext<CR>
 noremap <Leader>P :cpfile<CR>
