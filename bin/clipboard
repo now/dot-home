@@ -1,8 +1,10 @@
 #! /bin/zsh
 
+zmodload zsh/zselect
+
 clipboard-put () {
-  print -r -- $* | case $OSTYPE in
-    (cygwin) putclip ;;
+  print -rn -- $* | case $OSTYPE in
+    (cygwin) > /dev/clipboard ;;
     (darwin*) pbcopy ;;
     (*) xclip ;;
   esac
@@ -10,7 +12,7 @@ clipboard-put () {
 
 clipboard-get () {
   case $OSTYPE in
-    (cygwin) getclip ;;
+    (cygwin) cat /dev/clipboard ;;
     (darwin*) pbpaste ;;
     (*) xclip -o ;;
   esac
@@ -18,10 +20,10 @@ clipboard-get () {
 
 if (( $# > 0 )); then
   clipboard-put $*
-elif [[ -s /dev/stdin ]]; then
+elif zselect -t 0 -r 0; then
   local input=
   IFS= read -d $'\0' -r input
-  clipboard-put ${input%$'\n'}
+  clipboard-put $input
 else
   clipboard-get
 fi
