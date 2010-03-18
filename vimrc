@@ -100,9 +100,11 @@ endfor
 
 nnoremap <C-Z> :sh<CR>
 inoremap <C-Z> <C-C>
+vnoremap <C-Z> <C-C>
 cnoremap <C-G> <C-C>
 
 inoremap <expr> <Esc> <SID>ignore_esc('<lt>C-Z>')
+vnoremap <expr> <Esc> <SID>ignore_esc('<lt>C-Z>')
 cnoremap <expr> <Esc> <SID>ignore_esc('<lt>C-G>')
 
 function s:ignore_esc(alternative)
