@@ -114,6 +114,7 @@ function s:ignore_esc(alternative)
   return ""
 endfunction
 
+noremap <Leader>m <Esc>:make<CR>
 noremap <Leader>p :cprevious<CR>
 noremap <Leader>n :cnext<CR>
 noremap <Leader>P :cpfile<CR>
