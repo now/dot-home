@@ -98,7 +98,7 @@ for digit in [1, 2, 3, 4, 5, 6, 8, 9]
   execute 'inoremap <silent> ' . digit . ' <C-R>=pumvisible() ? "' . repeat('\<lt>C-N>', digit) . '" : "' . digit . '"<CR>'
 endfor
 
-nnoremap <C-Z> :sh<CR>
+nnoremap <C-Z> <Esc>:sh<CR>
 inoremap <C-Z> <C-C>
 vnoremap <C-Z> <C-C>
 cnoremap <C-G> <C-C>
@@ -115,24 +115,24 @@ function s:ignore_esc(alternative)
 endfunction
 
 noremap <Leader>m <Esc>:make<CR>
-noremap <Leader>p :cprevious<CR>
-noremap <Leader>n :cnext<CR>
-noremap <Leader>P :cpfile<CR>
-noremap <Leader>N :cnfile<CR>
+noremap <Leader>p :<C-U>execute v:count . 'cprevious'<CR>
+noremap <Leader>n :<C-U>execute v:count . 'cnext'<CR>
+noremap <Leader>P :<C-U>execute v:count . 'cpfile'<CR>
+noremap <Leader>N :<C-U>execute v:count . 'cnfile'<CR>
 
-noremap <silent> <C-P> <Esc>:bprevious<CR>
-noremap <silent> <C-N> <Esc>:bnext<CR>
+noremap <silent> <C-P> :<C-U>execute v:count . 'bprevious'<CR>
+noremap <silent> <C-N> :<C-U>execute v:count . 'bnext'<CR>
 
 noremap <silent> <Leader>h <Esc>:set invhlsearch<CR>
 
 noremap <silent> <Leader>s <Esc>:setlocal invspell spelllang=en_us<CR>
 
-nnoremap <Leader>c :cd %:p:h<CR>:pwd<CR>
-nnoremap <Leader>C :lcd %:p:h<CR>:pwd<CR>
-nnoremap <Leader>e :e <C-R>=expand('%:p:h')<CR>/<C-Z>
-nnoremap <Leader>E :e <C-Z>
+nnoremap <Leader>c <Esc>:cd %:p:h<CR>:pwd<CR>
+nnoremap <Leader>C <Esc>:lcd %:p:h<CR>:pwd<CR>
+nnoremap <Leader>e <Esc>:e <C-R>=expand('%:p:h')<CR>/<C-Z>
+nnoremap <Leader>E <Esc>:e <C-Z>
 
-nnoremap <silent> ,k :bn <Bar> :bd #<CR>
+nnoremap <silent> ,k <Esc>:bn <Bar> :bd #<CR>
 
 cnoremap <C-A>  <Home>
 cnoremap <C-B>  <Left>
