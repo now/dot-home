@@ -10,12 +10,12 @@ SAVEHIST=${HISTSIZE::=1024}
 REPORTTIME=300
 unset TERMCAP
 
-setopt autocd autopushd                           \
-       completeinword nolistambiguous nolisttypes \
-       extendedhistory histnostore                \
-       rcexpandparam rcquotes                     \
-       correct dvorak noflowcontrol               \
-       nonotify                                   \
+setopt autocd autopushd                            \
+       completeinword nolistambiguous nolisttypes  \
+       extendedhistory histnostore                 \
+       rcexpandparam rcquotes                      \
+       combiningchars correct dvorak noflowcontrol \
+       nonotify                                    \
        nobeep
 
 autoload -U add-zsh-hook
