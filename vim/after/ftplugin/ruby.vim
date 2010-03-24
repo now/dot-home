@@ -1,7 +1,7 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2009-10-01
+" Latest Revision:  2010-03-24
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
 setlocal path+=.;
@@ -11,7 +11,7 @@ inoremap <buffer> <CR> <C-O>:call <SID>CompleteStatement()<CR><CR>
 omap <buffer> <silent> ac :call <SID>SelectAComment()<CR>
 omap <buffer> <silent> ic :call <SID>SelectInnerComment()<CR>
 
-nnoremap <buffer> <silent> <Leader>gf :call <SID>GoToOtherFile()<CR>
+nnoremap <buffer> <silent> <Leader>t :call <SID>GoToOtherFile()<CR>
 
 "inoremap <buffer> ( (<C-O>:call <SID>InsertParentheses()<CR><C-O>l
 "
