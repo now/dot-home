@@ -6,4 +6,4 @@
 // @includes http://www.mediafire.com/download.php?*
 // ==/UserScript==
 
-click('Click here to start download');
+click('first Click here to start download');
