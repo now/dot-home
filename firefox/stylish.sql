@@ -53,15 +53,120 @@ INSERT INTO styles
 '@-moz-document url-prefix(http://bikeguide.org/forums/showthread.php),
 url-prefix(http://www.bikeguide.org/forums/showthread.php) {
   body {
+    font: 11pt sans-serif !important;
     margin: 0 !important;
   }
 
-  .bigusername {
-    font-size: 10pt !important;
+  a:link, body_alink,
+  .tcat a:link, .tcat_alink,
+  .thead a:link .thead_alink,
+  .tfoot a:link, .tfoot_alink,
+  .vbmenu_control a:link, .vbmenu_control_alink,
+  .vbmenu_option a:link, .vbmenu_option_alink,
+  .vbmenu_hilite a:link, .vbmenu_hilite_alink {
+    color: #2f5a9b !important;
   }
 
-  /* Remove header. */
-  body > table:first-child {
+  a:visited, body_avisited,
+  .tcat a:visited, .tcat_avisited,
+  .thead a:visited, .thead_avisited,
+  .tfoot a:visited, .tfoot_avisited,
+  .vbmenu_control a:visited, .vbmenu_control_avisited,
+  .vbmenu_option a:visited, .vbmenu_option_avisited,
+  .vbmenu_hilite a:visited, .vbmenu_hilite_avisited {
+    color: #602f80 !important;
+  }
+
+  a:hover, a:active, body_ahover,
+  .tcat a:hover, .tcat a:active, .tcat_ahover,
+  .thead a:hover, .thead a:active, .thead_ahover,
+  .tfoot a:hover, .tfoot a:active .tfoot_avisited,
+  .vbmenu_control a:hover, .vbmenu_control a:active, .vbmenu_control_ahover,
+  .vbmenu_option a:hover, .vbmenu_option a:active, .vbmenu_option_ahover,
+  .vbmenu_hilite a:hover, .vbmenu_hilite a:active, .vbmenu_hilite_ahover {
+    color: #f02626 !important;
+  }
+
+  .page {
+    background: #f6f6f6 !important;
+    color: #181818 !important;
+  }
+
+  .page a:link, .page_alink {
+    background: none !important;
+  }
+
+  td, th, p, li, .wysiwyg, textarea, .bginput, .button, select, legend,
+  .vbmenu_option, .bigusername {
+    font: inherit !important;
+  }
+
+  td {
+    border: none !important;
+  }
+
+  .tborder, .panel, .vBulletin_editor {
+    background: none !important;
+    color: inherit !important;
+    border: none !important;
+    margin-bottom: 1em !important;
+  }
+
+  .tcat, .thead, .vbmenu_control {
+    background: none !important;
+    color: inherit !important;
+    font: inherit !important;
+  }
+
+  .thead {
+    font-size: smaller !important;
+  }
+
+  .alt1, .alt1Active, .alt2, .alt2Active {
+    background: inherit !important;
+    color: inherit !important;
+  }
+
+  .alt1 > div.smallfont {
+    font-size: 100% !important;
+    margin-bottom: 1em !important;
+  }
+
+  .bginput option, .bginput optgroup, option, optgroup {
+    font-size: 100% !important;
+    font-family: sans-serif !important;
+  }
+
+  fieldset {
+    border: none !important;
+  }
+
+  legend {
+    color: inherit !important;
+    font-weight: bold !important;
+  }
+
+  .smallfont, .navbar {
+    font-size: smaller !important;
+  }
+
+  .time, .highlight {
+    color: inherit !important;
+  }
+
+  .vbmenu_popup, .panelsurround {
+    background: inherit !important;
+    color: inherit !important;
+  }
+
+  .fieldset, .fieldset td, .fieldset p, .fieldset li {
+    font-size: 100% !important;
+  }
+
+  /* Remove header,
+     horizontal rule below thread subject */
+  body > table:first-child, hr,
+  body > div > div > div > center + table {
     display: none !important;
   }
 
@@ -70,14 +175,9 @@ url-prefix(http://www.bikeguide.org/forums/showthread.php) {
     display: none;
   }
 
-  /* Add border as we remove it when removing junk in previous rule. */
-  table.tborder > tbody > tr + tr > td {
-    border-bottom: 1px solid rgb(69, 92, 139) !important;
-  }
-
-  /* Deindent quostes. */
+  /* Deindent quotes. */
   div[style=''margin: 5px 20px 20px;''] {
-    margin: 5px 0 10px 0 !important;
+    margin: 0 0 1em 3em !important;
   }
 
   /* Remove “Quote:” text. */
@@ -90,12 +190,26 @@ url-prefix(http://www.bikeguide.org/forums/showthread.php) {
     margin-bottom: 5px !important;
   }
 
+  /* Remove super-ugly buttons. */
   div.page > div > table > tbody > tr > td:first-child {
     display: none;
   }
 
-  /* Remove previous/next thread links. */
-  div.page > div > table + br + div {
+  form[style=''clear: left;''] {
+    display: none !important;
+  }
+
+  /* Remove stupid breaks,
+     previous/next thread links,
+     forum jump links,
+     advertisements,
+     sitemeter */
+  body > div > div > div > br, 
+  body > div > div > div > br + div,
+  body > div > div > div > br + table,
+  body > div > div > div > div + table,
+  body > div > div > div > table + br + center,
+  body > form + script + div {
     display: none;
   }
 
