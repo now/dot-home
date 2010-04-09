@@ -101,6 +101,7 @@ endfor
 nnoremap <C-Z> <Esc>:sh<CR>
 inoremap <C-Z> <C-C>
 vnoremap <C-Z> <C-C>
+onoremap <C-Z> <C-C>
 cnoremap <C-G> <C-C>
 
 inoremap <expr> <Esc> <SID>ignore_esc('<lt>C-Z>')
@@ -115,10 +116,10 @@ function s:ignore_esc(alternative)
 endfunction
 
 noremap <Leader>m <Esc>:make<CR>
-noremap <Leader>p :<C-U>execute v:count . 'cprevious'<CR>
-noremap <Leader>n :<C-U>execute v:count . 'cnext'<CR>
-noremap <Leader>P :<C-U>execute v:count . 'cpfile'<CR>
-noremap <Leader>N :<C-U>execute v:count . 'cnfile'<CR>
+noremap <silent> <Leader>p :<C-U>execute v:count . 'cprevious'<CR>
+noremap <silent> <Leader>n :<C-U>execute v:count . 'cnext'<CR>
+noremap <silent> <Leader>P :<C-U>execute v:count . 'cpfile'<CR>
+noremap <silent> <Leader>N :<C-U>execute v:count . 'cnfile'<CR>
 
 noremap <silent> <C-P> :<C-U>execute v:count . 'bprevious'<CR>
 noremap <silent> <C-N> :<C-U>execute v:count . 'bnext'<CR>
