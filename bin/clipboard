@@ -23,7 +23,11 @@ if (( $# > 0 )); then
 elif zselect -t 0 -r 0; then
   local input=
   IFS= read -d $'\0' -r input
-  clipboard-put $input
+  if [[ -n $input ]]; then
+    clipboard-put $input
+  else
+    clipboard-get
+  fi
 else
   clipboard-get
 fi
