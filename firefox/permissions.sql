@@ -64,6 +64,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('gotlib.goteborg.se', 'coo
 INSERT INTO moz_hosts (host, type, permission) VALUES('hemnet.se', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('hypem.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('iis.se', 'cookie', 8);
+INSERT INTO moz_hosts (host, type, permission) VALUES('myopenid.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('nonoh.net', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('nytimes.com', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('reddit.com', 'cookie', 1);
