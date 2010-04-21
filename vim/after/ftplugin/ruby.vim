@@ -1,17 +1,18 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2010-03-24
+" Latest Revision:  2010-04-21
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
 setlocal path+=.;
 
 inoremap <buffer> <CR> <C-O>:call <SID>CompleteStatement()<CR><CR>
 
-omap <buffer> <silent> ac :call <SID>SelectAComment()<CR>
-omap <buffer> <silent> ic :call <SID>SelectInnerComment()<CR>
+omap <buffer> <silent> ac <Esc>:call <SID>SelectAComment()<CR>
+omap <buffer> <silent> ic <Esc>:call <SID>SelectInnerComment()<CR>
 
-nnoremap <buffer> <silent> <Leader>t :call <SID>GoToOtherFile()<CR>
+nnoremap <buffer> <silent> <Leader>t <Esc>:call <SID>GoToOtherFile()<CR>
+nnoremap <buffer> <silent> <Leader>M <Esc>:execute 'make' 'TEST=' . shellescape(expand('%')) 'LINE=' . line('.')<CR>
 
 "inoremap <buffer> ( (<C-O>:call <SID>InsertParentheses()<CR><C-O>l
 "
@@ -27,6 +28,7 @@ set includeexpr='lib/'.substitute(substitute(v:fname,'::','/','g'),'$','.rb','')
 
 let b:undo_ftplugin .= ' | setl sw< sts< et< | iunmap <buffer> <CR>'
 let b:undo_ftplugin .= ' | ounmap <buffer> ac | ounmap <buffer> ic'
+let b:undo_ftplugin .= ' | nunmap <buffer> <Leader>t | nunmap <buffer> <Leader>M'
 
 if exists('s:did_load')
   finish
@@ -34,12 +36,25 @@ endif
 let s:did_load = 1
 
 function s:CompleteStatement()
-  " TODO: we can check contents of ". register to make sure that they were
-  " inserted while typing here...
-  if getline('.') =~ '^\s*\%(begin\|case\|class\|def\|for\|if\|module\|unless\|until\|while\)\>\|do\%(\s*|[^|]*|\s*\)\=$'
-    let ind = repeat(' ', indent('.'))
-    call append(line('.'), ind . 'end')
+  let view = winsaveview()
+  if !search('^\s*\zs\%(begin\|case\|class\|def\|for\|if\|module\|unless\|until\|while\)\>\|\%(do\|{\)\%(\s*|[^|]*|\s*\)\=$',
+           \ 'bcnW', line('.') - 1)
+    return
   endif
+  let start_pos = getpos('.')
+  let start_indent = indent('.')
+  let word = expand('<cword>')
+  if word == ""
+    let word = '{'
+  endif
+  normal %
+  let end_pos = getpos('.')
+  let end_indent = indent('.')
+  call winrestview(view)
+  if end_pos != start_pos && end_indent == start_indent
+    return
+  endif
+  call append(line('.'), repeat(' ', start_indent) . (word == '{' ? '}' : 'end'))
 endfunction
 
 " TODO: make this into a script instead and have each filetype that wants to
