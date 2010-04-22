@@ -1,7 +1,7 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2010-04-21
+" Latest Revision:  2010-04-22
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
 setlocal path+=.;
@@ -38,7 +38,7 @@ let s:did_load = 1
 function s:CompleteStatement()
   let view = winsaveview()
   if !search('^\s*\zs\%(begin\|case\|class\|def\|for\|if\|module\|unless\|until\|while\)\>\|\%(do\|{\)\%(\s*|[^|]*|\s*\)\=$',
-           \ 'bcnW', line('.') - 1)
+           \ 'bcnW', line('.'))
     return
   endif
   let start_pos = getpos('.')
