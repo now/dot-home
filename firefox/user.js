@@ -7,6 +7,7 @@ user_pref("browser.feeds.showFirstRunUI", false);
 user_pref("browser.display.background_color", "#f6f6f6");
 user_pref("browser.display.foreground_color", "#181818");
 user_pref("browser.download.manager.showWhenStarting", false);
+user_pref("browser.history_expire_days_min", 365);
 user_pref("browser.tabs.warnOnClose", false);
 user_pref("browser.visited_color", "#602f80");
 user_pref("dom.disable_window_move_resize", true);
