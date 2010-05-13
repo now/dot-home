@@ -100,6 +100,7 @@ firefoxuserconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
 DOTFILES = \
 	   Xresources \
 	   dircolors \
+	   editrc \
 	   emacs \
 	   fonts.conf \
 	   gitconfig \
