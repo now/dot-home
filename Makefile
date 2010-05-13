@@ -223,7 +223,6 @@ DOTFILES = \
 	   share/emacs/rc/progmodes/ruby.el \
 	   share/emacs/rect-mark.el \
 	   share/emacs/redo.el \
-	   share/emacs/ruby-mode.el \
 	   share/emacs/themes/color-theme-now.el \
 	   share/emacs/vimpulse.el \
 
