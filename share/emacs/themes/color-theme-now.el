@@ -1,14 +1,19 @@
 (eval-when-compile
   (require 'color-theme))
 
+; TODO: We can also use color-X as the name for color X.
 (defun color-theme-now ()
   "Color theme by Nikolai Weibull."
   (interactive)
   (color-theme-install
       '(color-theme-now
-         ((foreground-color . "#181818")
-          (background-color . "#f6f6f6")
-          (background-mode . light))
+         ((background-mode . light))
+         (cursor (((min-colors 16777216) (class color))
+                  (:foreground "#f6f6f6"
+                   :background "#181818")))
+         (default (((min-colors 16777216) (class color))
+                   (:foreground "#181818"
+                    :background "#f6f6f6")))
          (compilation-error ((((min-colors 16777216) (class color))
                               (:foreground "#f02626"))
                              (((min-colors 16) (class color))
@@ -184,13 +189,11 @@
                        (:foreground "#2080c0"))
                       (((min-colors 16) (class color))
                        (:foreground "blue"))))
-         (viper-minibuffer-emacs ((t)))
-         (viper-minibuffer-insert ((t)))
-         (viper-minibuffer-vi ((t)))
+         (viper-minibuffer-emacs ((t (nil))))
+         (viper-minibuffer-insert ((t (nil))))
+         (viper-minibuffer-vi ((t (nil))))
          )))
 
-;hi  User1         ctermfg=DarkGreen   ctermbg=249                         guifg=#257325     guibg=#b2b2b2
-;hi  User2         ctermfg=DarkRed     ctermbg=249                         guifg=#951616     guibg=#b2b2b2
 ;hi  WarningMsg                                                            guifg=#951616
 ;hi  Folded        ctermfg=None        ctermbg=254                         guifg=NONE        guibg=#e4e4e4
 ;hi! link          FoldColumn          Folded
@@ -204,8 +207,5 @@
 ;hi  SpellRare                         ctermbg=253                                                                           guisp=#dadada
 ;hi  SpellLocal                                                                                                              guisp=#80b0b0
 ;hi  Error                                                                                   guibg=#f02626
-;hi  Normal                                                                guifg=#181818     guibg=#f6f6f6
-;hi! link          NOWModernFileMod    User3
-;hi! link          NOWModernFileRO     User4
 
 (provide 'color-theme-now)

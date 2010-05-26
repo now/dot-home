@@ -218,11 +218,20 @@ DOTFILES = \
 	   share/emacs/digraph.el \
 	   share/emacs/hide-mode-line.el \
 	   share/emacs/ned/ned-info-on-file.el \
+	   share/emacs/rc/desktop.el \
+	   share/emacs/rc/digraph.el \
+	   share/emacs/rc/icomplete.el \
+	   share/emacs/rc/ido.el \
+	   share/emacs/rc/isearch.el \
 	   share/emacs/rc/os/ns.el \
 	   share/emacs/rc/os/w32.el \
-	   share/emacs/rc/progmodes/ruby.el \
-	   share/emacs/rect-mark.el \
-	   share/emacs/redo.el \
+	   share/emacs/rc/progmodes/cc-mode.el \
+	   share/emacs/rc/progmodes/compile.el \
+	   share/emacs/rc/progmodes/grep.el \
+	   share/emacs/rc/progmodes/ruby-mode.el \
+	   share/emacs/rc/ui.el \
+	   share/emacs/rc/viper.el \
+	   share/emacs/term/screen-256color.el \
 	   share/emacs/themes/color-theme-now.el \
 	   share/emacs/vimpulse.el \
 
