@@ -201,6 +201,7 @@ DOTFILES = \
 	   zsh/functions/zsh-mime-setup \
 	   zsh/functions/zle/cd-from-list \
 	   zsh/functions/zle/cd-to-alternate-directory \
+	   zsh/functions/zle/foreground-or-list-choices \
 	   zsh/functions/zle/self-insert-redir \
 	   zsh/functions/zle/sudo-command-line \
 	   zsh/functions/zle/up-directory \

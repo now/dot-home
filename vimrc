@@ -98,7 +98,6 @@ for digit in [1, 2, 3, 4, 5, 6, 8, 9]
   execute 'inoremap <silent> ' . digit . ' <C-R>=pumvisible() ? "' . repeat('\<lt>C-N>', digit) . '" : "' . digit . '"<CR>'
 endfor
 
-nnoremap <C-Z> <Esc>:sh<CR>
 inoremap <C-Z> <C-C>
 vnoremap <C-Z> <C-C>
 onoremap <C-Z> <C-C>

@@ -14,7 +14,7 @@ setopt autocd autopushd                            \
        completeinword nolistambiguous nolisttypes  \
        extendedhistory histnostore                 \
        rcexpandparam rcquotes                      \
-       combiningchars correct dvorak noflowcontrol \
+       combiningchars correct dvorak ignoreeof     \
        nonotify                                    \
        nobeep
 
@@ -75,6 +75,7 @@ autoload -U forward-word-match backward-word-match \
 
 for command in zle/vim-increase-number zle/self-insert-redir zle/up-directory \
                zle/cd-from-list zle/cd-to-alternate-directory \
+               zle/foreground-or-list-choices \
                zle/urlify-current-argument \
                zle/yank-clipboard zle/sudo-command-line \
                history-beginning-search-menu insert-digraph copy-earlier-word; do
@@ -119,7 +120,7 @@ bindkey -a \
 bindkey -rp '^['
 bindkey \
   '^?' backward-delete-char \
-  '^D' list-choices \
+  '^D' zle/foreground-or-list-choices \
   '^H' backward-delete-char \
   '^K' insert-digraph \
   '^N' _history-complete-newer \
