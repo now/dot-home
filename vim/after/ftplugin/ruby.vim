@@ -184,10 +184,13 @@ function s:GoToFile(pattern, new_head)
 endfunction
 
 function s:generate_autoload_module()
-  let path = expand('%:r')
-  let lines = ['module ' . join(map(split(path, '/'), 'substitute(v:val, "^.", "\\u&", "")'), '::')]
-  for file in split(glob(path . '/*.rb', 1), '\n')
-    call add(lines, '  autoload :' . substitute(file, '.*/\([^/]\+\)\.rb$', '\u\1', "") . ", '" . file . "'")
+  redir => pwd | silent pwd | redir end
+  let pwd = substitute(pwd, '\n', "", "")
+  let path = substitute(expand('%:r'), '^' . escape(pwd, '\.^$~[]') . '/', "", "")
+  let lines = ['module ' . join(map(split(path, '/')[1:-1], 'substitute(v:val, "^.", "\\u&", "")'), '::')]
+  for file in map(split(glob(path . '/*.rb', 1), '\n'), 'substitute(v:val, "^[^/]\\+/", "", "")')
+    let root = substitute(file, '\.rb$', "", "")
+    call add(lines, '  autoload :' . substitute(root, '.*/\([^/]\+\)$', '\u\1', "") . ", '" . root . "'")
   endfor
   call add(lines, 'end')
   if getline('$') == ""
