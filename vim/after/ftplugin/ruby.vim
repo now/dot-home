@@ -1,7 +1,7 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2010-04-22
+" Latest Revision:  2010-05-27
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
 setlocal path+=.;
@@ -13,6 +13,8 @@ omap <buffer> <silent> ic <Esc>:call <SID>SelectInnerComment()<CR>
 
 nnoremap <buffer> <silent> <Leader>t <Esc>:call <SID>GoToOtherFile()<CR>
 nnoremap <buffer> <silent> <Leader>M <Esc>:execute 'make' 'TEST=' . shellescape(expand('%')) 'LINE=' . line('.')<CR>
+
+command! -bar -buffer GenerateAutoloadModule :call s:generate_autoload_module()
 
 "inoremap <buffer> ( (<C-O>:call <SID>InsertParentheses()<CR><C-O>l
 "
@@ -179,4 +181,17 @@ function s:GoToFile(pattern, new_head)
   endif
   execute 'edit ' . target
   return 1
+endfunction
+
+function s:generate_autoload_module()
+  let path = expand('%:r')
+  let lines = ['module ' . join(map(split(path, '/'), 'substitute(v:val, "^.", "\\u&", "")'), '::')]
+  for file in split(glob(path . '/*.rb', 1), '\n')
+    call add(lines, '  autoload :' . substitute(file, '.*/\([^/]\+\)\.rb$', '\u\1', "") . ", '" . file . "'")
+  endfor
+  call add(lines, 'end')
+  if getline('$') == ""
+    $d _
+  endif
+  call append('$', lines)
 endfunction
