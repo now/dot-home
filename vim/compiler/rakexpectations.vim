@@ -1,7 +1,7 @@
 " Vim compiler file
 " Compiler:         Rake with expectations test framework
 " Maintainer:       Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2010-03-23
+" Latest Revision:  2010-05-25
 
 if exists('current_compiler')
   finish
@@ -11,7 +11,7 @@ let current_compiler = 'rakexpectations'
 let s:cpo_save = &cpo
 set cpo-=C
 
-CompilerSet makeprg=rake\ $*\ 2>&1\ \\\|\ sed\ 's///g'
+CompilerSet makeprg=rake\ -s\ $*\ 2>&1\ \\\|\ sed\ 's///g'
 
 CompilerSet errorformat=
       \%+E%f:%l:\ parse\ error,
