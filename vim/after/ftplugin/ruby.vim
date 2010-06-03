@@ -1,7 +1,7 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2010-05-27
+" Latest Revision:  2010-05-28
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
 setlocal path+=.;
@@ -39,16 +39,17 @@ let s:did_load = 1
 
 function s:CompleteStatement()
   let view = winsaveview()
-  if !search('^\s*\zs\%(begin\|case\|class\|def\|for\|if\|module\|unless\|until\|while\)\>\|\%(do\|{\)\%(\s*|[^|]*|\s*\)\=$',
-           \ 'bcnW', line('.'))
+  let pattern = '^\s*\(begin\|case\|class\|def\|for\|if\|module\|unless\|until\|while\)\>\|\%(do\|\({\)\)\%(\s*|[^|]*|\s*\)\=$'
+  let match = search(pattern, 'bcpW', line('.'))
+  if !match
     return
   endif
+  let word = match == 3 ? '}' : 'end'
+  if !search(pattern, 'bcW', line('.'))
+    return
+  end
   let start_pos = getpos('.')
   let start_indent = indent('.')
-  let word = expand('<cword>')
-  if word == ""
-    let word = '{'
-  endif
   normal %
   let end_pos = getpos('.')
   let end_indent = indent('.')
@@ -56,7 +57,7 @@ function s:CompleteStatement()
   if end_pos != start_pos && end_indent == start_indent
     return
   endif
-  call append(line('.'), repeat(' ', start_indent) . (word == '{' ? '}' : 'end'))
+  call append(line('.'), repeat(' ', start_indent) . word)
 endfunction
 
 " TODO: make this into a script instead and have each filetype that wants to
