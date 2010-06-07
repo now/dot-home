@@ -1,6 +1,7 @@
 set laststatus=0
 set newtab=addons,downloads,help,prefs
 set showstatuslinks=2
+set showtabline=0
 set urlseparator=,\\s\\s
 set wildoptions=auto
 
