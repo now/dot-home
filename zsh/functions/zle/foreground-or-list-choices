@@ -3,6 +3,8 @@ emulate -L zsh
 if (( $#BUFFER > 0 )); then
   zle list-choices
 elif (( $#jobdirs > 0 )); then
+  (( $+functions[set-terminal-title-from-command] )) &&
+    set-terminal-title-from-command fg
   fg
 else
   exit
