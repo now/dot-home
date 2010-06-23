@@ -103,6 +103,7 @@ DOTFILES = \
 	   editrc \
 	   emacs \
 	   fonts.conf \
+	   gemrc \
 	   gitconfig \
 	   gtkrc-2.0 \
 	   indent.pro \
