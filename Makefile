@@ -264,11 +264,11 @@ USERSCRIPT_fields = $(foreach field,$(1),$(call USERSCRIPT_field,$(field),\1="\2
 GM_tag = $(call USERSCRIPT_field,$(1),<$(2)>\2</$(2)>)
 
 GM_SCRIPTS = \
-	     firefox/gm_scripts/delicious-favicons.user.js \
 	     firefox/gm_scripts/divshare-auto-download.user.js \
 	     firefox/gm_scripts/google-favicons.user.js \
 	     firefox/gm_scripts/google-reader-view-original-in-background.user.js \
 	     firefox/gm_scripts/juno-download-all-link.user.js \
+	     firefox/gm_scripts/mediafire-auto-download.user.js \
 	     firefox/gm_scripts/secure-google-docs-connection.user.js \
 	     firefox/gm_scripts/vbulletin-cleanup.user.js \
 	     firefox/gm_scripts/zshare-mp3-links.user.js
@@ -290,29 +290,8 @@ $(GM_CONFIG): Makefile $(GM_SCRIPTS)
 
 install: $(GM_CONFIG)
 
-CF_SCRIPTS = \
-	     firefox/chickenfoot/mediafire-automatic-download.js
-
-CF_TRIGGERS = $(firefoxuserconfdir)/chickenfoot/triggers.xml
-
-$(CF_TRIGGERS): Makefile $(CF_SCRIPTS)
-	{ \
-	  echo '<triggers version="0.5">'; \
-	  for f in $(wordlist 2,$(words $^),$^); do \
-	    echo "  <trigger path=\"`basename $$f`\""; \
-	    sed -n '$(call USERSCRIPT_fields,name when description)' < $$f; \
-	    echo '    enabled="true">'; \
-	    sed -n '$(call USERSCRIPT_field,includes,<include urlPattern="\2"/>)' < $$f; \
-	    echo '  </trigger>'; \
-	  done; \
-	  echo '</triggers>'; \
-	} > $(call shell_quote,$@)
-
-install: $(CF_TRIGGERS)
-
 DOTFILES = \
 	   $(GM_SCRIPTS) \
-	   $(CF_SCRIPTS) \
 	   firefox/searchplugins/adlibris.xml \
 	   firefox/searchplugins/codesearch.xml \
 	   firefox/searchplugins/discogs.xml \
