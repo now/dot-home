@@ -132,6 +132,7 @@ DOTFILES = \
 	   vim/after/ftplugin/xml.vim \
 	   vim/after/ftplugin/xslt.vim \
 	   vim/after/ftplugin/zsh.vim \
+	   vim/after/indent/java.vim \
 	   vim/after/syntax/c.vim \
 	   vim/after/syntax/mail.vim \
 	   vim/after/syntax/ruby.vim \
