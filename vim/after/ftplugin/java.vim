@@ -1,8 +1,9 @@
 " Vim filetype plugin file
 " Language:	    Java
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2009-09-03
+" Latest Revision:  2010-07-14
 
-setl errorformat=%E%f:%l:\ %m,%-Z%p^,%-C%.%#,%-G%.%#
+setlocal shiftwidth=2 softtabstop=2
+setlocal errorformat=%E%f:%l:\ %m,%-Z%p^,%-C%.%#,%-G%.%#
 
-let b:undo_ftplugin .= ' | setl efm<'
+let b:undo_ftplugin .= ' | setl sw< sts< efm<'
