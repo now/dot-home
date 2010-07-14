@@ -16,7 +16,7 @@ vlc-file-command-loop () {
 }
 
 vlc-command () {
-  print -- $* | nc -U /Users/now/var/run/vlc.sock
+  print -- $* | nc localhost 4212
 }
 
 (( $# == 0 )) && set pause

@@ -1,6 +1,7 @@
-﻿[rc]
+[oldrc]
 rc-fake-tty=1
-rc-unix=/Users/now/var/run/vlc.sock
+rc-host=localhost:4212
+
 [quartztext]
 quartztext-font=Helvetica Neue
 
@@ -11,7 +12,7 @@ macosx-mediakeys=0
 
 [main]
 media-library=0
-extraintf=rc
+extraintf=oldrc
 key-toggle-fullscreen=f
 key-faster=]
 key-slower=[

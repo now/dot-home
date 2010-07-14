@@ -240,7 +240,7 @@ $(call GROUP_template,$(DOTFILES),$(userconfdir),$(if $(subst Cygwin,,$(uname)),
 DOTFILES = \
 	   vlc/vlcrc
 
-$(call GROUP_template,$(DOTFILES),$(guiuserconfdir))
+$(call GROUP_template,$(DOTFILES),$(guiuserconfdir)/org.videolan.vlc,,vlc/)
 
 
 USERSCRIPT_field = s,^[ 	]*//[ 	]*@\($(1)\)[ 	][ 	]*\(.*\)$$,    $(2),p;
