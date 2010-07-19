@@ -4,5 +4,5 @@ if (( $# < 1 )); then
 fi
 local arg="$*[-1]"
 for command in $*[1,-2]; do
-  eval $command $arg
+  ${=command} $arg
 done
