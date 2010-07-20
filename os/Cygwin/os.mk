@@ -1,4 +1,4 @@
-firefoxprofilesdir=$(call shell_quote,$(shell cygpath -u "$(APPDATA)")/Mozilla/Firefox)
+firefoxprofilesdir=$(appdatadir)/Mozilla/Firefox
 DOTFILES = \
 	   os/Cygwin/firefox/profiles.ini
 

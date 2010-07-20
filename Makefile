@@ -93,6 +93,7 @@ prefix = ~
 userconfdir = $(prefix)
 guiuserconfdir = $(prefix)
 firefoxuserconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
+vlcuserconfdir = $(prefix)/.config/vlc
 
 -include Config/$(uname)
 -include config.mk
@@ -242,7 +243,7 @@ $(call GROUP_template,$(DOTFILES),$(userconfdir),$(if $(subst Cygwin,,$(uname)),
 DOTFILES = \
 	   vlc/vlcrc
 
-$(call GROUP_template,$(DOTFILES),$(guiuserconfdir)/org.videolan.vlc,,vlc/)
+$(call GROUP_template,$(DOTFILES),$(vlcuserconfdir),,vlc/)
 
 
 USERSCRIPT_field = s,^[ 	]*//[ 	]*@\($(1)\)[ 	][ 	]*\(.*\)$$,    $(2),p;
