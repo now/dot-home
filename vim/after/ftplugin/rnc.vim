@@ -16,4 +16,10 @@ function! s:rnc_element(name)
   call cursor(line('.') + 2, 0)
 endfunction
 
-let b:undo_plugin .= ' | setl sts< sw<'
+if exists('b:undo_plugin') && b:undo_plugin != ""
+  let b:undo_plugin .= ' | '
+else
+  let b:undo_plugin = ""
+endif
+
+let b:undo_plugin .= ' | setl sts< sw< | delcommand RNCElement'
