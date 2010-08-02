@@ -158,7 +158,6 @@ DOTFILES = \
 	   vimperatorrc \
 	   vimrc \
 	   xmonad/xmonad.hs \
-	   zsh/functions/_j \
 	   zsh/functions/_mem-map \
 	   zsh/functions/_unpack \
 	   zsh/functions/_up \
@@ -171,7 +170,6 @@ DOTFILES = \
 	   zsh/functions/autoload/foldr \
 	   zsh/functions/autoload/freload \
 	   zsh/functions/autoload/hc \
-	   zsh/functions/autoload/j \
 	   zsh/functions/autoload/up \
 	   zsh/functions/autoload/urlify \
 	   zsh/functions/autoload/winify \
@@ -183,7 +181,6 @@ DOTFILES = \
 	   zsh/functions/set-terminal-title-from-command \
 	   zsh/functions/set-terminal-title-to-pwd \
 	   zsh/functions/terminal-title \
-	   zsh/functions/update-pwd-history-on-chpwd \
 	   zsh/functions/cache/invalid \
 	   zsh/functions/cache/path \
 	   zsh/functions/cache/retrieve \
