@@ -386,7 +386,7 @@ INSERT INTO styles
   body, #outer-wrapper {
     font: 10pt sans-serif !important;
   }
-  #outer-wrapper {
+  .post-body div {
     text-align: justify !important;
   }
 }');
