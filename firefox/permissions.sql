@@ -99,6 +99,9 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('zshare.net', 'cookie', 8)
 INSERT INTO moz_hosts (host, type, permission) VALUES('nb.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('nordea.se', 'cookie', 8);
 
+/* Real Estate Agents */
+INSERT INTO moz_hosts (host, type, permission) VALUES('capitex.se', 'cookie', 8);
+
 /* Miscellaneous */
 INSERT INTO moz_hosts (host, type, permission) VALUES('google.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('google.se', 'cookie', 1);
