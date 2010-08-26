@@ -52,6 +52,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('epostboxen.posten.se', 'c
 /* Utilities */
 INSERT INTO moz_hosts (host, type, permission) VALUES('blogger.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('blocket.se', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('csn.se', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('delicious.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('discogs.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('dreamhost.com', 'cookie', 1);
