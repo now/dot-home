@@ -217,6 +217,11 @@ url-prefix(http://www.bikeguide.org/forums/showthread.php) {
   div#pagenav_menu + div > div > div {
     display: none;
   }
+
+  /* Remove uninteresting information about length of membership. */
+  td.alt2[width="175"] > div.smallfont {
+    display: none;
+  }
 }');
 INSERT INTO styles
         (name, enabled, code)
