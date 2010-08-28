@@ -36,6 +36,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('sneakersnstuff.com', 'coo
 INSERT INTO moz_hosts (host, type, permission) VALUES('svalander.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('store.apple.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('ultimateears.com', 'cookie', 8);
+INSERT INTO moz_hosts (host, type, permission) VALUES('unibook.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('yoyoguy.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('yoyonation.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('zodiaceng.com', 'cookie', 1);
