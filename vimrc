@@ -132,7 +132,7 @@ nnoremap <Leader>b <Esc>:ls<CR>:b<Space>
 nnoremap <Leader>c <Esc>:cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>C <Esc>:lcd %:p:h<CR>:pwd<CR>
 
-nnoremap <Leader>e <Esc>:e <C-R>=expand('%:h')=~'^\.\=$'?"":expand('%:h').'/'<CR><C-Z>
+nnoremap <Leader>e <Esc>:e <C-R>=expand('%:h')=~'^\.\=$'?"":escape(expand('%:h'),' ').'/'<CR><C-Z>
 nnoremap <Leader>E <Esc>:e <C-Z>
 
 nnoremap <silent> <Leader>k <Esc>:bn <Bar> :bd #<CR>
