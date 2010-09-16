@@ -242,7 +242,7 @@ DOTFILES = \
 
 $(call GROUP_template,$(DOTFILES),$(vlcuserconfdir),,vlc/)
 
-
+ifneq ($(firefoxuserconfdir),)
 USERSCRIPT_field = s,^[ 	]*//[ 	]*@\($(1)\)[ 	][ 	]*\(.*\)$$,    $(2),p;
 
 USERSCRIPT_fields = $(foreach field,$(1),$(call USERSCRIPT_field,$(field),\1="\2"))
@@ -301,6 +301,7 @@ DOTFILES = \
 	   firefox/stylish.sql
 
 $(call SQLITE_template,$(DOTFILES),$(firefoxuserconfdir),,firefox/)
+endif
 
 BINFILES = \
 	   xsession
