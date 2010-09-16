@@ -51,7 +51,7 @@ prompt_now_setup () {
   esac
 
   local error='%8(V. [%9F%8v%f].)'
-  local user=' user: %n@%m'
+  local user=' %n@%m'
   local -ah ps1
   ps1=(
     '%249K'
