@@ -53,6 +53,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('epostboxen.posten.se', 'c
 
 /* State */
 INSERT INTO moz_hosts (host, type, permission) VALUES('adressandring.se', 'cookie', 8);
+INSERT INTO moz_hosts (host, type, permission) VALUES('siriusit.net', 'cookie', 8);
 
 /* Utilities */
 INSERT INTO moz_hosts (host, type, permission) VALUES('blogger.com', 'cookie', 1);
