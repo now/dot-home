@@ -51,6 +51,9 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('posten.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('publishme.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('epostboxen.posten.se', 'cookie', 8);
 
+/* State */
+INSERT INTO moz_hosts (host, type, permission) VALUES('adressandring.se', 'cookie', 8);
+
 /* Utilities */
 INSERT INTO moz_hosts (host, type, permission) VALUES('blogger.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('blocket.se', 'cookie', 1);
