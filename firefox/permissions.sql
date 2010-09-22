@@ -27,7 +27,7 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('jula.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('junkyard.se', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('juno.co.uk', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('juno.co.uk', 'popup', 1);
-INSERT INTO moz_hosts (host, type, permission) VALUES('komplett.se', 'popup', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('komplett.se', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('on-one-shop.co.uk', 'cookie', 8);
 INSERT INTO moz_hosts (host, type, permission) VALUES('pragprog.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('safaribooksonline.com', 'cookie', 1);
