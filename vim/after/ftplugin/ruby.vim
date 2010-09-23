@@ -1,7 +1,7 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2010-05-28
+" Latest Revision:  2010-09-22
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
 setlocal path+=.;
@@ -12,7 +12,7 @@ omap <buffer> <silent> ac <Esc>:call <SID>SelectAComment()<CR>
 omap <buffer> <silent> ic <Esc>:call <SID>SelectInnerComment()<CR>
 
 nnoremap <buffer> <silent> <Leader>t <Esc>:call <SID>GoToOtherFile()<CR>
-nnoremap <buffer> <silent> <Leader>M <Esc>:execute 'make' 'TEST=' . shellescape(expand('%')) 'LINE=' . line('.')<CR>
+nnoremap <buffer> <silent> <Leader>M <Esc>:call <SID>RunTest()<CR>
 
 command! -bar -buffer GenerateAutoloadModule :call s:generate_autoload_module()
 
@@ -198,4 +198,14 @@ function s:generate_autoload_module()
     $d _
   endif
   call append('$', lines)
+endfunction
+
+function! s:RunTest()
+  let test = shellescape(expand('%'))
+  let line = 'LINE=' . line('.')
+  if test =~ 'lib/'
+    let test = substitute(test, 'lib/', 'test/', '')
+    let line = ""
+  endif
+  execute 'make' 'TEST=' . test line
 endfunction
