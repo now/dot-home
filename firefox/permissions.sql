@@ -112,5 +112,6 @@ INSERT INTO moz_hosts (host, type, permission) VALUES('capitex.se', 'cookie', 8)
 /* Miscellaneous */
 INSERT INTO moz_hosts (host, type, permission) VALUES('google.com', 'cookie', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('google.se', 'cookie', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('ruby-gnome2.sourceforge.jp', 'cookie', 8);
 
 COMMIT;
