@@ -1,7 +1,7 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2010-09-22
+" Latest Revision:  2010-09-30
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
 setlocal path+=.;
@@ -11,6 +11,7 @@ inoremap <buffer> <CR> <C-O>:call <SID>CompleteStatement()<CR><CR>
 omap <buffer> <silent> ac <Esc>:call <SID>SelectAComment()<CR>
 omap <buffer> <silent> ic <Esc>:call <SID>SelectInnerComment()<CR>
 
+nnoremap <buffer> <silent> gf <Esc>:call <SID>GoToDefFile()<CR>
 nnoremap <buffer> <silent> <Leader>t <Esc>:call <SID>GoToOtherFile()<CR>
 nnoremap <buffer> <silent> <Leader>M <Esc>:call <SID>RunTest()<CR>
 
@@ -26,9 +27,7 @@ command! -bar -buffer GenerateAutoloadModule :call s:generate_autoload_module()
 
 compiler rakexpectations
 
-set includeexpr='lib/'.substitute(substitute(v:fname,'::','/','g'),'$','.rb','')
-
-let b:undo_ftplugin .= ' | setl sw< sts< et< | iunmap <buffer> <CR>'
+let b:undo_ftplugin .= ' | setl sw< sts< et< pa< inex< | iunmap <buffer> <CR>'
 let b:undo_ftplugin .= ' | ounmap <buffer> ac | ounmap <buffer> ic'
 let b:undo_ftplugin .= ' | nunmap <buffer> <Leader>t | nunmap <buffer> <Leader>M'
 
@@ -164,6 +163,19 @@ function s:SelectInnerComment()
     call cursor(range[1], 1)
     call cursor(0, col('$') - (&selection == 'inclusive' ? 1 : 0))
   endif
+endfunction
+
+function s:GoToDefFile()
+  let [lnum, col] = searchpos('^\|[^A-Za-z0-9:]', 'bcnW', line('.'))
+  if lnum == 0
+    return
+  endif
+  let [end_lnum, end_col] = searchpos('$\|[^A-Za-z0-9:]', 'cnW', line('.'))
+  if end_lnum == 0
+    return
+  endif
+  let part = strpart(getline('.'), col, end_col - col)
+  execute 'edit' printf('lib/%s.rb', substitute(tolower(part), '::', '/', 'g'))
 endfunction
 
 function s:GoToOtherFile()
