@@ -1,7 +1,7 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2010-09-30
+" Latest Revision:  2010-10-01
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
 setlocal path+=.;
@@ -166,16 +166,39 @@ function s:SelectInnerComment()
 endfunction
 
 function s:GoToDefFile()
+  let path = s:find_path_around_cursor()
+  if path == ""
+    return
+  endif
+  execute 'edit' path
+endfunction
+
+function s:find_path_around_cursor()
+  let path = expand('<cfile>')
+  let const = s:find_constant_path_around_cursor()
+  for test in [path, s:libify(path), s:libify(const)]
+    if filereadable(test)
+      return test
+    endif
+  endfor
+  return ""
+endfunction
+
+function s:libify(path)
+  return printf('lib/%s.rb', a:path)
+endfunction
+
+function s:find_constant_path_around_cursor()
   let [lnum, col] = searchpos('^\|[^A-Za-z0-9:]', 'bcnW', line('.'))
   if lnum == 0
-    return
+    return ""
   endif
   let [end_lnum, end_col] = searchpos('$\|[^A-Za-z0-9:]', 'cnW', line('.'))
   if end_lnum == 0
-    return
+    return ""
   endif
   let part = strpart(getline('.'), col, end_col - col)
-  execute 'edit' printf('lib/%s.rb', substitute(tolower(part), '::', '/', 'g'))
+  return substitute(tolower(part), '::', '/', 'g')
 endfunction
 
 function s:GoToOtherFile()
