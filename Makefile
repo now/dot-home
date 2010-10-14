@@ -141,7 +141,6 @@ DOTFILES = \
 	   vim/colors/now.vim \
 	   vim/compiler/rakexpectations.vim \
 	   vim/compiler/xmllint.vim \
-	   vim/doc/ascii-tables.txt \
 	   vim/ftplugin/docbk.vim \
 	   vim/ftplugin/man.vim \
 	   vim/ftplugin/urlextract.vim \
