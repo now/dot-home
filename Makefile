@@ -142,7 +142,6 @@ DOTFILES = \
 	   vim/compiler/rakexpectations.vim \
 	   vim/compiler/xmllint.vim \
 	   vim/ftplugin/man.vim \
-	   vim/ftplugin/urlextract.vim \
 	   vim/macros/less.vim \
 	   vim/syntax/ilprec.vim \
 	   vim/syntax/javascript.vim \
