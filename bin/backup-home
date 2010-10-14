@@ -162,7 +162,7 @@ dar --create $filename $dar_options |& \
         /^ 0 inode(s) failed to save (filesystem error)$/d
         /^ [0-9]* inode(s) ignored (excluded by filters)$/d
         /^ [0-9]* inode(s) recorded as deleted from reference backup$/d
-        /^ Total number of inode considered: [0-9]*$/d
+        /^ Total number of inodes considered: [0-9]*$/d
         /^ EA saved for [0-9]* inode(s)$/d' &&
  eval $(ssh-agent -s) > /dev/null &&
  { rsync -a $backupdest hanjin.dreamhost.com:;
