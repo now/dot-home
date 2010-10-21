@@ -321,6 +321,7 @@ BINFILES = \
 	   bin/update-context \
 	   bin/valgrind-ruby \
 	   bin/vg \
+	   bin/vgg \
 	   bin/vimless
 
 $(call GROUP_template,$(BINFILES),~,,,755)
