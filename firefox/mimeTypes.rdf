@@ -1,0 +1,284 @@
+<?xml version="1.0"?>
+<RDF:RDF
+  xmlns:NC="http://home.netscape.com/NC-rdf#"
+  xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="urn:root"
+                   NC:en-US_defaultHandlersVersion="3"/>
+
+  <RDF:Description RDF:about="urn:schemes">
+    <NC:Protocol-Schemes RDF:resource="urn:schemes:root"/>
+  </RDF:Description>
+
+  <RDF:Seq RDF:about="urn:schemes:root">
+    <RDF:li RDF:resource="urn:scheme:irc"/>
+    <RDF:li RDF:resource="urn:scheme:ircs"/>
+    <RDF:li RDF:resource="urn:scheme:itpc"/>
+    <RDF:li RDF:resource="urn:scheme:mailto"/>
+  </RDF:Seq>
+
+  <RDF:Description RDF:about="urn:scheme:irc"
+    NC:value="irc">
+    <NC:handlerProp RDF:resource="urn:scheme:handler:irc"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:scheme:handler:irc"
+    NC:alwaysAsk="false">
+    <NC:possibleApplication RDF:resource="urn:handler:web:https://www.mibbit.com/?url=%s"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:handler:web:https://www.mibbit.com/?url=%s"
+    NC:prettyName="Mibbit"
+    NC:uriTemplate="https://www.mibbit.com/?url=%s"/>
+
+  <RDF:Description RDF:about="urn:scheme:ircs"
+    NC:value="ircs">
+    <NC:handlerProp RDF:resource="urn:scheme:handler:ircs"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:scheme:handler:ircs"
+    NC:alwaysAsk="false">
+    <NC:possibleApplication RDF:resource="urn:handler:web:https://www.mibbit.com/?url=%s"/>
+  </RDF:Description>
+
+  <RDF:Description RDF:about="urn:scheme:itpc"
+    NC:value="itpc">
+    <NC:handlerProp RDF:resource="urn:scheme:handler:itpc"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:scheme:handler:itpc"
+    NC:alwaysAsk="false"
+    NC:useSystemDefault="true"/>
+
+  <RDF:Description RDF:about="urn:scheme:mailto"
+    NC:value="mailto">
+    <NC:handlerProp RDF:resource="urn:scheme:handler:mailto"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:scheme:handler:mailto"
+    NC:useSystemDefault="true"
+    NC:alwaysAsk="false">
+    <NC:possibleApplication RDF:resource="urn:handler:web:https://mail.google.com/mail/?extsrc=mailto&amp;url=%s"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:handler:web:https://mail.google.com/mail/?extsrc=mailto&amp;url=%s"
+    NC:prettyName="Gmail"
+    NC:uriTemplate="https://mail.google.com/mail/?extsrc=mailto&amp;url=%s" />
+
+  <RDF:Seq RDF:about="urn:mimetypes:root">
+    <RDF:li RDF:resource="urn:mimetype:application/force-download"/>
+    <RDF:li RDF:resource="urn:mimetype:application/gzip"/>
+    <RDF:li RDF:resource="urn:mimetype:application/ogg"/>
+    <RDF:li RDF:resource="urn:mimetype:application/pdf"/>
+    <RDF:li RDF:resource="urn:mimetype:application/postscript"/>
+    <RDF:li RDF:resource="urn:mimetype:application/x-7z-compressed"/>
+    <RDF:li RDF:resource="urn:mimetype:application/x-bittorrent"/>
+    <RDF:li RDF:resource="urn:mimetype:application/x-bzip"/>
+    <RDF:li RDF:resource="urn:mimetype:application/x-gzip"/>
+    <RDF:li RDF:resource="urn:mimetype:application/x-msi"/>
+    <RDF:li RDF:resource="urn:mimetype:application/x-tar"/>
+    <RDF:li RDF:resource="urn:mimetype:application/x-tgz"/>
+    <RDF:li RDF:resource="urn:mimetype:application/xml-dtd"/>
+    <RDF:li RDF:resource="urn:mimetype:application/zip"/>
+    <RDF:li RDF:resource="urn:mimetype:audio/m4a"/>
+    <RDF:li RDF:resource="urn:mimetype:audio/mpeg"/>
+    <RDF:li RDF:resource="urn:mimetype:audio/x-aiff"/>
+    <RDF:li RDF:resource="urn:mimetype:audio/x-wav"/>
+    <RDF:li RDF:resource="urn:mimetype:image/jpeg"/>
+    <RDF:li RDF:resource="urn:mimetype:text/plain"/>
+    <RDF:li RDF:resource="urn:mimetype:video/mpeg"/>
+  </RDF:Seq>
+
+  <RDF:Description RDF:about="urn:mimetype:application/gzip"
+    NC:description="gz Archive"
+    NC:value="application/gzip">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:application/gzip"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:application/gzip"
+    NC:alwaysAsk="false"
+    NC:saveToDisk="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:application/ogg"
+    NC:description="Ogg Vorbis File"
+    NC:fileExtensions="ogg"
+    NC:value="application/ogg">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:application/ogg"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:application/ogg"
+    NC:alwaysAsk="false"
+    NC:saveToDisk="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:application/pdf"
+    NC:description="PDF Document"
+    NC:fileExtensions="pdf"
+    NC:value="application/pdf">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:application/pdf"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:application/pdf"
+    NC:alwaysAsk="false"
+    NC:useSystemDefault="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:application/postscript"
+    NC:description="PostScript File"
+    NC:value="application/postscript"
+    NC:fileExtensions="ps">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:application/postscript"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:application/postscript"
+    NC:alwaysAsk="false"
+    NC:useSystemDefault="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:application/x-7z-compressed"
+    NC:description="7z Archive"
+    NC:fileExtensions="7z"
+    NC:value="application/x-7z-compressed">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:application/x-7z-compressed"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:application/x-7z-compressed"
+    NC:alwaysAsk="false"
+    NC:saveToDisk="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:application/x-bittorrent"
+    NC:description="BitTorrent File"
+    NC:fileExtensions="torrent"
+    NC:value="application/x-bittorrent">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:application/x-bittorrent"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:application/x-bittorrent"
+    NC:alwaysAsk="false"
+    NC:saveToDisk="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:application/x-bzip"
+    NC:description="bz2 Archive"
+    NC:fileExtensions="bz2"
+    NC:value="application/x-bzip">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:application/x-bzip"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:application/x-bzip"
+    NC:alwaysAsk="false"
+    NC:saveToDisk="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:application/x-gzip"
+    NC:description="gz Archive"
+    NC:fileExtensions="gz"
+    NC:value="application/x-gzip">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:application/x-gzip"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:application/x-gzip"
+    NC:alwaysAsk="false"
+    NC:saveToDisk="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:application/x-msi"
+    NC:description="Windows Installer Package"
+    NC:fileExtensions="msi"
+    NC:value="application/x-msi">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:application/x-msi"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:application/x-msi"
+    NC:alwaysAsk="false"
+    NC:saveToDisk="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:application/x-tar"
+    NC:description="tar Archive"
+    NC:fileExtensions="tar"
+    NC:value="application/x-tar">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:application/x-tar"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:application/x-tar"
+    NC:alwaysAsk="false"
+    NC:saveToDisk="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:application/x-tgz"
+    NC:description="tgz Archive"
+    NC:fileExtensions="tgz"
+    NC:value="application/x-tgz">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:application/x-tgz"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:application/x-tgz"
+    NC:alwaysAsk="false"
+    NC:saveToDisk="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:application/xml-dtd"
+    NC:description="XML Document Type Definition"
+    NC:fileExtensions="dtd"
+    NC:value="application/xml-dtd">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:application/xml-dtd"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:application/xml-dtd"
+    NC:alwaysAsk="false"
+    NC:saveToDisk="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:application/zip"
+    NC:description="zip Archive"
+    NC:fileExtensions="zip"
+    NC:value="application/zip">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:application/zip"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:application/zip"
+    NC:alwaysAsk="false"
+    NC:saveToDisk="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:audio/m4a"
+    NC:description="MPEG-4 Audio File"
+    NC:value="audio/m4a"
+    NC:fileExtensions="m4a">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:audio/m4a"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:audio/m4a"
+    NC:alwaysAsk="false"
+    NC:saveToDisk="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:audio/mpeg"
+    NC:description="MPEG-3 Audio File"
+    NC:fileExtensions="mp3"
+    NC:value="audio/mpeg">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:audio/mpeg"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:audio/mpeg"
+    NC:alwaysAsk="false"
+    NC:saveToDisk="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:audio/x-aiff"
+    NC:description="AIFF Audio File"
+    NC:fileExtensions="aiff"
+    NC:value="audio/x-aiff">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:audio/x-aiff"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:audio/x-aiff"
+    NC:alwaysAsk="false"
+    NC:saveToDisk="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:audio/x-wav"
+    NC:description="WAV Audio File"
+    NC:fileExtensions="wav"
+    NC:value="audio/x-wav">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:audio/x-wav"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:audio/x-wav"
+    NC:alwaysAsk="false"
+    NC:saveToDisk="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:image/jpeg"
+    NC:description="JPEG Image"
+    NC:value="image/jpeg"
+    NC:fileExtensions="jpg">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:image/jpeg"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:image/jpeg"
+    NC:alwaysAsk="false"
+    NC:saveToDisk="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:text/plain"
+    NC:description="Text Document"
+    NC:fileExtensions="txt"
+    NC:value="text/plain">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:text/plain"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:text/plain"
+    NC:alwaysAsk="false"
+    NC:useSystemDefault="true"/>
+
+  <rdf:description rdf:about="urn:mimetype:video/mpeg"
+    nc:description="MPEG-3 Video"
+    nc:value="video/mpeg">
+    <nc:fileextensions>mpg</nc:fileextensions>
+    <nc:fileextensions>mpeg</nc:fileextensions>
+    <nc:handlerprop rdf:resource="urn:mimetype:handler:video/mpeg"/>
+  </rdf:description>
+  <RDF:Description RDF:about="urn:mimetype:handler:video/mpeg"
+    NC:alwaysAsk="false"
+    NC:useSystemDefault="true"/>
+</RDF:RDF>

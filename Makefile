@@ -275,6 +275,7 @@ install: $(GM_CONFIG)
 
 DOTFILES = \
 	   $(GM_SCRIPTS) \
+	   firefox/mimeTypes.rdf \
 	   firefox/searchplugins/adlibris.xml \
 	   firefox/searchplugins/codesearch.xml \
 	   firefox/searchplugins/discogs.xml \
