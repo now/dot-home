@@ -77,6 +77,7 @@
     <RDF:li RDF:resource="urn:mimetype:audio/mpeg"/>
     <RDF:li RDF:resource="urn:mimetype:audio/x-aiff"/>
     <RDF:li RDF:resource="urn:mimetype:audio/x-wav"/>
+    <RDF:li RDF:resource="urn:mimetype:image/gif"/>
     <RDF:li RDF:resource="urn:mimetype:image/jpeg"/>
     <RDF:li RDF:resource="urn:mimetype:text/plain"/>
     <RDF:li RDF:resource="urn:mimetype:video/mpeg"/>
@@ -248,6 +249,16 @@
     <NC:handlerProp RDF:resource="urn:mimetype:handler:audio/x-wav"/>
   </RDF:Description>
   <RDF:Description RDF:about="urn:mimetype:handler:audio/x-wav"
+    NC:alwaysAsk="false"
+    NC:saveToDisk="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:image/gif"
+    NC:description="GIF Image"
+    NC:value="image/gif"
+    NC:fileExtensions="gif">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:image/gif"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:image/gif"
     NC:alwaysAsk="false"
     NC:saveToDisk="true"/>
 
