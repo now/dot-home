@@ -1,0 +1,37 @@
+emulate -L zsh
+setopt extendedglob
+
+autoload -U split-shell-arguments
+autoload -U zle/select-match-from-menu
+
+local -a reply
+local REPLY= REPLY2
+split-shell-arguments
+integer word=$REPLY
+
+local arg=
+if (( word & 1 )); then
+  if [[ ${reply[word][$REPLY2]} = [[:space:]] ]]; then
+    arg=$PWD
+  else
+    (( word-- ))
+    arg=$reply[word]
+  fi
+else
+  arg=${reply[word]:-$PWD}
+fi
+
+local -a ups
+for part in ${${(s./.)arg}[1,-2]}; do
+  ups+=${ups[-1]}/$part
+done
+
+local REPLY=
+zle/select-match-from-menu $ups || return $?
+
+integer wordoff=${(cj..)#reply[1,word-1]}
+BUFFER="${(j..)reply[1,word-1]}$REPLY/${(j..)reply[word+1,-1]}"
+integer repmax=$(( ${#REPLY} + 1 + 1 ))
+(( CURSOR = wordoff + repmax - 1 )) #(REPLY2 > repmax ? repmax : REPLY2) - 1 ))
+
+zle list-choices

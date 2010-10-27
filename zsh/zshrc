@@ -72,12 +72,15 @@ zstyle ':completion:*:manuals' separate-sections true
 autoload -U forward-word-match backward-word-match \
             replace-string backward-kill-word-match
 
+# TODO: for command in zle/*
 for command in zle/vim-increase-number zle/self-insert-redir zle/up-directory \
                zle/cd-from-list zle/cd-to-alternate-directory \
                zle/foreground-or-list-choices \
                zle/urlify-current-argument \
                zle/yank-clipboard zle/sudo-command-line \
-               history-beginning-search-menu insert-digraph copy-earlier-word; do
+               zle/history-beginning-search-menu \
+               zle/up-from-menu \
+               insert-digraph copy-earlier-word; do
   autoload -U $command
   zle -N $command
 done
@@ -131,9 +134,10 @@ bindkey \
   '^X$' insert-last-word \
   '^X^K' complete-kept-result \
   '^Xk' complete-kept-result \
-  '^X^L' history-beginning-search-menu \
+  '^X^L' zle/history-beginning-search-menu \
   '^X^P' copy-earlier-word \
   '^X^S' zle/sudo-command-line \
+  '^X^U' zle/up-from-menu \
   '^Xu' zle/urlify-current-argument \
   '^Y' zle/yank-clipboard \
   '^Z' vi-cmd-mode \

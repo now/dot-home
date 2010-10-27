@@ -171,7 +171,6 @@ DOTFILES = \
 	   zsh/functions/autoload/urlify \
 	   zsh/functions/autoload/winify \
 	   zsh/functions/define-digraphs \
-	   zsh/functions/history-beginning-search-menu \
 	   zsh/functions/insert-digraph \
 	   zsh/functions/list-directory-on-chpwd \
 	   zsh/functions/prompt_now_setup \
@@ -186,9 +185,13 @@ DOTFILES = \
 	   zsh/functions/zle/cd-from-list \
 	   zsh/functions/zle/cd-to-alternate-directory \
 	   zsh/functions/zle/foreground-or-list-choices \
+	   zsh/functions/zle/history-beginning-search-menu \
+	   zsh/functions/zle/select-match-from-menu \
+	   zsh/functions/zle/select-match-from-menu-widget \
 	   zsh/functions/zle/self-insert-redir \
 	   zsh/functions/zle/sudo-command-line \
 	   zsh/functions/zle/up-directory \
+	   zsh/functions/zle/up-from-menu \
 	   zsh/functions/zle/urlify-current-argument \
 	   zsh/functions/zle/vim-increase-number \
 	   zsh/functions/zle/yank-clipboard \
