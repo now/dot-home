@@ -5,20 +5,42 @@ autoload -U split-shell-arguments
 autoload -U zle/select-match-from-menu
 
 local -a reply
-local REPLY= REPLY2
+local REPLY= REPLY2=
 split-shell-arguments
 integer word=$REPLY
+integer char=$REPLY2
+if (( CURSOR == $#BUFFER )); then
+  (( char = ${#reply[word]} + 1 ))
+fi
 
+local -a words
+integer i
+for (( i = 1; i <= $#reply; i++ )); do
+  words+={$reply[i]}
+done
+
+local left=
 local arg=
-if (( word & 1 )); then
-  if [[ ${reply[word][$REPLY2]} = [[:space:]] ]]; then
+if (( word % 2 == 1 )); then
+  if [[ $BUFFER[CURSOR] != [[:space:]] ]]; then
+    (( word-- ))
+    arg=${reply[word]:-$PWD}
+  else
+    arg=$PWD
+  fi
+  left=${(j..)reply[1,word-1]}${reply[word][1,char-1]}
+else
+  if (( char == 1 )); then
     arg=$PWD
   else
-    (( word-- ))
-    arg=$reply[word]
+    arg=${reply[word][1,$char-1]}
   fi
-else
-  arg=${reply[word]:-$PWD}
+  left=${(j..)reply[1,word-1]}
+fi
+
+: $arg
+if [[ $arg != /* ]]; then
+  arg=$PWD/$arg
 fi
 
 local -a ups
@@ -29,9 +51,8 @@ done
 local REPLY=
 zle/select-match-from-menu $ups || return $?
 
-integer wordoff=${(cj..)#reply[1,word-1]}
-BUFFER="${(j..)reply[1,word-1]}$REPLY/${(j..)reply[word+1,-1]}"
-integer repmax=$(( ${#REPLY} + 1 + 1 ))
-(( CURSOR = wordoff + repmax - 1 )) #(REPLY2 > repmax ? repmax : REPLY2) - 1 ))
+integer wordoff=${(c)#left}
+LBUFFER="$left$REPLY/"
+(( CURSOR = $#left + $#REPLY + 1 ))
 
 zle list-choices
