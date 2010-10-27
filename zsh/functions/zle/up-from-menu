@@ -38,15 +38,15 @@ else
   left=${(j..)reply[1,word-1]}
 fi
 
-: $arg
-if [[ $arg != /* ]]; then
-  arg=$PWD/$arg
-fi
-
+arg="$(print -r -- $arg(:a))"
 local -a ups
 for part in ${${(s./.)arg}[1,-2]}; do
   ups+=${ups[-1]}/$part
 done
+ups=(${(O)ups})
+if [[ $arg != $PWD ]]; then
+  ups+=$arg
+fi
 
 local REPLY=
 zle/select-match-from-menu $ups || return $?
