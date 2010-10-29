@@ -1,7 +1,7 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2010-10-27
+" Latest Revision:  2010-10-29
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
 setlocal path+=.;
@@ -236,11 +236,11 @@ function s:generate_autoload_module()
 endfunction
 
 function! s:RunTest()
-  let test = shellescape(expand('%'))
+  let test = expand('%')
   let line = 'LINE=' . line('.')
   if test =~ '^lib/'
     let test = substitute(test, '^lib/', 'test/', '')
     let line = ""
   endif
-  execute 'make' 'TEST=' . test line
+  execute 'make' 'TEST=' . shellescape(test) line
 endfunction
