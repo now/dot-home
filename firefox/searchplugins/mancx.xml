@@ -1,0 +1,8 @@
+<SearchPlugin xmlns="http://www.mozilla.org/2006/browser/search/">
+<ShortName>man</ShortName>
+<Description>Search manpages on man.cx</Description>
+<InputEncoding>ISO-8859-1</InputEncoding>
+<Image width="16" height="16">data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAACr0lEQVR42mL8//8/AyUAIIAYQAag46raRpCpBPG0GbP+AwQQI7oLVqxY8T89PZ2hZ846hsPnbjB8+/qN4dOXzww/fnxnACllZmIEYmYGHuafDJsW9jMABBCGAYyMjP9X7zrJsOvoJYZXb94xfP36leHT588Mv3//gsgDsbgQL8PXN/cZOqryGQACiAVZ89q1a/+rqqoyfPj8jeHr9x9ATb8Zfv/5w/D371+o4UAXMDMzsP7/ySDAxcZgZWXFABBAKC4A2b5k436GQ+fvMrx594Hh06dPDF+/fQM7HyrPICHMx/Dl5T0GHqbvDKHBQQwAAcQE0zxr1qz/NjY2DC/ffwf6+Rvc9j9AGgaYgP7nZGVi+Pj6CQMvNzdDYkI8A0AAwV0Asn397pMMe07dYHjx6g3c75DAg6iRFRdkeHjjLIOFrgrDzGmTGQ4dOsQAEEBgF2zYsOG/n58fw+W7L4BO/s7wB2QzyO9AjOzF/7+/MrD8+8lw5959MN/W1pYRIIDAgRgYGMgwb+l6hgev3jFI8TMziHDxMvz6xc7w4RMbw/9/EAP+AAPyzZM7DKoKsgwrli5kaGltBYsDBBDYCyDnRyRkMty4eJZBVEKCgY2VGSz569dvhj//IKHPwsLCIC8nB3TVb4aTxw4xXLlyBRSjDAABBI9GTi4uBiNTYwYfL08GSwtzsM2cXBzgxPP33z+GB/fvMxw5cYahMCedYfXq1XBvAQQQ2IDW9g6GlcuXMVy6dInhwbM3DFv3n2KwtrFlsDfTZmBnY2Xg4eJk+PDxM8OZUyfAmkJCQhhhBgAEEEoemDZt2v+UlJT/Tk5O/yUkJMDpXc3A/H9Mctb/1Zt3g/kdXT3/kfUABBDWzPT8+fP/Bw8e/D9jxoz/WTl58MwTEhn3H10tQAAxUpqdAQIMAKujdPnc0apTAAAAAElFTkSuQmCC</Image>
+<SearchForm>http://man.cx/</SearchForm>
+<Url type="text/html" method="GET" template="http://man.cx/{searchTerms}"/>
+</SearchPlugin>

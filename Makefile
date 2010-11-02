@@ -288,6 +288,7 @@ DOTFILES = \
 	   firefox/searchplugins/hittase-who.xml \
 	   firefox/searchplugins/imdb.xml \
 	   firefox/searchplugins/juno-records.xml \
+	   firefox/searchplugins/mancx.xml \
 	   firefox/searchplugins/posix.xml \
 	   firefox/searchplugins/thepiratebayorg.xml \
 	   firefox/searchplugins/tvragecom.xml \
