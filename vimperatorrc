@@ -37,3 +37,5 @@ command! tag :open javascript:(function(){var%20a=window,b=document,c=encodeURIC
 command! related :open javascript:location.href='http://google.com/search?q=related:'+encodeURIComponent(location.href.replace(/^(?:http:\/\/)?([^\/]+).*/,'$1'))
 
 command! -nargs=+ sitesearch :open javascript:location.href='http://google.com/search?q='+encodeURIComponent(<q-args>)+' site:'+encodeURIComponent(location.href.replace(/^(?:http:\/\/)?([^\/]+).*/,'$1'))
+
+command! tabscleanup :javascript for(var ts=tabs.get(),i=ts.length-1;i>=0;i--)if(ts[i][2]=='about:blank')config.tabbrowser.removeTab(tabs.getTab(ts[i][0]-1));
