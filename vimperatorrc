@@ -38,4 +38,4 @@ command! related :open javascript:location.href='http://google.com/search?q=rela
 
 command! -nargs=+ sitesearch :open javascript:location.href='http://google.com/search?q='+encodeURIComponent(<q-args>)+' site:'+encodeURIComponent(location.href.replace(/^(?:http:\/\/)?([^\/]+).*/,'$1'))
 
-command! tabscleanup :javascript for(var ts=tabs.get(),i=ts.length-1;i>=0;i--)if(ts[i][2]=='about:blank')config.tabbrowser.removeTab(tabs.getTab(ts[i][0]-1));
+command! tabscleanup :javascript for(var ts=tabs.get(),i=ts.length-1;i>=0;i--)if(ts[i][1]=='(Untitled)')config.tabbrowser.removeTab(tabs.getTab(ts[i][0]-1));
