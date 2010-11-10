@@ -18,6 +18,8 @@ if s:on_windows
 endif
 set nostartofline
 set incsearch
+set ignorecase
+set smartcase
 set path+=./**
 let &fillchars = 'diff: ,fold: ,vert:' . (&encoding == 'utf-8' ? '│' : '|')
 let &listchars .= (&encoding == 'utf-8' ? ',tab:»·,trail:·' : ',tab:>.,trail:.')
