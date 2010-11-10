@@ -18,8 +18,6 @@ if s:on_windows
 endif
 set nostartofline
 set incsearch
-set ignorecase
-set smartcase
 set path+=./**
 let &fillchars = 'diff: ,fold: ,vert:' . (&encoding == 'utf-8' ? '│' : '|')
 let &listchars .= (&encoding == 'utf-8' ? ',tab:»·,trail:·' : ',tab:>.,trail:.')
@@ -138,6 +136,8 @@ nnoremap <Leader>e <Esc>:e <C-R>=expand('%:h')=~'^\.\=$'?"":escape(substitute(ex
 nnoremap <Leader>E <Esc>:e <C-Z>
 
 nnoremap <silent> <Leader>k <Esc>:bp <Bar> :bd #<CR>
+
+nnoremap / /\c
 
 cnoremap <C-A>  <Home>
 cnoremap <C-B>  <Left>
