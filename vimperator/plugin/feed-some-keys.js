@@ -343,7 +343,8 @@ let INFO = <>
     '{': KeyEvent.DOM_VK_OPEN_BRACKET,
     '\\': KeyEvent.DOM_VK_BACK_SLASH,
     '}': KeyEvent.DOM_VK_CLOSE_BRACKET,
-    '\'': KeyEvent.DOM_VK_QUOTE
+    '\'': KeyEvent.DOM_VK_QUOTE,
+    ' ': KeyEvent.DOM_VK_SPACE
   };
 
   function id (v)

@@ -41,5 +41,6 @@ command! -nargs=+ sitesearch :open javascript:location.href='http://google.com/s
 command! tabscleanup :javascript for(var ts=tabs.get(),i=ts.length-1;i>=0;i--)if(ts[i][1]=='(Untitled)')config.tabbrowser.removeTab(tabs.getTab(ts[i][0]-1));
 
 command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
+lazy fmaps -u='mail\.google\.com/mail' gi gs gt gd ga gc gb gk gl *a *n *r *u *s *t u j k o n p c / q ? x s y e m ! # r a f <shift-n> ] [ z . <shift-i> <shift-u> + = - gp <shift-t>
 lazy fmap -u=google\.com/reader v v
 lazy fmaps -u=google\.com/reader -events=vkeypress ? j k <space> <s-space> n p gt o m r f / a
