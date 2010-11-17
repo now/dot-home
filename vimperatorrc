@@ -24,7 +24,6 @@ let mapleader = ','
 
 noremap <BS> <PageUp>
 noremap s l
-noremap <Leader>b <Esc>:b<Space>
 noremap <silent> <Leader>h <Esc>:set invhlsearch<CR>
 cnoremap <C-G> <Esc>
 
