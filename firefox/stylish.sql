@@ -226,29 +226,49 @@ url-prefix(http://www.bikeguide.org/forums/showthread.php) {
 INSERT INTO styles
         (name, enabled, code)
         VALUES('Github fixed-width font fixup', 1,
-'@-moz-document url-prefix(http://github.com/) {
-  #commit .human .message pre,
-  #commit .machine,
-  #commit .commit_oneline .commit,
-  #commit .commit_oneline .tree,
+'@-moz-document url-prefix(https://github.com/) {
+  #readme div.plain pre,
+  .blob-editor textarea,
+  .add-pill-form textarea.key_value,
+  dl.keyboard-mappings dt,
+  #code_search_instructions table.instruction tr td.inst,
+  #code_search_results .result .snippet,
+  .commit-ref,
+  .commits-condensed code,
+  .commits-condensed tr.merge td.author,
+  .commits-condensed tr.merge td.date,
+  .commit-preview .message p.commit-id,
   #forkqueue table td.sha,
   #forkqueue table td.message,
   #forkqueue table td.human,
+  #forkqueue table.choice td.code,
+  #repos .repo .commit .machine,
+  input.url-field,
+  #commit .human message,
+  #commit .machine,
+  #commit .commit_oneline .commit,
+  #commit .commit_oneline .tree,
   #toc,
   #browser table,
-  #files textarea,
-  #files .file,
-  #repos .repo .commit .machine,
-  .news pre,
-  .news code,
-  #code_search_instructions table.instruction tr td.inst,
-  #code_search_results .result .snippet,
-  #forkqueue table.choice td.code,
-  #readme div.plain pre,
+  #files .file .meta .info,
   #files .file .data pre,
   #files .file .line-data,
-  #files .meta .bubble {
+  #files .file .line-number,
+  #files .file .data td.line_numbers,
+  #files .meta .bubble,
+  .news pre,
+  .news code,
+  #history table.commits td.sha,
+  #history table.commits td.message,
+  #history table.commits td.human {
     font-family: monospace !important;
+  }
+  #files .file .data,
+  #files .file .data pre,
+  #files .file .data .line-data,
+  #files .file .data .line-number
+  #files .file .data td.line_numbers {
+    font-size: 100% !important;
   }
 }');
 INSERT INTO styles
