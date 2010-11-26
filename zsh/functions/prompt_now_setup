@@ -11,6 +11,8 @@ prompt_now_precmd () {
   psvar[8]=$?
   (( psvar[8] )) || psvar[8]=
 
+  vcs_info
+
   prompt_now_adjust_width || return
 
   local listprompt='More%R page: %p'
@@ -28,10 +30,13 @@ prompt_now_adjust_width () {
   emulate -L zsh
   setopt extendedglob
 
+  local saved_vcs_info_msg_0_=$vcs_info_msg_0_
   integer width
 
   psvar[9]=""
+  vcs_info_msg_0_=${vcs_info_msg_0_//$~PSZERO}
   (( width = COLUMNS - ${#${(f)${(%%)${PS1//$~PSZERO/}}}[1]} ))
+  vcs_info_msg_0_=$saved_vcs_info_msg_0_
   psvar[9]=${(l:width:)}
 
   (( COLUMNS == PSCOL )) && return 1
@@ -42,6 +47,14 @@ prompt_now_setup () {
   emulate -L zsh
   setopt extendedglob nolocaltraps
   prompt_opts=(cr percent subst)
+
+  zstyle ':vcs_info:*' enable git hg
+  zstyle ':vcs_info:*' check-for-changes yes
+  zstyle ':vcs_info:*' stagedstr '%F{green}+'
+  zstyle ':vcs_info:*' unstagedstr '%F{red}!'
+  zstyle ':vcs_info:*' formats ' [%b%c%u%f]'
+  zstyle ':vcs_info:*' actionformats ' [%a: %b%c%u%f]'
+  autoload -U vcs_info
 
   prompt_now_teardown
 
@@ -55,10 +68,11 @@ prompt_now_setup () {
   local -ah ps1
   ps1=(
     '%249K'
-    "%\$(( COLUMNS - \${#\${(%%):-${${:-$error$user}//$~PSZERO}}} ))<$cs[1]<"
+    "%\$(( COLUMNS - \${#psvar[9]} ))<$cs[1]<"
     '%~'
     '%<<'
     $error
+    \$vcs_info_msg_0_
     '%9v'
     $user
     '%k'
