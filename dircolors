@@ -39,70 +39,70 @@ STICKY                  202
 
 # 1.2.2  Archives
 
-*.tar 	        3
-*.tgz 	        3
-*.bz2 	        3
-*.zip 	        3
-*.rar 	        3
+*.7z            3
+*.Z   	        3
+*.ace           3
 *.arj 	        3
-*.taz 	        3
-*.lzh 	        3
-*.rpm 	        3
+*.bz2 	        3
+*.cab           3
 *.deb 	        3
 *.gz  	        3
-*.z   	        3
-*.Z   	        3
-*.tbz2	        3
-*.ace           3
-*.cab           3
-*.7z            3
+*.lzh 	        3
 *.lzma          3
+*.rar 	        3
+*.rpm 	        3
+*.tar 	        3
+*.taz 	        3
+*.tbz2	        3
+*.tgz 	        3
+*.z   	        3
+*.zip 	        3
 
 # 1.2.3  Images
 
-*.jpg   5
-*.jpeg  5
-*.png   5
-*.gif   5
+*.ai    5
 *.bmp   5
+*.eps   5
+*.gif   5
+*.ico   5
+*.jpeg  5
+*.jpg   5
+*.png   5
 *.ppm   5
 *.tga   5
-*.xbm   5
-*.xpm   5
 *.tif   5
 *.tiff  5
+*.xbm   5
 *.xcf   5
-*.ai    5
-*.eps   5
-*.ico   5
+*.xpm   5
 
 # 1.2.4  Audio
 
+*.m4a 139
 *.mp3 139
 *.ogg 139
-*.wav 139
 *.rm  139
+*.wav 139
 *.wma 139
-*.m4a 139
 
 # 1.2.5  Video
 
-*.mpg   101
-*.mpeg  101
-*.avi   101
-*.mov   101
-*.swf   101
-*.ram   101
 *.asf   101
-*.m2v   101
-*.wmv   101
-*.mp4   101
-*.ogm   101
+*.avi   101
 *.divx  101
-*.rmvb  101
-*.mkv   101
 *.flv   101
+*.m2v   101
 *.m4v   101
+*.mkv   101
+*.mov   101
+*.mp4   101
+*.mpeg  101
+*.mpg   101
+*.ogm   101
+*.ram   101
+*.rmvb  101
+*.swf   101
+*.wmv   101
 
 # 1.2.6  Hidden
 
