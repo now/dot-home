@@ -2,7 +2,7 @@
 #
 # © 2009 Nikolai Weibull
 
-if whence keychain > /dev/null; then
+if [[ -z $SSH_AUTH_SOCK ]] && whence keychain > /dev/null; then
   eval $(keychain --eval --quiet id_dsa)
 fi
 
