@@ -8,14 +8,15 @@ LANG=en_US.UTF-8
 LC_COLLATE=C
 
 PAGER=vimless
+GROFF_NO_SGR=1
 MANPAGER="vimless +'setf man|set ma|%s/.\b//ge|set noma|1' -"
 EDITOR=vim
 
 SYSSCREENRC=/dev/null
 
-export                                                                \
-  LANG LC_COLLATE                                                     \
-  PAGER MANPAGER EDITOR                                               \
+export \
+  LANG LC_COLLATE \
+  PAGER GROFF_NO_SGR MANPAGER EDITOR \
   SYSSCREENRC
 
 source $ZDOTDIR/os/profile
