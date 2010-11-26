@@ -337,3 +337,27 @@ $(call GROUP_template,$(BINFILES),~,,,755)
 
 include os/os.mk
 include host/host.mk
+
+DEPENDENCIES = \
+	       vim-now-base \
+	       vim-diff-buffer-against-filesystem \
+	       vim-info \
+	       vim-man \
+	       vim-modern-file \
+	       vim-quit-if-only-quickfix-buffer-left \
+	       vim-restore-position \
+	       vim-templates \
+	       zap
+
+environmentdir = Environment
+
+install-dependencies:
+	mkdir -p $(environmentdir) && \
+	  for d in $(DEPENDENCIES); do \
+	    ed=$(environmentdir)/$$d; \
+	    if [[ -d $$ed ]]; then \
+	      (cd $$ed && git up && make install); \
+	    else \
+	      (git clone myhub:$$d.git $$ed && cd $$ed && make install); \
+	    fi; \
+	  done
