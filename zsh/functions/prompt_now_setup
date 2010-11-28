@@ -1,4 +1,6 @@
 prompt_now_help () {
+  emulate -L zsh
+
   cat <<EOH
 Nothing to see here.
 EOH
@@ -48,7 +50,7 @@ prompt_now_setup () {
   setopt extendedglob nolocaltraps
   prompt_opts=(cr percent subst)
 
-  zstyle ':vcs_info:*' enable git hg
+  zstyle ':vcs_info:*' enable git
   zstyle ':vcs_info:*' check-for-changes yes
   zstyle ':vcs_info:*' stagedstr '%F{green}+'
   zstyle ':vcs_info:*' unstagedstr '%F{red}!'
