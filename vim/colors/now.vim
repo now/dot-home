@@ -1,17 +1,17 @@
 " Vim color file
 " Maintainer:       Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2009-10-03
+" Latest Revision:  2010-11-29
 
 set background=light
 hi clear
-if exists("syntax_on")
+if exists('syntax_on')
   syntax reset
 endif
 
-let colors_name = "now"
+let colors_name = 'now'
 
 function! s:term_color_to_rgb(color_offset)
-  let sequence = ""
+  let sequence = ''
   let xterm_sequence = '\e]4;' . a:color_offset . ';?\007'
   if $TERM =~ 'xterm'
     let sequence = xterm_sequence
@@ -64,12 +64,12 @@ hi  Visual                            ctermbg=None        cterm=Reverse         
 hi  VisualNOS     ctermfg=DarkBlue                        cterm=Underline guifg=#2f5a9b                     gui=Underline
 hi  WarningMsg                                                            guifg=#951616
 hi  WildMenu                                                                                guibg=#50a500
-hi  Folded        ctermfg=None        ctermbg=254                         guifg=NONE        guibg=#e4e4e4
+hi  Folded        ctermfg=DarkGreen   ctermbg=None                        guifg=None        guibg=#e4e4e4
 hi! link          FoldColumn          Folded
 hi  DiffAdd       ctermfg=White       ctermbg=DarkGreen                   guifg=White       guibg=#257325
 hi  DiffChange    ctermfg=White       ctermbg=DarkBlue                    guifg=White       guibg=#2f5a9b
 hi  DiffDelete    ctermfg=White       ctermbg=DarkRed                     guifg=White       guibg=#951616   gui=None
-hi  DiffText      ctermfg=Red         ctermbg=None                        guifg=#f02626     guibg=NONE
+hi  DiffText      ctermfg=Red         ctermbg=None                        guifg=#f02626     guibg=None
 hi  SignColumn                                                            guifg=#2f5a9b     guibg=#a8a8a8
 hi  SpellBad                          ctermbg=224
 hi  SpellCap                                                                                                                guisp=#5fd7ff
@@ -80,7 +80,7 @@ hi  PmenuSel      ctermfg=White       ctermbg=32                          guifg=
 hi  PmenuSBar                         ctermbg=250                                           guibg=#d9d2c7
 hi  PmenuThumb                        ctermbg=32          cterm=None                        guibg=#73acdc   gui=None
 hi  CursorColumn                      ctermbg=None        cterm=Reverse                     guibg=#5598d7
-hi  CursorLine                                                                              guibg=NONE      gui=Underline
+hi  CursorLine                                                                              guibg=None      gui=Underline
 hi  MatchParen                        ctermbg=215                                           guibg=#ffaf5f
 hi  Comment       ctermfg=DarkGreen                                       guifg=#257325
 hi  Constant      ctermfg=DarkRed                                         guifg=#951616
@@ -90,7 +90,6 @@ hi  Statement     ctermfg=3                                               guifg=
 hi  PreProc       ctermfg=Magenta                                         guifg=#93376e
 hi  Type          ctermfg=DarkMagenta                                     guifg=#602f80                     gui=None
 hi  Underlined    ctermfg=None                                            guifg=NONE
-" TODO: decide
 hi! link          Number Normal
 hi  Error                                                                                   guibg=#f02626
 hi  Todo          ctermfg=None        ctermbg=172                         guifg=Black       guibg=#f0a500

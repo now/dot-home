@@ -1,12 +1,12 @@
 " Vim compiler file
-" Compiler:         Rake with expectations test framework
+" Compiler:         Rake with lookout test framework
 " Maintainer:       Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2010-11-17
+" Latest Revision:  2010-11-29
 
 if exists('current_compiler')
   finish
 endif
-let current_compiler = 'rakexpectations'
+let current_compiler = 'rakelookout'
 
 let s:cpo_save = &cpo
 set cpo-=C

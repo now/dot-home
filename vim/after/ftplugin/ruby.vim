@@ -1,42 +1,46 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2010-10-29
+" Latest Revision:  2010-11-29
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
-setlocal path+=.;
+let b:undo_ftplugin .= ' | setl sw< sts< et<'
 
-inoremap <buffer> <CR> <C-O>:call <SID>CompleteStatement()<CR><CR>
+set foldtext=substitute(getline(v:foldstart),
+                       \'^\\(\\s*\\)#\\s*\\([^.]\\+\\.\\=\\).*',
+                       \'\\1\\2',
+                       \'')
+set foldexpr=getline(v:lnum)=~'^\\s*#' foldmethod=expr
+let b:undo_ftplugin .= ' | setl fdt< fde< fdm<'
 
-omap <buffer> <silent> ac <Esc>:call <SID>SelectAComment()<CR>
-omap <buffer> <silent> ic <Esc>:call <SID>SelectInnerComment()<CR>
+compiler rakelookout
 
-nnoremap <buffer> <silent> gf <Esc>:call <SID>GoToDefFile()<CR>
-nnoremap <buffer> <silent> <Leader>t <Esc>:call <SID>GoToOtherFile()<CR>
-nnoremap <buffer> <silent> <Leader>M <Esc>:call <SID>RunTest()<CR>
+inoremap <buffer> <CR> <C-O>:call <SID>complete_statement()<CR><CR>
+let b:undo_ftplugin .= ' | iunmap <buffer> <CR>'
+
+omap <buffer> <silent> ac <Esc>:call <SID>select_a_comment()<CR>
+let b:undo_ftplugin .= ' | ounmap <buffer> ac'
+omap <buffer> <silent> ic <Esc>:call <SID>select_inner_comment()<CR>
+let b:undo_ftplugin .= ' | ounmap <buffer> ic'
+
+nnoremap <buffer> <silent> gf <Esc>:call <SID>go_to_def_file()<CR>
+let b:undo_ftplugin .= ' | nunmap <buffer> gf'
+
+nnoremap <buffer> <silent> <Leader>t <Esc>:call <SID>go_to_other_file()<CR>
+let b:undo_ftplugin .= ' | nunmap <buffer> <Leader>t'
+
+nnoremap <buffer> <silent> <Leader>M <Esc>:call <SID>run_test()<CR>
+let b:undo_ftplugin .= ' | nunmap <buffer> <Leader>M'
 
 command! -bar -buffer GenerateAutoloadModule :call s:generate_autoload_module()
-
-"inoremap <buffer> ( (<C-O>:call <SID>InsertParentheses()<CR><C-O>l
-"
-"function! s:InsertParentheses()
-"  if strpart(getline('.'), col('.')) == ""
-"    call setline(line('.'), getline('.') . ')')
-"  endif
-"endfunction
-
-compiler rakexpectations
-
-let b:undo_ftplugin .= ' | setl sw< sts< et< pa< inex< | iunmap <buffer> <CR>'
-let b:undo_ftplugin .= ' | ounmap <buffer> ac | ounmap <buffer> ic'
-let b:undo_ftplugin .= ' | nunmap <buffer> <Leader>t | nunmap <buffer> <Leader>M'
+let b:undo_ftplugin .= ' | delcommand GenerateAutoloadModule'
 
 if exists('s:did_load')
   finish
 endif
 let s:did_load = 1
 
-function s:CompleteStatement()
+function s:complete_statement()
   let view = winsaveview()
   let pattern = '^\s*\(begin\|case\|class\|def\|for\|if\|module\|unless\|until\|while\)\>\|\%(do\|\({\)\)\%(\s*|[^|]*|\s*\)\=$'
   let match = search(pattern, 'bcpW', line('.'))
@@ -62,7 +66,7 @@ endfunction
 " TODO: make this into a script instead and have each filetype that wants to
 " use it define an object that we call into.  Comments, expressions, and so on
 " would be the main targets, I suppose.
-function s:FindNonMatchingLine(pattern, ...)
+function s:find_non_matching_line(pattern, ...)
   let flags = a:0 > 0 ? a:1 : ''
   let backwards = flags =~ 'b'
   let finalline = backwards ? 0 : line('$') + 1
@@ -87,7 +91,7 @@ function s:FindNonMatchingLine(pattern, ...)
   else
 endfunction
 
-function s:FindDocumentationCommentRange()
+function s:find_documentation_comment_range()
   let save_cursor = getpos('.')
   let lnum = line('.')
   let line = getline(lnum)
@@ -112,21 +116,21 @@ function s:FindDocumentationCommentRange()
   return [begin, end]
 endfunction
 
-function s:FindLineCommentSetRange()
+function s:find_line_comment_set_range()
   if getline('.') !~ '^\s*#'
     return [0, 0]
   endif
 
-  let begin = s:FindNonMatchingLine('^\s*#', 'b') + 1
-  let end = s:FindNonMatchingLine('^\s*#')
+  let begin = s:find_non_matching_line('^\s*#', 'b') + 1
+  let end = s:find_non_matching_line('^\s*#')
   let end = end == 0 ? line('$') : end - 1
   return [begin, end]
 endfunction
 
-function s:SelectAComment()
-  let range = s:FindDocumentationCommentRange()
+function s:select_a_comment()
+  let range = s:find_documentation_comment_range()
   if range[0] == 0
-    let range = s:FindLineCommentSetRange()
+    let range = s:find_line_comment_set_range()
     if range[0] == 0
       return
     endif
@@ -137,8 +141,8 @@ function s:SelectAComment()
   call cursor(range[1], 1)
 endfunction
 
-function s:SelectInnerComment()
-  let range = s:FindDocumentationCommentRange()
+function s:select_inner_comment()
+  let range = s:find_documentation_comment_range()
   if range[0] != 0
     let range[0] += 1
     let range[1] -= 1
@@ -153,7 +157,7 @@ function s:SelectInnerComment()
     normal! V
     call cursor(range[1], 1)
   else
-    let range = s:FindLineCommentSetRange()
+    let range = s:find_line_comment_set_range()
     if range[0] == 0
       return
     endif
@@ -165,7 +169,7 @@ function s:SelectInnerComment()
   endif
 endfunction
 
-function s:GoToDefFile()
+function s:go_to_def_file()
   let path = s:find_path_around_cursor()
   if path == ""
     return
@@ -201,15 +205,15 @@ function s:find_constant_path_around_cursor()
   return substitute(tolower(part), '::', '/', 'g')
 endfunction
 
-function s:GoToOtherFile()
-  if s:GoToFile('\%(^\|.*/\)test\(/.\+\)', 'lib') ||
-   \ s:GoToFile('\%(^\|.*/\)lib\(/.\+\)', 'test')
+function s:go_to_other_file()
+  if s:go_to_file('\%(^\|.*/\)test\(/.\+\)', 'lib') ||
+   \ s:go_to_file('\%(^\|.*/\)lib\(/.\+\)', 'test')
     return
   endif
   echoerr "E447: Can't find alternate file"
 endfunction
 
-function s:GoToFile(pattern, new_head)
+function s:go_to_file(pattern, new_head)
   let path = expand('%')
   let target = substitute(path, a:pattern, a:new_head . '\1', "")
   if target == path
@@ -235,7 +239,7 @@ function s:generate_autoload_module()
   call append('$', lines)
 endfunction
 
-function! s:RunTest()
+function! s:run_test()
   let test = expand('%')
   let line = 'LINE=' . line('.')
   if test =~ '^lib/'

@@ -139,7 +139,7 @@ DOTFILES = \
 	   vim/after/syntax/ruby.vim \
 	   vim/after/syntax/vim.vim \
 	   vim/colors/now.vim \
-	   vim/compiler/rakexpectations.vim \
+	   vim/compiler/rakelookout.vim \
 	   vim/compiler/xmllint.vim \
 	   vim/filetype.vim \
 	   vim/ftplugin/man.vim \
