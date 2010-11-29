@@ -416,4 +416,38 @@ INSERT INTO styles
   }
 }');
 
+INSERT INTO styles
+        (name, enabled, code)
+        VALUES('rdoc.info Simplified', 1,
+'@-moz-document url-prefix(http://rdoc.info/docs) {
+  body {
+    font-family: sans-serif !important;
+    font-size: 1em !important;
+  }
+  h1 {
+    font-size: 2em !important;
+  }
+  h2 {
+    font-size: 1.5em !important;
+    border: none !important;
+  }
+  h3.inherited {
+    font-family: sans-serif !important;
+    font-size: 1.2em !important;
+  }
+  .tags ul {
+    list-style: disc !important;
+  }
+  .method_details {
+    border: none !important;
+  }
+  p.signature {
+    font-family: sans-serif !important;
+    font-size: 1em !important;
+  }
+  p.signature tt {
+    font-family: monospace !important;
+  }
+}');
+
 COMMIT;
