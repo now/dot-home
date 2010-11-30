@@ -1,6 +1,6 @@
 " Vim color file
 " Maintainer:       Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2010-11-29
+" Latest Revision:  2010-11-30
 
 set background=light
 hi clear
@@ -69,7 +69,7 @@ hi! link          FoldColumn          Folded
 hi  DiffAdd       ctermfg=White       ctermbg=DarkGreen                   guifg=White       guibg=#257325
 hi  DiffChange    ctermfg=White       ctermbg=DarkBlue                    guifg=White       guibg=#2f5a9b
 hi  DiffDelete    ctermfg=White       ctermbg=DarkRed                     guifg=White       guibg=#951616   gui=None
-hi  DiffText      ctermfg=Red         ctermbg=None                        guifg=#f02626     guibg=None
+hi  DiffText      ctermfg=Red         ctermbg=None                        guifg=#f02626     guibg=NONE
 hi  SignColumn                                                            guifg=#2f5a9b     guibg=#a8a8a8
 hi  SpellBad                          ctermbg=224
 hi  SpellCap                                                                                                                guisp=#5fd7ff
@@ -80,7 +80,7 @@ hi  PmenuSel      ctermfg=White       ctermbg=32                          guifg=
 hi  PmenuSBar                         ctermbg=250                                           guibg=#d9d2c7
 hi  PmenuThumb                        ctermbg=32          cterm=None                        guibg=#73acdc   gui=None
 hi  CursorColumn                      ctermbg=None        cterm=Reverse                     guibg=#5598d7
-hi  CursorLine                                                                              guibg=None      gui=Underline
+hi  CursorLine                                                                              guibg=NONE      gui=Underline
 hi  MatchParen                        ctermbg=215                                           guibg=#ffaf5f
 hi  Comment       ctermfg=DarkGreen                                       guifg=#257325
 hi  Constant      ctermfg=DarkRed                                         guifg=#951616
