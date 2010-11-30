@@ -123,6 +123,7 @@ DOTFILES = \
 	   vim/after/ftplugin/java.vim \
 	   vim/after/ftplugin/javascript.vim \
 	   vim/after/ftplugin/mail.vim \
+	   vim/after/ftplugin/markdown.vim \
 	   vim/after/ftplugin/racc.vim \
 	   vim/after/ftplugin/rnc.vim \
 	   vim/after/ftplugin/ruby.vim \
@@ -146,6 +147,7 @@ DOTFILES = \
 	   vim/macros/less.vim \
 	   vim/syntax/ilprec.vim \
 	   vim/syntax/javascript.vim \
+	   vim/syntax/markdown.vim \
 	   vim/syntax/prolog.vim \
            vim/templates/cpp.template \
 	   vim/templates/ruby.template \
