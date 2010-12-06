@@ -17,7 +17,7 @@
 [color.status]
         header = green
 [help]
-        autocorrect = 20
+        autocorrect = 15
 [merge]
         tool = vimdiff3
 [mergetool.vimdiff3]
