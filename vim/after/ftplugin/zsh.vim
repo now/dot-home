@@ -10,7 +10,7 @@ let b:undo_ftplugin .= ' | setl sw< sts< fo<'
 let b:match_words =
       \   &matchpairs
       \ . ',\<if\>:\<elif\>:\<else\>:\<fi\>'
-      \ . ',\<case\>:\<esac\>'
+      \ . ',\<case\>:^\s*([^)]*):\<esac\>'
       \ . ',\<select\>:\<done\>'
       \ . ',\<while\>:\<done\>'
       \ . ',\<until\>:\<done\>'
