@@ -16,6 +16,8 @@
         ui = auto
 [color.status]
         header = green
+[core]
+        quotepath = false
 [help]
         autocorrect = 15
 [merge]
