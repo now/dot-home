@@ -142,9 +142,11 @@ DOTFILES = \
 	   vim/colors/now.vim \
 	   vim/compiler/rakelookout.vim \
 	   vim/compiler/xmllint.vim \
+	   vim/doc/matchit.txt \
 	   vim/filetype.vim \
 	   vim/ftplugin/man.vim \
 	   vim/macros/less.vim \
+	   vim/plugin/matchit.vim \
 	   vim/syntax/ilprec.vim \
 	   vim/syntax/javascript.vim \
 	   vim/syntax/markdown.vim \
