@@ -1,0 +1,2 @@
+zstyle ':vcs_info:*' enable git
+autoload -U vcs_info
