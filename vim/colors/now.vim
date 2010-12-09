@@ -1,6 +1,6 @@
 " Vim color file
 " Maintainer:       Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2010-11-30
+" Latest Revision:  2010-12-09
 
 set background=light
 hi clear
@@ -64,7 +64,7 @@ hi  Visual                            ctermbg=None        cterm=Reverse         
 hi  VisualNOS     ctermfg=DarkBlue                        cterm=Underline guifg=#2f5a9b                     gui=Underline
 hi  WarningMsg                                                            guifg=#951616
 hi  WildMenu                                                                                guibg=#50a500
-hi  Folded        ctermfg=DarkGreen   ctermbg=None                        guifg=None        guibg=#e4e4e4
+hi  Folded        ctermfg=DarkGreen   ctermbg=None                        guifg=NONE        guibg=#e4e4e4
 hi! link          FoldColumn          Folded
 hi  DiffAdd       ctermfg=White       ctermbg=DarkGreen                   guifg=White       guibg=#257325
 hi  DiffChange    ctermfg=White       ctermbg=DarkBlue                    guifg=White       guibg=#2f5a9b
