@@ -81,7 +81,6 @@ done
 source $fpath/keeper(N)
 
 zle -N zle/vim-decrease-number zle/vim-increase-number
-zle -N replace-pattern replace-string
 
 zle -N backward-kill-to-space-or-/ backward-kill-word-match
 zstyle ':zle:backward-kill-to-space-or-/' word-chars '*?_-.[]~=&;!#$%^(){}<>:@,\\'
@@ -109,20 +108,20 @@ bindkey -a \
   'L' vi-change-whole-line \
   'l' vi-substitute \
   's' vi-forward-char \
-  'u' undo \
-  ':s' replace-pattern
+  'u' undo
 
 bindkey -rp '^['
 bindkey \
   '^?' backward-delete-char \
   '^D' zle/foreground-or-list-choices \
   '^H' backward-delete-char \
-  '^K' insert-digraph \
+  '^K' zle/insert-digraph \
   '^N' _history-complete-newer \
   '^O' accept-line-and-down-history \
   '^P' _history-complete-older \
   '^Q' push-line-or-edit \
-  '^U' undo \
+  '^U' zle/up-from-menu \
+  '^\' undo \
   '^W' backward-kill-to-space-or-/ \
   '^X$' insert-last-word \
   '^X^K' complete-kept-result \
@@ -130,7 +129,6 @@ bindkey \
   '^X^L' zle/history-beginning-search-menu \
   '^X^P' copy-earlier-word \
   '^X^S' zle/sudo-command-line \
-  '^X^U' zle/up-from-menu \
   '^Xu' zle/urlify-current-argument \
   '^Y' zle/yank-clipboard \
   '^Z' vi-cmd-mode \
