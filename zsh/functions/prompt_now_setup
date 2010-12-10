@@ -20,15 +20,18 @@ prompt_now_precmd () {
 
   prompt_now_adjust_width || return
 
+  local -A cs
+  prompt_now_chars
+
   local -ah ps1
   ps1=(
     '%249K'
-    "%$COLUMNS<$cs[1]<"
+    "%$COLUMNS<$cs[…]<"
     '%~'
     '%8(V. [%9F%8v%f].)'
     \$vcs_info_msg_0_
     '%9v'
-    ' %n@%m'
+    ' %m'
     '%<<'
     '%k'
     $'\n'
@@ -63,6 +66,13 @@ prompt_now_adjust_width () {
   (( PSCOL = COLUMNS ))
 }
 
+prompt_now_chars () {
+  case $TERM in
+    (xterm-256color|screen-256color) cs=('…' '…' '“' '“' '”' '”') ;;
+    (*)                              cs=('…' '...' '“' '"' '”' '"') ;;
+  esac
+}
+
 prompt_now_setup () {
   emulate -L zsh
   setopt extendedglob nolocaltraps
@@ -74,17 +84,16 @@ prompt_now_setup () {
   zstyle ':vcs_info:*' actionformats ' [%a: %b%c%u%f]'
 
   prompt_now_teardown
+  prompt_now_precmd
 
-  case $TERM in
-    (xterm-256color|screen-256color) cs=('…' '“' '”') ;;
-    (*)                              cs=('...' '"' '"') ;;
-  esac
+  local -A cs
+  prompt_now_chars
 
   PS2='${(l|$((2 * ${(w)#${(%%):-%_}}))|)}'
   PS3='Your selection: '
   PS4='%F{yellow}+%F{blue}%N%f:%i: '
 
-  SPROMPT="zsh: correct $cs[2]%9F%R%f$cs[3] to $cs[2]%10F%r%f$cs[3]? "
+  SPROMPT="zsh: correct $cs[“]%9F%R%f$cs[”] to $cs[“]%10F%r%f$cs[”]? "
 
   TIMEFMT=%J$'\n''real: %*E user: %*U system: %*S (%P)'
 
