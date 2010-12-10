@@ -71,15 +71,9 @@ zstyle ':completion:*:manuals' separate-sections true
 autoload -U forward-word-match backward-word-match \
             replace-string backward-kill-word-match
 
-# TODO: for command in zle/*
-for command in zle/vim-increase-number zle/self-insert-redir zle/up-directory \
-               zle/cd-from-list zle/cd-to-alternate-directory \
-               zle/foreground-or-list-choices \
-               zle/urlify-current-argument \
-               zle/yank-clipboard zle/sudo-command-line \
-               zle/history-beginning-search-menu \
-               zle/up-from-menu \
-               insert-digraph copy-earlier-word; do
+for command in $ZDOTDIR/functions/zle/* \
+           copy-earlier-word; do
+  command=${command#$ZDOTDIR/functions/}
   autoload -U $command
   zle -N $command
 done
@@ -192,6 +186,7 @@ alias \
 for ((i = 1; i < 9; i++)); do
   hash -d .$i=${(j:/:)${(l:2::.:)${(s::)${(l:i::.:)}}}}
 done
+unset i
 
 
 # 11  Operating System And Host Specific Settings

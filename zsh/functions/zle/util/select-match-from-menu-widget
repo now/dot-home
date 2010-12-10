@@ -1,7 +1,7 @@
 emulate -L zsh
 setopt extendedglob
 
-autoload -U zle/select-match-from-menu
+autoload -U zle/util/select-match-from-menu
 
 local search=
 local -aU matches

@@ -1,12 +1,12 @@
 emulate -L zsh
 setopt extendedglob
 
-autoload -U zle/select-match-from-menu-widget
+autoload -U zle/util/select-match-from-menu-widget
 
 zmodload -i zsh/parameter
 
 local -a reply
-zle/select-match-from-menu-widget $history || return $?
+zle/util/select-match-from-menu-widget $history || return $?
 
 # Find the history lines that contain the matched string and go to the last
 # one.  This allows accept-line-and-down-history etc. to work.

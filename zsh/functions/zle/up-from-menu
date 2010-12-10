@@ -2,7 +2,7 @@ emulate -L zsh
 setopt extendedglob
 
 autoload -U split-shell-arguments
-autoload -U zle/select-match-from-menu
+autoload -U zle/util/select-match-from-menu
 
 local -a reply
 local REPLY= REPLY2=
@@ -49,7 +49,7 @@ if [[ $arg != $PWD ]]; then
 fi
 
 local REPLY=
-zle/select-match-from-menu $ups || return $?
+zle/util/select-match-from-menu $ups || return $?
 
 integer wordoff=${(c)#left}
 LBUFFER="$left$REPLY/"
