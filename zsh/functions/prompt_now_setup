@@ -105,8 +105,10 @@ prompt_now_setup () {
   zstyle ':completion:*:messages' format '%F{green}%d%f'
   zstyle ':completion:*:warnings' format '%F{red}no matches for %d%f'
   zstyle ':completion:*:corrections' format '%K{white}%d (errors: %9F%e%f)%k'
+  zstyle ':completion:*:options' auto-description "specify $cs[“]%d$cs[”]"
 
   add-zsh-hook precmd prompt_now_precmd
+  add-zsh-hook chpwd prompt_now_adjust_width
   functions[TRAPWINCH]="${functions[TRAPWINCH]//$'\n'    prompt_now_winch}
     prompt_now_winch"
 }

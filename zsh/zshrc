@@ -56,9 +56,8 @@ autoload -U compinit; compinit
 zstyle ':completion:*' accept-exact-dirs true
 zstyle ':completion:*' ignore-parents parent pwd
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[:.,_-]=** r:|=**'
-zstyle ':completion:*' group-name ""
-zstyle ':completion:*' list-separator ""
-zstyle ':completion:*:options' auto-description "specify ‘%d’"
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' list-separator ''
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion::complete:*' use-cache yes
 
