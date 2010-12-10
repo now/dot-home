@@ -1,21 +1,16 @@
-# contents: zsh(1) user RC.
-#
-# Copyright © 2002,2003,2004,2005,2006,2008 Nikolai Weibull <now@bitwi.se>
-
-# 1  Shell and Terminal Settings
-# ——————————————————————————————
+# Shell and Terminal Settings
 
 HISTFILE=~/.zshistory
 SAVEHIST=${HISTSIZE::=1024}
 REPORTTIME=300
 unset TERMCAP
 
-setopt autocd autopushd                            \
-       completeinword nolistambiguous nolisttypes  \
-       extendedhistory histnostore                 \
-       rcexpandparam rcquotes                      \
-       combiningchars correct dvorak ignoreeof     \
-       nonotify                                    \
+setopt autocd autopushd \
+       completeinword nolistambiguous nolisttypes \
+       extendedhistory histnostore \
+       rcexpandparam rcquotes \
+       combiningchars correct dvorak ignoreeof \
+       nonotify \
        nobeep
 
 autoload -U add-zsh-hook
@@ -23,7 +18,6 @@ add-zsh-hook precmd set-terminal-title-to-pwd
 add-zsh-hook preexec set-terminal-title-from-command
 add-zsh-hook chpwd list-directory-on-chpwd
 
-# TODO: Move this to its own function?
 zstyle ':dircolors:*' cache-policy dircolors-cache-policy
 {
   dircolors-cache-policy () {
@@ -32,24 +26,21 @@ zstyle ':dircolors:*' cache-policy dircolors-cache-policy
   autoload -U cache/retrieve
   cache/retrieve ':dircolors:*' dircolors-$TERM
 } always {
-  unfunction dircolors-cache-policy >& /dev/null
+  unfunction dircolors-cache-policy >&/dev/null
 }
 if [[ -z $LS_COLORS ]]; then
-  eval $(${commands[gdircolors]:-dircolors} ~/.dircolors 2> /dev/null)
+  eval $(${commands[gdircolors]:-dircolors} ~/.dircolors 2>/dev/null)
   autoload -U cache/store
   cache/store ':dircolors:*' dircolors-$TERM LS_COLORS
 else
   export LS_COLORS
 fi
 
-# 2  Modules
-# ——————————
+# Modules
 
 zmodload -i zsh/complist
 
-
-# 3  Command-line Completion
-# ——————————————————————————
+# Command-line Completion
 
 autoload -U compinit; compinit
 
@@ -64,9 +55,7 @@ zstyle ':completion::complete:*' use-cache yes
 zstyle ':completion:*:processes' command 'ps -U $EUID 2>/dev/null'
 zstyle ':completion:*:manuals' separate-sections true
 
-
-# 4  ZLE Keybindings
-# ——————————————————
+# Keybindings
 
 autoload -U forward-word-match backward-word-match \
             replace-string backward-kill-word-match
@@ -137,9 +126,7 @@ bindkey \
   ${(s: :):-${^${(s::):-'|<>&'}}' zle/self-insert-redir'}
 bindkey -r '^[' 
 
-
-# 5  Functions And Aliases
-# ————————————————————————
+# Functions And Aliases
 
 autoload -U promptinit; promptinit
 prompt now
@@ -186,8 +173,6 @@ for ((i = 1; i < 9; i++)); do
 done
 unset i
 
-
-# 11  Operating System And Host Specific Settings
-# ———————————————————————————————————————————————
+# Operating System And Host Specific Settings
 
 source $ZDOTDIR/{os,host}/rc
