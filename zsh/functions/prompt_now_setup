@@ -23,6 +23,8 @@ prompt_now_precmd () {
   local -A cs
   prompt_now_chars
 
+  local host=
+  [[ -n $SSH_CONNECTION ]] && host=' %m'
   local -ah ps1
   ps1=(
     '%249K'
@@ -31,7 +33,7 @@ prompt_now_precmd () {
     '%8(V. [%9F%8v%f].)'
     \$vcs_info_msg_0_
     '%9v'
-    ' %m'
+    $host
     '%<<'
     '%k'
     $'\n'
