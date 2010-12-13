@@ -20,7 +20,7 @@ matches=(${(Mo)*:#${NUMERIC+*}${search}*})
 matches=(${matches:#${LBUFFER}})
 
 local REPLY=
-zle/select-match-from-menu $matches || return $?
+zle/util/select-match-from-menu $matches || return $?
 local line=$REPLY
 
 integer newcursor
