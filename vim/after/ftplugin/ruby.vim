@@ -7,9 +7,9 @@ setlocal shiftwidth=2 softtabstop=2 expandtab
 let b:undo_ftplugin .= ' | setl sw< sts< et<'
 
 setlocal foldtext=substitute(getline(v:foldstart),
-                           \ '^\\(\\s*\\)#\\s*\\([^.]\\+\\.\\=\\).*',
-                           \ '\\1\\2',
-                           \ '')
+                           \'^\\(\\s*\\)#\\s*\\([^.]\\+\\.\\=\\).*',
+                           \'\\1\\2',
+                           \'')
        \ foldexpr=getline(v:lnum)=~'^\\s*#'
        \ foldmethod=expr
 let b:undo_ftplugin .= ' | setl fdt< fde< fdm<'
