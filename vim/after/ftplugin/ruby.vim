@@ -1,16 +1,17 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2010-11-30
+" Latest Revision:  2010-12-21
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
 let b:undo_ftplugin .= ' | setl sw< sts< et<'
 
-set foldtext=substitute(getline(v:foldstart),
-                       \'^\\(\\s*\\)#\\s*\\([^.]\\+\\.\\=\\).*',
-                       \'\\1\\2',
-                       \'')
-set foldexpr=getline(v:lnum)=~'^\\s*#' foldmethod=expr
+setlocal foldtext=substitute(getline(v:foldstart),
+                           \ '^\\(\\s*\\)#\\s*\\([^.]\\+\\.\\=\\).*',
+                           \ '\\1\\2',
+                           \ '')
+       \ foldexpr=getline(v:lnum)=~'^\\s*#'
+       \ foldmethod=expr
 let b:undo_ftplugin .= ' | setl fdt< fde< fdm<'
 
 compiler rakelookout
