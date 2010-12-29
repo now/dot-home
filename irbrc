@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 require 'irb/completion'
 
 if IRB.conf[:PROMPT]
