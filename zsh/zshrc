@@ -175,4 +175,5 @@ unset i
 
 # Operating System And Host Specific Settings
 
-source $ZDOTDIR/{os,host}/rc
+source $ZDOTDIR/os/rc
+source $ZDOTDIR/host/rc

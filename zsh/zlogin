@@ -4,4 +4,5 @@ fi
 
 limit coredumpsize 30m 2>/dev/null
 
-source $ZDOTDIR/{os,host}/login
+source $ZDOTDIR/os/login
+source $ZDOTDIR/host/login

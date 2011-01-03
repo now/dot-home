@@ -15,4 +15,5 @@ export \
   PAGER GROFF_NO_SGR MANPAGER EDITOR \
   SYSSCREENRC
 
-source $ZDOTDIR/{os,host}/profile
+source $ZDOTDIR/os/profile
+source $ZDOTDIR/host/profile
