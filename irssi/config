@@ -47,6 +47,7 @@ settings = {
   "fe-common/core" = {
     autocreate_own_query = "no";
     autocreate_query_level = "DCCMSGS";
+    autolog = "on";
     autolog_path = "~/var/log/irssi/$tag/$0.log";
     hide_server_tags = "yes";
     show_names_on_join = "no";
