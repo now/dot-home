@@ -110,6 +110,8 @@ DOTFILES = \
 	   indent.pro \
 	   inputrc \
 	   irbrc \
+	   irssi/config \
+	   irssi/default.theme \
 	   mailcap \
 	   mplayer/config \
 	   sbclrc \
