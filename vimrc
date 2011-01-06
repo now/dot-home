@@ -137,8 +137,6 @@ nnoremap <Leader>E <Esc>:e <C-Z>
 
 nnoremap <silent> <Leader>k <Esc>:bp <Bar> :bd #<CR>
 
-nnoremap / /\c
-
 cnoremap <C-A>  <Home>
 cnoremap <C-B>  <Left>
 cnoremap <C-D>  <Delete>
