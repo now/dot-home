@@ -450,4 +450,54 @@ INSERT INTO styles
   }
 }');
 
+INSERT INTO styles
+        (name, enabled, code)
+        VALUES('Hacker News Restyling', 1,
+'@-moz-document url-prefix(http://news.ycombinator.com) {
+  body, table[bgcolor="#f6f6ef"], td[bgcolor="#ff6600"] {
+    background: white !important;
+  }
+
+  body, td, .default, .title, .pagetop {
+    font-family: sans-serif !important;
+    font-size: medium !important;
+  }
+
+  .admin, .adtitle, .yclinks, .comhead, .comment, .dead {
+    font-family: sans-serif !important;
+    font-size: small !important;
+  }
+
+  .comhead, .subtext {
+    font-family: sans-serif !important;
+    font-size: x-small !important;
+  }
+
+  td[bgcolor="#ff6600"] {
+    padding-bottom: 1em !important;
+  }
+
+  tr > td.title:first-child {
+    color: white !important;
+  }
+
+  td.title:first-child + td {
+    padding-right: 0.5em !important;
+  }
+
+  td.title:first-child + td > center > a > img {
+    display: none;
+  }
+
+  td.title:first-child + td > center > a:after {
+    content: "\25b2";
+    color: #828282;
+    font-size: x-small;
+  }
+
+  tr[style="height: 5px;"] {
+    height: 1em !important;
+  }
+}');
+
 COMMIT;
