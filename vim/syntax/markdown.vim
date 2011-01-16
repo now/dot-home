@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:         Markdown
 " Maintainer:       Nikolai Weibull <NWeibull@nweibull-ws>
-" Latest Revision:  2010-11-30
+" Latest Revision:  2011-01-16
 
 if exists('b:current_syntax')
   finish
@@ -55,7 +55,6 @@ syn match   markdownFootnoteURL             '\S\+'
                                           \   markdownFootnoteDimensions,
                                           \   markdownFootnoteTitle
                                           \ skipwhite
-                                          \ skipnl
 
 syn match   markdownFootnoteDimensions      '=\d\+x\d\+'
                                           \ contained
