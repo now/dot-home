@@ -15,7 +15,6 @@ endwhile
 
 %delete _
 
-echoerr string(list)
 call setloclist(0, list)
 bdelete!
 lwindow
