@@ -147,6 +147,7 @@ DOTFILES = \
 	   vim/filetype.vim \
 	   vim/ftplugin/man.vim \
 	   vim/macros/less.vim \
+	   vim/macros/quickfix.vim \
 	   vim/plugin/matchit.vim \
 	   vim/syntax/ilprec.vim \
 	   vim/syntax/javascript.vim \
@@ -331,6 +332,7 @@ BINFILES = \
 	   bin/mem-map \
 	   bin/terminal-colors \
 	   bin/pack \
+	   bin/qf \
 	   bin/unpack \
 	   bin/update-context \
 	   bin/valgrind-ruby \

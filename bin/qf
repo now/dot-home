@@ -1,0 +1,3 @@
+#! /bin/zsh
+
+exec vim -c 'so ~/.vim/macros/quickfix.vim' -

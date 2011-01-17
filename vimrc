@@ -115,10 +115,10 @@ function s:ignore_esc(alternative)
 endfunction
 
 noremap <Leader>m <Esc>:make<CR>
-noremap <silent> <Leader>p :<C-U>execute v:count . 'cprevious'<CR>
-noremap <silent> <Leader>n :<C-U>execute v:count . 'cnext'<CR>
-noremap <silent> <Leader>P :<C-U>execute v:count . 'cpfile'<CR>
-noremap <silent> <Leader>N :<C-U>execute v:count . 'cnfile'<CR>
+noremap <silent> <Leader>p :<C-U>execute v:count . (empty(getloclist(0)) ? 'c' : 'l') . 'previous'<CR>
+noremap <silent> <Leader>n :<C-U>execute v:count . (empty(getloclist(0)) ? 'c' : 'l') . 'next'<CR>
+noremap <silent> <Leader>P :<C-U>execute v:count . (empty(getloclist(0)) ? 'c' : 'l') . 'pfile'<CR>
+noremap <silent> <Leader>N :<C-U>execute v:count . (empty(getloclist(0)) ? 'c' : 'l') . 'nfile'<CR>
 
 noremap <silent> <C-P> :<C-U>execute v:count . 'bprevious'<CR>
 noremap <silent> <C-N> :<C-U>execute v:count . 'bnext'<CR>
