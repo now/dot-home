@@ -12,7 +12,7 @@ clipboard-put () {
 
 clipboard-get () {
   case $OSTYPE in
-    (cygwin) cat /dev/clipboard ;;
+    (cygwin) cat /dev/clipboard | tr -d '\r' ;;
     (darwin*) pbpaste ;;
     (*) xclip -o ;;
   esac
