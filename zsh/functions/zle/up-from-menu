@@ -13,12 +13,6 @@ if (( CURSOR == $#BUFFER )); then
   (( char = ${#reply[word]} + 1 ))
 fi
 
-local -a words
-integer i
-for (( i = 1; i <= $#reply; i++ )); do
-  words+={$reply[i]}
-done
-
 local left=
 local arg=
 if (( word % 2 == 1 )); then
