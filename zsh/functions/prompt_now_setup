@@ -10,11 +10,11 @@ integer PSCOL=-1
 PSZERO='%([BSUbfksu]|[0-9]#[FK]({[^}]##}|))'
 
 prompt_now_precmd () {
-  emulate -L zsh
-  setopt extendedglob
-
   psvar[8]=$?
   (( psvar[8] )) || psvar[8]=
+
+  emulate -L zsh
+  setopt extendedglob
 
   (( ${+functions[vcs_info]} )) && vcs_info
 
