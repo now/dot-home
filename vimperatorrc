@@ -4,6 +4,7 @@ set showstatuslinks=2
 set showtabline=0
 set urlseparator=,\\s\\s
 set wildoptions=auto
+set fullscreen
 
 highlight CmdLine font: 10pt monospace
 highlight CompItem[selected] color: white; background: black
