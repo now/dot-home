@@ -176,6 +176,16 @@ function! s:get_command_mode_range(type)
   call feedkeys(':' . range . "\<C-R>=''[inputrestore()]\<CR>", 'n')
 endfunction
 
+noremap <silent> gt <Esc>:set operatorfunc=<SID>go_to_tag<CR>g@
+
+function! s:go_to_tag(type)
+  let saved_reg = @@
+  silent execute 'normal! `[v`]y'
+  let tag = @@
+  let @@ = saved_reg
+  execute 'tag' '/' . tag
+endfunction
+
 autocmd VimLeave * if v:this_session != "" | exe "mks! ".v:this_session | endif
 autocmd GuiEnter * set t_vb=
 
