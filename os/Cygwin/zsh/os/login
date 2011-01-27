@@ -2,4 +2,5 @@
 #
 # Copyright © 2008 Nikolai Weibull <now@bitwi.se>
 
+stty -ixon
 exec screen -D -RR
