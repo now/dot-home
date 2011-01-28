@@ -1,7 +1,6 @@
 host := $(shell hostname)
 
 DOTFILES = \
-	   zsh/host/login \
 	   zsh/host/profile \
 	   zsh/host/rc
 
