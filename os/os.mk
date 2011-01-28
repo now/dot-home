@@ -1,4 +1,5 @@
 DOTFILES = \
+	   zsh/os/env \
 	   zsh/os/login \
 	   zsh/os/profile \
 	   zsh/os/rc
