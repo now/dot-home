@@ -7,6 +7,8 @@
 (require 'vimpulse)
 
 (define-key viper-vi-basic-map "ga" 'what-cursor-position)
+(define-key viper-vi-basic-map "U" 'undo-tree-redo)
+(define-key viper-vi-basic-map "\C-r" 'isearch-backward-regexp)
 
 (define-key viper-vi-global-user-map "s" 'viper-forward-char)
 (define-key viper-vi-global-user-map "l" 'viper-substitute)

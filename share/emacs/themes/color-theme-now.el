@@ -196,6 +196,7 @@
                        (:foreground "#2080c0"))
                       (((min-colors 16) (class color))
                        (:foreground "blue"))))
+         (undo-tree-visualizer-active-branch-face ((t (nil))))
          (viper-minibuffer-emacs ((t (nil))))
          (viper-minibuffer-insert ((t (nil))))
          (viper-minibuffer-vi ((t (nil))))

@@ -207,12 +207,13 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
 
 DOTFILES = \
-	   share/emacs/color-theme.el \
 	   share/emacs/color-theme-autoloads.el \
+	   share/emacs/color-theme.el \
 	   share/emacs/cygwin-mount.el \
 	   share/emacs/digraph.el \
 	   share/emacs/hide-mode-line.el \
 	   share/emacs/ned/ned-info-on-file.el \
+	   share/emacs/rect-mark.el \
 	   share/emacs/rc/desktop.el \
 	   share/emacs/rc/digraph.el \
 	   share/emacs/rc/icomplete.el \
@@ -228,10 +229,11 @@ DOTFILES = \
 	   share/emacs/rc/smex.el \
 	   share/emacs/rc/ui.el \
 	   share/emacs/rc/viper.el \
+	   share/emacs/undo-tree.el \
 	   share/emacs/smex.el \
 	   share/emacs/term/screen-256color.el \
 	   share/emacs/themes/color-theme-now.el \
-	   share/emacs/vimpulse.el \
+	   share/emacs/vimpulse.el
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir))
 
