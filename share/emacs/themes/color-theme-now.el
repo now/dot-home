@@ -54,6 +54,12 @@
                               :background "dark cyan"))
                             (t
                               (:weight bold))))
+         (font-lock-builtin-face ((((min-colors 16777216) (class color))
+                                   (:foreground "#602f80"))
+                                  (((min-colors 16) (class color))
+                                   (:foreground "dark magenta"))
+                                  (t
+                                    (:underline t))))
          (font-lock-comment-face ((((min-colors 16777216) (class color))
                                    (:foreground "#257325"))
                                   (((min-colors 16) (class color))
@@ -127,6 +133,7 @@
                    (t
                      (:inverse-video t))))
          ; isearch-fail
+         (minibuffer-prompt ((t (nil))))
          (mode-line ((t
                        (:box nil
                         :background "grey70"))))
