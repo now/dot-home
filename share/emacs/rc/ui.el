@@ -1,4 +1,3 @@
-;; TODO: Add 'menu-bar-mode
 (dolist (ui (list 'scroll-bar-mode 'tool-bar-mode))
   (if (fboundp ui)
     (funcall ui -1)))

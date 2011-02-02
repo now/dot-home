@@ -23,9 +23,10 @@
       (rc "ui")
       (rc "desktop")
       (rc "digraph")
-      (rc "ido")
       (rc "icomplete")
+      (rc "ido")
       (rc "isearch")
+      (rc "smex")
       (rc "viper"))))
 
 (require 'whitespace)

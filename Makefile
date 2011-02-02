@@ -218,14 +218,17 @@ DOTFILES = \
 	   share/emacs/rc/icomplete.el \
 	   share/emacs/rc/ido.el \
 	   share/emacs/rc/isearch.el \
+	   share/emacs/rc/os/nil.el \
 	   share/emacs/rc/os/ns.el \
 	   share/emacs/rc/os/w32.el \
 	   share/emacs/rc/progmodes/cc-mode.el \
 	   share/emacs/rc/progmodes/compile.el \
 	   share/emacs/rc/progmodes/grep.el \
 	   share/emacs/rc/progmodes/ruby-mode.el \
+	   share/emacs/rc/smex.el \
 	   share/emacs/rc/ui.el \
 	   share/emacs/rc/viper.el \
+	   share/emacs/smex.el \
 	   share/emacs/term/screen-256color.el \
 	   share/emacs/themes/color-theme-now.el \
 	   share/emacs/vimpulse.el \

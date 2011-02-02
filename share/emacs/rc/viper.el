@@ -33,3 +33,7 @@
 (define-key viper-vi-global-user-map ",E" 'find-vc-project-file)
 
 (define-key viper-insert-global-user-map "\C-k" 'digraph-read)
+
+;(define-key viper-vi-global-user-map "`" 'execute-extended-command)
+
+(define-key viper-vi-global-user-map "`" 'smex)
