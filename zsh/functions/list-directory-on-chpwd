@@ -1,2 +1,4 @@
-zle || ls --color
+if [[ -o interactive ]] && (( $ZSH_SUBSHELL == 0 )); then
+  zle || ls --color
+fi
 return 0
