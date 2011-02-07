@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:         Markdown
 " Maintainer:       Nikolai Weibull <NWeibull@nweibull-ws>
-" Latest Revision:  2011-01-16
+" Latest Revision:  2011-02-07
 
 if exists('b:current_syntax')
   finish
@@ -72,9 +72,10 @@ syn match   markdownFootnoteTitle           '..*.'hs=s+1,he=e-1
 syn region  markdownCodeBlock               start='\s\{4,}'
                                           \ skip='^\s*$'
                                           \ end='^\ze\s\{0,3}\S'
-                                          \ transparent
                                           \ contained
-                                          \ contains=@markdownCodeBlockCluster
+                                          \ contains=
+                                          \   @markdownCodeBlockCluster,
+                                          \   @NoSpell
 syn cluster markdownBlock add=markdownCodeBlock
 
 syn region   markdownUnorderedListItem      start='\z(\s\{0,3}\)[*+-]\s'he=e-1
@@ -274,23 +275,23 @@ syn match   markdownImageRefAlt             '!\[.\{-}\]'ms=s+1,me=e-1
 syn match   markdownImageRefName            '\s\=\zs\[.\{-}\]'me=e-1
                                           \ contained
 
-syn match   markdownLink                    @\[.\{-}\](.\{-}\%(\s\+['"].*['"]\)\=)@
+syn match   markdownLink                    @\[\_.\{-}\](.\{-}\%(\s\+['"].*['"]\)\=)@
                                           \ contained
                                           \ contains=markdownLinkAlt,
                                           \   markdownLinkURL,
                                           \   markdownLinkTitle
 syn cluster markdownInline add=markdownLink
 
-syn match   markdownLinkAlt                 '\[.\{-}\]'ms=s+1,me=e-1
+syn match   markdownLinkAlt                 '\[\_.\{-}\]'ms=s+1,me=e-1
                                           \ contained
 
-syn match   markdownLinkURL                 '\](.\{-}\%(\s\|)\)'ms=s+2,me=e-1
+syn match   markdownLinkURL                 '\](\_.\{-}\%(\s\|)\)'ms=s+2,me=e-1
                                           \ contained
 
 syn match   markdownLinkTitle               '\s\+\zs['"].*['"])'me=e-1
                                           \ contained
 
-syn match   markdownRefText                 '\[.\{-}\]'hs=s+1,he=e-1
+syn match   markdownRefText                 '\[\_.\{-}\]'hs=s+1,he=e-1
                                           \ contained
                                           \ nextgroup=markdownRefNameContainer
 syn cluster markdownInline add=markdownRefText
@@ -338,10 +339,13 @@ syn region  markdownCode                    matchgroup=markdownCodeDelimiter
                                           \ start="`"
                                           \ end="`"
                                           \ contained
+                                          \ contains=@NoSpell
 syn region  markdownCode                    matchgroup=markdownCodeDelimiter
                                           \ start="`` \="
                                           \ end=" \=``"
                                           \ contained
+                                          \ contains=@NoSpell
+syn cluster markdownInline add=markdownCode
 
 syn match   markdownEscape                '\\[]&<>#.+{}![*_\\()`-]'
                                           \ contained
