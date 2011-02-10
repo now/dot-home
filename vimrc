@@ -183,7 +183,13 @@ function! s:go_to_tag(type)
   silent execute 'normal! `[v`]y'
   let tag = @@
   let @@ = saved_reg
-  execute 'tag' '/' . tag
+  let error = ""
+  try
+    execute 'tag' '/' . tag
+  catch /^Vim\%((\a\+)\)\=:E426/
+    let message = substitute(v:exception, '^Vim\%((\a\+)\)\=:\(E426.*\)', '\1', '')
+    echohl ErrorMsg | echo message | echohl None
+  endtry
 endfunction
 
 autocmd VimLeave * if v:this_session != "" | exe "mks! ".v:this_session | endif
