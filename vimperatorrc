@@ -23,6 +23,9 @@ highlight URL color: #2f5a9b; background: inherit
 
 let mapleader = ','
 
+inoremap <C-N> <Esc><C-N>
+inoremap <C-P> <Esc><C-P>
+
 noremap <BS> <PageUp>
 noremap s l
 noremap <silent> <Leader>h <Esc>:set invhlsearch<CR>
