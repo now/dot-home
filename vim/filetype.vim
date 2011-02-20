@@ -1,6 +1,6 @@
 " Vim support file to detect file types
 " Maintainer:       Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2010-12-15
+" Latest Revision:  2011-02-20
 
 if exists('did_load_filetypes')
   finish
@@ -13,6 +13,7 @@ augroup filetypedetect
   au! BufRead,BufNewFile README call s:FTREADME()
   au! BufRead,BufNewFile Gemfile setf ruby
   au! BufRead,BufNewFile *.ru setf ruby
+  au! BufRead,BufNewFile *.nml setf xml
 augroup END
 
 function! s:FTREADME()
