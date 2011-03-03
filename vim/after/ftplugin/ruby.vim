@@ -1,7 +1,7 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2010-12-21
+" Latest Revision:  2011-03-03
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
 let b:undo_ftplugin .= ' | setl sw< sts< et<'
@@ -207,10 +207,11 @@ function s:find_constant_path_around_cursor()
 endfunction
 
 function s:go_to_other_file()
-  if s:go_to_file('\%(^\|.*/\)test\(/.\+\)', 'lib') ||
-   \ s:go_to_file('\%(^\|.*/\)lib\(/.\+\)', 'test')
-    return
-  endif
+  for [what, with] in [['test/unit', 'lib'], ['lib', 'test/unit']]
+    if s:go_to_file('\%(^\|.*/\)' . what . '\(/.\+\)', with)
+      return
+    endif
+  endfor
   echoerr "E447: Can't find alternate file"
 endfunction
 
