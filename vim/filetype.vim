@@ -13,7 +13,7 @@ augroup filetypedetect
   au! BufRead,BufNewFile README call s:FTREADME()
   au! BufRead,BufNewFile Gemfile setf ruby
   au! BufRead,BufNewFile *.ru setf ruby
-  au! BufRead,BufNewFile *.nml setf xml
+  au! BufRead,BufNewFile *.nml setf nml
 augroup END
 
 function! s:FTREADME()

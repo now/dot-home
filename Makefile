@@ -125,6 +125,7 @@ DOTFILES = \
 	   vim/after/ftplugin/java.vim \
 	   vim/after/ftplugin/javascript.vim \
 	   vim/after/ftplugin/mail.vim \
+	   vim/after/ftplugin/nml.vim \
 	   vim/after/ftplugin/racc.vim \
 	   vim/after/ftplugin/rnc.vim \
 	   vim/after/ftplugin/ruby.vim \
@@ -141,17 +142,21 @@ DOTFILES = \
 	   vim/after/syntax/ruby.vim \
 	   vim/after/syntax/vim.vim \
 	   vim/colors/now.vim \
+	   vim/compiler/jing.vim \
 	   vim/compiler/rakelookout.vim \
 	   vim/compiler/xmllint.vim \
 	   vim/doc/matchit.txt \
 	   vim/filetype.vim \
 	   vim/ftplugin/man.vim \
+	   vim/ftplugin/nml.vim \
+	   vim/indent/nml.vim \
 	   vim/macros/less.vim \
 	   vim/macros/quickfix.vim \
 	   vim/plugin/matchit.vim \
 	   vim/syntax/ilprec.vim \
 	   vim/syntax/javascript.vim \
 	   vim/syntax/markdown.vim \
+	   vim/syntax/nml.vim \
 	   vim/syntax/prolog.vim \
            vim/templates/cpp.template \
 	   vim/templates/ruby.template \
