@@ -68,6 +68,7 @@ dar_options+=(--prune .Spotlight-V100
               --prune Library/Safari
               --prune Library/Widgets
               --prune cbt
+              --prune opt
               --prune tmp
               --prune var/run
               --prune \*/.generated
