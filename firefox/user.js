@@ -1,12 +1,12 @@
-user_pref("app.update.auto", false);
 user_pref("browser.active_color", "#f02626");
 user_pref("browser.anchor_color", "#2f5a9b");
 user_pref("browser.contentHandlers.auto.application/vnd.mozilla.maybe.feed", "http://fusion.google.com/add?feedurl=%s");
-user_pref("browser.feeds.handlers.webservice", "http://fusion.google.com/add?feedurl=%s");
-user_pref("browser.feeds.showFirstRunUI", false);
 user_pref("browser.display.background_color", "#f6f6f6");
 user_pref("browser.display.foreground_color", "#181818");
 user_pref("browser.download.manager.showWhenStarting", false);
+user_pref("browser.feeds.handlers.webservice", "http://fusion.google.com/add?feedurl=%s");
+user_pref("browser.feeds.showFirstRunUI", false);
+user_pref("browser.fullscreen.animateUp", 0);
 user_pref("browser.history_expire_days_min", 365);
 user_pref("browser.tabs.warnOnClose", false);
 user_pref("browser.visited_color", "#602f80");

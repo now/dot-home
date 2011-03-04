@@ -1,25 +1,27 @@
-set laststatus=0
-set newtab=addons,downloads,help,prefs
-set showstatuslinks=2
-set showtabline=0
-set urlseparator=,\\s\\s
-set wildoptions=auto
 set fullscreen
+set newtab=addons,downloads,help,prefs
+set showstatuslinks=0
+set status=
+set urlseparator=,\\s\\s
 
-highlight CmdLine font: 10pt monospace
-highlight CompItem[selected] color: white; background: black
-highlight CompTitle background: #b2b2b2
-highlight ErrorMsg font: 10pt monospace
-highlight Gradient height: 0
+highlight CmdLine color: #181818; background: #f6f6f6; -moz-transition: all 0.25s
+highlight CmdLine>* font: 10pt monospace
+highlight CompItem>* height: 15pt; min-height: 15pt; padding: 0 0.5ex
+highlight ErrorMsg color: white; background: red; font-size: 10pt
 highlight Hint font: 8pt bold monospace; color: white; text-shadow: black -1px 0 1px, black 0 1px 1px, black 1px 0 1px, black 0 -1px 1px
 highlight HintActive color: white; background: #009000
 highlight HintElem color: black; background: #f0a000
+highlight InfoMsg color: #181818; background: #f6f6f6
+highlight MoreMsg color: green; background: #f6f6f6; font: 10pt monospace
 highlight NonText color: #2080c0
 highlight Normal font: 10pt monospace; color: #181818; background: #f6f6f6
-highlight Search color: white; background: #f0a000
-highlight StatusLine background: #b2b2b2
+highlight PromptText color: #181818
+highlight Question: color: green; background: #f6f6f6
+highlight Search color: white; background: #f0a000; font-size: inherit
+highlight StatusLine color: gray; background: #f6f6f6
 highlight Title color: #2080c0
-highlight URL color: #2f5a9b; background: inherit
+highlight WarningMsg: color: red;
+highlight URL color: #2f5a9b
 
 let mapleader = ','
 
