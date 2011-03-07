@@ -12,6 +12,7 @@ highlight Hint font: 8pt bold monospace; color: white; text-shadow: black -1px 0
 highlight HintActive color: white; background: #009000
 highlight HintElem color: black; background: #f0a000
 highlight InfoMsg color: #181818; background: #f6f6f6
+highlight ModeMsg color: #181818; background: #f6f6f6; font: 10pt monospace
 highlight MoreMsg color: green; background: #f6f6f6; font: 10pt monospace
 highlight NonText color: #2080c0
 highlight Normal font: 10pt monospace; color: #181818; background: #f6f6f6
