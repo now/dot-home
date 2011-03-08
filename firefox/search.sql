@@ -23,6 +23,7 @@ INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/youtube.xml', 
 /* Hidden */
 INSERT INTO engine_data (engineid, name, value) VALUES('[app]/amazondotcom.xml', 'hidden', '1');
 INSERT INTO engine_data (engineid, name, value) VALUES('[app]/answers.xml', 'hidden', '1');
+INSERT INTO engine_data (engineid, name, value) VALUES('[app]/bing.xml', 'hidden', '1');
 INSERT INTO engine_data (engineid, name, value) VALUES('[app]/creativecommons.xml', 'hidden', '1');
 INSERT INTO engine_data (engineid, name, value) VALUES('[app]/eBay.xml', 'hidden', '1');
 INSERT INTO engine_data (engineid, name, value) VALUES('[app]/yahoo.xml', 'hidden', '1');
