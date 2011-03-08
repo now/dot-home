@@ -7,6 +7,7 @@ set urlseparator=,\\s\\s
 highlight CmdLine color: #181818; background: #f6f6f6; -moz-transition: all 0.25s
 highlight CmdLine>* font: 10pt monospace
 highlight CompItem>* height: 15pt; min-height: 15pt; padding: 0 0.5ex
+highlight ContentSeparator display: none
 highlight ErrorMsg color: white; background: red; font-size: 10pt
 highlight Hint font: 8pt bold monospace; color: white; text-shadow: black -1px 0 1px, black 0 1px 1px, black 1px 0 1px, black 0 -1px 1px
 highlight HintActive color: white; background: #009000
