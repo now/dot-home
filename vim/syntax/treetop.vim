@@ -90,6 +90,7 @@ syn match   treetopEllipsis
                           \ +''+
 
 hi def link treetopTodo                         Todo
+hi def link treetopComment                      Comment
 hi def link treetopKeyword                      Keyword
 hi def link treetopGrammarName                  Constant
 hi def link treetopRubyModuleName               Constant
