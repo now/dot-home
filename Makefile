@@ -130,6 +130,7 @@ DOTFILES = \
 	   vim/after/ftplugin/rnc.vim \
 	   vim/after/ftplugin/ruby.vim \
 	   vim/after/ftplugin/sh.vim \
+	   vim/after/ftplugin/treetop.vim \
 	   vim/after/ftplugin/vb.vim \
 	   vim/after/ftplugin/vim.vim \
 	   vim/after/ftplugin/wsh.vim \
@@ -149,7 +150,9 @@ DOTFILES = \
 	   vim/filetype.vim \
 	   vim/ftplugin/man.vim \
 	   vim/ftplugin/nml.vim \
+	   vim/ftplugin/treetop.vim \
 	   vim/indent/nml.vim \
+	   vim/indent/treetop.vim \
 	   vim/macros/less.vim \
 	   vim/macros/quickfix.vim \
 	   vim/plugin/matchit.vim \
@@ -158,6 +161,7 @@ DOTFILES = \
 	   vim/syntax/markdown.vim \
 	   vim/syntax/nml.vim \
 	   vim/syntax/prolog.vim \
+	   vim/syntax/treetop.vim \
            vim/templates/cpp.template \
 	   vim/templates/ruby.template \
            vim/templates/vim/default.template \
