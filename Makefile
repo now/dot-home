@@ -275,13 +275,8 @@ GM_tag = $(call USERSCRIPT_field,$(1),<$(2)>\2</$(2)>)
 
 GM_SCRIPTS = \
 	     firefox/gm_scripts/divshare-auto-download.user.js \
-	     firefox/gm_scripts/google-favicons.user.js \
 	     firefox/gm_scripts/google-reader-download-linked-content.user.js \
-	     firefox/gm_scripts/google-reader-view-original-in-background.user.js \
-	     firefox/gm_scripts/juno-download-all-link.user.js \
 	     firefox/gm_scripts/mediafire-auto-download.user.js \
-	     firefox/gm_scripts/secure-google-docs-connection.user.js \
-	     firefox/gm_scripts/vbulletin-cleanup.user.js \
 	     firefox/gm_scripts/zshare-mp3-links.user.js
 
 GM_CONFIG = $(firefoxuserconfdir)/gm_scripts/config.xml
