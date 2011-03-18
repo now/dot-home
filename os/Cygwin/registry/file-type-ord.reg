@@ -1,0 +1,16 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\.ord]
+@="TRADOBEINDECS.Ord"
+
+[HKEY_CLASSES_ROOT\TRADOBEINDECS.Ord]
+@="TRADOBEINDECS Order File"
+
+[HKEY_CLASSES_ROOT\TRADOBEINDECS.Ord\DefaultIcon]
+@="c:\\home\\nweibull\\share\\icons\\ord.ico"
+
+[HKEY_CLASSES_ROOT\TRADOBEINDECS.Ord\shell]
+@="open"
+
+[HKEY_CLASSES_ROOT\TRADOBEINDECS.Ord\shell\open\command]
+@="\"%ProgramFiles\\IDEA INSTITUTE INC\\0.2 !DEAL Translation for Adobe InDesign CS\\tradobeindecs00.exe\" \"%1\""

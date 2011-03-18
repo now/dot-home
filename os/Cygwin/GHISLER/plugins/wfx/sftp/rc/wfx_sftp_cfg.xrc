@@ -1,0 +1,677 @@
+<?xml version="1.0" ?>
+<resource>
+  <object class="wxDialog" name="CONNECTIONS">
+    <title>SFTP Connections</title>
+    <centered>1</centered>
+    <style>wxDEFAULT_DIALOG_STYLE|wxDIALOG_MODAL|wxCAPTION|wxSIMPLE_BORDER</style>
+    <enabled>1</enabled>
+    <focused>1</focused>
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="spacer">
+        <size>5,5</size>
+      </object>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <orient>wxVERTICAL</orient>
+              <object class="sizeritem">
+                <object class="wxListBox" name="lstConnections">
+                  <content/>
+                  <style>wxLB_SINGLE|wxLB_NEEDED_SB|wxLB_SORT</style>
+                </object>
+                <option>4</option>
+                <flag>wxTOP|wxBOTTOM|wxLEFT|wxRIGHT|wxALL|wxGROW</flag>
+              </object>
+            </object>
+            <option>4</option>
+            <flag>wxTOP|wxBOTTOM|wxLEFT|wxRIGHT|wxALL|wxGROW</flag>
+            <border>2</border>
+          </object>
+          <object class="spacer">
+            <size>5,5</size>
+          </object>
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <orient>wxVERTICAL</orient>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>title</label>
+                      <style></style>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="edtTitle"/>
+                    <option>3</option>
+                    <flag>wxGROW</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                </object>
+                <flag>wxGROW</flag>
+                <border>2</border>
+              </object>
+              <object class="spacer">
+                <size>5,5</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>host</label>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="edtHost"/>
+                    <option>3</option>
+                    <flag>wxGROW</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                </object>
+                <flag>wxGROW</flag>
+                <border>2</border>
+              </object>
+              <object class="spacer">
+                <size>5,5</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>port</label>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="edtPort"/>
+                    <option>1</option>
+                  </object>
+                  <object class="spacer">
+                    <option>2</option>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                </object>
+                <flag>wxGROW</flag>
+                <border>2</border>
+              </object>
+              <object class="spacer">
+                <size>5,5</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxCheckBox" name="chkAsk4Username">
+                      <label>ask for username</label>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="edtUsername"/>
+                    <option>3</option>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                </object>
+                <flag>wxGROW</flag>
+                <border>2</border>
+              </object>
+              <object class="spacer">
+                <size>5,5</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxCheckBox" name="chkAsk4Password">
+                      <label>ask for password</label>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="edtPassword">
+                      <style>wxTE_PASSWORD</style>
+                    </object>
+                    <option>3</option>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                </object>
+                <flag>wxGROW</flag>
+                <border>2</border>
+              </object>
+              <object class="spacer">
+                <size>5,5</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>homedir</label>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="edtHomedir"/>
+                    <option>3</option>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                </object>
+                <flag>wxGROW</flag>
+                <border>2</border>
+              </object>
+              <object class="spacer">
+                <size>5,5</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxCheckBox" name="chkCompression">
+                      <label>use compression</label>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxCheckBox" name="chkSetMTime">
+                      <label>use original timestamp</label>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                </object>
+                <flag>wxGROW</flag>
+                <border>2</border>
+              </object>
+              <object class="spacer">
+                <size>5,5</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxCheckBox" name="chkChmodPut">
+                      <label>chmod after put</label>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="edtChmodPut"/>
+                    <option>1</option>
+                    <flag>wxGROW</flag>
+                  </object>
+                  <object class="spacer">
+                    <option>2</option>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                </object>
+                <flag>wxGROW</flag>
+                <border>2</border>
+              </object>
+              <object class="spacer">
+                <size>5,5</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxCheckBox" name="chkChmodDir">
+                      <label>chmod after make dir</label>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="edtChmodDir"/>
+                    <option>1</option>
+                    <flag>wxGROW</flag>
+                  </object>
+                  <object class="spacer">
+                    <option>2</option>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                </object>
+                <flag>wxGROW</flag>
+                <border>2</border>
+              </object>
+              <object class="spacer">
+                <size>5,5</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxCheckBox" name="chkUseKeyAuth">
+                      <label>use key:</label>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="edtKeyFilename"/>
+                    <option>2</option>
+                  </object>
+                  <object class="spacer">
+                    <size>3,5</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxCheckBox" name="chkAsk4Passphrase">
+                      <label>ask for passphrase</label>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                </object>
+                <flag>wxGROW</flag>
+                <border>2</border>
+              </object>
+              <object class="spacer">
+                <size>5,5</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>proxy type</label>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxChoice" name="cboProxyType">
+                      <content/>
+                    </object>
+                    <option>1</option>
+                  </object>
+                  <object class="spacer">
+                    <option>2</option>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                </object>
+                <flag>wxGROW</flag>
+                <border>2</border>
+              </object>
+              <object class="spacer">
+                <size>5,5</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>proxy host</label>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="edtProxyHost"/>
+                    <option>3</option>
+                    <flag>wxGROW</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                </object>
+                <flag>wxGROW</flag>
+                <border>2</border>
+              </object>
+              <object class="spacer">
+                <size>5,5</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>proxy port</label>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="edtProxyPort"/>
+                    <option>1</option>
+                    <flag>wxGROW</flag>
+                  </object>
+                  <object class="spacer">
+                    <option>2</option>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                </object>
+                <flag>wxGROW</flag>
+                <border>2</border>
+              </object>
+              <object class="spacer">
+                <size>5,5</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>proxy username</label>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="edtProxyUsername"/>
+                    <option>3</option>
+                    <flag>wxGROW</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                </object>
+                <flag>wxGROW</flag>
+                <border>2</border>
+              </object>
+              <object class="spacer">
+                <size>5,5</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>proxy password</label>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="edtProxyPassword">
+                      <style>wxTE_PASSWORD</style>
+                    </object>
+                    <option>3</option>
+                    <flag>wxGROW</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                </object>
+                <flag>wxGROW</flag>
+                <border>2</border>
+              </object>
+              <object class="spacer">
+                <size>5,5</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>proxy telnet command</label>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="edtProxyTelnetCommand"/>
+                    <option>3</option>
+                    <flag>wxGROW</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>5,5</size>
+                  </object>
+                </object>
+                <flag>wxGROW</flag>
+                <border>2</border>
+              </object>
+            </object>
+            <option>10</option>
+            <flag>wxTOP|wxBOTTOM|wxLEFT|wxRIGHT|wxALL|wxGROW</flag>
+            <border>2</border>
+          </object>
+          <orient>wxHORIZONTAL</orient>
+        </object>
+        <option>10</option>
+        <flag>wxTOP|wxBOTTOM|wxLEFT|wxRIGHT|wxALL|wxGROW</flag>
+        <border>2</border>
+      </object>
+      <object class="spacer">
+        <size>5,5</size>
+      </object>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="spacer">
+            <size>10,1</size>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>import putty sessions</label>
+            </object>
+            <option>1</option>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+          </object>
+          <object class="spacer">
+            <size>5,5</size>
+          </object>
+          <object class="sizeritem">
+            <object class="wxChoice" name="cboImportPutty">
+              <content/>
+            </object>
+            <option>2</option>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+          </object>
+          <object class="spacer">
+            <size>5,5</size>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>import ssh.com sessions from:</label>
+            </object>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+          </object>
+          <object class="spacer">
+            <size>5,5</size>
+          </object>
+          <object class="sizeritem">
+            <object class="wxTextCtrl" name="edtImportSSHcom"/>
+            <option>2</option>
+          </object>
+          <object class="spacer">
+            <size>10,5</size>
+          </object>
+        </object>
+      </object>
+      <object class="spacer">
+        <size>5,5</size>
+      </object>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="spacer">
+            <size>4,1</size>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="btnNew">
+              <label>New</label>
+            </object>
+          </object>
+          <object class="spacer">
+            <size>10,5</size>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="btnDuplicate">
+              <label>Duplicate</label>
+            </object>
+          </object>
+          <object class="spacer">
+            <size>10,5</size>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="btnDelete">
+              <label>Delete</label>
+            </object>
+          </object>
+          <object class="spacer">
+            <size>100,5</size>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="btnOK">
+              <label>OK</label>
+            </object>
+          </object>
+          <object class="spacer">
+            <size>10,5</size>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="btnCancel">
+              <label>Cancel</label>
+            </object>
+          </object>
+        </object>
+        <border>2</border>
+      </object>
+      <object class="spacer">
+        <size>5,5</size>
+      </object>
+    </object>
+  </object>
+  <object class="wxDialog" name="SESSION">
+    <title>Session configuration</title>
+    <centered>1</centered>
+    <style>wxDEFAULT_DIALOG_STYLE|wxDIALOG_MODAL|wxCAPTION|wxSIMPLE_BORDER</style>
+    <enabled>1</enabled>
+    <focused>1</focused>
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxStaticBoxSizer">
+          <label>Directory listing</label>
+          <orient>wxVERTICAL</orient>
+          <object class="spacer">
+            <size>4,4</size>
+          </object>
+          <object class="sizeritem">
+            <object class="wxCheckBox" name="chkShowHiddenFiles">
+              <label>Show hidden files</label>
+            </object>
+          </object>
+          <object class="spacer">
+            <size>4,4</size>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND|wxGROW</flag>
+      </object>
+      <object class="spacer">
+        <size>5,5</size>
+      </object>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="spacer">
+            <size>5,5</size>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="btnOK">
+              <label>OK</label>
+              <default>1</default>
+            </object>
+          </object>
+          <object class="spacer">
+            <size>5,5</size>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="btnCancel">
+              <label>Cancel</label>
+            </object>
+          </object>
+          <object class="spacer">
+            <size>5,5</size>
+          </object>
+        </object>
+        <border>2</border>
+      </object>
+      <object class="spacer">
+        <size>5,5</size>
+      </object>
+    </object>
+  </object>
+</resource>

@@ -1,0 +1,5 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Ghisler\Total Commander]
+"FtpIniName"="%$LOCAL_APPDATA%\\GHISLER\\ftp-settings.ini"
+"IniFileName"="%APPDATA%\\GHISLER\\totalcmd.ini"

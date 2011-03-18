@@ -1,0 +1,10 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\TagEditor.BilingualDocument\shell]
+@="open-non-retardedly"
+
+[HKEY_CLASSES_ROOT\TagEditor.BilingualDocument\shell\open-non-retardedly]
+@="Open Non-Retardedly"
+
+[HKEY_CLASSES_ROOT\TagEditor.BilingualDocument\shell\open-non-retardedly\command]
+@="wscript.exe \"%APPDATA%\\GHISLER\\tools\\work\\open-in-tageditor-non-retardedly.vbs\" \"%1\""

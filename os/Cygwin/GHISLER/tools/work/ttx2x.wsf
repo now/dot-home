@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<job>
+  <script language="VBScript">
+  <![CDATA[
+    Sub Die(Message)
+        MsgBox Message, vbCritical, "TTX To X Conversion"
+        WScript.Quit 1
+    End Sub
+
+    Sub Usage()
+      Die "wscript.exe ttx2x.wsf PATH..."
+    End Sub
+
+    On Error Resume Next
+    Set TagEditor = GetObject(, "TagEditor.Application")
+    If TagEditor Is Nothing Then Set TagEditor = CreateObject("TagEditor.Application")
+    On Error GoTo 0
+
+    Set Fs = CreateObject("Scripting.FileSystemObject")
+
+    For Each Argument in WScript.Arguments
+        Set Document = TagEditor.Documents.Open(Argument, Nothing)
+        TemporaryTarget = Fs.BuildPath(Fs.GetSpecialFolder(2).Path, Fs.GetTempName)
+        Document.SaveTargetAs TemporaryTarget
+        Fs.CopyFile TemporaryTarget, Fs.BuildPath(Fs.GetParentFolderName(Argument), Document.OriginalName)
+        Fs.DeleteFile TemporaryTarget
+        Document.Close
+    Next
+  ]]></script>
+</job>
