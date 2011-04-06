@@ -62,6 +62,7 @@ endif
 
 filetype plugin indent on
 
+let c_no_bracket_error = 1
 let ruby_no_identifiers = 1
 let ruby_no_expensive = 1
 let vimsyntax_noerror = 1
