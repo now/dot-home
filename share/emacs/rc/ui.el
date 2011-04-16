@@ -15,9 +15,7 @@
           (lambda ()
             (hide-mode-line-update)))
 
-(require 'color-theme)
-(color-theme-initialize)
-(color-theme-now)
+(enable-theme 'now)
 
 (setq eol-mnemonic-unix ""
       eol-mnemonic-mac "mac"
