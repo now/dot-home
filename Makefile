@@ -220,7 +220,6 @@ DOTFILES = \
 	   share/emacs/digraph.el \
 	   share/emacs/hide-mode-line.el \
 	   share/emacs/ned/ned-info-on-file.el \
-	   share/emacs/rect-mark.el \
 	   share/emacs/rc/desktop.el \
 	   share/emacs/rc/diff.el \
 	   share/emacs/rc/digraph.el \
