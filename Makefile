@@ -237,6 +237,7 @@ DOTFILES = \
 	   share/emacs/rc/smex.el \
 	   share/emacs/rc/ui.el \
 	   share/emacs/rc/viper.el \
+	   share/emacs/rc/woman.el \
 	   share/emacs/undo-tree.el \
 	   share/emacs/smex.el \
 	   share/emacs/term/screen-256color.el \

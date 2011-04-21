@@ -35,8 +35,37 @@
   (call-interactively 'find-file)))
 (define-key viper-vi-global-user-map ",E" 'find-vc-project-file)
 
+(define-key viper-vi-global-user-map ",n" 'next-error)
+(define-key viper-vi-global-user-map ",p" 'previous-error)
+(define-key viper-vi-global-user-map ",N" 'compilation-next-file)
+(define-key viper-vi-global-user-map ",P" 'compilation-previous-file)
+
+(global-set-key (kbd "C-x C-o") 'other-window)
+
 (define-key viper-insert-global-user-map "\C-k" 'digraph-read)
 
-;(define-key viper-vi-global-user-map "`" 'execute-extended-command)
-
 (define-key viper-vi-global-user-map "`" 'smex)
+
+(setq viper-vi-state-mode-list
+      (append viper-vi-state-mode-list
+              '(grep-mode)))
+
+(save-excursion
+  (set-buffer "*Messages*")
+  (viper-change-state-to-vi))
+
+(defun close-buffer-and-window-unless-last ()
+  (interactive)
+  (let* ((buffer (current-buffer))
+         (window (get-buffer-window buffer))
+         (next (next-window window)))
+    (kill-buffer buffer)
+    (when (and window
+               (not (eq window next)))
+      (delete-window window))))
+
+(defvar viper-grep-mode-fixes 
+  (let ((map (make-sparse-keymap)))
+    (define-key map "q" 'close-buffer-and-window-unless-last)
+    map))
+(viper-modify-major-mode 'grep-mode 'vi-state viper-grep-mode-fixes)
