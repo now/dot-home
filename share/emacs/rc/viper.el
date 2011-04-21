@@ -17,6 +17,7 @@
 (define-key viper-vi-global-user-map "K" 'woman)
 (define-key viper-vi-global-user-map " " 'viper-scroll-screen)
 (define-key viper-vi-global-user-map [backspace] 'viper-scroll-screen-back)
+(define-key viper-vi-global-user-map "\C-?" 'viper-scroll-screen-back)
 (define-key viper-vi-global-user-map "\C-n" 'bs-cycle-next)
 (define-key viper-vi-global-user-map "\C-p" 'bs-cycle-previous)
 

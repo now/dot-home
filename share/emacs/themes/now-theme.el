@@ -12,13 +12,15 @@
       (light-blue "#2080c0")
       (off-black "#181818")
       (light-red "#f02626")
+      (light-green "#009000")
       (light-yellow "#f0a500")
       (light-magenta "#933763")
       (light-cyan "#80b0c0")
       (off-white "#f6f6f6")
-      (brown "#af5f00")
+      (brown "#af5f00") ; NOTE: Currently unused
       (off-red "RosyBrown1")
-      (light-orange "#ffaf5f"))
+      (light-orange "#ffaf5f")
+      (lighter-yellow "#ffd700"))
   (custom-theme-set-faces
     'now
     `(default ((,gui (:foreground ,off-black :background ,off-white))))
@@ -32,12 +34,12 @@
     `(highlight ((,class (:background ,blue))))
     `(button ((,class (:underline t :foreground ,blue))))
     `(link ((,class (:underline t :foreground ,blue))))
-    `(visited-link ((,class (:underline t :foreground ,purple))))
+    `(link-visited ((,class (:underline t :foreground ,purple))))
     `(lazy-highlight ((,class (:foreground ,off-black :background ,light-yellow))))
-    `(trailing-whitespace ((,class (:background ,light-red))))
+    `(trailing-whitespace ((,class (:forgeground ,off-white :background ,light-red))))
     `(region ((,class (:background ,light-cyan))))
     `(secondary-selection ((,class (:background ,cyan))))
-    `(isearch ((,class (:foreground ,off-white :background ,brown))))
+    `(isearch ((,class (:foreground ,off-black :background ,lighter-yellow))))
     `(isearch-fail ((,class (:foreground ,off-white :background ,light-red))))
     `(compilation-error ((,class (:foreground ,light-red))))
     `(diff-added ((,class (:foreground ,blue))))
@@ -50,16 +52,12 @@
     `(diff-refine-change ((,class (:foreground ,blue))))
     `(diff-removed ((,class (:foreground ,light-red))))
     ; diff-index
-;hi  DiffAdd       ctermfg=White       ctermbg=DarkGreen                   guifg=White       guibg=#257325
-;hi  DiffChange    ctermfg=White       ctermbg=DarkBlue                    guifg=White       guibg=#2f5a9b
-;hi  DiffDelete    ctermfg=White       ctermbg=DarkRed                     guifg=White       guibg=#951616   gui=None
-;hi  DiffText      ctermfg=Red         ctermbg=None                        guifg=#f02626     guibg=NONE
-
     `(flymake-errline ((,class (:foreground ,off-white :background ,light-red))))
     `(flymake-warnline ((,class (:foreground ,off-white :background ,off-red))))
     `(show-paren-match ((,class (:background ,light-orange))))
-    `(show-paren-mismatch ((,class (:foreground ,off-white :background ,red))))
-    `(ido-first-match ((,class (:foreground ,off-white :background ,brown))))
+    `(show-paren-mismatch ((,class (:foreground ,off-white :background ,light-red))))
+    `(ido-first-match ((,class (:inherit isearch))))
+    `(ido-only-match ((,class (:foreground ,light-green))))
     `(ido-subdir ((,class (:foreground ,light-blue))))
     `(undo-tree-visualizer-active-branch-face ((t (nil))))
     `(viper-minibuffer-emacs ((t (nil))))
@@ -70,6 +68,13 @@
     `(custom-button ((,gui (:box (:line-width 1 :color "#656a6f") :background "#e9ebed" :foreground ,off-black))))
     `(custom-button-mouse ((,gui (:box (:line-width 1 :color "#478cba") :background "#e9ebed" :foreground ,off-black))))
     `(custom-button-pressed ((,gui (:box (:line-width 1 :color "#35576d") :background "#d4d6da" :foreground ,off-black))))
+    `(whitespace-empty ((,class (:inherit whitespace-trailing))))
+    `(whitespace-hspace ((,class (:inherit whitespace-space))))
+    `(whitespace-space ((,class (:foreground ,light-blue))))
+    `(whitespace-space-before-tab ((,class (:inherit whitespace-trailing))))
+    `(whitespace-space-after-tab ((,class (:inherit whitespace-trailing))))
+    `(whitespace-tab ((,class (:inherit whitespace-space))))
+    `(whitespace-trailing ((,class (:inherit trailing-whitespace))))
     `(woman-italic ((,gui (:slant italic)) (,class (:foreground ,red))))
     `(woman-bold ((,gui (:weight bold)) (,class (:foreground ,blue))))
     `(font-lock-builtin-face ((,class (:foreground ,purple))))
