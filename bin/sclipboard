@@ -1,0 +1,8 @@
+#! /opt/local/bin/zsh
+
+tmp=$(mktemp sclipboard-XXXXXX) &&
+  {
+    screen -X writebuf $tmp &&
+    clipboard < $tmp
+    rm $tmp
+  }
