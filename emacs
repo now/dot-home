@@ -37,12 +37,6 @@
 ;; Indentation.
 (setq-default indent-tabs-mode nil)
 
-;;;(require 'rnc-mode)
-
-;;;;;(autoload 'rnc-mode "rnc-mode.el")
-;;;(setq auto-mode-alist       
-;;;      (cons '("\\.rnc\\'" . rnc-mode) auto-mode-alist))
-
 (setq woman-use-own-frame nil
       woman-bold-headings nil)
 ; TODO: This is a bit overzealous, as we only want this under certain
