@@ -80,6 +80,7 @@
     <RDF:li RDF:resource="urn:mimetype:image/gif"/>
     <RDF:li RDF:resource="urn:mimetype:image/jpeg"/>
     <RDF:li RDF:resource="urn:mimetype:text/plain"/>
+    <RDF:li RDF:resource="urn:mimetype:text/x-diff"/>
     <RDF:li RDF:resource="urn:mimetype:video/mpeg"/>
   </RDF:Seq>
 
@@ -291,6 +292,16 @@
   <RDF:Description RDF:about="urn:mimetype:handler:text/plain"
     NC:alwaysAsk="false"
     NC:useSystemDefault="true"/>
+
+  <RDF:Description RDF:about="urn:mimetype:text/x-diff"
+    NC:description="patch File"
+    NC:fileExtensions="txt"
+    NC:value="text/x-diff">
+    <NC:handlerProp RDF:resource="urn:mimetype:handler:text/x-diff"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mimetype:handler:text/x-diff"
+    NC:alwaysAsk="false"
+    NC:saveToDisk="true"/>
 
   <rdf:description rdf:about="urn:mimetype:video/mpeg"
     nc:description="MPEG-3 Video"
