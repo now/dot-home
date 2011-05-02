@@ -255,8 +255,7 @@ $(call GROUP_template,$(DOTFILES),$(userconfdir)/.zsh,.,zsh/)
 DOTFILES = \
 	   vimperator/plugin/_libly.js \
 	   vimperator/plugin/edit-textarea-in-editor.js \
-	   vimperator/plugin/feed-some-keys.js \
-	   vimperator/plugin/liberator-overlay-ext.js
+	   vimperator/plugin/feed-some-keys.js
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),$(if $(subst Cygwin,,$(uname)),.))
 
