@@ -1,3 +1,4 @@
+set animations
 set fullscreen
 set newtab=addons,downloads,help,prefs
 set showstatuslinks=0
