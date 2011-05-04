@@ -3,12 +3,15 @@
       viper-want-ctl-h-help t
       viper-inhibit-startup-message 't
       viper-expert-level '5)
+(setq-default viper-auto-indent t)
 (require 'viper)
 (require 'vimpulse)
 
 (define-key viper-vi-basic-map "ga" 'what-cursor-position)
 (define-key viper-vi-basic-map "U" 'undo-tree-redo)
 (define-key viper-vi-basic-map "\C-r" 'isearch-backward-regexp)
+(define-key viper-vi-basic-map "q" 'delete-other-windows)
+(define-key viper-vi-basic-map "'" 'vimpulse-goto-mark)
 
 (define-key viper-vi-global-user-map "s" 'viper-forward-char)
 (define-key viper-vi-global-user-map "l" 'viper-substitute)
@@ -20,6 +23,7 @@
 (define-key viper-vi-global-user-map "\C-?" 'viper-scroll-screen-back)
 (define-key viper-vi-global-user-map "\C-n" 'bs-cycle-next)
 (define-key viper-vi-global-user-map "\C-p" 'bs-cycle-previous)
+(define-key viper-vi-global-user-map ",b" 'ido-switch-buffer)
 
 (define-key viper-insert-global-user-map "\C-m" 'newline-and-indent)
 (define-key viper-insert-global-user-map "\C-o" 'viper-toggle-key-action)

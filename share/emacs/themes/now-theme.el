@@ -17,14 +17,14 @@
       (light-magenta "#933763")
       (light-cyan "#80b0c0")
       (off-white "#f6f6f6")
-      (brown "#af5f00") ; NOTE: Currently unused
+      (brown "#af5f00")
       (off-red "RosyBrown1")
       (light-orange "#ffaf5f")
       (lighter-yellow "#ffd700"))
   (custom-theme-set-faces
     'now
     `(button ((,class (:underline t :foreground ,blue))))
-    `(compilation-column-number ((,class (:inherit compilation-warning))))
+    `(compilation-column-number ((,class (:inherit compilation-line-number))))
     `(compilation-error ((,class (:foreground ,light-red))))
     `(compilation-info ((,class (:foreground ,light-blue))))
     `(compilation-line-number ((,class (:foreground ,brown))))
