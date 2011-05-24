@@ -1,7 +1,7 @@
 " Vim compiler file
 " Compiler:         Rake with lookout test framework
 " Maintainer:       Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2010-11-29
+" Latest Revision:  2011-05-24
 
 if exists('current_compiler')
   finish
@@ -11,7 +11,11 @@ let current_compiler = 'rakelookout'
 let s:cpo_save = &cpo
 set cpo-=C
 
-CompilerSet makeprg=rake\ -s\ $*\ 2>&1\ \\\|\ sed\ 's///g'
+if $OS == 'Windows_NT'
+  CompilerSet makeprg=rake\ -s\ $*\ 2>&1\ \\\|\ sed\ 's///g'
+else
+  CompilerSet makeprg=rake\ -s\ $*\ 2>&1
+endif
 
 CompilerSet errorformat=
       \%+E%f:%l:\ parse\ error,
