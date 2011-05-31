@@ -3,7 +3,7 @@
 #
 # Copyright © 2008 Nikolai Weibull <now@bitwi.se>
 
-valgrind --tool=memcheck --leak-check=full --suppressions==(<<'EOX'
+a==(<<'EOX'
 {
   memcpy/rb_thread_save_context(Value4)
   Addrcheck,Memcheck:Addr4
@@ -124,4 +124,4 @@ valgrind --tool=memcheck --leak-check=full --suppressions==(<<'EOX'
   Addrcheck,Memcheck:Cond
   fun:gc_mark_children
 }
-EOX) ${RUBY:-ruby} $*
+EOX) valgrind --tool=memcheck --leak-check=full --suppressions=$a ${RUBY:-ruby} $*
