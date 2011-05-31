@@ -1,4 +1,4 @@
-#! /bin/zsh
+#! @ZSHELL@
 # contents: Memory map analyzer.
 #
 # Copyright © 2008 Nikolai Weibull <now@bitwi.se>

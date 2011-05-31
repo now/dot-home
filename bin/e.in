@@ -1,4 +1,4 @@
-#! /bin/zsh
+#! @ZSHELL@
 
 local emacsclient="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
 local emacs="/Applications/Emacs.app/Contents/MacOS/Emacs"

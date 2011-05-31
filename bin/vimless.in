@@ -1,4 +1,4 @@
-#! /bin/zsh
+#! @ZSHELL@
 # contents: Run vim using ~/.vim/macross/less.vim script.
 #
 # Copyright © 2004,2008 Nikolai Weibull <now@bitwi.se>

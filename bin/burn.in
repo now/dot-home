@@ -1,4 +1,4 @@
-#! /bin/zsh
+#! @ZSHELL@
 # contents: Burn files to disk.
 #
 # Copyright © 2007 Nikolai Weibull <now@bitwi.se>
@@ -6,7 +6,7 @@
 setopt extendedglob
 
 autoload -U zap/init
-zap/init $0:t "1.0.0" 
+zap/init $0:t "1.0.0"
 
 local -a optdesc
 optdesc=(

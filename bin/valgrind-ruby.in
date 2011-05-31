@@ -1,9 +1,19 @@
-#! /bin/zsh
+#! @ZSHELL@
 # contents: valgrind(1) wrapper for Ruby 1.8.*.
 #
 # Copyright © 2008 Nikolai Weibull <now@bitwi.se>
 
-a==(<<'EOX'
+name=$(basename $0)
+
+die () {
+  print -r -- $name: $*
+  exit 1
+}
+
+TMP=$(mktemp -t $name.XXXXXXXXXX) || die 'cannot create temporary file'
+trap 'rm -f $TMP; exit 130' INT
+trap 'rm -f $TMP; exit 143' TERM
+print -r -- '
 {
   memcpy/rb_thread_save_context(Value4)
   Addrcheck,Memcheck:Addr4
@@ -124,4 +134,8 @@ a==(<<'EOX'
   Addrcheck,Memcheck:Cond
   fun:gc_mark_children
 }
-EOX) valgrind --tool=memcheck --leak-check=full --suppressions=$a ${RUBY:-ruby} $*
+' > $TMP
+valgrind --tool=memcheck --leak-check=full --suppressions=$TMP ${RUBY:-ruby} $*
+retval=$status
+rm $TMP
+exit $retval

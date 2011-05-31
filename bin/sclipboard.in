@@ -1,4 +1,4 @@
-#! /opt/local/bin/zsh
+#! @ZSHELL@
 
 tmp=$(mktemp sclipboard-XXXXXX) &&
   {

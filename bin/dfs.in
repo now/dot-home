@@ -1,4 +1,4 @@
-#! /bin/zsh
+#! @ZSHELL@
 # contents: df(1) wrapper with better formatted output.
 #
 # Copyright © 2008 Nikolai Weibull <now@bitwi.se>
@@ -39,4 +39,3 @@ print-row "%-*s  %-*s  %-*s  %-*s  %-*s  %-*s  %s\n" $data[1,7]
 for (( i = 8; i <= $#data; i += 7 )); do
   print-row "%-*s  %-*s  %*s  %*s  %*s  %*s  %s\n" $data[i,i+6]
 done
-

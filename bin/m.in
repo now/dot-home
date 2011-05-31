@@ -1,4 +1,4 @@
-#! /bin/zsh
+#! @ZSHELL@
 
 vlc-command-loop () {
   local command="$1"; shift

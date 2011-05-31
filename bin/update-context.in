@@ -1,4 +1,4 @@
-#! /bin/zsh
+#! @ZSHELL@
 
 wget http://pragma-ade.com/context/install/justtex.zip \
      http://pragma-ade.com/context/install/linuxtex.zip

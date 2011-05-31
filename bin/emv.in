@@ -1,4 +1,4 @@
-#! /bin/sh
+#! @SHELL@
 # contents: An interactive file renamer in six lines of code.
 #
 # Copyright © 2004,2008 Nikolai Weibull <now@bitwi.se>

@@ -1,4 +1,4 @@
-#! /bin/bash
+#! @ZSHELL@
 # contents: X11 session initialization.
 #
 # Copyright © 2007 Nikolai Weibull

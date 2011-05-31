@@ -1,10 +1,10 @@
-#! /bin/zsh
+#! @ZSHELL@
 # contents: Create a tarball of a directory.
 #
 # Copyright © 2008 Nikolai Weibull <now@bitwi.se>
 
 autoload -U zap/init
-zap/init $0:t "1.0.0" 
+zap/init $0:t "1.0.0"
 
 
 

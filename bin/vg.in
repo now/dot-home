@@ -1,12 +1,16 @@
-#! /bin/zsh
-# contents: Vim git grep wrapper.
+#! @ZSHELL@
+# contents: Vim grep wrapper.
 #
 # Copyright © 2008 Nikolai Weibull <now@bitwi.se>
 
 setopt extendedglob
 
-if (( $# < 1 )); then
-  print -u 2 "Usage: $0 [OPTIONS] PATTERN [FILE...]"
+declare -a opts
+zparseopts -D -K -E -a opts i -ignore-case v -invert-match
+[[ $1 == -- ]] && shift
+
+if (( $# < 2 )); then
+  print -u 2 "Usage: $0 [OPTIONS] PATTERN FILE..."
   return 1
 fi
 
@@ -14,10 +18,10 @@ local regex=$1; shift
 
 vim \
   -c 'let saved_grepprg = &grepprg' \
-  -c 'set grepprg=git\ grep\ -n\ $*' \
+  -c "set grepprg=grep\\ -n\\ -P\\ ${(j:\ :)opts}\\ --\\ \$*\\ /dev/null" \
   -c 'let saved_shellpipe = &shellpipe' \
   -c 'set shellpipe=>\ %s\ 2>&1' \
-  -c "silent! grep '${regex//(#m)[%#]/\\$MATCH}' ${^${(@qq)${(@)*//(#m)[%#]/\\$MATCH}}}" \
+  -c "silent! grep '${regex//(#m)[%#|]/\\$MATCH}' ${^${(@qq)${(@)*//(#m)[%#|]/\\$MATCH}}}" \
   -c 'let &shellpipe = saved_shellpipe' \
   -c 'unlet saved_shellpipe' \
   -c 'let &grepprg = saved_grepprg' \

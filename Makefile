@@ -86,6 +86,7 @@ DIFF = diff
 INSTALL = install
 SQLITE = sqlite3
 TOUCH = touch
+ZSHELL = /bin/zsh
 
 timestamps = .timestamps
 
@@ -323,8 +324,14 @@ DOTFILES = \
 $(call SQLITE_template,$(DOTFILES),$(firefoxuserconfdir),,firefox/)
 endif
 
+edit = sed \
+       -e 's|@SHELL[@]|$(SHELL)|g' \
+       -e 's|@ZSHELL[@]|$(ZSHELL)|g'
+
 BINFILES = \
 	   xsession
+
+bin_substitutables := $(BINFILES)
 
 $(call GROUP_template,$(BINFILES),~,.,,755)
 
@@ -350,10 +357,26 @@ BINFILES = \
 	   bin/vgg \
 	   bin/vimless
 
+bin_substitutables += $(BINFILES)
+
 $(call GROUP_template,$(BINFILES),~,,,755)
 
 include os/os.mk
 include host/host.mk
+
+$(bin_substitutables): Makefile
+	rm -f $@ $@.tmp
+	$(edit) $@.in > $@.tmp
+	chmod +x $@.tmp
+	chmod a-w $@.tmp
+	mv $@.tmp $@
+
+define bin_substitutables_file
+$(1): $(1).in
+
+endef
+
+$(eval $(foreach file,$(bin_substitutables),$(call bin_substitutables_file,$(file))))
 
 DEPENDENCIES = \
 	       vim-now-base \

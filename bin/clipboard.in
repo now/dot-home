@@ -1,4 +1,4 @@
-#! /bin/zsh
+#! @ZSHELL@
 
 zmodload zsh/zselect
 
