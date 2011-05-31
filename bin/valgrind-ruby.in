@@ -124,8 +124,20 @@ print -r -- '
 }
 
 {
+  gc_mark(Value8)
+  Addrcheck,Memcheck:Value8
+  fun:gc_mark
+}
+
+{
   gc_mark_children(Value4)
   Addrcheck,Memcheck:Value4
+  fun:gc_mark_children
+}
+
+{
+  gc_mark_children(Value8)
+  Addrcheck,Memcheck:Value8
   fun:gc_mark_children
 }
 
@@ -135,7 +147,7 @@ print -r -- '
   fun:gc_mark_children
 }
 ' > $TMP
-valgrind --tool=memcheck --leak-check=full --suppressions=$TMP ${RUBY:-ruby} $*
+valgrind --track-origins=yes --tool=memcheck --leak-check=full --dsymutil=yes --suppressions=$TMP ${RUBY:-ruby} $*
 retval=$status
 rm $TMP
 exit $retval
