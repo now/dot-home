@@ -1,14 +1,14 @@
 #! @ZSHELL@
 
 vlc-command-loop () {
-  local command="$1"; shift
+  local command=$1; shift
   for arg in $*; do
     vlc-command $command $arg
   done
 }
 
 vlc-file-command-loop () {
-  local command="$1"; shift
+  local command=$1; shift
   for arg in $*; do
     [[ $arg != /* ]] && arg=$PWD/$arg
     vlc-command $command $arg
@@ -16,12 +16,12 @@ vlc-file-command-loop () {
 }
 
 vlc-command () {
-  print -- $* | nc localhost 4212
+  {print -- $*; sleep 0.1} | nc localhost 4212 | sed 1d
 }
 
 (( $# == 0 )) && set pause
 
-local command="$1"; shift
+local command=$1; shift
 
 case $command in
   (a|ad|add) vlc-file-command-loop enqueue $* ;;

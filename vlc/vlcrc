@@ -1,8 +1,6 @@
-[oldrc]
-rc-fake-tty=1
-
 [lua]
-rc-host=localhost:4212
+lua-intf=rc
+lua-config=rc={host='localhost:4212',welcome='',prompt=''}
 
 [quartztext]
 quartztext-font=Helvetica Neue
@@ -11,9 +9,9 @@ quartztext-font=Helvetica Neue
 macosx-mediakeys=0
 
 [main]
-sout=#duplicate{dst=display{delay=4000},dst="transcode{acodec=alac,channels=2,samplerate=44100}:raop{host=10.0.1.6,volume=175}"}
+#sout=#duplicate{dst=display{delay=4000},dst="transcode{acodec=alac,channels=2,samplerate=44100}:raop{host=10.0.1.6,volume=175}"}
 media-library=0
-extraintf=oldrc
+extraintf=lua
 key-toggle-fullscreen=f
 key-faster=]
 key-slower=[
