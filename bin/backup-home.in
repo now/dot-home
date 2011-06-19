@@ -46,7 +46,8 @@ dar_options+=(--prune .Spotlight-V100
               --prune .sqlite_history
               --prune .terminfo
               --prune .thumbnails
-              --prune Documents/Native\ Instruments/Traktor/Backup
+              --prune Documents/Native\ Instruments/Traktor\ 2.0.1/Backup
+              --prune Documents/Native\ Instruments/Traktor\ 2.0.1/Settings/Default\ Settings
               --prune Dropbox
               --prune Library/Caches
               --prune Library/Application\ Support/CrashReporter
