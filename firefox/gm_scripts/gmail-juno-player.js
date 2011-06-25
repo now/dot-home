@@ -12,8 +12,7 @@ unsafeWindow.gmonkey.load('1.0', function (gmail) {
       return;
 
     window.setTimeout(function () {
-      var div = gmail.getActiveViewElement();
-      $('a[href^="http://www.juno.co.uk/products/"]', div).each(function () {
+      $('a[href^="http://www.juno.co.uk/products/"]', gmail.getActiveViewElement()).each(function () {
         $(this).after(
           '<p> \
             <embed \
