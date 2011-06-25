@@ -1,13 +1,13 @@
 #! @ZSHELL@
 
-local emacsclient="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
-local emacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
+local emacsclient=emacsclient
+local emacs=emacs
 
 # In the future we should check how many frames there are, if there are any
 # connected to a TTY or if it’s a window.  We can then daemonize and create a
 # frame when necessary.
 if $emacsclient -e '(frame-list)' > /dev/null 2>&1; then
-  exec $emacsclient -n $*
+  $emacsclient -n $*
 else
-  exec $emacs -f server-start $* &!
+  screen $emacs -f server-start $*
 fi
