@@ -7,7 +7,6 @@ user_pref("browser.download.manager.showWhenStarting", false);
 user_pref("browser.feeds.handlers.webservice", "http://fusion.google.com/add?feedurl=%s");
 user_pref("browser.feeds.showFirstRunUI", false);
 user_pref("browser.fullscreen.animateUp", 0);
-user_pref("browser.history_expire_days_min", 365);
 user_pref("browser.tabs.warnOnClose", false);
 user_pref("browser.visited_color", "#602f80");
 user_pref("dom.disable_window_move_resize", true);
