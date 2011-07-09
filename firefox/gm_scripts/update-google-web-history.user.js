@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name          UseGoogleWebHistory
+// @name          Update Google Web History
 // @namespace     http://bitwi.se/greasemonkey
-// @description   Use Google Web History Without Installing Google Toolbar
+// @description   Update Google Web History without using Google Toolbar
 // @include       *
 // @exclude       http://www.google.tld/search?*
 // @exclude       http://images.google.tld/images?*
@@ -19,7 +19,7 @@
   if (window.self != window.parent)
     return;
 
-  if (/^https?://(?:www\.)?google\.com\/url\?/.test(document.referrer))
+  if (/^https?:\/\/(?:www\.)?google\.com\/url\?/.test(document.referrer))
     return;
 
   function r(x, y) {
@@ -59,4 +59,4 @@
 
   new Image().src = 'http://www.google.com/search?client=navclient-auto&ch=' +
     ch(url) + '&features=Rank&q=info:' + escape(url);
-})(document.location);
+})(location);
