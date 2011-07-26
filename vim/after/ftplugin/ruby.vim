@@ -213,8 +213,7 @@ endfunction
 
 function s:go_to_other_file()
   if s:go_to_other_file1(expand('%')) ||
-   \ s:go_to_other_file1(substitute(expand('%'), '\.treetop', '.rb', "")) ||
-   \ s:go_to_other_file1(substitute(expand('%'), '\.rb', '.treetop', ""))
+   \ s:go_to_other_file1(substitute(expand('%'), '\.rb$', '.treetop', ""))
     return
   endif
   echoerr "E447: Can't find alternate file"
