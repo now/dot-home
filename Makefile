@@ -343,6 +343,7 @@ BINFILES = \
 	   bin/burn \
 	   bin/clipboard \
 	   bin/dfs \
+	   bin/discogs-tags \
 	   bin/e \
 	   bin/emv \
 	   bin/index-disc \

@@ -1,0 +1,41 @@
+#! @ZSHELL@
+
+# TODO: Read the http response, parse the json, extract all the information,
+# rename files and set tags.  Use vorbiscomment for tags.
+
+application=$(basename $0)
+
+die () {
+  print -r -- $application: $*
+  exit 1
+}
+
+usage () {
+  print -r -- Usage: $application ID
+  exit 1
+}
+
+xml () {
+  print -r $1 | ruby -e 'require "nokogiri"; print Nokogiri::XML($stdin).xpath(ARGV[0]).map(&:text).join("\0")' $2
+}
+
+(( $# > 0 )) || usage
+id=$1
+release=$(curl --compressed --silent --header 'Accept: application/xml' http://api.discogs.com/release/$id)
+error=$(xml $release '/resp/error')
+if [[ -n $error ]]; then
+  die $error
+fi
+
+# TODO: Include link to discogs
+artist=$(xml $release '/resp/release/artists/artist/name')
+title=$(xml $release '/resp/release/title')
+track_positions=(${(0)"$(xml $release '/resp/release/tracklist/track/position')"})
+track_titles=(${(0)"$(xml $release '/resp/release/tracklist/track/title')"})
+released=$(xml $release '/resp/release/released')
+label=$(xml $release '/resp/release/labels/label/@name')
+catalog_number=$(xml $release '/resp/release/labels/label/@catno')
+print -r -- "$artist-$title ($label $catalog_number)"
+for (( i = 1; i <= $#track_positions; i++ )); do
+  print -r -- $track_positions[i]-$track_titles[i]
+done
