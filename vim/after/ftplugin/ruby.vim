@@ -1,7 +1,7 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2011-03-03
+" Latest Revision:  2011-07-26
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
 let b:undo_ftplugin .= ' | setl sw< sts< et<'
@@ -173,6 +173,7 @@ endfunction
 function s:go_to_def_file()
   let path = s:find_path_around_cursor()
   if path == ""
+    echoerr "E447: Can't find file under cursor in path"
     return
   endif
   execute 'edit' path
@@ -181,7 +182,7 @@ endfunction
 function s:find_path_around_cursor()
   let path = expand('<cfile>')
   let const = s:find_constant_path_around_cursor()
-  for test in [path, s:libify(path), s:libify(const)]
+  for test in [path, s:libify(path), s:libify(const), s:treeify(path), s:treeify(const)]
     if filereadable(test)
       return test
     endif
@@ -191,6 +192,10 @@ endfunction
 
 function s:libify(path)
   return printf('lib/%s.rb', a:path)
+endfunction
+
+function s:treeify(path)
+  return printf('lib/%s.treetop', a:path)
 endfunction
 
 function s:find_constant_path_around_cursor()
@@ -207,18 +212,26 @@ function s:find_constant_path_around_cursor()
 endfunction
 
 function s:go_to_other_file()
-  for [what, with] in [['test/unit', 'lib'], ['lib', 'test/unit']]
-    if s:go_to_file('\%(^\|.*/\)' . what . '\(/.\+\)', with)
-      return
-    endif
-  endfor
+  if s:go_to_other_file1(expand('%')) ||
+   \ s:go_to_other_file1(substitute(expand('%'), '\.treetop', '.rb', "")) ||
+   \ s:go_to_other_file1(substitute(expand('%'), '\.rb', '.treetop', ""))
+    return
+  endif
   echoerr "E447: Can't find alternate file"
 endfunction
 
-function s:go_to_file(pattern, new_head)
-  let path = expand('%')
-  let target = substitute(path, a:pattern, a:new_head . '\1', "")
-  if target == path
+function s:go_to_other_file1(path)
+  for [what, with] in [['test/unit', 'lib'], ['lib', 'test/unit']]
+    if s:go_to_file(a:path, '\%(^\|.*/\)' . what . '\(/.\+\)', with)
+      return 1
+    endif
+  endfor
+  return 0
+endfunction
+
+function s:go_to_file(path, pattern, new_head)
+  let target = substitute(a:path, a:pattern, a:new_head . '\1', "")
+  if target == a:path || !filereadable(target)
     return 0
   endif
   execute 'edit ' . target
