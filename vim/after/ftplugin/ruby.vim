@@ -1,7 +1,7 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2011-07-26
+" Latest Revision:  2011-07-27
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
 let b:undo_ftplugin .= ' | setl sw< sts< et<'
@@ -257,7 +257,7 @@ function! s:run_test()
   let test = expand('%')
   let line = 'LINE=' . line('.')
   if test =~ '^lib/'
-    let test = substitute(test, '^lib/', 'test/', '')
+    let test = substitute(test, '^lib/', 'test/unit/', '')
     let line = ""
   endif
   execute 'make' 'TEST=' . shellescape(test) line
