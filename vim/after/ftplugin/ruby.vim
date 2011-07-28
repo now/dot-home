@@ -1,7 +1,7 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2011-07-27
+" Latest Revision:  2011-07-28
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
 let b:undo_ftplugin .= ' | setl sw< sts< et<'
@@ -207,7 +207,7 @@ function s:find_constant_path_around_cursor()
   if end_lnum == 0
     return ""
   endif
-  let part = strpart(getline('.'), col, end_col - col)
+  let part = strpart(getline('.'), col, end_col - 1 - col)
   return substitute(tolower(part), '::', '/', 'g')
 endfunction
 
