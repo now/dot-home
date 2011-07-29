@@ -1,7 +1,7 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2011-07-28
+" Latest Revision:  2011-07-29
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
 let b:undo_ftplugin .= ' | setl sw< sts< et<'
@@ -212,25 +212,26 @@ function s:find_constant_path_around_cursor()
 endfunction
 
 function s:go_to_other_file()
-  if s:go_to_other_file1(expand('%')) ||
-   \ s:go_to_other_file1(substitute(expand('%'), '\.rb$', '.treetop', ""))
+  if s:go_to_other_file1(expand('%'), 1) ||
+   \ s:go_to_other_file1(substitute(expand('%'), '\.rb$', '.treetop', ""), 1) ||
+   \ s:go_to_other_file1(expand('%'), 0)
     return
   endif
   echoerr "E447: Can't find alternate file"
 endfunction
 
-function s:go_to_other_file1(path)
+function s:go_to_other_file1(path, must_exist)
   for [what, with] in [['test/unit', 'lib'], ['lib', 'test/unit']]
-    if s:go_to_file(a:path, '\%(^\|.*/\)' . what . '\(/.\+\)', with)
+    if s:go_to_file(a:path, '\%(^\|.*/\)' . what . '\(/.\+\)', with, a:must_exist)
       return 1
     endif
   endfor
   return 0
 endfunction
 
-function s:go_to_file(path, pattern, new_head)
+function s:go_to_file(path, pattern, new_head, must_exist)
   let target = substitute(a:path, a:pattern, a:new_head . '\1', "")
-  if target == a:path || !filereadable(target)
+  if target == a:path || (a:must_exist && !filereadable(target))
     return 0
   endif
   execute 'edit ' . target
