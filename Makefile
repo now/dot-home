@@ -353,6 +353,7 @@ BINFILES = \
 	   bin/pack \
 	   bin/qf \
 	   bin/sclipboard \
+	   bin/scget \
 	   bin/unpack \
 	   bin/update-context \
 	   bin/valgrind-ruby \

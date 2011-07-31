@@ -1,0 +1,8 @@
+#! @ZSHELL@
+
+(( $# > 0 )) || { print -r "Usage: $0:t URL..."; exit 1 }
+extract () { print -r -- $html | sed -n -e '/^window\.SC\.bufferTracks\.push/{s/^.*"'$1'":"\([^"]*\)".*/\1/p;q; }' }
+for url in $*; do
+  html=$(curl --compress --silent $url)
+  curl --silent --location $(extract streamUrl) > "${$(extract title)//\//-}.mp3"
+done
