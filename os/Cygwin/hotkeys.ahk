@@ -322,10 +322,10 @@ if (Dg = "kk") {
   Hotkey ^k, On
   return
 }
-digraph := digraphs[Dg]
+digraph := digraphs.item[Dg]
 if (digraph = "") {
   Dg := SubStr(Dg, 2, 1) . SubStr(Dg, 1, 1)
-  digraph := digraphs[Dg]
+  digraph := digraphs.item[Dg]
   if (digraph = "")
     return
 }
