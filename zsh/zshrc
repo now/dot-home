@@ -17,6 +17,9 @@ autoload -U add-zsh-hook
 add-zsh-hook precmd set-terminal-title-to-pwd
 add-zsh-hook preexec set-terminal-title-from-command
 add-zsh-hook chpwd list-directory-on-chpwd
+add-zsh-hook chpwd chpwd_recent_dirs
+add-zsh-hook zsh_directory_name zsh_directory_name_cdr
+add-zsh-hook zsh_directory_name dynamic-directory-names
 
 zstyle ':dircolors:*' cache-policy dircolors-cache-policy
 {
@@ -46,6 +49,7 @@ autoload -U compinit; compinit
 
 zstyle ':completion:*' accept-exact-dirs true
 zstyle ':completion:*' ignore-parents parent pwd
+zstyle ':completion:*' recent-dirs-insert both
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'r:|[:.,_-]=** r:|=**'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-separator ''
@@ -54,6 +58,8 @@ zstyle ':completion::complete:*' use-cache yes
 
 zstyle ':completion:*:processes' command 'ps -U $EUID 2>/dev/null'
 zstyle ':completion:*:manuals' separate-sections true
+zstyle ':completion:*:*:cdr:*:*' menu selection
+zstyle ':completion:*:*:kill:*:*' menu selection
 
 # Keybindings
 
@@ -133,7 +139,9 @@ prompt now
 
 autoload -U zsh-mime-setup; zsh-mime-setup
 
-autoload -U zargs zcalc zmv $ZDOTDIR/functions/autoload/*(:t)
+autoload -U cdr zargs zcalc zmv $ZDOTDIR/functions/autoload/*(:t)
+
+zstyle ':chpwd:*' recent-dirs-default true
 
 for command in cp mv mkdir; do
   alias $command="nocorrect $command"

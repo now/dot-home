@@ -1,0 +1,32 @@
+case $1 in
+  (n)
+    case $2 in
+      (/*)
+        reply=(/${(j:/:)${(s:/:)PWD}[1,(er)${2[2,-1]}]})
+        ;;
+      (.*)
+        reply=((../)##${2[2,-1]}([1]))
+        ;;
+    esac
+    ;;
+  (c)
+    local -a types values
+    types=('.:children of parent directories' '/:pwd segment')
+    case $PREFIX in
+      ('')
+        _describe -t dynamic-directory-types 'dynamic directory type' types -S ''
+        ;;
+      (.*)
+        values=((../)##*~(../)##$PWD:t(/:t))
+        ;;
+      (/*)
+        values=${(s:/:)PWD}[1,-2]
+        ;;
+    esac
+    if (( $#values > 0 )); then
+      local expl
+      _wanted dynamic-directories expl ${${types[(r)$PREFIX[1]*]}[3,-1]} \
+        compadd -P $PREFIX[1] -Q -qS / -d values ${(q)^values}\]
+    fi
+    ;;
+esac
