@@ -49,7 +49,6 @@ autoload -U compinit; compinit
 
 zstyle ':completion:*' accept-exact-dirs true
 zstyle ':completion:*' ignore-parents parent pwd
-zstyle ':completion:*' recent-dirs-insert both
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'r:|[:.,_-]=** r:|=**'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-separator ''
