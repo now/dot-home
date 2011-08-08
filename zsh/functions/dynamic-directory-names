@@ -20,7 +20,7 @@ case $1 in
         values=((../)##*~(../)##$PWD:t(/:t))
         ;;
       (/*)
-        values=${(s:/:)PWD}[1,-2]
+        values=(${${(s:/:)PWD}[1,-2]})
         ;;
     esac
     if (( $#values > 0 )); then
