@@ -78,12 +78,13 @@ STICKY                  202
 
 # 1.2.4  Audio
 
-*.m4a 139
-*.mp3 139
-*.ogg 139
-*.rm  139
-*.wav 139
-*.wma 139
+*.flac  139
+*.m4a   139
+*.mp3   139
+*.ogg   139
+*.rm    139
+*.wav   139
+*.wma   139
 
 # 1.2.5  Video
 
