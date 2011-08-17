@@ -78,6 +78,7 @@ STICKY                  202
 
 # 1.2.4  Audio
 
+*.aiff  139
 *.flac  139
 *.m4a   139
 *.mp3   139
