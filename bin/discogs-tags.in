@@ -1,8 +1,5 @@
 #! @ZSHELL@
 
-# TODO: Read the http response, parse the json, extract all the information,
-# rename files and set tags.  Use vorbiscomment for tags.
-
 application=$(basename $0)
 
 die () {
@@ -19,23 +16,131 @@ xml () {
   print -r $1 | ruby -e 'require "nokogiri"; print Nokogiri::XML($stdin).xpath(ARGV[0]).map(&:text).join("\0")' $2
 }
 
-(( $# > 0 )) || usage
-id=$1
+xml-array () {
+  # NOTE: Due to a bug in Zsh < 4.3.13, 0 retains an empty string when "$(…)"
+  # doesn’t generate any output.  Splitting it like this works around the
+  # problem.
+  local result="$(xml $2 $3)"
+  set -A $1 ${(0)result}
+}
+
+xml-array-with-substituted-marks () {
+  xml-array $1 $2 $3
+  substitute-marks-array $1
+}
+
+substitute-marks-array () {
+  local -a result
+  for e in ${(P)1}; do
+    result+=$(substitute-marks $e)
+  done
+  set -A $1 $result
+}
+
+substitute-marks () {
+  print -r -- ${${${*//\'/’}//(#b)\"([^\"]#)\"/“$match[1]”}/\"/″}
+}
+
+xml-artist-array () {
+  xml-array-with-substituted-marks $1 $2 $3/name
+  if (( ${#${(P@)1}} > 1 )); then
+    set -A $1 "$(substitute-marks "$(join-artist $3)")" ${(P)1}
+  fi
+}
+
+join-artist () {
+  print -r -- ${(j: :)${(0)"$(xml $release "$1/name|$1/join")"}}
+}
+
+clean-name () {
+  local -a match mbegin mend
+
+  print -r -- ${${${${${${(L):-$*}//[\/]/-}//(#b)[[:space:]]#\(([^\)]#)\)/-$match[1]}/ & / and }/&/ and }// /_}
+}
+
+(( $# > 1 )) || usage
+directory=$1
+id=$2
 release=$(curl --compressed --silent --header 'Accept: application/xml' http://api.discogs.com/release/$id)
 error=$(xml $release '/resp/error')
 if [[ -n $error ]]; then
   die $error
 fi
 
-# TODO: Include link to discogs
-artist=$(xml $release '/resp/release/artists/artist/name')
-title=$(xml $release '/resp/release/title')
-track_positions=(${(0)"$(xml $release '/resp/release/tracklist/track/position')"})
-track_titles=(${(0)"$(xml $release '/resp/release/tracklist/track/title')"})
-released=$(xml $release '/resp/release/released')
-label=$(xml $release '/resp/release/labels/label/@name')
-catalog_number=$(xml $release '/resp/release/labels/label/@catno')
-print -r -- "$artist-$title ($label $catalog_number)"
-for (( i = 1; i <= $#track_positions; i++ )); do
-  print -r -- $track_positions[i]-$track_titles[i]
+xml-artist-array albumartists $release /resp/release/artists/artist
+album=$(substitute-marks $(xml $release /resp/release/title))
+xml-array-with-substituted-marks labels $release /resp/release/labels/label/@name
+xml-array catalognumbers $release /resp/release/labels/label/@catno
+released=$(xml $release /resp/release/released)
+location=$(xml $release /resp/release/country)
+xml-array genres $release /resp/release/styles/style
+xml-array positions $release /resp/release/tracklist/track/position
+xml-array-with-substituted-marks titles $release /resp/release/tracklist/track/title
+image_uri=$(xml $release '(/resp/release/images/image[@type="primary"])[1]/@uri')
+if [[ -z $image_uri ]]; then
+  image_uri=$(xml $release '/resp/release/images/image[1]/@uri')
+fi
+if [[ -n $image_uri ]]; then
+  image=$(mktemp -t dti)
+  (( status == 0 )) || exit 1
+  trap 'rm -f $image; exit 130' INT
+  trap 'rm -f $image; exit 143' TERM
+  curl -L --compressed --silent --show-error $image_uri > $image
+  (( status == 0 )) || exit 1
+fi
+files=($directory/[0-9]##.flac(Nn))
+if (( $#files != $#positions )); then
+  die $(printf 'Number of files in directory doesn’t match number of tracks at Discogs: %d != %d: %s: %s' $#files $#positions $directory http://www.discogs.com/release/$id)
+fi
+# TODO: Allow user to set COMMENT?
+# TODO: Allow user to set INITIALKEY?
+# TODO: Allow user to set RATING WMP?
+#
+# TODO: SOURCEMEDIA=/resp/release/formats/format/@name|/resp/release/formats/format/descriptions/description
+#
+# NOTE: Traktor uses YEAR for the Released field, but, of course, only the year
+# part.
+# TODO: We could have used DISCNUMBER+TRACKNUMBER to convert A1 to 1+1, but
+# Traktor doesn’t support DISCNUMBER.
+[[ -z $(xml $release /resp/release/tracklist/track/artists/artist/name) ]]; trackartists=$status
+if (( !trackartists )); then
+  artists=($albumartists)
+  albumartists=()
+fi
+[[ -z $(xml $release "/resp/release/tracklist/track/extraartists/artist[role='Remix']/name") ]]; trackmixartists=$status
+for (( i = 1; i <= $#positions; i++ )); do
+  if (( trackartists )); then
+    xml-artist-array artists $release "/resp/release/tracklist/track[position='$positions[i]']/artists/artist"
+    if (( $#artists == 0 )); then
+      artists=($albumartists)
+    fi
+  fi
+  if (( trackmixartists )); then
+    xml-artist-array mixartists $release "/resp/release/tracklist/track[position='$positions[i]']/extraartists/artist[role='Remix']"
+  fi
+  metaflac \
+    --remove-all-tags \
+    --add-replay-gain \
+    --set-tag=ALBUMARTIST=${^albumartists} \
+    --set-tag=ALBUM=$album \
+    --set-tag=ORGANIZATION=${^labels} \
+    --set-tag=CATALOGNUMBER=${^catalognumbers} \
+    --set-tag=DATE=$released \
+    --set-tag=YEAR=$released \
+    --set-tag=LOCATION=$location \
+    --set-tag=GENRE=${^genres} \
+    --set-tag=TRACKNUMBER=$i \
+    --set-tag=POSITION=$positions[i] \
+    --set-tag=ARTIST=${^artists} \
+    --set-tag=TITLE=$titles[i] \
+    --set-tag=MIXARTIST=${^mixartists} \
+    --set-tag="DISCOGS RELEASE ID=$id" \
+    --set-tag="NMDB ID=$directory:t" \
+    --import-picture-from=$image \
+    $files[i]
+  print -r -- mv $files[i] $(clean-name $positions[i]-${trackartists+$artists[1]-}$titles[i]).flac
 done
+print -r -- mv $directory $directory-$(clean-name $albumartists[1]-$album)
+if [[ -n $image ]]; then
+  rm $image
+fi
