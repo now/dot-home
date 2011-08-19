@@ -161,7 +161,7 @@ alias \
   pp='ps -U $EUID -o "pid= command=" -H' \
   top='top -U $EUID'
 
-duh () { (($# > 0)) || set *; ${commands[gdu]:-du} --si -s ${2:+-c} -- $* }
+duh () { (($# > 0)) || set *(N); ${commands[gdu]:-du} --si -s ${2:+-c} -- $* }
 gq () { git grep -n --color=never $* | qf }
 
 alias \
