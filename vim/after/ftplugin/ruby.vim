@@ -1,7 +1,7 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2011-08-24
+" Latest Revision:  2011-08-25
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
 let b:undo_ftplugin .= ' | setl sw< sts< et<'
@@ -212,8 +212,8 @@ function s:find_constant_path_around_cursor()
 endfunction
 
 function s:go_to_other_file()
-  if s:go_to_other_file1(expand('%'), 1) ||
-   \ s:go_to_other_file1(substitute(expand('%'), '\.rb$', '.treetop', ""), 1) ||
+  if s:go_to_other_file1(substitute(expand('%'), '\.rb$', '.treetop', ""), 1) ||
+   \ s:go_to_other_file1(expand('%'), 1) ||
    \ s:go_to_other_file1(expand('%'), 0)
     return
   endif
