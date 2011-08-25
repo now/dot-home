@@ -1,7 +1,7 @@
 " Vim filetype plugin file
 " Language:	    Ruby
 " Maintainer:	    Nikolai Weibull <now@bitwi.se>
-" Latest Revision:  2011-07-29
+" Latest Revision:  2011-08-24
 
 setlocal shiftwidth=2 softtabstop=2 expandtab
 let b:undo_ftplugin .= ' | setl sw< sts< et<'
@@ -182,7 +182,7 @@ endfunction
 function s:find_path_around_cursor()
   let path = expand('<cfile>')
   let const = s:find_constant_path_around_cursor()
-  for test in [path, s:libify(path), s:libify(const), s:treeify(path), s:treeify(const)]
+  for test in [path, s:treeify(path), s:treeify(const), s:libify(path), s:libify(const)]
     if filereadable(test)
       return test
     endif
