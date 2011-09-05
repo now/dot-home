@@ -150,6 +150,7 @@ DOTFILES = \
 	   vim/doc/matchit.txt \
 	   vim/filetype.vim \
 	   vim/ftplugin/man.vim \
+	   vim/ftplugin/nmc.vim \
 	   vim/ftplugin/nml.vim \
 	   vim/ftplugin/treetop.vim \
 	   vim/indent/nml.vim \
