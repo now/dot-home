@@ -91,6 +91,8 @@ ounmap <Space>
 noremap <Backspace> <C-B>
 omap <Backspace> <Delete>
 
+noremap <silent> <C-Y> <Esc>:read !clipboard<CR>
+
 inoremap <silent> <C-Y> <C-R>=pumvisible() ? "\<lt>C-Y>" : system("clipboard")<CR>
 " TODO: Why do I have this?
 inoremap <silent> <Tab> <C-R>=pumvisible() ? "\<lt>C-Y>" : "\<lt>Tab>"<CR>
