@@ -16,7 +16,7 @@ fi
 
 local regex=$1; shift
 
-vim \
+exec vim \
   -c 'let saved_grepprg = &grepprg' \
   -c "set grepprg=grep\\ -n\\ -P\\ ${(j:\ :)opts}\\ --\\ \$*\\ /dev/null" \
   -c 'let saved_shellpipe = &shellpipe' \

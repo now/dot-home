@@ -12,7 +12,7 @@ fi
 
 local regex=$1; shift
 
-vim \
+exec vim \
   -c 'let saved_grepprg = &grepprg' \
   -c 'set grepprg=git\ grep\ -n\ $*' \
   -c 'let saved_shellpipe = &shellpipe' \
