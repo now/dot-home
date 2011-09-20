@@ -31,14 +31,9 @@
 ;(define-key evil-normal-state-map "\C-p" 'bs-cycle-previous)
 (define-key evil-normal-state-map ",b" 'ido-switch-buffer)
 (define-key evil-normal-state-map ",k" 'ido-kill-buffer)
-(define-key evil-normal-state-map "\C-^" 'evil-other-buffer)
 (define-key evil-normal-state-map "U" 'undo-tree-redo)
 (define-key evil-normal-state-map "\C-D" 'suspend-frame)
 (define-key evil-normal-state-map "g\C-g" 'ned-info-on-file)
-
-(defun evil-other-buffer ()
-  (interactive)
-  (switch-to-buffer (other-buffer)))
 
 (define-key evil-normal-state-map ",e" 'find-file)
 (defun find-vc-project-file ()
