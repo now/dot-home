@@ -22,20 +22,24 @@
 (define-key evil-normal-state-map "K" 'woman)
 
 (define-key evil-motion-state-map " " 'evil-scroll-page-down)
-(define-key evil-motion-state-map [backspace] 'evil-scroll-page-up)
-(define-key evil-motion-state-map "\C-?" 'evil-scroll-page-up)
+(define-key evil-normal-state-map (kbd "DEL") 'evil-scroll-page-up)
+; TODO: These two might not be needed:
+;(define-key evil-motion-state-map [backspace] 'evil-scroll-page-up)
+;(define-key evil-motion-state-map "\C-?" 'evil-scroll-page-up)
+
 ;(define-key evil-normal-state-map "\C-n" 'bs-cycle-next)
 ;(define-key evil-normal-state-map "\C-p" 'bs-cycle-previous)
 (define-key evil-normal-state-map ",b" 'ido-switch-buffer)
+(define-key evil-normal-state-map ",k" 'ido-kill-buffer)
 (define-key evil-normal-state-map "\C-^" 'evil-other-buffer)
 (define-key evil-normal-state-map "U" 'undo-tree-redo)
+(define-key evil-normal-state-map "\C-D" 'suspend-frame)
+(define-key evil-normal-state-map "g\C-g" 'ned-info-on-file)
 
 (defun evil-other-buffer ()
   (interactive)
   (switch-to-buffer (other-buffer)))
 
-;(define-key viper-insert-global-user-map "\C-m" 'newline-and-indent)
-;(define-key viper-insert-global-user-map "\C-z" 'viper-intercept-ESC-key)
 (define-key evil-normal-state-map ",e" 'find-file)
 (defun find-vc-project-file ()
   (interactive)
@@ -56,10 +60,6 @@
 
 (define-key evil-normal-state-map "`" 'smex)
 
-;(setq viper-vi-state-mode-list
-;      (append viper-vi-state-mode-list
-;              '(grep-mode)))
-
 (defun close-buffer-and-window-unless-last ()
   (interactive)
   (let* ((buffer (current-buffer))
@@ -71,4 +71,6 @@
       (delete-window window))))
 
 (evil-declare-key 'normal grep-mode-map
+  "q" 'close-buffer-and-window-unless-last)
+(evil-declare-key 'normal diff-mode-map
   "q" 'close-buffer-and-window-unless-last)

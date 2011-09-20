@@ -22,35 +22,17 @@
       (rc-progmode "compile")
       (rc-progmode "grep")
       (rc-progmode "ruby-mode")
-      (rc "ui")
       (rc "desktop")
       (rc "diff")
       (rc "evil")
       (rc "icomplete")
       (rc "ido")
+      (rc "indent")
       (rc "isearch")
+      (rc "minibuffer")
+      (rc "simple")
       (rc "smex")
+      (rc "ui")
       (rc "woman"))))
 
 (require 'ned-info-on-file)
-
-;(windmove-default-keybindings)
-
-;; Indentation.
-(setq-default indent-tabs-mode nil)
-
-; TODO: Undo/Redo for window configurations
-; (winner-mode t)
-
-;; Might need to move these to c hook.
-(setq-default fill-column 79)
-(auto-fill-mode 1)
-
-;; enable-recursive-minibuffers
-
-;; TODO: This is probably uninteresting as we should implement Vim’s Ctrl-V
-;; instead.
-(setq read-quoted-char-radix 16)
-
-(setq history-length 512
-      make-backup-files nil) ; TODO: Not totally sure about disabling this.

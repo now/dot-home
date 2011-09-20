@@ -224,9 +224,12 @@ DOTFILES = \
 	   share/emacs/rc/desktop.el \
 	   share/emacs/rc/diff.el \
 	   share/emacs/rc/evil.el \
+	   share/emacs/rc/files.el \
 	   share/emacs/rc/icomplete.el \
 	   share/emacs/rc/ido.el \
+	   share/emacs/rc/indent.el \
 	   share/emacs/rc/isearch.el \
+	   share/emacs/rc/minibuffer.el \
 	   share/emacs/rc/os/nil.el \
 	   share/emacs/rc/os/ns.el \
 	   share/emacs/rc/os/w32.el \
@@ -234,6 +237,7 @@ DOTFILES = \
 	   share/emacs/rc/progmodes/compile.el \
 	   share/emacs/rc/progmodes/grep.el \
 	   share/emacs/rc/progmodes/ruby-mode.el \
+	   share/emacs/rc/simple.el \
 	   share/emacs/rc/smex.el \
 	   share/emacs/rc/ui.el \
 	   share/emacs/rc/woman.el \

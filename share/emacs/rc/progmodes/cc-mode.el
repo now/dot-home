@@ -1,10 +1,9 @@
 ; TODO: Bind TAB to simply indent?
-; TODO: It seems like Viper is getting in the way of CC mode for hungry
-; submode.
-(defun my-make-CR-do-indent ()
-  (define-key c-mode-base-map "\C-m" 'c-context-line-break)
-  (viper-add-local-keys 'insert-state '(("\C-m" . c-context-line-break))))
-(add-hook 'c-initialization-hook 'my-make-CR-do-indent)
+
+(add-hook 'c-initialization-hook
+          (lambda ()
+            (define-key c-mode-base-map "\C-m" 'c-context-line-break)))
+           ;(viper-add-local-keys 'insert-state '(("\C-m" . c-context-line-break))))
 (add-hook 'c-mode-common-hook
           (lambda ()
             (c-toggle-hungry-state 1)

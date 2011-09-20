@@ -124,8 +124,8 @@ not the same as the byte index."
             collect (replace-regexp-in-string "%" "%%" string)
             if more? collect ","
             else collect "] "))
-    (:eval (let* ((start (viper-line-pos 'start))
-                  (end (viper-line-pos 'end))
+    (:eval (let* ((start (save-excursion (beginning-of-line) (point)))
+                  (end (save-excursion (end-of-line) (point)))
                   (current-line (+ (count-lines (point-min) end) (if (= start end) 1 0)))
                   (line-count (count-lines (point-min) (point-max)))
                   (percentage (/ (* 100 current-line) (max line-count current-line)))
@@ -142,7 +142,5 @@ not the same as the byte index."
   (interactive)
   (display-message-or-buffer
     (format-mode-line ned-info-on-file-mode-line-format) "*ned-info*"))
-
-(fset 'viper-info-on-file 'ned-info-on-file)
 
 (provide 'ned-info-on-file)

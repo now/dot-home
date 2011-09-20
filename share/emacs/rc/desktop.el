@@ -1,8 +1,8 @@
 (desktop-save-mode 1)
 (dolist (variable '(command-history
                     read-expression-history
-                    viper-quote-region-history
-                    viper-search-history))
+                    evil-ex-history
+                    evil-ex-search-history))
   (add-to-list 'desktop-globals-to-save variable))
 
 (lexical-let ((global-desktop-dirname (expand-file-name "~/.cache/emacs")))
