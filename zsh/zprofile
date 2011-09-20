@@ -1,4 +1,4 @@
-path[1,0]=(. ~/bin ~/.gem/ruby/1.9/bin ~/.gem/ruby/1.8/bin)
+path[1,0]=(. ~/bin ~/.gem/ruby/1.9.1/bin)
 
 LANG=en_US.UTF-8
 LC_COLLATE=C
