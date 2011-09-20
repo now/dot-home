@@ -1,7 +1,7 @@
 (ido-mode 1)
 (ido-everywhere 1)
 (setq ido-enable-flex-matching t
-      ido-use-filename-at-point t)
+      ido-use-filename-at-point 'guess)
 ; ido-enter-matching-directory t?
 ; TODO: What does this do?
 ;(setq ido-auto-merge-work-directories-length -1)

@@ -35,8 +35,6 @@
 (define-key evil-normal-state-map ",e" 'find-file)
 (defun find-vc-project-file ()
   (interactive)
-  ;; TODO: Use actual vc-interface for this.  There should be a function to get
-  ;; the root of a file under vc.
   (if vc-mode
     (let ((default-directory (vc-git-root (buffer-file-name))))
       (call-interactively 'find-file))
