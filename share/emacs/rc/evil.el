@@ -23,9 +23,6 @@
 
 (define-key evil-motion-state-map " " 'evil-scroll-page-down)
 (define-key evil-normal-state-map (kbd "DEL") 'evil-scroll-page-up)
-; TODO: These two might not be needed:
-;(define-key evil-motion-state-map [backspace] 'evil-scroll-page-up)
-;(define-key evil-motion-state-map "\C-?" 'evil-scroll-page-up)
 
 ;(define-key evil-normal-state-map "\C-n" 'bs-cycle-next)
 ;(define-key evil-normal-state-map "\C-p" 'bs-cycle-previous)
