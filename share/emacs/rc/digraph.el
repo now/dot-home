@@ -1,9 +1,0 @@
-(setq digraph-table-user
-  '((?\( ?/ ?\x2209)
-    (?. ?3 ?\x2026)
-    (?, ?3 ?\x22ef)
-    (?< ?Y ?\x227a)
-    (?< ?/ ?\x27e8)
-    (?> ?/ ?\x27e9)))
-
-(require 'digraph)
