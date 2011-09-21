@@ -29,7 +29,7 @@
 (define-key evil-normal-state-map ",b" 'ido-switch-buffer)
 (define-key evil-normal-state-map ",k" 'ido-kill-buffer)
 (define-key evil-normal-state-map "U" 'undo-tree-redo)
-(define-key evil-normal-state-map "\C-D" 'suspend-frame)
+(define-key evil-normal-state-map "\C-d" 'suspend-frame)
 (define-key evil-normal-state-map "g\C-g" 'ned-info-on-file)
 
 (define-key evil-normal-state-map ",e" 'find-file)
@@ -45,6 +45,8 @@
 (define-key evil-normal-state-map ",p" 'previous-error)
 (define-key evil-normal-state-map ",N" 'compilation-next-file)
 (define-key evil-normal-state-map ",P" 'compilation-previous-file)
+
+(define-key evil-insert-state-map "\C-d" 'evil-normal-state)
 
 (global-set-key (kbd "C-x C-o") 'other-window)
 

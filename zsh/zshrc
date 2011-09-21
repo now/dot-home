@@ -5,6 +5,8 @@ SAVEHIST=${HISTSIZE::=1024}
 REPORTTIME=300
 unset TERMCAP
 
+stty eof undef
+
 setopt autocd autopushd \
        completeinword nolistambiguous nolisttypes \
        extendedhistory histnostore \
@@ -93,6 +95,7 @@ bindkey -a \
   '/' history-incremental-search-backward \
   '?' history-incremental-search-forward \
   '^A' zle/vim-increase-number \
+  '^D' zle/foreground-or-list-choices \
   '^G' zle/cd-from-list \
   '^O' accept-line-and-down-history \
   '^R' redo \
@@ -107,7 +110,7 @@ bindkey -a \
 bindkey -rp '^['
 bindkey \
   '^?' backward-delete-char \
-  '^D' zle/foreground-or-list-choices \
+  '^D' vi-cmd-mode \
   '^H' backward-delete-char \
   '^K' zle/insert-digraph \
   '^N' _history-complete-newer \
@@ -125,7 +128,6 @@ bindkey \
   '^X^S' zle/sudo-command-line \
   '^Xu' zle/urlify-current-argument \
   '^Y' zle/yank-clipboard \
-  '^Z' vi-cmd-mode \
   '^^' zle/cd-to-alternate-directory \
   ' ' magic-space \
   ${(s: :):-${^${(s::):-'|<>&'}}' zle/self-insert-redir'}

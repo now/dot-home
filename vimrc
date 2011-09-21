@@ -101,13 +101,14 @@ for digit in [1, 2, 3, 4, 5, 6, 8, 9]
   execute 'inoremap <silent> ' . digit . ' <C-R>=pumvisible() ? "' . repeat('\<lt>C-N>', digit) . '" : "' . digit . '"<CR>'
 endfor
 
-inoremap <C-Z> <C-C>
-vnoremap <C-Z> <C-C>
-onoremap <C-Z> <C-C>
+noremap <C-D> <C-Z>
+inoremap <C-D> <C-C>
+vnoremap <C-D> <C-C>
+onoremap <C-D> <C-C>
 cnoremap <C-G> <C-C>
 
-inoremap <expr> <Esc> <SID>ignore_esc('<lt>C-Z>')
-vnoremap <expr> <Esc> <SID>ignore_esc('<lt>C-Z>')
+inoremap <expr> <Esc> <SID>ignore_esc('<lt>C-D>')
+vnoremap <expr> <Esc> <SID>ignore_esc('<lt>C-D>')
 cnoremap <expr> <Esc> <SID>ignore_esc('<lt>C-G>')
 
 function s:ignore_esc(alternative)
