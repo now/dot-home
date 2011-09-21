@@ -34,6 +34,7 @@
       (rc "simple")
       (rc "smex")
       (rc "ui")
+      (rc "uniquify")
       (rc "woman"))))
 
 (require 'ned-info-on-file)

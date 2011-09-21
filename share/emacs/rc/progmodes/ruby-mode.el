@@ -1,4 +1,73 @@
-;(require 'ruby-mode)
+(add-hook 'ruby-mode-hook
+          '(lambda ()
+             (define-key evil-normal-state-local-map ",t" 'ruby-find-other-file)
+             (define-key evil-normal-state-local-map ",M" 'ruby-run-test-at-line)
+             (set (make-local-variable 'compile-command) "rake -s ")
+             (set (make-local-variable 'compilation-mode-makefile-name) "Rakefile")))
+
+(add-to-list 'compilation-error-regexp-alist-alist
+                '(lookout-info "^\tfrom \\([^ \t\r\n]+\\):\\([0-9]+\\):in `[^']*'$" 1 2 nil 0))
+(add-to-list 'compilation-error-regexp-alist-alist
+                '(lookout "^\\([^: \t\r\n]+\.rb\\):\\([0-9]+\\): " 1 2))
+(add-to-list 'compilation-error-regexp-alist 'lookout)
+(setq-default compilation-error-regexp-alist '(lookout lookout-info))
+
+(defcustom ruby-unit-test-file-name-mapping
+  '(("\\(.*\\)\\(/lib/\\)\\(.*\\.\\(rb\\|treetop\\)\\)$" . "\\1/test/unit/\\3"))
+  "Unit test file-name mapping."
+  :type '(alist :value-type (group string))
+  :group 'ruby)
+
+(defcustom ruby-implementation-file-name-mapping
+  '(("\\(.*\\)\\(/test/unit/\\)\\(.*\\)\\.rb$" . "\\1/lib/\\3.treetop")
+    ("\\(.*\\)\\(/test/unit/\\)\\(.*\\)\\.rb$" . "\\1/lib/\\3.rb"))
+  "Unit test file-name mapping."
+  :type '(alist :value-type (group string))
+  :group 'ruby)
+
+(defun* ruby-find-other-file (&optional (file-name (buffer-file-name)))
+  (interactive)
+  (let ((other-file-name (and file-name
+                              (or (ruby-find-other-file-name file-name ruby-unit-test-file-name-mapping nil)
+                                  (ruby-find-other-file-name file-name ruby-implementation-file-name-mapping)))))
+    (if (not other-file-name)
+        (signal 'file-error (list "No other file for this buffer" file-name))
+      (find-file other-file-name))))
+
+(defun* ruby-find-other-file-name (file-name mapping &optional (must-exist t))
+  (let ((replacement
+         (loop for e in mapping
+               if (and (string-match (car e) file-name)
+                       (or (not must-exist)
+                           (file-exists-p
+                            (replace-match (cdr e) nil nil file-name nil))))
+               return (cdr e))))
+    (if replacement
+        (replace-match replacement nil nil file-name nil))))
+
+(defun* ruby-implementation-file-name-p (&optional file-name (buffer-file-name))
+  (ruby-find-other-file-name file-name ruby-unit-test-file-name-mapping nil))
+
+(defun* ruby-unit-test-file-name-p (&optional file-name (buffer-file-name))
+  (ruby-find-other-file-name file-name ruby-implementation-file-name-mapping nil))
+
+; TODO: Validate file-name
+(defun* ruby-run-test-at-line (&optional (file-name (buffer-file-name)) (line (count-lines (point-min) (point))))
+  "Run test at LINE."
+  (interactive)
+  (let ((test-file-name (if (ruby-implementation-file-name-p file-name)
+                            (ruby-find-other-file-name file-name ruby-unit-test-file-name-mapping)
+                          file-name))
+        (line-as-string (if (ruby-unit-test-file-name-p file-name) (number-to-string line))))
+    (message file-name)
+    (message test-file-name)
+    (message (ruby-implementation-file-name-p file-name))
+    (compile-package-immediately
+     (concat
+      "rake -s"
+      " TEST=" test-file-name
+      (if line-as-string (concat " LINE=" line-as-string) "")))))
+
 ;(require 'flymake)
 
 ;(defun flymake-ruby-init ()

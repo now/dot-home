@@ -49,12 +49,14 @@
   (call-interactively 'find-file)))
 (define-key evil-normal-state-map ",E" 'find-vc-project-file)
 
+(define-key evil-normal-state-map ",m" 'compile-package-immediately)
 (define-key evil-normal-state-map ",n" 'next-error)
 (define-key evil-normal-state-map ",p" 'previous-error)
 (define-key evil-normal-state-map ",N" 'compilation-next-file)
 (define-key evil-normal-state-map ",P" 'compilation-previous-file)
 
 (define-key evil-insert-state-map "\C-d" 'evil-normal-state)
+(define-key evil-insert-state-map "\C-^" 'evil-buffer)
 
 (global-set-key (kbd "C-x C-o") 'other-window)
 
