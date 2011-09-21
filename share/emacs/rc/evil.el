@@ -12,12 +12,20 @@
 (define-key evil-normal-state-map "q" 'delete-other-windows)
 (define-key evil-normal-state-map "Q" 'evil-record-macro)
 
-(define-key evil-normal-state-map "s" 'undefined)
-(define-key evil-normal-state-map "l" 'evil-substitute)
-(define-key evil-motion-state-map "s" 'evil-forward-char)
+; TODO: Change these four bindings once we know how to do it.  (Redefining them
+; in this way in these maps is weird.)
+(define-key evil-normal-state-map "s" 'evil-forward-char)
+(define-key evil-motion-state-map "l" 'evil-substitute)
 
-(define-key evil-normal-state-map "L" 'evil-change-whole-line)
-(define-key evil-motion-state-map "S" 'evil-window-bottom)
+(define-key evil-normal-state-map "S" 'evil-window-bottom)
+(define-key evil-motion-state-map "L" 'evil-change-whole-line)
+
+;(define-key evil-normal-state-map "s" 'undefined)
+;(define-key evil-normal-state-map "l" 'evil-substitute)
+;(define-key evil-motion-state-map "s" 'evil-forward-char)
+
+;(define-key evil-normal-state-map "L" 'evil-change-whole-line)
+;(define-key evil-motion-state-map "S" 'evil-window-bottom)
 
 (define-key evil-normal-state-map "K" 'woman)
 
