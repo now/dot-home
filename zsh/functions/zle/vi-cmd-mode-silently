@@ -1,0 +1,3 @@
+emulate -L zsh
+
+zle vi-cmd-mode

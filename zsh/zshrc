@@ -5,8 +5,6 @@ SAVEHIST=${HISTSIZE::=1024}
 REPORTTIME=300
 unset TERMCAP
 
-stty eof undef
-
 setopt autocd autopushd \
        completeinword nolistambiguous nolisttypes \
        extendedhistory histnostore \
@@ -110,7 +108,7 @@ bindkey -a \
 bindkey -rp '^['
 bindkey \
   '^?' backward-delete-char \
-  '^D' vi-cmd-mode \
+  '^D' zle/vi-cmd-mode-silently \
   '^H' backward-delete-char \
   '^K' zle/insert-digraph \
   '^N' _history-complete-newer \

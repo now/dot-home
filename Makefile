@@ -212,6 +212,7 @@ DOTFILES = \
 	   zsh/functions/zle/urlify-current-argument \
 	   zsh/functions/zle/util/select-match-from-menu \
 	   zsh/functions/zle/util/select-match-from-menu-widget \
+	   zsh/functions/zle/vi-cmd-mode-silently \
 	   zsh/functions/zle/vim-increase-number \
 	   zsh/functions/zle/yank-clipboard \
 	   zshenv
@@ -240,6 +241,7 @@ DOTFILES = \
 	   share/emacs/rc/simple.el \
 	   share/emacs/rc/smex.el \
 	   share/emacs/rc/ui.el \
+	   share/emacs/rc/uniquify.el \
 	   share/emacs/rc/woman.el \
 	   share/emacs/smex.el \
 	   share/emacs/term/screen-256color.el \
