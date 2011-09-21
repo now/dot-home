@@ -25,6 +25,7 @@
       (rc "desktop")
       (rc "diff")
       (rc "evil")
+      (rc "files")
       (rc "icomplete")
       (rc "ido")
       (rc "indent")
