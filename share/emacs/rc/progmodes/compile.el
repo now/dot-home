@@ -2,6 +2,10 @@
   (if (string-match "^finished" msg)
       (delete-windows-on buffer)))
 
+(add-hook 'compilation-mode-hook
+          (lambda ()
+            (set (make-local-variable 'show-trailing-whitespace) nil)))
+
 (setq-default compilation-auto-jump-to-first-error t
               compilation-scroll-output t
               compilation-ask-about-save nil)
