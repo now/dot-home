@@ -42,12 +42,23 @@
 
 (define-key evil-normal-state-map ",e" 'find-file)
 (defun find-vc-project-file ()
+  "Find a file, starting at the vc project root."
   (interactive)
   (if vc-mode
-    (let ((default-directory (vc-git-root (buffer-file-name))))
-      (call-interactively 'find-file))
-  (call-interactively 'find-file)))
+      (let ((default-directory (vc-git-root (buffer-file-name))))
+        (call-interactively 'find-file))
+    (call-interactively 'find-file)))
 (define-key evil-normal-state-map ",E" 'find-vc-project-file)
+
+(defun vc-project-shell-command ()
+  "Run SHELL-COMMAND with DEFAULT-DIRECTORY set to VC-GIT-ROOT."
+  (interactive)
+  (if vc-mode
+      (let ((default-directory (vc-git-root (buffer-file-name))))
+        (call-interactively 'shell-command))
+    (call-interactively 'shell-command)))
+(define-key evil-normal-state-map ",c" 'shell-command)
+(define-key evil-normal-state-map ",C" 'vc-project-shell-command)
 
 (define-key evil-normal-state-map ",m" 'compile-package-immediately)
 (define-key evil-normal-state-map ",n" 'next-error)
