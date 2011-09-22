@@ -24,3 +24,5 @@ bin/vimless
 config.mk
 xsession
 *.swp
+.emacs.desktop
+.emacs.desktop.lock
