@@ -1,8 +1,9 @@
 (desktop-save-mode 1)
 (dolist (variable '(command-history
-                    read-expression-history
                     evil-ex-history
-                    evil-ex-search-history))
+                    evil-ex-search-history
+                    read-expression-history
+                    shell-command-history))
   (add-to-list 'desktop-globals-to-save variable))
 
 (lexical-let ((global-desktop-dirname (expand-file-name "~/.cache/emacs")))

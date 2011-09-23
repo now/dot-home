@@ -2,12 +2,12 @@
 (evil-mode 1)
 
 (setq evil-digraphs-table-user
-  '((?\( ?/ ?\x2209)
-    (?. ?3 ?\x2026)
-    (?, ?3 ?\x22ef)
-    (?< ?Y ?\x227a)
-    (?< ?/ ?\x27e8)
-    (?> ?/ ?\x27e9)))
+  '(((?\( ?/) . ?\x2209)
+    ((?. ?3) . ?\x2026)
+    ((?, ?3) . ?\x22ef)
+    ((?< ?Y) . ?\x227a)
+    ((?< ?/) . ?\x27e8)
+    ((?> ?/) . ?\x27e9)))
 
 (define-key evil-normal-state-map "q" 'delete-other-windows)
 (define-key evil-normal-state-map "Q" 'evil-record-macro)
@@ -44,21 +44,23 @@
 (defun find-vc-project-file ()
   "Find a file, starting at the vc project root."
   (interactive)
-  (if vc-mode
-      (let ((default-directory (vc-git-root (buffer-file-name))))
-        (call-interactively 'find-file))
-    (call-interactively 'find-file)))
+  (let ((root (if (fboundp 'vc-git-root) (vc-git-root (buffer-file-name)))))
+    (if root
+        (let ((default-directory root))
+          (call-interactively 'find-file))
+    (call-interactively 'find-file))))
 (define-key evil-normal-state-map ",E" 'find-vc-project-file)
 
 (defun vc-project-shell-command ()
   "Run SHELL-COMMAND with DEFAULT-DIRECTORY set to VC-GIT-ROOT."
   (interactive)
-  (if vc-mode
-      (let ((default-directory (vc-git-root (buffer-file-name))))
-        (call-interactively 'shell-command))
-    (call-interactively 'shell-command)))
-(define-key evil-normal-state-map ",c" 'shell-command)
-(define-key evil-normal-state-map ",C" 'vc-project-shell-command)
+  (let ((root (if (fboundp 'vc-git-root) (vc-git-root (buffer-file-name)))))
+    (if root
+        (let ((default-directory root))
+          (call-interactively 'shell-command))
+    (call-interactively 'shell-command))))
+(define-key evil-normal-state-map ",c" 'vc-project-shell-command)
+(define-key evil-normal-state-map ",C" 'shell-command)
 
 (define-key evil-normal-state-map ",m" 'compile-package-immediately)
 (define-key evil-normal-state-map ",n" 'next-error)
@@ -87,3 +89,9 @@
   "q" 'close-buffer-and-window-unless-last)
 (evil-declare-key 'normal diff-mode-map
   "q" 'close-buffer-and-window-unless-last)
+
+(add-hook 'evil-insert-state-exit-hook 'evil-delete-auto-indent-on-insert-state-exit)
+
+(defun evil-delete-auto-indent-on-insert-state-exit ()
+  (if (and (eolp) (member last-command '(evil-ret evil-open-below evil-open-above)))
+      (delete-horizontal-space)))

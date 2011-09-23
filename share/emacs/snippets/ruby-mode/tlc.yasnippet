@@ -1,0 +1,24 @@
+# -*- mode: snippet -*-
+# name: Top-level class
+# group: Definitions
+# key: tlc
+# --
+# -*- coding: utf-8 -*-
+
+class ${1:`(mapconcat 'identity
+                      (mapcar 'capitalize
+                              (split-string
+                               (file-name-sans-extension
+                                (or (and (buffer-file-name)
+                                         (file-relative-name
+                                          (buffer-file-name)
+                                           (expand-file-name
+                                            (concat
+                                             (vc-git-root (buffer-file-name))
+                                             "lib"))))
+                                    (buffer-name)))
+                               "/"
+                               t))
+                      "::")`}
+  $0
+end

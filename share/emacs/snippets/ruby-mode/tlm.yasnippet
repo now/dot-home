@@ -1,0 +1,24 @@
+# -*- mode: snippet -*-
+# name: Top-level module
+# group: Definitions
+# key: tlm
+# --
+# -*- coding: utf-8 -*-
+
+module ${1:`(mapconcat 'identity
+                      (mapcar 'capitalize
+                              (split-string
+                               (file-name-sans-extension
+                                (or (and (buffer-file-name)
+                                         (file-relative-name
+                                          (buffer-file-name)
+                                           (expand-file-name
+                                            (concat
+                                             (vc-git-root (buffer-file-name))
+                                             "lib"))))
+                                    (buffer-name)))
+                               "/"
+                               t))
+                      "::")`}
+  $0
+end

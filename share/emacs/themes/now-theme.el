@@ -58,7 +58,7 @@
     `(font-lock-variable-name-face ((,class (:foreground ,blue))))
     `(font-lock-warning-face ((,class (:foreground ,off-white :background ,red :weight normal))))
     `(fringe ((,class (:background "grey95"))))
-    `(highlight ((,class (:background ,blue))))
+    `(highlight ((,class (:foreground ,off-white :background ,blue))))
     `(isearch ((,class (:foreground ,off-black :background ,lighter-yellow))))
     `(isearch-fail ((,class (:foreground ,off-white :background ,light-red))))
     `(lazy-highlight ((,class (:foreground ,off-black :background ,light-yellow))))
@@ -88,6 +88,7 @@
     `(whitespace-tab ((,class (:inherit whitespace-space))))
     `(whitespace-trailing ((,class (:inherit trailing-whitespace))))
     `(woman-bold ((,gui (:weight bold)) (,class (:foreground ,blue))))
-    `(woman-italic ((,gui (:slant italic)) (,class (:foreground ,red))))))
+    `(woman-italic ((,gui (:slant italic)) (,class (:foreground ,red))))
+    `(yas/field-highlight-face ((,class (:inherit highlight))))))
 
 (provide-theme 'now)

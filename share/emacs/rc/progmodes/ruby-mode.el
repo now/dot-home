@@ -2,6 +2,10 @@
           '(lambda ()
              (define-key evil-normal-state-local-map ",t" 'ruby-find-other-file)
              (define-key evil-normal-state-local-map ",M" 'ruby-run-test-at-line)
+             (define-key evil-insert-state-local-map "d" 'ruby-electric-end-character)
+             (define-key evil-insert-state-local-map "e" 'ruby-electric-end-character)
+;             (define-key evil-insert-state-local-map "\C-m" 'reindent-then-newline-and-indent)
+             (set (make-local-variable 'evil-shift-width) 2)
              (set (make-local-variable 'compile-command) "rake -s ")
              (set (make-local-variable 'compilation-mode-makefile-name) "Rakefile")))
 
@@ -68,6 +72,27 @@
       " TEST=" test-file-name
       (if line-as-string (concat " LINE=" line-as-string) "")))))
 
+(defun ruby-electric-end-character (arg)
+  (interactive "P")
+  (self-insert-command (prefix-numeric-value arg))
+  (ruby-electric-possibly-adjust-indent))
+
+(defun ruby-electric-possibly-adjust-indent ()
+  (if (ruby-electric-adjustable-word-p)
+    (save-excursion
+      (ruby-indent-line t))))
+
+(defun ruby-electric-code-at-point-p ()
+  (let* ((properties (text-properties-at (point))))
+    (and (null (memq 'font-lock-string-face properties))
+         (null (memq 'font-lock-comment-face properties)))))
+
+(defun ruby-electric-adjustable-word-p ()
+  (if (ruby-electric-code-at-point-p)
+    (save-excursion
+      (beginning-of-line)
+      (looking-at "\\s-*\\(else\\|end\\|ensure\\|rescue\\)"))))
+
 ;(require 'flymake)
 
 ;(defun flymake-ruby-init ()
@@ -93,25 +118,3 @@
 ;             (define-key ruby-mode-map "\C-m" 'ruby-reindent-then-newline-and-indent)
 ;             ))
 ;
-;             (define-key ruby-mode-map "d" 'ruby-electric-end-character)
-;             (define-key ruby-mode-map "e" 'ruby-electric-end-character)
-;(defun ruby-electric-end-character (arg)
-;  (interactive "P")
-;  (self-insert-command (prefix-numeric-value arg))
-;  (ruby-electric-possibly-adjust-indent))
-;
-;(defun ruby-electric-possibly-adjust-indent ()
-;  (if (ruby-electric-adjustable-word-p)
-;    (save-excursion
-;      (ruby-indent-line t))))
-;
-;(defun ruby-electric-code-at-point-p()
-;  (let* ((properties (text-properties-at (point))))
-;    (and (null (memq 'font-lock-string-face properties))
-;         (null (memq 'font-lock-comment-face properties)))))
-;
-;(defun ruby-electric-adjustable-word-p ()
-;  (if (ruby-electric-code-at-point-p)
-;    (save-excursion
-;      (beginning-of-line)
-;      (looking-at "\\s-*\\(else\\|end\\)"))))

@@ -231,6 +231,7 @@ DOTFILES = \
 	   share/emacs/rc/indent.el \
 	   share/emacs/rc/isearch.el \
 	   share/emacs/rc/minibuffer.el \
+	   share/emacs/rc/nxml.el \
 	   share/emacs/rc/os/nil.el \
 	   share/emacs/rc/os/ns.el \
 	   share/emacs/rc/os/w32.el \
@@ -242,7 +243,12 @@ DOTFILES = \
 	   share/emacs/rc/smex.el \
 	   share/emacs/rc/ui.el \
 	   share/emacs/rc/uniquify.el \
+	   share/emacs/rc/yasnippet.el \
 	   share/emacs/rc/woman.el \
+	   share/emacs/snippets/ruby-mode/au.yasnippet \
+	   share/emacs/snippets/ruby-mode/d.yasnippet \
+	   share/emacs/snippets/ruby-mode/tlc.yasnippet \
+	   share/emacs/snippets/ruby-mode/tlm.yasnippet \
 	   share/emacs/smex.el \
 	   share/emacs/term/screen-256color.el \
 	   share/emacs/themes/now-theme.el
