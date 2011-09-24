@@ -238,6 +238,7 @@ DOTFILES = \
 	   share/emacs/rc/os/nil.el \
 	   share/emacs/rc/os/ns.el \
 	   share/emacs/rc/os/w32.el \
+	   share/emacs/rc/paren.el \
 	   share/emacs/rc/progmodes/cc-mode.el \
 	   share/emacs/rc/progmodes/compile.el \
 	   share/emacs/rc/progmodes/grep.el \

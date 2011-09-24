@@ -37,6 +37,7 @@
       (rc "minibuffer")
       (rc "nxml")
       (rc "org")
+      (rc "paren")
       (rc "simple")
       (rc "smex")
       (rc "ui")

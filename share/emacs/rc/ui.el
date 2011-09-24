@@ -3,8 +3,6 @@
     (funcall ui -1)))
 (fset 'yes-or-no-p 'y-or-n-p)
 (blink-cursor-mode -1)
-(show-paren-mode 1)
-(setq show-paren-delay 0)
 (setq-default show-trailing-whitespace t)
 (setq-default indicate-buffer-boundaries '((bottom . left)))
 (setq initial-scratch-message nil)
