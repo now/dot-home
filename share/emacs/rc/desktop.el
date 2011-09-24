@@ -1,5 +1,6 @@
 (desktop-save-mode 1)
 (dolist (variable '(command-history
+                    compile-history
                     evil-ex-history
                     evil-ex-search-history
                     read-expression-history
