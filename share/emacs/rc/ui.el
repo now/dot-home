@@ -35,5 +35,4 @@
                                  'mode-line-frame-identification
                                  'mode-line-buffer-identification
                                  '(:propertize " " 'help-echo help-echo)
-                                 'mode-line-modes
-                                 '(vc-mode vc-mode)))
+                                 'mode-line-modes))
