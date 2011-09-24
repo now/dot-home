@@ -34,7 +34,7 @@
     `(custom-button-mouse ((,gui (:box (:line-width 1 :color "#478cba") :background "#e9ebed" :foreground ,off-black))))
     `(custom-button-pressed ((,gui (:box (:line-width 1 :color "#35576d") :background "#d4d6da" :foreground ,off-black))))
     `(default ((,gui (:foreground ,off-black :background ,off-white))))
-    `(diff-added ((,class (:foreground ,blue))))
+    `(diff-added ((,class (:foreground ,green))))
     `(diff-context ((,class (nil))))
     `(diff-file-header ((,class (:foreground ,purple))))
     `(diff-function ((,class (:foreground ,blue))))
@@ -75,6 +75,13 @@
     `(ido-subdir ((,class (:foreground ,light-blue))))
     `(link ((,class (:underline t :foreground ,blue))))
     `(link-visited ((,class (:underline t :foreground ,purple))))
+    `(magit-diff-add ((,class (:inherit diff-added))))
+    `(magit-diff-del ((,class (:inherit diff-removed))))
+    `(magit-diff-hunk-header ((,class (:inherit diff-hunk-header))))
+    `(magit-item-highlight ((,class (:inherit region))))
+    ; magit-log-sha1
+    ; magit-log-graph
+    `(magit-section-title ((,class (:foreground ,light-blue))))
     `(ned-info-on-file-mode ((,class (:foreground ,green))))
     `(ned-info-on-file-read-only ((,class (:foreground ,red))))
     `(secondary-selection ((,class (:background ,cyan))))
