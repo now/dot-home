@@ -230,6 +230,7 @@ DOTFILES = \
 	   share/emacs/rc/ido.el \
 	   share/emacs/rc/indent.el \
 	   share/emacs/rc/isearch.el \
+	   share/emacs/rc/magit.el \
 	   share/emacs/rc/minibuffer.el \
 	   share/emacs/rc/nxml.el \
 	   share/emacs/rc/org.el \
