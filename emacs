@@ -31,6 +31,7 @@
       (rc "icomplete")
       (rc "ido")
       (rc "indent")
+      (rc "info")
       (rc "isearch")
       (rc "magit")
       (rc "minibuffer")

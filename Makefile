@@ -229,6 +229,7 @@ DOTFILES = \
 	   share/emacs/rc/icomplete.el \
 	   share/emacs/rc/ido.el \
 	   share/emacs/rc/indent.el \
+	   share/emacs/rc/info.el \
 	   share/emacs/rc/isearch.el \
 	   share/emacs/rc/magit.el \
 	   share/emacs/rc/minibuffer.el \
