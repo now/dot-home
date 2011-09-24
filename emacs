@@ -33,6 +33,7 @@
       (rc "isearch")
       (rc "minibuffer")
       (rc "nxml")
+      (rc "org")
       (rc "simple")
       (rc "smex")
       (rc "ui")

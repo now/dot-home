@@ -232,6 +232,7 @@ DOTFILES = \
 	   share/emacs/rc/isearch.el \
 	   share/emacs/rc/minibuffer.el \
 	   share/emacs/rc/nxml.el \
+	   share/emacs/rc/org.el \
 	   share/emacs/rc/os/nil.el \
 	   share/emacs/rc/os/ns.el \
 	   share/emacs/rc/os/w32.el \
