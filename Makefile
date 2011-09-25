@@ -223,6 +223,7 @@ DOTFILES = \
 	   share/emacs/hide-mode-line.el \
 	   share/emacs/ned/ned-info-on-file.el \
 	   share/emacs/rc/buffer.el \
+	   share/emacs/rc/coding.el \
 	   share/emacs/rc/desktop.el \
 	   share/emacs/rc/diff.el \
 	   share/emacs/rc/evil.el \

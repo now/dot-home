@@ -7,11 +7,6 @@
 
 (enable-theme 'now)
 
-(setq eol-mnemonic-unix ""
-      eol-mnemonic-mac "mac"
-      eol-mnemonic-dos "dos"
-      eol-mnemonic-undecided "?")
-
 (setq-default mode-line-remote '(:eval (if (file-remote-p default-directory) "@" ""))
               mode-line-buffer-identification (propertized-buffer-identification "%b")
               mode-line-frame-identification '(:eval (if (or (null window-system) (eq window-system 'pc)) "[%F] " ""))

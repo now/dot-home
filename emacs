@@ -25,6 +25,7 @@
       (rc-progmode "grep")
       (rc-progmode "ruby-mode")
       (rc "buffer")
+      (rc "coding")
       (rc "desktop")
       (rc "diff")
       (rc "evil")
