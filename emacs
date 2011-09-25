@@ -26,6 +26,7 @@
       (rc-progmode "ruby-mode")
       (rc "buffer")
       (rc "coding")
+      (rc "custom")
       (rc "desktop")
       (rc "diff")
       (rc "evil")
