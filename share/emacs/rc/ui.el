@@ -3,7 +3,6 @@
     (funcall ui -1)))
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq-default show-trailing-whitespace t)
-(setq-default indicate-buffer-boundaries '((bottom . left)))
 (setq initial-scratch-message nil)
 
 (require 'hide-mode-line)
