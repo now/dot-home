@@ -51,6 +51,7 @@
       (rc "ui")
       (rc "uniquify")
       (rc "woman")
+      (rc "xdisp")
       (rc "yasnippet"))))
 
 (require 'ned-info-on-file)
