@@ -261,6 +261,7 @@ DOTFILES = \
 	   share/emacs/snippets/ruby-mode/tlc.yasnippet \
 	   share/emacs/snippets/ruby-mode/tlm.yasnippet \
 	   share/emacs/smex.el \
+	   share/emacs/startup.el \
 	   share/emacs/term/screen-256color.el \
 	   share/emacs/themes/now-theme.el
 

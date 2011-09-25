@@ -46,6 +46,7 @@
       (rc "scroll-bar")
       (rc "simple")
       (rc "smex")
+      (rc "startup")
       (rc "tool-bar")
       (rc "ui")
       (rc "uniquify")
