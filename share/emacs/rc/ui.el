@@ -5,12 +5,6 @@
 (setq-default show-trailing-whitespace t)
 (setq initial-scratch-message nil)
 
-(require 'hide-mode-line)
-(hide-mode-line)
-(add-hook 'window-setup-hook
-          (lambda ()
-            (hide-mode-line-update)))
-
 (enable-theme 'now)
 
 (setq eol-mnemonic-unix ""

@@ -228,6 +228,7 @@ DOTFILES = \
 	   share/emacs/rc/evil.el \
 	   share/emacs/rc/files.el \
 	   share/emacs/rc/frame.el \
+	   share/emacs/rc/hide-mode-line.el \
 	   share/emacs/rc/icomplete.el \
 	   share/emacs/rc/ido.el \
 	   share/emacs/rc/indent.el \

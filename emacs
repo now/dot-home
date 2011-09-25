@@ -30,6 +30,7 @@
       (rc "evil")
       (rc "files")
       (rc "frame")
+      (rc "hide-mode-line")
       (rc "icomplete")
       (rc "ido")
       (rc "indent")
