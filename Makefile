@@ -252,7 +252,6 @@ DOTFILES = \
 	   share/emacs/rc/simple.el \
 	   share/emacs/rc/smex.el \
 	   share/emacs/rc/tool-bar.el \
-	   share/emacs/rc/ui.el \
 	   share/emacs/rc/uniquify.el \
 	   share/emacs/rc/woman.el \
 	   share/emacs/rc/yasnippet.el \

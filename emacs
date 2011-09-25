@@ -48,7 +48,6 @@
       (rc "smex")
       (rc "startup")
       (rc "tool-bar")
-      (rc "ui")
       (rc "uniquify")
       (rc "woman")
       (rc "xdisp")
