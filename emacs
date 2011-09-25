@@ -28,6 +28,7 @@
       (rc "diff")
       (rc "evil")
       (rc "files")
+      (rc "frame")
       (rc "icomplete")
       (rc "ido")
       (rc "indent")

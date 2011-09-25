@@ -2,7 +2,6 @@
   (if (fboundp ui)
     (funcall ui -1)))
 (fset 'yes-or-no-p 'y-or-n-p)
-(blink-cursor-mode -1)
 (setq-default show-trailing-whitespace t)
 (setq-default indicate-buffer-boundaries '((bottom . left)))
 (setq initial-scratch-message nil)
