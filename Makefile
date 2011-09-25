@@ -247,12 +247,14 @@ DOTFILES = \
 	   share/emacs/rc/progmodes/compile.el \
 	   share/emacs/rc/progmodes/grep.el \
 	   share/emacs/rc/progmodes/ruby-mode.el \
+	   share/emacs/rc/scroll-bar.el \
 	   share/emacs/rc/simple.el \
 	   share/emacs/rc/smex.el \
+	   share/emacs/rc/tool-bar.el \
 	   share/emacs/rc/ui.el \
 	   share/emacs/rc/uniquify.el \
-	   share/emacs/rc/yasnippet.el \
 	   share/emacs/rc/woman.el \
+	   share/emacs/rc/yasnippet.el \
 	   share/emacs/snippets/ruby-mode/au.yasnippet \
 	   share/emacs/snippets/ruby-mode/d.yasnippet \
 	   share/emacs/snippets/ruby-mode/tlc.yasnippet \
