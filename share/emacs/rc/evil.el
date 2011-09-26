@@ -35,30 +35,32 @@
 ;(define-key evil-normal-state-map "\C-n" 'bs-cycle-next)
 ;(define-key evil-normal-state-map "\C-p" 'bs-cycle-previous)
 (define-key evil-normal-state-map ",b" 'ido-switch-buffer)
+(define-key evil-normal-state-map ",B" 'bs-show)
 (define-key evil-normal-state-map ",k" 'ido-kill-buffer)
+(define-key evil-normal-state-map ",w" 'save-buffer)
 (define-key evil-normal-state-map "U" 'undo-tree-redo)
 (define-key evil-normal-state-map "\C-d" 'suspend-frame)
 (define-key evil-normal-state-map "g\C-g" 'ned-info-on-file)
 
-(define-key evil-normal-state-map ",e" 'find-file)
+(defun  call-interactively-at-vc-root (command &optional record-flag keys)
+  "Call COMMAND interactively with DEFAULT-DIRECTORY set to VC-GIT-ROOT."
+  (let ((root (if (fboundp 'vc-git-root) (vc-git-root (buffer-file-name)))))
+    (if root
+        (let ((default-directory root))
+          (call-interactively command record-flag keys))
+      (call-interactively command record-flag keys))))
 (defun find-vc-project-file ()
   "Find a file, starting at the vc project root."
   (interactive)
-  (let ((root (if (fboundp 'vc-git-root) (vc-git-root (buffer-file-name)))))
-    (if root
-        (let ((default-directory root))
-          (call-interactively 'find-file))
-    (call-interactively 'find-file))))
-(define-key evil-normal-state-map ",E" 'find-vc-project-file)
-
+  (call-interactively-at-vc-root 'find-file))
 (defun vc-project-shell-command ()
   "Run SHELL-COMMAND with DEFAULT-DIRECTORY set to VC-GIT-ROOT."
   (interactive)
-  (let ((root (if (fboundp 'vc-git-root) (vc-git-root (buffer-file-name)))))
-    (if root
-        (let ((default-directory root))
-          (call-interactively 'shell-command))
-    (call-interactively 'shell-command))))
+  (call-interactively-at-vc-root 'shell-command))
+
+(define-key evil-normal-state-map ",e" 'find-file)
+(define-key evil-normal-state-map ",E" 'find-vc-project-file)
+
 (define-key evil-normal-state-map ",c" 'vc-project-shell-command)
 (define-key evil-normal-state-map ",C" 'shell-command)
 

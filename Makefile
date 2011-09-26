@@ -222,6 +222,7 @@ $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
 DOTFILES = \
 	   share/emacs/hide-mode-line.el \
 	   share/emacs/ned/ned-info-on-file.el \
+	   share/emacs/rc/bs.el \
 	   share/emacs/rc/buffer.el \
 	   share/emacs/rc/coding.el \
 	   share/emacs/rc/custom.el \
@@ -247,10 +248,12 @@ DOTFILES = \
 	   share/emacs/rc/progmodes/cc-mode.el \
 	   share/emacs/rc/progmodes/compile.el \
 	   share/emacs/rc/progmodes/grep.el \
+	   share/emacs/rc/progmodes/make-mode.el \
 	   share/emacs/rc/progmodes/ruby-mode.el \
 	   share/emacs/rc/scroll-bar.el \
 	   share/emacs/rc/simple.el \
 	   share/emacs/rc/smex.el \
+	   share/emacs/rc/startup.el \
 	   share/emacs/rc/tool-bar.el \
 	   share/emacs/rc/uniquify.el \
 	   share/emacs/rc/woman.el \
@@ -261,7 +264,6 @@ DOTFILES = \
 	   share/emacs/snippets/ruby-mode/tlc.yasnippet \
 	   share/emacs/snippets/ruby-mode/tlm.yasnippet \
 	   share/emacs/smex.el \
-	   share/emacs/startup.el \
 	   share/emacs/term/screen-256color.el \
 	   share/emacs/themes/now-theme.el
 
