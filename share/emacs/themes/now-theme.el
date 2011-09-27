@@ -55,7 +55,7 @@
     `(font-lock-preprocessor-face ((,class (:foreground ,light-magenta))))
     `(font-lock-string-face ((,class (:foreground ,red))))
     `(font-lock-type-face ((,class (:foreground ,purple))))
-    `(font-lock-variable-name-face ((,class (:foreground ,blue))))
+    `(font-lock-variable-name-face ((,class (:inherit default))))
     `(font-lock-warning-face ((,class (:foreground ,off-white :background ,red :weight normal))))
     `(fringe ((,class (:background "grey95"))))
     `(highlight ((,class (:foreground ,off-white :background ,blue))))

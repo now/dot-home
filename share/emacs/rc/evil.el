@@ -38,6 +38,7 @@
 (define-key evil-normal-state-map ",B" 'bs-show)
 (define-key evil-normal-state-map ",k" 'ido-kill-buffer)
 (define-key evil-normal-state-map ",w" 'save-buffer)
+(define-key evil-normal-state-map ",W" 'save-some-buffers)
 (define-key evil-normal-state-map "U" 'undo-tree-redo)
 (define-key evil-normal-state-map "\C-d" 'suspend-frame)
 (define-key evil-normal-state-map "g\C-g" 'ned-info-on-file)
