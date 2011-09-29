@@ -1,9 +1,9 @@
 ; TODO: Bind TAB to simply indent?
 
-(add-hook 'c-initialization-hook
+(add-hook 'c-mode-hook
           (lambda ()
-            (define-key c-mode-base-map "\C-m" 'c-context-line-break)))
-           ;(viper-add-local-keys 'insert-state '(("\C-m" . c-context-line-break))))
+            (define-key evil-insert-state-local-map "\C-m" 'c-context-line-break)))
+; TODO: Do we need this in a hook?
 (add-hook 'c-mode-common-hook
           (lambda ()
             (c-toggle-hungry-state 1)
