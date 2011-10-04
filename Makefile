@@ -250,6 +250,7 @@ DOTFILES = \
 	   share/emacs/rc/progmodes/grep.el \
 	   share/emacs/rc/progmodes/make-mode.el \
 	   share/emacs/rc/progmodes/ruby-mode.el \
+	   share/emacs/rc/recentf.el \
 	   share/emacs/rc/scroll-bar.el \
 	   share/emacs/rc/simple.el \
 	   share/emacs/rc/smex.el \

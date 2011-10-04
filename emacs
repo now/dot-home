@@ -45,6 +45,7 @@
       (rc "nxml")
       (rc "org")
       (rc "paren")
+      (rc "recentf")
       (rc "scroll-bar")
       (rc "simple")
       (rc "smex")
