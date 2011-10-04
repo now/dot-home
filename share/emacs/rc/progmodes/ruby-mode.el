@@ -4,15 +4,16 @@
              (define-key evil-normal-state-local-map ",M" 'ruby-run-test-at-line)
              (define-key evil-insert-state-local-map "d" 'ruby-electric-end-character)
              (define-key evil-insert-state-local-map "e" 'ruby-electric-end-character)
+             (define-key evil-insert-state-local-map "f" 'ruby-electric-end-character)
 ;             (define-key evil-insert-state-local-map "\C-m" 'reindent-then-newline-and-indent)
              (set (make-local-variable 'evil-shift-width) 2)
              (set (make-local-variable 'compile-command) "rake -s ")
              (set (make-local-variable 'compilation-mode-makefile-name) "Rakefile")))
 
 (add-to-list 'compilation-error-regexp-alist-alist
-                '(lookout-info "^\tfrom \\([^ \t\r\n]+\\):\\([0-9]+\\):in `[^']*'$" 1 2 nil 0))
+                '(lookout-info "^\tfrom \\(\\(a-zA-Z]:\\)?[^ \t\r\n]+\\):\\([0-9]+\\):in `[^']*'$" 1 3 nil 0))
 (add-to-list 'compilation-error-regexp-alist-alist
-                '(lookout "^\\([^: \t\r\n]+\.rb\\):\\([0-9]+\\): " 1 2))
+                '(lookout "^\\(\\([a-zA-Z]:\\)?[^: \t\r\n]+\.rb\\):\\([0-9]+\\): " 1 3))
 (add-to-list 'compilation-error-regexp-alist 'lookout)
 (setq-default compilation-error-regexp-alist '(lookout lookout-info))
 
@@ -91,7 +92,7 @@
   (if (ruby-electric-code-at-point-p)
     (save-excursion
       (beginning-of-line)
-      (looking-at "\\s-*\\(else\\|end\\|ensure\\|rescue\\)"))))
+      (looking-at "\\s-*\\(else\\|elsif\\|end\\|ensure\\|rescue\\)"))))
 
 ;(require 'flymake)
 
