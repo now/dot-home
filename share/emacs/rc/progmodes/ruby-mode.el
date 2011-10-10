@@ -12,10 +12,11 @@
 
 (add-to-list 'compilation-error-regexp-alist-alist
                 '(lookout-info "^\tfrom \\(\\(a-zA-Z]:\\)?[^ \t\r\n]+\\):\\([0-9]+\\):in `[^']*'$" 1 3 nil 0))
-(add-to-list 'compilation-error-regexp-alist-alist
-                '(lookout "^\\(\\([a-zA-Z]:\\)?[^: \t\r\n]+\.rb\\):\\([0-9]+\\): " 1 3))
-(add-to-list 'compilation-error-regexp-alist 'lookout)
-(setq-default compilation-error-regexp-alist '(lookout lookout-info))
+;(add-to-list 'compilation-error-regexp-alist-alist
+;                '(lookout "^\\(\\([a-zA-Z]:\\)?[^: \t\r\n]+\.rb\\):\\([0-9]+\\): " 1 3))
+;(add-to-list 'compilation-error-regexp-alist 'lookout)
+(add-to-list 'compilation-error-regexp-alist 'lookout-info)
+;(setq-default compilation-error-regexp-alist '(lookout lookout-info))
 
 (defcustom ruby-unit-test-file-name-mapping
   '(("\\(.*\\)\\(/lib/\\)\\(.*\\.\\(rb\\|treetop\\)\\)$" . "\\1/test/unit/\\3"))
