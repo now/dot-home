@@ -1,0 +1,5 @@
+<locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
+  <documentElement localName="interface" typeId="GtkBuilder"/>
+
+  <typeId id="GtkBuilder" uri="gtk-builder.rnc"/>
+</locatingRules>

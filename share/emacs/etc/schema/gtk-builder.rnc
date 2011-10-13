@@ -1,0 +1,39 @@
+start = interface
+
+interface = element interface { attlist.interface, (requires | object)* }
+attlist.interface &= attribute domain { text }?
+
+requires = element requires { attlist.requires, empty }
+attlist.requires =
+  attribute lib { text },
+  attribute version { text }
+
+object = element object { attlist.object, (property | signal | child | any)* }
+attlist.object =
+  attribute id { text },
+  attribute class { text },
+  attribute type-func { text }?,
+  attribute constructor { text }?
+
+property = element property { attlist.property, text }
+attlist.property =
+  attribute name { text },
+  attribute translatable { text }?,
+  attribute comments { text }?,
+  attribute context { text }?
+
+signal = element signal { attlist.signal, empty }
+attlist.signal =
+  attribute name { text },
+  attribute handler { text },
+  attribute after { text }?,
+  attribute swapped { text }?,
+  attribute object { text }?,
+  attribute last_modification_time { text }?
+
+child = element child { attlist.child, (object | any*) }
+attlist.child =
+  attribute type { text }?,
+  attribute internal-child { text }?
+
+any = element * { attribute * { text }, (text | any)* }

@@ -220,6 +220,8 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
 
 DOTFILES = \
+	   share/emacs/etc/schema/gtk-builder.rnc \
+	   share/emacs/etc/schema/schemas.xml \
 	   share/emacs/hide-mode-line.el \
 	   share/emacs/ned/ned-info-on-file.el \
 	   share/emacs/rc/bs.el \
