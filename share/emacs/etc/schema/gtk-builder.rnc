@@ -36,4 +36,4 @@ attlist.child =
   attribute type { text }?,
   attribute internal-child { text }?
 
-any = element * { attribute * { text }, (text | any)* }
+any = element * { (attribute * { text } | text | any)* }
