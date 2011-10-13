@@ -94,7 +94,6 @@
   "q" 'close-buffer-and-window-unless-last)
 (evil-declare-key 'normal diff-mode-map
   "q" 'close-buffer-and-window-unless-last)
-(define-key magit-mode-map "q" 'close-buffer-and-window-unless-last)
 
 (add-hook 'evil-insert-state-exit-hook 'evil-delete-auto-indent-on-insert-state-exit)
 

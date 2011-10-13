@@ -250,6 +250,7 @@ DOTFILES = \
 	   share/emacs/rc/progmodes/cc-mode.el \
 	   share/emacs/rc/progmodes/compile.el \
 	   share/emacs/rc/progmodes/grep.el \
+	   share/emacs/rc/progmodes/hideshow.el \
 	   share/emacs/rc/progmodes/make-mode.el \
 	   share/emacs/rc/progmodes/ruby-mode.el \
 	   share/emacs/rc/recentf.el \

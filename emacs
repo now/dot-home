@@ -23,6 +23,7 @@
       (rc-progmode "cc-mode")
       (rc-progmode "compile")
       (rc-progmode "grep")
+      (rc-progmode "hideshow")
       (rc-progmode "make-mode")
       (rc-progmode "ruby-mode")
       (rc "bs")

@@ -5,6 +5,7 @@
              (define-key evil-insert-state-local-map "d" 'ruby-electric-end-character)
              (define-key evil-insert-state-local-map "e" 'ruby-electric-end-character)
              (define-key evil-insert-state-local-map "f" 'ruby-electric-end-character)
+             (hs-minor-mode)
 ;             (define-key evil-insert-state-local-map "\C-m" 'reindent-then-newline-and-indent)
              (set (make-local-variable 'evil-shift-width) 2)
              (set (make-local-variable 'compile-command) "rake -s ")
