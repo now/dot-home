@@ -43,6 +43,7 @@
 (define-key evil-normal-state-map ",u" 'undo-tree-visualize)
 (define-key evil-normal-state-map "\C-d" 'suspend-frame)
 (define-key evil-normal-state-map "g\C-g" 'ned-info-on-file)
+(define-key evil-insert-state-map (kbd "RET") 'evil-ret)
 
 (defun  call-interactively-at-vc-root (command &optional record-flag keys)
   "Call COMMAND interactively with DEFAULT-DIRECTORY set to VC-GIT-ROOT."
