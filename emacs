@@ -42,6 +42,7 @@
       (rc "info")
       (rc "isearch")
       (rc "magit")
+      (rc "man")
       (rc "minibuffer")
       (rc "nxml")
       (rc "org")
@@ -53,7 +54,6 @@
       (rc "startup")
       (rc "tool-bar")
       (rc "uniquify")
-      (rc "woman")
       (rc "xdisp")
       (rc "yasnippet"))))
 

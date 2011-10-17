@@ -27,7 +27,7 @@
 ;(define-key evil-normal-state-map "L" 'evil-change-whole-line)
 ;(define-key evil-motion-state-map "S" 'evil-window-bottom)
 
-(define-key evil-normal-state-map "K" 'woman)
+(define-key evil-normal-state-map "K" 'man)
 
 (define-key evil-motion-state-map " " 'evil-scroll-page-down)
 (define-key evil-normal-state-map (kbd "DEL") 'evil-scroll-page-up)

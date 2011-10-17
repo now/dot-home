@@ -240,6 +240,7 @@ DOTFILES = \
 	   share/emacs/rc/info.el \
 	   share/emacs/rc/isearch.el \
 	   share/emacs/rc/magit.el \
+	   share/emacs/rc/man.el \
 	   share/emacs/rc/minibuffer.el \
 	   share/emacs/rc/nxml.el \
 	   share/emacs/rc/org.el \
@@ -260,7 +261,6 @@ DOTFILES = \
 	   share/emacs/rc/startup.el \
 	   share/emacs/rc/tool-bar.el \
 	   share/emacs/rc/uniquify.el \
-	   share/emacs/rc/woman.el \
 	   share/emacs/rc/yasnippet.el \
 	   share/emacs/rc/xdisp.el \
 	   share/emacs/snippets/ruby-mode/au.yasnippet \
