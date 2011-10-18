@@ -6,18 +6,20 @@
              (define-key evil-insert-state-local-map "e" 'ruby-electric-end-character)
              (define-key evil-insert-state-local-map "f" 'ruby-electric-end-character)
              (hs-minor-mode)
-;             (define-key evil-insert-state-local-map "\C-m" 'reindent-then-newline-and-indent)
              (set (make-local-variable 'evil-shift-width) 2)
              (set (make-local-variable 'compile-command) "rake -s ")
              (set (make-local-variable 'compilation-mode-makefile-name) "Rakefile")))
 
 (add-to-list 'compilation-error-regexp-alist-alist
-                '(lookout-info "^\tfrom \\(\\(a-zA-Z]:\\)?[^ \t\r\n]+\\):\\([0-9]+\\):in `[^']*'$" 1 3 nil 0))
-;(add-to-list 'compilation-error-regexp-alist-alist
-;                '(lookout "^\\(\\([a-zA-Z]:\\)?[^: \t\r\n]+\.rb\\):\\([0-9]+\\): " 1 3))
-;(add-to-list 'compilation-error-regexp-alist 'lookout)
-(add-to-list 'compilation-error-regexp-alist 'lookout-info)
-;(setq-default compilation-error-regexp-alist '(lookout lookout-info))
+             '(gnu
+               "^\\(?:[[:alpha:]][-[:alnum:].]+: ?\\|[ \t]+\\(?:in \\|from \\)\\)?\
+\\([0-9]*[^0-9\n]\\(?:[^\n :]\\| [^-/\n]\\|:[^ \n]\\)*?\\): ?\
+\\([0-9]+\\)\\(?:[.:]\\([0-9]+\\)\\)?\
+\\(?:-\\([0-9]+\\)?\\(?:\\.\\([0-9]+\\)\\)?\\)?:\
+\\(?: *\\(\\(?:Future\\|Runtime\\)?[Ww]arning\\|W:\\)\\|\
+ *\\([Ii]nfo\\(?:\\>\\|rmationa?l?\\)\\|I:\\|instantiated from\\|[Nn]ote\\)\\|\
+ *[Ee]rror\\|\[0-9]?\\(?:[^0-9\n]\\|$\\)\\|[0-9][0-9][0-9]\\)"
+               1 (2 . 4) (3 . 5) (6 . 7)))
 
 (defcustom ruby-unit-test-file-name-mapping
   '(("\\(.*\\)\\(/lib/\\)\\(.*\\.\\(rb\\|treetop\\)\\)$" . "\\1/test/unit/\\3"))
