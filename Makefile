@@ -220,6 +220,7 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
 
 DOTFILES = \
+	   share/emacs/cygwin-mount.el \
 	   share/emacs/etc/schema/gtk-builder.rnc \
 	   share/emacs/etc/schema/schemas.xml \
 	   share/emacs/hide-mode-line.el \
@@ -244,9 +245,10 @@ DOTFILES = \
 	   share/emacs/rc/minibuffer.el \
 	   share/emacs/rc/nxml.el \
 	   share/emacs/rc/org.el \
-	   share/emacs/rc/os/nil.el \
-	   share/emacs/rc/os/ns.el \
-	   share/emacs/rc/os/w32.el \
+	   share/emacs/rc/os/cygwin.el \
+	   share/emacs/rc/ws/nil.el \
+	   share/emacs/rc/ws/ns.el \
+	   share/emacs/rc/ws/w32.el \
 	   share/emacs/rc/paren.el \
 	   share/emacs/rc/progmodes/cc-mode.el \
 	   share/emacs/rc/progmodes/compile.el \
@@ -270,7 +272,8 @@ DOTFILES = \
 	   share/emacs/snippets/ruby-mode/tlm.yasnippet \
 	   share/emacs/smex.el \
 	   share/emacs/term/screen-256color.el \
-	   share/emacs/themes/now-theme.el
+	   share/emacs/themes/now-theme.el \
+	   share/emacs/windows-path.el
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir))
 

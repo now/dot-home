@@ -8,5 +8,3 @@
 ;; TODO: set this for w32 only, if at all.
 (setq keyboard-coding-system 'utf-8)
 ; (add-untranslated-filesystem (concat (user-login-name) "@" (system-name) ":"))
-(require 'cygwin-mount)
-(cygwin-mount-activate)
