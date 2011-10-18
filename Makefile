@@ -225,6 +225,7 @@ DOTFILES = \
 	   share/emacs/etc/schema/schemas.xml \
 	   share/emacs/hide-mode-line.el \
 	   share/emacs/ned/ned-info-on-file.el \
+	   share/emacs/progmodes/rnc-mode.el \
 	   share/emacs/rc/bs.el \
 	   share/emacs/rc/buffer.el \
 	   share/emacs/rc/coding.el \
@@ -255,6 +256,7 @@ DOTFILES = \
 	   share/emacs/rc/progmodes/grep.el \
 	   share/emacs/rc/progmodes/hideshow.el \
 	   share/emacs/rc/progmodes/make-mode.el \
+	   share/emacs/rc/progmodes/rnc-mode.el \
 	   share/emacs/rc/progmodes/ruby-mode.el \
 	   share/emacs/rc/recentf.el \
 	   share/emacs/rc/scroll-bar.el \
