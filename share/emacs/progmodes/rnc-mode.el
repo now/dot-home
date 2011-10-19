@@ -8,17 +8,18 @@
 (defcustom rnc-indent-level 2
   "Indentation of Relax NG Compact statements."
   :type 'integer
-  :group 'ruby)
+  :group 'rnc)
 
-;; FIXME: backward-sexp doesn't work with unbalanced braces in comments
-(defun rnc-calculate-indent-line (&optional start)
+(defun rnc-find-column (first start)
   "Find which column to indent to."
-  (save-excursion
-    (let* (column
+
+  ;; FIXME: backward-sexp doesn't work with unbalanced braces in comments
+
+  (let* (column
 	 pos
 	 ;; Find start of enclosing block or assignment
 	 (token
-	  (if (looking-at "[]})]")
+	  (if (member first '("]" "}" ")"))
 	      (progn
 		(goto-char (+ start 1))
 		(backward-sexp)
@@ -49,8 +50,8 @@
 
     (cond
      ((not pos) 0)
-     ((looking-at "[]})]") column)
-     ((looking-at "[{(]") (+ column rnc-indent-level))
+     ((member first '("]" "}" ")")) column)
+     ((member first '("{" "(")) (+ column rnc-indent-level))
 
      ;; Give lines starting with an operator a small negative indent.
      ;; This allows for the following indentation style:
@@ -58,7 +59,7 @@
      ;;      bar
      ;;    | baz
      ;;    | oof
-     ((looking-at ",&|") (+ column (- rnc-indent-level 2)))
+     ((member first '("," "&" "|")) (+ column (- rnc-indent-level 2)))
 
      ;; Check if first preceding non-whitespace character was an operator
      ;; If not, this is most likely a new assignment.
@@ -71,34 +72,58 @@
 	  (+ column rnc-indent-level)
 	column))
 
-     (t (+ column rnc-indent-level))))))
+     (t (+ column rnc-indent-level)))))
 
 (defun rnc-indent-line ()
-  "Correct the indentation of the current Relax NG Compact line."
+  "Indents the current line."
   (interactive)
-  (let* ((column (current-column))
-         (bol (save-excursion (beginning-of-line) (point)))
-         (eoi (save-excursion (back-to-indentation) (point)))
-         (indent (rnc-calculate-indent-line eoi)))
-    (unless (= indent (- eoi bol))
-      (delete-region bol eoi)
-      (indent-to indent)
-      (move-to-column (+ indent (- column (- eoi bol)))))))
+  (let ((orig-point (point)))
+    (beginning-of-line)
+    (let* ((beg-of-line (point))
+	   (pos (re-search-forward "\\(\\S \\|\n\\)" (point-max) t))
+	   (first (match-string 0))
+	   (start (match-beginning 0))
+	   (col (- (current-column) 1)))
+
+      (goto-char beg-of-line)
+
+      (let ((indent-column (rnc-find-column first start)))
+	(goto-char beg-of-line)
+
+	(cond
+	 ;; Only modify buffer if the line must be reindented
+	 ((not (= col indent-column))
+	  (if (not (or (null pos)
+		       (= beg-of-line start)))
+	      (kill-region beg-of-line start))
+
+	  (goto-char beg-of-line)
+
+	  (while (< 0 indent-column)
+	    (insert " ")
+	    (setq indent-column (- indent-column 1))))
+
+	 ((< orig-point start) (goto-char start))
+	 (t (goto-char orig-point)))))))
 
 (defun rnc-electric-brace (arg)
-  (interactive "P")
-  (insert-char last-command-char 1)
+  (interactive "*P")
+  (self-insert-command (prefix-numeric-value arg))
   (rnc-indent-line)
-  (delete-char -1)
-  (self-insert-command (prefix-numeric-value arg)))
+  (let ((p (point)))
+    (when (save-excursion
+            (beginning-of-line)
+            (let ((pos (re-search-forward "\\S " (point-max) t)))
+              (and pos (= (- pos 1) p))))
+      (forward-char))))
 
 (defconst rnc-font-lock-keywords
   (list
-   '("\\b\\(?:attribute\\|element\\)\\b\\(\\\\?\\sw\\s_*\\)\\b"
+   '("\\b\\(?:attribute\\|element\\)\\s-*\\(\\\\?\\sw\\(?:\\sw\\|\\s_\\)*\\)\\b"
      1 font-lock-variable-name-face)
    '("^\\s-*\\(default\\(?:\\s-+namespace\\)?\\|namespace\\|datatypes\\)\\b"
      1 font-lock-preprocessor-face)
-   '("^\\s-*\\(\\\\?\\sw\\s_*\\)\\b"
+   '("^\\s-*\\(\\\\?\\sw\\(?:\\sw\\|\\s_\\)*\\)\\s-*="
      1 font-lock-variable-name-face)
    (list (concat
           "\\b"
@@ -180,7 +205,7 @@
   (set-syntax-table rnc-mode-syntax-table)
   (setq local-abbrev-table rnc-mode-abbrev-table)
   (set (make-local-variable 'indent-line-function) 'rnc-indent-line)
-  (set (make-local-variable 'font-lock-defaults) '((rnc-font-lock-keywords) nil))
+  (set (make-local-variable 'font-lock-defaults) '((rnc-font-lock-keywords) nil nil ((?. . "w") (?- . "w") (?_ . "w"))))
   (set (make-local-variable 'comment-start) "#")
   (set (make-local-variable 'comment-end) "")
   ; TODO: Why not use \s- instead of [ \n\t]?
