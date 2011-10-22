@@ -75,9 +75,6 @@
                             (ruby-find-other-file-name file-name ruby-unit-test-file-name-mapping)
                           file-name))
         (line-as-string (if (ruby-unit-test-file-name-p file-name) (number-to-string line))))
-    (message file-name)
-    (message test-file-name)
-    (message (ruby-implementation-file-name-p file-name))
     (compile-package-immediately
      (concat
       "rake -s"
