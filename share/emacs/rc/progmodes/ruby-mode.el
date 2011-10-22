@@ -20,6 +20,13 @@
  *\\([Ii]nfo\\(?:\\>\\|rmationa?l?\\)\\|I:\\|instantiated from\\|[Nn]ote\\)\\|\
  *[Ee]rror\\|\[0-9]?\\(?:[^0-9\n]\\|$\\)\\|[0-9][0-9][0-9]\\)"
                1 (2 . 4) (3 . 5) (6 . 7)))
+(add-to-list 'compilation-error-regexp-alist-alist
+             '(ruby-backtrace
+               "^[ \t]+\\(?:in \\|from \\)\
+\\([0-9]*[^0-9\n]\\(?:[^\n :]\\| [^-/\n]\\|:[^ \n]\\)*?\\):\
+\\([0-9]+\\)\\(?::in .*\\)?"
+               1 2 nil 0))
+(add-to-list 'compilation-error-regexp-alist 'ruby-backtrace)
 
 (defcustom ruby-unit-test-file-name-mapping
   '(("\\(.*\\)\\(/lib/\\)\\(.*\\.\\(rb\\|treetop\\)\\)$" . "\\1/test/unit/\\3"))
