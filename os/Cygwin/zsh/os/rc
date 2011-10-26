@@ -13,3 +13,4 @@ alias p='ps --user $USERNAME --windows'
 alias pp='ps --user $USERNAME'
 
 alias kill='command kill -f'
+alias push-ruby='rsync -rltgoD --modify-window=1 /Ruby19/*~*/devkit //Filer/Programs/Ruby19'
