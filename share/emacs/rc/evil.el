@@ -45,9 +45,9 @@
 (define-key evil-normal-state-map "g\C-g" 'ned-info-on-file)
 (define-key evil-insert-state-map (kbd "RET") 'evil-ret)
 
-(defun  call-interactively-at-vc-root (command &optional record-flag keys)
-  "Call COMMAND interactively with DEFAULT-DIRECTORY set to VC-GIT-ROOT."
-  (let ((root (if (fboundp 'vc-git-root) (vc-git-root (buffer-file-name)))))
+(defun  call-interactively-at-git-root (command &optional record-flag keys)
+  "Call COMMAND interactively with DEFAULT-DIRECTORY set to directory containing `.git'."
+  (let ((root (locate-dominating-file (buffer-file-name) ".git")))
     (if root
         (let ((default-directory root))
           (call-interactively command record-flag keys))
@@ -55,11 +55,11 @@
 (defun find-vc-project-file ()
   "Find a file, starting at the vc project root."
   (interactive)
-  (call-interactively-at-vc-root 'find-file))
+  (call-interactively-at-git-root 'find-file))
 (defun vc-project-shell-command ()
   "Run SHELL-COMMAND with DEFAULT-DIRECTORY set to VC-GIT-ROOT."
   (interactive)
-  (call-interactively-at-vc-root 'shell-command))
+  (call-interactively-at-git-root 'shell-command))
 
 (define-key evil-normal-state-map ",e" 'find-file)
 (define-key evil-normal-state-map ",E" 'find-vc-project-file)

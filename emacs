@@ -57,6 +57,7 @@
       (rc "startup")
       (rc "tool-bar")
       (rc "uniquify")
+      (rc "vc")
       (rc "xdisp")
       (rc "yasnippet"))))
 
