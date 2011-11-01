@@ -47,7 +47,7 @@
 
 (defun  call-interactively-at-git-root (command &optional record-flag keys)
   "Call COMMAND interactively with DEFAULT-DIRECTORY set to directory containing `.git'."
-  (let ((root (locate-dominating-file (buffer-file-name) ".git")))
+  (let ((root (locate-dominating-file (or (buffer-file-name) default-directory) ".git")))
     (if root
         (let ((default-directory root))
           (call-interactively command record-flag keys))
