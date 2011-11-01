@@ -100,3 +100,5 @@
 (defun evil-delete-auto-indent-on-insert-state-exit ()
   (if (and (eolp) (member last-command '(evil-ret evil-open-below evil-open-above)))
       (delete-horizontal-space)))
+
+(define-key undo-tree-visualizer-map "s" 'undo-tree-visualize-switch-branch-right)
