@@ -263,6 +263,7 @@ DOTFILES = \
 	   share/emacs/rc/simple.el \
 	   share/emacs/rc/smex.el \
 	   share/emacs/rc/startup.el \
+	   share/emacs/rc/textmodes/css-mode.el \
 	   share/emacs/rc/tool-bar.el \
 	   share/emacs/rc/uniquify.el \
 	   share/emacs/rc/vc.el \
@@ -273,6 +274,8 @@ DOTFILES = \
 	   share/emacs/snippets/ruby-mode/tlc.yasnippet \
 	   share/emacs/snippets/ruby-mode/tle.yasnippet \
 	   share/emacs/snippets/ruby-mode/tlm.yasnippet \
+	   share/emacs/snippets/nxml-mode/xsls.yasnippet \
+	   share/emacs/snippets/nxml-mode/xslt.yasnippet \
 	   share/emacs/smex.el \
 	   share/emacs/term/screen-256color.el \
 	   share/emacs/themes/now-theme.el \
