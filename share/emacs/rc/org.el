@@ -1,4 +1,4 @@
-(setq org-directory "~/Documents/Org"
+(setq org-directory "~/Dropbox/Org"
       org-mobile-directory "~/Dropbox/MobileOrg"
       org-refile-targets '((org-agenda-files . (:level . 1))))
 (labels ((org-file (file)
