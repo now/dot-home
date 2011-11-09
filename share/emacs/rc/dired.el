@@ -1,1 +1,2 @@
-(setq dired-isearch-filenames 'dwim)
+(setq dired-isearch-filenames 'dwim
+      dired-dwim-target t)
