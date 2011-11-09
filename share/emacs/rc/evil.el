@@ -34,8 +34,6 @@
 (define-key evil-motion-state-map " " 'evil-scroll-page-down)
 (define-key evil-normal-state-map (kbd "DEL") 'evil-scroll-page-up)
 
-;(define-key evil-normal-state-map "\C-n" 'bs-cycle-next)
-;(define-key evil-normal-state-map "\C-p" 'bs-cycle-previous)
 (define-key evil-normal-state-map ",b" 'ido-switch-buffer)
 (define-key evil-normal-state-map ",B" 'bs-show)
 (define-key evil-normal-state-map ",d" 'dired)
