@@ -38,6 +38,7 @@
 ;(define-key evil-normal-state-map "\C-p" 'bs-cycle-previous)
 (define-key evil-normal-state-map ",b" 'ido-switch-buffer)
 (define-key evil-normal-state-map ",B" 'bs-show)
+(define-key evil-normal-state-map ",d" 'dired)
 (define-key evil-normal-state-map ",k" 'ido-kill-buffer)
 (define-key evil-normal-state-map ",w" 'save-buffer)
 (define-key evil-normal-state-map ",W" 'save-some-buffers)
