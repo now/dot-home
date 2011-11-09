@@ -38,6 +38,7 @@
       (rc "desktop")
       (rc "diff")
       (rc "dired")
+      (rc "disp-table")
       (rc "evil")
       (rc "files")
       (rc "frame")

@@ -233,6 +233,7 @@ DOTFILES = \
 	   share/emacs/rc/desktop.el \
 	   share/emacs/rc/diff.el \
 	   share/emacs/rc/dired.el \
+	   share/emacs/rc/disp-table.el \
 	   share/emacs/rc/evil.el \
 	   share/emacs/rc/files.el \
 	   share/emacs/rc/frame.el \
