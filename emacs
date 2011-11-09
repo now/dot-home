@@ -37,6 +37,7 @@
       (rc "custom")
       (rc "desktop")
       (rc "diff")
+      (rc "dired")
       (rc "evil")
       (rc "files")
       (rc "frame")
