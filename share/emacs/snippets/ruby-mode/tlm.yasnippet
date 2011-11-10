@@ -14,7 +14,7 @@ module ${1:`(mapconcat 'identity
                                           (buffer-file-name)
                                            (expand-file-name
                                             (concat
-                                             (vc-git-root (buffer-file-name))
+                                             (locate-dominating-file (buffer-file-name) ".git")
                                              "lib"))))
                                     (buffer-name)))
                                "/"
