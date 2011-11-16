@@ -30,6 +30,7 @@
       (rc-progmode "make-mode")
       (rc-progmode "rnc-mode")
       (rc-progmode "ruby-mode")
+      (rc-progmode "sh-script")
       (rc-textmode "css-mode")
       (rc "bs")
       (rc "buffer")

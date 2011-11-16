@@ -260,6 +260,7 @@ DOTFILES = \
 	   share/emacs/rc/progmodes/make-mode.el \
 	   share/emacs/rc/progmodes/rnc-mode.el \
 	   share/emacs/rc/progmodes/ruby-mode.el \
+	   share/emacs/rc/progmodes/sh-script.el \
 	   share/emacs/rc/recentf.el \
 	   share/emacs/rc/scroll-bar.el \
 	   share/emacs/rc/simple.el \
