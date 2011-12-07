@@ -84,6 +84,8 @@
     `(magit-section-title ((,class (:foreground ,light-blue))))
     `(ned-info-on-file-mode ((,class (:foreground ,green))))
     `(ned-info-on-file-read-only ((,class (:foreground ,red))))
+    `(org-done ((,class (:foreground ,off-white :background ,green))))
+    `(org-todo ((,class (:foreground ,off-white :background ,red))))
     `(secondary-selection ((,class (:background ,cyan))))
     `(trailing-whitespace ((,class (:forgeground ,off-white :background ,light-red))))
     `(undo-tree-visualizer-active-branch-face ((t (nil))))
