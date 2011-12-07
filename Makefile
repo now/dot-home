@@ -270,6 +270,7 @@ DOTFILES = \
 	   share/emacs/rc/tool-bar.el \
 	   share/emacs/rc/uniquify.el \
 	   share/emacs/rc/vc.el \
+	   share/emacs/rc/window.el \
 	   share/emacs/rc/yasnippet.el \
 	   share/emacs/rc/xdisp.el \
 	   share/emacs/snippets/ruby-mode/au.yasnippet \

@@ -63,6 +63,7 @@
       (rc "tool-bar")
       (rc "uniquify")
       (rc "vc")
+      (rc "window")
       (rc "xdisp")
       (rc "yasnippet"))))
 
