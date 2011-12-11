@@ -1,2 +1,2 @@
-(grep-compute-defaults)
-(setq grep-command "grep -nH -P -e ")
+(eval-after-load 'grep
+  '(grep-apply-setting 'grep-command "grep -nH -P -e "))
