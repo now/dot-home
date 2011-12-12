@@ -68,6 +68,8 @@
 (define-key evil-normal-state-map ",c" 'vc-project-shell-command)
 (define-key evil-normal-state-map ",C" 'shell-command)
 
+(define-key evil-normal-state-map ",o" 'org-capture)
+
 (define-key evil-normal-state-map ",m" 'compile-package-immediately)
 (define-key evil-normal-state-map ",n" 'next-error)
 (define-key evil-normal-state-map ",p" 'previous-error)
