@@ -2,6 +2,7 @@
 (require 'org-capture)
 (setq org-directory "~/Dropbox/Org"
       org-mobile-directory "~/Dropbox/MobileOrg"
+      org-mobile-force-id-on-agenda-items nil
       org-refile-targets '((org-agenda-files . (:level . 1)))
       org-refile-allow-creating-parent-nodes 'confirm
       org-outline-path-complete-in-steps nil
