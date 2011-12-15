@@ -2,7 +2,7 @@
           '(lambda ()
              (define-key evil-normal-state-local-map ",t" 'ruby-find-other-file)
              (define-key evil-normal-state-local-map ",M" 'ruby-run-test-at-line)
-             (define-key evil-insert-state-local-map "d" 'ruby-electric-end-character)
+             (define-key evil-insert-state-local-map "d" 'nuby-electric-end-character)
              (define-key evil-insert-state-local-map "e" 'ruby-electric-end-character)
              (define-key evil-insert-state-local-map "f" 'ruby-electric-end-character)
              (hs-minor-mode)
@@ -103,6 +103,63 @@
     (save-excursion
       (beginning-of-line)
       (looking-at "\\s-*\\(else\\|elsif\\|end\\|ensure\\|rescue\\)"))))
+
+
+(defun* ruby-file-name-to-module-name (&optional (file-name (buffer-file-name)))
+  (mapconcat 'identity
+             (mapcar 'capitalize
+                     (split-string
+                      (file-name-sans-extension
+                       (or (and file-name
+                                (file-relative-name
+                                 file-name
+                                 (expand-file-name
+                                  (concat
+                                   (locate-dominating-file file-name ".git")
+                                   "lib"))))
+                           (buffer-name)))
+                      "/"
+                      t))
+             "::"))
+
+(eval-after-load 'ruby-mode
+  '(progn
+     (define-abbrev ruby-mode-abbrev-table "d" "" 'ruby-skeleton-def)
+     (define-skeleton ruby-skeleton-def
+       "Insert a method definition."
+       "Method name and argument list: "
+       > "def " str \n
+       > _ \n
+       > "end")
+     (define-abbrev ruby-mode-abbrev-table "tlc" "" 'ruby-skeleton-top-level-class)
+     (define-skeleton ruby-skeleton-top-level-class
+       "Insert a top-level class."
+       ""
+       "# -*- coding: utf-8 -*-" \n
+       \n
+       > "class " (ruby-file-name-to-module-name) \n
+       > _ \n
+       "end" >)
+     (define-abbrev ruby-mode-abbrev-table "tlm" "" 'ruby-skeleton-top-level-module)
+     (define-skeleton ruby-skeleton-top-level-module
+       "Insert a top-level module."
+       ""
+       "# -*- coding: utf-8 -*-" \n
+       \n
+       "module " (ruby-file-name-to-module-name) \n
+       > _ \n
+       "end" >)
+     (define-abbrev ruby-mode-abbrev-table "tle" "" 'ruby-skeleton-top-level-expectations)
+     (define-skeleton ruby-skeleton-top-level-expectations
+       "Insert top-level expectations."
+       ""
+       "# -*- coding: utf-8 -*-" \n
+       \n
+       "Expectations do" \n
+       > "expect " _ " do" \n
+       >  _ \n
+       "end" > \n
+       "end" >)))
 
 ;(require 'flymake)
 

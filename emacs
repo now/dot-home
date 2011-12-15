@@ -20,7 +20,6 @@
       (add "magit")
       (add "ned")
       (add "progmodes")
-      (add "yasnippet-0.6.1c")
       (load-rc t "os" (symbol-name system-type))
       (load-rc t "ws" (symbol-name window-system))
       (rc-progmode "cc-mode")
@@ -64,7 +63,6 @@
       (rc "uniquify")
       (rc "vc")
       (rc "window")
-      (rc "xdisp")
-      (rc "yasnippet"))))
+      (rc "xdisp"))))
 
 (require 'ned-info-on-file)

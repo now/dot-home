@@ -271,15 +271,7 @@ DOTFILES = \
 	   share/emacs/rc/uniquify.el \
 	   share/emacs/rc/vc.el \
 	   share/emacs/rc/window.el \
-	   share/emacs/rc/yasnippet.el \
 	   share/emacs/rc/xdisp.el \
-	   share/emacs/snippets/ruby-mode/au.yasnippet \
-	   share/emacs/snippets/ruby-mode/d.yasnippet \
-	   share/emacs/snippets/ruby-mode/tlc.yasnippet \
-	   share/emacs/snippets/ruby-mode/tle.yasnippet \
-	   share/emacs/snippets/ruby-mode/tlm.yasnippet \
-	   share/emacs/snippets/nxml-mode/xsls.yasnippet \
-	   share/emacs/snippets/nxml-mode/xslt.yasnippet \
 	   share/emacs/smex.el \
 	   share/emacs/term/screen-256color.el \
 	   share/emacs/themes/now-theme.el \
