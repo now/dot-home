@@ -2,7 +2,7 @@
           '(lambda ()
              (define-key evil-normal-state-local-map ",t" 'ruby-find-other-file)
              (define-key evil-normal-state-local-map ",M" 'ruby-run-test-at-line)
-             (define-key evil-insert-state-local-map "d" 'nuby-electric-end-character)
+             (define-key evil-insert-state-local-map "d" 'ruby-electric-end-character)
              (define-key evil-insert-state-local-map "e" 'ruby-electric-end-character)
              (define-key evil-insert-state-local-map "f" 'ruby-electric-end-character)
              (hs-minor-mode)
