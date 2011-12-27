@@ -6,7 +6,9 @@
       org-refile-targets '((org-agenda-files . (:level . 1)))
       org-refile-allow-creating-parent-nodes 'confirm
       org-outline-path-complete-in-steps nil
-      org-completion-use-ido t)
+      org-completion-use-ido t
+      org-edit-src-persistent-message nil
+      org-src-window-setup 'current-window)
 (labels ((org-file (file)
                    (concat (file-name-as-directory org-directory) file)))
   (setq org-mobile-inbox-for-pull (org-file "from-mobile.org")
