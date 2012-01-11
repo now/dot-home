@@ -17,7 +17,8 @@
         org-default-notes-file (org-file "refile.org")
         org-agenda-files (list org-directory))
   (setq org-capture-templates
-        '(("t" "Todo" entry (file "") "* TODO %?\n  %U\n  %i\n  %a"))))
+        '(("t" "Todo" entry (file "") "* TODO %?\n  %U\n  %i"))
+        '(("T" "Annotated Todo" entry (file "") "* TODO %?\n  %U\n  %i\n  %a"))))
 
 (add-hook 'org-mode-hook
           '(lambda ()
