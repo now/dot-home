@@ -11,6 +11,8 @@
     ((?< ?/) . ?\x27e8)
     ((?> ?/) . ?\x27e9)))
 
+(delete 'shell-mode evil-insert-state-modes)
+
 (define-key evil-normal-state-map "q" 'delete-other-windows)
 (define-key evil-normal-state-map "Q" 'evil-record-macro)
 
@@ -82,6 +84,7 @@
 (global-set-key (kbd "C-x C-o") 'other-window)
 
 (define-key evil-normal-state-map "`" 'smex)
+(define-key evil-motion-state-map "`" 'smex)
 
 (defun close-buffer-and-window-unless-last ()
   (interactive)
