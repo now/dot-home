@@ -8,8 +8,7 @@ INSERT INTO engine_data (engineid, name, value) VALUES('[app]/wikipedia.xml', 'a
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/adlibris.xml', 'alias', 'adlibris');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/codesearch.xml', 'alias', 'codesearch');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/discogs.xml', 'alias', 'discogs');
-INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/google-bookmars.xml', 'alias', 'tag');
-INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/google-dictionary.xml', 'alias', 'dict');
+INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/google-bookmarks.xml', 'alias', 'tag');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/hittase-where.xml', 'alias', 'where');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/hittase-who.xml', 'alias', 'who');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/imdb.xml', 'alias', 'imdb');
@@ -26,5 +25,6 @@ INSERT INTO engine_data (engineid, name, value) VALUES('[app]/answers.xml', 'hid
 INSERT INTO engine_data (engineid, name, value) VALUES('[app]/bing.xml', 'hidden', '1');
 INSERT INTO engine_data (engineid, name, value) VALUES('[app]/creativecommons.xml', 'hidden', '1');
 INSERT INTO engine_data (engineid, name, value) VALUES('[app]/eBay.xml', 'hidden', '1');
+INSERT INTO engine_data (engineid, name, value) VALUES('[app]/twitter.xml', 'hidden', '1');
 INSERT INTO engine_data (engineid, name, value) VALUES('[app]/yahoo.xml', 'hidden', '1');
 COMMIT;

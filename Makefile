@@ -338,7 +338,6 @@ DOTFILES = \
 	   firefox/searchplugins/codesearch.xml \
 	   firefox/searchplugins/discogs.xml \
 	   firefox/searchplugins/google-bookmarks.xml \
-	   firefox/searchplugins/google-dictionary.xml \
 	   firefox/searchplugins/hittase-where.xml \
 	   firefox/searchplugins/hittase-who.xml \
 	   firefox/searchplugins/imdb.xml \
