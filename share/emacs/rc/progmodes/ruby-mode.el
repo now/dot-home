@@ -130,7 +130,7 @@
        "Method name and argument list: "
        > "def " str \n
        > _ \n
-       > "end")
+       "end" >)
      (define-abbrev ruby-mode-abbrev-table "tlc" "" 'ruby-skeleton-top-level-class)
      (define-skeleton ruby-skeleton-top-level-class
        "Insert a top-level class."
