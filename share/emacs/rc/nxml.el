@@ -5,6 +5,7 @@
 (eval-after-load 'nxml-mode
   '(progn
      (setq nxml-slash-auto-complete-flag t)
+     (define-key nxml-mode-map "\C-j" 'reindent-then-newline-and-indent)
      (define-abbrev-table 'nxml-mode-abbrev-table ()
        "Abbrev table in use in nXML mode buffers.")
      (define-abbrev nxml-mode-abbrev-table "xsls" "" 'nxml-mode-skeleton-xsl-stylesheet)
