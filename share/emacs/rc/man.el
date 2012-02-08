@@ -1,1 +1,2 @@
-(setq Man-switches "-P cat")
+(eval-after-load 'man
+  '(setq Man-switches "-P cat"))

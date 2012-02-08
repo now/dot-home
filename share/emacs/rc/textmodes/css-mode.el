@@ -1,1 +1,2 @@
-(setq css-indent-offset 2)
+(eval-after-load 'css-mode
+  '(setq css-indent-offset 2))

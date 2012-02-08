@@ -1,6 +1,19 @@
-;; -*- mode: emacs-lisp; coding: utf-8 -*-
+; TODO: Remove once we switch to Emacs 24
+(eval-when-compile
+  (require 'cl))
 
-(require 'cl)
+(defun now-do-not-show-trailing-whitespace ()
+  (set (make-local-variable 'show-trailing-whitespace) nil))
+
+(defun close-buffer-and-window-unless-last ()
+  (interactive)
+  (let* ((buffer (current-buffer))
+         (window (get-buffer-window buffer))
+         (next (next-window window)))
+    (kill-buffer buffer)
+    (when (and window
+               (not (eq window next)))
+      (delete-window window))))
 
 (labels ((build-path (&rest components)
                      (let ((directories (mapcar #'file-name-as-directory (butlast components)))
@@ -9,12 +22,14 @@
   (let ((my-share-emacs-path (build-path (expand-file-name "~") "share" "emacs")))
     (setq-default custom-theme-directory (build-path my-share-emacs-path "themes"))
     (add-to-list 'load-path my-share-emacs-path)
+    (require 'userloaddefs)
     (labels ((add (path) (add-to-list 'load-path (build-path my-share-emacs-path path)))
              (load-rc (missing-ok &rest components)
                       (load (apply #'build-path my-share-emacs-path "rc" components) missing-ok))
              (rc (&rest components) (apply #'load-rc nil components))
              (rc-progmode (mode) (rc "progmodes" mode))
-             (rc-textmode (mode) (rc "textmodes" mode)))
+             (rc-textmode (mode) (rc "textmodes" mode))
+             (rc-vc (mode) (rc "vc" mode)))
       (add "evil")
       (add "evil/lib")
       (add "magit")
@@ -36,7 +51,6 @@
       (rc "coding")
       (rc "custom")
       (rc "desktop")
-      (rc "diff")
       (rc "dired")
       (rc "disp-table")
       (rc "evil")
@@ -62,7 +76,6 @@
       (rc "tool-bar")
       (rc "uniquify")
       (rc "vc")
+      (rc-vc "diff")
       (rc "window")
       (rc "xdisp"))))
-
-(require 'ned-info-on-file)

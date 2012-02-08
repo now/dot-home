@@ -22,10 +22,9 @@
 (defun terminal-init-screen ()
   "Terminal initialization function for screen."
   (xterm-register-default-colors)
-  (mapcar (lambda (color)
-            (tty-color-define (car color) (cadr color)
-                              (mapcar 'xterm-rgb-convert-to-16bit
-                                      (car (cddr color)))))
-          screen-256color-colors)
+  (dolist (color screen-256color-colors)
+    (tty-color-define (car color) (cadr color)
+                      (mapcar 'xterm-rgb-convert-to-16bit
+                              (car (cddr color)))))
   (clear-face-cache)
   (tty-set-up-initial-frame-faces))

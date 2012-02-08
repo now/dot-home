@@ -77,6 +77,26 @@ define SQLITE_IF_EXISTS_template
 $(eval $(foreach file,$(1),$(if $(wildcard $(file)),$(call SQLITE_ADD_template_file,$(file),$(call SQLITE_construct_target,$(file),$(2),$(3),$(4))))))
 endef
 
+define EMACS_template_file
+source_elc := $(1:.el=).elc
+target_elc := $(2:.el=).elc
+install: $$(target_elc)
+
+$$(source_elc): $(1)
+	$$(EMACS) --batch -Q -L share/emacs -f batch-byte-compile $$<
+
+$$(target_elc): $$(source_elc)
+	$$(INSTALL) -D --preserve-timestamps $$< $$(call shell_quote,$$@)
+
+endef
+
+# 1: Files
+# 2: Parent directory
+# 3: Prefix to add
+define EMACS_template
+$(eval $(foreach file,$(1),$(call EMACS_template_file,$(file),$(2)/$(3)$(file))))
+endef
+
 uname := $(shell uname -s)
 ifeq ($(patsubst CYGWIN_%,,$(uname)),)
   uname := Cygwin
@@ -87,8 +107,7 @@ INSTALL = install
 SQLITE = sqlite3
 TOUCH = touch
 ZSHELL = /bin/zsh
-
-timestamps = .timestamps
+EMACS = emacs
 
 prefix = ~
 userconfdir = $(prefix)
@@ -103,7 +122,6 @@ DOTFILES = \
 	   Xresources \
 	   dircolors \
 	   editrc \
-	   emacs \
 	   fonts.conf \
 	   gemrc \
 	   gitconfig \
@@ -220,9 +238,18 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
 
 DOTFILES = \
-	   share/emacs/cygwin-mount.el \
+	   emacs.el
+
+$(call EMACS_template,$(DOTFILES),$(userconfdir),.)
+
+DOTFILES = \
 	   share/emacs/etc/schema/gtk-builder.rnc \
-	   share/emacs/etc/schema/schemas.xml \
+	   share/emacs/etc/schema/schemas.xml
+
+$(call GROUP_template,$(DOTFILES),$(userconfdir))
+
+DOTFILES = \
+	   share/emacs/cygwin-mount.el \
 	   share/emacs/hide-mode-line.el \
 	   share/emacs/ned/ned-info-on-file.el \
 	   share/emacs/progmodes/rnc-mode.el \
@@ -231,7 +258,6 @@ DOTFILES = \
 	   share/emacs/rc/coding.el \
 	   share/emacs/rc/custom.el \
 	   share/emacs/rc/desktop.el \
-	   share/emacs/rc/diff.el \
 	   share/emacs/rc/dired.el \
 	   share/emacs/rc/disp-table.el \
 	   share/emacs/rc/evil.el \
@@ -249,9 +275,6 @@ DOTFILES = \
 	   share/emacs/rc/nxml.el \
 	   share/emacs/rc/org.el \
 	   share/emacs/rc/os/cygwin.el \
-	   share/emacs/rc/ws/nil.el \
-	   share/emacs/rc/ws/ns.el \
-	   share/emacs/rc/ws/w32.el \
 	   share/emacs/rc/paren.el \
 	   share/emacs/rc/progmodes/cc-mode.el \
 	   share/emacs/rc/progmodes/compile.el \
@@ -270,14 +293,27 @@ DOTFILES = \
 	   share/emacs/rc/tool-bar.el \
 	   share/emacs/rc/uniquify.el \
 	   share/emacs/rc/vc.el \
+	   share/emacs/rc/vc/diff.el \
 	   share/emacs/rc/window.el \
+	   share/emacs/rc/ws/nil.el \
+	   share/emacs/rc/ws/ns.el \
+	   share/emacs/rc/ws/w32.el \
 	   share/emacs/rc/xdisp.el \
 	   share/emacs/smex.el \
 	   share/emacs/term/screen-256color.el \
 	   share/emacs/themes/now-theme.el \
 	   share/emacs/windows-path.el
 
-$(call GROUP_template,$(DOTFILES),$(userconfdir))
+install: $(userconfdir)/share/emacs/userloaddefs.el
+
+$(userconfdir)/share/emacs/userloaddefs.el: $(DOTFILES)
+	$(EMACS) --batch -Q --eval '(setq generated-autoload-file "$@")' -f batch-update-autoloads \
+	  share/emacs \
+	  share/emacs/ned \
+	  share/emacs/progmodes \
+	  $(userconfdir)/share/emacs/evil
+
+$(call EMACS_template,$(DOTFILES),$(userconfdir))
 
 DOTFILES = \
 	   zsh/zlogin \

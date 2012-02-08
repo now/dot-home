@@ -1,1 +1,2 @@
-(setq-default makefile-backslash-align nil)
+(eval-after-load 'make-mode
+  '(setq makefile-backslash-align nil))

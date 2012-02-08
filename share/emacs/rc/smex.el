@@ -1,2 +1,1 @@
-(require 'smex)
 (smex-initialize)

@@ -133,6 +133,7 @@ NOTE: \"/cygdrive/\" is only an example for the cygdrive-prefix \(see
 
 (defvar windows-path-activated nil)
 
+;;;###autoload
 (defun windows-path-activate ()
   "Activate windows-path-style-handling."
   (interactive)

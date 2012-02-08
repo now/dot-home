@@ -1,2 +1,3 @@
-(setq dired-isearch-filenames 'dwim
-      dired-dwim-target t)
+(eval-after-load 'dired
+  '(setq dired-isearch-filenames 'dwim
+         dired-dwim-target t))

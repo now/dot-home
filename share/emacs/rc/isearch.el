@@ -1,5 +1,3 @@
-; (setq isearch-resume-in-command-history t)
-; (setq search-ring-max 100 regexp-search-ring-max 100)
 (define-key global-map "\C-s" 'isearch-forward-regexp)
 (define-key esc-map "\C-s" 'isearch-forward)
 (define-key global-map "\C-r" 'isearch-backward-regexp)

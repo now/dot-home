@@ -1,4 +1,3 @@
-(require 'hide-mode-line)
 (hide-mode-line)
 (add-hook 'window-setup-hook
           (lambda ()

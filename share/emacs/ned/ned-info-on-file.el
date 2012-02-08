@@ -80,7 +80,7 @@ not the same as the byte index."
    :type 'string
    :group 'ned-misc)
 
-(setq ned-info-on-file-mode-line-format
+(defvar ned-info-on-file-mode-line-format
   '('(window-system "" "[%F] ")
     "%b "
     "%[[" mode-name mode-line-process minor-mode-alist "%n" "]%] "
@@ -138,6 +138,7 @@ not the same as the byte index."
                current-line line-count percentage column byte-index)))))
 
 ; TODO: Should use something similar to mode-line-modes
+;;;###autoload
 (defun ned-info-on-file ()
   (interactive)
   (display-message-or-buffer

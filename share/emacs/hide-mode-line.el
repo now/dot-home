@@ -89,6 +89,7 @@ one window in that frame, nil otherwise."
   (remove-hook 'window-configuration-change-hook
                'hide-mode-line-window-configuration-change-hook))
 
+;;;###autoload
 (defun hide-mode-line ()
   "Toggle the hide-mode-line functionality."
   (interactive)
