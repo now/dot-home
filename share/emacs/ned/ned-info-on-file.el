@@ -86,9 +86,9 @@ not the same as the byte index."
     "%[[" mode-name mode-line-process minor-mode-alist "%n" "]%] "
     (:eval
      (let ((s (mapconcat
-               #'(lambda (string) (replace-regexp-in-string "%" "%%" string))
-               (mapcar #'(lambda (c) (if (consp c) (propertize (car c) 'face (cdr c)) c))
-                       (remove-if #'(lambda (c) (zerop (length (if (consp c) (car c) c))))
+               (lambda (string) (replace-regexp-in-string "%" "%%" string))
+               (mapcar (lambda (c) (if (consp c) (propertize (car c) 'face (cdr c)) c))
+                       (remove-if (lambda (c) (zerop (length (if (consp c) (car c) c))))
                                   (list*
                                    (cons
                                     (concat
