@@ -19,7 +19,7 @@
                      (let ((directories (mapcar #'file-name-as-directory (butlast components)))
                            (file (car (last components))))
                        (concat (apply #'concat directories) file))))
-  (let ((my-share-emacs-path (build-path (expand-file-name "~") "share" "emacs")))
+  (let ((my-share-emacs-path (build-path (expand-file-name "~") "share" "emacs" "lisp")))
     (setq-default custom-theme-directory (build-path my-share-emacs-path "themes"))
     (add-to-list 'load-path my-share-emacs-path)
     (require 'userloaddefs)

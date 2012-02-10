@@ -249,69 +249,70 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(userconfdir))
 
 DOTFILES = \
-	   share/emacs/cygwin-mount.el \
-	   share/emacs/hide-mode-line.el \
-	   share/emacs/ned/ned-info-on-file.el \
-	   share/emacs/progmodes/rnc-mode.el \
-	   share/emacs/rc/bs.el \
-	   share/emacs/rc/buffer.el \
-	   share/emacs/rc/coding.el \
-	   share/emacs/rc/custom.el \
-	   share/emacs/rc/desktop.el \
-	   share/emacs/rc/dired.el \
-	   share/emacs/rc/disp-table.el \
-	   share/emacs/rc/evil.el \
-	   share/emacs/rc/files.el \
-	   share/emacs/rc/frame.el \
-	   share/emacs/rc/hide-mode-line.el \
-	   share/emacs/rc/icomplete.el \
-	   share/emacs/rc/ido.el \
-	   share/emacs/rc/indent.el \
-	   share/emacs/rc/info.el \
-	   share/emacs/rc/isearch.el \
-	   share/emacs/rc/magit.el \
-	   share/emacs/rc/man.el \
-	   share/emacs/rc/minibuffer.el \
-	   share/emacs/rc/nxml.el \
-	   share/emacs/rc/org.el \
-	   share/emacs/rc/os/cygwin.el \
-	   share/emacs/rc/paren.el \
-	   share/emacs/rc/progmodes/cc-mode.el \
-	   share/emacs/rc/progmodes/compile.el \
-	   share/emacs/rc/progmodes/grep.el \
-	   share/emacs/rc/progmodes/hideshow.el \
-	   share/emacs/rc/progmodes/make-mode.el \
-	   share/emacs/rc/progmodes/rnc-mode.el \
-	   share/emacs/rc/progmodes/ruby-mode.el \
-	   share/emacs/rc/progmodes/sh-script.el \
-	   share/emacs/rc/recentf.el \
-	   share/emacs/rc/scroll-bar.el \
-	   share/emacs/rc/simple.el \
-	   share/emacs/rc/smex.el \
-	   share/emacs/rc/startup.el \
-	   share/emacs/rc/textmodes/css-mode.el \
-	   share/emacs/rc/tool-bar.el \
-	   share/emacs/rc/uniquify.el \
-	   share/emacs/rc/vc.el \
-	   share/emacs/rc/vc/diff.el \
-	   share/emacs/rc/window.el \
-	   share/emacs/rc/ws/nil.el \
-	   share/emacs/rc/ws/ns.el \
-	   share/emacs/rc/ws/w32.el \
-	   share/emacs/rc/xdisp.el \
-	   share/emacs/smex.el \
-	   share/emacs/term/screen-256color.el \
-	   share/emacs/themes/now-theme.el \
-	   share/emacs/windows-path.el
+	   share/emacs/lisp/cygwin-mount.el \
+	   share/emacs/lisp/hide-mode-line.el \
+	   share/emacs/lisp/ned/ned-info-on-file.el \
+	   share/emacs/lisp/progmodes/rnc-mode.el \
+	   share/emacs/lisp/rc/bs.el \
+	   share/emacs/lisp/rc/buffer.el \
+	   share/emacs/lisp/rc/coding.el \
+	   share/emacs/lisp/rc/custom.el \
+	   share/emacs/lisp/rc/desktop.el \
+	   share/emacs/lisp/rc/dired.el \
+	   share/emacs/lisp/rc/disp-table.el \
+	   share/emacs/lisp/rc/evil.el \
+	   share/emacs/lisp/rc/files.el \
+	   share/emacs/lisp/rc/frame.el \
+	   share/emacs/lisp/rc/hide-mode-line.el \
+	   share/emacs/lisp/rc/icomplete.el \
+	   share/emacs/lisp/rc/ido.el \
+	   share/emacs/lisp/rc/indent.el \
+	   share/emacs/lisp/rc/info.el \
+	   share/emacs/lisp/rc/isearch.el \
+	   share/emacs/lisp/rc/magit.el \
+	   share/emacs/lisp/rc/man.el \
+	   share/emacs/lisp/rc/minibuffer.el \
+	   share/emacs/lisp/rc/nxml.el \
+	   share/emacs/lisp/rc/org.el \
+	   share/emacs/lisp/rc/os/cygwin.el \
+	   share/emacs/lisp/rc/paren.el \
+	   share/emacs/lisp/rc/progmodes/cc-mode.el \
+	   share/emacs/lisp/rc/progmodes/compile.el \
+	   share/emacs/lisp/rc/progmodes/grep.el \
+	   share/emacs/lisp/rc/progmodes/hideshow.el \
+	   share/emacs/lisp/rc/progmodes/make-mode.el \
+	   share/emacs/lisp/rc/progmodes/rnc-mode.el \
+	   share/emacs/lisp/rc/progmodes/ruby-mode.el \
+	   share/emacs/lisp/rc/progmodes/sh-script.el \
+	   share/emacs/lisp/rc/recentf.el \
+	   share/emacs/lisp/rc/scroll-bar.el \
+	   share/emacs/lisp/rc/simple.el \
+	   share/emacs/lisp/rc/smex.el \
+	   share/emacs/lisp/rc/startup.el \
+	   share/emacs/lisp/rc/textmodes/css-mode.el \
+	   share/emacs/lisp/rc/tool-bar.el \
+	   share/emacs/lisp/rc/uniquify.el \
+	   share/emacs/lisp/rc/vc.el \
+	   share/emacs/lisp/rc/vc/diff.el \
+	   share/emacs/lisp/rc/window.el \
+	   share/emacs/lisp/rc/ws/nil.el \
+	   share/emacs/lisp/rc/ws/ns.el \
+	   share/emacs/lisp/rc/ws/w32.el \
+	   share/emacs/lisp/rc/xdisp.el \
+	   share/emacs/lisp/smex.el \
+	   share/emacs/lisp/term/screen-256color.el \
+	   share/emacs/lisp/themes/now-theme.el \
+	   share/emacs/lisp/windows-path.el
 
-install: $(userconfdir)/share/emacs/userloaddefs.el
+install: $(userconfdir)/share/emacs/lisp/userloaddefs.el
 
-$(userconfdir)/share/emacs/userloaddefs.el: $(DOTFILES)
+$(userconfdir)/share/emacs/lisp/userloaddefs.el: $(DOTFILES)
 	$(EMACS) --batch -Q --eval '(setq generated-autoload-file "$@")' -f batch-update-autoloads \
-	  share/emacs \
-	  share/emacs/ned \
-	  share/emacs/progmodes \
-	  $(userconfdir)/share/emacs/evil
+	  share/emacs/lisp \
+	  share/emacs/lisp/ned \
+	  share/emacs/lisp/progmodes \
+	  $(userconfdir)/share/emacs/lisp/evil \
+	  $(userconfdir)/share/emacs/lisp/magit
 
 $(call EMACS_template,$(DOTFILES),$(userconfdir))
 
