@@ -83,7 +83,7 @@ target_elc := $(2:.el=).elc
 install: $$(target_elc)
 
 $$(source_elc): $(1)
-	$$(EMACS) --batch -Q -L share/emacs -f batch-byte-compile $$<
+	$$(EMACS) --batch -Q -L share/emacs/lisp -f batch-byte-compile $$<
 
 $$(target_elc): $$(source_elc)
 	$$(INSTALL) -D --preserve-timestamps $$< $$(call shell_quote,$$@)
