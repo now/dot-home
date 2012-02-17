@@ -15,7 +15,7 @@ INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/imdb.xml', 'al
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/juno-records.xml', 'alias', 'juno');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/mancx.xml', 'alias', 'man');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/posix.xml', 'alias', 'posix');
-INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/thepiratebayorg.xml', 'alias', 'tpb');
+INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/thepiratebayse.xml', 'alias', 'tpb');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/tvragecom.xml', 'alias', 'tvrage');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/youtube.xml', 'alias', 'youtube');
 
