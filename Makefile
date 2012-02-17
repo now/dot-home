@@ -380,7 +380,7 @@ DOTFILES = \
 	   firefox/searchplugins/juno-records.xml \
 	   firefox/searchplugins/mancx.xml \
 	   firefox/searchplugins/posix.xml \
-	   firefox/searchplugins/thepiratebayorg.xml \
+	   firefox/searchplugins/thepiratebayse.xml \
 	   firefox/searchplugins/tvragecom.xml \
 	   firefox/searchplugins/youtube.xml \
 	   firefox/user.js
