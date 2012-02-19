@@ -1,6 +1,6 @@
 [lua]
-lua-intf=rc
-lua-config=rc={host='localhost:4212',welcome='',prompt=''}
+lua-intf=cli
+lua-config=cli={host='localhost:4212',welcome='',prompt=''}
 
 [quartztext]
 quartztext-font=Helvetica Neue
@@ -10,7 +10,6 @@ macosx-mediakeys=0
 
 [main]
 #sout=#duplicate{dst=display{delay=4000},dst="transcode{acodec=alac,channels=2,samplerate=44100}:raop{host=10.0.1.6,volume=175}"}
-media-library=0
 extraintf=lua
 key-toggle-fullscreen=f
 key-faster=]
@@ -18,6 +17,7 @@ key-slower=[
 key-rate-normal==
 key-next=Shift->
 key-prev=Shift-<
+key-stop=Shift-q
 key-jump-extrashort=Shift-Left
 key-jump+extrashort=Shift-Right
 key-jump-short=Left
@@ -34,7 +34,6 @@ key-nav-right=Command-Right
 key-vol-up=0
 key-vol-down=9
 key-vol-mute=m
-key-stop=Shift-q
 key-subdelay-up=q
 key-subdelay-down=;
 key-audiodelay-up=Shift-+
