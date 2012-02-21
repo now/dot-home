@@ -22,7 +22,13 @@
        "Insert an XSL Template."
        ""
        > "<xsl:template match=\"" _ "\">" \n
-       > "</xsl:template>" >)))
+       > "</xsl:template>" >)
+     (defun now-nxml-complete-or-indent-for-tab-command ()
+       "Try to perform nXML completion or, failing that, indent line or region."
+       (interactive)
+       (unless (run-hook-with-args-until-success 'nxml-completion-hook)
+         (call-interactively 'indent-for-tab-command)))
+     (define-key nxml-mode-map "\t" 'now-nxml-complete-or-indent-for-tab-command)))
 
 (add-hook 'nxml-mode-hook
           '(lambda ()
