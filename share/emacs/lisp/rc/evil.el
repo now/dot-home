@@ -9,6 +9,8 @@
            ((?< ?/) . ?\x27e8)
            ((?> ?/) . ?\x27e9))))
 
+(setq-default evil-shift-width 2)
+
 (defun call-interactively-at-git-root (command &optional record-flag keys)
   "Call COMMAND interactively with DEFAULT-DIRECTORY set to directory containing `.git'."
   (let ((root (locate-dominating-file (or (buffer-file-name) default-directory) ".git")))
