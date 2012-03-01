@@ -92,7 +92,7 @@
                                   reindent-then-newline-and-indent)))
       (delete-horizontal-space)))
 
-(eval-after-load 'evil-insert
+(eval-after-load 'evil-states
   '(add-hook 'evil-insert-state-exit-hook 'evil-delete-auto-indent-on-insert-state-exit))
 
 (evil-mode 1)
