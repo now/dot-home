@@ -256,58 +256,6 @@ SetKeyDelay %Saved_KeyDelay%
 return
 
 #IfWinActive
-^m::
-Hotkey ^m, Off
-Input Key, L1 C M
-if Key = b
-  DllCall("SetCursorPos", int, A_ScreenWidth, int, 0)
-else if (Key = "k" or Key = CTRL_K)
-  WinClose A
-else if Key = m
-  SendInput ^m
-else if (Key = CTRL_M)
-  SendInput {Alt down}{Tab}{Alt up}
-else if Key = r
-  Reload
-else if Key = w
-{
-  SavedDetectHiddenWindows := A_DetectHiddenWindows
-  DetectHiddenWindows on
-  PostMessage %WM_COMMAND%, 1001, , , ahk_class BINDKEYS
-  DetectHiddenWindows %SavedDetectHiddenWindows%
-}
-else if Key = c
-{
-  WinGetPos X, Y, Width, Height, A
-  SysGet nMonitors, MonitorCount
-  if (nMonitors > 1) {
-    SysGet PrimaryMonitor, MonitorPrimary
-    if (PrimaryMonitor + 1 > nMonitors)
-      OtherMonitor := PrimaryMonitor - 1
-    else
-      OtherMonitor := PrimaryMonitor + 1
-    SysGet Monitor, Monitor, %OtherMonitor%
-  } else {
-    SysGet Monitor, Monitor
-  }
-  X := MonitorLeft + (MonitorRight - MonitorLeft) / 2 - Width / 2
-  Y := MonitorTop + (MonitorBottom - MonitorTop) / 2 - Height / 2
-  WinMove A, , X, Y
-}
-else if Key = x
-{
-  WinMove A, , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%
-}
-else if Key = y
-{
-  WinGetPos X, Y, Width, Height, A
-  SysGet Monitor, Monitor
-  X := MonitorLeft + (MonitorRight - MonitorLeft) / 2 - Width / 2
-  Y := MonitorTop + (MonitorBottom - MonitorTop) / 2 - Height / 2
-  WinMove A, , X, Y
-}
-Hotkey ^m, On
-return
 
 #w::PostMessage 0x112, 0xf060, , , A
 
