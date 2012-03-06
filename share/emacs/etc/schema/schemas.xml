@@ -1,5 +1,9 @@
 <locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
+  <namespace ns="urn:oasis:names:tc:entity:xmlns:xml:catalog"
+             typeId="Entity Resolution XML Catalog"/>
+
   <documentElement localName="interface" typeId="GtkBuilder"/>
 
+  <typeId id="Entity Resolution XML Catalog" uri="catalog.rnc"/>
   <typeId id="GtkBuilder" uri="gtk-builder.rnc"/>
 </locatingRules>

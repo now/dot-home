@@ -1,0 +1,124 @@
+# $Id: catalog.dtd,v 1.10 2002/10/18 23:54:58 ndw Exp $
+
+default namespace = "urn:oasis:names:tc:entity:xmlns:xml:catalog"
+
+pubIdChars = string
+publicIdentifier = pubIdChars
+partialPublicIdentifier = pubIdChars
+uriReference = string
+\string = string
+systemOrPublic = "system" | "public"
+local.catalog.mix = notAllowed
+local.catalog.attribs = empty
+catalog =
+  element catalog {
+    attlist.catalog,
+    (public
+     | system
+     | uri
+     | rewriteSystem
+     | rewriteURI
+     | delegatePublic
+     | delegateSystem
+     | delegateURI
+     | nextCatalog
+     | group
+     | local.catalog.mix)+
+  }
+attlist.catalog &=
+  attribute prefer { systemOrPublic }?,
+  attribute xml:base { uriReference }?,
+  local.catalog.attribs
+local.public.attribs = empty
+public = element public { attlist.public, empty }
+attlist.public &=
+  attribute id { xsd:ID }?,
+  attribute publicId { publicIdentifier },
+  attribute uri { uriReference },
+  attribute xml:base { uriReference }?,
+  local.public.attribs
+local.system.attribs = empty
+system = element system { attlist.system, empty }
+attlist.system &=
+  attribute id { xsd:ID }?,
+  attribute systemId { \string },
+  attribute uri { uriReference },
+  attribute xml:base { uriReference }?,
+  local.system.attribs
+local.uri.attribs = empty
+uri = element uri { attlist.uri, empty }
+attlist.uri &=
+  attribute id { xsd:ID }?,
+  attribute name { \string },
+  attribute uri { uriReference },
+  attribute xml:base { uriReference }?,
+  local.uri.attribs
+local.rewriteSystem.attribs = empty
+rewriteSystem = element rewriteSystem { attlist.rewriteSystem, empty }
+attlist.rewriteSystem &=
+  attribute id { xsd:ID }?,
+  attribute systemIdStartString { \string },
+  attribute rewritePrefix { \string },
+  local.rewriteSystem.attribs
+local.rewriteURI.attribs = empty
+rewriteURI = element rewriteURI { attlist.rewriteURI, empty }
+attlist.rewriteURI &=
+  attribute id { xsd:ID }?,
+  attribute uriStartString { \string },
+  attribute rewritePrefix { \string },
+  local.rewriteURI.attribs
+local.delegatePublic.attribs = empty
+delegatePublic =
+  element delegatePublic { attlist.delegatePublic, empty }
+attlist.delegatePublic &=
+  attribute id { xsd:ID }?,
+  attribute publicIdStartString { partialPublicIdentifier },
+  attribute catalog { uriReference },
+  attribute xml:base { uriReference }?,
+  local.delegatePublic.attribs
+local.delegateSystem.attribs = empty
+delegateSystem =
+  element delegateSystem { attlist.delegateSystem, empty }
+attlist.delegateSystem &=
+  attribute id { xsd:ID }?,
+  attribute systemIdStartString { \string },
+  attribute catalog { uriReference },
+  attribute xml:base { uriReference }?,
+  local.delegateSystem.attribs
+local.delegateURI.attribs = empty
+delegateURI = element delegateURI { attlist.delegateURI, empty }
+attlist.delegateURI &=
+  attribute id { xsd:ID }?,
+  attribute uriStartString { \string },
+  attribute catalog { uriReference },
+  attribute xml:base { uriReference }?,
+  local.delegateURI.attribs
+local.nextCatalog.attribs = empty
+nextCatalog = element nextCatalog { attlist.nextCatalog, empty }
+attlist.nextCatalog &=
+  attribute id { xsd:ID }?,
+  attribute catalog { uriReference },
+  attribute xml:base { uriReference }?,
+  local.nextCatalog.attribs
+local.group.mix = notAllowed
+local.group.attribs = empty
+group =
+  element group {
+    attlist.group,
+    (public
+     | system
+     | uri
+     | rewriteSystem
+     | rewriteURI
+     | delegatePublic
+     | delegateSystem
+     | delegateURI
+     | nextCatalog
+     | local.group.mix)+
+  }
+attlist.group &=
+  attribute id { xsd:ID }?,
+  attribute prefer { systemOrPublic }?,
+  attribute xml:base { uriReference }?,
+  local.group.attribs
+start = catalog
