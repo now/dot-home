@@ -23,9 +23,11 @@
              '(("t" "Todo" entry (file "") "* TODO %?\n  %U\n  %i")
                ("T" "Annotated Todo" entry (file "") "* TODO %?\n  %U\n  %i\n  %a"))))))
 
-(add-hook 'org-mode-hook
-          '(lambda ()
-             (evil-define-key 'motion org-mode-map (kbd "RET") 'org-cycle)
-             (evil-define-key 'normal org-mode-map ",<" 'org-mobile-pull)
-             (evil-define-key 'normal org-mode-map ",>" 'org-mobile-push)
-             (evil-define-key 'normal org-mode-map ",t" 'org-todo)))
+(eval-after-load 'evil-maps
+  '(progn
+     (evil-declare-key 'motion org-mode-map
+       (kbd "RET") 'org-cycle)
+     (evil-declare-key 'normal org-mode-map
+       ",<" 'org-mobile-pull
+       ",>" 'org-mobile-push
+       ",t" 'org-todo)))
