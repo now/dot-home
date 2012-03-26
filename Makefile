@@ -272,6 +272,7 @@ DOTFILES = \
 	   share/emacs/lisp/rc/magit.el \
 	   share/emacs/lisp/rc/man.el \
 	   share/emacs/lisp/rc/minibuffer.el \
+	   share/emacs/lisp/rc/mumamo.el \
 	   share/emacs/lisp/rc/nxml.el \
 	   share/emacs/lisp/rc/org.el \
 	   share/emacs/lisp/rc/os/cygwin.el \
@@ -306,7 +307,7 @@ DOTFILES = \
 
 install: $(userconfdir)/share/emacs/lisp/userloaddefs.el
 
-$(userconfdir)/share/emacs/lisp/userloaddefs.el: $(DOTFILES)
+$(userconfdir)/share/emacs/lisp/userloaddefs.el: $(DOTFILES) Makefile
 	$(EMACS) --batch -Q --eval '(setq generated-autoload-file "$@")' -f batch-update-autoloads \
 	  share/emacs/lisp \
 	  share/emacs/lisp/ned \
