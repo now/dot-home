@@ -1,17 +1,27 @@
 (eval-when-compile
   (require 'cl))
 
+(eval-after-load 'ruby-mode
+  '(progn
+     (define-key ruby-mode-map "d" 'ruby-electric-end-character)
+     (define-key ruby-mode-map "e" 'ruby-electric-end-character)
+     (define-key ruby-mode-map "f" 'ruby-electric-end-character)))
+
+(eval-after-load 'evil-core
+  '(progn
+     (evil-declare-key 'normal ruby-mode-map ",t" 'ruby-find-other-file)
+     (evil-declare-key 'normal ruby-mode-map ",M" 'ruby-run-test-at-line)))
+
+(eval-after-load 'evil-vars
+  '(add-hook 'ruby-mode-hook
+             (lambda ()
+               (set (make-local-variable 'evil-shift-width) 2))))
+
 (add-hook 'ruby-mode-hook
-          '(lambda ()
-             (define-key evil-normal-state-local-map ",t" 'ruby-find-other-file)
-             (define-key evil-normal-state-local-map ",M" 'ruby-run-test-at-line)
-             (define-key evil-insert-state-local-map "d" 'ruby-electric-end-character)
-             (define-key evil-insert-state-local-map "e" 'ruby-electric-end-character)
-             (define-key evil-insert-state-local-map "f" 'ruby-electric-end-character)
-             (hs-minor-mode)
-             (set (make-local-variable 'evil-shift-width) 2)
-             (set (make-local-variable 'compile-command) "rake -s ")
-             (set (make-local-variable 'compilation-mode-makefile-name) "Rakefile")))
+          (lambda ()
+            (hs-minor-mode)
+            (set (make-local-variable 'compile-command) "rake -s ")
+            (set (make-local-variable 'compilation-mode-makefile-name) "Rakefile")))
 
 (eval-after-load 'compile
   '(progn
@@ -186,10 +196,10 @@
 ;(push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3) flymake-err-line-patterns)
 ;
 ;(add-hook 'ruby-mode-hook
-;          '(lambda ()
-;             ;; Don't want flymake mode for ruby regions in rhtml files and also on read only files
-;             (if (and (not (null buffer-file-name)) (file-writable-p buffer-file-name))
-;                 (flymake-mode))
-;             (define-key ruby-mode-map "\C-m" 'ruby-reindent-then-newline-and-indent)
-;             ))
+;          (lambda ()
+;            ;; Don't want flymake mode for ruby regions in rhtml files and also on read only files
+;            (if (and (not (null buffer-file-name)) (file-writable-p buffer-file-name))
+;                (flymake-mode))
+;            (define-key ruby-mode-map "\C-m" 'ruby-reindent-then-newline-and-indent)
+;            ))
 ;
