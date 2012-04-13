@@ -49,7 +49,7 @@ TagEditorCloseAll()
   }
 }
 
-#IfWinActive ^Job Overview\*?$ ahk_class WindowsForms10.Window.8.app3
+#IfWinActive ^Job \d+ Overview\*? - \\\\Remote$ ahk_class Transparent Windows Client
 !g::ControlFocus WindowsForms10.EDIT.app319
 
 !u::ControlFocus WindowsForms10.COMBOBOX.app32
@@ -104,24 +104,6 @@ return
 !c::ControlFocus _WwG1
 
 !l::ControlFocus SUPERGRID1
-
-!y::
-SendInput !ts
-WinWaitActive ^Trust Center$
-SendInput {Up 4}!g
-WinWaitActive ^COM Add-Ins$
-SendInput {PageUp 4}{Up}
-Sleep 50
-SendInput {Space}{Enter}
-WinWaitActive Microsoft Outlook$ ahk_class rctrl_renwnd32
-SendInput !ts
-WinWaitActive ^Trust Center$
-SendInput {Up 4}!g
-WinWaitActive ^COM Add-Ins$
-SendInput {PageUp 4}{Up}
-Sleep 50
-SendInput {Space}{Enter}
-return
 
 #IfWinActive ^SDL Trados TagEditor
 ^+s::TagEditorSaveAll()
