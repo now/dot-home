@@ -21,7 +21,12 @@
           (lambda ()
             (hs-minor-mode)
             (set (make-local-variable 'compile-command) "rake -s ")
-            (set (make-local-variable 'compilation-mode-makefile-name) "Rakefile")))
+            (set (make-local-variable 'compilation-mode-makefile-name) "Rakefile")
+            (set (make-local-variable 'paragraph-start) "\f\\|[ \t]*$\\|[ \t]*#[ \t]*@[[:alpha:]]+[ \t]")
+            (set (make-local-variable 'adaptive-fill-function)
+                 (lambda ()
+                   (if (looking-at "\\([ \t]*#[ \t]*\\)@[[:alpha:]]+[ \t]")
+                       (concat (match-string 1) "  "))))))
 
 (eval-after-load 'compile
   '(progn
