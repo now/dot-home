@@ -1,7 +1,7 @@
 (eval-after-load 'desktop
   '(progn
      (setq desktop-path '("~/.cache/emacs")
-            desktop-dirname (car desktop-path))
+           desktop-dirname (car desktop-path))
      (dolist (variable '(command-history
                          compile-history
                          evil-ex-history
