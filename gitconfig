@@ -9,7 +9,7 @@
         s = status
         unstage = reset HEAD --
 	up = pull --rebase
-        hubify = !sh -c 'git remote add origin git@github.com:$1/`basename $PWD`.git && git push origin master && git remote set-head origin -a && git checkout -q origin/master && git branch -f master origin && git checkout -q master' -
+        hubify = !sh -c 'git remote add origin git@github.com:$1/`basename $PWD`.git && git push --tags origin master && git remote set-head origin -a && git checkout -q origin/master && git branch -f master origin && git checkout -q master' -
 [color]
         diff = false
         grep = auto
