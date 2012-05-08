@@ -418,6 +418,7 @@ BINFILES = \
 	   bin/index-disc \
 	   bin/m \
 	   bin/mem-map \
+	   bin/mfedit \
 	   bin/terminal-colors \
 	   bin/pack \
 	   bin/qf \

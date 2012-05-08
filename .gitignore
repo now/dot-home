@@ -10,6 +10,7 @@ bin/emv
 bin/index-disc
 bin/m
 bin/mem-map
+bin/mfedit
 bin/pack
 bin/qf
 bin/sclipboard

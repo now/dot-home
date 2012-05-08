@@ -1,0 +1,17 @@
+#! @ZSHELL@
+
+if (( $# < 1 )); then
+  print -r -- Usage: $(basename $0) FILE...
+fi
+
+local file=
+for file in $*; do
+  local tmp=$(mktemp -t mfe)
+  (( status == 0 )) || exit 1
+  trap "rm -f $tmp; exit 130" INT
+  trap "rm -f $tmp; exit 143" TERM
+  metaflac --export-tags-to=$tmp $file
+  ${EDITOR:-vi} $tmp
+  metaflac --remove-all-tags --import-tags-from=$tmp $file
+  rm -f $tmp
+done
