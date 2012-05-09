@@ -89,7 +89,8 @@
            (member last-command '(evil-ret
                                   evil-open-below
                                   evil-open-above
-                                  reindent-then-newline-and-indent)))
+                                  reindent-then-newline-and-indent
+                                  c-electric-semi&comma)))
       (delete-horizontal-space)))
 
 (eval-after-load 'evil-states
