@@ -1,6 +1,8 @@
 (eval-when-compile
   (require 'cl))
 
+(add-to-list 'auto-mode-alist (cons (purecopy "\\(?:\\`\\|/\\)Rakefile\\'") 'ruby-mode))
+
 (eval-after-load 'ruby-mode
   '(progn
      (define-key ruby-mode-map "d" 'ruby-electric-end-character)
