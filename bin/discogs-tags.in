@@ -55,7 +55,7 @@ join-artist () {
 clean-name () {
   local -a match mbegin mend
 
-  print -r -- ${${${${${${${(L):-$*}//[\/]/-}//(#b)[[:space:]]#\(([^\)]#)\)/-$match[1]}/ & / and }/&/ and }// /_}//[?]}
+  print -r -- ${${${${${${${${(L):-$*}//[\/]/-}//(#b)[[:space:]]#\(([^\)]#)\)/-$match[1]}/ & / and }/&/ and }// /_}//[?]}//.../…}
 }
 
 differentimages=0
@@ -83,6 +83,7 @@ xml-image () {
 }
 
 precmd=
+checkpositions=1
 
 while :; do
   case $1 in
@@ -91,6 +92,9 @@ while :; do
       ;;
     (-i)
       differentimages=1
+      ;;
+    (-p)
+      checkpositions=0
       ;;
     (--)
       break
@@ -126,22 +130,25 @@ xml-array-with-substituted-marks titles $release /resp/release/tracklist/track/t
 xml-image $release primary
 (( differentimages )) && xml-image $release secondary
 
-illegalpositions=${positions:#[A-Za-z]([1-9][0-9]#|)}
-if (( $#illegalpositions > 0 )); then
-  die $(printf 'some track positions don’t contain side information on Discogs: %s: %s' $position http://www.discogs.com/release/$id)
-fi
-
 files=($directory/*.flac(Nn))
 if (( $#files != $#positions )); then
   die $(printf 'number of files in directory doesn’t match number of tracks at Discogs: %d != %d: %s: %s' $#files $#positions $directory http://www.discogs.com/release/$id)
 fi
 
-for (( i = 1; i <= $#files; i++ )); do
-  local pos=${${${${${files[i]}:t:r}##[0-9][0-9][0-9][0-9]##-}/-0}/-}
-  if [[ $pos != (#i)$positions[i] ]]; then
-    die $(printf 'track position of file doesn’t match that of track on Discogs: %s !~ %s: %s: %s' $pos $positions[i] $files[i] http://www.discogs.com/release/$id)
+if (( checkpositions )); then
+  illegalpositions=${positions:#[A-Za-z]([1-9][0-9]#|)}
+  if (( $#illegalpositions > 0 )); then
+    die $(printf 'some track positions don’t contain side information on Discogs: %s: %s' $position http://www.discogs.com/release/$id)
   fi
-done
+
+  for (( i = 1; i <= $#files; i++ )); do
+    local pos=${${${${${files[i]}:t:r}##[0-9][0-9][0-9][0-9]##-}/-0}/-}
+    if [[ $pos != (#i)$positions[i] ]] &&
+       { [[ $pos != (#i)[a-z] ]] || [[ ${pos}1 != (#i)$positions[i] ]] }; then
+      die $(printf 'track position of file doesn’t match that of track on Discogs: %s !~ %s: %s: %s' $pos $positions[i] $files[i] http://www.discogs.com/release/$id)
+    fi
+  done
+fi
 
 # TODO: Allow user to set COMMENT?
 # TODO: Allow user to set INITIALKEY?
