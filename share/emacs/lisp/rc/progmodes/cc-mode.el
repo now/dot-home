@@ -19,8 +19,4 @@
      (setq c-default-style '((java-mode . "java")
                              (awk-mode . "awk")
                              (other . "now-c-style")))
-     (define-key c-mode-base-map "\C-j" 'c-context-line-break)
-     (add-hook 'c-mode-common-hook
-               (lambda ()
-                 (c-toggle-hungry-state 1)
-                 (c-toggle-auto-newline 1)))))
+     (define-key c-mode-base-map "\C-j" 'c-context-line-break)))
