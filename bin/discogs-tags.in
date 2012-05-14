@@ -138,7 +138,7 @@ fi
 if (( checkpositions )); then
   illegalpositions=${positions:#[A-Za-z]([1-9][0-9]#|)}
   if (( $#illegalpositions > 0 )); then
-    die $(printf 'some track positions don’t contain side information on Discogs: %s: %s' $position http://www.discogs.com/release/$id)
+    die $(printf 'some track positions don’t contain side information on Discogs: %s: %s' $position http://www.discogs.com/release/$id $illegalpositions)
   fi
 
   for (( i = 1; i <= $#files; i++ )); do
