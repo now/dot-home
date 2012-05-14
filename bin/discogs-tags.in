@@ -83,6 +83,7 @@ xml-image () {
 }
 
 precmd=
+checkcount=1
 checkpositions=1
 
 while :; do
@@ -92,6 +93,9 @@ while :; do
       ;;
     (-i)
       differentimages=1
+      ;;
+    (-c)
+      checkcount=0
       ;;
     (-p)
       checkpositions=0
@@ -131,7 +135,7 @@ xml-image $release primary
 (( differentimages )) && xml-image $release secondary
 
 files=($directory/*.flac(Nn))
-if (( $#files != $#positions )); then
+if (( checkcount && $#files != $#positions )); then
   die $(printf 'number of files in directory doesn’t match number of tracks at Discogs: %d != %d: %s: %s' $#files $#positions $directory http://www.discogs.com/release/$id)
 fi
 
@@ -169,7 +173,7 @@ nmdbid=${${directory:t}%%[^0-9]*}
 local -a mixartists
 xml-artist-array mixartists $release "/resp/release/extraartists/artist[role='Remix' or role='Edited By']"
 [[ -n $(xml $release "/resp/release/tracklist/track/extraartists/artist[role='Remix' or role='Edited By']/name") ]] && trackmixartists=y
-for (( i = 1; i <= $#positions; i++ )); do
+for (( i = 1; i <= $#files; i++ )); do
   if [[ -n $trackartists ]]; then
     xml-artist-array artists $release "/resp/release/tracklist/track[position='$positions[i]']/artists/artist"
     if (( $#artists == 0 )); then
