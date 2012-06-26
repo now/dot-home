@@ -49,49 +49,18 @@ TagEditorCloseAll()
   }
 }
 
+#IfWinActive ^Nirvana \d+\.\d+\.\d+ - \\\\Remote$ ahk_class Transparent Windows Client
+!n::SendInput {F2}+{F10}a
+!j::SendInput +{Tab}+{Tab}+{Tab}
+
 #IfWinActive ^Job \d+ Overview\*? - \\\\Remote$ ahk_class Transparent Windows Client
-!g::ControlFocus WindowsForms10.EDIT.app319
-
-!u::ControlFocus WindowsForms10.COMBOBOX.app32
-
-!w::
-SendInput !sWeibull{Enter}
-SendInput !o
-return
-
+!g::SendInput {Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Tab}H{Tab}+{F10}a0,5+{Tab}+{Tab}+{Tab}+{Tab}+{Tab}+{Tab}{Space}Weibull{Enter}!o
+!w::SendInput !sWeibull{Enter}!o
 Escape::!c
-
 Enter::!o
 
-#IfWinActive ^Customer|Employee$ ahk_class WindowsForms10.Window.8.app3
+#IfWinActive ^Customer|Employee$ ahk_class Transparent Window Client
 Escape::WinClose
-
-#IfWinActive ^Nirvana ahk_class WindowsForms10.Window.8.app3
-!n::
-ControlFocus WindowsForms10.EDIT.app322
-if (ErrorLevel != 0)
-  return
-ControlGet Edit, Hwnd, , WindowsForms10.EDIT.app322
-if (ErrorLevel != 0)
-  return
-SendMessage 177, 0, -1, , ahk_id %Edit%
-return
-
-!j::ControlFocus WindowsForms10.SysListView32.app31
-
-!F4::
-WinClose
-WinWait Exit Application?, Are you sure you want to exit?, 2
-ControlSend Button1, {Enter}
-return
-
-^!c::
-Control Check, , WindowsForms10.Button.app39
-return
-
-#IfWinActive ^Deliver ahk_class WindowsForms10.Window.8.app3
-!d::Control Check, , WindowsForms10.BUTTON.app33
-Enter::!o
 
 #IfWinActive Microsoft Outlook$ ahk_class rctrl_renwnd32
 !i::
