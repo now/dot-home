@@ -130,7 +130,7 @@ released=$(xml $release /resp/release/released)
 location=$(xml $release /resp/release/country)
 xml-array genres $release /resp/release/styles/style
 xml-array positions $release /resp/release/tracklist/track/position
-xml-array-with-substituted-marks titles $release /resp/release/tracklist/track/title
+xml-array-with-substituted-marks titles $release '/resp/release/tracklist/track[position!=""]/title'
 xml-image $release primary
 (( differentimages )) && xml-image $release secondary
 
