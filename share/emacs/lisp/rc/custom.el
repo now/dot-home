@@ -1,1 +1,1 @@
-(enable-theme 'now)
+(load-theme 'now t)

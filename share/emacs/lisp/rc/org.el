@@ -1,5 +1,3 @@
-;; TODO: Remove this require once Org 7.7 is included in Emacs
-(require 'org-capture)
 (eval-after-load 'org
   '(progn
      (setq org-directory "~/Dropbox/Org"
