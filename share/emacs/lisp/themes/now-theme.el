@@ -1,7 +1,8 @@
 (deftheme now
   "Color theme by Nikolai Weibull.")
 
-(let ((class '((class color) (min-colors 89)))
+(let ((custom--inhibit-theme-enable nil) ; Work around broken custom-theme-set-faces/theme-enable/face-spec-recalc
+      (class '((class color) (min-colors 89)))
       (gui '((type x w32 mac)))
       (red "#951616")
       (green "#257325")
@@ -55,7 +56,7 @@
     `(font-lock-preprocessor-face ((,class (:foreground ,light-magenta))))
     `(font-lock-string-face ((,class (:foreground ,red))))
     `(font-lock-type-face ((,class (:foreground ,purple))))
-    `(font-lock-variable-name-face ((,class (:inherit default))))
+    `(font-lock-variable-name-face ((,class (:inherit default))) t "Blah")
     `(font-lock-warning-face ((,class (:foreground ,off-white :background ,red :weight normal))))
     `(fringe ((,class (:background "grey95"))))
     `(header-line ((,class (:inherit mode-line))))
@@ -102,7 +103,6 @@
     `(whitespace-tab ((,class (:inherit whitespace-space))))
     `(whitespace-trailing ((,class (:inherit trailing-whitespace))))
     `(woman-bold ((,gui (:weight bold)) (,class (:foreground ,blue))))
-    `(woman-italic ((,gui (:slant italic)) (,class (:foreground ,red))))
-    `(yas/field-highlight-face ((,class (:inherit highlight))))))
+    `(woman-italic ((,gui (:slant italic)) (,class (:foreground ,red))))))
 
 (provide-theme 'now)
