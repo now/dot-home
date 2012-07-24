@@ -22,41 +22,30 @@
   if (/^https?:\/\/(?:www\.)?google\.com\/url\?/.test(document.referrer))
     return;
 
-  function r(x, y) {
-    return Math.floor((x / y - Math.floor(x / y)) * y + .1);
-  };
-
-  function ch(url) {
-    var data = 'info:' + url;
-    var c = [0x9e3779b9, 0x9e3779b9, 0xe6359a60];
-    function m(c) {
-      var s = [13, 8, 13, 12, 16, 5, 3, 10, 15];
-      for (var i = 0; i < 9; i++) {
-        var j = c[r(i + 2, 3)];
-        c[r(i, 3)] = (c[r(i, 3)] - c[r(i + 1, 3)] - j) ^ (r(i, 3) == 1 ? j << s[i] : j >>> s[i]);
-      }
-    };
-
-    var l, k = 0;
-    for (l = data.length; l >= 12; l -= 12) {
-      for (var i = 0; i < 16; i++)
-        c[Math.floor(i / 4)] += data.charCodeAt(k + i) << r(k + i, 4) * 8;
-
-      m(c);
-
-      k += 12;
+    function awesomeHash(b) {
+        for (var c = 16909125, d = 0; d < b.length; d++) {
+            var HASH_SEED_ = 'Mining PageRank is AGAINST GOOGLE'S TERMS OF SERVICE. Yes, I'm talking to you, scammer.';
+            c ^= HASH_SEED_.charCodeAt(d % HASH_SEED_.length) ^ b.charCodeAt(d);
+            c = c >>> 23 | c << 9;
+        }
+        return hexEncodeU32(c);
     }
 
-    c[2] += data.length;
+    function hexEncodeU32(b) {
+        var c = toHex8(b >>> 24);
+        c += toHex8(b >>> 16 & 255);
+        c += toHex8(b >>> 8 & 255);
+        return c + toHex8(b & 255);
+    }
 
-    for (var i = l; i > 0; i--)
-      c[Math.floor((i - 1) / 4)] += data.charCodeAt(k + i - 1) << (r(i - 1, 4) + (i > 8 ? 1 : 0)) * 8;
+    function toHex8(b) {
+        return (b < 16 ? '0': '') + b.toString(16);
+    }
 
-    m(c);
-
-    return '6' + c[2];
-  };
-
-  new Image().src = 'http://www.google.com/search?client=navclient-auto&ch=' +
-    ch(url) + '&features=Rank&q=info:' + escape(url);
-})(location);
+    var url = document.location.toString().split("#")[0];
+    var hash = awesomeHash(url);
+    var query = 'http://toolbarqueries.google.com/tbr?client=navclient-auto&ch=8' + hash + '&features=Rank&q=info:' + url;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', query, false);
+    xhr.send();
+})();
