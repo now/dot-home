@@ -253,53 +253,10 @@ DOTFILES = \
 	   share/emacs/lisp/hide-mode-line.el \
 	   share/emacs/lisp/ned/ned-info-on-file.el \
 	   share/emacs/lisp/progmodes/rnc-mode.el \
-	   share/emacs/lisp/rc/bs.el \
-	   share/emacs/lisp/rc/buffer.el \
-	   share/emacs/lisp/rc/coding.el \
-	   share/emacs/lisp/rc/custom.el \
-	   share/emacs/lisp/rc/desktop.el \
-	   share/emacs/lisp/rc/dired.el \
-	   share/emacs/lisp/rc/disp-table.el \
-	   share/emacs/lisp/rc/evil.el \
-	   share/emacs/lisp/rc/files.el \
-	   share/emacs/lisp/rc/frame.el \
-	   share/emacs/lisp/rc/hide-mode-line.el \
-	   share/emacs/lisp/rc/icomplete.el \
-	   share/emacs/lisp/rc/ido.el \
-	   share/emacs/lisp/rc/indent.el \
-	   share/emacs/lisp/rc/info.el \
-	   share/emacs/lisp/rc/isearch.el \
-	   share/emacs/lisp/rc/magit.el \
-	   share/emacs/lisp/rc/man.el \
-	   share/emacs/lisp/rc/minibuffer.el \
-	   share/emacs/lisp/rc/mumamo.el \
-	   share/emacs/lisp/rc/nxml.el \
-	   share/emacs/lisp/rc/org.el \
 	   share/emacs/lisp/rc/os/cygwin.el \
-	   share/emacs/lisp/rc/paren.el \
-	   share/emacs/lisp/rc/progmodes/cc-mode.el \
-	   share/emacs/lisp/rc/progmodes/compile.el \
-	   share/emacs/lisp/rc/progmodes/grep.el \
-	   share/emacs/lisp/rc/progmodes/hideshow.el \
-	   share/emacs/lisp/rc/progmodes/make-mode.el \
-	   share/emacs/lisp/rc/progmodes/rnc-mode.el \
-	   share/emacs/lisp/rc/progmodes/ruby-mode.el \
-	   share/emacs/lisp/rc/progmodes/sh-script.el \
-	   share/emacs/lisp/rc/recentf.el \
-	   share/emacs/lisp/rc/scroll-bar.el \
-	   share/emacs/lisp/rc/simple.el \
-	   share/emacs/lisp/rc/smex.el \
-	   share/emacs/lisp/rc/startup.el \
-	   share/emacs/lisp/rc/textmodes/css-mode.el \
-	   share/emacs/lisp/rc/tool-bar.el \
-	   share/emacs/lisp/rc/uniquify.el \
-	   share/emacs/lisp/rc/vc.el \
-	   share/emacs/lisp/rc/vc/diff.el \
-	   share/emacs/lisp/rc/window.el \
 	   share/emacs/lisp/rc/ws/nil.el \
 	   share/emacs/lisp/rc/ws/ns.el \
 	   share/emacs/lisp/rc/ws/w32.el \
-	   share/emacs/lisp/rc/xdisp.el \
 	   share/emacs/lisp/smex.el \
 	   share/emacs/lisp/term/screen-256color.el \
 	   share/emacs/lisp/themes/now-theme.el \
