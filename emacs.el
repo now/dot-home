@@ -36,17 +36,6 @@
       (load-rc t "os" (symbol-name system-type))
       (load-rc t "ws" (symbol-name window-system)))))
 
-(eval-after-load 'bs
-  '(progn
-     (evil-make-overriding-map bs-mode-map 'normal t)
-     (evil-define-key 'motion bs-mode-map "h" 'evil-backward-char)
-     (evil-define-key 'motion bs-mode-map "j" 'bs-down)
-     (evil-define-key 'normal bs-mode-map "k" 'bs-up)
-     (evil-define-key 'motion bs-mode-map "k" 'bs-up)
-     (evil-define-key 'normal bs-mode-map "s" 'evil-forward-char)
-     (evil-define-key 'motion bs-mode-map "s" 'evil-forward-char)
-     (evil-define-key 'normal bs-mode-map "w" 'bs-save)))
-
 ; (eval-after-load 'buffer …)
 (setq-default indicate-buffer-boundaries '((bottom . left))
               mode-line-buffer-identification (propertized-buffer-identification "%b")
@@ -180,7 +169,19 @@
      (global-set-key (kbd "C-x C-o") 'other-window)
 
      (define-key evil-normal-state-map "`" 'smex)
-     (define-key evil-motion-state-map "`" 'smex)))
+     (define-key evil-motion-state-map "`" 'smex)
+
+     (eval-after-load 'bs
+       '(progn
+          (evil-make-overriding-map bs-mode-map 'normal t)
+          (evil-define-key 'motion bs-mode-map "h" 'evil-backward-char)
+          (evil-define-key 'motion bs-mode-map "j" 'bs-down)
+          (evil-define-key 'normal bs-mode-map "k" 'bs-up)
+          (evil-define-key 'motion bs-mode-map "k" 'bs-up)
+          (evil-define-key 'normal bs-mode-map "s" 'evil-forward-char)
+          (evil-define-key 'motion bs-mode-map "s" 'evil-forward-char)
+          (evil-define-key 'normal bs-mode-map "w" 'bs-save)))))
+
 
 (defun evil-delete-auto-indent-on-insert-state-exit ()
   (if (and (eolp)
