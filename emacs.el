@@ -24,19 +24,15 @@
     (setq-default custom-theme-directory (build-path my-share-emacs-path "themes"))
     (add-to-list 'load-path my-share-emacs-path)
     (require 'userloaddefs)
-    (labels ((add (path) (add-to-list 'load-path (build-path my-share-emacs-path path)))
-             (load-rc (missing-ok &rest components)
-                      (load (apply #'build-path my-share-emacs-path "rc" components) missing-ok))
-             (rc (&rest components) (apply #'load-rc nil components))
-             (rc-progmode (mode) (rc "progmodes" mode))
-             (rc-textmode (mode) (rc "textmodes" mode))
-             (rc-vc (mode) (rc "vc" mode)))
-      (add "evil")
-      (add "evil/lib")
-      (add "magit")
-      (add "ned")
-      (add "nxhtml/util")
-      (add "progmodes")
+    (dolist (path '("evil"
+                    "evil/lib"
+                    "magit"
+                    "ned"
+                    "nxhtml/util"
+                    "progmodes"))
+      (add-to-list 'load-path (build-path my-share-emacs-path path)))
+    (labels ((load-rc (missing-ok &rest components)
+                      (load (apply #'build-path my-share-emacs-path "rc" components) missing-ok)))
       (load-rc t "os" (symbol-name system-type))
       (load-rc t "ws" (symbol-name window-system)))))
 
