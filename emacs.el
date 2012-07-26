@@ -36,7 +36,8 @@
       (load-rc t "os" (symbol-name system-type))
       (load-rc t "ws" (symbol-name window-system)))))
 
-; (eval-after-load 'buffer …)
+;;; Interface
+
 (setq-default indicate-buffer-boundaries '((bottom . left))
               mode-line-buffer-identification (propertized-buffer-identification "%b")
               mode-line-modes (butlast mode-line-modes)
@@ -46,7 +47,6 @@
                                  (:propertize " " 'help-echo help-echo)
                                  mode-line-modes))
 
-; (eval-after-load 'coding …)
 (setq eol-mnemonic-unix ""
       eol-mnemonic-mac "mac"
       eol-mnemonic-dos "dos"
@@ -54,6 +54,64 @@
 
 ; (eval-after-load 'custom …)
 (load-theme 'now t)
+
+(require 'disp-table)
+(defface wrap-glyph
+  '((((min-colors 16) (class color))
+     :foreground "blue")
+    (t
+     :inverse-video t))
+  "Face for wrap glyph."
+  :group 'basic-faces)
+(set-display-table-slot standard-display-table 'wrap (make-glyph-code #x21A9 'wrap-glyph))
+(set-display-table-slot standard-display-table 'selective-display (vector (make-glyph-code #x2026)))
+(set-display-table-slot standard-display-table 'vertical-border (make-glyph-code #x2502))
+
+; (eval-after-load 'frame …)
+(blink-cursor-mode -1)
+
+; (eval-after-load 'hide-mode-line …)
+(hide-mode-line)
+(add-hook 'window-setup-hook
+          (lambda ()
+            (hide-mode-line-update)))
+
+; (eval-after-load 'minibuffer …)
+(setq history-length 512
+      completions-format 'vertical)
+(fset 'yes-or-no-p 'y-or-n-p)
+
+(eval-after-load 'paren
+  '(progn
+     (setq show-paren-delay 0)))
+(show-paren-mode 1)
+
+; (eval-after-load 'scroll-bar …)
+(if (fboundp 'scroll-bar-mode)
+    (scroll-bar-mode -1))
+
+(setq completion-show-help nil)
+
+; (eval-after-load 'startup …)
+(setq initial-scratch-message nil
+      auto-save-list-file-prefix "~/.cache/emacs/auto-save-list/.saves-")
+
+; (eval-after-load 'tool-bar …)
+(if (fboundp 'tool-bar-mode)
+    (tool-bar-mode -1))
+
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
+; (eval-after-load 'window …)
+(setq pop-up-windows nil)
+
+; (eval-after-load 'xdisp …)
+(setq-default show-trailing-whitespace t)
+
+(eval-after-load 'hideshow
+  '(setq hs-set-up-overlay (lambda (ov)
+                             (overlay-put ov 'display " …"))))
 
 (eval-after-load 'desktop
   '(progn
@@ -71,18 +129,6 @@
 (eval-after-load 'dired
   '(setq dired-isearch-filenames 'dwim
          dired-dwim-target t))
-
-(require 'disp-table)
-(defface wrap-glyph
-  '((((min-colors 16) (class color))
-     :foreground "blue")
-    (t
-     :inverse-video t))
-  "Face for wrap glyph."
-  :group 'basic-faces)
-(set-display-table-slot standard-display-table 'wrap (make-glyph-code #x21A9 'wrap-glyph))
-(set-display-table-slot standard-display-table 'selective-display (vector (make-glyph-code #x2026)))
-(set-display-table-slot standard-display-table 'vertical-border (make-glyph-code #x2502))
 
 ; evil
 (eval-after-load 'evil-digraphs
@@ -192,7 +238,7 @@
                                   c-electric-semi&comma)))
       (delete-horizontal-space)))
 
-(eval-after-load 'evil-states
+(eval-after-load 'evil
   '(add-hook 'evil-insert-state-exit-hook 'evil-delete-auto-indent-on-insert-state-exit))
 
 (evil-mode 1)
@@ -203,15 +249,6 @@
 ; (eval-after-load 'files …)
 (setq make-backup-files nil
       require-final-newline 'visit-save)
-
-; (eval-after-load 'frame …)
-(blink-cursor-mode -1)
-
-; (eval-after-load 'hide-mode-line …)
-(hide-mode-line)
-(add-hook 'window-setup-hook
-          (lambda ()
-            (hide-mode-line-update)))
 
 ; (eval-after-load 'icomplete …)
 (icomplete-mode 1)
@@ -253,11 +290,6 @@
 
 (eval-after-load 'man
   '(setq Man-switches "-P cat"))
-
-; (eval-after-load 'minibuffer …)
-(setq history-length 512
-      completions-format 'vertical)
-(fset 'yes-or-no-p 'y-or-n-p)
 
 (autoload 'eruby-html-mumamo "mumamo-fun")
 (eval-after-load 'mumamo
@@ -330,11 +362,6 @@
        ",>" 'org-mobile-push
        ",t" 'org-todo)))
 
-(eval-after-load 'paren
-  '(progn
-     (setq show-paren-delay 0)))
-(show-paren-mode 1)
-
 (require 'recentf)
 ; (eval-after-load 'recentf …)
 (global-set-key (kbd "C-x C-r") 'ido-find-recent-file)
@@ -345,27 +372,11 @@
   (interactive)
   (find-file (ido-completing-read "Find recent file: " recentf-list)))
 
-; (eval-after-load 'scroll-bar …)
-(if (fboundp 'scroll-bar-mode)
-    (scroll-bar-mode -1))
-
 ; (eval-after-load 'simple …)
 (setq-default fill-column 79)
 (auto-fill-mode 1)
-(setq completion-show-help nil)
 
 (smex-initialize)
-
-; (eval-after-load 'startup …)
-(setq initial-scratch-message nil
-      auto-save-list-file-prefix "~/.cache/emacs/auto-save-list/.saves-")
-
-; (eval-after-load 'tool-bar …)
-(if (fboundp 'tool-bar-mode)
-    (tool-bar-mode -1))
-
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
 
 ; (eval-after-load 'vc …)
 (setq vc-handled-backends nil)
@@ -376,12 +387,6 @@
      (add-hook 'diff-mode-hook 'now-do-not-show-trailing-whitespace)))
 (eval-after-load 'evil-core
   '(evil-declare-key 'normal diff-mode-map "q" 'close-buffer-and-window-unless-last))
-
-; (eval-after-load 'window …)
-(setq pop-up-windows nil)
-
-; (eval-after-load 'xdisp …)
-(setq-default show-trailing-whitespace t)
 
 ; TODO: Add (add-to-list 'c-cleanup-list 'defun-close-semi)?
 ; We don’t need it right now.
@@ -447,10 +452,6 @@
   '(progn
      (grep-apply-setting 'grep-command "grep -nH -P -e ")
      (evil-define-key 'normal grep-mode-map "q" 'close-buffer-and-window-unless-last)))
-
-(eval-after-load 'hideshow
-  '(setq hs-set-up-overlay (lambda (ov)
-                             (overlay-put ov 'display " …"))))
 
 (eval-after-load 'make-mode
   '(setq makefile-backslash-align nil))
