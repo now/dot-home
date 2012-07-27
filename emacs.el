@@ -235,6 +235,7 @@
 (eval-after-load 'evil
   '(add-hook 'evil-insert-state-exit-hook 'evil-delete-auto-indent-on-insert-state-exit))
 
+; TODO Move this before everything else and remove all then unnecessary eval-after-loads
 (evil-mode 1)
 ;; TODO: This might not be needed anymore.
 ;;(define-key undo-tree-visualizer-map "s" 'undo-tree-visualize-switch-branch-right)
@@ -521,20 +522,17 @@
                return (cdr e))))
     (if replacement
         (replace-match replacement nil nil file-name nil))))
-(defun ruby-implementation-file-name-p (&optional file-name)
-  (ruby-find-other-file-name (or file-name (buffer-file-name)) ruby-unit-test-file-name-mapping t))
-(defun ruby-unit-test-file-name-p (&optional file-name)
-  (ruby-find-other-file-name (or file-name (buffer-file-name)) ruby-implementation-file-name-mapping))
 ; TODO: Validate file-name
 (defun ruby-run-test-at-line (&optional file-name line)
   "Run test at LINE."
   (interactive)
   (let* ((file-name (or file-name (buffer-file-name)))
-         (test-file-name (if (ruby-implementation-file-name-p file-name)
+         (test-file-name (if (ruby-find-other-file-name file-name ruby-unit-test-file-name-mapping t)
                              (ruby-find-other-file-name file-name ruby-unit-test-file-name-mapping)
                            file-name))
          (line (or line (count-lines (point-min) (point))))
-         (line-as-string (if (ruby-unit-test-file-name-p file-name) (number-to-string line))))
+         (line-as-string (if (ruby-find-other-file-name file-name ruby-implementation-file-name-mapping)
+                             (number-to-string line))))
     (compile-package-immediately
      (concat
       "rake -s"
