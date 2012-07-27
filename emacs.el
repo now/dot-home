@@ -538,6 +538,7 @@
       "rake -s"
       " TEST=" test-file-name
       (if line-as-string (concat " LINE=" line-as-string) "")))))
+
 (defun ruby-electric-end-character (arg)
   (interactive "P")
   (self-insert-command (prefix-numeric-value arg))
@@ -546,15 +547,16 @@
   (if (ruby-electric-adjustable-word-p)
     (save-excursion
       (ruby-indent-line t))))
-(defun ruby-electric-code-at-point-p ()
-  (let ((properties (text-properties-at (point))))
-    (and (null (memq 'font-lock-string-face properties))
-         (null (memq 'font-lock-comment-face properties)))))
 (defun ruby-electric-adjustable-word-p ()
   (if (ruby-electric-code-at-point-p)
     (save-excursion
       (beginning-of-line)
       (looking-at "\\s-*\\(else\\|elsif\\|end\\|ensure\\|rescue\\)"))))
+(defun ruby-electric-code-at-point-p ()
+  (let ((properties (text-properties-at (point))))
+    (and (null (memq 'font-lock-string-face properties))
+         (null (memq 'font-lock-comment-face properties)))))
+
 (defun ruby-file-name-to-module-name (&optional file-name)
   (let ((file-name (or file-name (buffer-file-name))))
     (mapconcat 'identity
