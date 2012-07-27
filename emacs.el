@@ -2,9 +2,6 @@
 (eval-when-compile
   (require 'cl))
 
-(defun now-do-not-show-trailing-whitespace ()
-  (set (make-local-variable 'show-trailing-whitespace) nil))
-
 (defun close-buffer-and-window-unless-last ()
   (interactive)
   (let* ((buffer (current-buffer))
@@ -40,7 +37,7 @@
 
 (setq-default indicate-buffer-boundaries '((bottom . left))
               mode-line-buffer-identification (propertized-buffer-identification "%b")
-              mode-line-modes (butlast mode-line-modes)
+              mode-line-modes (butlast mode-line-modes) ; NOTE not buffer-local
               mode-line-format '(""
                                  mode-line-client
                                  mode-line-buffer-identification
@@ -48,12 +45,23 @@
                                  mode-line-modes))
 
 (setq eol-mnemonic-unix ""
-      eol-mnemonic-mac "mac"
-      eol-mnemonic-dos "dos"
+      eol-mnemonic-mac "␍"
+      eol-mnemonic-dos "␍␤"
       eol-mnemonic-undecided "?")
 
-; (eval-after-load 'custom …)
-(load-theme 'now t)
+(hide-mode-line)
+(add-hook 'window-setup-hook 'hide-mode-line-update)
+
+(eval-after-load 'scroll-bar
+  '(scroll-bar-mode -1))
+
+(eval-after-load 'tool-bar
+  '(tool-bar-mode -1))
+
+(setq completion-show-help nil
+      completions-format 'vertical)
+
+(setq initial-scratch-message nil)
 
 (require 'disp-table)
 (defface wrap-glyph
@@ -67,51 +75,37 @@
 (set-display-table-slot standard-display-table 'selective-display (vector (make-glyph-code #x2026)))
 (set-display-table-slot standard-display-table 'vertical-border (make-glyph-code #x2502))
 
-; (eval-after-load 'frame …)
+(eval-after-load 'hideshow
+  '(setq hs-set-up-overlay (lambda (ov)
+                             (overlay-put ov 'display " …"))))
+
 (blink-cursor-mode -1)
 
-; (eval-after-load 'hide-mode-line …)
-(hide-mode-line)
-(add-hook 'window-setup-hook
-          (lambda ()
-            (hide-mode-line-update)))
-
-; (eval-after-load 'minibuffer …)
-(setq history-length 512
-      completions-format 'vertical)
-(fset 'yes-or-no-p 'y-or-n-p)
-
 (eval-after-load 'paren
-  '(progn
-     (setq show-paren-delay 0)))
+  '(setq show-paren-delay 0))
 (show-paren-mode 1)
 
-; (eval-after-load 'scroll-bar …)
-(if (fboundp 'scroll-bar-mode)
-    (scroll-bar-mode -1))
+(setq-default show-trailing-whitespace t)
+(defun now-do-not-show-trailing-whitespace ()
+  (setq show-trailing-whitespace nil))
+(dolist (hook '(compilation-mode-hook
+                diff-mode-hook
+                magit-mode-hook))
+  (add-hook hook 'now-do-not-show-trailing-whitespace))
 
-(setq completion-show-help nil)
+(load-theme 'now t)
 
-; (eval-after-load 'startup …)
-(setq initial-scratch-message nil
-      auto-save-list-file-prefix "~/.cache/emacs/auto-save-list/.saves-")
-
-; (eval-after-load 'tool-bar …)
-(if (fboundp 'tool-bar-mode)
-    (tool-bar-mode -1))
+(fset 'yes-or-no-p 'y-or-n-p)
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
-; (eval-after-load 'window …)
 (setq pop-up-windows nil)
 
-; (eval-after-load 'xdisp …)
-(setq-default show-trailing-whitespace t)
+(setq history-length 512)
 
-(eval-after-load 'hideshow
-  '(setq hs-set-up-overlay (lambda (ov)
-                             (overlay-put ov 'display " …"))))
+; (eval-after-load 'startup …)
+(setq auto-save-list-file-prefix "~/.cache/emacs/auto-save-list/.saves-")
 
 (eval-after-load 'desktop
   '(progn
@@ -383,8 +377,7 @@
 
 (eval-after-load 'diff
   '(progn
-     (setq diff-switches "-u")
-     (add-hook 'diff-mode-hook 'now-do-not-show-trailing-whitespace)))
+     (setq diff-switches "-u")))
 (eval-after-load 'evil-core
   '(evil-declare-key 'normal diff-mode-map "q" 'close-buffer-and-window-unless-last))
 
@@ -410,7 +403,6 @@
                              (other . "now-c-style")))
      (define-key c-mode-base-map "\C-j" 'c-context-line-break)))
 
-(add-hook 'compilation-mode-hook 'now-do-not-show-trailing-whitespace)
 (eval-after-load 'compile
   '(setq compilation-auto-jump-to-first-error t
          compilation-scroll-output t
