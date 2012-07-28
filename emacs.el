@@ -58,9 +58,6 @@
 (eval-after-load 'tool-bar
   '(tool-bar-mode -1))
 
-(setq completion-show-help nil
-      completions-format 'vertical)
-
 (setq initial-scratch-message nil)
 
 (require 'disp-table)
@@ -101,6 +98,27 @@
 (setq uniquify-buffer-name-style 'forward)
 
 (setq pop-up-windows nil)
+
+;;; Completion
+
+(icomplete-mode 1)
+(defun now-completion-delete-prompt ()
+  (set-buffer standard-output)
+  (goto-char (point-min))
+  (delete-region (point) (search-forward "Possible completions are:\n")))
+(add-hook 'completion-setup-hook 'now-completion-delete-prompt 'append)
+(setq completion-show-help nil
+      completions-format 'vertical)
+
+(ido-mode 1)
+(ido-everywhere 1)
+(eval-after-load 'ido
+  '(setq ido-enable-flex-matching t
+         ido-enable-last-directory-history nil
+         ido-auto-merge-work-directories-length -1
+         ido-use-filename-at-point nil))
+
+(smex-initialize)
 
 (setq history-length 512)
 
@@ -245,23 +263,6 @@
 (setq make-backup-files nil
       require-final-newline 'visit-save)
 
-; (eval-after-load 'icomplete …)
-(icomplete-mode 1)
-(defun now-completion-delete-prompt ()
-  (set-buffer standard-output)
-  (goto-char (point-min))
-  (delete-region (point) (search-forward "Possible completions are:\n")))
-(add-hook 'completion-setup-hook 'now-completion-delete-prompt 'append)
-
-(eval-after-load 'ido
-  '(progn
-     (ido-everywhere 1)
-     (setq ido-enable-flex-matching t
-           ido-enable-last-directory-history nil
-           ido-auto-merge-work-directories-length -1
-           ido-use-filename-at-point nil)))
-(ido-mode 1)
-
 ; (eval-after-load 'indent …)
 (setq-default indent-tabs-mode nil)
 
@@ -370,8 +371,6 @@
 ; (eval-after-load 'simple …)
 (setq-default fill-column 79)
 (auto-fill-mode 1)
-
-(smex-initialize)
 
 ; (eval-after-load 'vc …)
 (setq vc-handled-backends nil)
