@@ -121,10 +121,29 @@
 
 (smex-initialize)
 
+;;; Functionality
+
+(setq-default fill-column 79)
+(auto-fill-mode 1)
+
+(setq vc-handled-backends nil)
+
 (setq history-length 512)
 
-; (eval-after-load 'startup …)
-(setq auto-save-list-file-prefix "~/.cache/emacs/auto-save-list/.saves-")
+(setq make-backup-files nil
+      require-final-newline 'visit-save
+      auto-save-list-file-prefix "~/.cache/emacs/auto-save-list/.saves-")
+
+(setq-default indent-tabs-mode nil)
+
+(eval-after-load 'dired
+  '(setq dired-isearch-filenames 'dwim
+         dired-dwim-target t))
+
+(add-to-list 'Info-default-directory-list "~/share/info")
+
+(eval-after-load 'man
+  '(setq Man-switches "-P cat"))
 
 (eval-after-load 'desktop
   '(progn
@@ -138,10 +157,6 @@
                          shell-command-history))
        (add-to-list 'desktop-globals-to-save variable))))
 (desktop-save-mode 1)
-
-(eval-after-load 'dired
-  '(setq dired-isearch-filenames 'dwim
-         dired-dwim-target t))
 
 ; evil
 (eval-after-load 'evil-digraphs
@@ -260,16 +275,6 @@
 ;;(define-key undo-tree-visualizer-map "s" 'undo-tree-visualize-switch-branch-right)
 ; end evil
 
-; (eval-after-load 'files …)
-(setq make-backup-files nil
-      require-final-newline 'visit-save)
-
-; (eval-after-load 'indent …)
-(setq-default indent-tabs-mode nil)
-
-; (eval-after-load 'info …)
-(add-to-list 'Info-default-directory-list "~/share/info")
-
 ; (eval-after-load 'isearch …)
 (define-key global-map "\C-s" 'isearch-forward-regexp)
 (define-key esc-map "\C-s" 'isearch-forward)
@@ -284,9 +289,6 @@
 (add-hook 'magit-log-edit-mode-hook
           (lambda ()
             (setq fill-column 72)))
-
-(eval-after-load 'man
-  '(setq Man-switches "-P cat"))
 
 (autoload 'eruby-html-mumamo "mumamo-fun")
 (eval-after-load 'mumamo
@@ -368,13 +370,6 @@
   "Use `ido-completing-read' to \\[find-file] a recentf file"
   (interactive)
   (find-file (ido-completing-read "Find recent file: " recentf-list)))
-
-; (eval-after-load 'simple …)
-(setq-default fill-column 79)
-(auto-fill-mode 1)
-
-; (eval-after-load 'vc …)
-(setq vc-handled-backends nil)
 
 (eval-after-load 'diff
   '(progn
