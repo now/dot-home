@@ -83,7 +83,7 @@ target_elc := $(2:.el=).elc
 install: $$(target_elc)
 
 $$(source_elc): $(1)
-	$$(EMACS) --batch -Q -L share/emacs/lisp -f batch-byte-compile $$<
+	$$(EMACS) --batch -Q -L share/emacs/lisp -l $(emacsuserloaddefs) -f batch-byte-compile $$<
 
 $$(target_elc): $$(source_elc)
 	$$(INSTALL) -D --preserve-timestamps $$< $$(call shell_quote,$$@)
@@ -112,6 +112,7 @@ EMACS = emacs
 prefix = ~
 userconfdir = $(prefix)
 guiuserconfdir = $(prefix)
+emacsuserloaddefs = $(userconfdir)/share/emacs/lisp/userloaddefs.el
 firefoxuserconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
 vlcuserconfdir = $(prefix)/.config/vlc
 
@@ -262,9 +263,9 @@ DOTFILES = \
 	   share/emacs/lisp/themes/now-theme.el \
 	   share/emacs/lisp/windows-path.el
 
-install: $(userconfdir)/share/emacs/lisp/userloaddefs.el
+install: $(emacsuserloaddefs)
 
-$(userconfdir)/share/emacs/lisp/userloaddefs.el: $(DOTFILES) Makefile
+$(emacsuserloaddefs): $(DOTFILES) Makefile
 	$(EMACS) --batch -Q --eval '(setq generated-autoload-file "$@")' -f batch-update-autoloads \
 	  share/emacs/lisp \
 	  share/emacs/lisp/ned \

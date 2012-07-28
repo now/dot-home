@@ -111,12 +111,13 @@
       completions-format 'vertical)
 
 (ido-mode 1)
-(ido-everywhere 1)
 (eval-after-load 'ido
-  '(setq ido-enable-flex-matching t
-         ido-enable-last-directory-history nil
-         ido-auto-merge-work-directories-length -1
-         ido-use-filename-at-point nil))
+  '(progn
+     (ido-everywhere 1)
+     (setq ido-enable-flex-matching t
+           ido-enable-last-directory-history nil
+           ido-auto-merge-work-directories-length -1
+           ido-use-filename-at-point nil)))
 
 (smex-initialize)
 
@@ -538,6 +539,7 @@
       " TEST=" test-file-name
       (if line-as-string (concat " LINE=" line-as-string) "")))))
 
+(declare-function ruby-indent-line "ruby-mode.el")
 (defun ruby-electric-end-character (arg)
   (interactive "P")
   (self-insert-command (prefix-numeric-value arg))
