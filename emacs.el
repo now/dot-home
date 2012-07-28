@@ -137,8 +137,11 @@
 (setq-default indent-tabs-mode nil)
 
 (eval-after-load 'dired
-  '(setq dired-isearch-filenames 'dwim
-         dired-dwim-target t))
+  '(progn
+     (setq dired-isearch-filenames 'dwim
+           dired-dwim-target t)
+     (if (eq system-type 'darwin)
+         (setq insert-directory-program "gls"))))
 
 (add-to-list 'Info-default-directory-list "~/share/info")
 
