@@ -18,7 +18,7 @@
                        (concat (apply #'concat directories) file))))
   ; TODO Change lisp to site-lisp
   (let ((my-share-emacs-path (build-path (expand-file-name "~") "share" "emacs" "lisp")))
-    (setq-default custom-theme-directory (build-path my-share-emacs-path "themes"))
+    (setq custom-theme-directory (build-path my-share-emacs-path "themes"))
     (add-to-list 'load-path my-share-emacs-path)
     (require 'userloaddefs)
     (dolist (path '("evil"
