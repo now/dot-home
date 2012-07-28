@@ -464,7 +464,7 @@
      (evil-declare-key 'normal ruby-mode-map ",M" 'ruby-run-test-at-line)))
 (add-hook 'ruby-mode-hook
           (lambda ()
-            (hs-minor-mode)
+            (hs-minor-mode 1)
             (set (make-local-variable 'compile-command) "rake -s ")
             (set (make-local-variable 'compilation-mode-makefile-name) "Rakefile")
             (set (make-local-variable 'paragraph-start) "\f\\|[ \t]*$\\|[ \t]*#[ \t]*@[[:alpha:]]+[ \t]")
