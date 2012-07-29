@@ -243,19 +243,7 @@
      (global-set-key (kbd "C-x C-o") 'other-window)
 
      (define-key evil-normal-state-map "`" 'smex)
-     (define-key evil-motion-state-map "`" 'smex)
-
-     (eval-after-load 'bs
-       '(progn
-          (evil-make-overriding-map bs-mode-map 'normal t)
-          (evil-define-key 'motion bs-mode-map "h" 'evil-backward-char)
-          (evil-define-key 'motion bs-mode-map "j" 'bs-down)
-          (evil-define-key 'normal bs-mode-map "k" 'bs-up)
-          (evil-define-key 'motion bs-mode-map "k" 'bs-up)
-          (evil-define-key 'normal bs-mode-map "s" 'evil-forward-char)
-          (evil-define-key 'motion bs-mode-map "s" 'evil-forward-char)
-          (evil-define-key 'normal bs-mode-map "w" 'bs-save)))))
-
+     (define-key evil-motion-state-map "`" 'smex)))
 
 (defun evil-delete-auto-indent-on-insert-state-exit ()
   (if (and (eolp)
@@ -274,6 +262,18 @@
 ;; TODO: This might not be needed anymore.
 ;;(define-key undo-tree-visualizer-map "s" 'undo-tree-visualize-switch-branch-right)
 ; end evil
+
+(eval-after-load 'bs
+  '(progn
+     (evil-make-overriding-map bs-mode-map 'normal t)
+     (evil-define-key 'motion bs-mode-map
+       "h" 'evil-backward-char
+       "j" 'bs-down
+       "k" 'bs-up
+       "k" 'bs-up
+       "s" 'evil-forward-char
+       "s" 'evil-forward-char
+       "w" 'bs-save)))
 
 ; (eval-after-load 'isearch …)
 (define-key global-map "\C-s" 'isearch-forward-regexp)
@@ -351,12 +351,10 @@
              org-agenda-files (list org-directory))
        (setq org-capture-templates
              '(("t" "Todo" entry (file "") "* TODO %?\n  %U\n  %i")
-               ("T" "Annotated Todo" entry (file "") "* TODO %?\n  %U\n  %i\n  %a"))))))
-(eval-after-load 'evil-maps
-  '(progn
-     (evil-declare-key 'motion org-mode-map
+               ("T" "Annotated Todo" entry (file "") "* TODO %?\n  %U\n  %i\n  %a"))))
+     (evil-define-key 'motion org-mode-map
        (kbd "RET") 'org-cycle)
-     (evil-declare-key 'normal org-mode-map
+     (evil-define-key 'normal org-mode-map
        ",<" 'org-mobile-pull
        ",>" 'org-mobile-push
        ",t" 'org-todo)))
@@ -373,9 +371,8 @@
 
 (eval-after-load 'diff
   '(progn
-     (setq diff-switches "-u")))
-(eval-after-load 'evil-core
-  '(evil-declare-key 'normal diff-mode-map "q" 'close-buffer-and-window-unless-last))
+     (setq diff-switches "-u")
+     (evil-define-key 'normal diff-mode-map "q" 'close-buffer-and-window-unless-last)))
 
 ; TODO: Add (add-to-list 'c-cleanup-list 'defun-close-semi)?
 ; We don’t need it right now.
@@ -451,13 +448,11 @@
 (add-to-list 'auto-mode-alist (cons (purecopy "\\(?:\\`\\|/\\)Rakefile\\'") 'ruby-mode))
 (eval-after-load 'ruby-mode
   '(progn
-     (define-key ruby-mode-map "d" 'ruby-electric-end-character)
-     (define-key ruby-mode-map "e" 'ruby-electric-end-character)
-     (define-key ruby-mode-map "f" 'ruby-electric-end-character)))
-(eval-after-load 'evil-core
-  '(progn
-     (evil-declare-key 'normal ruby-mode-map ",t" 'ruby-find-other-file)
-     (evil-declare-key 'normal ruby-mode-map ",M" 'ruby-run-test-at-line)))
+     (dolist (key '("d" "e" "f"))
+       (define-key ruby-mode-map key 'ruby-electric-end-character))
+     (evil-define-key 'normal ruby-mode-map
+       ",t" 'ruby-find-other-file
+       ",M" 'ruby-run-test-at-line)))
 (add-hook 'ruby-mode-hook
           (lambda ()
             (hs-minor-mode 1)
