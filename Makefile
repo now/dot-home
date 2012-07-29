@@ -254,7 +254,6 @@ DOTFILES = \
 	   share/emacs/lisp/hide-mode-line.el \
 	   share/emacs/lisp/ned/ned-info-on-file.el \
 	   share/emacs/lisp/progmodes/rnc-mode.el \
-	   share/emacs/lisp/rc/os/cygwin.el \
 	   share/emacs/lisp/rc/ws/nil.el \
 	   share/emacs/lisp/rc/ws/ns.el \
 	   share/emacs/lisp/rc/ws/w32.el \

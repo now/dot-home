@@ -30,7 +30,6 @@
       (add-to-list 'load-path (build-path my-share-emacs-path path)))
     (labels ((load-rc (missing-ok &rest components)
                       (load (apply #'build-path my-share-emacs-path "rc" components) missing-ok)))
-      (load-rc t "os" (symbol-name system-type))
       (load-rc t "ws" (symbol-name window-system)))))
 
 ;;; Interface
@@ -139,9 +138,7 @@
 (eval-after-load 'dired
   '(progn
      (setq dired-isearch-filenames 'dwim
-           dired-dwim-target t)
-     (if (eq system-type 'darwin)
-         (setq insert-directory-program "gls"))))
+           dired-dwim-target t)))
 
 (add-to-list 'Info-default-directory-list "~/share/info")
 
@@ -643,3 +640,9 @@
 
 (eval-after-load 'css-mode
   '(setq css-indent-offset 2))
+
+(cond
+ ((eq system-type 'cygwin)
+  (windows-path-activate))
+ ((eq system-type 'darwin)
+  (setq insert-directory-program "gls")))
