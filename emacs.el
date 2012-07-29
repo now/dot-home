@@ -27,10 +27,7 @@
                     "ned"
                     "nxhtml/util"
                     "progmodes"))
-      (add-to-list 'load-path (build-path my-share-emacs-path path)))
-    (labels ((load-rc (missing-ok &rest components)
-                      (load (apply #'build-path my-share-emacs-path "rc" components) missing-ok)))
-      (load-rc t "ws" (symbol-name window-system)))))
+      (add-to-list 'load-path (build-path my-share-emacs-path path)))))
 
 ;;; Interface
 
@@ -614,3 +611,17 @@
   (windows-path-activate))
  ((eq system-type 'darwin)
   (setq insert-directory-program "gls")))
+
+(cond
+ ((eq window-system nil)
+  (eval-after-load 'menu-bar
+    (menu-bar-mode -1)))
+ ((eq window-system 'ns)
+  (set-frame-font "DejaVu Sans Mono-14")
+  (setq default-frame-alist
+        '((font . "DejaVu Sans Mono-14") (left . 100) (width . 132) (height . 41)))
+  (set-fontset-font (frame-parameter nil 'font) 'symbol '("DejaVu Sans Mono" . "unicode-bmp")))
+ ((eq window-system 'w32)
+  (set-frame-font "DejaVu Sans Mono-9")
+  (setq default-frame-alist
+        '((font . "DejaVu Sans Mono-9") (width . 98) (height . 70))))
