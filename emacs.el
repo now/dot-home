@@ -158,20 +158,6 @@
        (add-to-list 'desktop-globals-to-save variable))))
 (desktop-save-mode 1)
 
-; evil
-(eval-after-load 'evil-digraphs
-  '(setq evil-digraphs-table-user
-         '(((?c ?b) . ?\x2022)
-           ((?t ?b) . ?\x2023)
-           ((?\( ?/) . ?\x2209)
-           ((?. ?3) . ?\x2026)
-           ((?, ?3) . ?\x22ef)
-           ((?< ?Y) . ?\x227a)
-           ((?< ?/) . ?\x27e8)
-           ((?> ?/) . ?\x27e9))))
-
-(setq-default evil-shift-width 2)
-
 (defun call-interactively-at-git-root (command &optional record-flag keys)
   "Call COMMAND interactively with DEFAULT-DIRECTORY set to directory containing `.git'."
   (let ((root (locate-dominating-file (or (buffer-file-name) default-directory) ".git")))
@@ -190,11 +176,33 @@
   (interactive)
   (call-interactively-at-git-root 'shell-command))
 
-(eval-after-load 'evil-vars
-  '(delete 'shell-mode evil-insert-state-modes))
+(defun evil-delete-auto-indent-on-insert-state-exit ()
+  (if (and (eolp)
+           (member last-command '(evil-ret
+                                  evil-open-below
+                                  evil-open-above
+                                  reindent-then-newline-and-indent
+                                  c-electric-semi&comma)))
+      (delete-horizontal-space)))
 
-(eval-after-load 'evil-maps
+(eval-after-load 'evil
   '(progn
+     (setq-default evil-shift-width 2)
+     (setq evil-digraphs-table-user
+           '(((?c ?b) . ?\x2022)
+             ((?t ?b) . ?\x2023)
+             ((?\( ?/) . ?\x2209)
+             ((?. ?3) . ?\x2026)
+             ((?, ?3) . ?\x22ef)
+             ((?< ?Y) . ?\x227a)
+             ((?< ?/) . ?\x27e8)
+             ((?> ?/) . ?\x27e9)))
+
+     (delete 'shell-mode evil-insert-state-modes)
+
+     (add-hook 'evil-insert-state-exit-hook
+               'evil-delete-auto-indent-on-insert-state-exit)
+
      (define-key evil-normal-state-map "q" 'delete-other-windows)
      (define-key evil-normal-state-map "Q" 'evil-record-macro)
 
@@ -244,24 +252,7 @@
 
      (define-key evil-normal-state-map "`" 'smex)
      (define-key evil-motion-state-map "`" 'smex)))
-
-(defun evil-delete-auto-indent-on-insert-state-exit ()
-  (if (and (eolp)
-           (member last-command '(evil-ret
-                                  evil-open-below
-                                  evil-open-above
-                                  reindent-then-newline-and-indent
-                                  c-electric-semi&comma)))
-      (delete-horizontal-space)))
-
-(eval-after-load 'evil
-  '(add-hook 'evil-insert-state-exit-hook 'evil-delete-auto-indent-on-insert-state-exit))
-
-; TODO Move this before everything else and remove all then unnecessary eval-after-loads
 (evil-mode 1)
-;; TODO: This might not be needed anymore.
-;;(define-key undo-tree-visualizer-map "s" 'undo-tree-visualize-switch-branch-right)
-; end evil
 
 (eval-after-load 'bs
   '(progn
