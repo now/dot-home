@@ -16,10 +16,9 @@
                      (let ((directories (mapcar #'file-name-as-directory (butlast components)))
                            (file (car (last components))))
                        (concat (apply #'concat directories) file))))
-  ; TODO Change lisp to site-lisp
-  (let ((my-share-emacs-path (build-path (expand-file-name "~") "share" "emacs" "lisp")))
-    (setq custom-theme-directory (build-path my-share-emacs-path "themes"))
-    (add-to-list 'load-path my-share-emacs-path)
+  (let ((my-site-lisp-path "~/share/emacs/site-lisp"))
+    (setq custom-theme-directory (build-path my-site-lisp-path "themes"))
+    (add-to-list 'load-path my-site-lisp-path)
     (require 'userloaddefs)
     (dolist (path '("evil"
                     "evil/lib"
@@ -27,7 +26,7 @@
                     "ned"
                     "nxhtml/util"
                     "progmodes"))
-      (add-to-list 'load-path (build-path my-share-emacs-path path)))))
+      (add-to-list 'load-path (build-path my-site-lisp-path path)))))
 
 ;;; Interface
 

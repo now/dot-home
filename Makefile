@@ -83,7 +83,7 @@ target_elc := $(2:.el=).elc
 install: $$(target_elc)
 
 $$(source_elc): $(1)
-	$$(EMACS) --batch -Q -L share/emacs/lisp -l $(emacsuserloaddefs) -f batch-byte-compile $$<
+	$$(EMACS) --batch -Q -L share/emacs/site-lisp -l $(emacsuserloaddefs) -f batch-byte-compile $$<
 
 $$(target_elc): $$(source_elc)
 	$$(INSTALL) -D --preserve-timestamps $$< $$(call shell_quote,$$@)
@@ -112,7 +112,7 @@ EMACS = emacs
 prefix = ~
 userconfdir = $(prefix)
 guiuserconfdir = $(prefix)
-emacsuserloaddefs = $(userconfdir)/share/emacs/lisp/userloaddefs.el
+emacsuserloaddefs = $(userconfdir)/share/emacs/site-lisp/userloaddefs.el
 firefoxuserconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
 vlcuserconfdir = $(prefix)/.config/vlc
 
@@ -250,24 +250,24 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(userconfdir))
 
 DOTFILES = \
-	   share/emacs/lisp/cygwin-mount.el \
-	   share/emacs/lisp/hide-mode-line.el \
-	   share/emacs/lisp/ned/ned-info-on-file.el \
-	   share/emacs/lisp/progmodes/rnc-mode.el \
-	   share/emacs/lisp/smex.el \
-	   share/emacs/lisp/term/screen-256color.el \
-	   share/emacs/lisp/themes/now-theme.el \
-	   share/emacs/lisp/windows-path.el
+	   share/emacs/site-lisp/cygwin-mount.el \
+	   share/emacs/site-lisp/hide-mode-line.el \
+	   share/emacs/site-lisp/ned/ned-info-on-file.el \
+	   share/emacs/site-lisp/progmodes/rnc-mode.el \
+	   share/emacs/site-lisp/smex.el \
+	   share/emacs/site-lisp/term/screen-256color.el \
+	   share/emacs/site-lisp/themes/now-theme.el \
+	   share/emacs/site-lisp/windows-path.el
 
 install: $(emacsuserloaddefs)
 
 $(emacsuserloaddefs): $(DOTFILES) Makefile
 	$(EMACS) --batch -Q --eval '(setq generated-autoload-file "$@")' -f batch-update-autoloads \
-	  share/emacs/lisp \
-	  share/emacs/lisp/ned \
-	  share/emacs/lisp/progmodes \
-	  $(userconfdir)/share/emacs/lisp/evil \
-	  $(userconfdir)/share/emacs/lisp/magit
+	  share/emacs/site-lisp \
+	  share/emacs/site-lisp/ned \
+	  share/emacs/site-lisp/progmodes \
+	  $(userconfdir)/share/emacs/site-lisp/evil \
+	  $(userconfdir)/share/emacs/site-lisp/magit
 
 $(call EMACS_template,$(DOTFILES),$(userconfdir))
 
