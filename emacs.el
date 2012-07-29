@@ -203,8 +203,39 @@
      (add-hook 'evil-insert-state-exit-hook
                'evil-delete-auto-indent-on-insert-state-exit)
 
-     (define-key evil-normal-state-map "q" 'delete-other-windows)
-     (define-key evil-normal-state-map "Q" 'evil-record-macro)
+     (flet ((define-keys (map key def &rest bindings)
+              (define-key map key def)
+              (if bindings
+                  (apply 'define-keys map bindings))))
+       (define-keys evil-normal-state-map
+         "q" 'delete-other-windows
+         "Q" 'evil-record-macro
+
+         ",b" 'ido-switch-buffer
+         ",B" 'bs-show
+         ",d" 'dired
+         ",k" 'ido-kill-buffer
+         ",w" 'save-buffer
+         ",W" 'save-some-buffers
+         "U" 'undo-tree-redo
+         ",u" 'undo-tree-visualize
+         "\C-d" 'suspend-frame
+         "g\C-g" 'ned-info-on-file
+         ",e" 'find-file
+         ",E" 'find-vc-project-file
+
+         ",c" 'vc-project-shell-command
+         ",C" 'shell-command
+
+         ",o" 'org-capture
+
+         "K" 'man
+
+         ",m" 'compile-package-immediately
+         ",n" 'next-error
+         ",p" 'previous-error
+         ",N" 'compilation-next-file
+         ",P" 'compilation-previous-file))
 
      (define-key evil-normal-state-map "s" nil)
      (define-key evil-motion-state-map "l" nil)
@@ -216,43 +247,17 @@
      (define-key evil-normal-state-map "L" 'evil-change-whole-line)
      (define-key evil-motion-state-map "S" 'evil-window-bottom)
 
-     (define-key evil-normal-state-map "K" 'man)
-
      (define-key evil-motion-state-map " " 'evil-scroll-page-down)
      (define-key evil-normal-state-map (kbd "DEL") 'evil-scroll-page-up)
-
-     (define-key evil-normal-state-map ",b" 'ido-switch-buffer)
-     (define-key evil-normal-state-map ",B" 'bs-show)
-     (define-key evil-normal-state-map ",d" 'dired)
-     (define-key evil-normal-state-map ",k" 'ido-kill-buffer)
-     (define-key evil-normal-state-map ",w" 'save-buffer)
-     (define-key evil-normal-state-map ",W" 'save-some-buffers)
-     (define-key evil-normal-state-map "U" 'undo-tree-redo)
-     (define-key evil-normal-state-map ",u" 'undo-tree-visualize)
-     (define-key evil-normal-state-map "\C-d" 'suspend-frame)
-     (define-key evil-normal-state-map "g\C-g" 'ned-info-on-file)
-     (define-key evil-normal-state-map ",e" 'find-file)
-     (define-key evil-normal-state-map ",E" 'find-vc-project-file)
-
-     (define-key evil-normal-state-map ",c" 'vc-project-shell-command)
-     (define-key evil-normal-state-map ",C" 'shell-command)
-
-     (define-key evil-normal-state-map ",o" 'org-capture)
-
-     (define-key evil-normal-state-map ",m" 'compile-package-immediately)
-     (define-key evil-normal-state-map ",n" 'next-error)
-     (define-key evil-normal-state-map ",p" 'previous-error)
-     (define-key evil-normal-state-map ",N" 'compilation-next-file)
-     (define-key evil-normal-state-map ",P" 'compilation-previous-file)
 
      (define-key evil-insert-state-map "\C-d" 'evil-normal-state)
      (define-key evil-insert-state-map "\C-^" 'evil-buffer)
 
-     (global-set-key (kbd "C-x C-o") 'other-window)
-
      (define-key evil-normal-state-map "`" 'smex)
      (define-key evil-motion-state-map "`" 'smex)))
 (evil-mode 1)
+
+(global-set-key (kbd "C-x C-o") 'other-window)
 
 (eval-after-load 'bs
   '(progn
