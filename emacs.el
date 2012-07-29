@@ -620,8 +620,9 @@
   (set-frame-font "DejaVu Sans Mono-14")
   (setq default-frame-alist
         '((font . "DejaVu Sans Mono-14") (left . 100) (width . 132) (height . 41)))
-  (set-fontset-font (frame-parameter nil 'font) 'symbol '("DejaVu Sans Mono" . "unicode-bmp")))
+  (if (fboundp 'set-fontset-font)
+      (set-fontset-font (frame-parameter nil 'font) 'symbol '("DejaVu Sans Mono" . "unicode-bmp"))))
  ((eq window-system 'w32)
   (set-frame-font "DejaVu Sans Mono-9")
   (setq default-frame-alist
-        '((font . "DejaVu Sans Mono-9") (width . 98) (height . 70))))
+        '((font . "DejaVu Sans Mono-9") (width . 98) (height . 70)))))
