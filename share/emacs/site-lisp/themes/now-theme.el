@@ -90,6 +90,7 @@
     `(org-done ((,class (:foreground ,off-white :background ,green))))
     `(org-todo ((,class (:foreground ,off-white :background ,red))))
     `(secondary-selection ((,class (:background ,cyan))))
+    `(sh-heredoc ((,class (:inherit font-lock-string-face))))
     `(success ((,class (:foreground ,off-white :background ,green))))
     `(trailing-whitespace ((,class (:inherit error))))
     `(underline ((,class (nil))))
