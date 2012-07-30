@@ -257,6 +257,7 @@
 
 (eval-after-load 'bs
   '(progn
+     (setq bs-max-window-height nil)
      (evil-make-overriding-map bs-mode-map 'normal t)
      (evil-define-key 'motion bs-mode-map
        "h" 'evil-backward-char

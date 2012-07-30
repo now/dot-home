@@ -241,6 +241,8 @@ $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
 DOTFILES = \
 	   emacs.el
 
+emacs.el: $(emacsuserloaddefs)
+
 $(call EMACS_template,$(DOTFILES),$(userconfdir),.)
 
 DOTFILES = \
