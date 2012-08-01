@@ -257,7 +257,6 @@ DOTFILES = \
 	   share/emacs/site-lisp/ned/ned-info-on-file.el \
 	   share/emacs/site-lisp/progmodes/rnc-mode.el \
 	   share/emacs/site-lisp/smex.el \
-	   share/emacs/site-lisp/term/screen-256color.el \
 	   share/emacs/site-lisp/themes/now-theme.el \
 	   share/emacs/site-lisp/windows-path.el
 
