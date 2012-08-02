@@ -94,7 +94,8 @@
 
 (setq pop-up-windows nil)
 
-(defvar xterm-standard-colors
+(defvar xterm-standard-colors)
+(setq xterm-standard-colors
   '(("black"          0 (  0   0   0))
     ("red"            1 (149  22  22))
     ("green"          2 ( 37 115  37))
