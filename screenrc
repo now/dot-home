@@ -6,6 +6,7 @@ deflogin off
 defscrollback 8192
 # NOTE: Leaving maptimeout at the default of 300, Esc key will be delayed.
 maptimeout 10
+termcapinfo xterm* ti@:te@
 term "screen-256color"
 
 escape ^Tt
