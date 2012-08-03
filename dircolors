@@ -20,8 +20,8 @@ ENDCODE [m
 
 # 1.2.1  General
 
-NORMAL	8
-FILE 	8
+NORMAL                  0
+FILE                    0
 DIR 			12
 LINK 			14
 FIFO 			11
