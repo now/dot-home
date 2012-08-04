@@ -28,6 +28,14 @@
                     "progmodes"))
       (add-to-list 'load-path (build-path my-site-lisp-path path)))))
 
+;(require 'package)
+;(setq package-enable-at-startup nil)
+;(add-to-list 'package-archives
+;             '("marmalade" . "http://marmalade-repo.org/packages/")
+;             'append)
+;(setq package-load-list '(("smex" t)))
+;(package-initialize)
+
 ;;; Interface
 
 (setq-default indicate-buffer-boundaries '((bottom . left))
