@@ -68,9 +68,12 @@ dar_options+=(--prune .Spotlight-V100
               --prune Library/Application\ Support/uTorrent/\*.torrent
               --prune Library/Logs
               --prune Library/Preferences/Macromedia
+              --prune Library/Preferences/SDMHelpData
               --prune Library/PubSub
               --prune Library/Safari
               --prune Library/Widgets
+              --prune Projects/u/build/data/UnicodeData.marshalled
+              --prune Projects/u/test/normalize.rb
               --prune cbt
               --prune opt
               --prune tmp
