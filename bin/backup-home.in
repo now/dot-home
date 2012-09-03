@@ -63,11 +63,19 @@ dar_options+=(--prune .Spotlight-V100
               --prune Library/Application\ Support/Firefox/Profiles/\*/downloads.sqlite
               --prune Library/Application\ Support/Google/Chrome
               --prune Library/Application\ Support/Google/Picasa3/cache
-              --prune Library/Application\ Support/Google/Picasa3/bigthumbs_0.db
-              --prune Library/Application\ Support/Google/Picasa3/thumbs_2.db
+              --prune Library/Application\ Support/Google/Picasa3/db3/bigthumbs_0.db
+              --prune Library/Application\ Support/Google/Picasa3/db3/previews_0.db
+              --prune Library/Application\ Support/Google/Picasa3/db3/thumbs_0.db
+              --prune Library/Application\ Support/Google/Picasa3/db3/thumbs_2.db
+              --prune Library/Application\ Support/Google/Picasa3/db3/thumbs2_0.db
+              --prune Library/Application\ Support/Google/Picasa3/network.log
+              --prune Library/Application\ Support/Google/Picasa3/synclog
+              --prune Library/Application\ Support/Google/Picasa3/temp
+              --prune Library/Application\ Support/Google/Picasa3/tmp
               --prune Library/Application\ Support/Preview
               --prune Library/Application\ Support/uTorrent/\*.old
               --prune Library/Application\ Support/uTorrent/\*.torrent
+              --prune Library/Gentoo
               --prune Library/Logs
               --prune Library/Preferences/Macromedia
               --prune Library/Preferences/SDMHelpData
@@ -174,8 +182,7 @@ dar --create $filename $dar_options |& \
         /^ [0-9]* inode(s) ignored (excluded by filters)$/d
         /^ [0-9]* inode(s) recorded as deleted from reference backup$/d
         /^ Total number of inodes considered: [0-9]*$/d
-        /^ EA saved for [0-9]* inode(s)$/d'
-        # &&
-# eval $(ssh-agent -s) > /dev/null &&
-# { rsync -a $backupdest hanjin.dreamhost.com:;
-#   kill $SSH_AGENT_PID; }
+        /^ EA saved for [0-9]* inode(s)$/d' &&
+  eval $(ssh-agent -s) > /dev/null &&
+  { rsync -a $backupdest hanjin.dreamhost.com:;
+    kill $SSH_AGENT_PID; }
