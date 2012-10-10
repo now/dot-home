@@ -3,6 +3,7 @@ set fullscreen
 set newtab=addons,downloads,help,prefs
 set showstatuslinks=0
 set status=
+set toolbars=none
 set urlseparator=,\\s\\s
 
 highlight CmdLine color: #181818; background: #f6f6f6; -moz-transition: all 0.25s
@@ -36,8 +37,6 @@ noremap s l
 noremap <silent> <Leader>h <Esc>:set invhlsearch<CR>
 cnoremap <C-G> <Esc>
 
-command! note :open javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title);}})();
-
 command! -nargs=+ song :tabopen juno <args>,  discogs <args>,  youtube <args>
 
 command! tag :open javascript:(function(){var%20a=window,b=document,c=encodeURIComponent,d=a.open("https://www.google.com/bookmarks/mark?op=edit&output=popup&bkmk="+c(b.location)+"&title="+c(b.title));a.setTimeout(function(){d.focus()},300)})();
@@ -46,28 +45,11 @@ command! related :open javascript:location.href='http://google.com/search?q=rela
 
 command! -nargs=+ sitesearch :open javascript:location.href='http://google.com/search?q='+encodeURIComponent(<q-args>)+' site:'+encodeURIComponent(location.href.replace(/^(?:http:\/\/)?([^\/]+).*/,'$1'))
 
-command! tabscleanup :javascript for(var ts=tabs.get(),i=ts.length-1;i>=0;i--)if(ts[i][1]=='(Untitled)')config.tabbrowser.removeTab(tabs.getTab(ts[i][0]-1));
-
-set toolbars=none
-autocmd! Fullscreen .* javascript options.get("toolbars").value = <state> ? "none" : "menu,tabs"
-
 command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
 lazy fmaps -u='mail\.google\.com/mail' gi gs gt gd ga gc gb gk gl *a *n *r *u *s *t u j k o n p c / q ? x s y e m ! # r a f <shift-n> ] [ z . <shift-i> <shift-u> + = - gp <shift-t>
 lazy fmap -u=google\.com/reader v v
 lazy fmap -u=google\.com/reader d d
 lazy fmaps -u=google\.com/reader -events=vkeypress ? j k <space> <s-space> n p gt o m r f / a
-
-style -name Quora www.quora.com body { background; white }
-
-style -name BikesnobNYC bikesnobnyc.blogspot.com <<EOS
-  body, #outer-wrapper {
-    font: 10pt sans-serif !important;
-  }
-
-  .post-body, .post-body div {
-    text-align: justify !important;
-  }
-EOS
 
 style -name GitHub github.com <<EOS
   pre,
