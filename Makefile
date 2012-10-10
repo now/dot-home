@@ -112,6 +112,7 @@ EMACS = emacs
 prefix = ~
 userconfdir = $(prefix)
 guiuserconfdir = $(prefix)
+audacityuserconfdir = $(userconfdir)/.audacity
 emacsuserloaddefs = $(userconfdir)/share/emacs/site-lisp/userloaddefs.el
 firefoxuserconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
 vlcuserconfdir = $(prefix)/.config/vlc
@@ -285,6 +286,11 @@ DOTFILES = \
 	   vimperator/plugin/feed-some-keys.js
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),$(if $(subst Cygwin,,$(uname)),.))
+
+DOTFILES = \
+	   audacity.cfg
+
+$(call GROUP_template,$(DOTFILES),$(audacityuserconfdir))
 
 DOTFILES = \
 	   vlc/vlcrc
