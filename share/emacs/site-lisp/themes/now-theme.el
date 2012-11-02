@@ -67,7 +67,7 @@
     `(lazy-highlight ((,class (:foreground ,black :background ,light-yellow))))
     `(link ((,class (:foreground ,blue))))
     `(link-visited ((,class (:foreground ,purple))))
-    `(magit-brank ((,class (:inherit dired-directory))))
+    `(magit-branch ((,class (:inherit dired-directory))))
     `(magit-log-head-label-bisect-bad ((,class (,@blank :inherit error))))
     `(magit-log-head-label-bisect-good ((,class (,@blank :inherit success))))
     ; magit-log-head-label-*
