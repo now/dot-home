@@ -144,6 +144,7 @@
 (declare-function ido-ubiquitous-mode "ido-ubiquitous.el")
 (ido-ubiquitous-mode 1)
 
+(declare-function smex-initialize "smex.el")
 (smex-initialize)
 
 ;;; Functionality
