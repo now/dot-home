@@ -1,8 +1,7 @@
 (deftheme now
   "Color theme by Nikolai Weibull.")
 
-(let (;(custom--inhibit-theme-enable nil) ; Work around broken custom-theme-set-faces/theme-enable/face-spec-recalc
-      (class '((class color) (min-colors 89)))
+(let ((class '((class color) (min-colors 89)))
       (blank '(:foreground unspecified :background unspecified :weight unspecified :box unspecified :inherit unspecified))
       (gui '((type x w32 mac)))
       (black "#000000")
