@@ -22,19 +22,19 @@
     (require 'userloaddefs)
     (dolist (path '("evil"
                     "evil/lib"
-                    "magit"
                     "ned"
-                    "nxhtml/util"
                     "progmodes"))
       (add-to-list 'load-path (build-path my-site-lisp-path path)))))
 
-;(require 'package)
-;(setq package-enable-at-startup nil)
-;(add-to-list 'package-archives
-;             '("marmalade" . "http://marmalade-repo.org/packages/")
-;             'append)
-;(setq package-load-list '(("smex" t)))
-;(package-initialize)
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/")
+             'append)
+(setq package-load-list '((ido-ubiquitous t)
+                          (magit t)
+                          (smex t)))
+(package-initialize)
 
 ;;; Interface
 
@@ -93,6 +93,7 @@
                 magit-mode-hook))
   (add-hook hook 'now-do-not-show-trailing-whitespace))
 
+(set-terminal-parameter nil 'background-mode 'light)
 (load-theme 'now t)
 
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -140,6 +141,8 @@
            ido-enable-last-directory-history nil
            ido-auto-merge-work-directories-length -1
            ido-use-filename-at-point nil)))
+(declare-function ido-ubiquitous-mode "ido-ubiquitous.el")
+(ido-ubiquitous-mode 1)
 
 (smex-initialize)
 
@@ -277,7 +280,9 @@
      (define-key evil-insert-state-map "\C-^" 'evil-buffer)
 
      (define-key evil-normal-state-map "`" 'smex)
-     (define-key evil-motion-state-map "`" 'smex)))
+     (define-key evil-motion-state-map "`" 'smex)
+     (define-key evil-normal-state-map "~" 'smex-major-mode-commands)
+     (define-key evil-motion-state-map "~" 'smex-major-mode-commands)))
 (evil-mode 1)
 
 (global-set-key (kbd "C-x C-o") 'other-window)
@@ -302,18 +307,11 @@
 (define-key esc-map "\C-r" 'isearch-backward)
 
 ; (eval-after-load 'magit …)
-; TODO Is this needed?
-(autoload 'magit-status "magit" nil t)
 (eval-after-load 'magit
   '(define-key magit-mode-map "q" 'close-buffer-and-window-unless-last))
 (add-hook 'magit-log-edit-mode-hook
           (lambda ()
             (setq fill-column 72)))
-
-(autoload 'eruby-html-mumamo "mumamo-fun")
-(eval-after-load 'mumamo
-  '(setq mumamo-chunk-coloring 511))
-(add-to-list 'auto-mode-alist '("html[/\\\\][^/\\\\]*\\.erb\\'" . eruby-html-mumamo))
 
 ; (eval-after-load 'nxml …)
 (add-to-list 'auto-mode-alist '("\\.xsd\\'" . nxml-mode))

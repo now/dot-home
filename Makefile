@@ -253,11 +253,9 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(userconfdir))
 
 DOTFILES = \
-	   share/emacs/site-lisp/cygwin-mount.el \
 	   share/emacs/site-lisp/hide-mode-line.el \
 	   share/emacs/site-lisp/ned/ned-info-on-file.el \
 	   share/emacs/site-lisp/progmodes/rnc-mode.el \
-	   share/emacs/site-lisp/smex.el \
 	   share/emacs/site-lisp/themes/now-theme.el \
 	   share/emacs/site-lisp/windows-path.el
 
@@ -268,8 +266,7 @@ $(emacsuserloaddefs): $(DOTFILES) Makefile
 	  share/emacs/site-lisp \
 	  share/emacs/site-lisp/ned \
 	  share/emacs/site-lisp/progmodes \
-	  $(userconfdir)/share/emacs/site-lisp/evil \
-	  $(userconfdir)/share/emacs/site-lisp/magit
+	  $(userconfdir)/share/emacs/site-lisp/evil
 
 $(call EMACS_template,$(DOTFILES),$(userconfdir))
 
