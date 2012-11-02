@@ -55,7 +55,7 @@ join-artist () {
 clean-name () {
   local -a match mbegin mend
 
-  print -r -- ${${${${${${${${(L):-$*}//[\/]/-}//(#b)[[:space:]]#\(([^\)]#)\)/-$match[1]}/ & / and }/&/ and }// /_}//[?]}//.../…}
+  print -r -- ${${${${${${${${(L):-$*}//[\/]/-}//(#b)[[:space:]]#\(([^\)]#)\)/-$match[1]}/ & / and }/&/ and }// /_}//[?!]}//.../…}
 }
 
 differentimages=0
