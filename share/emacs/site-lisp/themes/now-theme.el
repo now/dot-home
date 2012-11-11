@@ -2,7 +2,13 @@
   "Color theme by Nikolai Weibull.")
 
 (let ((class '((class color) (min-colors 89)))
-      (blank '(:foreground unspecified :background unspecified :weight unspecified :box unspecified :inherit unspecified))
+      (blank '(:foreground unspecified
+               :background unspecified
+               :underline unspecified
+               :inverse-video unspecified
+               :weight unspecified
+               :box unspecified
+               :inherit unspecified))
       (gui '((type x w32 mac)))
       (black "#000000")
       (red "#951616")
@@ -41,11 +47,20 @@
     `(diff-refine-added ((,class (:inherit (diff-added diff-refine-change)))))
     `(diff-refine-removed ((,class (:inherit (diff-removed diff-refine-change)))))
     `(diff-removed ((,class (:foreground ,red))))
-    `(dired-directory ((,class (:foreground ,light-blue))))
+    `(dired-directory ((,class (,@blank :foreground ,light-blue))))
+    `(dired-header ((,class (:inherit header))))
+    `(dired-perm-write ((,class (,@blank :foreground "#ff00ff"))))
+    `(dired-symlink ((,class (,@blank ,light-cyan))))
     `(error ((,class (,@blank :foreground ,off-white :background ,red))))
     `(escape-glyph ((,class (:foreground ,light-blue))))
     `(font-lock-builtin-face ((,class ,blank)))
-    `(font-lock-comment-face ((,class (:foreground ,green))))
+    `(font-lock-comment-face ((,class (,@blank :background "grey90"))))
+    ; NOTE This won’t work on Mac OS X Terminal, as it can’t inverse the cursor as well.  Jeesh.
+    ;`(font-lock-comment-face ((,class (,@blank :inverse-video t))))
+    ;`(font-lock-comment-face ((,class (,@blank :foreground ,off-white :background ,off-black))))
+    ; NOTE This may be nice, but needs testing.  I’d prefer the above
+    ; alternative over this 50-50 solution, but that may not be possible.
+    ;`(font-lock-comment-face ((,class (,@blank :foreground ,off-white :background "grey50"))))
     `(font-lock-constant-face ((,class ,blank)))
     `(font-lock-function-name-face ((,class ,blank)))
     `(font-lock-keyword-face ((,class ,blank)))
@@ -55,7 +70,7 @@
     `(font-lock-variable-name-face ((,class ,blank)))
     `(font-lock-warning-face ((,class (:inherit warning))))
     `(glyphless-char ((,class (:inherit escape-glyph))))
-    `(header-line ((,class (:inherit mode-line))))
+    `(header-line ((,class (,@blank :inherit mode-line))))
     `(highlight ((,class (:foreground ,off-white :background ,blue))))
     `(ido-first-match ((,class (:weight unspecified :inherit isearch))))
     `(ido-only-match ((,class (:foreground unspecified :inherit success))))
@@ -71,6 +86,7 @@
     `(magit-log-head-label-bisect-good ((,class (,@blank :inherit success))))
     ; magit-log-head-label-*
     `(magit-log-sha1 ((,class ,blank)))
+    `(makefile-space ((,class (,@blank :inherit error))))
     `(match ((,class (:inherit isearch))))
     `(minibuffer-prompt ((,class ,blank)))
     `(mode-line ((,class (,@blank :background "grey70"))))
