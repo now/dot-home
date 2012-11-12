@@ -137,6 +137,7 @@ DOTFILES = \
 	   mplayer/config \
 	   sbclrc \
 	   screenrc \
+	   tmux.conf \
 	   vim/after/ftplugin/c.vim \
 	   vim/after/ftplugin/context.vim \
 	   vim/after/ftplugin/css.vim \
