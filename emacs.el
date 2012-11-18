@@ -485,6 +485,16 @@
 (eval-after-load 'compile
   '(progn
      (add-to-list 'compilation-error-regexp-alist-alist
+                  '(autotest-header
+                    "^\\([1-9][0-9]*\\. \\([^\n :]+\\.at\\):\\([1-9][0-9]*\\)\\): \\(?: FAILED\\|WARNIN\\(G\\)\\|\\(testing\\| ok\\)\\)"
+                    2 3 nil (4 . 5) 1))
+     (add-to-list 'compilation-error-regexp-alist 'autotest-header)
+     (add-to-list 'compilation-error-regexp-alist-alist
+                  '(autotest-check-error
+                    "^\\(\\([^\n :]+\\.at\\):\\([1-9][0-9]*\\)\\): [^\n]+\n\\(?:\\([^-]\\)\\|--- \\)"
+                    2 3 nil (nil . 4) 1))
+     (add-to-list 'compilation-error-regexp-alist 'autotest-check-error)
+     (add-to-list 'compilation-error-regexp-alist-alist
                   '(gnu
                     "^\\(?:[[:alpha:]][-[:alnum:].]+: ?\\|[ \t]+\\(?:in \\|from \\)\\)?\
 \\([0-9]*[^0-9\n]\\(?:[^\n :]\\| [^-/\n]\\|:[^ \n]\\)*?\\): ?\
