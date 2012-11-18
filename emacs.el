@@ -490,9 +490,14 @@
                     2 3 nil (4 . 5) 1))
      (add-to-list 'compilation-error-regexp-alist 'autotest-header)
      (add-to-list 'compilation-error-regexp-alist-alist
+                  '(autotest-check
+                    "^\\(\\([^\n :]+\\.at\\):\\([1-9][0-9]*\\)\\): "
+                    2 3 nil 0 1))
+     (add-to-list 'compilation-error-regexp-alist 'autotest-check)
+     (add-to-list 'compilation-error-regexp-alist-alist
                   '(autotest-check-error
-                    "^\\(\\([^\n :]+\\.at\\):\\([1-9][0-9]*\\)\\): [^\n]+\n\\(?:\\([^-]\\)\\|--- \\)"
-                    2 3 nil (nil . 4) 1))
+                    "^\\(\\([^\n :]+\\.at\\):\\([1-9][0-9]*\\)\\): [^\n]+\n--- "
+                    2 3 nil 2 1))
      (add-to-list 'compilation-error-regexp-alist 'autotest-check-error)
      (add-to-list 'compilation-error-regexp-alist-alist
                   '(gnu
