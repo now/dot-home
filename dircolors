@@ -55,6 +55,7 @@ STICKY                  202
 *.taz 	        3
 *.tbz2	        3
 *.tgz 	        3
+*.xz   	        3
 *.z   	        3
 *.zip 	        3
 

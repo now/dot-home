@@ -18,9 +18,10 @@ optdesc=(
 unpack () {
   case $1 in
     (*.tar) tar xf $1 ;;
-    (*.tgz|*.tar.gz) gzip -d < $1 | tar x ;;
-    (*.tbz2|*.tar.bz2) bzip2 -d < $1 | tar x ;;
+    (*.tar.bz2|*.tbz2) bzip2 -d < $1 | tar x ;;
+    (*.tar.gz|*.tgz|) gzip -d < $1 | tar x ;;
     (*.tar.lzma) lzma -d < $1 | tar x ;;
+    (*.tar.xz) unxz < $1 | tar x ;;
     (*.tar.Z) uncompress < $1 | tar x ;;
     (*.gz) gzip -d -- $1 ;;
     (*.bz2) bzip2 -d -- $1 ;;
