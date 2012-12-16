@@ -209,6 +209,7 @@
                                   evil-open-below
                                   evil-open-above
                                   reindent-then-newline-and-indent
+                                  c-context-line-break
                                   c-electric-semi&comma)))
       (delete-horizontal-space)))
 
