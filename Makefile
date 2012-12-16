@@ -12,12 +12,19 @@ shell_quote = $(subst $(space),\ ,$(1))
 
 # 1: File
 # 2: Target
-# 3: Mode
-define GROUP_template_file
+define GROUP_template_diff_file
 GROUP_diff_target := $(2).diff
 .PHONY diff: $$(GROUP_diff_target)
 $$(GROUP_diff_target):
 	@$$(DIFF) -u $(2) $(1) || true
+
+endef
+
+# 1: File
+# 2: Target
+# 3: Mode
+define GROUP_template_file
+$(call GROUP_template_diff_file,$(1),$(2))
 
 install: $(2)
 $(2): $(1)
