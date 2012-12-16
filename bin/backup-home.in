@@ -166,10 +166,16 @@ if [[ $1 == diff ]]; then
     print -u 2 "No previous backup"
     exit 1
   fi
+  base=${${filenames[1]:r}%%.[[:digit:]]##}
+  if [[ $base == $filename ]]; then
+    print -u 2 "backup-home: base is from same day as diff"
+    exit 1
+  fi
   filename=$filename-diff
-  dar_options+=(-A ${${filenames[1]:r}%%.[[:digit:]]##})
+  dar_options+=(-A $base)
 fi
 
+# TODO On Unix: eval $(keychain --eval --quiet --noask --dir $HOME/.keychain id_dsa)
 dar --create $filename $dar_options |& \
   sed '/^Warning, the archive .* has been encrypted. A wrong key is not possible to detect, it would cause DAR to report the archive as corrupted$/d
         /^-J is only useful with -A option, for the archive of reference$/d
@@ -186,6 +192,4 @@ dar --create $filename $dar_options |& \
         /^ [0-9]* inode(s) recorded as deleted from reference backup$/d
         /^ Total number of inodes considered: [0-9]*$/d
         /^ EA saved for [0-9]* inode(s)$/d' &&
-  eval $(ssh-agent -s) > /dev/null &&
-  { rsync -a $backupdest hanjin.dreamhost.com:;
-    kill $SSH_AGENT_PID; }
+  rsync -a $backupdest hanjin.dreamhost.com:
