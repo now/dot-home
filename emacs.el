@@ -302,6 +302,11 @@
        "s" 'evil-forward-char
        "w" 'bs-save)))
 
+(eval-after-load 'calc
+  (setq-default calc-group-char " "
+                calc-gnuplot-default-device "dumb"
+                calc-show-banner nil))
+
 ; (eval-after-load 'isearch …)
 (define-key global-map "\C-s" 'isearch-forward-regexp)
 (define-key esc-map "\C-s" 'isearch-forward)
