@@ -110,6 +110,7 @@
     `(region ((,class (:background ,light-cyan))))
     `(secondary-selection ((,class (:background ,cyan))))
     `(sh-heredoc ((,class (:inherit font-lock-string-face))))
+    `(sh-quoted-exec ((,class (:inherit font-lock-string-face))))
     `(show-paren-match ((,class (,@blank :inherit success))))
     `(show-paren-mismatch ((,class (,@blank :inherit error))))
     `(success ((,class (,@blank :foreground ,off-white :background ,green))))
