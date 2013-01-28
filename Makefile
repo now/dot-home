@@ -314,7 +314,6 @@ GM_SCRIPTS = \
 	     firefox/gm_scripts/google-reader-download-linked-content.user.js \
 	     firefox/gm_scripts/google-reader-view-original-in-background.user.js \
 	     firefox/gm_scripts/mediafire-auto-download.user.js \
-	     firefox/gm_scripts/update-google-web-history.user.js \
 	     firefox/gm_scripts/zshare-mp3-links.user.js
 
 GM_CONFIG = $(firefoxuserconfdir)/gm_scripts/config.xml
