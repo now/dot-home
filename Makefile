@@ -255,6 +255,7 @@ emacs.el: $(emacsuserloaddefs)
 $(call EMACS_template,$(DOTFILES),$(userconfdir),.)
 
 DOTFILES = \
+	   share/emacs/etc/schema/catalog.rnc \
 	   share/emacs/etc/schema/gtk-builder.rnc \
 	   share/emacs/etc/schema/schemas.xml
 
