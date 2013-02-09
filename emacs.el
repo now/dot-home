@@ -474,6 +474,8 @@
 (eval-after-load 'make-mode
   '(setq makefile-backslash-align nil))
 
+(add-to-list 'auto-mode-alist (cons (purecopy "\\.at\\'") 'm4-mode))
+
 (autoload 'rnc-mode "rnc-mode")
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.rnc\\'") 'rnc-mode))
 
