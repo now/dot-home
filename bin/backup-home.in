@@ -61,6 +61,7 @@ dar_options+=(--prune .Spotlight-V100
               --prune Library/Application\ Support/Firefox/Profiles/\*/adblockplus
               --prune Library/Application\ Support/Firefox/Profiles/\*/bookmarkbackups
               --prune Library/Application\ Support/Firefox/Profiles/\*/downloads.sqlite
+              --prune Library/Application\ Support/Firefox/Profiles/\*/sessionstore.bak
               --prune Library/Application\ Support/Google/Chrome
               --prune Library/Application\ Support/Google/Picasa3/cache
               --prune Library/Application\ Support/Google/Picasa3/db3/bigthumbs_0.db
