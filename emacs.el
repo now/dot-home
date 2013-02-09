@@ -263,7 +263,15 @@
          ",n" 'next-error
          ",p" 'previous-error
          ",N" 'compilation-next-file
-         ",P" 'compilation-previous-file))
+         ",P" 'compilation-previous-file)
+       ; TODO This should be done in evil-maps.el.  Oh, and it doesn’t work.
+       (define-keys evil-read-key-map
+         "\C-k" 'evil-insert-digraph)
+       ; TODO This doesn’t work either.
+       (define-keys evil-ex-search-keymap
+         "\C-k" 'evil-insert-digraph)
+       (define-keys minibuffer-local-map
+         "\C-k" 'evil-insert-digraph))
 
      (define-key evil-normal-state-map "s" nil)
      (define-key evil-motion-state-map "l" nil)
