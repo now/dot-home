@@ -274,8 +274,7 @@ $(emacsuserloaddefs): $(DOTFILES) Makefile
 	$(EMACS) --batch -Q --eval '(setq generated-autoload-file "$@")' -f batch-update-autoloads \
 	  share/emacs/site-lisp \
 	  share/emacs/site-lisp/ned \
-	  share/emacs/site-lisp/progmodes \
-	  $(userconfdir)/share/emacs/site-lisp/evil
+	  share/emacs/site-lisp/progmodes
 
 $(call EMACS_template,$(DOTFILES),$(userconfdir))
 

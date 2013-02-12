@@ -1,4 +1,3 @@
-; TODO: Remove once we switch to Emacs 24
 (eval-when-compile
   (require 'cl))
 
@@ -20,9 +19,7 @@
     (setq custom-theme-directory (build-path my-site-lisp-path "themes"))
     (add-to-list 'load-path my-site-lisp-path)
     (require 'userloaddefs)
-    (dolist (path '("evil"
-                    "evil/lib"
-                    "ned"
+    (dolist (path '("ned"
                     "progmodes"))
       (add-to-list 'load-path (build-path my-site-lisp-path path)))))
 
@@ -31,9 +28,11 @@
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/")
              'append)
-(setq package-load-list '((ido-ubiquitous t)
+(setq package-load-list '((evil t)
+                          (ido-ubiquitous t)
                           (magit t)
-                          (smex t)))
+                          (smex t)
+                          (undo-tree t)))
 (package-initialize)
 
 ;;; Interface
@@ -231,11 +230,11 @@
      (add-hook 'evil-insert-state-exit-hook
                'evil-delete-auto-indent-on-insert-state-exit)
 
-     (flet ((define-keys (map key def &rest bindings)
-              (define-key map key def)
-              (if bindings
-                  (apply 'define-keys map bindings))))
-       (define-keys evil-normal-state-map
+     (let ((define-keys (lambda (map key def &rest bindings)
+                          (define-key map key def)
+                          (if bindings
+                              (apply define-keys map bindings)))))
+       (funcall define-keys evil-normal-state-map
          "q" 'delete-other-windows
          "Q" 'evil-record-macro
 
@@ -265,12 +264,12 @@
          ",N" 'compilation-next-file
          ",P" 'compilation-previous-file)
        ; TODO This should be done in evil-maps.el.  Oh, and it doesn’t work.
-       (define-keys evil-read-key-map
+       (funcall define-keys evil-read-key-map
          "\C-k" 'evil-insert-digraph)
        ; TODO This doesn’t work either.
-       (define-keys evil-ex-search-keymap
+       (funcall define-keys evil-ex-search-keymap
          "\C-k" 'evil-insert-digraph)
-       (define-keys minibuffer-local-map
+       (funcall define-keys minibuffer-local-map
          "\C-k" 'evil-insert-digraph))
 
      (define-key evil-normal-state-map "s" nil)
@@ -377,14 +376,14 @@
            org-src-fontify-natively t
            org-reverse-note-order t
            org-log-done 'time)
-     (flet ((org-file (file)
+     (let ((org-file (file)
                       (concat (file-name-as-directory org-directory) file)))
-       (setq org-mobile-inbox-for-pull (org-file "from-mobile.org")
-             org-default-notes-file (org-file "refile.org")
-             org-agenda-files (list org-directory))
-       (setq org-capture-templates
-             '(("t" "Todo" entry (file "") "* TODO %?\n  %U\n  %i")
-               ("T" "Annotated Todo" entry (file "") "* TODO %?\n  %U\n  %i\n  %a"))))
+       (setq org-mobile-inbox-for-pull (funcall org-file "from-mobile.org")
+             org-default-notes-file (funcall org-file "refile.org")
+             org-agenda-files (list org-directory)))
+     (setq org-capture-templates
+           '(("t" "Todo" entry (file "") "* TODO %?\n  %U\n  %i")
+             ("T" "Annotated Todo" entry (file "") "* TODO %?\n  %U\n  %i\n  %a")))
      (evil-define-key 'motion org-mode-map
        (kbd "RET") 'org-cycle)
      (evil-define-key 'normal org-mode-map
