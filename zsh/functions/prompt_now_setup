@@ -6,68 +6,6 @@ Nothing to see here.
 EOH
 }
 
-integer PSCOL=-1
-PSZERO='%([BSUbfksu]|[0-9]#[FK]({[^}]##}|))'
-
-prompt_now_precmd () {
-  psvar[8]=$?
-  (( psvar[8] )) || psvar[8]=
-
-  emulate -L zsh
-  setopt extendedglob
-
-  (( ${+functions[vcs_info]} )) && vcs_info
-
-  prompt_now_adjust_width || return
-
-  local -A cs
-  prompt_now_chars
-
-  local host=
-  [[ -n $SSH_CONNECTION ]] && host=' %m'
-  local -ah ps1
-  ps1=(
-    '%249K'
-    "%$COLUMNS<$cs[…]<"
-    '%~'
-    '%8(V. [%9F%8v%f].)'
-    \$vcs_info_msg_0_
-    '%9v'
-    $host
-    '%<<'
-    '%k'
-    $'\n'
-  )
-  PS1=${(j::)ps1}
-
-  local listprompt='More%R page: %p'
-  integer fill
-  (( fill = COLUMNS - ${#${${listprompt//\%R}//\%p/Top}} - 2 ))
-  zstyle ':completion:*:default' list-prompt \
-    "%K{white}${listprompt%\%R*}${(l:fill:)}${listprompt##*%R}%k"
-}
-
-prompt_now_winch () {
-  prompt_now_adjust_width && zle && zle reset-prompt
-}
-
-prompt_now_adjust_width () {
-  emulate -L zsh
-  setopt extendedglob
-
-  local saved_vcs_info_msg_0_=$vcs_info_msg_0_
-  integer width
-
-  psvar[9]=""
-  vcs_info_msg_0_=${vcs_info_msg_0_//$~PSZERO}
-  (( width = COLUMNS - ${#${(f)${(%%)${PS1//$~PSZERO}}}[1]} ))
-  vcs_info_msg_0_=$saved_vcs_info_msg_0_
-  psvar[9]=${(l:width:)}
-
-  (( COLUMNS == PSCOL )) && return 1
-  (( PSCOL = COLUMNS ))
-}
-
 prompt_now_chars () {
   case $TERM in
     (xterm-256color|screen-256color) cs=('…' '…' '“' '“' '”' '”') ;;
@@ -77,49 +15,36 @@ prompt_now_chars () {
 
 prompt_now_setup () {
   emulate -L zsh
-  setopt extendedglob nolocaltraps
+  setopt extendedglob
   prompt_opts=(cr percent subst)
 
-  zstyle ':vcs_info:*' stagedstr '%F{green}+'
-  zstyle ':vcs_info:*' unstagedstr '%F{red}!'
-  zstyle ':vcs_info:*' formats ' [%b%c%u%f]'
-  zstyle ':vcs_info:*' actionformats ' [%a: %b%c%u%f]'
-
   prompt_now_teardown
-  prompt_now_precmd
 
   local -A cs
   prompt_now_chars
 
+  PS1='%(?..; \$?=%9F%?%f)${SSH_CONNECTION:+; ssh %M}; cd %~; '
   PS2='${(l|$((2 * ${(w)#${(%%):-%_}}))|)}'
   PS3='Your selection: '
   PS4='%F{yellow}+%F{blue}%N%f:%i: '
 
   SPROMPT="zsh: correct $cs[“]%9F%R%f$cs[”] to $cs[“]%10F%r%f$cs[”]? "
 
-  TIMEFMT=%J$'\n''real: %*E user: %*U system: %*S (%P)'
+  TIMEFMT=%J$'\n''real: %*E, user: %*U, system: %*S (%P)'
 
   WATCHFMT='%(a.logon.logoff): %n (%M) tty: %l time: %T (%D)'
 
   (( $#mailpath > 0 )) && mailpath=(${^mailpath%\?*}'?new: $_')
 
+  zstyle ':completion:*:default' list-prompt '%K{white}More (%p)%k'
   zstyle ':completion:*:descriptions' format '%K{white}%d%k'
   zstyle ':completion:*:messages' format '%F{green}%d%f'
   zstyle ':completion:*:warnings' format '%F{red}no matches for %d%f'
   zstyle ':completion:*:corrections' format '%K{white}%d (errors: %9F%e%f)%k'
   zstyle ':completion:*:options' auto-description "specify $cs[“]%d$cs[”]"
-
-  add-zsh-hook precmd prompt_now_precmd
-  add-zsh-hook chpwd prompt_now_adjust_width
-  functions[TRAPWINCH]="${functions[TRAPWINCH]//$'\n'    prompt_now_winch}
-    prompt_now_winch"
 }
 
 prompt_now_teardown () {
-  emulate -L zsh
-
-  add-zsh-hook -D precmd prompt_now_precmd
-  functions[TRAPWINCH]="${functions[TRAPWINCH]//$'\n'    prompt_now_winch}"
 }
 
 prompt_now_preview () {
