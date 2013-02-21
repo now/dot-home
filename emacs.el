@@ -87,7 +87,8 @@
 (setq-default show-trailing-whitespace t)
 (defun now-do-not-show-trailing-whitespace ()
   (setq show-trailing-whitespace nil))
-(dolist (hook '(compilation-mode-hook
+(dolist (hook '(Info-mode-hook
+                compilation-mode-hook
                 diff-mode-hook
                 magit-mode-hook))
   (add-hook hook 'now-do-not-show-trailing-whitespace))
