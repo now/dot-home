@@ -366,7 +366,7 @@
 (eval-after-load 'org
   '(progn
      (setq org-directory "~/Dropbox/Org"
-           org-mobile-directory "~/Dropbox/MobileOrg"
+           org-mobile-directory "~/Sites/dav"
            org-mobile-force-id-on-agenda-items nil
            org-refile-targets '((org-agenda-files . (:level . 1)))
            org-refile-allow-creating-parent-nodes 'confirm
@@ -377,8 +377,8 @@
            org-src-fontify-natively t
            org-reverse-note-order t
            org-log-done 'time)
-     (let ((org-file (file)
-                      (concat (file-name-as-directory org-directory) file)))
+     (let ((org-file (lambda (file)
+                       (concat (file-name-as-directory org-directory) file))))
        (setq org-mobile-inbox-for-pull (funcall org-file "from-mobile.org")
              org-default-notes-file (funcall org-file "refile.org")
              org-agenda-files (list org-directory)))
