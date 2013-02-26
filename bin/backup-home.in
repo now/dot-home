@@ -49,6 +49,7 @@ dar_options+=(--prune .Spotlight-V100
               --prune .terminfo
               --prune .thumbnails
               --prune .yard
+              --prune Documents/Google\ Drive
               --prune Documents/Native\ Instruments/Traktor\ \*/Backup
               --prune Documents/Native\ Instruments/Traktor\ \*/Settings/Default\ Settings
               --prune Dropbox
@@ -155,7 +156,7 @@ dar_options+=(--exclude aclocal.m4
               --exclude \*.o
               --exclude \*.swp)
 
-backupdest=~/tmp/backup
+backupdest=~/Documents/Google\ Drive/Backups
 datestring=$(date +%Y-%m-%d)
 filename=$backupdest/${${root#/}//\//-}-$datestring
 filenames=($backupdest/*.dar(Nom))
@@ -192,5 +193,4 @@ dar --create $filename $dar_options |& \
         /^ [0-9]* inode(s) ignored (excluded by filters)$/d
         /^ [0-9]* inode(s) recorded as deleted from reference backup$/d
         /^ Total number of inodes considered: [0-9]*$/d
-        /^ EA saved for [0-9]* inode(s)$/d' &&
-  rsync -a $backupdest hanjin.dreamhost.com:
+        /^ EA saved for [0-9]* inode(s)$/d'
