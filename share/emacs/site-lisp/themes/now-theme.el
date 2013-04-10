@@ -34,6 +34,8 @@
     'now
     `(compilation-column-number ((,class (:inherit compilation-line-number))))
     `(compilation-line-number ((,class ,blank)))
+    `(compilation-mode-line-exit ((,class (,@blank :inherit compilation-info))))
+    `(compilation-mode-line-fail ((,class (,@blank :inherit compilation-error))))
     `(cursor ((,class (:foreground ,off-white :background ,black))))
     `(custom-button ((,gui (:box (:line-width 1 :color "#656a6f") :background "#e9ebed" :foreground ,black))))
     `(custom-button-mouse ((,gui (:box (:line-width 1 :color "#478cba") :background "#e9ebed" :foreground ,black))))
