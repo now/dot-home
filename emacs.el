@@ -11,7 +11,7 @@
                (not (eq window next)))
       (delete-window window))))
 
-(labels ((build-path (&rest components)
+(cl-labels ((build-path (&rest components)
                      (let ((directories (mapcar #'file-name-as-directory (butlast components)))
                            (file (car (last components))))
                        (concat (apply #'concat directories) file))))
