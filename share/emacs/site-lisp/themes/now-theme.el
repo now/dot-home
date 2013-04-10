@@ -109,6 +109,7 @@
     `(org-block ((,class (:foreground "grey40"))))
     `(org-code ((,class (:foreground "grey40"))))
     `(org-done ((,class (:foreground ,off-white :background ,green))))
+    `(org-table ((,class ,blank)))
     `(org-todo ((,class (:foreground ,off-white :background ,red))))
     `(outline-1 ((,class ,blank)))
     `(outline-2 ((,class ,blank)))
