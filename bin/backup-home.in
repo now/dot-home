@@ -78,6 +78,7 @@ dar_options+=(--prune .Spotlight-V100
               --prune Library/Application\ Support/Preview
               --prune Library/Application\ Support/uTorrent/\*.old
               --prune Library/Application\ Support/uTorrent/\*.torrent
+              --prune Library/Developer/Shared
               --prune Library/Gentoo
               --prune Library/Google/GoogleSoftwareUpdate
               --prune Library/iTunes/iPhone\ Software\ Updates
