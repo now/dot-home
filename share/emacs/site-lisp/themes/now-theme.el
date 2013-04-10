@@ -69,7 +69,7 @@
     `(font-lock-function-name-face ((,class ,blank)))
     `(font-lock-keyword-face ((,class ,blank)))
     `(font-lock-preprocessor-face ((,class ,blank)))
-    `(font-lock-string-face ((,class (:foreground ,red))))
+    `(font-lock-string-face ((,class ,blank)))
     `(font-lock-type-face ((,class ,blank)))
     `(font-lock-variable-name-face ((,class ,blank)))
     `(font-lock-warning-face ((,class (:inherit warning))))
