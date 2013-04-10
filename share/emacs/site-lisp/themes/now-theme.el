@@ -55,6 +55,8 @@
     `(dired-symlink ((,class (,@blank ,light-cyan))))
     `(error ((,class (,@blank :foreground ,off-white :background ,red))))
     `(escape-glyph ((,class (:foreground ,light-blue))))
+    `(flyspell-duplicate ((,class (,@blank :foreground ,yellow :underline t))))
+    `(flyspell-incorrect ((,class (,@blank :foreground ,red :underline t))))
     `(font-lock-builtin-face ((,class ,blank)))
     `(font-lock-comment-face ((,class (,@blank :background "grey90"))))
     ; NOTE This won’t work on Mac OS X Terminal, as it can’t inverse the cursor as well.  Jeesh.
