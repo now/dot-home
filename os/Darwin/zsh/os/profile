@@ -1,3 +1,3 @@
-path[5,0]=/opt/local/bin
+path[6,0]=/opt/local/bin
 RUBYOPT='rubygems'
 export RUBYOPT
