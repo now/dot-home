@@ -1,3 +1,6 @@
+(eval-when-compile
+  (require 'cl))
+
 (defgroup ned nil
   "Ned emulation within Emacs."
   :prefix "ned-"
@@ -88,38 +91,38 @@ not the same as the byte index."
      (let ((s (mapconcat
                (lambda (string) (replace-regexp-in-string "%" "%%" string))
                (mapcar (lambda (c) (if (consp c) (propertize (car c) 'face (cdr c)) c))
-                       (remove-if (lambda (c) (zerop (length (if (consp c) (car c) c))))
-                                  (list*
-                                   (cons
-                                    (concat
-                                     (if (buffer-modified-p) ned-info-on-file-buffer-modified)
-                                     (if buffer-read-only ned-info-on-file-buffer-read-only))
-                                    'ned-info-on-file-mode)
-                                   (cons
-                                    (let* ((b (buffer-file-name))
-                                           (p (if (not b) (buffer-file-name (buffer-base-buffer))))
-                                           (file (or b p)))
-                                      (if (and file (not (file-writable-p file)))
-                                          (concat
-                                           (if p ned-info-on-file-base-read-only)
-                                           ned-info-on-file-file-read-only)))
-                                    'ned-info-on-file-read-only)
-                                   (let* ((cs (if (local-variable-p 'buffer-file-coding-system)
-                                                  buffer-file-coding-system
-                                                default-buffer-file-coding-system))
-                                          (cs-type (coding-system-type cs))
-                                          (cs-eol (coding-system-eol-type-mnemonic cs))
-                                          (cs-endian (coding-system-get cs 'endian))
-                                          (cs-bom (coding-system-get cs 'bom)))
-                                     (list
-                                      (if (not (eq cs-type 'utf-8))
-                                          (cons (symbol-name cs-type) 'ned-info-on-file-coding-system-type))
-                                      (if (eq cs-endian 'big)
-                                          ned-info-on-file-coding-system-big-endian)
-                                      (if cs-bom
-                                          ned-info-on-file-coding-system-bomed)
-                                      (if (not (eq cs-eol eol-mnemonic-unix))
-                                          cs-eol))))))
+                       (cl-remove-if (lambda (c) (zerop (length (if (consp c) (car c) c))))
+                                     (cl-list*
+                                      (cons
+                                       (concat
+                                        (if (buffer-modified-p) ned-info-on-file-buffer-modified)
+                                        (if buffer-read-only ned-info-on-file-buffer-read-only))
+                                       'ned-info-on-file-mode)
+                                      (cons
+                                       (let* ((b (buffer-file-name))
+                                              (p (if (not b) (buffer-file-name (buffer-base-buffer))))
+                                              (file (or b p)))
+                                         (if (and file (not (file-writable-p file)))
+                                             (concat
+                                              (if p ned-info-on-file-base-read-only)
+                                              ned-info-on-file-file-read-only)))
+                                       'ned-info-on-file-read-only)
+                                      (let* ((cs (if (local-variable-p 'buffer-file-coding-system)
+                                                     buffer-file-coding-system
+                                                   default-buffer-file-coding-system))
+                                             (cs-type (coding-system-type cs))
+                                             (cs-eol (coding-system-eol-type-mnemonic cs))
+                                             (cs-endian (coding-system-get cs 'endian))
+                                             (cs-bom (coding-system-get cs 'bom)))
+                                        (list
+                                         (if (not (eq cs-type 'utf-8))
+                                             (cons (symbol-name cs-type) 'ned-info-on-file-coding-system-type))
+                                         (if (eq cs-endian 'big)
+                                             ned-info-on-file-coding-system-big-endian)
+                                         (if cs-bom
+                                             ned-info-on-file-coding-system-bomed)
+                                         (if (not (eq cs-eol eol-mnemonic-unix))
+                                             cs-eol))))))
                ",")))
        (unless (eq s "") (concat "[" s "] "))))
     (:eval (let* ((start (save-excursion (beginning-of-line) (point)))
