@@ -265,8 +265,7 @@ DOTFILES = \
 	   share/emacs/site-lisp/hide-mode-line.el \
 	   share/emacs/site-lisp/ned/ned-info-on-file.el \
 	   share/emacs/site-lisp/progmodes/rnc-mode.el \
-	   share/emacs/site-lisp/themes/now-theme.el \
-	   share/emacs/site-lisp/windows-path.el
+	   share/emacs/site-lisp/themes/now-theme.el
 
 install: $(emacsuserloaddefs)
 
