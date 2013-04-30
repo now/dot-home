@@ -402,6 +402,10 @@
   (interactive)
   (find-file (ido-completing-read "Find recent file: " recentf-list)))
 
+(eval-after-load 'ispell
+  '(progn
+     (setq-default ispell-check-comments 'exclusive)))
+
 (eval-after-load 'diff
   '(progn
      (setq diff-switches "-u")
