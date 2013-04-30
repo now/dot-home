@@ -95,7 +95,10 @@
     `(magit-branch ((,class (:inherit dired-directory))))
     `(magit-log-head-label-bisect-bad ((,class (,@blank :inherit error))))
     `(magit-log-head-label-bisect-good ((,class (,@blank :inherit success))))
-    ; magit-log-head-label-*
+    `(magit-log-head-label-default ((,class (,@blank :background "grey90"))))
+    `(magit-log-head-label-local ((,class (,@blank :foreground ,light-blue :background "grey90"))))
+    `(magit-log-head-label-remote ((,class (,@blank :foreground ,green :background "grey90"))))
+    `(magit-log-head-label-tags ((,class (,@blank :foreground ,brown :background "grey90"))))
     `(magit-log-sha1 ((,class ,blank)))
     `(makefile-space ((,class (,@blank :inherit error))))
     `(match ((,class (:inherit isearch))))
