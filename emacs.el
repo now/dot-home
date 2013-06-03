@@ -365,7 +365,7 @@
 
 (eval-after-load 'org
   '(progn
-     (setq org-directory "~/Dropbox/Org"
+     (setq org-directory "~/Documents/Google Drive/Org"
            org-mobile-directory "~/Sites/dav"
            org-mobile-force-id-on-agenda-items nil
            org-refile-targets '((org-agenda-files . (:level . 1)))
