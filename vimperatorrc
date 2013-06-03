@@ -1,12 +1,10 @@
 set animations
-set fullscreen
 set newtab=addons,downloads,help,prefs
 set showstatuslinks=0
 set status=
 set toolbars=none
 set urlseparator=,\\s\\s
 
-highlight CmdLine color: #181818; background: #f6f6f6; -moz-transition: all 0.25s
 highlight CmdLine>* font: 10pt monospace
 highlight CompItem>* height: 15pt; min-height: 15pt; padding: 0 0.5ex
 highlight ContentSeparator display: none
@@ -14,15 +12,15 @@ highlight ErrorMsg color: white; background: red; font-size: 10pt
 highlight Hint font: 8pt bold monospace; color: white; text-shadow: black -1px 0 1px, black 0 1px 1px, black 1px 0 1px, black 0 -1px 1px
 highlight HintActive color: white; background: #009000
 highlight HintElem color: black; background: #f0a000
-highlight InfoMsg color: #181818; background: #f6f6f6
-highlight ModeMsg color: #181818; background: #f6f6f6; font: 10pt monospace
-highlight MoreMsg color: green; background: #f6f6f6; font: 10pt monospace
+highlight InfoMsg color: black
+highlight ModeMsg color: black; background: white
+highlight MoreMsg color: green; background: white
 highlight NonText color: #2080c0
-highlight Normal font: 10pt monospace; color: #181818; background: #f6f6f6
-highlight PromptText color: #181818
-highlight Question: color: green; background: #f6f6f6
+highlight Normal font: 10pt monospace; background: white
+highlight PromptText color: black
+highlight Question: color: green
 highlight Search color: white; background: #f0a000; font-size: inherit
-highlight StatusLine color: gray; background: #f6f6f6
+highlight StatusLine color: gray
 highlight Title color: #2080c0
 highlight WarningMsg: color: red;
 highlight URL color: #2f5a9b
