@@ -85,7 +85,6 @@ STARTUPFILES = \
 	       os/Cygwin/start-up/clipx.lnk \
 	       os/Cygwin/start-up/firefox.lnk \
 	       os/Cygwin/start-up/hotkeys.lnk \
-	       os/Cygwin/start-up/itunes.lnk \
 	       os/Cygwin/start-up/outlook.lnk \
 	       os/Cygwin/start-up/sh.lnk \
 	       os/Cygwin/start-up/totalcmd.lnk
