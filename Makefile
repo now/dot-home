@@ -207,8 +207,6 @@ DOTFILES = \
 	   zsh/functions/autoload/cd \
 	   zsh/functions/autoload/cygify \
 	   zsh/functions/autoload/d \
-	   zsh/functions/autoload/dp \
-	   zsh/functions/autoload/dr \
 	   zsh/functions/autoload/foldl \
 	   zsh/functions/autoload/foldr \
 	   zsh/functions/autoload/freload \

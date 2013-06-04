@@ -129,7 +129,7 @@ bindkey \
   '^^' zle/cd-to-alternate-directory \
   ' ' magic-space \
   ${(s: :):-${^${(s::):-'|<>&'}}' zle/self-insert-redir'}
-bindkey -r '^[' 
+bindkey -r '^['
 
 # Functions And Aliases
 
@@ -146,7 +146,7 @@ for command in cp mv mkdir; do
   alias $command="nocorrect $command"
 done
 
-for command in dr foldl foldr ri; do
+for command in foldl foldr ri; do
   alias $command="noglob $command"
 done
 alias mmv='noglob zmv -W'
