@@ -1,10 +1,3 @@
-" contents: vim(1) text editor user RC file.
-"
-" Copyright © 2002,2003,2004,2005,2006,2007 Nikolai Weibull <now@bitwi.se>
-
-" TODO: Should we modify the 'complete' option?  Scanning included files is
-" perhaps a bit much, better to leave that to Ctrl-X Ctrl-I.
-
 set cpo&vim
 
 let s:on_windows = has("win32") || has("win64")

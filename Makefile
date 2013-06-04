@@ -144,58 +144,13 @@ DOTFILES = \
 	   sbclrc \
 	   screenrc \
 	   tmux.conf \
-	   vim/after/ftplugin/c.vim \
-	   vim/after/ftplugin/context.vim \
-	   vim/after/ftplugin/css.vim \
-	   vim/after/ftplugin/dtd.vim \
-	   vim/after/ftplugin/gitcommit.vim \
-	   vim/after/ftplugin/html.vim \
-	   vim/after/ftplugin/java.vim \
-	   vim/after/ftplugin/javascript.vim \
-	   vim/after/ftplugin/mail.vim \
-	   vim/after/ftplugin/nml.vim \
-	   vim/after/ftplugin/racc.vim \
-	   vim/after/ftplugin/rnc.vim \
-	   vim/after/ftplugin/ruby.vim \
 	   vim/after/ftplugin/sh.vim \
-	   vim/after/ftplugin/treetop.vim \
-	   vim/after/ftplugin/vb.vim \
 	   vim/after/ftplugin/vim.vim \
-	   vim/after/ftplugin/wsh.vim \
-	   vim/after/ftplugin/xml.vim \
-	   vim/after/ftplugin/xslt.vim \
 	   vim/after/ftplugin/zsh.vim \
-	   vim/after/indent/java.vim \
-	   vim/after/syntax/c.vim \
-	   vim/after/syntax/mail.vim \
-	   vim/after/syntax/ruby.vim \
 	   vim/after/syntax/vim.vim \
 	   vim/colors/now.vim \
-	   vim/compiler/jing.vim \
-	   vim/compiler/rakelookout.vim \
-	   vim/compiler/xmllint.vim \
-	   vim/doc/matchit.txt \
-	   vim/filetype.vim \
 	   vim/ftplugin/man.vim \
-	   vim/ftplugin/nmc.vim \
-	   vim/ftplugin/nml.vim \
-	   vim/ftplugin/treetop.vim \
-	   vim/indent/nml.vim \
-	   vim/indent/treetop.vim \
 	   vim/macros/less.vim \
-	   vim/plugin/matchit.vim \
-	   vim/syntax/ilprec.vim \
-	   vim/syntax/javascript.vim \
-	   vim/syntax/markdown.vim \
-	   vim/syntax/nml.vim \
-	   vim/syntax/prolog.vim \
-	   vim/syntax/treetop.vim \
-           vim/templates/cpp.template \
-	   vim/templates/ruby.template \
-           vim/templates/vim/default.template \
-           vim/templates/vim/syntax.template \
-           vim/templates/xslt.template \
-           vim/templates/zsh.template \
 	   vimperatorrc \
 	   vimrc \
 	   zsh/functions/_unpack \
@@ -397,14 +352,8 @@ endef
 $(eval $(foreach file,$(bin_substitutables),$(call bin_substitutables_file,$(file))))
 
 DEPENDENCIES = \
-	       vim-now-base \
-	       vim-diff-buffer-against-filesystem \
-	       vim-info \
-	       vim-man \
-	       vim-modern-file \
 	       vim-quit-if-only-quickfix-buffer-left \
 	       vim-restore-position \
-	       vim-templates \
 	       zap
 
 environmentdir = Environment
