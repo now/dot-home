@@ -170,11 +170,6 @@ alias \
   aa='a -A' \
   oo='o -A'
 
-for ((i = 1; i < 9; i++)); do
-  hash -d .$i=${(j:/:)${(l:2::.:)${(s::)${(l:i::.:)}}}}
-done
-unset i
-
 # Operating System And Host Specific Settings
 
 source $ZDOTDIR/os/rc
