@@ -379,7 +379,6 @@ BINFILES = \
 	   bin/terminal-colors \
 	   bin/pack \
 	   bin/sclipboard \
-	   bin/scget \
 	   bin/unpack \
 	   bin/update-context \
 	   bin/valgrind-ruby \

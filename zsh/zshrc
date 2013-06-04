@@ -162,13 +162,6 @@ alias \
   top='top -U $EUID'
 
 duh () { (($# > 0)) || set -- *(DN); ${commands[gdu]:-du} --si -s ${2:+-c} -- $* }
-gq () { git grep -n --color=never $* | qf }
-
-alias \
-  mp='mplayer' \
-  tv='DISPLAY=:0.1 mplayer -geometry 1024x600+0+75' \
-  ro='vimless' \
-  v='vim' \
 
 alias \
   ls="${commands[gls]:-ls} --color" \
