@@ -184,7 +184,6 @@ DOTFILES = \
 	   vim/indent/nml.vim \
 	   vim/indent/treetop.vim \
 	   vim/macros/less.vim \
-	   vim/macros/quickfix.vim \
 	   vim/plugin/matchit.vim \
 	   vim/syntax/ilprec.vim \
 	   vim/syntax/javascript.vim \
@@ -379,7 +378,6 @@ BINFILES = \
 	   bin/mfedit \
 	   bin/terminal-colors \
 	   bin/pack \
-	   bin/qf \
 	   bin/sclipboard \
 	   bin/scget \
 	   bin/unpack \

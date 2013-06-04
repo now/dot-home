@@ -1,3 +1,0 @@
-#! @ZSHELL@
-
-exec vim -c 'so ~/.vim/macros/quickfix.vim' -
