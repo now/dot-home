@@ -74,8 +74,6 @@ done
 
 source $fpath/keeper(N)
 
-zle -N zle/vim-decrease-number zle/vim-increase-number
-
 zle -N backward-kill-to-space-or-/ backward-kill-word-match
 zstyle ':zle:backward-kill-to-space-or-/' word-chars '*?_-.[]~=&;!#$%^(){}<>:@,\\'
 
@@ -92,13 +90,11 @@ bindkey -a \
   ')' forward-parameter \
   '/' history-incremental-search-backward \
   '?' history-incremental-search-forward \
-  '^A' zle/vim-increase-number \
   '^D' zle/foreground-or-list-choices \
   '^G' zle/cd-from-list \
   '^O' accept-line-and-down-history \
   '^R' redo \
   '^U' zle/up-directory \
-  '^X' zle/vim-decrease-number \
   '^^' zle/cd-to-alternate-directory \
   'L' vi-change-whole-line \
   'l' vi-substitute \

@@ -190,7 +190,6 @@ DOTFILES = \
 	   zsh/functions/zle/util/select-match-from-menu \
 	   zsh/functions/zle/util/select-match-from-menu-widget \
 	   zsh/functions/zle/vi-cmd-mode-silently \
-	   zsh/functions/zle/vim-increase-number \
 	   zsh/functions/zle/yank-clipboard \
 	   zshenv
 
