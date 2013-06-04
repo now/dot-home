@@ -1,3 +1,16 @@
+DOTFILES = \
+	   os/Linux/Xresources \
+	   os/Linux/xmonad/xmonad.hs
+
+$(call GROUP_template,$(DOTFILES),$(userconfdir),.os/Linux/)
+
+BINFILES = \
+	   os/Linux/xsession
+
+bin_substitutables += $(BINFILES)
+
+$(call GROUP_template,$(BINFILES),~,.,os/Linux/,755)
+
 HAVE_X11 := $(realpath /usr/X11)
 
 ifneq ($(HAVE_X11),)

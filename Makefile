@@ -128,7 +128,6 @@ vlcuserconfdir = $(prefix)/.config/vlc
 -include config.mk
 
 DOTFILES = \
-	   Xresources \
 	   dircolors \
 	   editrc \
 	   fonts.conf \
@@ -199,7 +198,6 @@ DOTFILES = \
            vim/templates/zsh.template \
 	   vimperatorrc \
 	   vimrc \
-	   xmonad/xmonad.hs \
 	   zsh/functions/_unpack \
 	   zsh/functions/_up \
 	   zsh/functions/autoload/cd \
@@ -358,13 +356,6 @@ edit = sed \
        -e 's|@ZSHELL[@]|$(ZSHELL)|g'
 
 BINFILES = \
-	   xsession
-
-bin_substitutables := $(BINFILES)
-
-$(call GROUP_template,$(BINFILES),~,.,,755)
-
-BINFILES = \
 	   bin/asciitable \
 	   bin/backup-home \
 	   bin/burn \
@@ -384,7 +375,7 @@ BINFILES = \
 	   bin/valgrind-ruby \
 	   bin/vimless
 
-bin_substitutables += $(BINFILES)
+bin_substitutables := $(BINFILES)
 
 $(call GROUP_template,$(BINFILES),~,,,755)
 
