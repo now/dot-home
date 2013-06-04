@@ -201,7 +201,6 @@ DOTFILES = \
 	   vimperatorrc \
 	   vimrc \
 	   xmonad/xmonad.hs \
-	   zsh/functions/_mem-map \
 	   zsh/functions/_unpack \
 	   zsh/functions/_up \
 	   zsh/functions/autoload/cd \
@@ -377,7 +376,6 @@ BINFILES = \
 	   bin/emv \
 	   bin/index-disc \
 	   bin/m \
-	   bin/mem-map \
 	   bin/mfedit \
 	   bin/terminal-colors \
 	   bin/pack \
