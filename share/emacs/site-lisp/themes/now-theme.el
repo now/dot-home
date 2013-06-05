@@ -111,6 +111,7 @@
     `(ned-info-on-file-read-only ((,class (:foreground ,red))))
     `(org-block ((,class (:foreground "grey40"))))
     `(org-code ((,class (:foreground "grey40"))))
+    `(org-date ((,class (,@blank :inherit font-lock-comment-face))))
     `(org-done ((,class (:foreground ,off-white :background ,green))))
     `(org-table ((,class ,blank)))
     `(org-todo ((,class (:foreground ,off-white :background ,red))))
