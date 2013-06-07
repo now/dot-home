@@ -136,7 +136,6 @@ DOTFILES = \
 	   gtkrc-2.0 \
 	   indent.pro \
 	   inputrc \
-	   irbrc \
 	   irssi/config \
 	   irssi/default.theme \
 	   mailcap \
