@@ -1,0 +1,3 @@
+#! /bin/zsh
+
+totalcmd /S=L "$(cygpath -wl $1:a)"

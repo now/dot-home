@@ -4,7 +4,7 @@ text/html; elinks -dump %s      ; nametemplate=%s.html; copiousoutput
 text/*; vimless %s              ; needsterminal; edit=vim %s
 
 audio/*                 ; mplayer %s    ; needsterminal
-image/*                 ; xview %s      ; test=test -n "$DISPLAY"; edit=gimp %s
+image/*                 ; im %sily
 video/*                 ; mplayer %s    ; needsterminal; test=test -n "$DISPLAY"
 application/ogg         ; mplayer %s    ; needsterminal
 
