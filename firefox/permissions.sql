@@ -9,6 +9,7 @@ CREATE TABLE moz_hosts (id INTEGER PRIMARY KEY,
 /* Default Entries */
 INSERT INTO moz_hosts (host, type, permission) VALUES('addons.mozilla.org', 'install', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('update.mozilla.org', 'install', 1);
+INSERT INTO moz_hosts (host, type, permission) VALUES('marketplace.firefox.com', 'install', 1);
 INSERT INTO moz_hosts (host, type, permission) VALUES('tools.google.com', 'install', 1);
 
 /* Stores */
