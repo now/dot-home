@@ -1,32 +1,12 @@
-# contents: MIME attachment specification.
-#
-# Copyright © 2002,2003,2004,2005,2006 Nikolai Weibull <now@bitwi.se>
-
-# 1. Text (text)
-# ==============
-
-
 text/html; firefox %s           ; nametemplate=%s.html; test=test -n "$DISPLAY"
 text/html; elinks %s            ; nametemplate=%s.html; test=test -z "$DISPLAY"
 text/html; elinks -dump %s      ; nametemplate=%s.html; copiousoutput
 text/*; vimless %s              ; needsterminal; edit=vim %s
 
-
-
-# 2. Media (audio/image/video)
-# ============================
-
-
 audio/*                 ; mplayer %s    ; needsterminal
 image/*                 ; xview %s      ; test=test -n "$DISPLAY"; edit=gimp %s
 video/*                 ; mplayer %s    ; needsterminal; test=test -n "$DISPLAY"
 application/ogg         ; mplayer %s    ; needsterminal
-
-
-
-# 3. Applications (application)
-# =============================
-
 
 # TODO: should really used edit flag in Zsh ‘e’ command
 application/x-msdos-program ; wine %s   ; test=test -n "$DISPLAY"
