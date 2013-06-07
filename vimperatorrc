@@ -1,4 +1,3 @@
-set animations
 set newtab=addons,downloads,help,prefs
 set showstatuslinks=0
 set status=
