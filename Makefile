@@ -138,7 +138,6 @@ DOTFILES = \
 	   inputrc \
 	   mailcap \
 	   mplayer/config \
-	   sbclrc \
 	   screenrc \
 	   tmux.conf \
 	   vim/after/ftplugin/sh.vim \
