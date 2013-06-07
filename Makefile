@@ -136,8 +136,6 @@ DOTFILES = \
 	   gtkrc-2.0 \
 	   indent.pro \
 	   inputrc \
-	   irssi/config \
-	   irssi/default.theme \
 	   mailcap \
 	   mplayer/config \
 	   sbclrc \
