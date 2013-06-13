@@ -8,7 +8,6 @@ INSERT INTO engine_data (engineid, name, value) VALUES('[app]/wikipedia.xml', 'a
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/adlibris.xml', 'alias', 'adlibris');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/codesearch.xml', 'alias', 'codesearch');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/discogs.xml', 'alias', 'discogs');
-INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/google-bookmarks.xml', 'alias', 'tag');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/hittase-where.xml', 'alias', 'where');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/hittase-who.xml', 'alias', 'who');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/imdb.xml', 'alias', 'imdb');
