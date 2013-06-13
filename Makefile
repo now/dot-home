@@ -280,6 +280,7 @@ DOTFILES = \
 	   firefox/searchplugins/adlibris.xml \
 	   firefox/searchplugins/codesearch.xml \
 	   firefox/searchplugins/discogs.xml \
+	   firefox/searchplugins/gatherer.xml \
 	   firefox/searchplugins/google-bookmarks.xml \
 	   firefox/searchplugins/hittase-where.xml \
 	   firefox/searchplugins/hittase-who.xml \
