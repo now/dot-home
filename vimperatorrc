@@ -18,7 +18,6 @@ highlight NonText color: #2080c0
 highlight Normal font: 10pt monospace; background: white
 highlight PromptText color: black
 highlight Question: color: green
-highlight Search color: white; background: #f0a000; font-size: inherit
 highlight StatusLine color: gray
 highlight Title color: #2080c0
 highlight WarningMsg: color: red;
