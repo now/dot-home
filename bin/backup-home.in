@@ -51,7 +51,10 @@ dar_options+=(--prune .Spotlight-V100
               --prune .yard
               --prune Documents/Google\ Drive
               --prune Documents/Native\ Instruments/Traktor\ \*/Backup
+              --prune Documents/Native\ Instruments/Traktor\ \*/Coverart
               --prune Documents/Native\ Instruments/Traktor\ \*/Settings/Default\ Settings
+              --prune Documents/Native\ Instruments/Traktor\ \*/Stripes
+              --prune Documents/Native\ Instruments/Traktor\ \*/Transients
               --prune Dropbox
               --prune Library/Caches
               --prune Library/Application\ Support/CrashReporter
