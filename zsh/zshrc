@@ -86,7 +86,6 @@ bindkey -a \
   '/' history-incremental-search-backward \
   '?' history-incremental-search-forward \
   '^D' zle/foreground-or-list-choices \
-  '^G' zle/cd-from-list \
   '^O' accept-line-and-down-history \
   '^R' redo \
   '^U' zle/up-directory \

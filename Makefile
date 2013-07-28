@@ -153,7 +153,6 @@ DOTFILES = \
 	   zsh/functions/_up \
 	   zsh/functions/autoload/cd \
 	   zsh/functions/autoload/cygify \
-	   zsh/functions/autoload/d \
 	   zsh/functions/autoload/foldl \
 	   zsh/functions/autoload/foldr \
 	   zsh/functions/autoload/freload \
@@ -173,7 +172,6 @@ DOTFILES = \
 	   zsh/functions/cache/retrieve \
 	   zsh/functions/cache/store \
 	   zsh/functions/zsh-mime-setup \
-	   zsh/functions/zle/cd-from-list \
 	   zsh/functions/zle/cd-to-alternate-directory \
 	   zsh/functions/zle/foreground-or-list-choices \
 	   zsh/functions/zle/history-beginning-search-menu \
