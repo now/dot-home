@@ -5,10 +5,10 @@ SAVEHIST=${HISTSIZE::=1024}
 REPORTTIME=300
 unset TERMCAP
 
-setopt autocd autopushd \
+setopt autocd \
        completeinword nolistambiguous nolisttypes \
        extendedhistory histnostore \
-       rcexpandparam rcquotes \
+       rcexpandparam \
        combiningchars correct dvorak ignoreeof \
        nonotify \
        nobeep
