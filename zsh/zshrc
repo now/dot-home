@@ -72,17 +72,12 @@ for command in $ZDOTDIR/functions/zle/* \
   zle -N $command
 done
 
-source $fpath/keeper(N)
-
 zle -N backward-kill-to-space-or-/ backward-kill-word-match
 zstyle ':zle:backward-kill-to-space-or-/' word-chars '*?_-.[]~=&;!#$%^(){}<>:@,\\'
 
 zle -N forward-parameter forward-word-match
 zle -N backward-parameter backward-word-match
 zstyle ':zle:(forward|backward)-parameter' word-style shell
-
-zle -C complete-kept-result complete-word _generic
-zstyle ':completion:complete-kept-result:*' completer _insert_kept
 
 bindkey -arp '^['
 bindkey -a \
@@ -115,8 +110,6 @@ bindkey \
   '^\' undo \
   '^W' backward-kill-to-space-or-/ \
   '^X$' insert-last-word \
-  '^X^K' complete-kept-result \
-  '^Xk' complete-kept-result \
   '^X^L' zle/history-beginning-search-menu \
   '^X^P' copy-earlier-word \
   '^X^S' zle/sudo-command-line \
