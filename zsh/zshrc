@@ -9,7 +9,7 @@ setopt autocd \
        completeinword nolistambiguous nolisttypes \
        extendedhistory histnostore \
        rcexpandparam \
-       combiningchars correct dvorak ignoreeof \
+       combiningchars dvorak ignoreeof \
        nonotify \
        nobeep
 
@@ -130,26 +130,16 @@ autoload -U cdr zargs zcalc zmv $ZDOTDIR/functions/autoload/*(:t)
 
 zstyle ':chpwd:*' recent-dirs-default true
 
-for command in cp mv mkdir; do
-  alias $command="nocorrect $command"
-done
-
-for command in foldl foldr ri; do
-  alias $command="noglob $command"
-done
 alias mmv='noglob zmv -W'
 
 unset command
 
 alias \
   g='grep --color -n -P' \
-  gg='git grep -n' \
   h='fc -lfiD' \
   p='ps -U $EUID -o "pid= comm=" -H' \
   pp='ps -U $EUID -o "pid= command=" -H' \
   top='top -U $EUID'
-
-duh () { (($# > 0)) || set -- *(DN); ${commands[gdu]:-du} --si -s ${2:+-c} -- $* }
 
 alias \
   ls="${commands[gls]:-ls} --color" \

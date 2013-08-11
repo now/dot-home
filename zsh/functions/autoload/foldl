@@ -1,8 +1,0 @@
-if (( $# < 1 )); then
-  print -- "Usage: $0 COMMAND ARGS..."
-  return 1
-fi
-local command="$1"; shift
-for arg in $*; do
-  ${=command} $arg
-done

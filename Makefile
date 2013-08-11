@@ -153,8 +153,6 @@ DOTFILES = \
 	   zsh/functions/_up \
 	   zsh/functions/autoload/cd \
 	   zsh/functions/autoload/cygify \
-	   zsh/functions/autoload/foldl \
-	   zsh/functions/autoload/foldr \
 	   zsh/functions/autoload/freload \
 	   zsh/functions/autoload/hc \
 	   zsh/functions/autoload/up \
@@ -310,6 +308,7 @@ BINFILES = \
 	   bin/clipboard \
 	   bin/dfs \
 	   bin/discogs-tags \
+	   bin/duh \
 	   bin/e \
 	   bin/emv \
 	   bin/index-disc \
@@ -321,7 +320,8 @@ BINFILES = \
 	   bin/unpack \
 	   bin/update-context \
 	   bin/valgrind-ruby \
-	   bin/vimless
+	   bin/vimless \
+	   bin/with-tmp
 
 bin_substitutables := $(BINFILES)
 

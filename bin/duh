@@ -1,0 +1,3 @@
+#! /opt/local/bin/zsh
+
+(($# > 0)) || set -- *(DN); exec ${commands[gdu]:-du} --si -s ${2:+-c} -- $*
