@@ -1,16 +1,9 @@
-# contents: zsh(1) user RC for Cygwin environment.
-#
-# Copyright © 2008 Nikolai Weibull <now@bitwi.se>
-
 _paste-cygwin-clipboard-path () {
   LBUFFER+=${(q)"$(cygpath "$(clipboard 2> /dev/null)" 2> /dev/null)"}
 }
 zle -N paste-cygwin-clipboard-path _paste-cygwin-clipboard-path
 bindkey "^O^Y" paste-cygwin-clipboard-path
 bindkey "^Oy" paste-cygwin-clipboard-path
-
-alias p='ps --user $USERNAME --windows'
-alias pp='ps --user $USERNAME'
 
 alias kill='command kill -f'
 alias push-ruby='rsync -rltgopD --modify-window=1 /Ruby19/*~*/devkit //Filer/Programs/Ruby19'

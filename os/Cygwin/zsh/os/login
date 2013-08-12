@@ -1,6 +1,2 @@
-# contents: zsh(1) user login RC for Cygwin environment.
-#
-# Copyright © 2008 Nikolai Weibull <now@bitwi.se>
-
 stty -ixon
 exec screen -D -RR

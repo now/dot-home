@@ -136,10 +136,7 @@ unset command
 
 alias \
   g='grep --color -n -P' \
-  h='fc -lfiD' \
-  p='ps -U $EUID -o "pid= comm=" -H' \
-  pp='ps -U $EUID -o "pid= command=" -H' \
-  top='top -U $EUID'
+  h='fc -lfiD'
 
 alias \
   ls="${commands[gls]:-ls} --color" \
