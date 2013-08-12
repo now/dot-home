@@ -1,4 +1,2 @@
-if [[ -o interactive ]] && (( $ZSH_SUBSHELL == 0 )); then
-  zle || ls --color
-fi
+[[ -o interactive ]] && (( $ZSH_SUBSHELL == 0 )) && { zle || a }
 return 0

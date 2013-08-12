@@ -135,15 +135,7 @@ alias mmv='noglob zmv -W'
 unset command
 
 alias \
-  g='grep --color -n -P' \
   h='fc -lfiD'
-
-alias \
-  ls="${commands[gls]:-ls} --color" \
-  a='ls' \
-  o='ls -l --si' \
-  aa='a -A' \
-  oo='o -A'
 
 # Operating System And Host Specific Settings
 

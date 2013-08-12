@@ -1,0 +1,3 @@
+#! @ZSHELL@
+
+exec grep --color -n -P $*

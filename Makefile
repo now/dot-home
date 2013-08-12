@@ -1,7 +1,3 @@
-# contents: dot files Makefile.
-#
-# Copyright © 2006,2008 Nikolai Weibull <now@bitwi.se>
-
 .PHONY: all diff install
 
 all: diff
@@ -311,6 +307,7 @@ BINFILES = \
 	   bin/duh \
 	   bin/e \
 	   bin/emv \
+	   bin/g \
 	   bin/index-disc \
 	   bin/m \
 	   bin/mfedit \

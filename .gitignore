@@ -7,6 +7,7 @@ bin/dfs
 bin/discogs-tags
 bin/e
 bin/emv
+bin/g
 bin/index-disc
 bin/m
 bin/mem-map
