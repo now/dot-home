@@ -1,7 +1,6 @@
 path[1,0]=(. ~/bin ~/.gem/ruby/2.0.0/bin ~/opt/ruby/current/bin ~/opt/local/bin)
 
 LANG=en_US.UTF-8
-LC_COLLATE=C
 
 PAGER=vimless
 GROFF_NO_SGR=1
@@ -12,7 +11,7 @@ EDITOR=vim
 SYSSCREENRC=/dev/null
 
 export \
-  LANG LC_COLLATE \
+  LANG \
   PAGER GROFF_NO_SGR MANWIDTH MANPAGER EDITOR \
   SYSSCREENRC
 
