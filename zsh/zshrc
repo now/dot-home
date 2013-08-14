@@ -11,7 +11,15 @@ setopt autocd \
        rcexpandparam \
        combiningchars dvorak ignoreeof \
        nonotify \
+       promptsubst \
        nobeep
+
+PS1='%(?..; \$?=%9F%?%f)${SSH_CONNECTION:+; ssh %M}; cd %~; '
+PS2='${(l|$((2 * ${(w)#${(%%):-%_}}))|)}'
+PS3='Your selection: '
+PS4='+%N:%i: '
+
+TIMEFMT=%J$'\n''real: %*E, user: %*U, system: %*S (%P)'
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd set-terminal-title-to-pwd
@@ -53,6 +61,11 @@ zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'r:|[:.,_-]=** r
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-separator ''
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:default' list-prompt '%K{white}More (%p)%k'
+zstyle ':completion:*:descriptions' format '%K{white}%d%k'
+zstyle ':completion:*:messages' format '%F{green}%d%f'
+zstyle ':completion:*:warnings' format '%F{red}no matches for %d%f'
+zstyle ':completion:*:options' auto-description 'specify %d'
 zstyle ':completion::complete:*' use-cache yes
 
 zstyle ':completion:*:processes' command 'ps -U $EUID 2>/dev/null'
@@ -120,9 +133,6 @@ bindkey \
 bindkey -r '^['
 
 # Functions And Aliases
-
-autoload -U promptinit; promptinit
-prompt now
 
 autoload -U zsh-mime-setup; zsh-mime-setup
 
