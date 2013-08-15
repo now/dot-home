@@ -165,7 +165,8 @@
 (eval-after-load 'dired
   '(progn
      (setq dired-isearch-filenames 'dwim
-           dired-dwim-target t)))
+           dired-dwim-target t
+           dired-listing-switches "-al --si")))
 
 (add-to-list 'Info-default-directory-list "~/share/info")
 
