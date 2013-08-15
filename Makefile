@@ -155,9 +155,6 @@ DOTFILES = \
 	   zsh/functions/define-digraphs \
 	   zsh/functions/dynamic-directory-names \
 	   zsh/functions/list-directory-on-chpwd \
-	   zsh/functions/set-terminal-title-from-command \
-	   zsh/functions/set-terminal-title-to-pwd \
-	   zsh/functions/terminal-title \
 	   zsh/functions/cache/invalid \
 	   zsh/functions/cache/path \
 	   zsh/functions/cache/retrieve \
