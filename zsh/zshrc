@@ -76,7 +76,7 @@ zstyle ':completion:*:*:kill:*:*' menu selection
 # Keybindings
 
 autoload -U forward-word-match backward-word-match \
-            replace-string backward-kill-word-match
+            backward-kill-word-match
 
 for command in $ZDOTDIR/functions/zle/* \
            copy-earlier-word; do
