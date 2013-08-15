@@ -114,16 +114,11 @@ bindkey \
   '^D' zle/vi-cmd-mode-silently \
   '^H' backward-delete-char \
   '^K' zle/insert-digraph \
-  '^N' _history-complete-newer \
   '^O' accept-line-and-down-history \
-  '^P' _history-complete-older \
   '^Q' push-line-or-edit \
   '^U' zle/up-from-menu \
-  '^\' undo \
   '^W' backward-kill-to-space-or-/ \
-  '^X$' insert-last-word \
   '^X^L' zle/history-beginning-search-menu \
-  '^X^P' copy-earlier-word \
   '^X^S' zle/sudo-command-line \
   '^Xu' zle/urlify-current-argument \
   '^Y' zle/yank-clipboard \
