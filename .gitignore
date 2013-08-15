@@ -24,7 +24,6 @@ bin/vg
 bin/vgg
 bin/vimless
 config.mk
-xsession
 *.elc
 *.swp
 .emacs.desktop
