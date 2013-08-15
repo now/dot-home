@@ -11,7 +11,7 @@ while getopts "cv" opt; do
     (v) (( verify = 1 )) ;;
   esac
 done
-shift $(( OPTIND - 1 )) 
+shift $(( OPTIND - 1 ))
 
 local context="$1" ident="$2"
 
@@ -41,7 +41,7 @@ fi
 
 if (( create )); then
   local cache_ident_path=${${:-"$cache_path/$ident"}:h}
-  
+
   if [[ ! -d $cache_ident_path ]]; then
     if [[ -e $cache_ident_path ]]; then
       print -u 2 "cache ident path points to a non-directory"
