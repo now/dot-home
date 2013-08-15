@@ -1,2 +1,0 @@
-stty -ixon
-exec screen -D -RR

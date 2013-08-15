@@ -8,12 +8,9 @@ MANWIDTH=80
 MANPAGER="vimless +'setf man|set ma|%s/.\b//ge|set noma|1' -"
 EDITOR=vim
 
-SYSSCREENRC=/dev/null
-
 export \
   LANG \
-  PAGER GROFF_NO_SGR MANWIDTH MANPAGER EDITOR \
-  SYSSCREENRC
+  PAGER GROFF_NO_SGR MANWIDTH MANPAGER EDITOR
 
 source $ZDOTDIR/os/profile
 source $ZDOTDIR/host/profile

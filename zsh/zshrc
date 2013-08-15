@@ -3,7 +3,6 @@
 HISTFILE=~/.zshistory
 SAVEHIST=${HISTSIZE::=1024}
 REPORTTIME=300
-unset TERMCAP
 
 setopt autocd \
        completeinword nolistambiguous nolisttypes \
@@ -22,8 +21,6 @@ PS4='+%N:%i: '
 TIMEFMT=%J$'\n''real: %*E, user: %*U, system: %*S (%P)'
 
 autoload -U add-zsh-hook
-add-zsh-hook precmd set-terminal-title-to-pwd
-add-zsh-hook preexec set-terminal-title-from-command
 add-zsh-hook chpwd list-directory-on-chpwd
 add-zsh-hook chpwd chpwd_recent_dirs
 add-zsh-hook zsh_directory_name zsh_directory_name_cdr
