@@ -1,24 +1,11 @@
-# 1  256 Color Terminals
-# ======================
-
-
-TERM screen-256color
 TERM xterm-256color
-
-
-# 1.1  Options
-# ------------
 
 # using a literal ESC character is safer than \e, as not all apps convert it
 LEFTCODE [38;5;
 RIGHTCODE m
 ENDCODE [m
 
-
-# 1.2  Colors
-# -----------
-
-# 1.2.1  General
+# General
 
 NORMAL                  0
 FILE                    0
@@ -37,7 +24,7 @@ STICKY_OTHER_WRITABLE   201
 OTHER_WRITABLE          201
 STICKY                  202
 
-# 1.2.2  Archives
+# Archives
 
 *.7z            3
 *.Z   	        3
@@ -59,7 +46,7 @@ STICKY                  202
 *.z   	        3
 *.zip 	        3
 
-# 1.2.3  Images
+# Images
 
 *.ai    5
 *.bmp   5
@@ -77,7 +64,7 @@ STICKY                  202
 *.xcf   5
 *.xpm   5
 
-# 1.2.4  Audio
+# Audio
 
 *.aiff  139
 *.flac  139
@@ -88,7 +75,7 @@ STICKY                  202
 *.wav   139
 *.wma   139
 
-# 1.2.5  Video
+# Video
 
 *.asf   101
 *.avi   101
@@ -107,12 +94,12 @@ STICKY                  202
 *.swf   101
 *.wmv   101
 
-# 1.2.6  Hidden
+# Hidden
 
 *.swp   7
 *.tmp   7
 *~      7
 
-# 1.2.7  Uninteresting
+# Uninteresting
 
 *.o     7
