@@ -1,7 +1,4 @@
 #! @ZSHELL@
-# contents: X11 session initialization.
-#
-# Copyright © 2007 Nikolai Weibull
 
 # Set keyboard and mouse rates.
 xset r rate 240 30 m 2 20

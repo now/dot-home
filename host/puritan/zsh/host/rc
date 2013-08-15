@@ -1,7 +1,2 @@
-# contents: zsh(1) user RC for puritan host.
-#
-# Copyright © 2008 Nikolai Weibull <now@bitwi.se>
-
 hash -d context=/usr/local/share/texmf/tex/context
 hash -d mycontext=~/share/texmf/tex/context
-hash -d tv=~ftp/data/tv-series
