@@ -9,7 +9,7 @@ setopt autocd \
        completeinword nolistambiguous nolisttypes \
        extendedhistory histnostore \
        rcexpandparam \
-       combiningchars dvorak ignoreeof \
+       combiningchars ignoreeof \
        nonotify \
        promptsubst \
        nobeep
