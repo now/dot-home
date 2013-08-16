@@ -75,8 +75,7 @@ zstyle ':completion:*:*:kill:*:*' menu selection
 autoload -U forward-word-match backward-word-match \
             backward-kill-word-match
 
-for command in $ZDOTDIR/functions/zle/* \
-           copy-earlier-word; do
+for command in $ZDOTDIR/functions/zle/*; do
   command=${command#$ZDOTDIR/functions/}
   autoload -U $command
   zle -N $command
