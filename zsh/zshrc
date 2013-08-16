@@ -132,10 +132,9 @@ autoload -U cdr zargs zcalc zmv $ZDOTDIR/functions/autoload/*(:t)
 
 zstyle ':chpwd:*' recent-dirs-default true
 
-alias mmv='noglob zmv -W'
-
 alias \
-  h='fc -lfiD'
+  h='fc -lfiD' \
+  mmv='noglob zmv -W'
 
 # Operating System And Host Specific Settings
 
