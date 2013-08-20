@@ -1,8 +1,0 @@
-#! @ZSHELL@
-
-tmp=$(mktemp sclipboard-XXXXXX) &&
-  {
-    screen -X writebuf $tmp &&
-    clipboard < $tmp
-    rm $tmp
-  }

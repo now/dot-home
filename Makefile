@@ -308,7 +308,6 @@ BINFILES = \
 	   bin/mfedit \
 	   bin/terminal-colors \
 	   bin/pack \
-	   bin/sclipboard \
 	   bin/unpack \
 	   bin/update-context \
 	   bin/valgrind-ruby \
