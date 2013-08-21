@@ -311,8 +311,7 @@ BINFILES = \
 	   bin/unpack \
 	   bin/update-context \
 	   bin/valgrind-ruby \
-	   bin/vimless \
-	   bin/with-tmp
+	   bin/vimless
 
 bin_substitutables := $(BINFILES)
 
