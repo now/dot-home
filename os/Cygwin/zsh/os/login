@@ -1,0 +1,2 @@
+stty -ixon
+dtach -A tmp/dtach.ses -Ez zsh
