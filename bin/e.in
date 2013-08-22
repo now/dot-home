@@ -1,13 +1,3 @@
 #! @ZSHELL@
 
-local emacsclient=emacsclient
-local emacs=emacs
-
-# In the future we should check how many frames there are, if there are any
-# connected to a TTY or if it’s a window.  We can then daemonize and create a
-# frame when necessary.
-if $emacsclient -e '(frame-list)' > /dev/null 2>&1; then
-  $emacsclient -n $*
-else
-  screen $emacs -f server-start $*
-fi
+exec emacsclient --alternate-editor '' -t $*
