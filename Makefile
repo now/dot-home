@@ -140,7 +140,6 @@ DOTFILES = \
 	   vim/after/syntax/vim.vim \
 	   vim/colors/now.vim \
 	   vim/ftplugin/man.vim \
-	   vim/macros/less.vim \
 	   vimperatorrc \
 	   vimrc \
 	   zsh/functions/_unpack \
@@ -310,8 +309,7 @@ BINFILES = \
 	   bin/pack \
 	   bin/unpack \
 	   bin/update-context \
-	   bin/valgrind-ruby \
-	   bin/vimless
+	   bin/valgrind-ruby
 
 bin_substitutables := $(BINFILES)
 
