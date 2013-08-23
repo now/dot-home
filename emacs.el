@@ -33,6 +33,7 @@
                           (ido-ubiquitous t)
                           (iedit-mode t)
                           (magit t)
+                          (paredit t)
                           (popup t)
                           (smex t)
                           (undo-tree t)))
@@ -407,7 +408,7 @@
 (recentf-mode t)
 (setq recentf-max-saved-items 50)
 (defun ido-find-recent-file ()
-  "Use `ido-completing-read' to \\[find-file] a recentf file"
+  "Use `ido-completing-read' to `find-file' a recentf file"
   (interactive)
   (find-file (ido-completing-read "Find recent file: " recentf-list)))
 
