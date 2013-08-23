@@ -28,10 +28,12 @@
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/")
              'append)
-(setq package-load-list '((evil t)
+(setq package-load-list '((auto-complete t)
+                          (evil t)
                           (ido-ubiquitous t)
                           (iedit-mode t)
                           (magit t)
+                          (popup t)
                           (smex t)
                           (undo-tree t)))
 (package-initialize)
