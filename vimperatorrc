@@ -17,10 +17,10 @@ highlight MoreMsg color: green; background: white
 highlight NonText color: #2080c0
 highlight Normal font: 10pt monospace; background: white
 highlight PromptText color: black
-highlight Question: color: green
+highlight Question color: green
 highlight StatusLine color: gray
 highlight Title color: #2080c0
-highlight WarningMsg: color: red;
+highlight WarningMsg color: red;
 highlight URL color: #2f5a9b
 
 let mapleader = ','
