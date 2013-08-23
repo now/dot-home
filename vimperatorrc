@@ -44,7 +44,7 @@ command! -nargs=+ sitesearch :open javascript:location.href='http://google.com/s
 command! passwordsave :open javascript:(function(){var%20ac,c,f,fa,fe,fea,x,y,z;ac="autocomplete";c=0;f=document.forms;for(x=0;x<f.length;x++){fa=f[x].attributes;for(y=0;y<fa.length;y++){if(fa[y].name.toLowerCase()==ac){fa[y].value="on";c++;}}fe=f[x].elements;for(y=0;y<fe.length;y++){fea=fe[y].attributes;for(z=0;z<fea.length;z++){if(fea[z].name.toLowerCase()==ac){fea[z].value="on";c++;}}}}alert("Enabled%20'"+ac+"'%20on%20"+c+"%20objects.");})();
 
 command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
-lazy fmaps -u='mail\.google\.com/mail' gi gs gt gd ga gc gb gk gl *a *n *r *u *s *t u j k o n p c / q ? x s y e m ! # r a f <shift-n> ] [ z . <shift-i> <shift-u> + = - gp <shift-t> <s-r> <m-enter>
+lazy fmaps -u='mail\.google\.com/mail' <C-Enter> <M-Enter> gi gs gt gd ga gc gl *a *n *r *u *s *t u k j o p n c d q . l ? , x s y m # r <S-r> a <S-a> f <S-n> ] [ } { z <S-i> gp
 
 style -name GitHub github.com <<EOS
   pre,
