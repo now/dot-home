@@ -9,7 +9,7 @@ EDITOR=e
 
 export \
   LANG \
-  PAGER GROFF_NO_SGR MANWIDTH MANPAGER EDITOR
+  PAGER MANWIDTH MANPAGER EDITOR
 
 source $ZDOTDIR/os/profile
 source $ZDOTDIR/host/profile
