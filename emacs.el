@@ -30,6 +30,7 @@
              'append)
 (setq package-load-list '((evil t)
                           (ido-ubiquitous t)
+                          (iedit-mode t)
                           (magit t)
                           (smex t)
                           (undo-tree t)))
@@ -315,6 +316,9 @@
   (setq-default calc-group-char " "
                 calc-gnuplot-default-device "dumb"
                 calc-show-banner nil))
+
+(global-set-key (kbd "C-x i") 'iedit-mode)
+(define-key iedit-lib-keymap (kbd "M-o") 'iedit-toggle-unmatched-lines-visible)
 
 ; (eval-after-load 'isearch …)
 (define-key global-map "\C-s" 'isearch-forward-regexp)
