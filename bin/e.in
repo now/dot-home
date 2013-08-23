@@ -1,3 +1,15 @@
 #! @ZSHELL@
 
-exec emacsclient --alternate-editor '' -t $*
+zmodload zsh/zselect || exit 1
+
+if zselect -t 0 -r 0; then
+  local t=; t=$(mktemp) || exit 1
+  {
+    cat > $t
+    emacsclient --alternate-editor '' -t $* $t
+  } always {
+    rm $t
+  }
+else
+  exec emacsclient --alternate-editor '' -t $*
+fi
