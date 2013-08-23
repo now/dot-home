@@ -2,11 +2,10 @@ path[1,0]=(. ~/bin ~/.gem/ruby/2.0.0/bin ~/opt/ruby/current/bin ~/opt/local/bin)
 
 LANG=en_US.UTF-8
 
-PAGER=vimless
-GROFF_NO_SGR=1
+PAGER=e
 MANWIDTH=80
-MANPAGER="vimless +'setf man|set ma|%s/.\b//ge|set noma|1' -"
-EDITOR=vim
+MANPAGER='less -R'
+EDITOR=e
 
 export \
   LANG \
