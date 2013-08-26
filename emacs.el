@@ -498,6 +498,14 @@
 
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.at\\'") 'm4-mode))
 
+(autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of lisp code." t)
+(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+(add-hook 'eval-expression-minibuffer-setup-hook 'enable-paredit-mode)
+(add-hook 'ielm-mode-hook 'enable-paredit-mode)
+(add-hook 'lisp-mode-hook 'enable-paredit-mode)
+(add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+(add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
+
 (autoload 'rnc-mode "rnc-mode")
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.rnc\\'") 'rnc-mode))
 
