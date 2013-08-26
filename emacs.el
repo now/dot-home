@@ -331,7 +331,6 @@
 (define-key global-map "\C-r" 'isearch-backward-regexp)
 (define-key esc-map "\C-r" 'isearch-backward)
 
-; (eval-after-load 'magit …)
 (eval-after-load 'magit
   '(define-key magit-mode-map "q" 'close-buffer-and-window-unless-last))
 (add-hook 'magit-log-edit-mode-hook
