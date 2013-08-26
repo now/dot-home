@@ -81,6 +81,7 @@
 (eval-after-load 'hideshow
   '(setq hs-set-up-overlay (lambda (ov)
                              (overlay-put ov 'display " …"))))
+(setq overlay-arrow-string "⇒")
 
 (blink-cursor-mode -1)
 
