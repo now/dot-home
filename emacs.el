@@ -31,7 +31,7 @@
 (setq package-load-list '((auto-complete t)
                           (evil t)
                           (ido-ubiquitous t)
-                          (iedit-mode t)
+                          (iedit t)
                           (magit t)
                           (paredit t)
                           (popup t)
@@ -321,10 +321,9 @@
                 calc-gnuplot-default-device "dumb"
                 calc-show-banner nil))
 
+(global-set-key (kbd "C-x i") 'iedit-mode)
 (eval-after-load 'iedit
-  '(progn
-     (global-set-key (kbd "C-x i") 'iedit-mode)
-     (define-key iedit-lib-keymap (kbd "M-o") 'iedit-toggle-unmatched-lines-visible)))
+  '(define-key iedit-lib-keymap (kbd "M-o") 'iedit-toggle-unmatched-lines-visible))
 
 ; (eval-after-load 'isearch …)
 (define-key global-map "\C-s" 'isearch-forward-regexp)
