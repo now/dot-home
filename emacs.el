@@ -173,8 +173,6 @@
            dired-dwim-target t
            dired-listing-switches "-al --si")))
 
-(add-to-list 'Info-default-directory-list "~/share/info")
-
 (eval-after-load 'man
   '(setq Man-switches "-P cat"))
 
