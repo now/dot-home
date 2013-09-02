@@ -77,7 +77,6 @@ APPDATAFILES = \
 $(eval $(call GROUP_template,$(APPDATAFILES),$(appdatadir)/Dialog\ Death,,os/Cygwin/))
 
 BINFILES = \
-	   os/Cygwin/bin/edit-in-screen-vim \
 	   os/Cygwin/bin/im
 
 $(call GROUP_template,$(BINFILES),~,,os/Cygwin/,755)

@@ -1,4 +1,0 @@
-#! /bin/sh
-
-mixed=`/bin/cygpath -ml $1`
-/bin/screen -X screen vim "`/bin/cygpath -u "$mixed"`"
