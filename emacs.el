@@ -374,7 +374,9 @@
 
 (eval-after-load 'org
   '(progn
-     (setq org-directory "~/Documents/Google Drive/Org"
+     (setq org-archive-default-command 'org-archive-to-archive-sibling
+           org-directory "~/Documents/Google Drive/Org"
+           org-loop-over-headlines-in-active-region 'region-start-level
            org-mobile-directory "~/Sites/dav"
            org-mobile-force-id-on-agenda-items nil
            org-refile-targets '((org-agenda-files . (:level . 1)))
