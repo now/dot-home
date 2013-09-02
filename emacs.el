@@ -174,7 +174,9 @@
            dired-listing-switches "-al --si")))
 
 (eval-after-load 'man
-  '(setq Man-switches "-P cat"))
+  '(progn
+     (setq Man-switches "-P cat")
+     (evil-define-key 'normal Man-mode-map "q" 'close-buffer-and-window-unless-last)))
 
 (eval-after-load 'desktop
   '(progn
