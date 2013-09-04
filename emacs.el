@@ -33,6 +33,7 @@
                           (ido-ubiquitous t)
                           (iedit t)
                           (magit t)
+                          (multiple-cursors t)
                           (paredit t)
                           (popup t)
                           (smex t)
@@ -265,11 +266,13 @@
 
          "K" 'man
 
-         ",m" 'compile-package-immediately
+         ",m" 'compile-package
+         ",M" 'compile
          ",n" 'next-error
          ",p" 'previous-error
          ",N" 'compilation-next-file
-         ",P" 'compilation-previous-file)
+         ",P" 'compilation-previous-file
+         ",s" 'magit-status)
        ; TODO This should be done in evil-maps.el.  Oh, and it doesn’t work.
        (funcall define-keys evil-read-key-map
          "\C-k" 'evil-insert-digraph)
@@ -324,6 +327,7 @@
 (global-set-key (kbd "C-x i") 'iedit-mode)
 (eval-after-load 'iedit
   '(define-key iedit-lib-keymap (kbd "M-o") 'iedit-toggle-unmatched-lines-visible))
+(global-set-key (kbd "C-x I") 'mc/mark-next-like-this)
 
 ; (eval-after-load 'isearch …)
 (define-key global-map "\C-s" 'isearch-forward-regexp)
