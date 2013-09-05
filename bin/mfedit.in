@@ -8,9 +8,9 @@ local file=
 for file in $*; do
   local tmp=; tmp=$(mktemp "$(dirname $file)/mfedit.XXXXXX") || exit 1
   {
-    metaflac --export-tags-to=$tmp $file &&
+    metaflac --no-utf8-convert --export-tags-to=$tmp $file &&
       ${EDITOR:-vi} $tmp &&
-      metaflac --remove-all-tags --import-tags-from=$tmp $file
+      metaflac --no-utf8-convert --remove-all-tags --import-tags-from=$tmp $file
   } always {
     rm -f $tmp
   }
