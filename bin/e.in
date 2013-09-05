@@ -1,15 +1,16 @@
 #! @ZSHELL@
 
-zmodload zsh/zselect || exit 1
+local -a switches; switches=(--alternate-editor '')
+[[ $TERM != dumb ]] && switches+=-t
 
-if zselect -t 0 -r 0; then
-  local t=; t=$(mktemp) || exit 1
+if [[ ! -t 0 ]]; then
+  local t=; t=$(mktemp e.XXXXXX) || exit 1
   {
     cat > $t
-    emacsclient --alternate-editor '' -t $* $t
+    emacsclient "$switches[@]" $* $t
   } always {
     rm $t
   }
 else
-  exec emacsclient --alternate-editor '' -t $*
+  exec emacsclient "$switches[@]" $*
 fi
