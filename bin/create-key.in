@@ -1,0 +1,20 @@
+#! @ZSHELL@
+
+local app=; app=$(basename $0)
+
+if (( $# != 2 )); then
+  print -r -- Usage: $app COMMENT FILE
+  exit 1
+fi
+
+ssh-keygen -b 8192 -N '' -C $1 -f $2 || exit 1
+mv $2 $2.tmp || exit 1
+{
+  openssl pkcs8 -topk8 -v2 des3 -in $2.tmp -out $2 || exit 1
+  if ! chmod 600 $2; then
+    rm $2 $2.pub
+    exit 1
+  fi
+} always {
+  rm $@.tmp
+}

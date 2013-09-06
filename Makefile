@@ -296,6 +296,7 @@ BINFILES = \
 	   bin/backup-home \
 	   bin/burn \
 	   bin/clipboard \
+	   bin/create-key \
 	   bin/dfs \
 	   bin/discogs-tags \
 	   bin/duh \
