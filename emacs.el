@@ -242,6 +242,8 @@
                           (if bindings
                               (apply define-keys map bindings)))))
        (funcall define-keys evil-normal-state-map
+                "`" 'smex
+                "~" 'smex-major-mode-commands
          "q" 'delete-other-windows
          "Q" 'evil-record-macro
 
@@ -272,9 +274,18 @@
          ",N" 'compilation-next-file
          ",P" 'compilation-previous-file
          ",s" 'magit-status)
+       (funcall define-keys evil-visual-state-map
+                "\C-d" 'evil-normal-state)
+       (funcall define-keys evil-insert-state-map
+                "\C-d" 'evil-normal-state)
+       (funcall define-keys evil-motion-state-map
+                "`" 'smex
+                "~" 'smex-major-mode-commands
+                " " 'evil-scroll-page-down)
        ; TODO This should be done in evil-maps.el.  Oh, and it doesn’t work.
        (funcall define-keys evil-read-key-map
-         "\C-k" 'evil-insert-digraph)
+         "\C-k" 'evil-insert-digraph
+         "\C-^" 'evil-buffer)
        ; TODO This doesn’t work either.
        (funcall define-keys evil-ex-search-keymap
          "\C-k" 'evil-insert-digraph)
@@ -291,16 +302,7 @@
      (define-key evil-normal-state-map "L" 'evil-change-whole-line)
      (define-key evil-motion-state-map "S" 'evil-window-bottom)
 
-     (define-key evil-motion-state-map " " 'evil-scroll-page-down)
-     (define-key evil-normal-state-map (kbd "DEL") 'evil-scroll-page-up)
-
-     (define-key evil-insert-state-map "\C-d" 'evil-normal-state)
-     (define-key evil-insert-state-map "\C-^" 'evil-buffer)
-
-     (define-key evil-normal-state-map "`" 'smex)
-     (define-key evil-motion-state-map "`" 'smex)
-     (define-key evil-normal-state-map "~" 'smex-major-mode-commands)
-     (define-key evil-motion-state-map "~" 'smex-major-mode-commands)))
+     (define-key evil-normal-state-map (kbd "DEL") 'evil-scroll-page-up)))
 (evil-mode 1)
 
 (global-set-key (kbd "C-x C-o") 'other-window)
