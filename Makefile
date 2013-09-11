@@ -306,6 +306,7 @@ BINFILES = \
 	   bin/index-disc \
 	   bin/m \
 	   bin/mfedit \
+	   bin/mov-re-encode \
 	   bin/terminal-colors \
 	   bin/pack \
 	   bin/unpack \

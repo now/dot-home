@@ -1,0 +1,51 @@
+#! @ZSHELL@
+
+if (( $# < 1 )); then
+  print -r -- Usage: $(basename $0) [OPTION]... FILE...
+  exit 1
+fi
+
+local -a opts files
+while (( $# > 0 )); do
+  case $1 in
+    (--) shift; files+=($*); break ;;
+    (-*)
+      case $1 in
+        (-s)
+          opts+=($1 $2); shift 2 ;;
+        (*)
+          opts+=$1; shift ;;
+      esac
+      ;;
+    (*) files+=$1; shift ;;
+  esac
+done
+
+integer retval=0
+for file in $files; do
+  local reencodedstamp=; reencodedstamp=$(ffprobe -loglevel error \
+    -print_format default=nokey=1:noprint_wrappers=1 \
+    -show_entries format_tags=date-re-encoded $file) || { retval=1; continue }
+  if [[ -n $reencodedstamp ]]; then
+    print -r -- $(basename $0): $file: already re-encoded
+    continue
+  fi
+  local filestamp=; filestamp=$(stat -t %Y%m%d%H%M.%S -f %Sm $file) || { retval=1; continue }
+  local reencodedstamp=; reencodedstamp=$(date +%Y-%m-%dT%H:%M:%S%z) || { retval=1; continue }
+  local tmp=; tmp=$(mktemp "$(dirname $file)/mov-re-encode.XXXXXX") || { retval=1; continue }
+  # TODO Then add said metadata to all that’s been reencoded in the past
+  # -s 852x480 \
+  #  -b:v 1290k \
+  # TODO ffmpeg doesn’t copy unknown metadata and doesn’t allow you to set arbitrary metadata, not in mov at least
+  { ffmpeg \
+    -i $file \
+    -codec:a libmp3lame -codec:v libx264 -f mov \
+    -map_metadata 0 \
+    -metadata date-re-encoded=$reencodedstamp \
+    -y \
+    "$opts[@]" \
+    $tmp &&
+    touch -m -t $filestamp $tmp &&
+    mv $tmp $file } || { rm -f $tmp; retval=1; continue }
+done
+exit $retval
