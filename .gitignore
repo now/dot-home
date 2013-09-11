@@ -13,6 +13,7 @@ bin/g
 bin/index-disc
 bin/m
 bin/mfedit
+bin/mov-re-encode
 bin/pack
 bin/terminal-colors
 bin/unpack
