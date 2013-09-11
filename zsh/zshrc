@@ -13,10 +13,12 @@ setopt autocd \
        promptsubst \
        nobeep
 
-PS1='%(?..; \$?=%9F%?%f)${SSH_CONNECTION:+; ssh %M}; cd %~; '
-PS2='${(l|$((2 * ${(w)#${(%%):-%_}}))|)}'
-PS3='Your selection: '
-PS4='+%N:%i: '
+if [[ $TERM != dumb ]]; then
+  PS1='%(?..; \$?=%9F%?%f)${SSH_CONNECTION:+; ssh %M}; cd %~; '
+  PS2='${(l|$((2 * ${(w)#${(%%):-%_}}))|)}'
+  PS3='Your selection: '
+  PS4='+%N:%i: '
+fi
 
 TIMEFMT=%J$'\n''real: %*E, user: %*U, system: %*S (%P)'
 
