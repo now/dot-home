@@ -513,6 +513,26 @@
 (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
 (add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
 
+(eval-after-load 'paredit
+  '(progn
+     (evil-define-key 'normal paredit-mode-map
+       "D" 'paredit-kill
+       "gh" 'paredit-backward
+       "gj" 'paredit-forward-up
+       "gk" 'paredit-backward-up
+       "gs" 'paredit-forward
+       "x" 'paredit-forward-delete
+       "X" 'paredit-backward-delete
+       "))" 'paredit-forward-slurp-sexp
+       ")}" 'paredit-forward-barf-sexp
+       "((" 'paredit-backward-slurp-sexp
+       "({" 'paredit-backward-barf-sexp
+       "(J" 'paredit-join-sexps
+       "(R" 'paredit-raise-sexp
+       "(S" 'paredit-split-sexp
+       "(s" 'paredit-splice-sexp
+       "(W" 'paredit-wrap-sexp)))
+
 (autoload 'rnc-mode "rnc-mode")
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.rnc\\'") 'rnc-mode))
 
@@ -699,6 +719,33 @@
 
 (eval-after-load 'css-mode
   '(setq css-indent-offset 2))
+
+(defun rename-shows ()
+  (interactive)
+  (save-excursion
+    (save-restriction
+      (goto-char 1)
+      (re-search-forward "^[^/]")
+      (let ((n (- (count-lines 1 (point)) 1))
+            (m (count-lines (point) (point-max))))
+        (if (not (= n m))
+            (error "Number of files doesn’t match number of names: %d≠%d" n m))
+        (dotimes (i n)
+          (goto-char 1)
+          (beginning-of-line (+ n 1))
+          (let ((line (downcase (replace-regexp-in-string ".*\"\\([^\"]+\\)\".*" "\\1"
+                                                          (delete-and-extract-region (point) (line-end-position))
+                                                          t))))
+            (unless (eobp)
+              (delete-char 1))
+            (goto-char 1)
+            (beginning-of-line (+ i 1))
+            (re-search-forward "^/\\(.*?E\\([0-9]+\\).*?\\)\\.[^./]*/")
+            (replace-match (concat "\\2-"
+                                     (save-match-data
+                                       (dolist (r '(("'" . "’") (" " . "_") ("\\.\\.\\." . "…") ("?" . "") ("&" . "and") ("\\\\" "\\\\")) line)
+                                         (setq line (replace-regexp-in-string (car r) (cdr r) line t t)))))
+                             t nil nil 1)))))))
 
 (cond
  ((eq system-type 'cygwin)
