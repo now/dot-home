@@ -83,8 +83,6 @@
                              (overlay-put ov 'display " …"))))
 (setq overlay-arrow-string "⇒")
 
-(blink-cursor-mode -1)
-
 (eval-after-load 'paren
   '(setq show-paren-delay 0))
 (show-paren-mode 1)
