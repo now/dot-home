@@ -187,7 +187,21 @@ for (( i = 1; i <= $#files; i++ )); do
   (( differentimages )) && [[ $positions[i] != [aA]* ]] && image=$images[secondary]
   [[ -z $image ]] && image=$images[primary]
   $=precmd metaflac \
-    --remove-all-tags \
+    --remove-tag=ALBUMARTIST \
+    --remove-tag=ALBUM \
+    --remove-tag=ORGANIZATION \
+    --remove-tag=CATALOGNUMBER \
+    --remove-tag=DATE \
+    --remove-tag=YEAR \
+    --remove-tag=LOCATION \
+    --remove-tag=GENRE \
+    --remove-tag=TRACKNUMBER \
+    --remove-tag=POSITION \
+    --remove-tag=ARTIST \
+    --remove-tag=TITLE \
+    --remove-tag=MIXARTIST \
+    --remove-tag="DISCOGS RELEASE ID" \
+    --remove-tag="NMDB ID" \
     --add-replay-gain \
     --set-tag=ALBUMARTIST=${^albumartists} \
     --set-tag=ALBUM=$album \
