@@ -72,7 +72,6 @@ xml-image () {
       ;;
   esac
   if [[ -n $uri ]]; then
-    [[ $2 = primary ]] && die 'missing primary image; upload one'
     local image=; image=$(mktemp dti.XXXXXX) || exit 1
     trap 'rm -f $images; exit 130' INT
     trap 'rm -f $images; exit 143' TERM
@@ -85,6 +84,8 @@ xml-image () {
       image=$jpeg
     fi
     images[$2]=$image
+  elif [[ $2 = primary ]]; then
+    die 'missing primary image; upload one'
   fi
 }
 
