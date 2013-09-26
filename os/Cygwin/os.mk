@@ -14,7 +14,8 @@ $(call EMACS_template,$(DOTFILES),$(userconfdir))
 
 DOTFILES = \
 	   os/Cygwin/autohotkey/digraphs.ahk \
-	   os/Cygwin/hotkeys.ahk
+	   os/Cygwin/hotkeys.ahk \
+	   os/Cygwin/minttyrc
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.,os/Cygwin/)
 
@@ -83,10 +84,10 @@ $(call GROUP_template,$(BINFILES),~,,os/Cygwin/,755)
 
 STARTUPFILES = \
 	       os/Cygwin/start-up/clipx.lnk \
+	       os/Cygwin/start-up/cygwin.lnk \
 	       os/Cygwin/start-up/firefox.lnk \
 	       os/Cygwin/start-up/hotkeys.lnk \
 	       os/Cygwin/start-up/outlook.lnk \
-	       os/Cygwin/start-up/sh.lnk \
 	       os/Cygwin/start-up/totalcmd.lnk
 
 startupdir = $(call shell_quote,$(shell cygpath -P))/Startup
