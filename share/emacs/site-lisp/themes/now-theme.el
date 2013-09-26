@@ -114,7 +114,7 @@
     `(org-date ((,class (,@blank :inherit font-lock-comment-face))))
     `(org-done ((,class (:foreground ,off-white :background ,green))))
     `(org-table ((,class ,blank)))
-    `(org-todo ((,class (:foreground ,off-white :background ,red))))
+    `(org-todo ((,class (,@blank :foreground ,off-white :background ,red))))
     `(outline-1 ((,class ,blank)))
     `(outline-2 ((,class ,blank)))
     `(outline-3 ((,class ,blank)))
