@@ -211,7 +211,7 @@ return
 #w::PostMessage 0x112, 0xf060, , , A
 
 ^k::
-if WinActive("ahk_class Emacs") or WinActive("ahk_class Vim") or WinActive("ahk_class PuTTY")
+if WinActive("ahk_class Emacs") or WinActive("ahk_class mintty") or WinActive("ahk_class Vim") or WinActive("ahk_class PuTTY")
   Dg := "kk"
 else
   Input Dg, L2 C
