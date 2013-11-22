@@ -133,7 +133,6 @@ DOTFILES = \
 	   indent.pro \
 	   inputrc \
 	   mailcap \
-	   mplayer/config \
 	   vim/after/ftplugin/sh.vim \
 	   vim/after/ftplugin/vim.vim \
 	   vim/after/ftplugin/zsh.vim \
