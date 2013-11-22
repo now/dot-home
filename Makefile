@@ -264,7 +264,6 @@ DOTFILES = \
 	   $(GM_SCRIPTS) \
 	   firefox/mimeTypes.rdf \
 	   firefox/searchplugins/adlibris.xml \
-	   firefox/searchplugins/codesearch.xml \
 	   firefox/searchplugins/discogs.xml \
 	   firefox/searchplugins/gatherer.xml \
 	   firefox/searchplugins/hittase-where.xml \

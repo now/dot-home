@@ -6,7 +6,6 @@ INSERT INTO engine_data (engineid, name, value) VALUES('[app]/google.xml', 'alia
 INSERT INTO engine_data (engineid, name, value) VALUES('[app]/wikipedia.xml', 'alias', 'wikipedia');
 
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/adlibris.xml', 'alias', 'adlibris');
-INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/codesearch.xml', 'alias', 'codesearch');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/discogs.xml', 'alias', 'discogs');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/hittase-where.xml', 'alias', 'where');
 INSERT INTO engine_data (engineid, name, value) VALUES('[profile]/hittase-who.xml', 'alias', 'who');
