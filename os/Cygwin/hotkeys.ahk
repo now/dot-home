@@ -21,25 +21,6 @@ TagEditorVerify()
     WinMenuSelectItem, , , View, Toolbars, Messages
 }
 
-TagEditorSaveAll()
-{
-  TagEditor := ComObjActive("TagEditor.Application")
-  Count := TagEditor.Documents.Count
-  loop %Count% {
-    TagEditor.Documents.Item(A_Index - 1).SaveBilingual()
-  }
-}
-
-TagEditorSaveAllAsTarget()
-{
-  TagEditor := ComObjActive("TagEditor.Application")
-  Count := TagEditor.Documents.Count
-  loop %Count% {
-    Document := TagEditor.Documents.Item(A_Index - 1)
-    Document.SaveTargetAs(Document.Path . "\" . Document.OriginalName)
-  }
-}
-
 TagEditorCloseAll()
 {
   TagEditor := ComObjActive("TagEditor.Application")
@@ -62,23 +43,7 @@ Enter::!o
 #IfWinActive ^Customer|Employee$ ahk_class Transparent Window Client
 Escape::WinClose
 
-#IfWinActive Microsoft Outlook$ ahk_class rctrl_renwnd32
-!i::
-ControlFocus NetUIHWND4
-if (ErrorLevel = 0)
-  return
-SendInput !s
-return
-
-!c::ControlFocus _WwG1
-
-!l::ControlFocus SUPERGRID1
-
 #IfWinActive ^SDL Trados TagEditor
-^+s::TagEditorSaveAll()
-
-^+F12::TagEditorSaveAllAsTarget()
-
 ^w::SendInput ^{F4}
 
 ^+w::TagEditorCloseAll()
@@ -108,50 +73,6 @@ Loop %nRows% {
   SendInput {Down}
 }
 return
-
-#IfWinActive ^SDL Trados S-Tagger for FrameMaker
-+^d::
-SendInput !r
-ControlSend Button1, {Enter}
-WinWaitActive Select STF File(s) to
-SendInput +{Tab}^a{Enter}
-SavedTitleMatchMode = %A_TitleMatchMode%
-SetTitleMatchMode Regex
-WinWait ^Confirm (?:Verification of S-Tags|STF Conversion)$
-ControlSend Button1, {Enter}
-SetTitleMatchMode %SavedTitleMatchMode%
-return
-
-^p::
-Saved_KeyDelay := A_KeyDelay
-SetKeyDelay 100
-SendEvent ^!v3{Tab}{Tab}^!v3{Tab}{Tab}^!v3
-SetKeyDelay %Saved_KeyDelay%
-return
-
-#IfWinActive ^Find/Change$ ahk_class InDesign_Window:5660125
-Esc::SendInput !d
-!f::SendInput !x
-!r::SendInput !g
-
-#IfWinActive ahk_class Illustrator9
-F3::
-Saved_KeyDelay := A_KeyDelay
-SetKeyDelay 200
-SendEvent !frj
-SetKeyDelay %Saved_KeyDelay%
-return
-
-#IfWinActive ahk_class illustrator
-F3::
-SendInput !ou!ou!ou
-Saved_KeyDelay := A_KeyDelay
-SetKeyDelay 200
-SendEvent !frj
-SetKeyDelay %Saved_KeyDelay%
-return
-
-!z::ControlFocus Edit1
 
 #IfWinActive ahk_class TTOTAL_CMD
 !PgUp::SendInput {Home}
