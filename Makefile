@@ -232,36 +232,7 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(vlcuserconfdir),,vlc/)
 
 ifneq ($(firefoxuserconfdir),)
-USERSCRIPT_field = s,^[ 	]*//[ 	]*@\($(1)\)[ 	][ 	]*\(.*\)$$,    $(2),p;
-
-USERSCRIPT_fields = $(foreach field,$(1),$(call USERSCRIPT_field,$(field),\1="\2"))
-
-GM_tag = $(call USERSCRIPT_field,$(1),<$(2)>\2</$(2)>)
-
-GM_SCRIPTS = \
-	     firefox/gm_scripts/divshare-auto-download.user.js \
-	     firefox/gm_scripts/mediafire-auto-download.user.js \
-	     firefox/gm_scripts/zshare-mp3-links.user.js
-
-GM_CONFIG = $(firefoxuserconfdir)/gm_scripts/config.xml
-
-$(GM_CONFIG): Makefile $(GM_SCRIPTS)
-	{ \
-	  echo '<UserScriptConfig>'; \
-	  for f in $(wordlist 2,$(words $^),$^); do \
-	    echo "  <Script filename=\"`basename $$f`\""; \
-	    sed -n '$(call USERSCRIPT_fields,name namespace description)' < $$f; \
-	    echo '    enabled="true" basedir=".">'; \
-	    sed -n '$(call GM_tag,include,Include) $(call GM_tag,exclude,Exclude)' < $$f; \
-	    echo '  </Script>'; \
-	  done; \
-	  echo '</UserScriptConfig>'; \
-	} > $(call shell_quote,$@)
-
-install: $(GM_CONFIG)
-
 DOTFILES = \
-	   $(GM_SCRIPTS) \
 	   firefox/mimeTypes.rdf \
 	   firefox/searchplugins/adlibris.xml \
 	   firefox/searchplugins/discogs.xml \
