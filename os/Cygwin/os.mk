@@ -77,11 +77,6 @@ APPDATAFILES = \
 
 $(eval $(call GROUP_template,$(APPDATAFILES),$(appdatadir)/Dialog\ Death,,os/Cygwin/))
 
-BINFILES = \
-	   os/Cygwin/bin/im
-
-$(call GROUP_template,$(BINFILES),~,,os/Cygwin/,755)
-
 STARTUPFILES = \
 	       os/Cygwin/start-up/clipx.lnk \
 	       os/Cygwin/start-up/cygwin.lnk \

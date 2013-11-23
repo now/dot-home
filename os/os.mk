@@ -9,6 +9,7 @@ $(foreach file,$(DOTFILES),$(call FILE_template,$(or $(wildcard os/$(uname)/$(fi
 BINFILES = \
 	bin/a \
 	bin/aa \
+	bin/im \
 	bin/o \
 	bin/oo
 
