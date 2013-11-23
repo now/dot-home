@@ -114,7 +114,7 @@ bindkey \
   '^H' backward-delete-char \
   '^K' zle/insert-digraph \
   '^O' accept-line-and-down-history \
-  '^Q' push-line-or-edit \
+  '^P' push-line-or-edit \
   '^U' zle/up-from-menu \
   '^W' backward-kill-to-space-or-/ \
   '^X^L' zle/history-beginning-search-menu \
