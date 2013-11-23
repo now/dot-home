@@ -1,2 +1,0 @@
-hash -d context=/usr/local/share/texmf/tex/context
-hash -d mycontext=~/share/texmf/tex/context
