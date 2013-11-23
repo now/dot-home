@@ -3,19 +3,18 @@ text/html; elinks %s            ; nametemplate=%s.html; test=test -z "$DISPLAY"
 text/html; elinks -dump %s      ; nametemplate=%s.html; copiousoutput
 text/*; vimless %s              ; needsterminal; edit=vim %s
 
-audio/*                 ; mplayer %s    ; needsterminal
-image/*                 ; im %sily
-video/*                 ; mplayer %s    ; needsterminal; test=test -n "$DISPLAY"
-application/ogg         ; mplayer %s    ; needsterminal
+audio/*                 ; m %s
+video/*                 ; m %s
+application/ogg         ; m %s
 
-# TODO: should really used edit flag in Zsh ‘e’ command
+image/*                 ; im %sily
+
 application/x-msdos-program ; wine %s   ; test=test -n "$DISPLAY"
-application/octet-stream; screen-terminal-vimless %s
+
 application/pdf         ; evince -f %s  ; test=test -n "$DISPLAY"
 application/ps          ; evince -f %s  ; test=test -n "$DISPLAY"
-application/pgp-keys    ; gpg -f < %s   ; copiousoutput
-application/x-tar       ; tar tvvf %s   ; copiousoutput
 application/x-dvi       ; evince -f %s  ; test=test -n "$DISPLAY"
+
+application/x-tar       ; tar tvvf %s   ; copiousoutput
 application/x-gtar      ; tar tzvvf %s  ; copiousoutput
-application/x-tex       ; cat %s        ; copiousoutput
 application/x-zip-comp  ; unzip -l %s   ; copiousoutput
