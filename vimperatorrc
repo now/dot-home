@@ -35,8 +35,6 @@ cnoremap <C-G> <Esc>
 
 command! -nargs=+ song :tabopen juno <args>,  discogs <args>,  youtube <args>
 
-command! tag :open javascript:(function(){var%20a=window,b=document,c=encodeURIComponent,d=a.open("https://www.google.com/bookmarks/mark?op=edit&output=popup&bkmk="+c(b.location)+"&title="+c(b.title));a.setTimeout(function(){d.focus()},300)})();
-
 command! related :open javascript:location.href='http://google.com/search?q=related:'+encodeURIComponent(location.href.replace(/^(?:http:\/\/)?([^\/]+).*/,'$1'))
 
 command! -nargs=+ sitesearch :open javascript:location.href='http://google.com/search?q='+encodeURIComponent(<q-args>)+' site:'+encodeURIComponent(location.href.replace(/^(?:http:\/\/)?([^\/]+).*/,'$1'))
