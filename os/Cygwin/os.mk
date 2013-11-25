@@ -27,10 +27,7 @@ APPDATAFILES = \
 	       os/Cygwin/GHISLER/packers/rar/zip.sfx \
 	       os/Cygwin/GHISLER/plugins/wcx/7zip/7zip.ini \
 	       os/Cygwin/GHISLER/plugins/wfx/registry/English.lng \
-	       os/Cygwin/GHISLER/plugins/wfx/sftp/rc/wfx_sftp_cfg.xrc \
 	       os/Cygwin/GHISLER/plugins/wlx/imagine/imagine.ini \
-	       os/Cygwin/GHISLER/plugins/wlx/ttfview/text.pat \
-	       os/Cygwin/GHISLER/tango.icl \
 	       os/Cygwin/GHISLER/tcignore.txt \
 	       os/Cygwin/GHISLER/totalcmd.ini \
 	       os/Cygwin/GHISLER/usercmd.ini \
@@ -48,26 +45,13 @@ APPDATABINFILES = \
 		  os/Cygwin/GHISLER/plugins/wdx/unicodetest/unicodetest.wdx \
 		  os/Cygwin/GHISLER/plugins/wfx/environment/environment.wfx \
 		  os/Cygwin/GHISLER/plugins/wfx/registry/registry.wfx \
-		  os/Cygwin/GHISLER/plugins/wfx/sftp/password_crypter.dll \
-		  os/Cygwin/GHISLER/plugins/wfx/sftp/psftp.dll \
-		  os/Cygwin/GHISLER/plugins/wfx/sftp/sftp.wfx \
-		  os/Cygwin/GHISLER/plugins/wfx/sftp/wfx_sftp_cfg.dll \
 		  os/Cygwin/GHISLER/plugins/wlx/gswlx/gswlx.wlx \
 		  os/Cygwin/GHISLER/plugins/wlx/imagine/imagine.dll \
 		  os/Cygwin/GHISLER/plugins/wlx/imagine/imagine.wcx \
 		  os/Cygwin/GHISLER/plugins/wlx/imagine/imagine.wlx \
 		  os/Cygwin/GHISLER/plugins/wlx/imagine/plugin/j2k.dll \
 		  os/Cygwin/GHISLER/plugins/wlx/imagine/plugin/jbig.dll \
-		  os/Cygwin/GHISLER/plugins/wlx/ttfview/ttfview.wlx \
-		  os/Cygwin/GHISLER/tango_shell32.dll \
-		  os/Cygwin/GHISLER/tools/copy-to-multiple-folders.vbs \
-		  os/Cygwin/GHISLER/tools/execute-many.vbs \
-		  os/Cygwin/GHISLER/tools/work/add-files-to-trados-workbench-dialog.vbs \
-		  os/Cygwin/GHISLER/tools/work/isodraw-run-macro.vbs \
-		  os/Cygwin/GHISLER/tools/work/open-in-tradobeindecs.vbs \
-		  os/Cygwin/GHISLER/tools/work/open-in-tageditor-non-retardedly.vbs \
-		  os/Cygwin/GHISLER/tools/work/open-in-workbench-non-retardedly.vbs \
-		  os/Cygwin/GHISLER/tools/work/ttx2x.wsf
+		  os/Cygwin/GHISLER/tools/work/open-in-tageditor-non-retardedly.vbs
 
 $(eval $(call GROUP_template,$(APPDATAFILES),$(appdatadir),,os/Cygwin/))
 $(eval $(call GROUP_template,$(APPDATABINFILES),$(appdatadir),,os/Cygwin/,755))
@@ -92,8 +76,6 @@ $(eval $(call GROUP_template,$(STARTUPFILES),$(startupdir),,os/Cygwin/start-up/,
 SHAREFILES = \
 	     os/Cygwin/share/icons/bak.ico \
 	     os/Cygwin/share/icons/cmp.ico \
-	     os/Cygwin/share/icons/joy.ico \
-	     os/Cygwin/share/icons/ord.ico \
 	     os/Cygwin/share/icons/tageditor-generic.ico \
 	     os/Cygwin/share/icons/text-html.ico \
 	     os/Cygwin/share/icons/text-x-generic.ico
