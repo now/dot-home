@@ -64,7 +64,6 @@ $(eval $(call GROUP_template,$(APPDATAFILES),$(appdatadir)/Dialog\ Death,,os/Cyg
 STARTUPFILES = \
 	       os/Cygwin/start-up/clipx.lnk \
 	       os/Cygwin/start-up/cygwin.lnk \
-	       os/Cygwin/start-up/firefox.lnk \
 	       os/Cygwin/start-up/hotkeys.lnk \
 	       os/Cygwin/start-up/outlook.lnk \
 	       os/Cygwin/start-up/totalcmd.lnk
