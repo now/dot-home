@@ -115,6 +115,7 @@
     `(org-done ((,class (,@blank :foreground ,off-white :background ,green))))
     `(org-table ((,class ,blank)))
     `(org-todo ((,class (,@blank :foreground ,off-white :background ,red))))
+    `(org-waiting ((,class (:background ,yellow))))
     `(outline-1 ((,class ,blank)))
     `(outline-2 ((,class ,blank)))
     `(outline-3 ((,class ,blank)))

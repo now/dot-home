@@ -390,7 +390,13 @@
            org-src-window-setup 'current-window
            org-src-fontify-natively t
            org-reverse-note-order t
-           org-log-done 'time)
+           org-log-done 'time
+           org-log-into-drawer t)
+     (setq org-todo-keywords
+           '((sequence "TODO(t)" "DONE(d)")
+             (sequence "WAIT(w@/!)" "NIXD(c@/!)")))
+     (setq org-todo-keyword-faces
+           '(("WAIT" . org-waiting)))
      (let ((org-file (lambda (file)
                        (concat (file-name-as-directory org-directory) file))))
        (setq org-mobile-inbox-for-pull (funcall org-file "from-mobile.org")
