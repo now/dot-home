@@ -242,36 +242,34 @@
        (funcall define-keys evil-normal-state-map
                 "`" 'smex
                 "~" 'smex-major-mode-commands
+                "K" 'man
                 "q" 'delete-other-windows
                 "Q" 'evil-record-macro
+                "U" 'undo-tree-redo
+
+                "\C-d" 'suspend-frame
 
                 ",b" 'ido-switch-buffer
                 ",B" 'bs-show
-                ",d" 'dired
-                ",k" 'ido-kill-buffer
-                ",w" 'save-buffer
-                ",W" 'save-some-buffers
-                "U" 'undo-tree-redo
-                ",u" 'undo-tree-visualize
-                "\C-d" 'suspend-frame
-                "g\C-g" 'ned-info-on-file
-                ",e" 'find-file
-                ",E" 'find-vc-project-file
-
                 ",c" 'vc-project-shell-command
                 ",C" 'shell-command
-
-                ",o" 'org-capture
-
-                "K" 'man
-
+                ",d" 'dired
+                ",e" 'find-file
+                ",E" 'find-vc-project-file
+                ",k" 'ido-kill-buffer
                 ",m" 'compile-package
                 ",M" 'compile
                 ",n" 'next-error
-                ",p" 'previous-error
                 ",N" 'compilation-next-file
+                ",o" 'org-capture
+                ",p" 'previous-error
                 ",P" 'compilation-previous-file
-                ",s" 'magit-status)
+                ",s" 'magit-status
+                ",w" 'save-buffer
+                ",W" 'save-some-buffers
+                ",u" 'undo-tree-visualize
+
+                "g\C-g" 'ned-info-on-file)
        (funcall define-keys evil-visual-state-map
                 "\C-d" 'evil-normal-state)
        (funcall define-keys evil-insert-state-map
