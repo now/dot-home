@@ -242,36 +242,36 @@
        (funcall define-keys evil-normal-state-map
                 "`" 'smex
                 "~" 'smex-major-mode-commands
-         "q" 'delete-other-windows
-         "Q" 'evil-record-macro
+                "q" 'delete-other-windows
+                "Q" 'evil-record-macro
 
-         ",b" 'ido-switch-buffer
-         ",B" 'bs-show
-         ",d" 'dired
-         ",k" 'ido-kill-buffer
-         ",w" 'save-buffer
-         ",W" 'save-some-buffers
-         "U" 'undo-tree-redo
-         ",u" 'undo-tree-visualize
-         "\C-d" 'suspend-frame
-         "g\C-g" 'ned-info-on-file
-         ",e" 'find-file
-         ",E" 'find-vc-project-file
+                ",b" 'ido-switch-buffer
+                ",B" 'bs-show
+                ",d" 'dired
+                ",k" 'ido-kill-buffer
+                ",w" 'save-buffer
+                ",W" 'save-some-buffers
+                "U" 'undo-tree-redo
+                ",u" 'undo-tree-visualize
+                "\C-d" 'suspend-frame
+                "g\C-g" 'ned-info-on-file
+                ",e" 'find-file
+                ",E" 'find-vc-project-file
 
-         ",c" 'vc-project-shell-command
-         ",C" 'shell-command
+                ",c" 'vc-project-shell-command
+                ",C" 'shell-command
 
-         ",o" 'org-capture
+                ",o" 'org-capture
 
-         "K" 'man
+                "K" 'man
 
-         ",m" 'compile-package
-         ",M" 'compile
-         ",n" 'next-error
-         ",p" 'previous-error
-         ",N" 'compilation-next-file
-         ",P" 'compilation-previous-file
-         ",s" 'magit-status)
+                ",m" 'compile-package
+                ",M" 'compile
+                ",n" 'next-error
+                ",p" 'previous-error
+                ",N" 'compilation-next-file
+                ",P" 'compilation-previous-file
+                ",s" 'magit-status)
        (funcall define-keys evil-visual-state-map
                 "\C-d" 'evil-normal-state)
        (funcall define-keys evil-insert-state-map
