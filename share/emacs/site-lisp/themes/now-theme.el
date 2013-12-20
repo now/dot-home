@@ -112,6 +112,7 @@
     `(org-block ((,class (:foreground "grey40"))))
     `(org-code ((,class (:foreground "grey40"))))
     `(org-date ((,class (,@blank :inherit font-lock-comment-face))))
+    `(org-delegated ((,class (:inherit org-waiting))))
     `(org-done ((,class (,@blank :foreground ,off-white :background ,green))))
     `(org-table ((,class ,blank)))
     `(org-todo ((,class (,@blank :foreground ,off-white :background ,red))))
