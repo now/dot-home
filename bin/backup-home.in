@@ -31,6 +31,7 @@ dar_options+=(--prune .Spotlight-V100
               --prune .agency9
               --prune .bash_history
               --prune .cache
+              --prune .cmus/cache
               --prune .dropbox
               --prune .dvdcss
               --prune .fontconfig
@@ -120,7 +121,8 @@ dar_options+=(--prune Documents/Native\ Instruments/Traktor/Settings/Default\ Se
 # Prune stuff under revision control
 dar_options+=(--prune .Xresources
               --prune .dircolors
-              --prune .emacs
+              --prune .editrc
+              --prune .emacs.elc
               --prune .emacs.d
               --prune .fonts.conf
               --prune .gimp-\*
@@ -129,12 +131,7 @@ dar_options+=(--prune .Xresources
               --prune .gtkrc-2.0
               --prune .indent.pro
               --prune .inputrc
-              --prune .irbrc
               --prune .mailcap
-              --prune .mplayer
-              --prune .sbclrc
-              --prune .screenrc
-              --prune .terminator
               --prune .vim
               --prune .viminfo
               --prune .vimrc
