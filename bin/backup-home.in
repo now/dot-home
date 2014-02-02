@@ -137,8 +137,6 @@ dar_options+=(--prune .Xresources
               --prune .terminator
               --prune .vim
               --prune .viminfo
-              --prune .vimperator
-              --prune .vimperatorrc
               --prune .vimrc
               --prune .xmonad
               --prune .xsession

@@ -139,7 +139,6 @@ DOTFILES = \
 	   vim/after/syntax/vim.vim \
 	   vim/colors/now.vim \
 	   vim/ftplugin/man.vim \
-	   vimperatorrc \
 	   vimrc \
 	   zsh/functions/_unpack \
 	   zsh/functions/_up \
@@ -212,13 +211,6 @@ DOTFILES = \
 	   zsh/zshrc
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir)/.zsh,.,zsh/)
-
-DOTFILES = \
-	   vimperator/plugin/_libly.js \
-	   vimperator/plugin/edit-textarea-in-editor.js \
-	   vimperator/plugin/feed-some-keys.js
-
-$(call GROUP_template,$(DOTFILES),$(userconfdir),$(if $(subst Cygwin,,$(uname)),.))
 
 DOTFILES = \
 	   audacity.cfg
