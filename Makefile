@@ -113,6 +113,7 @@ ZSHELL = /bin/zsh
 EMACS = emacs
 
 prefix = ~
+bindir = $(prefix)/opt/bin
 userconfdir = $(prefix)
 guiuserconfdir = $(prefix)
 audacityuserconfdir = $(userconfdir)/.audacity
@@ -276,7 +277,7 @@ BINFILES = \
 
 bin_substitutables := $(BINFILES)
 
-$(call GROUP_template,$(BINFILES),~,,,755)
+$(call GROUP_template,$(BINFILES),$(bindir),,bin/,755)
 
 include os/os.mk
 include host/host.mk
