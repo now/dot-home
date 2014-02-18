@@ -15,7 +15,7 @@
                      (let ((directories (mapcar #'file-name-as-directory (butlast components)))
                            (file (car (last components))))
                        (concat (apply #'concat directories) file))))
-  (let ((my-site-lisp-path "~/share/emacs/site-lisp"))
+  (let ((my-site-lisp-path "~/opt/share/emacs/site-lisp"))
     (setq custom-theme-directory (build-path my-site-lisp-path "themes"))
     (add-to-list 'load-path my-site-lisp-path)
     (require 'userloaddefs)
@@ -300,6 +300,7 @@
      (define-key evil-motion-state-map "S" 'evil-window-bottom)
 
      (define-key evil-normal-state-map (kbd "DEL") 'evil-scroll-page-up)))
+(declare-function evil-mode "evil-core.el")
 (evil-mode 1)
 
 (global-set-key (kbd "C-x C-o") 'other-window)
@@ -342,7 +343,7 @@
 ; (eval-after-load 'nxml …)
 (add-to-list 'auto-mode-alist '("\\.xsd\\'" . nxml-mode))
 (eval-after-load "rng-loc"
-  '(add-to-list 'rng-schema-locating-files "~/share/emacs/etc/schema/schemas.xml"))
+  '(add-to-list 'rng-schema-locating-files "~/opt/share/emacs/etc/schema/schemas.xml"))
 (eval-after-load 'nxml-mode
   '(progn
      (setq nxml-slash-auto-complete-flag t)
@@ -374,6 +375,7 @@
      (define-key nxml-mode-map "\t" 'now-nxml-complete-or-indent-for-tab-command)
      (define-key nxml-mode-map "\C-j" 'reindent-then-newline-and-indent)))
 
+(defvar org-enforce-todo-dependencies)
 (setq org-enforce-todo-dependencies t)
 
 (eval-after-load 'org

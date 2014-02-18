@@ -10,7 +10,7 @@ DOTFILES = \
 
 $(emacsuserloaddefs): $(DOTFILES)
 
-$(call EMACS_template,$(DOTFILES),$(userconfdir))
+$(call EMACS_template,$(DOTFILES),$(sharedir),,share/)
 
 DOTFILES = \
 	   os/Cygwin/autohotkey/digraphs.ahk \
@@ -79,4 +79,4 @@ SHAREFILES = \
 	     os/Cygwin/share/icons/text-html.ico \
 	     os/Cygwin/share/icons/text-x-generic.ico
 
-$(eval $(call GROUP_template,$(SHAREFILES),$(userconfdir),,os/Cygwin/))
+$(eval $(call GROUP_template,$(SHAREFILES),$(sharedir),,os/Cygwin/share/))

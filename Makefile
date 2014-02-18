@@ -114,10 +114,11 @@ EMACS = emacs
 
 prefix = ~
 bindir = $(prefix)/opt/bin
+sharedir = $(prefix)/opt/share
 userconfdir = $(prefix)
 guiuserconfdir = $(prefix)
 audacityuserconfdir = $(userconfdir)/.audacity
-emacsuserloaddefs = $(userconfdir)/share/emacs/site-lisp/userloaddefs.el
+emacsuserloaddefs = $(sharedir)/emacs/site-lisp/userloaddefs.el
 firefoxuserconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
 vlcuserconfdir = $(prefix)/.config/vlc
 
@@ -187,7 +188,7 @@ DOTFILES = \
 	   share/emacs/etc/schema/gtk-builder.rnc \
 	   share/emacs/etc/schema/schemas.xml
 
-$(call GROUP_template,$(DOTFILES),$(userconfdir))
+$(call GROUP_template,$(DOTFILES),$(sharedir),,share/)
 
 DOTFILES = \
 	   share/emacs/site-lisp/hide-mode-line.el \
@@ -198,13 +199,14 @@ DOTFILES = \
 install: $(emacsuserloaddefs)
 
 $(emacsuserloaddefs): $(DOTFILES) Makefile
+	mkdir -p "$(dir $@)"
 	$(EMACS) --batch -Q --eval '(setq generated-autoload-file "$@")' -f batch-update-autoloads \
 	  share/emacs/site-lisp \
 	  share/emacs/site-lisp/ned \
 	  share/emacs/site-lisp/progmodes && \
 	  touch $@
 
-$(call EMACS_template,$(DOTFILES),$(userconfdir))
+$(call EMACS_template,$(DOTFILES),$(sharedir),,share/)
 
 DOTFILES = \
 	   zsh/zlogin \
