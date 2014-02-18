@@ -128,8 +128,6 @@ bindkey -r '^['
 
 # Functions And Aliases
 
-autoload -U zsh-mime-setup; zsh-mime-setup
-
 autoload -U cdr zargs zcalc zmv $ZDOTDIR/functions/autoload/*(:t)
 
 zstyle ':chpwd:*' recent-dirs-default true
