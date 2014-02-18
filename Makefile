@@ -145,12 +145,10 @@ DOTFILES = \
 	   zsh/functions/_unpack \
 	   zsh/functions/_up \
 	   zsh/functions/autoload/cd \
-	   zsh/functions/autoload/cygify \
 	   zsh/functions/autoload/freload \
 	   zsh/functions/autoload/hc \
 	   zsh/functions/autoload/up \
 	   zsh/functions/autoload/urlify \
-	   zsh/functions/autoload/winify \
 	   zsh/functions/define-digraphs \
 	   zsh/functions/dynamic-directory-names \
 	   zsh/functions/list-directory-on-chpwd \

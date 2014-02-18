@@ -1,4 +1,0 @@
-emulate -L zsh
-setopt extendedglob
-
-REPLY=$(cygpath -u $REPLY)
