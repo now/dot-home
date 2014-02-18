@@ -257,7 +257,6 @@ edit = sed \
 
 BINFILES = \
 	   bin/asciitable \
-	   bin/backup-home \
 	   bin/burn \
 	   bin/clipboard \
 	   bin/create-key \
