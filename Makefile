@@ -96,8 +96,9 @@ endef
 # 1: Files
 # 2: Parent directory
 # 3: Prefix to add
+# 4: Prfix to strip
 define EMACS_template
-$(eval $(foreach file,$(1),$(call EMACS_template_file,$(file),$(2)/$(3)$(file))))
+$(eval $(foreach file,$(1),$(call EMACS_template_file,$(file),$(2)/$(3)$(file:$(4)%=%))))
 endef
 
 uname := $(shell uname -s)
