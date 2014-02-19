@@ -8,6 +8,7 @@ user_pref("browser.panorama.animate_zoom", false);
 user_pref("browser.tabs.warnOnClose", false);
 user_pref("browser.visited_color", "#602f80");
 user_pref("dom.disable_window_move_resize", true);
+user_pref("extensions.VimFx.black_list", "");
 user_pref("extensions.VimFx.commands.Esc.keys", "[\"Esc\",\"c-d\"]");
 user_pref("extensions.VimFx.commands.close_tab.keys", "[\"d\"]");
 user_pref("extensions.VimFx.commands.forward.keys", "[\"S\"]");
