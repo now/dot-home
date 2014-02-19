@@ -30,6 +30,7 @@
              'append)
 (setq package-load-list '((auto-complete t)
                           (evil t)
+                          (goto-last-change t)
                           (ido-ubiquitous t)
                           (iedit t)
                           (magit t)
