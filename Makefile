@@ -244,8 +244,7 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(firefoxuserconfdir),,firefox/)
 
 DOTFILES = \
-	   firefox/permissions.sql \
-	   firefox/search.sql
+	   firefox/permissions.sql
 
 $(call SQLITE_template,$(DOTFILES),$(firefoxuserconfdir),,firefox/)
 endif

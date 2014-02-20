@@ -1,0 +1,16 @@
+{
+  '[profile]/adlibris.xml': {'alias': 'adlibris'},
+  '[profile]/discogs.xml': {'alias': 'discogs'},
+  '[profile]/gatherer.xml': {'alias': 'gatherer'},
+  '[app]/google.xml': {'order': 1, 'alias: 'google'},
+  '[profile]/hittase-where.xml': {'alias': 'where'},
+  '[profile]/hittase-who.xml': {'alias': 'who'},
+  '[profile]/imdb.xml': {'alias': 'imdb'},
+  '[profile]/juno-records.xml': {'alias': 'juno'},
+  '[profile]/mancx.xml': {'alias': 'man'},
+  '[profile]/posix.xml':{'alias': 'posix'},
+  '[profile]/thepiratebayse.xml': {'alias': 'tpb'},
+  '[profile]/tvragecom.xml': {'alias': 'tvrage'},
+  '[app]/wikipedia.xml': {'alias': 'wikipedia'},
+  '[profile]/youtube.xml': {'alias': 'youtube'}
+}
