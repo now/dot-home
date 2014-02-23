@@ -32,7 +32,8 @@
                           (undo-tree t)))
 (package-initialize)
 
-(dolist (feature '(cc-mode
+(dolist (feature '(bs
+                   cc-mode
                    desktop
                    dired
                    dired-aux
@@ -277,19 +278,6 @@
 (evil-mode 1)
 
 (global-set-key (kbd "C-x C-o") 'other-window)
-
-(eval-after-load 'bs
-  '(progn
-     (setq bs-max-window-height nil)
-     (evil-make-overriding-map bs-mode-map 'normal t)
-     (evil-define-key 'motion bs-mode-map
-       "h" 'evil-backward-char
-       "j" 'bs-down
-       "k" 'bs-up
-       "k" 'bs-up
-       "s" 'evil-forward-char
-       "s" 'evil-forward-char
-       "w" 'bs-save)))
 
 (eval-after-load 'calc
   (setq-default calc-group-char " "
