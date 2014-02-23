@@ -210,6 +210,8 @@ DOTFILES = \
 	   emacs/inits/calc.el \
 	   emacs/inits/cc-mode.el \
 	   emacs/inits/desktop.el \
+	   emacs/inits/diff-mode.el \
+	   emacs/inits/diff.el \
 	   emacs/inits/dired.el \
 	   emacs/inits/dired-aux.el \
 	   emacs/inits/ido.el \

@@ -36,6 +36,8 @@
                    calc
                    cc-mode
                    desktop
+                   diff
+                   diff-mode
                    dired
                    dired-aux
                    ido
@@ -404,11 +406,6 @@
   "Use `ido-completing-read' to `find-file' a recentf file"
   (interactive)
   (find-file (ido-completing-read "Find recent file: " recentf-list)))
-
-(eval-after-load 'diff
-  '(progn
-     (setq diff-switches "-u")
-     (evil-define-key 'normal diff-mode-map "q" 'close-buffer-and-window-unless-last)))
 
 (eval-after-load 'compile
   '(setq compilation-auto-jump-to-first-error t
