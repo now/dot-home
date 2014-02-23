@@ -14,22 +14,22 @@ Toggle the hide-mode-line functionality.
 
 ;;;***
 
-;;;### (autoloads (ned-info-on-file) "ned/ned-info-on-file" "ned/ned-info-on-file.el"
+;;;### (autoloads (ned-info-on-file) "ned-info-on-file" "ned-info-on-file.el"
 ;;;;;;  (21250 31395 0 0))
-;;; Generated autoloads from ned/ned-info-on-file.el
+;;; Generated autoloads from ned-info-on-file.el
 
-(autoload 'ned-info-on-file "ned/ned-info-on-file" "\
+(autoload 'ned-info-on-file "ned-info-on-file" "\
 
 
 \(fn)" t nil)
 
 ;;;***
 
-;;;### (autoloads (rnc-mode) "progmodes/rnc-mode" "progmodes/rnc-mode.el"
-;;;;;;  (21250 31395 0 0))
-;;; Generated autoloads from progmodes/rnc-mode.el
+;;;### (autoloads (rnc-mode) "rnc-mode" "rnc-mode.el" (21250 31395
+;;;;;;  0 0))
+;;; Generated autoloads from rnc-mode.el
 
-(autoload 'rnc-mode "progmodes/rnc-mode" "\
+(autoload 'rnc-mode "rnc-mode" "\
 Major mode for editing RELAX NG Compact Syntax schemas.
 \\{rnc-mode-map}
 

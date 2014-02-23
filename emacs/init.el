@@ -32,6 +32,11 @@
                           (undo-tree t)))
 (package-initialize)
 
+(dolist (feature '(dired
+                   dired-aux
+                   ido))
+  (eval-after-load feature (load (concat user-emacs-directory "init/" (symbol-name feature) ".elc"))))
+
 ;;; Interface
 
 (setq-default indicate-buffer-boundaries '((bottom . left))
@@ -129,7 +134,6 @@
       completions-format 'vertical)
 
 (ido-mode 1)
-(eval-after-load 'ido (load (concat user-emacs-directory "init/ido.el")))
 
 (declare-function ido-ubiquitous-mode "ido-ubiquitous.el")
 (ido-ubiquitous-mode 1)
@@ -152,12 +156,6 @@
       require-final-newline 'visit-save)
 
 (setq-default indent-tabs-mode nil)
-
-(eval-after-load 'dired
-  '(progn
-     (setq dired-isearch-filenames 'dwim
-           dired-dwim-target t
-           dired-listing-switches "-al --si")))
 
 (eval-after-load 'man
   '(progn
