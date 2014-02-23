@@ -175,11 +175,11 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
 
 DOTFILES = \
-	   emacs.el
+	   emacs/init.el
 
-emacs.el: $(emacsuserloaddefs)
+emacs/init.el: $(emacsuserloaddefs)
 
-$(call EMACS_template,$(DOTFILES),$(userconfdir),.)
+$(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)
 
 DOTFILES = \
 	   share/emacs/etc/schema/catalog.rnc \
