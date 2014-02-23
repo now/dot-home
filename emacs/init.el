@@ -129,13 +129,8 @@
       completions-format 'vertical)
 
 (ido-mode 1)
-(eval-after-load 'ido
-  '(progn
-     (ido-everywhere 1)
-     (setq ido-enable-flex-matching t
-           ido-enable-last-directory-history nil
-           ido-auto-merge-work-directories-length -1
-           ido-use-filename-at-point nil)))
+(eval-after-load 'ido (load (concat user-emacs-directory "init/ido.el")))
+
 (declare-function ido-ubiquitous-mode "ido-ubiquitous.el")
 (ido-ubiquitous-mode 1)
 

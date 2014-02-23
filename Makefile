@@ -80,13 +80,16 @@ define SQLITE_IF_EXISTS_template
 $(eval $(foreach file,$(1),$(if $(wildcard $(file)),$(call SQLITE_ADD_template_file,$(file),$(call SQLITE_construct_target,$(file),$(2),$(3),$(4))))))
 endef
 
+# 1: Source file
+# 2: Target file
+# 3: Require feature
 define EMACS_template_file
 source_elc := $(1:.el=).elc
 target_elc := $(2:.el=).elc
 install: $$(target_elc)
 
 $$(source_elc): $(1)
-	$$(EMACS) --batch -Q -L share/emacs/site-lisp -l emacs/site-lisp/userloaddefs.el -f batch-byte-compile $$<
+	$$(EMACS) --batch -Q -L share/emacs/site-lisp -l emacs/site-lisp/userloaddefs.el $(if $(3),--eval "(require '$(basename $(notdir $1)))" )-f batch-byte-compile $$<
 
 $$(target_elc): $$(source_elc)
 	$$(INSTALL) -D --preserve-timestamps $$< $$(call shell_quote,$$@)
@@ -96,9 +99,10 @@ endef
 # 1: Files
 # 2: Parent directory
 # 3: Prefix to add
-# 4: Prfix to strip
+# 4: Prefix to strip
+# 5: Require feature
 define EMACS_template
-$(eval $(foreach file,$(1),$(call EMACS_template_file,$(file),$(2)/$(3)$(file:$(4)%=%))))
+$(eval $(foreach file,$(1),$(call EMACS_template_file,$(file),$(2)/$(3)$(file:$(4)%=%),$(5))))
 endef
 
 uname := $(shell uname -s)
@@ -193,13 +197,18 @@ emacs/lisp/userloaddefs.el: $(DOTFILES) Makefile
 	  emacs/site-lisp && \
 	  touch $@
 
+$(call GROUP_template,emacs/site-lisp/userloaddefs.el,$(userconfdir),.emacs.d/,emacs/)
+
 DOTFILES += \
 	    emacs/init.el \
 	    emacs/now-theme.el
 
 $(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)
 
-$(call GROUP_template,emacs/site-lisp/userloaddefs.el,$(userconfdir),.emacs.d/,emacs/)
+DOTFILES = \
+	   emacs/init/ido.el
+
+$(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/,require)
 
 DOTFILES = \
 	   zsh/zlogin \
