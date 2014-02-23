@@ -316,7 +316,7 @@
 ; (eval-after-load 'nxml …)
 (add-to-list 'auto-mode-alist '("\\.xsd\\'" . nxml-mode))
 (eval-after-load "rng-loc"
-  '(add-to-list 'rng-schema-locating-files "~/opt/share/emacs/etc/schema/schemas.xml"))
+  '(add-to-list 'rng-schema-locating-files (concat user-emacs-directory "etc/schema/schemas.xml")))
 (eval-after-load 'nxml-mode
   '(progn
      (setq nxml-slash-auto-complete-flag t)
