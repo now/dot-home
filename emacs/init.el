@@ -33,6 +33,7 @@
 (package-initialize)
 
 (dolist (feature '(bs
+                   calc
                    cc-mode
                    desktop
                    dired
@@ -278,11 +279,6 @@
 (evil-mode 1)
 
 (global-set-key (kbd "C-x C-o") 'other-window)
-
-(eval-after-load 'calc
-  (setq-default calc-group-char " "
-                calc-gnuplot-default-device "dumb"
-                calc-show-banner nil))
 
 (global-set-key (kbd "C-x i") 'iedit-mode)
 (eval-after-load 'iedit
