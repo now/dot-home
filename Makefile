@@ -206,9 +206,10 @@ DOTFILES += \
 $(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)
 
 DOTFILES = \
-	   emacs/init/dired.el \
-	   emacs/init/dired-aux.el \
-	   emacs/init/ido.el
+	   emacs/inits/cc-mode.el \
+	   emacs/inits/dired.el \
+	   emacs/inits/dired-aux.el \
+	   emacs/inits/ido.el
 
 $(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/,require)
 
