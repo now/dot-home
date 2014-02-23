@@ -770,7 +770,7 @@
         (setq start (min start end))
         (goto-char start)
         (setq end (copy-marker (max start end))))
-    (if (and interactive transient-mark-mode mark-active)
+    (if (and (called-interactively-p 'any) transient-mark-mode mark-active)
         (setq start (region-beginning)
               end (copy-marker (region-end)))
       (setq start (point)
