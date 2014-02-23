@@ -35,7 +35,8 @@
 (dolist (feature '(cc-mode
                    dired
                    dired-aux
-                   ido))
+                   ido
+                   man))
   (eval-after-load feature `(load (concat user-emacs-directory "inits/" ,(symbol-name feature) ".elc"))))
 
 ;;; Interface
@@ -157,11 +158,6 @@
       require-final-newline 'visit-save)
 
 (setq-default indent-tabs-mode nil)
-
-(eval-after-load 'man
-  '(progn
-     (setq Man-switches "-P cat")
-     (evil-define-key 'normal Man-mode-map "q" 'close-buffer-and-window-unless-last)))
 
 (eval-after-load 'desktop
   '(progn
