@@ -33,6 +33,7 @@
 (package-initialize)
 
 (dolist (feature '(cc-mode
+                   desktop
                    dired
                    dired-aux
                    ido
@@ -159,17 +160,6 @@
 
 (setq-default indent-tabs-mode nil)
 
-(eval-after-load 'desktop
-  '(progn
-     (setq desktop-base-file-name "emacs.desktop"
-           desktop-dirname (car desktop-path))
-     (dolist (variable '(command-history
-                         compile-history
-                         evil-ex-history
-                         evil-ex-search-history
-                         read-expression-history
-                         shell-command-history))
-       (add-to-list 'desktop-globals-to-save variable))))
 (desktop-save-mode 1)
 
 (defun call-interactively-at-git-root (command &optional record-flag keys)

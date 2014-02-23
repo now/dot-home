@@ -207,6 +207,7 @@ $(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)
 
 DOTFILES = \
 	   emacs/inits/cc-mode.el \
+	   emacs/inits/desktop.el \
 	   emacs/inits/dired.el \
 	   emacs/inits/dired-aux.el \
 	   emacs/inits/ido.el \
