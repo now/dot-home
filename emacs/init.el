@@ -11,16 +11,8 @@
                (not (eq window next)))
       (delete-window window))))
 
-(cl-labels ((build-path (&rest components)
-                     (let ((directories (mapcar #'file-name-as-directory (butlast components)))
-                           (file (car (last components))))
-                       (concat (apply #'concat directories) file))))
-  (let ((my-site-lisp-path (build-path user-emacs-directory "site-lisp")))
-    (add-to-list 'load-path my-site-lisp-path)
-    (require 'userloaddefs)
-    (dolist (path '("ned"
-                    "progmodes"))
-      (add-to-list 'load-path (build-path my-site-lisp-path path)))))
+(add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
+(require 'userloaddefs)
 
 (require 'package)
 (setq package-enable-at-startup nil)

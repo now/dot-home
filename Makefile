@@ -182,17 +182,15 @@ $(call GROUP_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)
 
 DOTFILES = \
 	   emacs/site-lisp/hide-mode-line.el \
-	   emacs/site-lisp/ned/ned-info-on-file.el \
-	   emacs/site-lisp/progmodes/rnc-mode.el \
+	   emacs/site-lisp/ned-info-on-file.el \
+	   emacs/site-lisp/rnc-mode.el \
 
 install: emacs/site-lisp/userloaddefs.el
 
 emacs/lisp/userloaddefs.el: $(DOTFILES) Makefile
 	mkdir -p $(dir $@)
 	$(EMACS) --batch -Q --eval '(setq generated-autoload-file "$(abspath $@)")' -f batch-update-autoloads \
-	  emacs/site-lisp \
-	  emacs/site-lisp/ned \
-	  emacs/site-lisp/progmodes && \
+	  emacs/site-lisp && \
 	  touch $@
 
 DOTFILES += \
