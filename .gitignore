@@ -20,4 +20,5 @@ bin/unpack
 bin/update-context
 bin/valgrind-ruby
 config.mk
+/emacs/site-lisp/userloaddefs.el~
 *.elc

@@ -6,11 +6,11 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(firefoxprofilesdir),,os/Cygwin/firefox/)
 
 DOTFILES = \
-	   share/emacs/site-lisp/windows-path.el
+	   emacs/site-lisp/windows-path.el
 
 $(emacsuserloaddefs): $(DOTFILES)
 
-$(call EMACS_template,$(DOTFILES),$(sharedir),,share/)
+$(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)
 
 DOTFILES = \
 	   os/Cygwin/autohotkey/digraphs.ahk \

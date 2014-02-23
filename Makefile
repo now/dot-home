@@ -86,7 +86,7 @@ target_elc := $(2:.el=).elc
 install: $$(target_elc)
 
 $$(source_elc): $(1)
-	$$(EMACS) --batch -Q -L share/emacs/site-lisp -l $(emacsuserloaddefs) -f batch-byte-compile $$<
+	$$(EMACS) --batch -Q -L share/emacs/site-lisp -l emacs/site-lisp/userloaddefs.el -f batch-byte-compile $$<
 
 $$(target_elc): $$(source_elc)
 	$$(INSTALL) -D --preserve-timestamps $$< $$(call shell_quote,$$@)
@@ -119,7 +119,6 @@ sharedir = $(prefix)/opt/share
 userconfdir = $(prefix)
 guiuserconfdir = $(prefix)
 audacityuserconfdir = $(userconfdir)/.audacity
-emacsuserloaddefs = $(sharedir)/emacs/site-lisp/userloaddefs.el
 firefoxuserconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
 vlcuserconfdir = $(prefix)/.config/vlc
 
@@ -175,36 +174,31 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
 
 DOTFILES = \
-	   emacs/init.el
+	   emacs/etc/schema/catalog.rnc \
+	   emacs/etc/schema/gtk-builder.rnc \
+	   emacs/etc/schema/schemas.xml
 
-emacs/init.el: $(emacsuserloaddefs)
-
-$(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)
-
-DOTFILES = \
-	   share/emacs/etc/schema/catalog.rnc \
-	   share/emacs/etc/schema/gtk-builder.rnc \
-	   share/emacs/etc/schema/schemas.xml
-
-$(call GROUP_template,$(DOTFILES),$(sharedir),,share/)
+$(call GROUP_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)
 
 DOTFILES = \
-	   share/emacs/site-lisp/hide-mode-line.el \
-	   share/emacs/site-lisp/ned/ned-info-on-file.el \
-	   share/emacs/site-lisp/progmodes/rnc-mode.el \
-	   share/emacs/site-lisp/themes/now-theme.el
+	   emacs/site-lisp/hide-mode-line.el \
+	   emacs/site-lisp/ned/ned-info-on-file.el \
+	   emacs/site-lisp/progmodes/rnc-mode.el \
+	   emacs/site-lisp/themes/now-theme.el
 
-install: $(emacsuserloaddefs)
+install: emacs/site-lisp/userloaddefs.el
 
-$(emacsuserloaddefs): $(DOTFILES) Makefile
-	mkdir -p "$(dir $@)"
-	$(EMACS) --batch -Q --eval '(setq generated-autoload-file "$@")' -f batch-update-autoloads \
-	  share/emacs/site-lisp \
-	  share/emacs/site-lisp/ned \
-	  share/emacs/site-lisp/progmodes && \
+emacs/lisp/userloaddefs.el: $(DOTFILES) Makefile
+	mkdir -p $(dir $@)
+	$(EMACS) --batch -Q --eval '(setq generated-autoload-file "$(abspath $@)")' -f batch-update-autoloads \
+	  emacs/site-lisp \
+	  emacs/site-lisp/ned \
+	  emacs/site-lisp/progmodes && \
 	  touch $@
 
-$(call EMACS_template,$(DOTFILES),$(sharedir),,share/)
+$(call EMACS_template,$(DOTFILES) emacs/init.el,$(userconfdir),.emacs.d/,emacs/)
+
+$(call GROUP_template,emacs/site-lisp/userloaddefs.el,$(userconfdir),.emacs.d/,emacs/)
 
 DOTFILES = \
 	   zsh/zlogin \

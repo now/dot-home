@@ -15,7 +15,7 @@
                      (let ((directories (mapcar #'file-name-as-directory (butlast components)))
                            (file (car (last components))))
                        (concat (apply #'concat directories) file))))
-  (let ((my-site-lisp-path "~/opt/share/emacs/site-lisp"))
+  (let ((my-site-lisp-path (build-path user-emacs-directory "site-lisp")))
     (setq custom-theme-directory (build-path my-site-lisp-path "themes"))
     (add-to-list 'load-path my-site-lisp-path)
     (require 'userloaddefs)
@@ -148,6 +148,8 @@
 (declare-function ido-ubiquitous-mode "ido-ubiquitous.el")
 (ido-ubiquitous-mode 1)
 
+(defvar smex-save-file)
+(setq smex-save-file (concat user-emacs-directory "smex-items"))
 (declare-function smex-initialize "smex.el")
 (smex-initialize)
 
@@ -161,8 +163,7 @@
 (setq history-length 512)
 
 (setq make-backup-files nil
-      require-final-newline 'visit-save
-      auto-save-list-file-prefix "~/.cache/emacs/auto-save-list/.saves-")
+      require-final-newline 'visit-save)
 
 (setq-default indent-tabs-mode nil)
 
@@ -179,7 +180,7 @@
 
 (eval-after-load 'desktop
   '(progn
-     (setq desktop-path '("~/.cache/emacs")
+     (setq desktop-base-file-name "emacs.desktop"
            desktop-dirname (car desktop-path))
      (dolist (variable '(command-history
                          compile-history
