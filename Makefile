@@ -184,7 +184,6 @@ DOTFILES = \
 	   emacs/site-lisp/hide-mode-line.el \
 	   emacs/site-lisp/ned/ned-info-on-file.el \
 	   emacs/site-lisp/progmodes/rnc-mode.el \
-	   emacs/site-lisp/themes/now-theme.el
 
 install: emacs/site-lisp/userloaddefs.el
 
@@ -196,7 +195,11 @@ emacs/lisp/userloaddefs.el: $(DOTFILES) Makefile
 	  emacs/site-lisp/progmodes && \
 	  touch $@
 
-$(call EMACS_template,$(DOTFILES) emacs/init.el,$(userconfdir),.emacs.d/,emacs/)
+DOTFILES += \
+	    emacs/init.el \
+	    emacs/now-theme.el
+
+$(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)
 
 $(call GROUP_template,emacs/site-lisp/userloaddefs.el,$(userconfdir),.emacs.d/,emacs/)
 

@@ -16,7 +16,6 @@
                            (file (car (last components))))
                        (concat (apply #'concat directories) file))))
   (let ((my-site-lisp-path (build-path user-emacs-directory "site-lisp")))
-    (setq custom-theme-directory (build-path my-site-lisp-path "themes"))
     (add-to-list 'load-path my-site-lisp-path)
     (require 'userloaddefs)
     (dolist (path '("ned"
