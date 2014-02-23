@@ -41,7 +41,7 @@
                    ido
                    ispell
                    man))
-  (eval-after-load feature `(load (concat user-emacs-directory "inits/" ,(symbol-name feature) ".elc"))))
+  (eval-after-load feature `(load (concat user-emacs-directory "inits/" ,(symbol-name feature)))))
 
 ;;; Interface
 
