@@ -39,6 +39,7 @@
                    dired
                    dired-aux
                    ido
+                   ispell
                    man))
   (eval-after-load feature `(load (concat user-emacs-directory "inits/" ,(symbol-name feature) ".elc"))))
 
@@ -403,10 +404,6 @@
   "Use `ido-completing-read' to `find-file' a recentf file"
   (interactive)
   (find-file (ido-completing-read "Find recent file: " recentf-list)))
-
-(eval-after-load 'ispell
-  '(progn
-     (setq-default ispell-check-comments 'exclusive)))
 
 (eval-after-load 'diff
   '(progn
