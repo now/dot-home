@@ -413,7 +413,8 @@
 ; (eval-after-load 'recentf …)
 (global-set-key (kbd "C-x C-r") 'ido-find-recent-file)
 (recentf-mode t)
-(setq recentf-max-saved-items 50)
+(setq recentf-save-file (concat user-emacs-directory "recentf")
+      recentf-max-saved-items 50)
 (defun ido-find-recent-file ()
   "Use `ido-completing-read' to `find-file' a recentf file"
   (interactive)
