@@ -136,12 +136,10 @@
 
 (ido-mode 1)
 
-(declare-function ido-ubiquitous-mode "ido-ubiquitous.el")
 (ido-ubiquitous-mode 1)
 
 (defvar smex-save-file)
 (setq smex-save-file (concat user-emacs-directory "smex-items"))
-(declare-function smex-initialize "smex.el")
 (smex-initialize)
 
 ;;; Functionality
@@ -178,7 +176,6 @@
   (interactive)
   (call-interactively-at-git-root 'shell-command))
 
-(declare-function evil-mode "evil-core.el")
 (evil-mode 1)
 
 (global-set-key (kbd "C-x C-o") 'other-window)
