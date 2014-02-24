@@ -45,7 +45,7 @@
                    ispell
                    man
                    nxml-mode))
-  (eval-after-load feature `(load (concat user-emacs-directory "inits/" ,(symbol-name feature)))))
+  (eval-after-load feature `(load (concat user-emacs-directory "delayed-inits/" ,(symbol-name feature)))))
 
 ;;; Interface
 

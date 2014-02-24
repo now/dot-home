@@ -206,19 +206,19 @@ DOTFILES += \
 $(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)
 
 DOTFILES = \
-	   emacs/inits/bs.el \
-	   emacs/inits/calc.el \
-	   emacs/inits/cc-mode.el \
-	   emacs/inits/desktop.el \
-	   emacs/inits/diff-mode.el \
-	   emacs/inits/diff.el \
-	   emacs/inits/dired.el \
-	   emacs/inits/dired-aux.el \
-	   emacs/inits/grep.el \
-	   emacs/inits/ido.el \
-	   emacs/inits/ispell.el \
-	   emacs/inits/man.el \
-	   emacs/inits/nxml-mode.el
+	   emacs/delayed-inits/bs.el \
+	   emacs/delayed-inits/calc.el \
+	   emacs/delayed-inits/cc-mode.el \
+	   emacs/delayed-inits/desktop.el \
+	   emacs/delayed-inits/diff-mode.el \
+	   emacs/delayed-inits/diff.el \
+	   emacs/delayed-inits/dired.el \
+	   emacs/delayed-inits/dired-aux.el \
+	   emacs/delayed-inits/grep.el \
+	   emacs/delayed-inits/ido.el \
+	   emacs/delayed-inits/ispell.el \
+	   emacs/delayed-inits/man.el \
+	   emacs/delayed-inits/nxml-mode.el
 
 $(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/,require)
 
