@@ -214,6 +214,7 @@ DOTFILES = \
 	   emacs/inits/diff.el \
 	   emacs/inits/dired.el \
 	   emacs/inits/dired-aux.el \
+	   emacs/inits/grep.el \
 	   emacs/inits/ido.el \
 	   emacs/inits/ispell.el \
 	   emacs/inits/man.el \

@@ -40,6 +40,7 @@
                    diff-mode
                    dired
                    dired-aux
+                   grep
                    ido
                    ispell
                    man
@@ -414,11 +415,6 @@
                             if (equal d root)
                             return nil)))
         directory)))
-
-(eval-after-load 'grep
-  '(progn
-     (grep-apply-setting 'grep-command "grep -nH -P -e ")
-     (evil-define-key 'normal grep-mode-map "q" 'close-buffer-and-window-unless-last)))
 
 (eval-after-load 'make-mode
   '(setq makefile-backslash-align nil))
