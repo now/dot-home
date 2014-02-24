@@ -30,6 +30,7 @@
                    make-mode
                    man
                    nxml-mode
+                   paredit
                    sh-script))
   (eval-after-load feature `(load (concat user-emacs-directory "delayed-inits/" ,(symbol-name feature)))))
 
@@ -321,26 +322,6 @@
 (add-hook 'lisp-mode-hook 'enable-paredit-mode)
 (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
 (add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
-
-(eval-after-load 'paredit
-  '(progn
-     (evil-define-key 'normal paredit-mode-map
-       "D" 'paredit-kill
-       "gh" 'paredit-backward
-       "gj" 'paredit-forward-up
-       "gk" 'paredit-backward-up
-       "gs" 'paredit-forward
-       "x" 'paredit-forward-delete
-       "X" 'paredit-backward-delete
-       "))" 'paredit-forward-slurp-sexp
-       ")}" 'paredit-forward-barf-sexp
-       "((" 'paredit-backward-slurp-sexp
-       "({" 'paredit-backward-barf-sexp
-       "(J" 'paredit-join-sexps
-       "(R" 'paredit-raise-sexp
-       "(S" 'paredit-split-sexp
-       "(s" 'paredit-splice-sexp
-       "(W" 'paredit-wrap-sexp)))
 
 (autoload 'rnc-mode "rnc-mode")
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.rnc\\'") 'rnc-mode))
