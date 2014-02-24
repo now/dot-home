@@ -221,6 +221,7 @@ DOTFILES = \
 	   emacs/delayed-inits/ispell.el \
 	   emacs/delayed-inits/man.el \
 	   emacs/delayed-inits/nxml-mode.el \
+	   emacs/delayed-inits/sh-script.el \
 	   emacs/inits/package.el
 
 $(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/,require)

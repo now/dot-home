@@ -28,7 +28,8 @@
                    ido
                    ispell
                    man
-                   nxml-mode))
+                   nxml-mode
+                   sh-script))
   (eval-after-load feature `(load (concat user-emacs-directory "delayed-inits/" ,(symbol-name feature)))))
 
 (dolist (feature '(package))
@@ -520,15 +521,6 @@
        >  _ \n
        "end" > \n
        "end" >)))
-
-(eval-after-load 'sh-script
-  '(progn
-     (setq sh-indentation 2
-           sh-basic-offset 2)
-     (define-key sh-mode-map "\C-j" 'reindent-then-newline-and-indent)))
-
-(eval-after-load 'css-mode
-  '(setq css-indent-offset 2))
 
 (defun rename-shows ()
   (interactive)
