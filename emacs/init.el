@@ -14,24 +14,6 @@
 (add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
 (require 'userloaddefs)
 
-(require 'package)
-(setq package-enable-at-startup nil)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/")
-             'append)
-(setq package-load-list '((auto-complete t)
-                          (evil t)
-                          (goto-last-change t)
-                          (ido-ubiquitous t)
-                          (iedit t)
-                          (magit t)
-                          (multiple-cursors t)
-                          (paredit t)
-                          (popup t)
-                          (smex t)
-                          (undo-tree t)))
-(package-initialize)
-
 (dolist (feature '(bs
                    calc
                    cc-mode
@@ -46,6 +28,9 @@
                    man
                    nxml-mode))
   (eval-after-load feature `(load (concat user-emacs-directory "delayed-inits/" ,(symbol-name feature)))))
+
+(dolist (feature '(package))
+  (load (concat user-emacs-directory "inits/" (symbol-name feature))))
 
 ;;; Interface
 
