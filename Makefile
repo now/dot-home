@@ -89,7 +89,7 @@ target_elc := $(2:.el=).elc
 install: $$(target_elc)
 
 $$(source_elc): $(1)
-	$$(EMACS) --batch -Q -L share/emacs/site-lisp -l emacs/site-lisp/userloaddefs.el $(if $(3),--eval "(require '$(basename $(notdir $1)))" )-f batch-byte-compile $$<
+	$$(EMACS) --batch -Q -L share/emacs/site-lisp -l emacs/site-lisp/userloaddefs.el -l emacs/inits/package.el $(if $(3),--eval "(require '$(basename $(notdir $1)))" )-f batch-byte-compile $$<
 
 $$(target_elc): $$(source_elc)
 	$$(INSTALL) -D --preserve-timestamps $$< $$(call shell_quote,$$@)
@@ -214,6 +214,7 @@ DOTFILES = \
 	   emacs/delayed-inits/diff.el \
 	   emacs/delayed-inits/dired.el \
 	   emacs/delayed-inits/dired-aux.el \
+	   emacs/delayed-inits/evil.el \
 	   emacs/delayed-inits/grep.el \
 	   emacs/delayed-inits/ido.el \
 	   emacs/delayed-inits/ispell.el \
