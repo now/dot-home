@@ -219,6 +219,7 @@ DOTFILES = \
 	   emacs/delayed-inits/grep.el \
 	   emacs/delayed-inits/ido.el \
 	   emacs/delayed-inits/ispell.el \
+	   emacs/delayed-inits/make-mode.el \
 	   emacs/delayed-inits/man.el \
 	   emacs/delayed-inits/nxml-mode.el \
 	   emacs/delayed-inits/sh-script.el \

@@ -27,6 +27,7 @@
                    grep
                    ido
                    ispell
+                   make-mode
                    man
                    nxml-mode
                    sh-script))
@@ -310,9 +311,6 @@
                             if (equal d root)
                             return nil)))
         directory)))
-
-(eval-after-load 'make-mode
-  '(setq makefile-backslash-align nil))
 
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.at\\'") 'm4-mode))
 
