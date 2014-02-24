@@ -209,6 +209,7 @@ DOTFILES = \
 	   emacs/delayed-inits/bs.el \
 	   emacs/delayed-inits/calc.el \
 	   emacs/delayed-inits/cc-mode.el \
+	   emacs/delayed-inits/css-mode.el \
 	   emacs/delayed-inits/desktop.el \
 	   emacs/delayed-inits/diff-mode.el \
 	   emacs/delayed-inits/diff.el \

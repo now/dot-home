@@ -17,6 +17,7 @@
 (dolist (feature '(bs
                    calc
                    cc-mode
+                   css-mode
                    desktop
                    diff
                    diff-mode
