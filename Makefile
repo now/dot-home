@@ -222,6 +222,7 @@ DOTFILES = \
 	   emacs/delayed-inits/make-mode.el \
 	   emacs/delayed-inits/man.el \
 	   emacs/delayed-inits/nxml-mode.el \
+	   emacs/delayed-inits/org.el \
 	   emacs/delayed-inits/paredit.el \
 	   emacs/delayed-inits/ruby-mode.el \
 	   emacs/delayed-inits/sh-script.el \
