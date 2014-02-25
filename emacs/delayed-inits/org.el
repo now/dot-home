@@ -50,9 +50,10 @@
          "* TODO %?\n  %U\n  %i\n  %a" :clock-in t :clock-resume t)))
 
 (eval-after-load 'evil
-  (evil-define-key 'motion org-mode-map
-    (kbd "RET") 'org-cycle)
-  (evil-define-key 'normal org-mode-map
-    ",<" 'org-mobile-pull
-    ",>" 'org-mobile-push
-    ",t" 'org-todo))
+  '(progn
+     (evil-define-key 'motion org-mode-map
+       (kbd "RET") 'org-cycle)
+     (evil-define-key 'normal org-mode-map
+       ",<" 'org-mobile-pull
+       ",>" 'org-mobile-push
+       ",t" 'org-todo)))
