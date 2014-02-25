@@ -32,6 +32,7 @@
                    nxml-mode
                    org
                    paredit
+                   recentf
                    ruby-mode
                    sh-script))
   (eval-after-load feature `(load (concat user-emacs-directory "delayed-inits/" ,(symbol-name feature)))))
@@ -206,16 +207,9 @@
 (defvar org-enforce-todo-dependencies)
 (setq org-enforce-todo-dependencies t)
 
-(require 'recentf)
-; (eval-after-load 'recentf …)
-(global-set-key (kbd "C-x C-r") 'ido-find-recent-file)
+(defvar recentf-save-file)
+(setq recentf-save-file (concat user-emacs-directory "recentf"))
 (recentf-mode t)
-(setq recentf-save-file (concat user-emacs-directory "recentf")
-      recentf-max-saved-items 50)
-(defun ido-find-recent-file ()
-  "Use `ido-completing-read' to `find-file' a recentf file"
-  (interactive)
-  (find-file (ido-completing-read "Find recent file: " recentf-list)))
 
 (eval-after-load 'compile
   '(setq compilation-auto-jump-to-first-error t
