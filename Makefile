@@ -185,6 +185,7 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)
 
 DOTFILES = \
+	   emacs/site-lisp/compile-package.el \
 	   emacs/site-lisp/hide-mode-line.el \
 	   emacs/site-lisp/ned-info-on-file.el \
 	   emacs/site-lisp/rnc-mode.el \
