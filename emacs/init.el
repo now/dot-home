@@ -96,6 +96,7 @@
 (dolist (hook '(Info-mode-hook
                 compilation-mode-hook
                 diff-mode-hook
+                help-mode-hook
                 magit-mode-hook))
   (add-hook hook 'now-do-not-show-trailing-whitespace))
 
