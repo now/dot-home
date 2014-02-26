@@ -195,13 +195,9 @@
 (define-key global-map "\C-r" 'isearch-backward-regexp)
 (define-key esc-map "\C-r" 'isearch-backward)
 
-(add-to-list 'auto-mode-alist '("\\.xsd\\'" . nxml-mode))
-
 (defvar recentf-save-file)
 (setq recentf-save-file (concat user-emacs-directory "recentf"))
 (recentf-mode t)
-
-(add-to-list 'auto-mode-alist (cons (purecopy "\\.at\\'") 'm4-mode))
 
 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of lisp code." t)
 (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
@@ -211,10 +207,8 @@
 (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
 (add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
 
-(autoload 'rnc-mode "rnc-mode")
-(add-to-list 'auto-mode-alist (cons (purecopy "\\.rnc\\'") 'rnc-mode))
-
-;; TODO This should be implemented by ruby-mode
+(add-to-list 'auto-mode-alist (cons (purecopy "\\.xsd\\'") 'nxml-mode))
+(add-to-list 'auto-mode-alist (cons (purecopy "\\.at\\'") 'm4-mode))
 (add-to-list 'auto-mode-alist (cons (purecopy "\\(?:\\`\\|/\\)Rakefile\\'") 'ruby-mode))
 
 (defun rename-shows ()
