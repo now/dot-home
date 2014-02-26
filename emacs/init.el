@@ -35,6 +35,7 @@
                    org
                    paredit
                    recentf
+                   rng-loc
                    ruby-mode
                    sh-script))
   (eval-after-load feature `(load (concat user-emacs-directory "delayed-inits/" ,(symbol-name feature)))))
@@ -195,8 +196,6 @@
 (define-key esc-map "\C-r" 'isearch-backward)
 
 (add-to-list 'auto-mode-alist '("\\.xsd\\'" . nxml-mode))
-(eval-after-load "rng-loc"
-  '(add-to-list 'rng-schema-locating-files (concat user-emacs-directory "etc/schema/schemas.xml")))
 
 (defvar recentf-save-file)
 (setq recentf-save-file (concat user-emacs-directory "recentf"))

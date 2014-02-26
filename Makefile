@@ -228,6 +228,7 @@ DOTFILES = \
 	   emacs/delayed-inits/org.el \
 	   emacs/delayed-inits/paredit.el \
 	   emacs/delayed-inits/recentf.el \
+	   emacs/delayed-inits/rng-loc.el \
 	   emacs/delayed-inits/ruby-mode.el \
 	   emacs/delayed-inits/sh-script.el \
 	   emacs/inits/package.el
