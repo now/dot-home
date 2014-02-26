@@ -200,9 +200,6 @@
 (eval-after-load "rng-loc"
   '(add-to-list 'rng-schema-locating-files (concat user-emacs-directory "etc/schema/schemas.xml")))
 
-(defvar org-enforce-todo-dependencies)
-(setq org-enforce-todo-dependencies t)
-
 (defvar recentf-save-file)
 (setq recentf-save-file (concat user-emacs-directory "recentf"))
 (recentf-mode t)

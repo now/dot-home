@@ -4,6 +4,7 @@
       org-archive-default-command 'org-archive-to-archive-sibling
       org-clock-out-remove-zero-time-clocks t
       org-directory "~/Documents/Google Drive/Org"
+      org-enforce-todo-dependencies t
       org-link-frame-setup '((vm . vm-visit-folder)
                              (gnus . org-gnus-no-new-news)
                              (file . find-file)
