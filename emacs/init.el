@@ -131,7 +131,6 @@
 
 ;;; Completion
 
-(icomplete-mode 1)
 (defun now-completion-delete-prompt ()
   (set-buffer standard-output)
   (goto-char (point-min))
