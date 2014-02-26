@@ -20,5 +20,6 @@ Environment
 /bin/update-context
 /bin/valgrind-ruby
 config.mk
+/emacs/site-lisp/userloaddefs.el
 /emacs/site-lisp/userloaddefs.el~
 *.elc
