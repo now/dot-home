@@ -27,6 +27,7 @@
                    grep
                    ido
                    ispell
+                   magit
                    make-mode
                    man
                    nxml-mode
@@ -192,12 +193,6 @@
 (define-key esc-map "\C-s" 'isearch-forward)
 (define-key global-map "\C-r" 'isearch-backward-regexp)
 (define-key esc-map "\C-r" 'isearch-backward)
-
-(eval-after-load 'magit
-  '(define-key magit-mode-map "q" 'close-buffer-and-window-unless-last))
-(add-hook 'magit-log-edit-mode-hook
-          (lambda ()
-            (setq fill-column 72)))
 
 ; (eval-after-load 'nxml …)
 (add-to-list 'auto-mode-alist '("\\.xsd\\'" . nxml-mode))
