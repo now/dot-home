@@ -55,7 +55,7 @@
 
 (setq eol-mnemonic-unix ""
       eol-mnemonic-mac "␍"
-      eol-mnemonic-dos "␍␤"
+      eol-mnemonic-dos "␍␊"
       eol-mnemonic-undecided "?")
 
 (hide-mode-line)
