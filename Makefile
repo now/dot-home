@@ -136,7 +136,6 @@ vlcuserconfdir = $(prefix)/.config/vlc
 DOTFILES = \
 	   dircolors \
 	   editrc \
-	   fonts.conf \
 	   gemrc \
 	   gtkrc-2.0 \
 	   indent.pro \
@@ -181,6 +180,7 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
 
 DOTFILES = \
+	   fontconfig/fonts.conf \
 	   git/config
 
 $(call GROUP_template,$(DOTFILES),$(XDG_CONFIG_HOME))
