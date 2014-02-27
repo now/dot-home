@@ -117,6 +117,10 @@ TOUCH = touch
 ZSHELL = /bin/zsh
 EMACS = emacs
 
+ifeq ($(origin XDG_CONFIG_HOME), undefined)
+XDG_CONFIG_HOME = ~/.config
+endif
+
 prefix = ~
 bindir = $(prefix)/opt/bin
 sharedir = $(prefix)/opt/share
@@ -134,7 +138,6 @@ DOTFILES = \
 	   editrc \
 	   fonts.conf \
 	   gemrc \
-	   gitconfig \
 	   gtkrc-2.0 \
 	   indent.pro \
 	   inputrc \
@@ -176,6 +179,11 @@ DOTFILES = \
 	   zshenv
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
+
+DOTFILES = \
+	   git/config
+
+$(call GROUP_template,$(DOTFILES),$(XDG_CONFIG_HOME))
 
 DOTFILES = \
 	   emacs/etc/schema/catalog.rnc \
