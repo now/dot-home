@@ -201,7 +201,6 @@ DOTFILES = \
 install: emacs/site-lisp/userloaddefs.el
 
 emacs/site-lisp/userloaddefs.el: $(DOTFILES) Makefile
-	mkdir -p $(dir $@)
 	$(EMACS) --batch -Q --eval '(setq generated-autoload-file "$(abspath $@)")' -f batch-update-autoloads \
 	  emacs/site-lisp && \
 	  touch $@
