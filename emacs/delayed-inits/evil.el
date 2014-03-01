@@ -43,13 +43,13 @@
     ",a" 'org-agenda
     ",b" 'ido-switch-buffer
     ",B" 'bs-show
-    ",c" 'vc-project-shell-command
+    ",c" 'project-shell-command
     ",C" 'shell-command
     ",d" 'dired
     ",e" 'find-file
-    ",E" 'find-vc-project-file
+    ",E" 'find-project-file
     ",k" 'ido-kill-buffer
-    ",m" 'compile-package
+    ",m" 'compile-project
     ",M" 'compile
     ",n" 'next-error
     ",N" 'compilation-next-file

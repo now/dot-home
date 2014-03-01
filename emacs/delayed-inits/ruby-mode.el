@@ -30,12 +30,12 @@
      ",t" 'ruby-find-other-file
      ",M" 'ruby-run-test-at-line))
 
-(defvar compilation-mode-makefile-name)
+(defvar project-filename)
 (add-hook 'ruby-mode-hook
           (lambda ()
             (hs-minor-mode 1)
             (set (make-local-variable 'compile-command) "rake -s ")
-            (set (make-local-variable 'compilation-mode-makefile-name) "Rakefile")
+            (set (make-local-variable 'project-filename) "Rakefile")
             (set (make-local-variable 'paragraph-start) "\f\\|[ \t]*$\\|[ \t]*#[ \t]*@[[:alpha:]]+[ \t]")
             (set (make-local-variable 'adaptive-fill-function)
                  (lambda ()
@@ -76,9 +76,6 @@
     (if replacement
         (replace-match replacement nil nil file-name nil))))
 
-; TODO Remove this once we factor out compile-package into its own feature
-; (with autoload).
-(declare-function compile-package-immediately "init.el")
 ; TODO Validate file-name
 (defun ruby-run-test-at-line (&optional file-name line)
   "Run test at LINE."
@@ -90,7 +87,7 @@
          (line (or line (count-lines (point-min) (point))))
          (line-as-string (if (ruby-find-other-file-name file-name ruby-implementation-file-name-mapping)
                              (number-to-string line))))
-    (compile-package-immediately
+    (compile-project-immediately
      (concat
       "rake -s"
       " TEST=" test-file-name

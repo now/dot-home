@@ -155,24 +155,6 @@
 
 (desktop-save-mode 1)
 
-(defun call-interactively-at-git-root (command &optional record-flag keys)
-  "Call COMMAND interactively with DEFAULT-DIRECTORY set to directory containing `.git'."
-  (let ((root (locate-dominating-file (or (buffer-file-name) default-directory) ".git")))
-    (if root
-        (let ((default-directory root))
-          (call-interactively command record-flag keys))
-      (call-interactively command record-flag keys))))
-
-(defun find-vc-project-file ()
-  "Find a file, starting at the vc project root."
-  (interactive)
-  (call-interactively-at-git-root 'find-file))
-
-(defun vc-project-shell-command ()
-  "Run SHELL-COMMAND with DEFAULT-DIRECTORY set to VC-GIT-ROOT."
-  (interactive)
-  (call-interactively-at-git-root 'shell-command))
-
 (evil-mode 1)
 
 (global-set-key (kbd "C-x C-o") 'other-window)
