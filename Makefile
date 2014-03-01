@@ -140,13 +140,6 @@ DOTFILES = \
 	   indent.pro \
 	   inputrc \
 	   mailcap \
-	   vim/after/ftplugin/sh.vim \
-	   vim/after/ftplugin/vim.vim \
-	   vim/after/ftplugin/zsh.vim \
-	   vim/after/syntax/vim.vim \
-	   vim/colors/now.vim \
-	   vim/ftplugin/man.vim \
-	   vimrc \
 	   zshenv
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
@@ -330,6 +323,19 @@ $(1): $(1).in
 endef
 
 $(eval $(foreach file,$(bin_substitutables),$(call bin_substitutables_file,$(file))))
+
+ifdef INCLUDE_VIM
+DOTFILES = \
+	   vim/after/ftplugin/sh.vim \
+	   vim/after/ftplugin/vim.vim \
+	   vim/after/ftplugin/zsh.vim \
+	   vim/after/syntax/vim.vim \
+	   vim/colors/now.vim \
+	   vim/ftplugin/man.vim \
+	   vimrc
+
+$(call GROUP_template,$(DOTFILES),$(userconfdir),.)
+endif
 
 DEPENDENCIES = \
 	       vim-quit-if-only-quickfix-buffer-left \
