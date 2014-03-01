@@ -26,6 +26,7 @@
                    dired-aux
                    evil
                    grep
+                   hideshow
                    ido
                    ispell
                    magit
@@ -81,9 +82,6 @@
 (set-display-table-slot standard-display-table 'selective-display (vector (make-glyph-code #x2026)))
 (set-display-table-slot standard-display-table 'vertical-border (make-glyph-code #x2502))
 
-(eval-after-load 'hideshow
-  '(setq hs-set-up-overlay (lambda (ov)
-                             (overlay-put ov 'display " …"))))
 (setq overlay-arrow-string "⇒")
 
 (eval-after-load 'paren

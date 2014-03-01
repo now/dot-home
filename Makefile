@@ -226,6 +226,7 @@ DOTFILES = \
 	   emacs/delayed-inits/dired-aux.el \
 	   emacs/delayed-inits/evil.el \
 	   emacs/delayed-inits/grep.el \
+	   emacs/delayed-inits/hideshow.el \
 	   emacs/delayed-inits/ido.el \
 	   emacs/delayed-inits/ispell.el \
 	   emacs/delayed-inits/magit.el \
