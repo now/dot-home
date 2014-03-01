@@ -248,7 +248,7 @@ DOTFILES = \
 	   zsh/zprofile \
 	   zsh/zshrc
 
-$(call GROUP_template,$(DOTFILES),$(userconfdir)/.zsh,.,zsh/)
+$(call GROUP_template,$(DOTFILES),$(XDG_CONFIG_HOME)/zsh,.,zsh/)
 
 DOTFILES = \
 	   audacity.cfg
