@@ -134,7 +134,6 @@ vlcuserconfdir = $(prefix)/.config/vlc
 -include config.mk
 
 DOTFILES = \
-	   dircolors \
 	   editrc \
 	   gemrc \
 	   gtkrc-2.0 \
@@ -180,6 +179,7 @@ DOTFILES = \
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
 
 DOTFILES = \
+	   dircolors \
 	   fontconfig/fonts.conf \
 	   git/config
 
