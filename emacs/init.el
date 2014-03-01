@@ -35,7 +35,6 @@
                    nxml-mode
                    org
                    paredit
-                   paren
                    recentf
                    rng-loc
                    ruby-mode
@@ -85,6 +84,8 @@
 
 (setq overlay-arrow-string "⇒")
 
+(defvar show-paren-delay)
+(setq show-paren-delay 0)
 (show-paren-mode 1)
 
 (setq-default show-trailing-whitespace t)
