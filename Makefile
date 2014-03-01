@@ -235,6 +235,7 @@ DOTFILES = \
 	   emacs/delayed-inits/nxml-mode.el \
 	   emacs/delayed-inits/org.el \
 	   emacs/delayed-inits/paredit.el \
+	   emacs/delayed-inits/paren.el \
 	   emacs/delayed-inits/recentf.el \
 	   emacs/delayed-inits/rng-loc.el \
 	   emacs/delayed-inits/ruby-mode.el \
