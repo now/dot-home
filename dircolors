@@ -1,105 +1,17 @@
 TERM xterm-256color
 
-# using a literal ESC character is safer than \e, as not all apps convert it
 LEFTCODE [38;5;
 RIGHTCODE m
 ENDCODE [m
 
-# General
+SETUID			15;48;5;1
+SETGID			0;48;5;11
+STICKY_OTHER_WRITABLE   13
+OTHER_WRITABLE          13
+STICKY                  11
 
-NORMAL                  0
-FILE                    0
-DIR 			12
-LINK 			14
-FIFO 			11
-SOCK 			5
-DOOR			5
-BLK 			11
-CHR 			11
-ORPHAN			1
-EXEC 			10
-SUID			46
-SGID			40
-STICKY_OTHER_WRITABLE   201
-OTHER_WRITABLE          201
-STICKY                  202
-
-# Archives
-
-*.7z            3
-*.Z   	        3
-*.ace           3
-*.arj 	        3
-*.bz2 	        3
-*.cab           3
-*.deb 	        3
-*.gz  	        3
-*.lzh 	        3
-*.lzma          3
-*.rar 	        3
-*.rpm 	        3
-*.tar 	        3
-*.taz 	        3
-*.tbz2	        3
-*.tgz 	        3
-*.xz   	        3
-*.z   	        3
-*.zip 	        3
-
-# Images
-
-*.ai    5
-*.bmp   5
-*.eps   5
-*.gif   5
-*.ico   5
-*.jpeg  5
-*.jpg   5
-*.png   5
-*.ppm   5
-*.tga   5
-*.tif   5
-*.tiff  5
-*.xbm   5
-*.xcf   5
-*.xpm   5
-
-# Audio
-
-*.aiff  139
-*.flac  139
-*.m4a   139
-*.mp3   139
-*.ogg   139
-*.rm    139
-*.wav   139
-*.wma   139
-
-# Video
-
-*.asf   101
-*.avi   101
-*.divx  101
-*.flv   101
-*.m2v   101
-*.m4v   101
-*.mkv   101
-*.mov   101
-*.mp4   101
-*.mpeg  101
-*.mpg   101
-*.ogm   101
-*.ram   101
-*.rmvb  101
-*.swf   101
-*.wmv   101
-
-# Hidden
-
-*.swp   7
-*.tmp   7
-*~      7
-
-# Uninteresting
-
-*.o     7
+*.bak 7
+*.o   7
+*.swp 7
+*.tmp 7
+*~    7

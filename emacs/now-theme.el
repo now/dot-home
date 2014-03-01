@@ -49,7 +49,7 @@
     `(diff-refine-added ((,class (:inherit (diff-added diff-refine-change)))))
     `(diff-refine-removed ((,class (:inherit (diff-removed diff-refine-change)))))
     `(diff-removed ((,class (:foreground ,red))))
-    `(dired-directory ((,class (,@blank :foreground ,light-blue))))
+    `(dired-directory ((,class (,@blank :foreground ,blue))))
     `(dired-header ((,class (:inherit header))))
     `(dired-perm-write ((,class (,@blank :foreground "#ff00ff"))))
     `(dired-symlink ((,class (,@blank ,light-cyan))))
