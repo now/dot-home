@@ -35,8 +35,9 @@ endfunction
 "if &t_Co >= 256 || &term == 'builtin_gui'
 hi! link          SpecialKey          NonText
 hi  NonText                                                               guifg=#2080c0                     gui=None
-let s:di_color = substitute($LS_COLORS, '^.*di=\(\d\+\).*$', '\1', '')
-if s:di_color != ""
+let s:ls_colors = $L_COLORS
+let s:di_color = substitute(s:ls_colors, '^.*di=\(\d\+\).*$', '\1', '')
+if s:di_color != "" && s:di_color != s:ls_colors
 "  let s:rgb = s:term_color_to_rgb(s:di_color)
   execute 'hi Directory ctermfg=' . s:di_color
   ". (s:rgb != "" ? (' guifg=' . s:rgb) : "")
