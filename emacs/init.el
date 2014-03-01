@@ -1,6 +1,3 @@
-(eval-when-compile
-  (require 'cl))
-
 (defun close-buffer-and-window-unless-last ()
   (interactive)
   (let* ((buffer (current-buffer))
