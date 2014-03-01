@@ -1,4 +1,4 @@
-ZDOTDIR=~/.zsh
+ZDOTDIR=~/.config/zsh
 
 fpath[1,0]=($ZDOTDIR/functions{,/{autoload,zap}})
 

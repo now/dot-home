@@ -3,7 +3,7 @@ DOTFILES = \
 	   zsh/os/login \
 	   zsh/os/rc
 
-$(foreach file,$(DOTFILES),$(call FILE_template,$(or $(wildcard os/$(uname)/$(file)),os/$(file)),$(userconfdir)/.$(file)))
+$(foreach file,$(DOTFILES),$(call FILE_template,$(or $(wildcard os/$(uname)/$(file)),os/$(file)),$(XDG_CONFIG_HOME)/$(file)))
 
 BINFILES = \
 	bin/a \

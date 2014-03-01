@@ -147,6 +147,14 @@ DOTFILES = \
 	   vim/colors/now.vim \
 	   vim/ftplugin/man.vim \
 	   vimrc \
+	   zshenv
+
+$(call GROUP_template,$(DOTFILES),$(userconfdir),.)
+
+DOTFILES = \
+	   dircolors \
+	   fontconfig/fonts.conf \
+	   git/config \
 	   zsh/functions/_unpack \
 	   zsh/functions/_up \
 	   zsh/functions/autoload/cd \
@@ -173,15 +181,7 @@ DOTFILES = \
 	   zsh/functions/zle/util/select-match-from-menu \
 	   zsh/functions/zle/util/select-match-from-menu-widget \
 	   zsh/functions/zle/vi-cmd-mode-silently \
-	   zsh/functions/zle/yank-clipboard \
-	   zshenv
-
-$(call GROUP_template,$(DOTFILES),$(userconfdir),.)
-
-DOTFILES = \
-	   dircolors \
-	   fontconfig/fonts.conf \
-	   git/config
+	   zsh/functions/zle/yank-clipboard
 
 $(call GROUP_template,$(DOTFILES),$(XDG_CONFIG_HOME))
 
