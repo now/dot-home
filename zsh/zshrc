@@ -1,6 +1,6 @@
 # Shell and Terminal Settings
 
-HISTFILE=~/.zshistory
+HISTFILE=${XDG_CONFIG_HOME:-~/.cache}/zsh/history
 SAVEHIST=${HISTSIZE::=1024}
 REPORTTIME=300
 
