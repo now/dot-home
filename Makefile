@@ -137,6 +137,7 @@ DOTFILES = \
 	   editrc \
 	   gemrc \
 	   gtkrc-2.0 \
+	   hunspell_en_US \
 	   indent.pro \
 	   inputrc \
 	   mailcap \
