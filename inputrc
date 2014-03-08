@@ -4,6 +4,6 @@ set editing-mode vi
 set keymap vi
   "L": vi-subst
   "l": vi-subst
-  "^Z": vi-movement-mode
+  "^D": vi-movement-mode
 set keymap vi-move
   "s": forward-char
