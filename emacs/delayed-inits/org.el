@@ -28,8 +28,7 @@
 
 ;; TODO Move these to files so that MobileOrg and similar may see them
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "DONE(d)")
-        (sequence "WAIT(w@/!)" "DLGT(g@/!)" "NIXD(c@/!)")
+      '((sequence "TODO(t)" "WAIT(w@/!)" "DLGT(g@/!)" "|" "DONE(d)" "NIXD(c@/!)")
         (type "CALL")
         (type "CHAT")))
 (setq org-todo-keyword-faces
