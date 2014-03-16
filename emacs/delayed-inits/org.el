@@ -49,6 +49,8 @@
         ("T" "Annotated Todo" entry (file "")
          "* TODO %?\n  %U\n  %i\n  %a" :clock-in t :clock-resume t)))
 
+(add-hook 'org-mode-hook 'turn-on-auto-compile-project-mode)
+
 (eval-after-load 'evil
   '(progn
      (evil-define-key 'motion org-mode-map
