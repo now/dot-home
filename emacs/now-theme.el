@@ -59,13 +59,8 @@
     `(flyspell-incorrect ((,class (,@blank :foreground ,red :underline t))))
     `(font-lock-builtin-face ((,class ,blank)))
     `(font-lock-comment-face ((,class (,@blank :background "grey90"))))
-    ; NOTE This won’t work on Mac OS X Terminal, as it can’t inverse the cursor as well.  Jeesh.
-    ;`(font-lock-comment-face ((,class (,@blank :inverse-video t))))
-    ;`(font-lock-comment-face ((,class (,@blank :foreground ,off-white :background ,off-black))))
-    ; NOTE This may be nice, but needs testing.  I’d prefer the above
-    ; alternative over this 50-50 solution, but that may not be possible.
-    ;`(font-lock-comment-face ((,class (,@blank :foreground ,off-white :background "grey50"))))
     `(font-lock-constant-face ((,class ,blank)))
+    `(font-lock-doc-face ((,class ( :inherit font-lock-comment-face))))
     `(font-lock-function-name-face ((,class ,blank)))
     `(font-lock-keyword-face ((,class ,blank)))
     `(font-lock-preprocessor-face ((,class ,blank)))
