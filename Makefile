@@ -300,6 +300,7 @@ BINFILES = \
 	   bin/m \
 	   bin/mfedit \
 	   bin/mov-re-encode \
+	   bin/org-sync \
 	   bin/terminal-colors \
 	   bin/pack \
 	   bin/unpack \

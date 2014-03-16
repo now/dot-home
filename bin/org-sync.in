@@ -1,0 +1,24 @@
+s! @SHELL@
+
+date=`date +'%Y-%m-%d %H:%M:%S'`
+
+(
+  if [[ $# -lt 1 ]]; then
+    echo 'org-sync: missing argument DIR' 2>&1
+    exit 1
+  fi
+  sleep 10 &&
+    cd "$1" &&
+    git ls-files --deleted -z | xargs -0 git rm &&
+    git add . &&
+    git commit -m "changes from $(hostname) on $date"
+) 2>&1 | awk "{ print | \"mailx -s \\\"org-sync output for $date\\\" now@disu.se\" }"
+
+# TODO Move this to Emacs instead?  Could run on save.  We could there check if
+# the difference between now and the modification date is greater than some
+# interval, invoke git fetch.  Otherwise, simply write and commit.  Then,
+# asynchronously push the changes.  The date of the last fetch performed can be
+# checked with stat -f %m .git/FETCH_HEAD.
+# http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
+# https://github.com/simonthum/git-sync
+# We could also run on first-change-hook to see if we should fetch.

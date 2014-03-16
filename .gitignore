@@ -14,6 +14,7 @@ Environment
 /bin/m
 /bin/mfedit
 /bin/mov-re-encode
+/bin/org-sync
 /bin/pack
 /bin/terminal-colors
 /bin/unpack
