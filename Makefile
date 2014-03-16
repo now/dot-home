@@ -182,6 +182,7 @@ $(call GROUP_template,$(DOTFILES),$(XDG_CONFIG_HOME))
 DOTFILES = \
 	   emacs/etc/schema/catalog.rnc \
 	   emacs/etc/schema/gtk-builder.rnc \
+	   emacs/etc/schema/PropertyList-1.0.rnc \
 	   emacs/etc/schema/schemas.xml
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)

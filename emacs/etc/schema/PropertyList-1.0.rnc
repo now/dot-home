@@ -1,0 +1,21 @@
+plistObject =
+  array |
+  data |
+  date |
+  dict |
+  real |
+  integer |
+  string |
+  true |
+  false
+start = element plist { attribute version { '1.0' }, plistObject }
+element array { plistObject* }
+element dict = { (key, plistObject)* }
+element key { text }
+element string { text }
+element data { text }
+element date { text }
+element true { empty }
+element false { empty }
+element real { text { pattern = '[+-]?[0-9]+(\.[0-9]*)?(E[+-][0-9]+)?' } }
+element integer { text { pattern = '[+-]?[0-9]+' } }
