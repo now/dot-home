@@ -1,6 +1,6 @@
 [user]
         name = Nikolai Weibull
-        email = now@bitwi.se
+        email = now@disu.se
 [url "git@github.com:now/"]
         insteadOf = myhub:
 [alias]
