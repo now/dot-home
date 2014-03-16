@@ -1,5 +1,4 @@
-DOTFILES = \
-	   os/Darwin/Library/LaunchAgents/se.disu.org.sync.plist
+DOTFILES =
 
 LAUNCHCTL = launchctl
 
