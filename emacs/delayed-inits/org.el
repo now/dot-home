@@ -3,7 +3,7 @@
 (setq ;org-agenda-span 'day
       org-archive-default-command 'org-archive-to-archive-sibling
       org-clock-out-remove-zero-time-clocks t
-      org-directory "~/Documents/Google Drive/Org"
+      org-directory "~/Documents/Org"
       org-enforce-todo-dependencies t
       org-link-frame-setup '((vm . vm-visit-folder)
                              (gnus . org-gnus-no-new-news)
@@ -48,8 +48,6 @@
          "* TODO %?\n  %U\n  %i" :clock-in t :clock-resume t)
         ("T" "Annotated Todo" entry (file "")
          "* TODO %?\n  %U\n  %i\n  %a" :clock-in t :clock-resume t)))
-
-(add-hook 'org-mode-hook 'turn-on-auto-compile-project-mode)
 
 (eval-after-load 'evil
   '(progn
