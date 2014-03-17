@@ -10,6 +10,7 @@
                           (iedit t)
                           (magit t)
                           (multiple-cursors t)
+                          (org t)
                           (paredit t)
                           (popup t)
                           (smex t)
