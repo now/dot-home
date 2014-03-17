@@ -23,7 +23,8 @@
       org-treat-S-cursor-todo-selection-as-state-change nil
       org-reverse-note-order t
       org-log-done 'time
-      org-log-into-drawer t)
+      org-log-into-drawer t
+      org-yank-adjusted-subtrees t)
 
 ;; TODO Move these to files so that MobileOrg and similar may see them
 (setq org-todo-keywords
