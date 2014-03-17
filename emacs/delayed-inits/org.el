@@ -1,7 +1,6 @@
 (defun now-refile-target-verify ()
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 (setq ;org-agenda-span 'day
-      org-archive-default-command 'org-archive-to-archive-sibling
       org-clock-out-remove-zero-time-clocks t
       org-directory "~/Documents/Org"
       org-enforce-todo-dependencies t
