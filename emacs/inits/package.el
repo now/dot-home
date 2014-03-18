@@ -15,4 +15,7 @@
                           (popup t)
                           (smex t)
                           (undo-tree t)))
+(cond
+ ((eq system-type 'cygwin)
+  (add-to-list 'package-load-list '(cygwin-mount t))))
 (package-initialize)
