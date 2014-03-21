@@ -23,3 +23,10 @@ $(eval $(foreach file,$(1),$(call LAUNCHCTL_template_file,$(file),$(2)/$(file:$(
 endef
 
 $(call LAUNCHCTL_template,$(DOTFILES),$(userconfdir),os/Darwin/)
+
+ifneq ($(firefoxuserconfdir),)
+DOTFILES = \
+	   os/Darwin/firefox/chrome/userChrome.css
+
+$(call GROUP_template,$(DOTFILES),$(firefoxuserconfdir),,os/Darwin/firefox/)
+endif

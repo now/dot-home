@@ -257,7 +257,6 @@ $(call GROUP_template,$(DOTFILES),$(vlcuserconfdir),,vlc/)
 
 ifneq ($(firefoxuserconfdir),)
 DOTFILES = \
-	   firefox/chrome/userChrome.css \
 	   firefox/mimeTypes.rdf \
 	   firefox/searchplugins/adlibris.xml \
 	   firefox/searchplugins/discogs.xml \
