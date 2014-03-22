@@ -31,6 +31,7 @@
                    man
                    nxml-mode
                    org
+                   org-capture
                    org-clock
                    org-mobile
                    paredit
