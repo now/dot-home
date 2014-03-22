@@ -2,14 +2,14 @@
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 (setq ;org-agenda-span 'day
       org-directory "~/Documents/Org"
+      org-agenda-files (list org-directory)
+      org-default-notes-file (concat (file-name-as-directory org-directory) "refile.org")
       org-enforce-todo-dependencies t
       org-link-frame-setup '((vm . vm-visit-folder)
                              (gnus . org-gnus-no-new-news)
                              (file . find-file)
                              (wl . wl))
       org-loop-over-headlines-in-active-region 'region-start-level
-      org-mobile-directory "~/Sites/dav"
-      org-mobile-force-id-on-agenda-items nil
       org-refile-allow-creating-parent-nodes 'confirm
       org-refile-target-verify-function 'now-refile-target-verify
       org-refile-targets '((org-agenda-files . (:maxlevel . 9)))
@@ -24,7 +24,6 @@
       org-log-into-drawer t
       org-yank-adjusted-subtrees t)
 
-;; TODO Move these to files so that MobileOrg and similar may see them
 (setq org-todo-keywords
       '((sequence "TODO(t)" "WAIT(w@/@)" "DLGT(g@/!)" "|" "DONE(d)" "NIXD(c@/!)")
         (type "CALL")
@@ -32,11 +31,6 @@
 (setq org-todo-keyword-faces
       '(("DLGT" . org-delegated)
         ("WAIT" . org-waiting)))
-(let ((org-file (lambda (file)
-                  (concat (file-name-as-directory org-directory) file))))
-  (setq org-mobile-inbox-for-pull (funcall org-file "from-mobile.org")
-        org-default-notes-file (funcall org-file "refile.org")
-        org-agenda-files (list org-directory)))
 (setq org-capture-templates
       '(("c" "Chat" entry (file "")
          "* CHAT with %? :CHAT:\n%U" :clock-in t :clock-resume t)

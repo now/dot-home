@@ -32,6 +32,7 @@
                    nxml-mode
                    org
                    org-clock
+                   org-mobile
                    paredit
                    recentf
                    rng-loc
