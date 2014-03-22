@@ -1,7 +1,6 @@
 (defun now-refile-target-verify ()
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 (setq ;org-agenda-span 'day
-      org-clock-out-remove-zero-time-clocks t
       org-directory "~/Documents/Org"
       org-enforce-todo-dependencies t
       org-link-frame-setup '((vm . vm-visit-folder)

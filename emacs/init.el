@@ -31,6 +31,7 @@
                    man
                    nxml-mode
                    org
+                   org-clock
                    paredit
                    recentf
                    rng-loc
