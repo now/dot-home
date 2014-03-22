@@ -19,7 +19,6 @@
       org-completion-use-ido t
       org-edit-src-persistent-message nil
       org-src-window-setup 'current-window
-      org-src-fontify-natively t
       org-treat-S-cursor-todo-selection-as-state-change nil
       org-reverse-note-order t
       org-log-done 'time
