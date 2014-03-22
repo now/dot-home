@@ -22,16 +22,12 @@
       org-reverse-note-order t
       org-log-done 'time
       org-log-into-drawer t
-      org-yank-adjusted-subtrees t)
-
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "WAIT(w@/@)" "DLGT(g@/!)" "|" "DONE(d)" "NIXD(c@/!)")
-        (type "CALL")
-        (type "CHAT")))
-(setq org-todo-keyword-faces
-      '(("DLGT" . org-delegated)
-        ("WAIT" . org-waiting)))
-
+      org-yank-adjusted-subtrees t
+      org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/@)" "DLGT(g@/!)" "|" "DONE(d)" "NIXD(c@/!)")
+                          (type "CALL")
+                          (type "CHAT"))
+      org-todo-keyword-faces '(("DLGT" . org-delegated)
+                               ("WAIT" . org-waiting)))
 (eval-after-load 'evil
   '(progn
      (evil-define-key 'motion org-mode-map
