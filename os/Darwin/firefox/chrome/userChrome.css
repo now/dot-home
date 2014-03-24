@@ -1,0 +1,16 @@
+@namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
+
+#navigator-toolbox[inFullscreen='true'] #TabsToolbar {
+    visibility: collapse !important;
+}
+
+#navigator-toolbox[inFullscreen='true'] #nav-bar {
+    height: 40px !important;
+    margin-bottom: -40px !important;
+    transform: translateY(-40px) !important;
+}
+
+
+#navigator-toolbox[inFullscreen='true'] #urlbar[focused='true'] {
+    transform: translateY(35px) !important;
+}
