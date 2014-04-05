@@ -158,7 +158,6 @@ DOTFILES = \
 	   zsh/functions/autoload/urlify \
 	   zsh/functions/define-digraphs \
 	   zsh/functions/dynamic-directory-names \
-	   zsh/functions/list-directory-on-chpwd \
 	   zsh/functions/cache/invalid \
 	   zsh/functions/cache/path \
 	   zsh/functions/cache/retrieve \

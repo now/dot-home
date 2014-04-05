@@ -23,7 +23,6 @@ fi
 TIMEFMT=%J$'\n''real: %*E, user: %*U, system: %*S (%P)'
 
 autoload -U add-zsh-hook
-add-zsh-hook chpwd list-directory-on-chpwd
 add-zsh-hook chpwd chpwd_recent_dirs
 add-zsh-hook zsh_directory_name zsh_directory_name_cdr
 add-zsh-hook zsh_directory_name dynamic-directory-names

@@ -1,2 +1,0 @@
-[[ -o interactive ]] && (( $ZSH_SUBSHELL == 0 )) && { zle || a }
-return 0
