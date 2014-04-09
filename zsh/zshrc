@@ -4,8 +4,7 @@ HISTFILE=${XDG_CONFIG_HOME:-~/.cache}/zsh/history
 SAVEHIST=${HISTSIZE::=1024}
 REPORTTIME=300
 
-setopt autocd \
-       completeinword nolistambiguous nolisttypes \
+setopt completeinword nolistambiguous nolisttypes \
        extendedhistory histnostore \
        rcexpandparam \
        combiningchars ignoreeof \
@@ -59,7 +58,6 @@ zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'r:|[:.,_-]=** r
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-separator ''
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*:default' list-prompt '%K{white}More (%p)%k'
 zstyle ':completion:*:descriptions' format '%K{white}%d%k'
 zstyle ':completion:*:messages' format '%F{green}%d%f'
 zstyle ':completion:*:warnings' format '%F{red}no matches for %d%f'
@@ -128,8 +126,6 @@ bindkey -r '^['
 # Functions And Aliases
 
 autoload -U cdr zargs zcalc zmv $ZDOTDIR/functions/autoload/*(:t)
-
-zstyle ':chpwd:*' recent-dirs-default true
 
 alias \
   h='fc -lfiD' \
