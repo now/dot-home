@@ -229,6 +229,7 @@ DOTFILES = \
 	   emacs/delayed-inits/nxml-mode.el \
 	   emacs/delayed-inits/org-capture.el \
 	   emacs/delayed-inits/org-clock.el \
+	   emacs/delayed-inits/org-id.el \
 	   emacs/delayed-inits/org-mobile.el \
 	   emacs/delayed-inits/org.el \
 	   emacs/delayed-inits/paredit.el \

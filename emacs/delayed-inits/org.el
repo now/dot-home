@@ -2,6 +2,7 @@
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 (setq ;org-agenda-span 'day
       org-agenda-text-search-extra-files '(argenda-archives)
+      org-catch-invisible-edits 'smart
       org-directory "~/Documents/Org"
       org-agenda-files (list org-directory)
       org-default-notes-file (concat (file-name-as-directory org-directory) "refile.org")
@@ -20,6 +21,7 @@
       org-edit-src-persistent-message nil
       org-src-window-setup 'current-window
       org-treat-S-cursor-todo-selection-as-state-change nil
+      org-time-clocksum-format '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
       org-log-done 'time
       org-log-into-drawer t
       org-yank-adjusted-subtrees t
@@ -36,3 +38,13 @@
        ",<" 'org-mobile-pull
        ",>" 'org-mobile-push
        ",t" 'org-todo)))
+
+(defun now-insert-heading-inactive-timestamp ()
+  (save-excursion
+    (org-return)
+    (org-cycle)
+    (org-insert-time-stamp nil t t nil nil nil)))
+
+(add-hook 'org-insert-heading-hook 'now-insert-heading-inactive-timestamp)
+
+(add-hook 'org-mode-hook 'turn-on-flyspell)

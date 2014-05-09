@@ -33,6 +33,7 @@
                    org
                    org-capture
                    org-clock
+                   org-id
                    org-mobile
                    paredit
                    recentf
