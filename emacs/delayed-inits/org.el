@@ -1,6 +1,7 @@
 (defun now-refile-target-verify ()
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 (setq ;org-agenda-span 'day
+      org-agenda-text-search-extra-files '(argenda-archives)
       org-directory "~/Documents/Org"
       org-agenda-files (list org-directory)
       org-default-notes-file (concat (file-name-as-directory org-directory) "refile.org")
@@ -19,7 +20,6 @@
       org-edit-src-persistent-message nil
       org-src-window-setup 'current-window
       org-treat-S-cursor-todo-selection-as-state-change nil
-      org-reverse-note-order t
       org-log-done 'time
       org-log-into-drawer t
       org-yank-adjusted-subtrees t
