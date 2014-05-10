@@ -25,6 +25,7 @@
       org-log-done 'time
       org-log-into-drawer t
       org-yank-adjusted-subtrees t
+      org-tag-alist '(("shopping" . ?s))
       org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/@)" "DLGT(g@/!)" "|" "DONE(d)" "NIXD(c@/!)")
                           (type "CALL")
                           (type "CHAT"))
