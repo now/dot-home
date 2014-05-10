@@ -3,10 +3,13 @@
 (setq ;org-agenda-span 'day
       org-agenda-text-search-extra-files '(argenda-archives)
       org-catch-invisible-edits 'smart
+      org-columns-default-format "%80ITEM(Task) %8Effort{:} %8CLOCKSUM"
+      org-columns-ellipses "…"
       org-directory "~/Documents/Org"
       org-agenda-files (list org-directory)
       org-default-notes-file (concat (file-name-as-directory org-directory) "refile.org")
       org-enforce-todo-dependencies t
+      org-global-properties '(("Effort_ALL" . "0:15 0:30 1:00 2:00 4:00 8:00 0:00"))
       org-link-frame-setup '((vm . vm-visit-folder)
                              (gnus . org-gnus-no-new-news)
                              (file . find-file)
