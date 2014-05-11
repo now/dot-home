@@ -104,6 +104,7 @@
     `(mode-line-inactive ((,class (,@blank :foreground "grey19" :background "grey86"))))
     `(ned-info-on-file-mode ((,class (:foreground ,green))))
     `(ned-info-on-file-read-only ((,class (:foreground ,red))))
+    `(org-agenda-structure ((,class ,blank)))
     `(org-block ((,class (:foreground "grey40"))))
     `(org-code ((,class (:foreground "grey40"))))
     `(org-date ((,class (,@blank :inherit font-lock-comment-face))))
