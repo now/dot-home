@@ -7,7 +7,7 @@
                                  (todo . " %i %-13:c")
                                  (tags . " %i %-13:c")
                                  (search . " %i %-13:c"))
-                                        ;org-agenda-span 'day
+      org-agenda-span 'day
       org-agenda-text-search-extra-files '(argenda-archives)
       org-agenda-use-time-grid nil
       org-catch-invisible-edits 'smart
