@@ -1,7 +1,15 @@
 (defun now-refile-target-verify ()
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-(setq ;org-agenda-span 'day
+(setq org-agenda-deadline-faces '((0.0 . default))
+      org-agenda-deadline-leaders '("Deadline:  " "In %d days: " "%d days ago: ")
+      org-agenda-prefix-format '((agenda . " %i %-13:c%?-12t% s")
+                                 (timeline . "  % s")
+                                 (todo . " %i %-13:c")
+                                 (tags . " %i %-13:c")
+                                 (search . " %i %-13:c"))
+                                        ;org-agenda-span 'day
       org-agenda-text-search-extra-files '(argenda-archives)
+      org-agenda-use-time-grid nil
       org-catch-invisible-edits 'smart
       org-columns-default-format "%80ITEM(Task) %8Effort{:} %8CLOCKSUM"
       org-columns-ellipses "…"
