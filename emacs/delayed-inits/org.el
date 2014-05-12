@@ -11,7 +11,7 @@
       org-agenda-text-search-extra-files '(argenda-archives)
       org-agenda-use-time-grid nil
       org-catch-invisible-edits 'smart
-      org-columns-default-format "%80ITEM(Task) %8Effort{:} %8CLOCKSUM"
+      org-columns-default-format "%80ITEM(Task) %7Effort{:} %7CLOCKSUM(Clocked)"
       org-columns-ellipses "…"
       org-directory "~/Documents/Org"
       org-agenda-files (list org-directory)
