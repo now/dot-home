@@ -108,6 +108,7 @@
     `(org-agenda-structure ((,class ,blank)))
     `(org-block ((,class (:foreground "grey40"))))
     `(org-code ((,class (:foreground "grey40"))))
+    `(org-column ((,class (:foreground ,black))))
     `(org-date ((,class (,@blank :inherit font-lock-comment-face))))
     `(org-delegated ((,class (:inherit org-waiting))))
     `(org-done ((,class (,@blank :foreground ,white :background ,green))))
