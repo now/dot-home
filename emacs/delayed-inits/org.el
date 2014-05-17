@@ -1,39 +1,39 @@
 (defun now-refile-target-verify ()
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-(setq org-agenda-deadline-faces '((0.0 . default))
+(setq org-directory "~/Documents/Org"
+      org-agenda-files (list org-directory)
+      org-agenda-deadline-faces '((0.0 . default))
       org-agenda-text-search-extra-files '(argenda-archives)
       org-catch-invisible-edits 'smart
       org-columns-default-format "%80ITEM(Task) %7Effort{:} %7CLOCKSUM(Clocked)"
       org-columns-ellipses "…"
-      org-directory "~/Documents/Org"
-      org-agenda-files (list org-directory)
+      org-completion-use-ido t
       org-default-notes-file (concat (file-name-as-directory org-directory) "refile.org")
+      org-edit-src-persistent-message nil
       org-enforce-todo-dependencies t
       org-global-properties '(("Effort_ALL" . "0:15 0:30 1:00 2:00 4:00 8:00 0:00"))
       org-link-frame-setup '((vm . vm-visit-folder)
                              (gnus . org-gnus-no-new-news)
                              (file . find-file)
                              (wl . wl))
+      org-log-done 'time
+      org-log-into-drawer t
       org-loop-over-headlines-in-active-region 'region-start-level
+      org-outline-path-complete-in-steps nil
       org-refile-allow-creating-parent-nodes 'confirm
       org-refile-target-verify-function 'now-refile-target-verify
       org-refile-targets '((org-agenda-files . (:maxlevel . 9)))
       org-refile-use-outline-path 'file
-      org-outline-path-complete-in-steps nil
-      org-completion-use-ido t
-      org-edit-src-persistent-message nil
       org-src-window-setup 'current-window
-      org-treat-S-cursor-todo-selection-as-state-change nil
-      org-time-clocksum-format '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
-      org-log-done 'time
-      org-log-into-drawer t
-      org-yank-adjusted-subtrees t
       org-tag-alist '(("shopping" . ?s))
+      org-time-clocksum-format '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
+      org-todo-keyword-faces '(("DLGT" . org-delegated)
+                               ("WAIT" . org-waiting))
       org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/@)" "DLGT(g@/!)" "|" "DONE(d)" "NIXD(c@/!)")
                           (type "CALL")
                           (type "CHAT"))
-      org-todo-keyword-faces '(("DLGT" . org-delegated)
-                               ("WAIT" . org-waiting)))
+      org-treat-S-cursor-todo-selection-as-state-change nil
+      org-yank-adjusted-subtrees t)
 (eval-after-load 'evil
   '(progn
      (evil-define-key 'motion org-mode-map
