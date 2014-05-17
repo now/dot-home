@@ -1,17 +1,7 @@
 (defun now-refile-target-verify ()
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-(setq org-agenda-clockreport-parameter-plist '(:link t :maxlevel 5 :fileskip0 t :compact t :narrow 80)
-      org-agenda-deadline-faces '((0.0 . default))
-      org-agenda-deadline-leaders '("Deadline:  " "In %d days: " "%d days ago: ")
-      org-agenda-log-mode-items '(clocked closed state)
-      org-agenda-prefix-format '((agenda . " %i %-13:c%?-12t% s")
-                                 (timeline . "  % s")
-                                 (todo . " %i %-13:c")
-                                 (tags . " %i %-13:c")
-                                 (search . " %i %-13:c"))
-      org-agenda-span 'day
+(setq org-agenda-deadline-faces '((0.0 . default))
       org-agenda-text-search-extra-files '(argenda-archives)
-      org-agenda-use-time-grid nil
       org-catch-invisible-edits 'smart
       org-columns-default-format "%80ITEM(Task) %7Effort{:} %7CLOCKSUM(Clocked)"
       org-columns-ellipses "…"

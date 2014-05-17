@@ -227,6 +227,7 @@ DOTFILES = \
 	   emacs/delayed-inits/make-mode.el \
 	   emacs/delayed-inits/man.el \
 	   emacs/delayed-inits/nxml-mode.el \
+	   emacs/delayed-inits/org-agenda.el \
 	   emacs/delayed-inits/org-capture.el \
 	   emacs/delayed-inits/org-clock.el \
 	   emacs/delayed-inits/org-id.el \
