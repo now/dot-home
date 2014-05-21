@@ -52,3 +52,26 @@
 (add-hook 'org-insert-heading-hook 'now-insert-heading-inactive-timestamp)
 
 (add-hook 'org-mode-hook 'turn-on-flyspell)
+
+(defun now-org-set-delegatee-property ()
+  "Set the Delegatee property when a task is marked as DLGT."
+  (remove-hook 'post-command-hook 'now-org-actually-set-delegatee)
+  (if (marker-position org-log-note-return-to)
+      (with-current-buffer (marker-buffer org-log-note-return-to)
+        (save-excursion
+          (goto-char org-log-note-return-to)
+          (org-back-to-heading t)
+          (org-set-property "Delegatee" nil)))
+    (org-set-property "Delegatee" nil)))
+
+(defvar org-last-state)
+(defvar org-state)
+(defun now-org-adjust-properties-after-todo-state-change ()
+  "Adjust properties after a task todo state change."
+  (unless (string= org-last-state org-state)
+    (cond ((string= org-state "DLGT")
+           (add-hook 'post-command-hook 'now-org-set-delegatee-property 'append))
+          ((and (string= org-last-state "DLGT") org-last-todo-state-is-todo)
+           (org-delete-property "Delegatee")))))
+
+(add-hook 'org-after-todo-state-change-hook 'now-org-adjust-properties-after-todo-state-change)
