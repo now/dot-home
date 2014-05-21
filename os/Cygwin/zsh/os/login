@@ -1,2 +1,2 @@
 stty -ixon
-dtach -A tmp/dtach.ses -Ez zsh
+mkdir -p ~/.cache/dtach && dtach -A ~/.cache/dtach/session -Ez zsh

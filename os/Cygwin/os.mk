@@ -65,7 +65,6 @@ STARTUPFILES = \
 	       os/Cygwin/start-up/clipx.lnk \
 	       os/Cygwin/start-up/cygwin.lnk \
 	       os/Cygwin/start-up/hotkeys.lnk \
-	       os/Cygwin/start-up/outlook.lnk \
 	       os/Cygwin/start-up/totalcmd.lnk
 
 startupdir = $(call shell_quote,$(shell cygpath -P))/Startup
