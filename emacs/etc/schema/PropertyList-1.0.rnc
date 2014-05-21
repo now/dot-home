@@ -9,13 +9,13 @@ plistObject =
   true |
   false
 start = element plist { attribute version { '1.0' }, plistObject }
-element array { plistObject* }
-element dict = { (key, plistObject)* }
-element key { text }
-element string { text }
-element data { text }
-element date { text }
-element true { empty }
-element false { empty }
-element real { text { pattern = '[+-]?[0-9]+(\.[0-9]*)?(E[+-][0-9]+)?' } }
-element integer { text { pattern = '[+-]?[0-9]+' } }
+array = element array { plistObject* }
+dict = element dict { (key, plistObject)* }
+key = element key { text }
+string = element string { text }
+data = element data { text }
+date = element date { text }
+true = element true { empty }
+false = element false { empty }
+real = element real { text { pattern = '[+-]?[0-9]+(\.[0-9]*)?(E[+-][0-9]+)?' } }
+integer = element integer { text { pattern = '[+-]?[0-9]+' } }
