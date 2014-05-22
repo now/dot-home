@@ -2,3 +2,11 @@ Windows Registry Editor Version 5.00
 
 [HKEY_CURRENT_USER\Control Panel\Keyboard]
 "KeyboardDelay"="0"
+
+[HKEY_CURRENT_USER\Control Panel\Keyboard\Toggle]
+"Hotkey"="3"
+"Language Hotkey"="3"
+"Layout Hotkey"="3"
+
+[HKEY_CURRENT_USER\Software\Microsoft\CTF\LangBar]
+"ShowStatus"=dword:00000003
