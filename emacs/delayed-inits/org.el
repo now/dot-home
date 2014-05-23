@@ -1,15 +1,6 @@
 (defun now-refile-target-verify ()
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 (setq org-directory "~/Documents/Org"
-      org-agenda-custom-commands '((" " "Agenda"
-                                    ((agenda    "")
-                                     (tags      "REFILE"
-                                                ((org-agenda-overriding-header "Refilables")
-                                                 (org-tags-match-list-sublevels nil)))
-                                     (tags      "-REFILE/DONE|NIXD"
-                                                ((org-agenda-overriding-header "Archivables")
-                                                 (org-tags-match-list-sublevels nil))))
-                                    nil))
       org-agenda-deadline-faces '((0.0 . default))
       org-agenda-files (list org-directory)
       org-agenda-text-search-extra-files '(argenda-archives)
