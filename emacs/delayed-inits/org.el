@@ -1,8 +1,17 @@
 (defun now-refile-target-verify ()
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 (setq org-directory "~/Documents/Org"
-      org-agenda-files (list org-directory)
+      org-agenda-custom-commands '((" " "Agenda"
+                                    ((agenda    "")
+                                     (tags      "REFILE"
+                                                ((org-agenda-overriding-header "Refilables")
+                                                 (org-tags-match-list-sublevels nil)))
+                                     (tags      "-REFILE/DONE|NIXD"
+                                                ((org-agenda-overriding-header "Archivables")
+                                                 (org-tags-match-list-sublevels nil))))
+                                    nil))
       org-agenda-deadline-faces '((0.0 . default))
+      org-agenda-files (list org-directory)
       org-agenda-text-search-extra-files '(argenda-archives)
       org-catch-invisible-edits 'smart
       org-columns-default-format "%80ITEM(Task) %7Effort{:} %7CLOCKSUM(Clocked)"
@@ -25,13 +34,26 @@
       org-refile-targets '((org-agenda-files . (:maxlevel . 9)))
       org-refile-use-outline-path 'file
       org-src-window-setup 'current-window
-      org-tag-alist '(("shopping" . ?s))
+      org-tag-alist '(("shopping" . ?s)
+                      ("HOLD" . ?h)
+                      ("WAIT" . ?w)
+                      ("NIXD" . ?c))
       org-time-clocksum-format '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
       org-todo-keyword-faces '(("DLGT" . org-delegated)
+                               ("HOLD" . org-hold)
+                               ("NEXT" . org-next)
                                ("WAIT" . org-waiting))
-      org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/@)" "DLGT(g@/!)" "|" "DONE(d)" "NIXD(c@/!)")
+      org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+                          (sequence "HOLD(h)" "WAIT(w@/@)" "DLGT(g@/!)" "|" "NIXD(c@/!)")
                           (type "CALL")
                           (type "CHAT"))
+      org-todo-state-tags-triggers '(("TODO" ("HOLD") ("WAIT") ("NIXD"))
+                                     ("NEXT" ("HOLD") ("WAIT") ("NIXD"))
+                                     ("DONE" ("HOLD") ("WAIT") ("NIXD"))
+                                     (done   ("HOLD") ("WAIT"))
+                                     ("HOLD" ("HOLD" . t))
+                                     ("WAIT" ("WAIT" . t))
+                                     ("NIXD" ("NIXD" . t)))
       org-treat-S-cursor-todo-selection-as-state-change nil
       org-yank-adjusted-subtrees t)
 (eval-after-load 'evil
