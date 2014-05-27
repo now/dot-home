@@ -22,6 +22,11 @@
       org-agenda-span 'day
       org-agenda-use-time-grid nil)
 
+(eval-after-load 'evil
+  '(progn
+     (define-key org-agenda-mode-map "j" 'evil-next-line)
+     (define-key org-agenda-mode-map "k" 'evil-previous-line)))
+
 (defun now-org-map-subtree (f)
   "Call F for every heading underneath the current one."
   (let ((level (funcall outline-level)))
