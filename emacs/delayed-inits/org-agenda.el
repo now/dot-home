@@ -7,10 +7,10 @@
                                                  (org-tags-match-list-sublevels nil)))
                                      (tags      "-NIXD"
                                                 ((org-agenda-overriding-header "Stuck Projects")
-                                                 (org-agenda-skip-function 'now-org-skip-active-projects)))
+                                                 (org-agenda-skip-function 'now-org-skip-non-projects-and-active-projects)))
                                      (tags      "-HOLD-NIXD"
                                                 ((org-agenda-overriding-header "Projects")
-                                                 (org-agenda-skip-function 'now-org-skip-non-active-projects)
+                                                 (org-agenda-skip-function 'now-org-skip-non-projects-and-stuck-projects)
                                                  (org-tags-match-list-sublevels 'indented)))
                                      (tags      "-REFILE/DONE|NIXD"
                                                 ((org-agenda-overriding-header "Archivables")
@@ -38,15 +38,11 @@
 
 (defun now-org-each-child (function)
   "Call FUNCTION for each child of the current heading."
-  (let* ((level (funcall outline-level))
-         (level+1 (+ level 1)))
-    (save-excursion
-      (while (and (progn
-		    (outline-next-heading)
-		    (> (funcall outline-level) level))
-		  (not (eobp)))
-        (if (= (funcall outline-level) level+1)
-            (funcall function))))))
+  (save-excursion
+    (when (org-goto-first-child)
+      (funcall function)
+      (while (org-get-next-sibling)
+        (funcall function)))))
 
 (defun now-org-project-p ()
   "Return `t' if `point' is inside a project, that is, a task
@@ -67,12 +63,12 @@ doesn’t have a WAIT tag (inherited or otherwise)."
                                        (not (member "WAIT" (org-get-tags-at))))
                                   (throw 'exit t)))))))
 
-(defun now-org-skip-active-projects ()
-  "Skip Org tasks that are active projects."
+(defun now-org-skip-non-projects-and-active-projects ()
+  "Skip Org tasks that aren’t projects or that are projects that are active."
   (if (or (not (now-org-project-p)) (now-org-active-project-p t))
-      (save-excursion (org-end-of-subtree t))))
+      (save-excursion (or (outline-next-heading) (point-max)))))
 
-(defun now-org-skip-non-active-projects ()
-  "Skip Org tasks that aren’t projects."
+(defun now-org-skip-non-projects-and-stuck-projects ()
+  "Skip Org tasks that aren’t projects or that are projects that aren’t active."
   (unless (and (now-org-project-p) (now-org-active-project-p t))
-    (save-excursion (org-end-of-subtree t))))
+    (save-excursion (or (outline-next-heading) (point-max)))))
