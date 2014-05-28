@@ -68,7 +68,7 @@
 
 (defun now-org-set-delegatee-property ()
   "Set the Delegatee property when a task is marked as DLGT."
-  (remove-hook 'post-command-hook 'now-org-actually-set-delegatee)
+  (remove-hook 'post-command-hook 'now-org-set-delegatee-property)
   (if (marker-position org-log-note-return-to)
       (with-current-buffer (marker-buffer org-log-note-return-to)
         (save-excursion
