@@ -12,6 +12,12 @@
                                                 ((org-agenda-overriding-header "Projects")
                                                  (org-agenda-skip-function 'now-org-skip-non-projects-and-stuck-projects)
                                                  (org-tags-match-list-sublevels 'indented)))
+                                     (tags-todo "-REFILE-WAIT-HOLD-NIXD/!NEXT"
+                                                ((org-agenda-overriding-header "Nexts")
+                                                 (org-agenda-skip-function 'now-org-skip-projects-and-standalone-tasks)
+                                                 (org-agenda-todo-ignore-scheduled t)
+                                                 (org-agenda-todo-ignore-deadlines t)
+                                                 (org-agenda-todo-ignore-with-date t)))
                                      (tags      "-REFILE/DONE|NIXD"
                                                 ((org-agenda-overriding-header "Archivables")
                                                  (org-tags-match-list-sublevels nil))))
@@ -72,3 +78,16 @@ doesn’t have a WAIT tag (inherited or otherwise)."
   "Skip Org tasks that aren’t projects or that are projects that aren’t active."
   (unless (and (now-org-project-p) (now-org-active-project-p t))
     (save-excursion (or (outline-next-heading) (point-max)))))
+
+(defun now-org-project-task-p ()
+  "Return `t' if `point' is inside a project."
+  (catch 'exit
+    (while (org-up-heading-safe)
+      (if (now-org-project-p)
+          (throw 'exit t)))))
+
+(defun now-org-skip-projects-and-standalone-tasks ()
+  "Skip tasks that are projects or that are standalone tasks."
+  (message "testing %s" (nth 4 (org-heading-components)))
+  (if (or (now-org-project-p) (not (now-org-project-task-p)))
+      (save-excursion (or (outline-next-heading) (point-max)))))
