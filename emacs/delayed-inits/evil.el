@@ -40,7 +40,7 @@
 
     "\C-d" 'suspend-frame
 
-    "\m-d" 'smex
+    "\M-d" 'smex
 
     ",a" 'org-agenda
     ",b" 'ido-switch-buffer
