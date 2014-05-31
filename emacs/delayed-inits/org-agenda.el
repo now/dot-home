@@ -13,8 +13,14 @@
                                                  (org-agenda-skip-function 'now-org-skip-non-projects-and-stuck-projects)
                                                  (org-tags-match-list-sublevels 'indented)))
                                      (tags-todo "-REFILE-WAIT-HOLD-NIXD/!NEXT"
-                                                ((org-agenda-overriding-header "Nexts")
+                                                ((org-agenda-overriding-header "Project Nexts")
                                                  (org-agenda-skip-function 'now-org-skip-projects-and-standalone-tasks)
+                                                 (org-agenda-todo-ignore-scheduled t)
+                                                 (org-agenda-todo-ignore-deadlines t)
+                                                 (org-agenda-todo-ignore-with-date t)))
+                                     (tags-todo "-REFILE-WAIT-HOLD-NIXD/!"
+                                                ((org-agenda-overriding-header "Tasks")
+                                                 (org-agenda-skip-function 'now-org-skip-projects)
                                                  (org-agenda-todo-ignore-scheduled t)
                                                  (org-agenda-todo-ignore-deadlines t)
                                                  (org-agenda-todo-ignore-with-date t)))
@@ -23,6 +29,7 @@
                                                  (org-tags-match-list-sublevels nil))))
                                     nil))
       org-agenda-deadline-leaders '("Deadline:  " "In %d days: " "%d days ago: ")
+      org-agenda-diary-file (concat (file-name-as-directory org-directory) "diary.org")
       org-agenda-log-mode-items '(clocked closed state)
       org-agenda-prefix-format '((agenda . " %i %-13:c%?-12t% s")
                                  (timeline . "  % s")
@@ -91,3 +98,8 @@ doesn’t have a WAIT tag (inherited or otherwise)."
   (message "testing %s" (nth 4 (org-heading-components)))
   (if (or (now-org-project-p) (not (now-org-project-task-p)))
       (save-excursion (or (outline-next-heading) (point-max)))))
+
+(defun now-org-skip-projects ()
+  "Skip tasks that are projects."
+  (if (or (now-org-project-p) (now-org-project-task-p))
+      (save-excursion (org-end-of-subtree t))))
