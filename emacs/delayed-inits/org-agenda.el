@@ -41,6 +41,7 @@
                                                  (org-tags-match-list-sublevels nil))))))
       org-agenda-deadline-leaders '("Deadline:  " "In %d days: " "%d days ago: ")
       org-agenda-diary-file (concat (file-name-as-directory org-directory) "diary.org")
+      org-agenda-dim-blocked-tasks nil
       org-agenda-log-mode-items '(clocked closed state)
       org-agenda-prefix-format '((agenda . " %i %-13:c%?-12t% s")
                                  (timeline . "  % s")
