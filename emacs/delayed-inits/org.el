@@ -25,9 +25,11 @@
       org-refile-targets '((org-agenda-files . (:maxlevel . 9)))
       org-refile-use-outline-path 'file
       org-src-window-setup 'current-window
-      org-tag-alist '(("shopping" . ?s)
+      org-tag-alist '(("personal" . ?p)
+                      ("shopping" . ?s)
+                      ("work" . ?w)
                       ("HOLD" . ?h)
-                      ("WAIT" . ?w)
+                      ("WAIT" . ?W)
                       ("NIXD" . ?c))
       org-time-clocksum-format '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
       org-todo-keyword-faces '(("DLGT" . org-delegated)
