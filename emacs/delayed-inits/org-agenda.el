@@ -2,35 +2,40 @@
                    (tags      "+REFILE"
                               ((org-agenda-overriding-header "Refilables")
                                (org-tags-match-list-sublevels nil)))
-                   (tags-todo "-NIXD"
+                   (tags-todo "-DLGT-NIXD"
                               ((org-agenda-overriding-header "Stuck Projects")
                                (org-agenda-skip-function 'now-org-skip-unless-stuck-project)))
-                   (tags-todo "-HOLD-NIXD"
+                   (tags-todo "-HOLD-DLGT-NIXD"
                               ((org-agenda-overriding-header "Projects")
                                (org-agenda-skip-function 'now-org-skip-unless-active-project)
                                (org-tags-match-list-sublevels 'indented)))
-                   (tags-todo "-REFILE-HOLD-WAIT-NIXD/!NEXT"
+                   (tags-todo "-REFILE-HOLD-DLGT-WAIT-NIXD/!NEXT"
                               ((org-agenda-overriding-header "Project Next Tasks")
                                (org-agenda-skip-function 'now-org-skip-unless-project-task)
                                (org-agenda-todo-ignore-scheduled t)
                                (org-agenda-todo-ignore-deadlines t)
                                (org-agenda-todo-ignore-with-date t)))
-                   (tags-todo "-REFILE-HOLD-WAIT-NIXD/!-NEXT"
+                   (tags-todo "-REFILE-HOLD-DLGT-WAIT-NIXD/!-NEXT"
                               ((org-agenda-overriding-header "Project Tasks")
                                (org-agenda-skip-function 'now-org-skip-unless-project-task)
                                (org-agenda-todo-ignore-scheduled t)
                                (org-agenda-todo-ignore-deadlines t)
                                (org-agenda-todo-ignore-with-date t)))
-                   (tags-todo "-REFILE-HOLD-WAIT-NIXD"
+                   (tags-todo "-REFILE-HOLD-DLGT-WAIT-NIXD"
                               ((org-agenda-overriding-header "Standalone Tasks")
                                (org-agenda-skip-function 'now-org-skip-unless-standalone-task)
                                (org-agenda-todo-ignore-scheduled t)
                                (org-agenda-todo-ignore-deadlines t)
                                (org-agenda-todo-ignore-with-date t)))
-                   (tags-todo "+WAIT-NIXD|+HOLD-NIXD"
+                   (tags-todo "+WAIT-DLGT-NIXD|+HOLD-DLGT-NIXD"
                               ((org-agenda-overriding-header "Waiting and Held Tasks")
                                (org-agenda-skip-function 'now-org-skip-stuck-projects)
                                (org-tags-match-list-sublevels nil)
+                               (org-agenda-todo-ignore-scheduled t)
+                               (org-agenda-todo-ignore-deadlines t)))
+                   (tags-todo "+DLGT"
+                              ((org-agenda-overriding-header "Delegated Tasks")
+                               (org-agenda-todo-match-list-sublevels nil)
                                (org-agenda-todo-ignore-scheduled t)
                                (org-agenda-todo-ignore-deadlines t)))
                    (tags      "-REFILE/DONE|NIXD"
