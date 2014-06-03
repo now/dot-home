@@ -1,55 +1,74 @@
-(setq org-agenda-clockreport-parameter-plist '(:link t :maxlevel 5 :fileskip0 t :compact t :narrow 80)
-      org-agenda-compact-blocks t
-      org-agenda-custom-commands '((" " "Agenda"
-                                    ((agenda    "")
-                                     (tags      "REFILE"
-                                                ((org-agenda-overriding-header "Refilables")
-                                                 (org-tags-match-list-sublevels nil)))
-                                     (tags-todo "-NIXD"
-                                                ((org-agenda-overriding-header "Stuck Projects")
-                                                 (org-agenda-skip-function 'now-org-skip-unless-stuck-project)))
-                                     (tags-todo "-HOLD-NIXD"
-                                                ((org-agenda-overriding-header "Projects")
-                                                 (org-agenda-skip-function 'now-org-skip-unless-active-project)
-                                                 (org-tags-match-list-sublevels 'indented)))
-                                     (tags-todo "-REFILE-HOLD-WAIT-NIXD/!NEXT"
-                                                ((org-agenda-overriding-header "Project Next Tasks")
-                                                 (org-agenda-skip-function 'now-org-skip-unless-project-task)
-                                                 (org-agenda-todo-ignore-scheduled t)
-                                                 (org-agenda-todo-ignore-deadlines t)
-                                                 (org-agenda-todo-ignore-with-date t)))
-                                     (tags-todo "-REFILE-HOLD-WAIT-NIXD/!-NEXT"
-                                                ((org-agenda-overriding-header "Project Tasks")
-                                                 (org-agenda-skip-function 'now-org-skip-unless-project-task)
-                                                 (org-agenda-todo-ignore-scheduled t)
-                                                 (org-agenda-todo-ignore-deadlines t)
-                                                 (org-agenda-todo-ignore-with-date t)))
-                                     (tags-todo "-REFILE-HOLD-WAIT-NIXD"
-                                                ((org-agenda-overriding-header "Standalone Tasks")
-                                                 (org-agenda-skip-function 'now-org-skip-unless-standalone-task)
-                                                 (org-agenda-todo-ignore-scheduled t)
-                                                 (org-agenda-todo-ignore-deadlines t)
-                                                 (org-agenda-todo-ignore-with-date t)))
-                                     (tags-todo "WAIT|HOLD-NIXD"
-                                                ((org-agenda-overriding-header "Waiting and Held Tasks")
-                                                 (org-agenda-skip-function 'now-org-skip-stuck-projects)
-                                                 (org-tags-match-list-sublevels nil)
-                                                 (org-agenda-todo-ignore-scheduled t)
-                                                 (org-agenda-todo-ignore-deadlines t)))
-                                     (tags      "-REFILE/DONE|NIXD"
-                                                ((org-agenda-overriding-header "Archivables")
-                                                 (org-tags-match-list-sublevels nil))))))
-      org-agenda-deadline-leaders '("Deadline:  " "In %d days: " "%d days ago: ")
-      org-agenda-diary-file (concat (file-name-as-directory org-directory) "diary.org")
-      org-agenda-dim-blocked-tasks nil
-      org-agenda-log-mode-items '(clocked closed state)
-      org-agenda-prefix-format '((agenda . " %i %-13:c%?-12t% s")
-                                 (timeline . "  % s")
-                                 (todo . " %i %-13:c")
-                                 (tags . " %i %-13:c")
-                                 (search . " %i %-13:c"))
-      org-agenda-span 'day
-      org-agenda-use-time-grid nil)
+(let* ((commands '((agenda    "")
+                   (tags      "+REFILE"
+                              ((org-agenda-overriding-header "Refilables")
+                               (org-tags-match-list-sublevels nil)))
+                   (tags-todo "-NIXD"
+                              ((org-agenda-overriding-header "Stuck Projects")
+                               (org-agenda-skip-function 'now-org-skip-unless-stuck-project)))
+                   (tags-todo "-HOLD-NIXD"
+                              ((org-agenda-overriding-header "Projects")
+                               (org-agenda-skip-function 'now-org-skip-unless-active-project)
+                               (org-tags-match-list-sublevels 'indented)))
+                   (tags-todo "-REFILE-HOLD-WAIT-NIXD/!NEXT"
+                              ((org-agenda-overriding-header "Project Next Tasks")
+                               (org-agenda-skip-function 'now-org-skip-unless-project-task)
+                               (org-agenda-todo-ignore-scheduled t)
+                               (org-agenda-todo-ignore-deadlines t)
+                               (org-agenda-todo-ignore-with-date t)))
+                   (tags-todo "-REFILE-HOLD-WAIT-NIXD/!-NEXT"
+                              ((org-agenda-overriding-header "Project Tasks")
+                               (org-agenda-skip-function 'now-org-skip-unless-project-task)
+                               (org-agenda-todo-ignore-scheduled t)
+                               (org-agenda-todo-ignore-deadlines t)
+                               (org-agenda-todo-ignore-with-date t)))
+                   (tags-todo "-REFILE-HOLD-WAIT-NIXD"
+                              ((org-agenda-overriding-header "Standalone Tasks")
+                               (org-agenda-skip-function 'now-org-skip-unless-standalone-task)
+                               (org-agenda-todo-ignore-scheduled t)
+                               (org-agenda-todo-ignore-deadlines t)
+                               (org-agenda-todo-ignore-with-date t)))
+                   (tags-todo "+WAIT-NIXD|+HOLD-NIXD"
+                              ((org-agenda-overriding-header "Waiting and Held Tasks")
+                               (org-agenda-skip-function 'now-org-skip-stuck-projects)
+                               (org-tags-match-list-sublevels nil)
+                               (org-agenda-todo-ignore-scheduled t)
+                               (org-agenda-todo-ignore-deadlines t)))
+                   (tags      "-REFILE/DONE|NIXD"
+                              ((org-agenda-overriding-header "Archivables")
+                               (org-tags-match-list-sublevels nil)))))
+       (add-tag (lambda (tag s)
+                  (let ((parts (split-string s "/")))
+                    (mapconcat 'identity
+                               (cons (mapconcat (lambda (f) (concat tag f))
+                                                (split-string (car parts) "|")
+                                                "|")
+                                     (cdr parts))
+                               "/"))))
+       (tag-commands (lambda (tag)
+                       (mapcar (lambda (e)
+                                 (if (eq 'tags-todo (car e))
+                                     (cons (car e) (cons (funcall add-tag tag (cadr e)) (cddr e)))
+                                   e))
+                               commands))))
+  (setq org-agenda-clockreport-parameter-plist '(:link t :maxlevel 5 :fileskip0 t :compact t :narrow 80)
+        org-agenda-compact-blocks t
+        org-agenda-custom-commands `((" " "Agenda"
+                                      ,commands)
+                                     ("p" "Personal Agenda"
+                                      ,(funcall tag-commands "personal"))
+                                     ("w" "Work Agenda"
+                                      ,(funcall tag-commands "work")))
+        org-agenda-deadline-leaders '("Deadline:  " "In %d days: " "%d days ago: ")
+        org-agenda-diary-file (concat (file-name-as-directory org-directory) "diary.org")
+        org-agenda-dim-blocked-tasks nil
+        org-agenda-log-mode-items '(clocked closed state)
+        org-agenda-prefix-format '((agenda . " %i %-13:c%?-12t% s")
+                                   (timeline . "  % s")
+                                   (todo . " %i %-13:c")
+                                   (tags . " %i %-13:c")
+                                   (search . " %i %-13:c"))
+        org-agenda-span 'day
+        org-agenda-use-time-grid nil))
 
 (defun now-org-each-descendant (f)
   "Call F for each descendant of the current heading."
