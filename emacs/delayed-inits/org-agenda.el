@@ -72,57 +72,12 @@
                                    (todo . " %i %-13:c")
                                    (tags . " %i %-13:c")
                                    (search . " %i %-13:c"))
+        org-agenda-sorting-strategy '((agenda habit-down time-up effort-up priority-down category-keep)
+                                      (todo category-up priority-down effort-up)
+                                      (tags category-up priority-down effort-up)
+                                      (search category-up))
         org-agenda-span 'day
         org-agenda-use-time-grid nil))
-
-(defun now-org-each-descendant (f)
-  "Call F for each descendant of the current heading."
-  (let ((level (funcall outline-level)))
-    (save-excursion
-      (while (and (progn
-		    (outline-next-heading)
-		    (> (funcall outline-level) level))
-		  (not (eobp)))
-	(funcall f)))))
-
-(defun now-org-each-child (function)
-  "Call FUNCTION for each child of the current heading."
-  (save-excursion
-    (when (org-goto-first-child)
-      (funcall function)
-      (while (org-get-next-sibling)
-        (funcall function)))))
-
-(defun now-org-find-tree (function)
-  "Find the first occurrence of a FUNCTION returning a non-nil value."
-  (catch 'exit
-    (org-map-tree (lambda () (if (funcall function) (throw 'exit t))))))
-
-(defun now-org-has-descendant-p (g)
-  "TBD."
-  (catch 'done
-    (now-org-each-descendant (lambda ()
-                               (if (funcall g)
-                                   (throw 'done t))))))
-
-(defun now-org-project-p ()
-  "Return `t' if `point' is inside a project, that is, a headline
-with a todo keyword and a sub-headline with a todo keyword.  This
-function assumes that `point' is at a project task."
-  (now-org-has-descendant-p (lambda () (org-get-todo-state))))
-
-(defun now-org-stuck-project-p ()
-  (and (not (now-org-active-project-p)) (now-org-project-p)))
-
-(defun now-org-active-project-p ()
-  "Return `t' if `point' is inside an active project, that is, a
-project with a sub-task with a todo keyword set to NEXT that
-doesn’t have a WAIT tag (inherited or direct).  This function
-assumes that `point' is at a project task, that is, a headline
-with a todo keyword."
-  (now-org-has-descendant-p (lambda ()
-                              (and (string= (org-get-todo-state) "NEXT")
-                                   (not (member "WAIT" (org-get-tags-at)))))))
 
 (defun now-org-skip-unless-stuck-project ()
   "Skip Org tasks that aren’t projects or that are projects that are active."
@@ -134,13 +89,6 @@ with a todo keyword."
   (unless (now-org-active-project-p)
     (save-excursion (or (outline-next-heading) (point-max)))))
 
-(defun now-org-project-task-p ()
-  "Return `t' if `point' is inside a project."
-  (save-excursion
-    (save-restriction
-      (widen)
-      (and (org-up-heading-safe) (org-get-todo-state)))))
-
 (defun now-org-skip-unless-project-task ()
   "Skip tasks that are projects or that are standalone tasks."
   (if (or (now-org-project-p) (not (now-org-project-task-p)))
@@ -148,10 +96,56 @@ with a todo keyword."
 
 (defun now-org-skip-unless-standalone-task ()
   "Skip tasks that are projects."
-  (if (or (now-org-project-p) (now-org-project-task-p))
-      (save-excursion (org-end-of-subtree t))))
+  (unless (now-org-standalone-task-p)
+    (save-excursion (org-end-of-subtree t))))
 
 (defun now-org-skip-stuck-projects ()
   ""
   (if (now-org-stuck-project-p)
       (save-excursion (or (outline-next-heading) (point-max)))))
+
+(defun now-org-agenda-set-restriction-lock-to-file ()
+  ""
+  (interactive)
+  (now-org-agenda-set-restriction-lock t))
+
+(defun now-org-agenda-get-pom-dwim ()
+  (or (org-get-at-bol 'org-hd-marker)
+      (and (marker-position org-agenda-restrict-begin) org-agenda-restrict-begin)
+      (and (equal major-mode 'org-mode) (point))
+      org-clock-marker))
+
+(defun now-org-agenda-set-restriction-lock (&optional type)
+  ""
+  (interactive "P")
+  (let ((pom (now-org-agenda-get-pom-dwim)))
+    (when pom
+      (let ((headline (buffer-substring-no-properties (point-at-bol) (point-at-eol))))
+        (org-with-point-at pom
+          (when (eq type 'project)
+            (save-restriction
+              (widen)
+              (let ((p (save-excursion (org-back-to-heading t) (point))))
+                (while (org-up-heading-safe)
+                  (when (org-get-todo-state)
+                    (setq p (point))))
+                (goto-char p)))
+            (setq type 'subtree))
+          (unless (or (eq type 'file) (and (listp type) (numberp (car type))))
+            (widen)
+            (org-narrow-to-subtree))
+          (org-agenda-set-restriction-lock type))
+        (if (re-search-forward (concat "^" (regexp-quote headline) "$") nil t)
+            (beginning-of-line))))))
+
+(defun now-org-agenda-set-restriction-lock-to-project ()
+  ""
+  (interactive)
+  (now-org-agenda-set-restriction-lock 'project))
+
+(define-key org-agenda-mode-map "n" 'org-agenda-next-item)
+(define-key org-agenda-mode-map "p" 'org-agenda-previous-item)
+(define-key org-agenda-mode-map "F" 'now-org-agenda-set-restriction-lock-to-file)
+(define-key org-agenda-mode-map "N" 'now-org-agenda-set-restriction-lock)
+(define-key org-agenda-mode-map "P" 'now-org-agenda-set-restriction-lock-to-project)
+(define-key org-agenda-mode-map "W" 'org-agenda-remove-restriction-lock)

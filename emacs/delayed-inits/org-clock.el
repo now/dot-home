@@ -1,1 +1,10 @@
-(setq org-clock-out-remove-zero-time-clocks t)
+(setq org-clock-in-switch-to-state 'now-org-clock-in-switch-to-state
+      org-clock-out-remove-zero-time-clocks t
+      org-clock-out-when-done '("HOLD" "WAIT" "DLGT" "DONE" "NIXD")
+      org-clock-persist t
+      org-clock-report-include-clocking-task t)
+
+(defun now-org-clock-in-switch-to-state (state)
+  (cond
+   ((and (boundp 'org-capture-mode) org-capture-mode))
+   ((and (string= state "TODO") (not (now-org-project-p))) "NEXT")))
