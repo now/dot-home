@@ -1,3 +1,5 @@
+(require 'now-org)
+
 (setq org-clock-in-switch-to-state 'now-org-clock-in-switch-to-state
       org-clock-out-remove-zero-time-clocks t
       org-clock-out-when-done '("HOLD" "WAIT" "DLGT" "DONE" "NIXD")

@@ -1,3 +1,5 @@
+(require 'now-org)
+
 (let* ((commands '((agenda    "")
                    (tags      "+REFILE"
                               ((org-agenda-overriding-header "Refilables")
@@ -39,7 +41,8 @@
                                (org-agenda-todo-ignore-scheduled t)
                                (org-agenda-todo-ignore-deadlines t)))
                    (tags      "-REFILE/DONE|NIXD"
-                              ((org-agenda-overriding-header "Archivables")
+                              ((org-agenda-overriding-header "Archivals")
+                               (org-agenda-skip-function 'now-org-skip-unless-archival)
                                (org-tags-match-list-sublevels nil)))))
        (add-tag (lambda (tag s)
                   (let ((parts (split-string s "/")))
@@ -104,6 +107,21 @@
   (if (now-org-stuck-project-p)
       (save-excursion (or (outline-next-heading) (point-max)))))
 
+(declare-function org-clock-special-range "org-clock.el")
+(defvar org-clock-file-total-minutes)
+(defun now-org-skip-unless-archival ()
+  ""
+  (if (or (now-org-project-task-p)
+          (and (now-org-project-p)
+               (> (save-excursion
+                    (save-restriction
+                      (org-narrow-to-subtree)
+                      (org-clock-sum (car (org-clock-special-range 'lastmonth))
+                                     (cadr  (org-clock-special-range 'thismonth)))
+                      org-clock-file-total-minutes))
+                  0)))
+      (save-excursion (org-end-of-subtree))))
+
 (defun now-org-agenda-set-restriction-lock-to-file ()
   ""
   (interactive)
@@ -115,6 +133,7 @@
       (and (equal major-mode 'org-mode) (point))
       org-clock-marker))
 
+;; TODO Don’t continue up tree for 'project, stop at first parent project.
 (defun now-org-agenda-set-restriction-lock (&optional type)
   ""
   (interactive "P")
