@@ -6,32 +6,32 @@
                                (org-tags-match-list-sublevels nil)))
                    (tags-todo "-DLGT-NIXD"
                               ((org-agenda-overriding-header "Stuck Projects")
-                               (org-agenda-skip-function 'now-org-skip-unless-stuck-project)))
+                               (org-agenda-skip-function 'now-org-agenda-skip-unless-stuck-project)))
                    (tags-todo "-HOLD-DLGT-NIXD"
                               ((org-agenda-overriding-header "Projects")
-                               (org-agenda-skip-function 'now-org-skip-unless-active-project)
+                               (org-agenda-skip-function 'now-org-agenda-skip-unless-active-project)
                                (org-tags-match-list-sublevels 'indented)))
                    (tags-todo "-REFILE-HOLD-DLGT-WAIT-NIXD/!NEXT"
                               ((org-agenda-overriding-header "Project Next Tasks")
-                               (org-agenda-skip-function 'now-org-skip-unless-project-task)
+                               (org-agenda-skip-function 'now-org-agenda-skip-unless-project-task)
                                (org-agenda-todo-ignore-scheduled t)
                                (org-agenda-todo-ignore-deadlines t)
                                (org-agenda-todo-ignore-with-date t)))
                    (tags-todo "-REFILE-HOLD-DLGT-WAIT-NIXD/!-NEXT"
                               ((org-agenda-overriding-header "Project Tasks")
-                               (org-agenda-skip-function 'now-org-skip-unless-project-task)
+                               (org-agenda-skip-function 'now-org-agenda-skip-unless-project-task)
                                (org-agenda-todo-ignore-scheduled t)
                                (org-agenda-todo-ignore-deadlines t)
                                (org-agenda-todo-ignore-with-date t)))
                    (tags-todo "-REFILE-HOLD-DLGT-WAIT-NIXD"
                               ((org-agenda-overriding-header "Standalone Tasks")
-                               (org-agenda-skip-function 'now-org-skip-unless-standalone-task)
+                               (org-agenda-skip-function 'now-org-agenda-skip-unless-standalone-task)
                                (org-agenda-todo-ignore-scheduled t)
                                (org-agenda-todo-ignore-deadlines t)
                                (org-agenda-todo-ignore-with-date t)))
                    (tags-todo "+WAIT-DLGT-NIXD|+HOLD-DLGT-NIXD"
                               ((org-agenda-overriding-header "Waiting and Held Tasks")
-                               (org-agenda-skip-function 'now-org-skip-stuck-projects)
+                               (org-agenda-skip-function 'now-org-agenda-skip-stuck-projects)
                                (org-tags-match-list-sublevels nil)
                                (org-agenda-todo-ignore-scheduled t)
                                (org-agenda-todo-ignore-deadlines t)))
@@ -82,34 +82,34 @@
         org-agenda-span 'day
         org-agenda-use-time-grid nil))
 
-(defun now-org-skip-unless-stuck-project ()
+(defun now-org-agenda-skip-unless-stuck-project ()
   "Skip Org tasks that aren’t projects or that are projects that are active."
   (unless (now-org-stuck-project-p)
     (save-excursion (or (outline-next-heading) (point-max)))))
 
-(defun now-org-skip-unless-active-project ()
+(defun now-org-agenda-skip-unless-active-project ()
   "Skip Org tasks that aren’t projects or that are projects that aren’t active."
   (unless (now-org-active-project-p)
     (save-excursion (or (outline-next-heading) (point-max)))))
 
-(defun now-org-skip-unless-project-task ()
+(defun now-org-agenda-skip-unless-project-task ()
   "Skip tasks that are projects or that are standalone tasks."
   (if (or (now-org-project-p) (not (now-org-project-task-p)))
       (save-excursion (or (outline-next-heading) (point-max)))))
 
-(defun now-org-skip-unless-standalone-task ()
+(defun now-org-agenda-skip-unless-standalone-task ()
   "Skip tasks that are projects."
   (unless (now-org-standalone-task-p)
     (save-excursion (org-end-of-subtree t))))
 
-(defun now-org-skip-stuck-projects ()
+(defun now-org-agenda-skip-stuck-projects ()
   ""
   (if (now-org-stuck-project-p)
       (save-excursion (or (outline-next-heading) (point-max)))))
 
 (declare-function org-clock-special-range "org-clock.el")
 (defvar org-clock-file-total-minutes)
-(defun now-org-skip-unless-archival ()
+(defun now-org-agenda-skip-unless-archival ()
   ""
   (if (or (now-org-project-task-p)
           (and (now-org-project-p)
