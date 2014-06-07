@@ -70,8 +70,6 @@
 
 (add-hook 'org-insert-heading-hook 'now-insert-heading-inactive-timestamp)
 
-(add-hook 'org-mode-hook 'turn-on-flyspell)
-
 (defun now-org-set-delegatee-property ()
   "Set the Delegatee property when a task is marked as DLGT."
   (remove-hook 'post-command-hook 'now-org-set-delegatee-property)
