@@ -7,6 +7,9 @@
       org-clock-report-include-clocking-task t)
 
 (defun now-org-clock-in-switch-to-state (state)
+  "Adjust task keyword based on STATE.  If we are in
+`org-capture-mode', do nothing.  Otherwise, if STATE is TODO and
+the current headline is not a `now-org-project-p', return NEXT."
   (cond
    ((and (boundp 'org-capture-mode) org-capture-mode))
    ((and (string= state "TODO") (not (now-org-project-p))) "NEXT")))

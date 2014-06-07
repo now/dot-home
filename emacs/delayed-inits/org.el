@@ -1,4 +1,5 @@
 (defun now-org-refile-target-verify ()
+  "Verify that refile target is not a done task."
   (not (org-entry-is-done-p)))
 (setq org-directory "~/Documents/Org"
       org-agenda-deadline-faces '((0.0 . default))
@@ -61,6 +62,7 @@
        ",t" 'org-todo)))
 
 (defun now-insert-heading-inactive-timestamp ()
+  "Insert an inactive timestamp under the current headline."
   (save-excursion
     (org-return)
     (org-cycle)

@@ -83,34 +83,37 @@
         org-agenda-use-time-grid nil))
 
 (defun now-org-agenda-skip-unless-stuck-project ()
-  "Skip Org tasks that aren’t projects or that are projects that are active."
+  "Skip tasks that are not `now-org-stuck-project-p'."
   (unless (now-org-stuck-project-p)
     (save-excursion (or (outline-next-heading) (point-max)))))
 
 (defun now-org-agenda-skip-unless-active-project ()
-  "Skip Org tasks that aren’t projects or that are projects that aren’t active."
+  "Skip tasks that are not `now-org-active-project-p'."
   (unless (now-org-active-project-p)
     (save-excursion (or (outline-next-heading) (point-max)))))
 
 (defun now-org-agenda-skip-unless-project-task ()
-  "Skip tasks that are projects or that are standalone tasks."
+  "Skip tasks that are `now-org-project-p' or are not `now-org-project-task-p'."
   (if (or (now-org-project-p) (not (now-org-project-task-p)))
       (save-excursion (or (outline-next-heading) (point-max)))))
 
 (defun now-org-agenda-skip-unless-standalone-task ()
-  "Skip tasks that are projects."
+  "Skip tasks that are not `now-org-standalone-task-p'."
   (unless (now-org-standalone-task-p)
     (save-excursion (org-end-of-subtree t))))
 
 (defun now-org-agenda-skip-stuck-projects ()
-  ""
+  "Skip tasks that are `now-org-stuck-project-p'."
   (if (now-org-stuck-project-p)
       (save-excursion (or (outline-next-heading) (point-max)))))
 
 (declare-function org-clock-special-range "org-clock.el")
 (defvar org-clock-file-total-minutes)
 (defun now-org-agenda-skip-unless-archival ()
-  ""
+  "Skip tasks that are not ready for archival.  A task is ready
+fo archival if it is not a `now-org-project-task-p' or if it is
+not a `now-org-project-p' that has time clocked on it during this
+or the previous month."
   (if (or (now-org-project-task-p)
           (and (now-org-project-p)
                (> (save-excursion
@@ -123,19 +126,26 @@
       (save-excursion (org-end-of-subtree))))
 
 (defun now-org-agenda-set-restriction-lock-to-file ()
-  ""
+  "Restrict agenda to file of current headline."
   (interactive)
   (now-org-agenda-set-restriction-lock t))
 
 (defun now-org-agenda-get-pom-dwim ()
+  "Get the point or mark to use for agenda functions.  This will
+either be the marker representing the headline of the agenda
+line, the position of the `org-agenda-restrict-begin' marker,
+`point', or `org-clock-marker'."
   (or (org-get-at-bol 'org-hd-marker)
       (and (marker-position org-agenda-restrict-begin) org-agenda-restrict-begin)
       (and (equal major-mode 'org-mode) (point))
       org-clock-marker))
 
-;; TODO Don’t continue up tree for 'project, stop at first parent project.
 (defun now-org-agenda-set-restriction-lock (&optional type)
-  ""
+  "Restrict agenda to subtree, project, or file of current
+  headline.  Restriction will be to the file if TYPE is `file' or
+  if TYPE is the universal prefix '(4).  Otherwise, if TYPE is
+  `project', it will be restricted to the project subtree.
+  Otherwise, restriction will be to the subtree."
   (interactive "P")
   (let ((pom (now-org-agenda-get-pom-dwim)))
     (when pom
@@ -158,7 +168,7 @@
             (beginning-of-line))))))
 
 (defun now-org-agenda-set-restriction-lock-to-project ()
-  ""
+  "Restrict agenda to project of current headline."
   (interactive)
   (now-org-agenda-set-restriction-lock 'project))
 
