@@ -59,6 +59,8 @@
      (evil-define-key 'normal org-mode-map
        ",<" 'org-mobile-pull
        ",>" 'org-mobile-push
+       ",i" 'org-clock-in
+       ",o" 'org-clock-out
        ",t" 'org-todo)))
 
 (defun now-insert-heading-inactive-timestamp ()

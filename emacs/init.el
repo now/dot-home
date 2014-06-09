@@ -34,6 +34,7 @@
                    org-agenda
                    org-capture
                    org-clock
+                   org-colview
                    org-id
                    org-mobile
                    paredit

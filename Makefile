@@ -231,6 +231,7 @@ DOTFILES = \
 	   emacs/delayed-inits/org-agenda.el \
 	   emacs/delayed-inits/org-capture.el \
 	   emacs/delayed-inits/org-clock.el \
+	   emacs/delayed-inits/org-colview.el \
 	   emacs/delayed-inits/org-id.el \
 	   emacs/delayed-inits/org-mobile.el \
 	   emacs/delayed-inits/org.el \
