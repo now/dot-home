@@ -58,4 +58,5 @@
        "(R" 'paredit-raise-sexp
        "(S" 'paredit-split-sexp
        "(s" 'paredit-splice-sexp
-       "(W" 'paredit-wrap-sexp)))
+       "(S" 'paredit-splice-sexp-killing-backward
+       "(W" 'paredit-wrap-round)))
