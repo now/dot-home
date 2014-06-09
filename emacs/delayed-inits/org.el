@@ -61,6 +61,7 @@
        ",>" 'org-mobile-push
        ",i" 'org-clock-in
        ",o" 'org-clock-out
+       ",P" 'org-set-property
        ",t" 'org-todo)))
 
 (defun now-insert-heading-inactive-timestamp ()
