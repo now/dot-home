@@ -64,14 +64,14 @@
        ",P" 'org-set-property
        ",t" 'org-todo)))
 
-(defun now-insert-heading-inactive-timestamp ()
+(defun now-org-insert-heading-inactive-timestamp ()
   "Insert an inactive timestamp under the current headline."
   (save-excursion
     (org-return)
     (org-cycle)
     (org-insert-time-stamp nil t t nil nil nil)))
 
-(add-hook 'org-insert-heading-hook 'now-insert-heading-inactive-timestamp)
+(add-hook 'org-insert-heading-hook 'now-org-insert-heading-inactive-timestamp)
 
 (defun now-org-set-delegatee-property ()
   "Set the Delegatee property when a task is marked as DLGT."
