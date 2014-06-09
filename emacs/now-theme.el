@@ -114,7 +114,7 @@
     `(org-done ((,class (,@blank :foreground ,white :background ,green))))
     `(org-hold ((,class (:background "grey70"))))
     `(org-hide ((,class (:foreground ,white))))
-    `(org-next ((,class (:background ,lighter-yellow))))
+    `(org-next ((,class (:foreground ,white :background ,brown))))
     `(org-scheduled-today ((,class ,@blank)))
     `(org-table ((,class ,blank)))
     `(org-tag ((,class ,blank)))
