@@ -42,11 +42,21 @@
          (forward-char))
        (dotimes (i (or count 1))
          (paredit-forward)))
+     (evil-define-motion evil-paredit-forward-up (count)
+       "TBD."
+       :type exclusive
+       (if (and evil-move-cursor-back
+                (eq last-command 'evil-paredit-forward-up)
+                (= (or count 1) 1)
+                (not (eolp)) (save-excursion (forward-char) (eolp)))
+         (forward-char))
+       (dotimes (i (or count 1))
+         (paredit-forward-up)))
      (evil-define-key 'normal paredit-mode-map
        "D" 'paredit-kill
        "gb" 'paredit-backward
-       "gB" 'paredit-forward-up
-       "gW" 'paredit-backward-up
+       "gB" 'paredit-backward-up
+       "gW" 'evil-paredit-forward-up
        "gw" 'evil-paredit-forward
        "x" 'paredit-forward-delete
        "X" 'paredit-backward-delete
