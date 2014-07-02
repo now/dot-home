@@ -32,6 +32,16 @@
        (evil-save-column
          (dotimes (i count)
            (paredit-backward-barf-sexp))))
+     (evil-define-motion evil-paredit-backward (count)
+       "TBD."
+       :type exclusive
+       (dotimes (i (or count 1))
+         (paredit-backward)))
+     (evil-define-motion evil-paredit-backward-up (count)
+       "TBD."
+       :type exclusive
+       (dotimes (i (or count 1))
+         (paredit-backward-up)))
      (evil-define-motion evil-paredit-forward (count)
        "TBD."
        :type exclusive
@@ -54,8 +64,8 @@
          (paredit-forward-up)))
      (evil-define-key 'normal paredit-mode-map
        "D" 'paredit-kill
-       "gb" 'paredit-backward
-       "gB" 'paredit-backward-up
+       "gb" 'evil-paredit-backward
+       "gB" 'evil-paredit-backward-up
        "gW" 'evil-paredit-forward-up
        "gw" 'evil-paredit-forward
        "x" 'paredit-forward-delete
