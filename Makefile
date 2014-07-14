@@ -211,6 +211,7 @@ $(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)
 DOTFILES = \
 	   emacs/delayed-inits/bs.el \
 	   emacs/delayed-inits/calc.el \
+	   emacs/delayed-inits/calendar.el \
 	   emacs/delayed-inits/cc-mode.el \
 	   emacs/delayed-inits/compile.el \
 	   emacs/delayed-inits/css-mode.el \

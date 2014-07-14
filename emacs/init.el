@@ -13,6 +13,7 @@
 
 (dolist (feature '(bs
                    calc
+                   calendar
                    cc-mode
                    compile
                    css-mode
@@ -95,6 +96,7 @@
 (defun now-do-not-show-trailing-whitespace ()
   (setq show-trailing-whitespace nil))
 (dolist (hook '(Info-mode-hook
+                calendar-mode-hook
                 compilation-mode-hook
                 diff-mode-hook
                 help-mode-hook
