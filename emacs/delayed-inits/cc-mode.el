@@ -11,7 +11,10 @@
                                           (class-close)))
                (c-hanging-colons-alist . ((case-label after)
                                           (label after)))))
-(setq c-default-style '((java-mode . "java")
+(c-add-style "now-java-style"
+             '("java"
+               (c-basic-offset . 2)))
+(setq c-default-style '((java-mode . "now-java-style")
                         (awk-mode . "awk")
                         (other . "now-c-style")))
 (define-key c-mode-base-map "\C-j" 'c-context-line-break)
