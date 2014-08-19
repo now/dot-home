@@ -1,6 +1,6 @@
 #! @ZSHELL@
 
-discs=~/Discs
+discs=~/Documents/Google\ Drive/Discs
 
 die () {
  print -r -- $* >&2
