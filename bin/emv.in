@@ -1,9 +1,6 @@
 #! @SHELL@
-# contents: An interactive file renamer in six lines of code.
-#
-# Copyright © 2004,2008 Nikolai Weibull <now@bitwi.se>
 
-TMP=`mktemp -t emv.XXXXXXXXXX` || exit 1
+TMP=`mktemp -t emv` || exit 1
 trap 'rm -f $TMP; exit' 0 1 2 3 15
 >| $TMP; for file in "$@"; do echo "/$file/ /$file/" >> $TMP; done
 ${EDITOR:-"vi"} $TMP
