@@ -214,7 +214,7 @@
             (re-search-forward "^/\\(.*?E\\([0-9]+\\).*?\\)\\.[^./]*/")
             (replace-match (concat "\\2-"
                                      (save-match-data
-                                       (dolist (r '(("'" . "’") (" " . "_") ("\\.\\.\\." . "…") ("?" . "") ("&" . "and") ("\\\\" "\\\\")) line)
+                                       (dolist (r '(("'" . "’") (" " . "_") ("\\.\\.\\." . "…") ("?" . "") ("&" . "and") ("!" . "") ("$" . "s") ("\\\\" "\\\\")) line)
                                          (setq line (replace-regexp-in-string (car r) (cdr r) line t t)))))
                              t nil nil 1)))))))
 
