@@ -23,6 +23,7 @@
                    dired
                    dired-aux
                    evil
+                   flx-ido
                    grep
                    hideshow
                    ido
@@ -140,6 +141,9 @@
 (ido-mode 1)
 
 (ido-ubiquitous-mode 1)
+
+(flx-ido-mode 1)
+(setq gc-cons-threshold 20000000)
 
 (defvar smex-save-file)
 (setq smex-save-file (concat user-emacs-directory "smex-items"))
