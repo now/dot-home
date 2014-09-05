@@ -13,6 +13,7 @@
       org-edit-src-persistent-message nil
       org-enforce-todo-dependencies t
       org-global-properties '(("Effort_ALL" . "0:15 0:30 1:00 2:00 4:00 8:00 0:00"))
+      org-hide-emphasis-markers t
       org-link-frame-setup '((vm . vm-visit-folder)
                              (gnus . org-gnus-no-new-news)
                              (file . find-file)
