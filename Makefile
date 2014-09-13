@@ -52,8 +52,7 @@ vlcuserconfdir = $(prefix)/.config/vlc
 
 all: diff
 
-# 1: File
-# 2: Target
+# file, target
 define GROUP_template_diff_file
 .PHONY diff: $(2).diff
 $(2).diff:
@@ -61,9 +60,7 @@ $(2).diff:
 
 endef
 
-# 1: File
-# 2: Target
-# 3: Mode
+# file, target, mode
 define GROUP_template_install_file
 install: $(2)
 
@@ -72,52 +69,36 @@ $(2): $(1)
 
 endef
 
-# 1: File
-# 2: Target
-# 3: Mode
+# file, target, mode
 define GROUP_template_file
 $(call GROUP_template_diff_file,$(1),$(2))
 $(call GROUP_template_install_file,$(1),$(2),$(3))
 endef
 
-# 1: Files
-# 2: Parent directory
-# 3: Prefix to add
-# 4: Prefix to strip
-# 5: Mode
+# files, parent-directory, prefix, prefix-to-strip, mode
 define GROUP_template
 $(eval $(foreach file,$(1),$(call GROUP_template_file,$(file),$(2)/$(3)$(file:$(4)%=%),$(5))))
 endef
 
-# 1: File
-# 2: Target
-# 3: Mode
+# file, target, mode
 define FILE_template
 $(eval $(call GROUP_template_file,$(1),$(2),$(3)))
 endef
 
-# 1: Source file
-# 2: Target file
-# 3: Require feature
-# 4: Add to userloaddefs
+# file, target, require, userloaddefs
 define EMACS_template_file
 ifneq ($4,)
 emacs/site-lisp/userloaddefs.el: $(1)
 endif
 
-$(1:.el=).elc: $(1)
+$(1:.el=.elc): $(1)
 	$$(V_ELC)$$(EMACS) --batch -Q -L emacs/site-lisp -l emacs/site-lisp/userloaddefs.el -l emacs/inits/package.el $(if $(3),--eval "(require '$(basename $(notdir $1)))" )-f batch-byte-compile $$<
 
-$(call GROUP_template_install_file,$(1:.el=).elc,$(2:.el=).elc)
+$(call GROUP_template_install_file,$(1:.el=.elc),$(2:.el=.elc))
 
 endef
 
-# 1: Files
-# 2: Parent directory
-# 3: Prefix to add
-# 4: Prefix to strip
-# 5: Require feature
-# 6: Add to userloaddefs
+# files, parent-directory, prefix, prefix-to-strip, require, userloaddefs
 define EMACS_template
 $(eval $(foreach file,$(1),$(call EMACS_template_file,$(file),$(2)/$(3)$(file:$(4)%=%),$(5),$(6))))
 endef
@@ -334,8 +315,6 @@ $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
 endif
 
 DEPENDENCIES = \
-	       vim-quit-if-only-quickfix-buffer-left \
-	       vim-restore-position \
 	       zap
 
 environmentdir = Environment
