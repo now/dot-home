@@ -178,8 +178,9 @@ $(call GROUP_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)
 install: emacs/site-lisp/userloaddefs.el
 
 emacs/site-lisp/userloaddefs.el: Makefile
-	$(V_ELC)$(EMACS) --batch -Q --eval '(setq generated-autoload-file "$(abspath $@)")' -f batch-update-autoloads \
-	  emacs/site-lisp
+	$(V_ELC)$(EMACS) --batch -Q --eval '(setq vc-handled-backends nil)' \
+	  --eval '(setq generated-autoload-file "$(abspath $@)")' \
+	  -f batch-update-autoloads emacs/site-lisp
 	$(V_at)touch $@
 
 $(call GROUP_template,emacs/site-lisp/userloaddefs.el,$(userconfdir),.emacs.d/,emacs/)
