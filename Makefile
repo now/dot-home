@@ -1,18 +1,75 @@
-.PHONY: all diff install
+uname := $(shell uname -s)
+ifeq ($(patsubst CYGWIN_%,,$(uname)),)
+  uname := Cygwin
+endif
 
-all: diff
+DIFF = diff
+INSTALL = install
+SQLITE = sqlite3
+TOUCH = touch
+ZSHELL = /bin/zsh
+EMACS = emacs
 
 empty :=
 space := $(empty) $(empty)
 shell_quote = $(subst $(space),\ ,$(1))
 
+DEFAULT_VERBOSITY = 0
+
+V_at = $(_v_at_$(V))
+_v_at_ = $(_v_at_$(DEFAULT_VERBOSITY))
+_v_at_0 = @
+_v_at_1 =
+
+V_GEN = $(V_GEN_$(V))
+V_GEN_ = $(V_GEN_$(DEFAULT_VERBOSITY))
+V_GEN_0 = @echo "  GEN     " $@;
+
+V_INSTALL = $(V_INSTALL_$(V))
+V_INSTALL_ = $(V_INSTALL_$(DEFAULT_VERBOSITY))
+V_INSTALL_0 = @echo "  INSTALL " $@;
+
+V_ELC = $(V_ELC_$(V))
+V_ELC_ = $(V_ELC_$(DEFAULT_VERBOSITY))
+V_ELC_0 = @echo "  ELC     " $@;
+
+ifeq ($(origin XDG_CONFIG_HOME), undefined)
+XDG_CONFIG_HOME = ~/.config
+endif
+
+prefix = ~
+bindir = $(prefix)/opt/bin
+sharedir = $(prefix)/opt/share
+userconfdir = $(prefix)
+guiuserconfdir = $(prefix)
+audacityuserconfdir = $(userconfdir)/.audacity
+firefoxuserconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
+vlcuserconfdir = $(prefix)/.config/vlc
+
+-include Config/$(uname)
+-include config.mk
+
+.PHONY: all diff install
+
+all: diff
+
 # 1: File
 # 2: Target
 define GROUP_template_diff_file
-GROUP_diff_target := $(2).diff
-.PHONY diff: $$(GROUP_diff_target)
-$$(GROUP_diff_target):
+.PHONY diff: $(2).diff
+$(2).diff:
 	@$$(DIFF) -u $(2) $(1) || true
+
+endef
+
+# 1: File
+# 2: Target
+# 3: Mode
+define GROUP_template_install_file
+install: $(2)
+
+$(2): $(1)
+	$$(V_INSTALL)$$(INSTALL) -D --mode=$(if $(3),$(3),644) --preserve-timestamps $$< $$(call shell_quote,$$@)
 
 endef
 
@@ -21,11 +78,7 @@ endef
 # 3: Mode
 define GROUP_template_file
 $(call GROUP_template_diff_file,$(1),$(2))
-
-install: $(2)
-$(2): $(1)
-	$$(INSTALL) -D --mode=$(if $(3),$(3),644) --preserve-timestamps $$< $$(call shell_quote,$$@)
-
+$(call GROUP_template_install_file,$(1),$(2),$(3))
 endef
 
 # 1: Files
@@ -84,15 +137,10 @@ endef
 # 2: Target file
 # 3: Require feature
 define EMACS_template_file
-source_elc := $(1:.el=).elc
-target_elc := $(2:.el=).elc
-install: $$(target_elc)
+$(1:.el=).elc: $(1)
+	$$(V_ELC)$$(EMACS) --batch -Q -L emacs/site-lisp -l emacs/site-lisp/userloaddefs.el -l emacs/inits/package.el $(if $(3),--eval "(require '$(basename $(notdir $1)))" )-f batch-byte-compile $$<
 
-$$(source_elc): $(1)
-	$$(EMACS) --batch -Q -L emacs/site-lisp -l emacs/site-lisp/userloaddefs.el -l emacs/inits/package.el $(if $(3),--eval "(require '$(basename $(notdir $1)))" )-f batch-byte-compile $$<
-
-$$(target_elc): $$(source_elc)
-	$$(INSTALL) -D --preserve-timestamps $$< $$(call shell_quote,$$@)
+$(call GROUP_template_install_file,$(1:.el=).elc,$(2:.el=).elc)
 
 endef
 
@@ -104,34 +152,6 @@ endef
 define EMACS_template
 $(eval $(foreach file,$(1),$(call EMACS_template_file,$(file),$(2)/$(3)$(file:$(4)%=%),$(5))))
 endef
-
-uname := $(shell uname -s)
-ifeq ($(patsubst CYGWIN_%,,$(uname)),)
-  uname := Cygwin
-endif
-
-DIFF = diff
-INSTALL = install
-SQLITE = sqlite3
-TOUCH = touch
-ZSHELL = /bin/zsh
-EMACS = emacs
-
-ifeq ($(origin XDG_CONFIG_HOME), undefined)
-XDG_CONFIG_HOME = ~/.config
-endif
-
-prefix = ~
-bindir = $(prefix)/opt/bin
-sharedir = $(prefix)/opt/share
-userconfdir = $(prefix)
-guiuserconfdir = $(prefix)
-audacityuserconfdir = $(userconfdir)/.audacity
-firefoxuserconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
-vlcuserconfdir = $(prefix)/.config/vlc
-
--include Config/$(uname)
--include config.mk
 
 DOTFILES = \
 	   editrc \
@@ -196,9 +216,9 @@ DOTFILES = \
 install: emacs/site-lisp/userloaddefs.el
 
 emacs/site-lisp/userloaddefs.el: $(DOTFILES) Makefile
-	$(EMACS) --batch -Q --eval '(setq generated-autoload-file "$(abspath $@)")' -f batch-update-autoloads \
-	  emacs/site-lisp && \
-	  touch $@
+	$(V_ELC)$(EMACS) --batch -Q --eval '(setq generated-autoload-file "$(abspath $@)")' -f batch-update-autoloads \
+	  emacs/site-lisp
+	$(V_at)touch $@
 
 $(call GROUP_template,emacs/site-lisp/userloaddefs.el,$(userconfdir),.emacs.d/,emacs/)
 
@@ -320,11 +340,11 @@ include os/os.mk
 include host/host.mk
 
 $(bin_substitutables): Makefile
-	rm -f $@ $@.tmp
-	$(edit) $@.in > $@.tmp
-	chmod +x $@.tmp
-	chmod a-w $@.tmp
-	mv $@.tmp $@
+	$(V_GEN)rm -f $@ $@.tmp
+	$(V_at)$(edit) $@.in > $@.tmp
+	$(V_at)chmod +x $@.tmp
+	$(V_at)chmod a-w $@.tmp
+	$(V_at)mv $@.tmp $@
 
 define bin_substitutables_file
 $(1): $(1).in

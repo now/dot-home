@@ -1,2 +1,2 @@
-appdatadir=$(call shell_quote,$(shell cygpath -u "$(APPDATA)"))
-vlcuserconfdir=$(appdatadir)/vlc
+appdatadir = $(call shell_quote,$(shell cygpath -u "$(APPDATA)"))
+vlcuserconfdir = $(appdatadir)/vlc
