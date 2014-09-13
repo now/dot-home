@@ -56,7 +56,6 @@
               mode-line-modes (butlast mode-line-modes) ; NOTE not buffer-local
               mode-line-format '(""
                                  mode-line-buffer-identification
-                                 mode-line-modified
                                  (:propertize " " 'help-echo help-echo)
                                  mode-line-modes))
 
