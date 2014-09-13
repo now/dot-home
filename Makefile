@@ -136,7 +136,12 @@ endef
 # 1: Source file
 # 2: Target file
 # 3: Require feature
+# 4: Add to userloaddefs
 define EMACS_template_file
+ifneq ($4,)
+emacs/site-lisp/userloaddefs.el: $(1)
+endif
+
 $(1:.el=).elc: $(1)
 	$$(V_ELC)$$(EMACS) --batch -Q -L emacs/site-lisp -l emacs/site-lisp/userloaddefs.el -l emacs/inits/package.el $(if $(3),--eval "(require '$(basename $(notdir $1)))" )-f batch-byte-compile $$<
 
@@ -149,8 +154,9 @@ endef
 # 3: Prefix to add
 # 4: Prefix to strip
 # 5: Require feature
+# 6: Add to userloaddefs
 define EMACS_template
-$(eval $(foreach file,$(1),$(call EMACS_template_file,$(file),$(2)/$(3)$(file:$(4)%=%),$(5))))
+$(eval $(foreach file,$(1),$(call EMACS_template_file,$(file),$(2)/$(3)$(file:$(4)%=%),$(5),$(6))))
 endef
 
 DOTFILES = \
@@ -206,6 +212,15 @@ DOTFILES = \
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)
 
+install: emacs/site-lisp/userloaddefs.el
+
+emacs/site-lisp/userloaddefs.el: Makefile
+	$(V_ELC)$(EMACS) --batch -Q --eval '(setq generated-autoload-file "$(abspath $@)")' -f batch-update-autoloads \
+	  emacs/site-lisp
+	$(V_at)touch $@
+
+$(call GROUP_template,emacs/site-lisp/userloaddefs.el,$(userconfdir),.emacs.d/,emacs/)
+
 DOTFILES = \
 	   emacs/site-lisp/hide-mode-line.el \
 	   emacs/site-lisp/ned-info-on-file.el \
@@ -213,16 +228,9 @@ DOTFILES = \
 	   emacs/site-lisp/project.el \
 	   emacs/site-lisp/rnc-mode.el
 
-install: emacs/site-lisp/userloaddefs.el
+$(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/,,userloaddefs)
 
-emacs/site-lisp/userloaddefs.el: $(DOTFILES) Makefile
-	$(V_ELC)$(EMACS) --batch -Q --eval '(setq generated-autoload-file "$(abspath $@)")' -f batch-update-autoloads \
-	  emacs/site-lisp
-	$(V_at)touch $@
-
-$(call GROUP_template,emacs/site-lisp/userloaddefs.el,$(userconfdir),.emacs.d/,emacs/)
-
-DOTFILES += \
+DOTFILES = \
 	    emacs/init.el \
 	    emacs/now-theme.el
 
