@@ -1,7 +1,7 @@
 DOTFILES = \
-	   zsh/os/env \
-	   zsh/os/login \
-	   zsh/os/rc
+	zsh/os/env \
+	zsh/os/login \
+	zsh/os/rc
 
 $(foreach file,$(DOTFILES),$(call FILE_template,$(or $(wildcard os/$(uname)/$(file)),os/$(file)),$(XDG_CONFIG_HOME)/$(file)))
 

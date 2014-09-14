@@ -104,55 +104,55 @@ $(eval $(foreach file,$(1),$(call EMACS_template_file,$(file),$(2)/$(3)$(file:$(
 endef
 
 DOTFILES = \
-	   editrc \
-	   gemrc \
-	   gtkrc-2.0 \
-	   hunspell_en_US \
-	   indent.pro \
-	   inputrc \
-	   mailcap \
-	   zshenv
+	editrc \
+	gemrc \
+	gtkrc-2.0 \
+	hunspell_en_US \
+	indent.pro \
+	inputrc \
+	mailcap \
+	zshenv
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
 
 DOTFILES = \
-	   dircolors \
-	   fontconfig/fonts.conf \
-	   git/config \
-	   zsh/functions/_unpack \
-	   zsh/functions/_up \
-	   zsh/functions/autoload/cd \
-	   zsh/functions/autoload/freload \
-	   zsh/functions/autoload/hc \
-	   zsh/functions/autoload/up \
-	   zsh/functions/autoload/urlify \
-	   zsh/functions/define-digraphs \
-	   zsh/functions/dynamic-directory-names \
-	   zsh/functions/cache/invalid \
-	   zsh/functions/cache/path \
-	   zsh/functions/cache/retrieve \
-	   zsh/functions/cache/store \
-	   zsh/functions/zle/cd-to-alternate-directory \
-	   zsh/functions/zle/foreground-or-list-choices \
-	   zsh/functions/zle/history-beginning-search-menu \
-	   zsh/functions/zle/insert-digraph \
-	   zsh/functions/zle/self-insert-redir \
-	   zsh/functions/zle/sudo-command-line \
-	   zsh/functions/zle/up-directory \
-	   zsh/functions/zle/up-from-menu \
-	   zsh/functions/zle/urlify-current-argument \
-	   zsh/functions/zle/util/select-match-from-menu \
-	   zsh/functions/zle/util/select-match-from-menu-widget \
-	   zsh/functions/zle/vi-cmd-mode-silently \
-	   zsh/functions/zle/yank-clipboard
+	dircolors \
+	fontconfig/fonts.conf \
+	git/config \
+	zsh/functions/_unpack \
+	zsh/functions/_up \
+	zsh/functions/autoload/cd \
+	zsh/functions/autoload/freload \
+	zsh/functions/autoload/hc \
+	zsh/functions/autoload/up \
+	zsh/functions/autoload/urlify \
+	zsh/functions/define-digraphs \
+	zsh/functions/dynamic-directory-names \
+	zsh/functions/cache/invalid \
+	zsh/functions/cache/path \
+	zsh/functions/cache/retrieve \
+	zsh/functions/cache/store \
+	zsh/functions/zle/cd-to-alternate-directory \
+	zsh/functions/zle/foreground-or-list-choices \
+	zsh/functions/zle/history-beginning-search-menu \
+	zsh/functions/zle/insert-digraph \
+	zsh/functions/zle/self-insert-redir \
+	zsh/functions/zle/sudo-command-line \
+	zsh/functions/zle/up-directory \
+	zsh/functions/zle/up-from-menu \
+	zsh/functions/zle/urlify-current-argument \
+	zsh/functions/zle/util/select-match-from-menu \
+	zsh/functions/zle/util/select-match-from-menu-widget \
+	zsh/functions/zle/vi-cmd-mode-silently \
+	zsh/functions/zle/yank-clipboard
 
 $(call GROUP_template,$(DOTFILES),$(XDG_CONFIG_HOME))
 
 DOTFILES = \
-	   emacs/etc/schema/catalog.rnc \
-	   emacs/etc/schema/gtk-builder.rnc \
-	   emacs/etc/schema/PropertyList-1.0.rnc \
-	   emacs/etc/schema/schemas.xml
+	emacs/etc/schema/catalog.rnc \
+	emacs/etc/schema/gtk-builder.rnc \
+	emacs/etc/schema/PropertyList-1.0.rnc \
+	emacs/etc/schema/schemas.xml
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)
 
@@ -167,91 +167,92 @@ emacs/site-lisp/userloaddefs.el: Makefile
 $(call GROUP_template,emacs/site-lisp/userloaddefs.el,$(userconfdir),.emacs.d/,emacs/)
 
 DOTFILES = \
-	   emacs/site-lisp/hide-mode-line.el \
-	   emacs/site-lisp/ned-info-on-file.el \
-	   emacs/site-lisp/now-org.el \
-	   emacs/site-lisp/project.el \
-	   emacs/site-lisp/rnc-mode.el
+	emacs/site-lisp/hide-mode-line.el \
+	emacs/site-lisp/ned-info-on-file.el \
+	emacs/site-lisp/now-org.el \
+	emacs/site-lisp/project.el \
+	emacs/site-lisp/rnc-mode.el
 
 $(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/,,userloaddefs)
 
 DOTFILES = \
-	    emacs/init.el \
-	    emacs/now-theme.el
+	emacs/init.el \
+	emacs/now-theme.el
 
 $(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)
 
 DOTFILES = \
-	   emacs/delayed-inits/bs.el \
-	   emacs/delayed-inits/calc.el \
-	   emacs/delayed-inits/calendar.el \
-	   emacs/delayed-inits/cc-mode.el \
-	   emacs/delayed-inits/compile.el \
-	   emacs/delayed-inits/css-mode.el \
-	   emacs/delayed-inits/desktop.el \
-	   emacs/delayed-inits/diff-mode.el \
-	   emacs/delayed-inits/diff.el \
-	   emacs/delayed-inits/dired.el \
-	   emacs/delayed-inits/dired-aux.el \
-	   emacs/delayed-inits/evil.el \
-	   emacs/delayed-inits/flx-ido.el \
-	   emacs/delayed-inits/grep.el \
-	   emacs/delayed-inits/hideshow.el \
-	   emacs/delayed-inits/ido.el \
-	   emacs/delayed-inits/ispell.el \
-	   emacs/delayed-inits/magit.el \
-	   emacs/delayed-inits/make-mode.el \
-	   emacs/delayed-inits/man.el \
-	   emacs/delayed-inits/nxml-mode.el \
-	   emacs/delayed-inits/org-agenda.el \
-	   emacs/delayed-inits/org-capture.el \
-	   emacs/delayed-inits/org-clock.el \
-	   emacs/delayed-inits/org-colview.el \
-	   emacs/delayed-inits/org-id.el \
-	   emacs/delayed-inits/org-mobile.el \
-	   emacs/delayed-inits/org.el \
-	   emacs/delayed-inits/paredit.el \
-	   emacs/delayed-inits/recentf.el \
-	   emacs/delayed-inits/rng-loc.el \
-	   emacs/delayed-inits/ruby-mode.el \
-	   emacs/delayed-inits/sh-script.el \
-	   emacs/inits/package.el
+	emacs/delayed-inits/bs.el \
+	emacs/delayed-inits/calc.el \
+	emacs/delayed-inits/calendar.el \
+	emacs/delayed-inits/cc-mode.el \
+	emacs/delayed-inits/compile.el \
+	emacs/delayed-inits/css-mode.el \
+	emacs/delayed-inits/desktop.el \
+	emacs/delayed-inits/diff-mode.el \
+	emacs/delayed-inits/diff.el \
+	emacs/delayed-inits/dired.el \
+	emacs/delayed-inits/dired-aux.el \
+	emacs/delayed-inits/evil.el \
+	emacs/delayed-inits/flx-ido.el \
+	emacs/delayed-inits/grep.el \
+	emacs/delayed-inits/hideshow.el \
+	emacs/delayed-inits/ido.el \
+	emacs/delayed-inits/ispell.el \
+	emacs/delayed-inits/magit.el \
+	emacs/delayed-inits/make-mode.el \
+	emacs/delayed-inits/man.el \
+	emacs/delayed-inits/nxml-mode.el \
+	emacs/delayed-inits/org-agenda.el \
+	emacs/delayed-inits/org-capture.el \
+	emacs/delayed-inits/org-clock.el \
+	emacs/delayed-inits/org-colview.el \
+	emacs/delayed-inits/org-id.el \
+	emacs/delayed-inits/org-mobile.el \
+	emacs/delayed-inits/org.el \
+	emacs/delayed-inits/paredit.el \
+	emacs/delayed-inits/recentf.el \
+	emacs/delayed-inits/rng-loc.el \
+	emacs/delayed-inits/ruby-mode.el \
+	emacs/delayed-inits/sh-script.el \
+	emacs/delayed-inits/tabulated-list.el \
+	emacs/inits/package.el
 
 $(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/,require)
 
 DOTFILES = \
-	   zsh/zlogin \
-	   zsh/zprofile \
-	   zsh/zshrc
+	zsh/zlogin \
+	zsh/zprofile \
+	zsh/zshrc
 
 $(call GROUP_template,$(DOTFILES),$(XDG_CONFIG_HOME)/zsh,.,zsh/)
 
 DOTFILES = \
-	   audacity.cfg
+	audacity.cfg
 
 $(call GROUP_template,$(DOTFILES),$(audacityuserconfdir))
 
 DOTFILES = \
-	   vlc/vlcrc
+	vlc/vlcrc
 
 $(call GROUP_template,$(DOTFILES),$(vlcuserconfdir),,vlc/)
 
 ifneq ($(firefoxuserconfdir),)
 DOTFILES = \
-	   firefox/mimeTypes.rdf \
-	   firefox/searchplugins/adlibris.xml \
-	   firefox/searchplugins/discogs.xml \
-	   firefox/searchplugins/gatherer.xml \
-	   firefox/searchplugins/hittase-where.xml \
-	   firefox/searchplugins/hittase-who.xml \
-	   firefox/searchplugins/imdb.xml \
-	   firefox/searchplugins/juno-records.xml \
-	   firefox/searchplugins/mancx.xml \
-	   firefox/searchplugins/posix.xml \
-	   firefox/searchplugins/thepiratebayse.xml \
-	   firefox/searchplugins/tvragecom.xml \
-	   firefox/searchplugins/youtube.xml \
-	   firefox/user.js
+	firefox/mimeTypes.rdf \
+	firefox/searchplugins/adlibris.xml \
+	firefox/searchplugins/discogs.xml \
+	firefox/searchplugins/gatherer.xml \
+	firefox/searchplugins/hittase-where.xml \
+	firefox/searchplugins/hittase-who.xml \
+	firefox/searchplugins/imdb.xml \
+	firefox/searchplugins/juno-records.xml \
+	firefox/searchplugins/mancx.xml \
+	firefox/searchplugins/posix.xml \
+	firefox/searchplugins/thepiratebayse.xml \
+	firefox/searchplugins/tvragecom.xml \
+	firefox/searchplugins/youtube.xml \
+	firefox/user.js
 
 $(call GROUP_template,$(DOTFILES),$(firefoxuserconfdir),,firefox/)
 endif
@@ -261,24 +262,24 @@ edit = sed \
        -e 's|@ZSHELL[@]|$(ZSHELL)|g'
 
 BINFILES = \
-	   bin/asciitable \
-	   bin/burn \
-	   bin/clipboard \
-	   bin/create-key \
-	   bin/dfs \
-	   bin/discogs-tags \
-	   bin/duh \
-	   bin/e \
-	   bin/emv \
-	   bin/g \
-	   bin/index-disc \
-	   bin/m \
-	   bin/mfedit \
-	   bin/mov-re-encode \
-	   bin/terminal-colors \
-	   bin/pack \
-	   bin/unpack \
-	   bin/valgrind-ruby
+	bin/asciitable \
+	bin/burn \
+	bin/clipboard \
+	bin/create-key \
+	bin/dfs \
+	bin/discogs-tags \
+	bin/duh \
+	bin/e \
+	bin/emv \
+	bin/g \
+	bin/index-disc \
+	bin/m \
+	bin/mfedit \
+	bin/mov-re-encode \
+	bin/terminal-colors \
+	bin/pack \
+	bin/unpack \
+	bin/valgrind-ruby
 
 bin_substitutables := $(BINFILES)
 
@@ -303,19 +304,19 @@ $(eval $(foreach file,$(bin_substitutables),$(call bin_substitutables_file,$(fil
 
 ifdef INCLUDE_VIM
 DOTFILES = \
-	   vim/after/ftplugin/sh.vim \
-	   vim/after/ftplugin/vim.vim \
-	   vim/after/ftplugin/zsh.vim \
-	   vim/after/syntax/vim.vim \
-	   vim/colors/now.vim \
-	   vim/ftplugin/man.vim \
-	   vimrc
+	vim/after/ftplugin/sh.vim \
+	vim/after/ftplugin/vim.vim \
+	vim/after/ftplugin/zsh.vim \
+	vim/after/syntax/vim.vim \
+	vim/colors/now.vim \
+	vim/ftplugin/man.vim \
+	vimrc
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
 endif
 
 DEPENDENCIES = \
-	       zap
+	zap
 
 environmentdir = Environment
 
