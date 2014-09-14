@@ -43,7 +43,8 @@
                    recentf
                    rng-loc
                    ruby-mode
-                   sh-script))
+                   sh-script
+                   tabulated-list))
   (eval-after-load feature `(load (concat user-emacs-directory "delayed-inits/" ,(symbol-name feature)))))
 
 (dolist (feature '(package))
