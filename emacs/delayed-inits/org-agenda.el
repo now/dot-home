@@ -107,8 +107,9 @@
   (if (now-org-stuck-project-p)
       (save-excursion (or (outline-next-heading) (point-max)))))
 
-(declare-function org-clock-special-range "org-clock.el")
-(defvar org-clock-file-total-minutes)
+(eval-when-compile
+  (declare-function org-clock-special-range "org-clock.el")
+  (defvar org-clock-file-total-minutes))
 (defun now-org-agenda-skip-unless-archival ()
   "Skip tasks that are not ready for archival.  A task is ready
 fo archival if it is not a `now-org-project-task-p' or if it is

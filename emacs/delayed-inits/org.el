@@ -85,8 +85,9 @@
           (org-set-property "Delegatee" nil)))
     (org-set-property "Delegatee" nil)))
 
-(defvar org-last-state)
-(defvar org-state)
+(eval-when-compile
+  (defvar org-last-state)
+  (defvar org-state))
 (defun now-org-adjust-properties-after-todo-state-change ()
   "Adjust properties after a task todo state change."
   (unless (string= org-last-state org-state)

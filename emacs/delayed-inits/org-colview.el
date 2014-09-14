@@ -2,7 +2,8 @@
   "Go to the next column field in the current row."
   (interactive)
   (goto-char (1+ (point))))
-(declare-function org-agenda-do-context-action "org-agenda.el")
+(eval-when-compile
+  (declare-function org-agenda-do-context-action "org-agenda.el"))
 (defun now-org-columns-forward-line (n)
   (interactive "p")
   (let ((col (current-column))

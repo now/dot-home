@@ -30,7 +30,8 @@
      ",t" 'ruby-find-other-file
      ",M" 'ruby-run-test-at-line))
 
-(defvar project-filename)
+(eval-when-compile
+  (defvar project-filename))
 (add-hook 'ruby-mode-hook
           (lambda ()
             (hs-minor-mode 1)

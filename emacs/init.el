@@ -89,7 +89,8 @@
 
 (setq overlay-arrow-string "⇒")
 
-(defvar show-paren-delay)
+(eval-when-compile
+  (defvar show-paren-delay))
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 
@@ -114,7 +115,8 @@
 
 (setq pop-up-windows nil)
 
-(defvar xterm-standard-colors)
+(eval-when-compile
+  (defvar xterm-standard-colors))
 (setq xterm-standard-colors
   '(("black"          0 (  0   0   0))
     ("red"            1 (149  22  22))
@@ -145,7 +147,8 @@
 (flx-ido-mode 1)
 (setq gc-cons-threshold 20000000)
 
-(defvar smex-save-file)
+(eval-when-compile
+  (defvar smex-save-file))
 (setq smex-save-file (concat user-emacs-directory "smex-items"))
 (smex-initialize)
 
@@ -179,7 +182,8 @@
 (define-key global-map "\C-r" 'isearch-backward-regexp)
 (define-key esc-map "\C-r" 'isearch-backward)
 
-(defvar recentf-save-file)
+(eval-when-compile
+  (defvar recentf-save-file))
 (setq recentf-save-file (concat user-emacs-directory "recentf"))
 (recentf-mode t)
 
