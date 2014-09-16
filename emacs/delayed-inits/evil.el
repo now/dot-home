@@ -12,6 +12,7 @@
         ((?< ?/) . ?\x27e8)
         ((?> ?/) . ?\x27e9)))
 
+(evil-set-initial-state 'grep-mode 'motion)
 (delete 'shell-mode evil-insert-state-modes)
 
 (defun evil-delete-auto-indent-on-insert-state-exit ()
@@ -31,17 +32,29 @@
               (if bindings
                   (apply #'define-keys map bindings))))
   (define-keys evil-normal-state-map
-    "`" 'smex
-    "~" 'smex-major-mode-commands
     "K" 'man
     "q" 'delete-other-windows
     "Q" 'evil-record-macro
     "U" 'undo-tree-redo
 
-    "\C-d" 'suspend-frame
-
     "\M-d" 'smex
 
+    "g\C-g" 'ned-info-on-file
+
+    ",u" 'undo-tree-visualize
+    ",w" 'save-buffer)
+  (define-keys evil-visual-state-map
+    "\C-d" 'evil-normal-state)
+  (define-keys evil-insert-state-map
+    "\C-d" 'evil-normal-state)
+  (define-key evil-motion-state-map
+    "," nil)
+  (define-keys evil-motion-state-map
+    " " 'evil-scroll-page-down
+    (kbd "DEL") 'evil-scroll-page-up
+    "`" 'smex
+    "~" 'smex-major-mode-commands
+    "\C-d" 'suspend-frame
     ",a" 'org-agenda
     ",b" 'ido-switch-buffer
     ",B" 'bs-show
@@ -58,22 +71,9 @@
     ",o" 'org-capture
     ",p" 'previous-error
     ",P" 'compilation-previous-file
+    ",r" 'recompile
     ",s" 'magit-status
-    ",w" 'save-buffer
-    ",W" 'save-some-buffers
-    ",u" 'undo-tree-visualize
-
-    "g\C-g" 'ned-info-on-file
-
-    (kbd "DEL") 'evil-scroll-page-up)
-  (define-keys evil-visual-state-map
-    "\C-d" 'evil-normal-state)
-  (define-keys evil-insert-state-map
-    "\C-d" 'evil-normal-state)
-  (define-keys evil-motion-state-map
-    "`" 'smex
-    "~" 'smex-major-mode-commands
-    " " 'evil-scroll-page-down)
+    ",W" 'save-some-buffers)
   (define-keys evil-read-key-map
     "\C-k" 'evil-insert-digraph
     "\C-^" 'evil-buffer)
@@ -91,3 +91,4 @@
 (define-key evil-motion-state-map "L" nil)
 (define-key evil-normal-state-map "L" 'evil-change-whole-line)
 (define-key evil-motion-state-map "S" 'evil-window-bottom)
+

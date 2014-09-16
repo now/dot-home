@@ -1,12 +1,4 @@
-(setq compilation-auto-jump-to-first-error t
-      compilation-scroll-output t
-      compilation-ask-about-save nil)
-
-(defun now-compilation-finish-autoclose (buffer string)
-  (if (string-match "^finished" string)
-      (delete-windows-on buffer)))
-
-(add-to-list 'compilation-finish-functions 'now-compilation-finish-autoclose)
+(setq compilation-scroll-output 'first-error)
 
 (add-to-list 'compilation-error-regexp-alist-alist
              '(autotest-header
