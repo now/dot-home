@@ -12,7 +12,6 @@
         ((?< ?/) . ?\x27e8)
         ((?> ?/) . ?\x27e9)))
 
-(evil-set-initial-state 'grep-mode 'motion)
 (delete 'shell-mode evil-insert-state-modes)
 
 (defun evil-delete-auto-indent-on-insert-state-exit ()
