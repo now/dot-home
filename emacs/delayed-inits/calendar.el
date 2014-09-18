@@ -12,7 +12,9 @@
        "\C-b" 'calendar-scroll-right-three-months
        "\C-f" 'calendar-scroll-left-three-months
        "H" 'calendar-cursor-holidays
+       "b" 'calendar-beginning-of-week
        "h" 'calendar-backward-day
        "j" 'calendar-forward-week
        "k" 'calendar-backward-week
-       "s" 'calendar-forward-day)))
+       "s" 'calendar-forward-day
+       "w" 'calendar-end-of-week)))
