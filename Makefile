@@ -215,6 +215,7 @@ DOTFILES = \
 	emacs/delayed-inits/rng-loc.el \
 	emacs/delayed-inits/ruby-mode.el \
 	emacs/delayed-inits/sh-script.el \
+	emacs/delayed-inits/solar.el \
 	emacs/delayed-inits/tabulated-list.el \
 	emacs/inits/package.el
 

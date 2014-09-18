@@ -1,4 +1,11 @@
-(setq calendar-mark-holidays-flag t
+(eval-when-compile
+  (defvar calendar-holidays))
+(setq calendar-date-style 'iso
+      calendar-holidays (append holiday-general-holidays
+                                holiday-local-holidays
+                                holiday-other-holidays
+                                holiday-solar-holidays)
+      calendar-mark-holidays-flag t
       calendar-intermonth-text '(propertize
                                  (format "%2d"
                                          (car

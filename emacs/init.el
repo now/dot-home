@@ -44,6 +44,7 @@
                    rng-loc
                    ruby-mode
                    sh-script
+                   solar
                    tabulated-list))
   (eval-after-load feature `(load (concat user-emacs-directory "delayed-inits/" ,(symbol-name feature)))))
 
