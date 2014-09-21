@@ -62,21 +62,21 @@
          (forward-char))
        (dotimes (i (or count 1))
          (paredit-forward-up)))
-     (evil-define-key 'normal paredit-mode-map
-       "D" 'paredit-kill
-       "gb" 'evil-paredit-backward
-       "gB" 'evil-paredit-backward-up
-       "gW" 'evil-paredit-forward-up
-       "gw" 'evil-paredit-forward
-       "x" 'paredit-forward-delete
-       "X" 'paredit-backward-delete
-       "))" 'evil-paredit-forward-slurp-sexp
-       ")}" 'evil-paredit-forward-barf-sexp
-       "((" 'evil-paredit-backward-slurp-sexp
-       "({" 'evil-paredit-backward-barf-sexp
-       "(J" 'paredit-join-sexps
-       "(R" 'paredit-raise-sexp
-       "(S" 'paredit-split-sexp
-       "(s" 'paredit-splice-sexp
-       "(S" 'paredit-splice-sexp-killing-backward
-       "(W" 'paredit-wrap-round)))
+     (add-hook 'paredit-mode-hook
+               (lambda ()
+                 (define-key evil-motion-state-local-map "gB" 'evil-paredit-backward-up)
+                 (define-key evil-motion-state-local-map "gb" 'evil-paredit-backward)
+                 (define-key evil-motion-state-local-map "gW" 'evil-paredit-forward-up)
+                 (define-key evil-normal-state-local-map "gw" 'evil-paredit-forward)
+                 (define-key evil-normal-state-local-map "D" 'paredit-kill)
+                 (define-key evil-normal-state-local-map "x" 'paredit-forward-delete)
+                 (define-key evil-normal-state-local-map "X" 'paredit-backward-delete)
+                 (define-key evil-normal-state-local-map "))" 'evil-paredit-forward-slurp-sexp)
+                 (define-key evil-normal-state-local-map ")}" 'evil-paredit-forward-barf-sexp)
+                 (define-key evil-normal-state-local-map "((" 'evil-paredit-backward-slurp-sexp)
+                 (define-key evil-normal-state-local-map "({" 'evil-paredit-backward-barf-sexp)
+                 (define-key evil-normal-state-local-map "(J" 'paredit-join-sexps)
+                 (define-key evil-normal-state-local-map "(R" 'paredit-raise-sexp)
+                 (define-key evil-normal-state-local-map "(S" 'paredit-splice-sexp-killing-backward)
+                 (define-key evil-normal-state-local-map "(s" 'paredit-splice-sexp)
+                 (define-key evil-normal-state-local-map "(W" 'paredit-wrap-round)))))
