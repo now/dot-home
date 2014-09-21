@@ -197,6 +197,7 @@ DOTFILES = \
 	emacs/delayed-inits/flx-ido.el \
 	emacs/delayed-inits/grep.el \
 	emacs/delayed-inits/hideshow.el \
+	emacs/delayed-inits/holidays.el \
 	emacs/delayed-inits/ido.el \
 	emacs/delayed-inits/ispell.el \
 	emacs/delayed-inits/magit.el \

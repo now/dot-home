@@ -26,6 +26,7 @@
                    flx-ido
                    grep
                    hideshow
+                   holidays
                    ido
                    ispell
                    magit
