@@ -4,6 +4,7 @@ ifeq ($(patsubst CYGWIN_%,,$(uname)),)
 endif
 
 DIFF = diff
+PATCH = patch
 INSTALL = install
 TOUCH = touch
 ZSHELL = /bin/zsh
@@ -23,6 +24,10 @@ _v_at_1 =
 V_GEN = $(V_GEN_$(V))
 V_GEN_ = $(V_GEN_$(DEFAULT_VERBOSITY))
 V_GEN_0 = @echo "  GEN     " $@;
+
+V_PATCH = $(V_PATCH_$(V))
+V_PATCH = $(V_PATCH_$(DEFAULT_VERBOSITY))
+V_PATCH_0 = @echo "  PATCH   " $@;
 
 V_INSTALL = $(V_INSTALL_$(V))
 V_INSTALL_ = $(V_INSTALL_$(DEFAULT_VERBOSITY))
@@ -101,6 +106,21 @@ endef
 # files, parent-directory, prefix, prefix-to-strip, require, userloaddefs
 define EMACS_template
 $(eval $(foreach file,$(1),$(call EMACS_template_file,$(file),$(2)/$(3)$(file:$(4)%=%),$(5),$(6))))
+endef
+
+# patch, target
+define PATCH_template_file
+.PHONY: $(2:.patch=)
+$(2:.patch=):
+	$$(V_PATCH)if $$(PATCH) -Nsg 0 --dry-run $$@ $(1) > /dev/null; then \
+	  $$(PATCH) -Nsg 0 $$@ $(1); \
+	fi
+
+endef
+
+# patches, parent-directory, prefix, prefix-to-strip
+define PATCH_template
+$(eval $(foreach file,$(1),$(call PATCH_template_file,$(file),$(2)/$(3)$(file:$(4)%=%))))
 endef
 
 DOTFILES = \

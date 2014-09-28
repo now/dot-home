@@ -1,0 +1,11 @@
+--- /etc/apache2/httpd.conf	2014-09-28 15:18:56.000000000 +0200
++++ httpd.conf	2014-09-28 15:19:13.000000000 +0200
+@@ -481,7 +481,7 @@
+ Include /private/etc/apache2/extra/httpd-manual.conf
+ 
+ # Distributed authoring and versioning (WebDAV)
+-#Include /private/etc/apache2/extra/httpd-dav.conf
++Include /private/etc/apache2/extra/httpd-dav.conf
+ 
+ # Various default settings
+ #Include /private/etc/apache2/extra/httpd-default.conf
