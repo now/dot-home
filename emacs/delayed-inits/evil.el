@@ -73,7 +73,10 @@
     ",P" 'compilation-previous-file
     ",r" 'recompile
     ",s" 'magit-status
-    ",W" 'save-some-buffers)
+    ",W" 'save-some-buffers
+    "gc" 'ace-jump-char-mode
+    "gl" 'ace-jump-line-mode
+    "gs" 'ace-jump-word-mode)
   (define-keys evil-read-key-map
     "\C-k" 'evil-insert-digraph
     "\C-^" 'evil-buffer)

@@ -3,7 +3,8 @@
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/")
              'append)
-(setq package-load-list '((auto-complete t)
+(setq package-load-list '((ace-jump-mode t)
+                          (auto-complete t)
                           (evil t)
                           (flx t)
                           (flx-ido t)
