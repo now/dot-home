@@ -1,8 +1,8 @@
 DOTFILES = \
-	host/portair.local/apache2/extra/httpd-vhosts.conf \
-	host/portair.local/apache2/users/now.conf
+	host/portair.local/etc/apache2/extra/httpd-vhosts.conf \
+	host/portair.local/etc/apache2/users/now.conf
 
-$(call GROUP_template,$(DOTFILES),/private/etc,,host/portair.local/)
+$(call GROUP_template,$(DOTFILES),/private,,host/portair.local/)
 
 PATCHES = \
 	host/portair.local/etc/apache2/httpd.conf.patch \
