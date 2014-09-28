@@ -23,7 +23,8 @@ Environment
 config.mk
 /emacs/site-lisp/userloaddefs.el
 /emacs/site-lisp/userloaddefs.el~
-/openoffice.org/3/user/wordbook/*.aff
-/openoffice.org/3/user/wordbook/*.dic
-/openoffice.org/3/user/wordbook/*.zip
+*.aff
+*.dic
 *.elc
+*.xpi
+*.zip

@@ -163,6 +163,19 @@ openoffice.org/3/user/wordbook/en_US.dic: $(HUNSPELL_EN_US_DICT_ZIP)
 	$(V_at)sed -e "s/'/’/g" $@ > $@.tmp
 	$(V_at)mv $@.tmp $@
 
+HUNSPELL_SV_DICT_ZIP = openoffice.org/3/user/wordbook/addon-474623-latest.xpi
+
+$(HUNSPELL_SV_DICT_ZIP):
+	$(V_CURL)$(CURL) -Ls https://addons.mozilla.org/firefox/downloads/latest/474623/$(@F) > $@
+
+openoffice.org/3/user/wordbook/sv.aff: $(HUNSPELL_SV_DICT_ZIP)
+	$(V_GEN)$(UNZIP) -qojd $(@D) $< dictionaries/$(@F)
+
+openoffice.org/3/user/wordbook/sv.dic: $(HUNSPELL_SV_DICT_ZIP)
+	$(V_GEN)$(UNZIP) -qojd $(@D) $< dictionaries/$(@F)
+	$(V_at)sed -e "s/'/’/g" $@ > $@.tmp
+	$(V_at)mv $@.tmp $@
+
 DOTFILES = \
 	editrc \
 	gemrc \
@@ -175,6 +188,8 @@ DOTFILES = \
 	openoffice.org/3/user/wordbook/en_GB-ise.dic \
 	openoffice.org/3/user/wordbook/en_US.aff \
 	openoffice.org/3/user/wordbook/en_US.dic \
+	openoffice.org/3/user/wordbook/sv.aff \
+	openoffice.org/3/user/wordbook/sv.dic \
 	zshenv
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
