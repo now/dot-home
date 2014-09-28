@@ -39,6 +39,7 @@
     "\M-d" 'smex
 
     "g\C-g" 'ned-info-on-file
+    "gw" nil
 
     ",u" 'undo-tree-visualize
     ",w" 'save-buffer)
