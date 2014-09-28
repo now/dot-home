@@ -1,6 +1,6 @@
-(setq-default ispell-check-comments 'exclusive)
+(setq-default ispell-check-comments t)
 (setq ispell-local-dictionary-alist
       '((nil "[[:alpha:]]" "[^[:alpha:]]" "['’]" nil ("-B") nil utf-8)
-        ("american" "[[:alpha:]]" "[^[:alpha:]]" "['’]" nil ("-B") nil utf-8)
-        ("british" "[[:alpha:]]" "[^[:alpha:]]" "['’]" nil ("-B") nil utf-8)
-        ("svenska" "[[:alpha:]]" "[^[:alpha:]]" "['’]" nil ("-C") nil utf-8)))
+        ("en_US" "[[:alpha:]]" "[^[:alpha:]]" "['’]" nil ("-B") nil utf-8)
+        ("en_GB" "[[:alpha:]]" "[^[:alpha:]]" "['’]" nil ("-B") nil utf-8)
+        ("sv_SE" "[[:alpha:]]" "[^[:alpha:]]" "['’]" nil ("-C") nil utf-8)))

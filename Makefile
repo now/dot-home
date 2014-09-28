@@ -3,12 +3,15 @@ ifeq ($(patsubst CYGWIN_%,,$(uname)),)
   uname := Cygwin
 endif
 
+CURL = curl
 DIFF = diff
-PATCH = patch
-INSTALL = install
-TOUCH = touch
-ZSHELL = /bin/zsh
 EMACS = emacs
+ICONV = iconv
+INSTALL = install
+PATCH = patch
+TOUCH = touch
+UNZIP = unzip
+ZSHELL = /bin/zsh
 
 empty :=
 space := $(empty) $(empty)
@@ -24,6 +27,10 @@ _v_at_1 =
 V_GEN = $(V_GEN_$(V))
 V_GEN_ = $(V_GEN_$(DEFAULT_VERBOSITY))
 V_GEN_0 = @echo "  GEN     " $@;
+
+V_CURL = $(V_CURL_$(V))
+V_CURL = $(V_CURL_$(DEFAULT_VERBOSITY))
+V_CURL_0 = @echo "  CURL    " $@;
 
 V_PATCH = $(V_PATCH_$(V))
 V_PATCH = $(V_PATCH_$(DEFAULT_VERBOSITY))
@@ -123,6 +130,25 @@ define PATCH_template
 $(eval $(foreach file,$(1),$(call PATCH_template_file,$(file),$(2)/$(3)$(file:$(4)%=%))))
 endef
 
+HUNSPELL_DICT_VERSION = 2014.08.11
+HUNSPELL_DICT_ZIP = openoffice.org/3/user/wordbook/hunspell-en_US-$(HUNSPELL_DICT_VERSION).zip
+
+$(HUNSPELL_DICT_ZIP):
+	$(V_CURL)$(CURL) -Ls http://downloads.sourceforge.net/wordlist/$(@F) > $@
+
+openoffice.org/3/user/wordbook/en_US.aff: $(HUNSPELL_DICT_ZIP)
+	$(V_GEN)$(UNZIP) -qod $(@D) $< $(@F)
+	$(V_at)$(ICONV) -f iso-8859-1 -t utf-8 $@ > $@.tmp
+	$(V_at)mv $@.tmp $@
+	$(V_at)$(PATCH) -sp0 $@ < $@.patch
+
+openoffice.org/3/user/wordbook/en_US.dic: $(HUNSPELL_DICT_ZIP)
+	$(V_GEN)$(UNZIP) -qod $(@D) $< $(@F)
+	$(V_at)$(ICONV) -f iso-8859-1 -t utf-8 $@ > $@.tmp
+	$(V_at)mv $@.tmp $@
+	$(V_at)sed -e "s/'/’/g" $@ > $@.tmp
+	$(V_at)mv $@.tmp $@
+
 DOTFILES = \
 	editrc \
 	gemrc \
@@ -131,6 +157,8 @@ DOTFILES = \
 	indent.pro \
 	inputrc \
 	mailcap \
+	openoffice.org/3/user/wordbook/en_US.aff \
+	openoffice.org/3/user/wordbook/en_US.dic \
 	zshenv
 
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
