@@ -170,6 +170,7 @@ $(HUNSPELL_SV_DICT_ZIP):
 
 openoffice.org/3/user/wordbook/sv.aff: $(HUNSPELL_SV_DICT_ZIP)
 	$(V_GEN)$(UNZIP) -qojd $(@D) $< dictionaries/$(@F)
+	$(V_at)touch $@
 
 openoffice.org/3/user/wordbook/sv.dic: $(HUNSPELL_SV_DICT_ZIP)
 	$(V_GEN)$(UNZIP) -qojd $(@D) $< dictionaries/$(@F)
