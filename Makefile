@@ -131,18 +131,32 @@ $(eval $(foreach file,$(1),$(call PATCH_template_file,$(file),$(2)/$(3)$(file:$(
 endef
 
 HUNSPELL_DICT_VERSION = 2014.08.11
-HUNSPELL_DICT_ZIP = openoffice.org/3/user/wordbook/hunspell-en_US-$(HUNSPELL_DICT_VERSION).zip
+HUNSPELL_EN_GB_DICT_ZIP = openoffice.org/3/user/wordbook/hunspell-en_GB-ise-$(HUNSPELL_DICT_VERSION).zip
+HUNSPELL_EN_US_DICT_ZIP = openoffice.org/3/user/wordbook/hunspell-en_US-$(HUNSPELL_DICT_VERSION).zip
 
-$(HUNSPELL_DICT_ZIP):
+$(HUNSPELL_EN_GB_DICT_ZIP) $(HUNSPELL_EN_US_DICT_ZIP):
 	$(V_CURL)$(CURL) -Ls http://downloads.sourceforge.net/wordlist/$(@F) > $@
 
-openoffice.org/3/user/wordbook/en_US.aff: $(HUNSPELL_DICT_ZIP)
+openoffice.org/3/user/wordbook/en_GB-ise.aff: $(HUNSPELL_EN_GB_DICT_ZIP)
 	$(V_GEN)$(UNZIP) -qod $(@D) $< $(@F)
 	$(V_at)$(ICONV) -f iso-8859-1 -t utf-8 $@ > $@.tmp
 	$(V_at)mv $@.tmp $@
 	$(V_at)$(PATCH) -sp0 $@ < $@.patch
 
-openoffice.org/3/user/wordbook/en_US.dic: $(HUNSPELL_DICT_ZIP)
+openoffice.org/3/user/wordbook/en_GB-ise.dic: $(HUNSPELL_EN_GB_DICT_ZIP)
+	$(V_GEN)$(UNZIP) -qod $(@D) $< $(@F)
+	$(V_at)$(ICONV) -f iso-8859-1 -t utf-8 $@ > $@.tmp
+	$(V_at)mv $@.tmp $@
+	$(V_at)sed -e "s/'/’/g" $@ > $@.tmp
+	$(V_at)mv $@.tmp $@
+
+openoffice.org/3/user/wordbook/en_US.aff: $(HUNSPELL_EN_US_DICT_ZIP)
+	$(V_GEN)$(UNZIP) -qod $(@D) $< $(@F)
+	$(V_at)$(ICONV) -f iso-8859-1 -t utf-8 $@ > $@.tmp
+	$(V_at)mv $@.tmp $@
+	$(V_at)$(PATCH) -sp0 $@ < $@.patch
+
+openoffice.org/3/user/wordbook/en_US.dic: $(HUNSPELL_EN_US_DICT_ZIP)
 	$(V_GEN)$(UNZIP) -qod $(@D) $< $(@F)
 	$(V_at)$(ICONV) -f iso-8859-1 -t utf-8 $@ > $@.tmp
 	$(V_at)mv $@.tmp $@
@@ -157,6 +171,8 @@ DOTFILES = \
 	indent.pro \
 	inputrc \
 	mailcap \
+	openoffice.org/3/user/wordbook/en_GB-ise.aff \
+	openoffice.org/3/user/wordbook/en_GB-ise.dic \
 	openoffice.org/3/user/wordbook/en_US.aff \
 	openoffice.org/3/user/wordbook/en_US.dic \
 	zshenv
