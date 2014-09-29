@@ -29,6 +29,7 @@
                    holidays
                    ido
                    ispell
+                   lisp-mode
                    magit
                    make-mode
                    man

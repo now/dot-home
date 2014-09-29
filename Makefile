@@ -280,6 +280,7 @@ DOTFILES = \
 	emacs/delayed-inits/holidays.el \
 	emacs/delayed-inits/ido.el \
 	emacs/delayed-inits/ispell.el \
+	emacs/delayed-inits/lisp-mode.el \
 	emacs/delayed-inits/magit.el \
 	emacs/delayed-inits/make-mode.el \
 	emacs/delayed-inits/man.el \
