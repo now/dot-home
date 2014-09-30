@@ -1,10 +1,10 @@
 ﻿#NoEnv
 #SingleInstance force
+#MaxHotkeysPerInterval 180
 
+Process, Priority, , H
+SendMode Input
 SetTitleMatchMode Regex
-
-CTRL_M := Chr(10)
-CTRL_K := Chr(11)
 
 WM_COMMAND := 0x111
 
@@ -29,6 +29,12 @@ TagEditorCloseAll()
     TagEditor.Documents.Item(Count - (A_Index - 1) - 1).Close()
   }
 }
+
+ScrollTimeout := 1500
+ScrollBoost := 20
+ScrollLimit := 60
+scrollDistance := 0
+scrollVMax := 1
 
 #IfWinActive ^Nirvana \d+\.\d+\.\d+ - \\\\Remote$ ahk_class Transparent Windows Client
 !n::SendInput {F2}+{F10}a
@@ -151,3 +157,29 @@ if (digraph = "") {
 }
 SendInput %digraph%
 return
+
+WheelUp::Goto Scroll
+WheelDown::Goto Scroll
+WheelLeft::Goto Scroll
+WheelRight::Goto Scroll
+
+Scroll:
+  t := A_TimeSincePriorHotkey
+  if (A_PriorHotkey = A_ThisHotkey && t < ScrollTimeout) {
+    scrollDistance++
+    v := (t < 80 && t > 1) ? (250.0 / t) - 1 : 1
+    if (ScrollBoost > 1 && scrollDistance > ScrollBoost) {
+      if (v > scrollVMax)
+        scrollVMax := v
+      else
+        v := scrollVMax
+      v *= scrollDistance / ScrollBoost
+    }
+    v := (v > 1) ? ((v > ScrollLimit) ? ScrollLimit : Floor(v)) : 1
+    MouseClick, %A_ThisHotkey%, , , v
+  } else {
+    scrollDistance := 0
+    scrollVMax := 1
+    MouseClick %A_ThisHotkey%
+  }
+  return
