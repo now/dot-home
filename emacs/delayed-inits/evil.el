@@ -31,16 +31,14 @@
               (if bindings
                   (apply #'define-keys map bindings))))
   (define-keys evil-normal-state-map
+    (kbd "DEL") 'evil-scroll-page-up
     "K" 'man
     "q" 'delete-other-windows
     "Q" 'evil-record-macro
     "U" 'undo-tree-redo
-
     "\M-d" 'smex
-
     "g\C-g" 'ned-info-on-file
     "gw" nil
-
     ",u" 'undo-tree-visualize
     ",w" 'save-buffer)
   (define-keys evil-visual-state-map
@@ -51,7 +49,6 @@
     "," nil)
   (define-keys evil-motion-state-map
     " " 'evil-scroll-page-down
-    (kbd "DEL") 'evil-scroll-page-up
     "`" 'smex
     "~" 'smex-major-mode-commands
     "\C-d" 'suspend-frame
