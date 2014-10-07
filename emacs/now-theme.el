@@ -32,6 +32,7 @@
       (yellow "#ffbd00"))
   (custom-theme-set-faces
     'now
+    `(buffer-menu-buffer ((,class ,blank)))
     `(compilation-column-number ((,class (:inherit compilation-line-number))))
     `(compilation-line-number ((,class ,blank)))
     `(compilation-mode-line-exit ((,class (,@blank :inherit compilation-info))))
@@ -75,7 +76,7 @@
     `(ido-first-match ((,class (:weight unspecified :inherit isearch))))
     `(ido-only-match ((,class (:foreground unspecified :inherit success))))
     `(ido-subdir ((,class (:foreground unspecified :inherit dired-directory))))
-    `(ido-virtual ((,class ,blank)))
+    `(ido-virtual ((,class (@,blank :foreground "grey50"))))
     `(info-menu-header ((,class ,blank)))
     `(info-menu-star ((,class ,blank)))
     `(info-title-1 ((,class ,blank)))

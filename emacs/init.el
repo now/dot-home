@@ -11,7 +11,7 @@
 (add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
 (require 'userloaddefs)
 
-(dolist (feature '(bs
+(dolist (feature '(buff-menu
                    calc
                    calendar
                    cc-mode
@@ -101,7 +101,8 @@
 (setq-default show-trailing-whitespace t)
 (defun now-do-not-show-trailing-whitespace ()
   (setq show-trailing-whitespace nil))
-(dolist (hook '(Info-mode-hook
+(dolist (hook '(Buffer-menu-mode-hook
+                Info-mode-hook
                 calendar-mode-hook
                 compilation-mode-hook
                 diff-mode-hook
@@ -185,11 +186,6 @@
 (define-key esc-map "\C-s" 'isearch-forward)
 (define-key global-map "\C-r" 'isearch-backward-regexp)
 (define-key esc-map "\C-r" 'isearch-backward)
-
-(eval-when-compile
-  (defvar recentf-save-file))
-(setq recentf-save-file (concat user-emacs-directory "recentf"))
-(recentf-mode t)
 
 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of lisp code." t)
 (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)

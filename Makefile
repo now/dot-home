@@ -247,6 +247,7 @@ emacs/site-lisp/userloaddefs.el: Makefile
 $(call GROUP_template,emacs/site-lisp/userloaddefs.el,$(userconfdir),.emacs.d/,emacs/)
 
 DOTFILES = \
+	emacs/site-lisp/buff-menu-ext.el \
 	emacs/site-lisp/hide-mode-line.el \
 	emacs/site-lisp/ned-info-on-file.el \
 	emacs/site-lisp/now-org.el \
@@ -262,7 +263,7 @@ DOTFILES = \
 $(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)
 
 DOTFILES = \
-	emacs/delayed-inits/bs.el \
+	emacs/delayed-inits/buff-menu.el \
 	emacs/delayed-inits/calc.el \
 	emacs/delayed-inits/calendar.el \
 	emacs/delayed-inits/cc-mode.el \

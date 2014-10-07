@@ -54,7 +54,7 @@
     "\C-d" 'suspend-frame
     ",a" 'org-agenda
     ",b" 'ido-switch-buffer
-    ",B" 'bs-show
+    ",B" 'buffer-menu
     ",c" 'project-shell-command
     ",C" 'shell-command
     ",d" 'dired
