@@ -264,7 +264,8 @@
  ((eq system-type 'cygwin)
   (windows-path-activate))
  ((eq system-type 'darwin)
-  (setq insert-directory-program "gls")))
+  (setq insert-directory-program "gls")
+  (setq Info-additional-directory-list '("/opt/local/share/info"))))
 
 (cond
  ((eq window-system nil)
