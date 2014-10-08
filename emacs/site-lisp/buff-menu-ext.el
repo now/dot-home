@@ -17,10 +17,12 @@
               (cond ((null result)
                      (forward-line 1))
                     ((eq result 'kill)
-                     (setq tabulated-list-map-entries-count (+ 1 tabulated-list-map-entries-count))
+                     (setq tabulated-list-map-entries-count
+                           (+ 1 tabulated-list-map-entries-count))
                      (tabulated-list-delete-entry))
                     (t
-                     (setq tabulated-list-map-entries-count (+ 1 tabulated-list-map-entries-count))
+                     (setq tabulated-list-map-entries-count
+                           (+ 1 tabulated-list-map-entries-count))
                      (forward-line 1)))))))
       tabulated-list-map-entries-count)))
 
@@ -42,6 +44,11 @@
  		 (const :tag "48 hours (2 days)" 48)
  		 (const :tag "24 hours (1 day)" 24)
 		 (integer :tag "hours"))
+  :group 'Buffer-menu)
+
+(defcustom Buffer-menu-case-fold-search case-fold-search
+  "If non-nil, ignore case when searching."
+  :type 'boolean
   :group 'Buffer-menu)
 
 (defun Buffer-menu-map-entries (func)
@@ -205,6 +212,28 @@ OLD and NEW are both characters used to mark buffers."
   "Unmark all buffers."
   (interactive)
   (Buffer-menu-map-entries (lambda (_b _e) (tabulated-list-set-col 0 " " t))))
+
+;;;###autoload
+(defun Buffer-menu-do-query-replace-regexp (from to &optional delimited)
+  "Do `query-replace-regexp' of FROM with TO in all marked buffers.
+If DELIMITED (prefix arg), replace only word-delimited matches."
+  (interactive (query-replace-read-args
+                (concat "Query replace"
+                        (if current-prefix-arg " word" "")
+                        " regexp in marked buffers")
+                t t))
+  (let ((buffers (Buffer-menu-marked-buffers)))
+    (dolist (b buffers)
+      (with-current-buffer b
+        (barf-if-buffer-read-only)))
+    (save-window-excursion
+      (dolist (b buffers)
+        (switch-to-buffer b)
+        (save-excursion
+          (let ((case-fold-search Buffer-menu-case-fold-search))
+            (goto-char (point-min))
+            (perform-replace from to t t delimited nil
+                             multi-query-replace-map)))))))
 
 ;; TODO Is there no (uniq)?
 (defun Buffer-menu-buffer-modes ()

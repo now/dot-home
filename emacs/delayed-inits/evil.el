@@ -91,4 +91,3 @@
 (define-key evil-motion-state-map "L" nil)
 (define-key evil-normal-state-map "L" 'evil-change-whole-line)
 (define-key evil-motion-state-map "S" 'evil-window-bottom)
-
