@@ -1,2 +1,2 @@
 (setq dired-dwim-target t
-      dired-listing-switches "-al --si")
+      dired-listing-switches "--si -al")
