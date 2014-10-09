@@ -41,9 +41,9 @@
 (defcustom Buffer-menu-old-time 72
   "The number of hours before a buffer is considered \"old\"."
   :type '(choice (const :tag "72 hours (3 days)" 72)
- 		 (const :tag "48 hours (2 days)" 48)
- 		 (const :tag "24 hours (1 day)" 24)
-		 (integer :tag "hours"))
+                 (const :tag "48 hours (2 days)" 48)
+                 (const :tag "24 hours (1 day)" 24)
+                 (integer :tag "hours"))
   :group 'Buffer-menu)
 
 (defcustom Buffer-menu-case-fold-search case-fold-search
@@ -96,8 +96,8 @@
                          (boundp 'dired-directory)
                          (stringp dired-directory)
                          dired-directory)))))
-	 (when n
-	   (string-match regexp n))))))
+         (when n
+           (string-match regexp n))))))
 
 ;;;###autoload
 (defun Buffer-menu-mark-by-mode (mode)
@@ -196,9 +196,9 @@
 OLD and NEW are both characters used to mark buffers."
   (interactive
    (let* ((cursor-in-echo-area t)
-	  (old (progn (message "Change (old mark): ") (read-char)))
-	  (new (progn (message  "Change %c marks to (new mark): " old)
-		      (read-char))))
+          (old (progn (message "Change (old mark): ") (read-char)))
+          (new (progn (message  "Change %c marks to (new mark): " old)
+                      (read-char))))
      (list old new)))
   (if (or (eq old ?\r) (eq new ?\r))
       (ding)
