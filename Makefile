@@ -97,24 +97,6 @@ define FILE_template
 $(eval $(call GROUP_template_file,$(1),$(2),$(3)))
 endef
 
-# file, target, require, userloaddefs
-define EMACS_template_file
-ifneq ($4,)
-emacs.d/site-lisp/userloaddefs.el: $(1)
-endif
-
-$(1:.el=.elc): $(1)
-	$$(V_ELC)$$(EMACS) --batch -Q -L emacs.d/site-lisp -l emacs.d/site-lisp/userloaddefs.el -l emacs.d/inits/package.el $(if $(3),--eval "(require '$(basename $(notdir $1)))" )-f batch-byte-compile $$<
-
-$(call GROUP_template_install_file,$(1:.el=.elc),$(2:.el=.elc))
-
-endef
-
-# files, parent-directory, prefix, prefix-to-strip, require, userloaddefs
-define EMACS_template
-$(eval $(foreach file,$(1),$(call EMACS_template_file,$(file),$(2)/$(3)$(file:$(4)%=%),$(5),$(6))))
-endef
-
 # patch, target
 define PATCH_template_file
 .PHONY: $(2:.patch=)
@@ -129,6 +111,11 @@ endef
 define PATCH_template
 $(eval $(foreach file,$(1),$(call PATCH_template_file,$(file),$(2)/$(3)$(file:$(4)%=%))))
 endef
+
+%.elc: %.el
+	$(V_ELC)$(EMACS) --batch -Q -L emacs.d/site-lisp \
+	  -l emacs.d/site-lisp/userloaddefs.el -l emacs.d/inits/package.el \
+	  -f batch-byte-compile $<
 
 HUNSPELL_DICT_VERSION = 2014.08.11
 HUNSPELL_EN_GB_DICT_ZIP = openoffice.org/3/user/wordbook/hunspell-en_GB-ise-$(HUNSPELL_DICT_VERSION).zip
@@ -177,12 +164,77 @@ openoffice.org/3/user/wordbook/sv.dic: $(HUNSPELL_SV_DICT_ZIP)
 	$(V_at)sed -e "s/'/’/g" $@ > $@.tmp
 	$(V_at)mv $@.tmp $@
 
+emacs_delayedinits_elcs = \
+	emacs.d/delayed-inits/calc.elc \
+	emacs.d/delayed-inits/calendar.elc \
+	emacs.d/delayed-inits/cc-mode.elc \
+	emacs.d/delayed-inits/compile.elc \
+	emacs.d/delayed-inits/css-mode.elc \
+	emacs.d/delayed-inits/desktop.elc \
+	emacs.d/delayed-inits/diff-mode.elc \
+	emacs.d/delayed-inits/diff.elc \
+	emacs.d/delayed-inits/dired.elc \
+	emacs.d/delayed-inits/dired-aux.elc \
+	emacs.d/delayed-inits/evil.elc \
+	emacs.d/delayed-inits/flx-ido.elc \
+	emacs.d/delayed-inits/grep.elc \
+	emacs.d/delayed-inits/hideshow.elc \
+	emacs.d/delayed-inits/holidays.elc \
+	emacs.d/delayed-inits/ido.elc \
+	emacs.d/delayed-inits/ispell.elc \
+	emacs.d/delayed-inits/lisp-mode.elc \
+	emacs.d/delayed-inits/magit.elc \
+	emacs.d/delayed-inits/make-mode.elc \
+	emacs.d/delayed-inits/man.elc \
+	emacs.d/delayed-inits/nxml-mode.elc \
+	emacs.d/delayed-inits/org-agenda.elc \
+	emacs.d/delayed-inits/org-capture.elc \
+	emacs.d/delayed-inits/org-clock.elc \
+	emacs.d/delayed-inits/org-colview.elc \
+	emacs.d/delayed-inits/org-id.elc \
+	emacs.d/delayed-inits/org-mobile.elc \
+	emacs.d/delayed-inits/org.elc \
+	emacs.d/delayed-inits/paredit.elc \
+	emacs.d/delayed-inits/recentf.elc \
+	emacs.d/delayed-inits/rng-loc.elc \
+	emacs.d/delayed-inits/ruby-mode.elc \
+	emacs.d/delayed-inits/sh-script.elc \
+	emacs.d/delayed-inits/solar.elc \
+	emacs.d/delayed-inits/tabulated-list.elc \
+	emacs.d/inits/package.elc
+
+emacs_sitelisp_elcs = \
+	emacs.d/site-lisp/buff-menu-ext.elc \
+	emacs.d/site-lisp/hide-mode-line.elc \
+	emacs.d/site-lisp/ned-info-on-file.elc \
+	emacs.d/site-lisp/now-org.elc \
+	emacs.d/site-lisp/project.elc \
+	emacs.d/site-lisp/rnc-mode.elc
+
+emacs_unprovided_elcs = \
+	emacs.d/delayed-inits/buff-menu.elc
+
+$(emacs_delayedinits_elc): %.elc: %.el
+	$$(V_ELC)$$(EMACS) --batch -Q -L emacs.d/site-lisp \
+	  -l emacs.d/site-lisp/userloaddefs.el -l emacs.d/inits/package.el \
+	  --eval "(require '$(basename $(notdir $@)))" -f batch-byte-compile $$<
+
+$(emacs_unprovided_elcs): %.elc: %.el
+	$(V_ELC)$(EMACS) --batch -Q -L emacs.d/site-lisp \
+	  -l emacs.d/site-lisp/userloaddefs.el -l emacs.d/inits/package.el \
+	  --eval '(load "$(basename $(notdir $@))" nil t)' -f batch-byte-compile $<
+
 DOTFILES = \
 	editrc \
 	emacs.d/etc/schema/catalog.rnc \
 	emacs.d/etc/schema/gtk-builder.rnc \
 	emacs.d/etc/schema/PropertyList-1.0.rnc \
 	emacs.d/etc/schema/schemas.xml \
+	emacs.d/init.elc \
+	emacs.d/now-theme.elc \
+	$(emacs_delayedinits_elcs) \
+	$(emacs_sitelisp_elcs) \
+	$(emacs_unprovided_elcs) \
 	gemrc \
 	gtkrc-2.0 \
 	hunspell_en_US \
@@ -234,78 +286,13 @@ $(call GROUP_template,$(DOTFILES),$(XDG_CONFIG_HOME))
 
 install: emacs.d/site-lisp/userloaddefs.el
 
-emacs.d/site-lisp/userloaddefs.el: Makefile
+emacs.d/site-lisp/userloaddefs.el: Makefile $(emacs_sitelisp_elcs)
 	$(V_ELC)$(EMACS) --batch -Q --eval '(setq vc-handled-backends nil)' \
 	  --eval '(setq generated-autoload-file "$(abspath $@)")' \
 	  -f batch-update-autoloads emacs.d/site-lisp
 	$(V_at)touch $@
 
 $(call GROUP_template,emacs.d/site-lisp/userloaddefs.el,$(userconfdir),.)
-
-DOTFILES = \
-	emacs.d/site-lisp/buff-menu-ext.el \
-	emacs.d/site-lisp/hide-mode-line.el \
-	emacs.d/site-lisp/ned-info-on-file.el \
-	emacs.d/site-lisp/now-org.el \
-	emacs.d/site-lisp/project.el \
-	emacs.d/site-lisp/rnc-mode.el
-
-$(call EMACS_template,$(DOTFILES),$(userconfdir),.,,,userloaddefs)
-
-DOTFILES = \
-	emacs.d/init.el \
-	emacs.d/now-theme.el
-
-$(call EMACS_template,$(DOTFILES),$(userconfdir),.)
-
-# NOTE buff-menu.el doesn’t provide buff-menu, so we need to use load instead.
-emacs.d/delayed-inits/buff-menu.elc: emacs.d/delayed-inits/buff-menu.el
-	$(V_ELC)$(EMACS) --batch -Q -L emacs.d/site-lisp \
-	  -l emacs.d/site-lisp/userloaddefs.el -l emacs.d/inits/package.el \
-	  --eval '(load "buff-menu" nil t)' -f batch-byte-compile $<
-
-$(eval $(call GROUP_template_install_file,emacs.d/delayed-inits/buff-menu.elc,$(userconfdir)/.emacs.d/delayed-inits/buff-menu.elc))
-
-DOTFILES = \
-	emacs.d/delayed-inits/calc.el \
-	emacs.d/delayed-inits/calendar.el \
-	emacs.d/delayed-inits/cc-mode.el \
-	emacs.d/delayed-inits/compile.el \
-	emacs.d/delayed-inits/css-mode.el \
-	emacs.d/delayed-inits/desktop.el \
-	emacs.d/delayed-inits/diff-mode.el \
-	emacs.d/delayed-inits/diff.el \
-	emacs.d/delayed-inits/dired.el \
-	emacs.d/delayed-inits/dired-aux.el \
-	emacs.d/delayed-inits/evil.el \
-	emacs.d/delayed-inits/flx-ido.el \
-	emacs.d/delayed-inits/grep.el \
-	emacs.d/delayed-inits/hideshow.el \
-	emacs.d/delayed-inits/holidays.el \
-	emacs.d/delayed-inits/ido.el \
-	emacs.d/delayed-inits/ispell.el \
-	emacs.d/delayed-inits/lisp-mode.el \
-	emacs.d/delayed-inits/magit.el \
-	emacs.d/delayed-inits/make-mode.el \
-	emacs.d/delayed-inits/man.el \
-	emacs.d/delayed-inits/nxml-mode.el \
-	emacs.d/delayed-inits/org-agenda.el \
-	emacs.d/delayed-inits/org-capture.el \
-	emacs.d/delayed-inits/org-clock.el \
-	emacs.d/delayed-inits/org-colview.el \
-	emacs.d/delayed-inits/org-id.el \
-	emacs.d/delayed-inits/org-mobile.el \
-	emacs.d/delayed-inits/org.el \
-	emacs.d/delayed-inits/paredit.el \
-	emacs.d/delayed-inits/recentf.el \
-	emacs.d/delayed-inits/rng-loc.el \
-	emacs.d/delayed-inits/ruby-mode.el \
-	emacs.d/delayed-inits/sh-script.el \
-	emacs.d/delayed-inits/solar.el \
-	emacs.d/delayed-inits/tabulated-list.el \
-	emacs.d/inits/package.el
-
-$(call EMACS_template,$(DOTFILES),$(userconfdir),.,,require)
 
 DOTFILES = \
 	zsh/zlogin \
