@@ -262,8 +262,15 @@ DOTFILES = \
 
 $(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/)
 
+; NOTE buff-menu.el doesn’t provide buff-menu, so we need to use load instead.
+emacs/delayed-inits/buff-menu.elc: emacs/delayed-inits/buff-menu.el
+	$(V_ELC)$(EMACS) --batch -Q -L emacs/site-lisp \
+	  -l emacs/site-lisp/userloaddefs.el -l emacs/inits/package.el \
+	  --eval '(load "buff-menu" nil t)' -f batch-byte-compile $<
+
+$(eval $(call GROUP_template_install_file,emacs/delayed-inits/buff-menu.elc,$(userconfdir)/.emacs.d/delayed-inits/buff-menu.elc))
+
 DOTFILES = \
-	emacs/delayed-inits/buff-menu.el \
 	emacs/delayed-inits/calc.el \
 	emacs/delayed-inits/calendar.el \
 	emacs/delayed-inits/cc-mode.el \

@@ -204,7 +204,7 @@ OLD and NEW are both characters used to mark buffers."
       (ding)
     (Buffer-menu-map-entries
      (lambda (_b e)
-       (when (string-equal (aref entry 0) (char-to-string old))
+       (when (string-equal (aref e 0) (char-to-string old))
          (tabulated-list-set-col 0 (char-to-string new) t))))))
 
 ;;;###autoload

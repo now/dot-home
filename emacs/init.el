@@ -11,7 +11,7 @@
 (add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
 (require 'userloaddefs)
 
-(dolist (feature '(buff-menu
+(dolist (feature '("buff-menu"
                    calc
                    calendar
                    cc-mode
