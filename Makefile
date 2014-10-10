@@ -249,6 +249,10 @@ DOTFILES = \
 	openoffice.org/3/user/wordbook/sv.dic \
 	zshenv
 
+# install: $(addprefix,$(userconfdir)/.,$(DOTFILES))
+
+# $(addprefix,$(userconfdir)/.,$(DOTFILES)): $(userconfdir)/.%: %
+# 	…
 $(call GROUP_template,$(DOTFILES),$(userconfdir),.)
 
 DOTFILES = \
@@ -362,19 +366,12 @@ $(call GROUP_template,$(BINFILES),$(bindir),,bin/,755)
 include os/os.mk
 include host/host.mk
 
-$(bin_substitutables): Makefile
+$(bin_substitutables): %: %.in Makefile
 	$(V_GEN)rm -f $@ $@.tmp
 	$(V_at)$(edit) $@.in > $@.tmp
 	$(V_at)chmod +x $@.tmp
 	$(V_at)chmod a-w $@.tmp
 	$(V_at)mv $@.tmp $@
-
-define bin_substitutables_file
-$(1): $(1).in
-
-endef
-
-$(eval $(foreach file,$(bin_substitutables),$(call bin_substitutables_file,$(file))))
 
 ifdef INCLUDE_VIM
 DOTFILES = \
