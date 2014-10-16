@@ -63,6 +63,7 @@
        ",i" 'org-clock-in
        ",o" 'org-clock-out
        ",P" 'org-set-property
+       ",T" 'org-set-effort
        ",t" 'org-todo)))
 
 (defun now-org-insert-heading-inactive-timestamp ()
