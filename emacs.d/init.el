@@ -162,7 +162,8 @@
 (setq-default fill-column 79)
 (auto-fill-mode 1)
 
-(setq vc-handled-backends nil)
+(setq vc-handled-backends '(Git))
+(defun vc-git-mode-line-string (file) "")
 
 (setq history-length 512)
 
