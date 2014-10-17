@@ -1,6 +1,6 @@
 # Shell and Terminal Settings
 
-HISTFILE=${XDG_CONFIG_HOME:-~/.cache}/zsh/history
+HISTFILE=${XDG_CACHE_HOME:-~/.cache}/zsh/history
 SAVEHIST=${HISTSIZE::=1024}
 REPORTTIME=300
 
@@ -29,7 +29,7 @@ add-zsh-hook zsh_directory_name dynamic-directory-names
 zstyle ':dircolors:*' cache-policy dircolors-cache-policy
 {
   dircolors-cache-policy () {
-    [[ ~/.config/dircolors -nt $1 ]]
+    [[ ${XDG_CONFIG_HOME:-~/.config}/dircolors -nt $1 ]]
   }
   autoload -U cache/retrieve
   cache/retrieve ':dircolors:*' dircolors-$TERM
@@ -37,7 +37,7 @@ zstyle ':dircolors:*' cache-policy dircolors-cache-policy
   unfunction dircolors-cache-policy >&/dev/null
 }
 if [[ -z $LS_COLORS ]]; then
-  eval $(${commands[gdircolors]:-dircolors} ~/.config/dircolors 2>/dev/null)
+  eval $(${commands[gdircolors]:-dircolors} ${XDG_CONFIG_HOME:-~/.config}/dircolors 2>/dev/null)
   autoload -U cache/store
   cache/store ':dircolors:*' dircolors-$TERM LS_COLORS
 else
