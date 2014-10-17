@@ -214,7 +214,7 @@ emacs_sitelisp_elcs = \
 emacs_unprovided_elcs = \
 	emacs.d/delayed-inits/buff-menu.elc
 
-$(emacs_delayedinits_elc): %.elc: %.el
+$(emacs_delayedinits_elcs): %.elc: %.el
 	$(V_ELC)$(EMACS) --batch -Q -L emacs.d/site-lisp \
 	  -l emacs.d/site-lisp/userloaddefs.el -l emacs.d/inits/package.el \
 	  --eval "(require '$(basename $(notdir $@)))" -f batch-byte-compile $<
