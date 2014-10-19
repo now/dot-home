@@ -241,10 +241,6 @@ $(emacs_delayedinits_elcs): ELCFLAGS = --eval "(require '$(basename $(notdir $@)
 $(emacs_unprovided_elcs): ELCFLAGS = --eval '(load "$(basename $(notdir $@))" nil t)'
 
 userconf_DATA = \
-	emacs.d/etc/schema/catalog.rnc \
-	emacs.d/etc/schema/gtk-builder.rnc \
-	emacs.d/etc/schema/PropertyList-1.0.rnc \
-	emacs.d/etc/schema/schemas.xml \
 	$(emacs_delayedinits_elcs) \
 	$(emacs_sitelisp_elcs) \
 	$(emacs_unprovided_elcs) \
@@ -272,8 +268,16 @@ userconfemacsd_DATA = \
 	emacs.d/init.elc \
 	emacs.d/now-theme.elc
 
+userconfemacsdetcschemadir = $(userconfemacsddir)/etc/schema
+userconfemacsdetcschema_DATA = \
+	emacs.d/etc/schema/catalog.rnc \
+	emacs.d/etc/schema/gtk-builder.rnc \
+	emacs.d/etc/schema/PropertyList-1.0.rnc \
+	emacs.d/etc/schema/schemas.xml
+
 $(call DIR,userconf,.)
 $(call DIR,userconfemacsd)
+$(call DIR,userconfemacsdetcschema)
 
 xdgconfighome_DATA = \
 	dircolors \
