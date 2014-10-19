@@ -224,7 +224,7 @@ $(emacs_unprovided_elcs): %.elc: %.el
 	  -l emacs.d/site-lisp/userloaddefs.el -l emacs.d/inits/package.el \
 	  --eval '(load "$(basename $(notdir $@))" nil t)' -f batch-byte-compile $<
 
-DOTFILES = \
+userconf_DATA = \
 	editrc \
 	emacs.d/etc/schema/catalog.rnc \
 	emacs.d/etc/schema/gtk-builder.rnc \
@@ -249,13 +249,21 @@ DOTFILES = \
 	openoffice.org/3/user/wordbook/sv.dic \
 	zshenv
 
+# TODO I think we might want to use Automake’s directory handling.  $(call
+# DIR,userconf) will check for variables userconf_DATA and so on and install
+# them.  To deal with os/* stuff we’ll not respect the directory structure in
+# the repository.
+
+# TODO Instead of supporting Zsh’s special need for .zprofile and such, we
+# could create links from the dotless to the dotted.
+
 # install: $(addprefix,$(userconfdir)/.,$(DOTFILES))
 
 # $(addprefix,$(userconfdir)/.,$(DOTFILES)): $(userconfdir)/.%: %
 # 	…
-$(call GROUP_template,$(DOTFILES),$(userconfdir),.)
+$(call GROUP_template,$(userconf_DATA),$(userconfdir),.)
 
-DOTFILES = \
+xdgconfighome_DATA = \
 	dircolors \
 	fontconfig/fonts.conf \
 	git/config \
@@ -286,7 +294,7 @@ DOTFILES = \
 	zsh/functions/zle/vi-cmd-mode-silently \
 	zsh/functions/zle/yank-clipboard
 
-$(call GROUP_template,$(DOTFILES),$(XDG_CONFIG_HOME))
+$(call GROUP_template,$(xdgconfighome_DATA),$(XDG_CONFIG_HOME))
 
 install: emacs.d/site-lisp/userloaddefs.el
 
@@ -298,25 +306,25 @@ emacs.d/site-lisp/userloaddefs.el: Makefile $(emacs_sitelisp_elcs)
 
 $(call GROUP_template,emacs.d/site-lisp/userloaddefs.el,$(userconfdir),.)
 
-DOTFILES = \
+xdgconfighomezsh_DATA = \
 	zsh/zlogin \
 	zsh/zprofile \
 	zsh/zshrc
 
-$(call GROUP_template,$(DOTFILES),$(XDG_CONFIG_HOME)/zsh,.,zsh/)
+$(call GROUP_template,$(xdgconfighomezsh_DATA),$(XDG_CONFIG_HOME)/zsh,.,zsh/)
 
-DOTFILES = \
+audacityuserconf_DATA = \
 	audacity.cfg
 
-$(call GROUP_template,$(DOTFILES),$(audacityuserconfdir))
+$(call GROUP_template,$(audacityuserconf_DATA),$(audacityuserconfdir))
 
-DOTFILES = \
+vlcuserconf_DATA = \
 	vlc/vlcrc
 
-$(call GROUP_template,$(DOTFILES),$(vlcuserconfdir),,vlc/)
+$(call GROUP_template,$(vlcuserconf_DATA),$(vlcuserconfdir),,vlc/)
 
 ifneq ($(firefoxuserconfdir),)
-DOTFILES = \
+firefoxuserconf_DATA = \
 	firefox/mimeTypes.rdf \
 	firefox/searchplugins/adlibris.xml \
 	firefox/searchplugins/discogs.xml \
@@ -332,14 +340,14 @@ DOTFILES = \
 	firefox/searchplugins/youtube.xml \
 	firefox/user.js
 
-$(call GROUP_template,$(DOTFILES),$(firefoxuserconfdir),,firefox/)
+$(call GROUP_template,$(firefoxuserconf_DATA),$(firefoxuserconfdir),,firefox/)
 endif
 
 edit = sed \
        -e 's|@SHELL[@]|$(SHELL)|g' \
        -e 's|@ZSHELL[@]|$(ZSHELL)|g'
 
-BINFILES = \
+bin_SCRIPTS = \
 	bin/asciitable \
 	bin/burn \
 	bin/clipboard \
@@ -359,9 +367,9 @@ BINFILES = \
 	bin/unpack \
 	bin/valgrind-ruby
 
-bin_substitutables := $(BINFILES)
+bin_substitutables := $(bin_SCRIPTS)
 
-$(call GROUP_template,$(BINFILES),$(bindir),,bin/,755)
+$(call GROUP_template,$(bin_SCRIPTS),$(bindir),,bin/,755)
 
 include os/os.mk
 include host/host.mk
@@ -374,7 +382,7 @@ $(bin_substitutables): %: %.in Makefile
 	$(V_at)mv $@.tmp $@
 
 ifdef INCLUDE_VIM
-DOTFILES = \
+userconf_DATA = \
 	vim/after/ftplugin/sh.vim \
 	vim/after/ftplugin/vim.vim \
 	vim/after/ftplugin/zsh.vim \
@@ -383,7 +391,7 @@ DOTFILES = \
 	vim/ftplugin/man.vim \
 	vimrc
 
-$(call GROUP_template,$(DOTFILES),$(userconfdir),.)
+$(call GROUP_template,$(userconf_DATA),$(userconfdir),.)
 endif
 
 DEPENDENCIES = \

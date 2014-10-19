@@ -1,23 +1,21 @@
 firefoxprofilesdir=$(appdatadir)/Mozilla/Firefox
 
-DOTFILES = \
+firefoxprofiles_DATA = \
 	os/Cygwin/firefox/profiles.ini
 
-$(call GROUP_template,$(DOTFILES),$(firefoxprofilesdir),,os/Cygwin/firefox/)
+$(call GROUP_template,$(firefoxprofiles_DATA),$(firefoxprofilesdir),,os/Cygwin/firefox/)
 
-DOTFILES = \
+emacs_sitelisp_elcs += \
 	emacs/site-lisp/windows-path.el
 
-$(call EMACS_template,$(DOTFILES),$(userconfdir),.emacs.d/,emacs/,,userloaddefs)
-
-DOTFILES = \
+userconf_DATA = \
 	os/Cygwin/autohotkey/digraphs.ahk \
 	os/Cygwin/hotkeys.ahk \
 	os/Cygwin/minttyrc
 
-$(call GROUP_template,$(DOTFILES),$(userconfdir),.,os/Cygwin/)
+$(call GROUP_template,$(userconf_DATA),$(userconfdir),.,os/Cygwin/)
 
-APPDATAFILES = \
+appdata_DATA = \
 	os/Cygwin/GHISLER/lsplugin.ini \
 	os/Cygwin/GHISLER/no.bar \
 	os/Cygwin/GHISLER/packers/rar/default.sfx \
@@ -31,7 +29,7 @@ APPDATAFILES = \
 	os/Cygwin/GHISLER/usercmd.ini \
 	os/Cygwin/GHISLER/work.ini
 
-APPDATABINFILES = \
+appdata_PROGRAMS = \
 	os/Cygwin/GHISLER/languages/wcmd_now.lng \
 	os/Cygwin/GHISLER/languages/wcmd_now.mnu \
 	os/Cygwin/GHISLER/packers/rar/rar.exe \
@@ -51,15 +49,15 @@ APPDATABINFILES = \
 	os/Cygwin/GHISLER/plugins/wlx/imagine/plugin/jbig.dll \
 	os/Cygwin/GHISLER/tools/work/open-in-tageditor-non-retardedly.vbs
 
-$(eval $(call GROUP_template,$(APPDATAFILES),$(appdatadir),,os/Cygwin/))
-$(eval $(call GROUP_template,$(APPDATABINFILES),$(appdatadir),,os/Cygwin/,755))
+$(eval $(call GROUP_template,$(appdata_DATA),$(appdatadir),,os/Cygwin/))
+$(eval $(call GROUP_template,$(appdata_PROGRAMS),$(appdatadir),,os/Cygwin/,755))
 
-APPDATAFILES = \
+appdata_DATA = \
 	os/Cygwin/dialog-death.ini
 
-$(eval $(call GROUP_template,$(APPDATAFILES),$(appdatadir)/Dialog\ Death,,os/Cygwin/))
+$(eval $(call GROUP_template,$(appdata_DATA),$(appdatadir)/Dialog\ Death,,os/Cygwin/))
 
-STARTUPFILES = \
+startup_PROGRAMS = \
 	os/Cygwin/start-up/clipx.lnk \
 	os/Cygwin/start-up/cygwin.lnk \
 	os/Cygwin/start-up/hotkeys.lnk \
@@ -67,13 +65,13 @@ STARTUPFILES = \
 
 startupdir = $(call shell_quote,$(shell cygpath -P))/Startup
 
-$(eval $(call GROUP_template,$(STARTUPFILES),$(startupdir),,os/Cygwin/start-up/,755))
+$(eval $(call GROUP_template,$(startup_PROGRAMS),$(startupdir),,os/Cygwin/start-up/,755))
 
-SHAREFILES = \
+share_DATA = \
 	os/Cygwin/share/icons/bak.ico \
 	os/Cygwin/share/icons/cmp.ico \
 	os/Cygwin/share/icons/tageditor-generic.ico \
 	os/Cygwin/share/icons/text-html.ico \
 	os/Cygwin/share/icons/text-x-generic.ico
 
-$(eval $(call GROUP_template,$(SHAREFILES),$(sharedir),,os/Cygwin/share/))
+$(eval $(call GROUP_template,$(share_DATA),$(sharedir),,os/Cygwin/share/))
