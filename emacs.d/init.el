@@ -48,7 +48,7 @@
                    sh-script
                    solar
                    tabulated-list))
-  (eval-after-load feature `(load (concat user-emacs-directory "delayed-inits/" ,(symbol-name feature)))))
+  (eval-after-load feature `(load (concat user-emacs-directory "delayed-inits/" ,(if (symbolp feature) (symbol-name feature) feature)))))
 
 (dolist (feature '(package))
   (load (concat user-emacs-directory "inits/" (symbol-name feature))))
