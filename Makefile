@@ -137,7 +137,7 @@ endef
 %.elc: %.el
 	$(V_ELC)$(EMACS) --batch -Q -L emacs.d/site-lisp \
 	  -l emacs.d/site-lisp/userloaddefs.el -l emacs.d/inits/package.el \
-	  -f batch-byte-compile $<
+	  $(ELCFLAGS) -f batch-byte-compile $<
 
 HUNSPELL_DICT_VERSION = 2014.08.11
 HUNSPELL_EN_GB_DICT_ZIP = openoffice.org/3/user/wordbook/hunspell-en_GB-ise-$(HUNSPELL_DICT_VERSION).zip
@@ -236,16 +236,9 @@ emacs_sitelisp_elcs = \
 emacs_unprovided_elcs = \
 	emacs.d/delayed-inits/buff-menu.elc
 
-# TODO Replace with $(emacs_delayedinits_elcs): ELCFLAGS = …
-$(emacs_delayedinits_elcs): %.elc: %.el
-	$(V_ELC)$(EMACS) --batch -Q -L emacs.d/site-lisp \
-	  -l emacs.d/site-lisp/userloaddefs.el -l emacs.d/inits/package.el \
-	  --eval "(require '$(basename $(notdir $@)))" -f batch-byte-compile $<
+$(emacs_delayedinits_elcs): ELCFLAGS = --eval "(require '$(basename $(notdir $@)))"
 
-$(emacs_unprovided_elcs): %.elc: %.el
-	$(V_ELC)$(EMACS) --batch -Q -L emacs.d/site-lisp \
-	  -l emacs.d/site-lisp/userloaddefs.el -l emacs.d/inits/package.el \
-	  --eval '(load "$(basename $(notdir $@))" nil t)' -f batch-byte-compile $<
+$(emacs_unprovided_elcs): ELCFLAGS = --eval '(load "$(basename $(notdir $@))" nil t)'
 
 userconf_DATA = \
 	editrc \
