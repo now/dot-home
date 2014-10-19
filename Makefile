@@ -241,7 +241,6 @@ $(emacs_delayedinits_elcs): ELCFLAGS = --eval "(require '$(basename $(notdir $@)
 $(emacs_unprovided_elcs): ELCFLAGS = --eval '(load "$(basename $(notdir $@))" nil t)'
 
 userconf_DATA = \
-	editrc \
 	emacs.d/etc/schema/catalog.rnc \
 	emacs.d/etc/schema/gtk-builder.rnc \
 	emacs.d/etc/schema/PropertyList-1.0.rnc \
@@ -251,21 +250,26 @@ userconf_DATA = \
 	$(emacs_delayedinits_elcs) \
 	$(emacs_sitelisp_elcs) \
 	$(emacs_unprovided_elcs) \
-	gemrc \
-	gtkrc-2.0 \
-	hunspell_en_US \
-	indent.pro \
-	inputrc \
-	mailcap \
 	openoffice.org/3/user/wordbook/en_GB-ise.aff \
 	openoffice.org/3/user/wordbook/en_GB-ise.dic \
 	openoffice.org/3/user/wordbook/en_US.aff \
 	openoffice.org/3/user/wordbook/en_US.dic \
 	openoffice.org/3/user/wordbook/sv.aff \
 	openoffice.org/3/user/wordbook/sv.dic \
-	zshenv
 
 $(call GROUP_template,$(userconf_DATA),$(userconfdir),.)
+
+userconf_DATA = \
+	editrc \
+	gemrc \
+	gtkrc-2.0 \
+	hunspell_en_US \
+	indent.pro \
+	inputrc \
+	mailcap \
+	zshenv
+
+$(call DIR,userconf,.)
 
 xdgconfighome_DATA = \
 	dircolors \
