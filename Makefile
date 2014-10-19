@@ -245,8 +245,6 @@ userconf_DATA = \
 	emacs.d/etc/schema/gtk-builder.rnc \
 	emacs.d/etc/schema/PropertyList-1.0.rnc \
 	emacs.d/etc/schema/schemas.xml \
-	emacs.d/init.elc \
-	emacs.d/now-theme.elc \
 	$(emacs_delayedinits_elcs) \
 	$(emacs_sitelisp_elcs) \
 	$(emacs_unprovided_elcs) \
@@ -269,7 +267,13 @@ userconf_DATA = \
 	mailcap \
 	zshenv
 
+userconfemacsddir = $(userconfdir)/.emacs.d
+userconfemacsd_DATA = \
+	emacs.d/init.elc \
+	emacs.d/now-theme.elc
+
 $(call DIR,userconf,.)
+$(call DIR,userconfemacsd)
 
 xdgconfighome_DATA = \
 	dircolors \
