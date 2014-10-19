@@ -112,6 +112,28 @@ define PATCH_template
 $(eval $(foreach file,$(1),$(call PATCH_template_file,$(file),$(2)/$(3)$(file:$(4)%=%))))
 endef
 
+INSTALLFLAGS = -D --preserve-timestamps
+INSTALL_DATA = $(INSTALL) $(INSTALLFLAGS) -m 0644
+INSTALL_PROGRAMS = $(INSTALL) $(INSTALLFLAGS)
+
+# file, target, primary
+define DIR_primary
+.PHONY diff: $(2).diff
+$(2).diff:
+	@$$(DIFF) -u $(2) $(1) || true
+
+install: $(2)
+
+$(2): $(1)
+	$$(V_INSTALL)$$(INSTALL_$(3)) $$< $$(call shell_quote,$$@)
+
+endef
+
+# dir, prefix?
+define DIR
+$(eval $(foreach primary,DATA,$(foreach file,$($(1)_$(primary)),$(call DIR_primary,$(file),$($(1)dir)/$(2)$(notdir $(file)),$(primary)))))
+endef
+
 %.elc: %.el
 	$(V_ELC)$(EMACS) --batch -Q -L emacs.d/site-lisp \
 	  -l emacs.d/site-lisp/userloaddefs.el -l emacs.d/inits/package.el \
@@ -214,6 +236,7 @@ emacs_sitelisp_elcs = \
 emacs_unprovided_elcs = \
 	emacs.d/delayed-inits/buff-menu.elc
 
+# TODO Replace with $(emacs_delayedinits_elcs): ELCFLAGS = …
 $(emacs_delayedinits_elcs): %.elc: %.el
 	$(V_ELC)$(EMACS) --batch -Q -L emacs.d/site-lisp \
 	  -l emacs.d/site-lisp/userloaddefs.el -l emacs.d/inits/package.el \
@@ -249,18 +272,6 @@ userconf_DATA = \
 	openoffice.org/3/user/wordbook/sv.dic \
 	zshenv
 
-# TODO I think we might want to use Automake’s directory handling.  $(call
-# DIR,userconf) will check for variables userconf_DATA and so on and install
-# them.  To deal with os/* stuff we’ll not respect the directory structure in
-# the repository.
-
-# TODO Instead of supporting Zsh’s special need for .zprofile and such, we
-# could create links from the dotless to the dotted.
-
-# install: $(addprefix,$(userconfdir)/.,$(DOTFILES))
-
-# $(addprefix,$(userconfdir)/.,$(DOTFILES)): $(userconfdir)/.%: %
-# 	…
 $(call GROUP_template,$(userconf_DATA),$(userconfdir),.)
 
 xdgconfighome_DATA = \
