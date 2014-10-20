@@ -243,13 +243,7 @@ $(emacs_unprovided_elcs): ELCFLAGS = --eval '(load "$(basename $(notdir $@))" ni
 userconf_DATA = \
 	$(emacs_delayedinits_elcs) \
 	$(emacs_sitelisp_elcs) \
-	$(emacs_unprovided_elcs) \
-	openoffice.org/3/user/wordbook/en_GB-ise.aff \
-	openoffice.org/3/user/wordbook/en_GB-ise.dic \
-	openoffice.org/3/user/wordbook/en_US.aff \
-	openoffice.org/3/user/wordbook/en_US.dic \
-	openoffice.org/3/user/wordbook/sv.aff \
-	openoffice.org/3/user/wordbook/sv.dic \
+	$(emacs_unprovided_elcs)
 
 $(call GROUP_template,$(userconf_DATA),$(userconfdir),.)
 
@@ -275,9 +269,19 @@ userconfemacsdetcschema_DATA = \
 	emacs.d/etc/schema/PropertyList-1.0.rnc \
 	emacs.d/etc/schema/schemas.xml
 
+userconfopenofficeorg3userwordbookdir = $(userconfdir)/.openoffice.org/3/user/wordbook
+userconfopenofficeorg3userwordbook_DATA = \
+	openoffice.org/3/user/wordbook/en_GB-ise.aff \
+	openoffice.org/3/user/wordbook/en_GB-ise.dic \
+	openoffice.org/3/user/wordbook/en_US.aff \
+	openoffice.org/3/user/wordbook/en_US.dic \
+	openoffice.org/3/user/wordbook/sv.aff \
+	openoffice.org/3/user/wordbook/sv.dic
+
 $(call DIR,userconf,.)
 $(call DIR,userconfemacsd)
 $(call DIR,userconfemacsdetcschema)
+$(call DIR,userconfopenofficeorg3userwordbook)
 
 xdgconfighome_DATA = \
 	dircolors \
