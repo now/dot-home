@@ -342,7 +342,7 @@ $(call GROUP_template,emacs.d/site-lisp/userloaddefs.el,$(userconfdir),.)
 audacityuserconf_DATA = \
 	audacity.cfg
 
-$(call GROUP_template,$(audacityuserconf_DATA),$(audacityuserconfdir))
+$(call DIR,audacityuserconf)
 
 vlcuserconf_DATA = \
 	vlc/vlcrc
