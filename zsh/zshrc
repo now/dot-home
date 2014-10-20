@@ -1,7 +1,7 @@
 # Shell and Terminal Settings
 
 HISTFILE=${XDG_CACHE_HOME:-~/.cache}/zsh/history
-SAVEHIST=${HISTSIZE::=1024}
+SAVEHIST=${HISTSIZE::=8192}
 REPORTTIME=300
 
 setopt completeinword nolistambiguous nolisttypes \
