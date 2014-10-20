@@ -297,13 +297,10 @@ xdgconfighome_DATA = \
 	zsh/functions/cache-store \
 	zsh/functions/zle/cd-to-alternate-directory \
 	zsh/functions/zle/foreground-or-list-choices \
-	zsh/functions/zle/history-beginning-search-menu \
 	zsh/functions/zle/self-insert-redir \
 	zsh/functions/zle/sudo-command-line \
 	zsh/functions/zle/up-directory \
 	zsh/functions/zle/urlify-current-argument \
-	zsh/functions/zle/util/select-match-from-menu \
-	zsh/functions/zle/util/select-match-from-menu-widget \
 	zsh/functions/zle/vi-cmd-mode-silently \
 	zsh/functions/zle/yank-clipboard
 

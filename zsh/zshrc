@@ -79,6 +79,11 @@ for command in $ZDOTDIR/functions/zle/*(e:'REPLY=${REPLY#$ZDOTDIR/functions/}':)
   zle -N $command
 done
 
+for command in history-beginning-search-menu insert-composed-char; do
+  autoload -U $command
+  zle -N $command
+done
+
 unset command
 
 zle -N backward-kill-to-space-or-/ backward-kill-word-match
@@ -87,9 +92,6 @@ zstyle ':zle:backward-kill-to-space-or-/' word-chars '*?_-.[]~=&;!#$%^(){}<>:@,\
 zle -N forward-parameter forward-word-match
 zle -N backward-parameter backward-word-match
 zstyle ':zle:(forward|backward)-parameter' word-style shell
-
-autoload -U insert-composed-char
-zle -N insert-composed-char
 
 bindkey -arp '^['
 bindkey -a \
@@ -117,7 +119,7 @@ bindkey \
   '^P' push-line-or-edit \
   '^U' zle/up-directory \
   '^W' backward-kill-to-space-or-/ \
-  '^X^L' zle/history-beginning-search-menu \
+  '^X^L' history-beginning-search-menu \
   '^X^S' zle/sudo-command-line \
   '^Xu' zle/urlify-current-argument \
   '^Y' zle/yank-clipboard \
