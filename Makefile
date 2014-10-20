@@ -331,7 +331,7 @@ $(call DIR,xdgconfighomezshfunctions)
 
 install: emacs.d/site-lisp/userloaddefs.el
 
-emacs.d/site-lisp/userloaddefs.el: Makefile $(emacs_sitelisp_elcs)
+emacs.d/site-lisp/userloaddefs.el: $(emacs_sitelisp_elcs)
 	$(V_ELC)$(EMACS) --batch -Q --eval '(setq vc-handled-backends nil)' \
 	  --eval '(setq generated-autoload-file "$(abspath $@)")' \
 	  -f batch-update-autoloads emacs.d/site-lisp
