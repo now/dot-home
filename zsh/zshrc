@@ -88,6 +88,9 @@ zle -N forward-parameter forward-word-match
 zle -N backward-parameter backward-word-match
 zstyle ':zle:(forward|backward)-parameter' word-style shell
 
+autoload -U insert-composed-char
+zle -N insert-composed-char
+
 bindkey -arp '^['
 bindkey -a \
   '(' backward-parameter \
@@ -109,7 +112,7 @@ bindkey \
   '^?' backward-delete-char \
   '^D' zle/vi-cmd-mode-silently \
   '^H' backward-delete-char \
-  '^K' zle/insert-digraph \
+  '^K' insert-composed-char \
   '^O' accept-line-and-down-history \
   '^P' push-line-or-edit \
   '^U' zle/up-from-menu \

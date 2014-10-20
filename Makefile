@@ -290,7 +290,6 @@ xdgconfighome_DATA = \
 	zsh/functions/hc \
 	zsh/functions/up \
 	zsh/functions/urlify \
-	zsh/functions/define-digraphs \
 	zsh/functions/dynamic-directory-names \
 	zsh/functions/cache-invalid \
 	zsh/functions/cache-path \
@@ -299,7 +298,6 @@ xdgconfighome_DATA = \
 	zsh/functions/zle/cd-to-alternate-directory \
 	zsh/functions/zle/foreground-or-list-choices \
 	zsh/functions/zle/history-beginning-search-menu \
-	zsh/functions/zle/insert-digraph \
 	zsh/functions/zle/self-insert-redir \
 	zsh/functions/zle/sudo-command-line \
 	zsh/functions/zle/up-directory \
