@@ -284,7 +284,6 @@ $(call DIR,userconfemacsdetcschema)
 $(call DIR,userconfopenofficeorg3userwordbook)
 
 xdgconfighome_DATA = \
-	dircolors \
 	fontconfig/fonts.conf \
 	git/config \
 	zsh/functions/_unpack \
@@ -315,6 +314,12 @@ xdgconfighome_DATA = \
 	zsh/functions/zle/yank-clipboard
 
 $(call GROUP_template,$(xdgconfighome_DATA),$(XDG_CONFIG_HOME))
+
+xdgconfighomedir = $(XDG_CONFIG_HOME)
+xdgconfighome_DATA = \
+	dircolors
+
+$(call DIR,xdgconfighome)
 
 install: emacs.d/site-lisp/userloaddefs.el
 
