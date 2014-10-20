@@ -286,7 +286,6 @@ $(call DIR,userconfopenofficeorg3userwordbook)
 xdgconfighome_DATA = \
 	zsh/functions/_unpack \
 	zsh/functions/_up \
-	zsh/functions/autoload/cd \
 	zsh/functions/autoload/freload \
 	zsh/functions/autoload/hc \
 	zsh/functions/autoload/up \
