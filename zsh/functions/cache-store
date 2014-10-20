@@ -5,8 +5,8 @@ emulate -L zsh
 local context="$1" ident="$2" cache_path
 shift 2
 
-autoload -U cache/path
-cache/path -c $context $ident || return 1
+autoload -U cache-path
+cache-path -c $context $ident || return 1
 
 for var; do
   case ${(Pt)var} in

@@ -292,10 +292,10 @@ xdgconfighome_DATA = \
 	zsh/functions/urlify \
 	zsh/functions/define-digraphs \
 	zsh/functions/dynamic-directory-names \
-	zsh/functions/cache/invalid \
-	zsh/functions/cache/path \
-	zsh/functions/cache/retrieve \
-	zsh/functions/cache/store \
+	zsh/functions/cache-invalid \
+	zsh/functions/cache-path \
+	zsh/functions/cache-retrieve \
+	zsh/functions/cache-store \
 	zsh/functions/zle/cd-to-alternate-directory \
 	zsh/functions/zle/foreground-or-list-choices \
 	zsh/functions/zle/history-beginning-search-menu \

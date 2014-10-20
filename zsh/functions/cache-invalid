@@ -4,8 +4,8 @@ emulate -L zsh
 
 local context="$1" ident="$2" cache_path policy
 
-autoload -U cache/path
-cache/path $context $ident || return 1
+autoload -U cache-path
+cache-path $context $ident || return 1
 
 # See whether the caching policy says that the cache needs rebuilding
 # (the policy will return 0 if it does).
