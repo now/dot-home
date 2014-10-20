@@ -284,7 +284,6 @@ $(call DIR,userconfemacsdetcschema)
 $(call DIR,userconfopenofficeorg3userwordbook)
 
 xdgconfighome_DATA = \
-	git/config \
 	zsh/functions/_unpack \
 	zsh/functions/_up \
 	zsh/functions/autoload/cd \
@@ -322,8 +321,13 @@ xdgconfighomefontconfigdir = $(xdgconfighomedir)/fontconfig
 xdgconfighomefontconfig_DATA = \
 	fontconfig/fonts.conf
 
+xdgconfighomegitconfigdir = $(xdgconfighomedir)/git
+xdgconfighomegitconfig_DATA = \
+	git/config
+
 $(call DIR,xdgconfighome)
 $(call DIR,xdgconfighomefontconfig)
+$(call DIR,xdgconfighomegit)
 
 install: emacs.d/site-lisp/userloaddefs.el
 
