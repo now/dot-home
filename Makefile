@@ -283,7 +283,26 @@ $(call DIR,userconfemacsd)
 $(call DIR,userconfemacsdetcschema)
 $(call DIR,userconfopenofficeorg3userwordbook)
 
+xdgconfighomedir = $(XDG_CONFIG_HOME)
 xdgconfighome_DATA = \
+	dircolors
+
+xdgconfighomefontconfigdir = $(xdgconfighomedir)/fontconfig
+xdgconfighomefontconfig_DATA = \
+	fontconfig/fonts.conf
+
+xdgconfighomegitconfigdir = $(xdgconfighomedir)/git
+xdgconfighomegitconfig_DATA = \
+	git/config
+
+xdgconfighomezshdir = $(xdgconfighomedir)/zsh
+xdgconfighomezsh_DATA = \
+	zsh/zlogin \
+	zsh/zprofile \
+	zsh/zshrc
+
+xdgconfighomezshfunctionsdir = $(xdgconfighomezshdir)/functions
+xdgconfighomezshfunctions_DATA = \
 	zsh/functions/_unpack \
 	zsh/functions/_up \
 	zsh/functions/freload \
@@ -304,23 +323,11 @@ xdgconfighome_DATA = \
 	zsh/functions/zle/vi-cmd-mode-silently \
 	zsh/functions/zle/yank-clipboard
 
-$(call GROUP_template,$(xdgconfighome_DATA),$(XDG_CONFIG_HOME))
-
-xdgconfighomedir = $(XDG_CONFIG_HOME)
-xdgconfighome_DATA = \
-	dircolors
-
-xdgconfighomefontconfigdir = $(xdgconfighomedir)/fontconfig
-xdgconfighomefontconfig_DATA = \
-	fontconfig/fonts.conf
-
-xdgconfighomegitconfigdir = $(xdgconfighomedir)/git
-xdgconfighomegitconfig_DATA = \
-	git/config
-
 $(call DIR,xdgconfighome)
 $(call DIR,xdgconfighomefontconfig)
 $(call DIR,xdgconfighomegit)
+$(call DIR,xdgconfighomezsh,.)
+$(call DIR,xdgconfighomezshfunctions)
 
 install: emacs.d/site-lisp/userloaddefs.el
 
@@ -331,13 +338,6 @@ emacs.d/site-lisp/userloaddefs.el: Makefile $(emacs_sitelisp_elcs)
 	$(V_at)touch $@
 
 $(call GROUP_template,emacs.d/site-lisp/userloaddefs.el,$(userconfdir),.)
-
-xdgconfighomezsh_DATA = \
-	zsh/zlogin \
-	zsh/zprofile \
-	zsh/zshrc
-
-$(call GROUP_template,$(xdgconfighomezsh_DATA),$(XDG_CONFIG_HOME)/zsh,.,zsh/)
 
 audacityuserconf_DATA = \
 	audacity.cfg

@@ -74,12 +74,10 @@ zstyle ':completion:*:*:kill:*:*' menu selection
 autoload -U forward-word-match backward-word-match \
             backward-kill-word-match
 
-for command in $ZDOTDIR/functions/zle/*(e:'REPLY=${REPLY#$ZDOTDIR/functions/}':); do
-  autoload -U $command
-  zle -N $command
-done
-
-for command in history-beginning-search-menu insert-composed-char; do
+for command in cd-to-alternate-directory foreground-or-list-choices \
+  history-beginning-search-menu insert-composed-char self-insert-redir \
+  sudo-command-line up-directory urlify-current-argument vi-cmd-mode-silently \
+  yank-clipboard; do
   autoload -U $command
   zle -N $command
 done
@@ -99,11 +97,11 @@ bindkey -a \
   ')' forward-parameter \
   '/' history-incremental-search-backward \
   '?' history-incremental-search-forward \
-  '^D' zle/foreground-or-list-choices \
+  '^D' foreground-or-list-choices \
   '^O' accept-line-and-down-history \
   '^R' redo \
-  '^U' zle/up-directory \
-  '^^' zle/cd-to-alternate-directory \
+  '^U' up-directory \
+  '^^' cd-to-alternate-directory \
   'L' vi-change-whole-line \
   'l' vi-substitute \
   's' vi-forward-char \
@@ -112,20 +110,20 @@ bindkey -a \
 bindkey -rp '^['
 bindkey \
   '^?' backward-delete-char \
-  '^D' zle/vi-cmd-mode-silently \
+  '^D' vi-cmd-mode-silently \
   '^H' backward-delete-char \
   '^K' insert-composed-char \
   '^O' accept-line-and-down-history \
   '^P' push-line-or-edit \
-  '^U' zle/up-directory \
+  '^U' up-directory \
   '^W' backward-kill-to-space-or-/ \
   '^X^L' history-beginning-search-menu \
-  '^X^S' zle/sudo-command-line \
-  '^Xu' zle/urlify-current-argument \
-  '^Y' zle/yank-clipboard \
-  '^^' zle/cd-to-alternate-directory \
+  '^X^S' sudo-command-line \
+  '^Xu' urlify-current-argument \
+  '^Y' yank-clipboard \
+  '^^' cd-to-alternate-directory \
   ' ' magic-space \
-  ${(s: :):-${^${(s::):-'|<>&'}}' zle/self-insert-redir'}
+  ${(s: :):-${^${(s::):-'|<>&'}}' self-insert-redir'}
 bindkey -r '^['
 
 # Functions And Aliases
