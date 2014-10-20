@@ -301,7 +301,6 @@ xdgconfighome_DATA = \
 	zsh/functions/zle/self-insert-redir \
 	zsh/functions/zle/sudo-command-line \
 	zsh/functions/zle/up-directory \
-	zsh/functions/zle/up-from-menu \
 	zsh/functions/zle/urlify-current-argument \
 	zsh/functions/zle/util/select-match-from-menu \
 	zsh/functions/zle/util/select-match-from-menu-widget \

@@ -115,7 +115,7 @@ bindkey \
   '^K' insert-composed-char \
   '^O' accept-line-and-down-history \
   '^P' push-line-or-edit \
-  '^U' zle/up-from-menu \
+  '^U' zle/up-directory \
   '^W' backward-kill-to-space-or-/ \
   '^X^L' zle/history-beginning-search-menu \
   '^X^S' zle/sudo-command-line \
