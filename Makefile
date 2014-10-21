@@ -115,6 +115,7 @@ endef
 INSTALLFLAGS = -D --preserve-timestamps
 INSTALL_DATA = $(INSTALL) $(INSTALLFLAGS) -m 0644
 INSTALL_PROGRAMS = $(INSTALL) $(INSTALLFLAGS)
+INSTALL_SCRIPTS = $(INSTALL_PROGRAMS)
 
 # file, target, primary
 define DIR_primary
@@ -131,7 +132,7 @@ endef
 
 # dir, prefix?
 define DIR
-$(eval $(foreach primary,DATA,$(foreach file,$($(1)_$(primary)),$(call DIR_primary,$(file),$($(1)dir)/$(2)$(notdir $(file)),$(primary)))))
+$(eval $(foreach primary,DATA SCRIPTS,$(foreach file,$($(1)_$(primary)),$(call DIR_primary,$(file),$($(1)dir)/$(2)$(notdir $(file)),$(primary)))))
 endef
 
 %.elc: %.el
@@ -395,7 +396,7 @@ bin_SCRIPTS = \
 
 bin_substitutables := $(bin_SCRIPTS)
 
-$(call GROUP_template,$(bin_SCRIPTS),$(bindir),,bin/,755)
+$(call DIR,bin)
 
 include os/os.mk
 include host/host.mk
