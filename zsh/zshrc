@@ -137,4 +137,3 @@ alias \
 # Operating System And Host Specific Settings
 
 source $ZDOTDIR/os/rc
-source $ZDOTDIR/host/rc
