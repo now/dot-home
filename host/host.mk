@@ -1,9 +1,10 @@
 host := $(shell hostname)
 
-hostxdgconfighome_DATA = \
-	zsh/host/profile \
-	zsh/host/rc
-
-$(foreach file,$(hostxdgconfighome_DATA),$(call FILE_template,$(or $(wildcard host/$(host)/$(file)),host/$(file)),$(XDG_CONFIG_HOME)/$(file)))
+xdgconfighomezshhostdir = $(xdgconfighomezshdir)/host
+xdgconfighomezshhost_DATA = \
+	host/zsh/profile \
+	host/zsh/rc
 
 -include host/$(host)/host.mk
+
+$(call DIR,xdgconfighomezshhost)
