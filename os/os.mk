@@ -1,9 +1,8 @@
-osxdgconfighome_DATA = \
-	zsh/os/env \
-	zsh/os/login \
-	zsh/os/rc
-
-$(foreach file,$(osxdgconfighome_DATA),$(call FILE_template,$(or $(wildcard os/$(uname)/$(file)),os/$(file)),$(XDG_CONFIG_HOME)/$(file)))
+xdgconfighomezshosdir = $(xdgconfighomezshdir)/os
+xdgconfighomezshos_DATA = \
+	os/zsh/env \
+	os/zsh/login \
+	os/zsh/rc
 
 osbin_SCRIPTS = \
 	bin/a \
@@ -15,3 +14,5 @@ osbin_SCRIPTS = \
 $(foreach file,$(osbin_SCRIPTS),$(call FILE_template,$(or $(wildcard os/$(uname)/$(file)),os/$(file)),$(bindir)/$(file:bin/%=%),755))
 
 -include os/$(uname)/os.mk
+
+$(call DIR,xdgconfighomezshos)
