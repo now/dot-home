@@ -75,3 +75,8 @@ share_DATA = \
 	os/Cygwin/share/icons/text-x-generic.ico
 
 $(eval $(call GROUP_template,$(share_DATA),$(sharedir),,os/Cygwin/share/))
+
+xdgconfighomezshos_DATA = \
+	os/Cygwin/zsh/env \
+	os/Cygwin/zsh/login \
+	os/Cygwin/zsh/rc

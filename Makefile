@@ -132,7 +132,7 @@ endef
 
 # dir, prefix?
 define DIR
-$(eval $(foreach primary,DATA SCRIPTS,$(foreach file,$($(1)_$(primary)),$(call DIR_primary,$(file),$($(1)dir)/$(2)$(notdir $(file)),$(primary)))))
+$(eval $(foreach primary,DATA SCRIPTS,$(foreach file,$($(1)_$(primary)),$(if $(subst $(file),,$(lastword $(filter %/$(notdir $(file)),$($(1)_$(primary))))),,$(call DIR_primary,$(file),$($(1)dir)/$(2)$(notdir $(file)),$(primary))))))
 endef
 
 %.elc: %.el
