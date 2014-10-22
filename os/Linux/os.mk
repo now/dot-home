@@ -7,10 +7,8 @@ userconfxmonad_DATA = \
 
 $(call DIR,userconfxmonad)
 
-userconf_SCRIPTS = \
+userconf_SCRIPTS += \
 	os/Linux/xsession
-
-$(call GROUP_template,$(userconf_SCRIPTS),$(userconfdir),.,os/Linux/,755)
 
 HAVE_X11 := $(realpath /usr/X11)
 

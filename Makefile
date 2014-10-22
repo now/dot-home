@@ -347,7 +347,7 @@ $(call DIR,audacityuserconf)
 vlcuserconf_DATA = \
 	vlc/vlcrc
 
-$(call GROUP_template,$(vlcuserconf_DATA),$(vlcuserconfdir),,vlc/)
+$(call DIR,vlcuserconf)
 
 ifneq ($(firefoxuserconfdir),)
 firefoxuserconf_DATA = \
