@@ -8,12 +8,9 @@ $(call GROUP_template,$(firefoxprofiles_DATA),$(firefoxprofilesdir),,os/Cygwin/f
 emacs_sitelisp_elcs += \
 	emacs/site-lisp/windows-path.el
 
-userconf_DATA = \
-	os/Cygwin/autohotkey/digraphs.ahk \
+userconf_DATA += \
 	os/Cygwin/hotkeys.ahk \
 	os/Cygwin/minttyrc
-
-$(call GROUP_template,$(userconf_DATA),$(userconfdir),.,os/Cygwin/)
 
 appdata_DATA = \
 	os/Cygwin/GHISLER/lsplugin.ini \

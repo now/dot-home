@@ -1,13 +1,13 @@
-userconf_DATA = \
-	os/Linux/Xresources \
+userconf_DATA += \
+	os/Linux/Xresources
+
+userconfxmonaddir = $(userconf)/xmonad
+userconfxmonad_DATA = \
 	os/Linux/xmonad/xmonad.hs
 
-$(call GROUP_template,$(userconf_DATA),$(userconfdir),.os/Linux/)
+$(call DIR,userconfxmonad)
 
 userconf_SCRIPTS = \
-	os/Linux/xsession
-
-bin_substitutables += \
 	os/Linux/xsession
 
 $(call GROUP_template,$(userconf_SCRIPTS),$(userconfdir),.,os/Linux/,755)

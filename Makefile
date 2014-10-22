@@ -279,7 +279,6 @@ userconfopenofficeorg3userwordbook_DATA = \
 	openoffice.org/3/user/wordbook/sv.aff \
 	openoffice.org/3/user/wordbook/sv.dic
 
-$(call DIR,userconf,.)
 $(call DIR,userconfemacsd)
 $(call DIR,userconfemacsdetcschema)
 $(call DIR,userconfopenofficeorg3userwordbook)
@@ -398,19 +397,8 @@ bin_SCRIPTS = \
 include os/os.mk
 include host/host.mk
 
-$(call DIR,bin)
-
-edit = sed \
-       -e 's|@SHELL[@]|$(SHELL)|g' \
-       -e 's|@ZSHELL[@]|$(ZSHELL)|g'
-
-$(bin_SCRIPTS): %: %.in Makefile
-	$(V_GEN)rm -f $@ $@.tmp
-	$(V_at)$(edit) $@.in > $@.tmp
-	$(V_at)mv $@.tmp $@
-
 ifdef INCLUDE_VIM
-userconf_DATA = \
+userconf_DATA += \
 	vim/after/ftplugin/sh.vim \
 	vim/after/ftplugin/vim.vim \
 	vim/after/ftplugin/zsh.vim \
@@ -418,9 +406,19 @@ userconf_DATA = \
 	vim/colors/now.vim \
 	vim/ftplugin/man.vim \
 	vimrc
-
-$(call GROUP_template,$(userconf_DATA),$(userconfdir),.)
 endif
+
+$(call DIR,bin)
+$(call DIR,userconf,.)
+
+edit = sed \
+       -e 's|@SHELL[@]|$(SHELL)|g' \
+       -e 's|@ZSHELL[@]|$(ZSHELL)|g'
+
+$(bin_SCRIPTS) $(userconf_SCRIPTS): %: %.in Makefile
+	$(V_GEN)rm -f $@ $@.tmp
+	$(V_at)$(edit) $@.in > $@.tmp
+	$(V_at)mv $@.tmp $@
 
 DEPENDENCIES = \
 	zap
