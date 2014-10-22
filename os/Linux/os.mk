@@ -7,7 +7,8 @@ $(call GROUP_template,$(userconf_DATA),$(userconfdir),.os/Linux/)
 userconf_SCRIPTS = \
 	os/Linux/xsession
 
-bin_substitutables += $(BINFILES)
+bin_substitutables += \
+	os/Linux/xsession
 
 $(call GROUP_template,$(userconf_SCRIPTS),$(userconfdir),.,os/Linux/,755)
 

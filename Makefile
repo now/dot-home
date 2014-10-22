@@ -370,11 +370,9 @@ firefoxuserconf_DATA = \
 $(call GROUP_template,$(firefoxuserconf_DATA),$(firefoxuserconfdir),,firefox/)
 endif
 
-edit = sed \
-       -e 's|@SHELL[@]|$(SHELL)|g' \
-       -e 's|@ZSHELL[@]|$(ZSHELL)|g'
-
 bin_SCRIPTS = \
+	bin/a \
+	bin/aa \
 	bin/asciitable \
 	bin/burn \
 	bin/clipboard \
@@ -385,27 +383,30 @@ bin_SCRIPTS = \
 	bin/e \
 	bin/emv \
 	bin/g \
+	bin/im \
 	bin/index-disc \
 	bin/m \
 	bin/mfedit \
 	bin/mov-re-encode \
-	bin/terminal-colors \
+	bin/o \
+	bin/oo \
 	bin/pack \
+	bin/terminal-colors \
 	bin/unpack \
 	bin/valgrind-ruby
-
-bin_substitutables := $(bin_SCRIPTS)
-
-$(call DIR,bin)
 
 include os/os.mk
 include host/host.mk
 
-$(bin_substitutables): %: %.in Makefile
+$(call DIR,bin)
+
+edit = sed \
+       -e 's|@SHELL[@]|$(SHELL)|g' \
+       -e 's|@ZSHELL[@]|$(ZSHELL)|g'
+
+$(bin_SCRIPTS): %: %.in Makefile
 	$(V_GEN)rm -f $@ $@.tmp
 	$(V_at)$(edit) $@.in > $@.tmp
-	$(V_at)chmod +x $@.tmp
-	$(V_at)chmod a-w $@.tmp
 	$(V_at)mv $@.tmp $@
 
 ifdef INCLUDE_VIM

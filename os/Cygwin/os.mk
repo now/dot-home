@@ -80,3 +80,6 @@ xdgconfighomezshos_DATA = \
 	os/Cygwin/zsh/env \
 	os/Cygwin/zsh/login \
 	os/Cygwin/zsh/rc
+
+bin_SCRIPTS += \
+	os/Cygwin/bin/im
