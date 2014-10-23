@@ -65,39 +65,6 @@ sysconfdir = /etc
 
 all: diff
 
-# file, target
-define GROUP_template_diff_file
-.PHONY diff: $(2).diff
-$(2).diff:
-	@$$(DIFF) -u $(2) $(1) || true
-
-endef
-
-# file, target, mode
-define GROUP_template_install_file
-install: $(2)
-
-$(2): $(1)
-	$$(V_INSTALL)$$(INSTALL) -D --mode=$(if $(3),$(3),644) --preserve-timestamps $$< $$(call shell_quote,$$@)
-
-endef
-
-# file, target, mode
-define GROUP_template_file
-$(call GROUP_template_diff_file,$(1),$(2))
-$(call GROUP_template_install_file,$(1),$(2),$(3))
-endef
-
-# files, parent-directory, prefix, prefix-to-strip, mode
-define GROUP_template
-$(eval $(foreach file,$(1),$(call GROUP_template_file,$(file),$(2)/$(3)$(file:$(4)%=%),$(5))))
-endef
-
-# file, target, mode
-define FILE_template
-$(eval $(call GROUP_template_file,$(1),$(2),$(3)))
-endef
-
 # patch, target
 define PATCH_template_file
 .PHONY: $(2:.patch=)

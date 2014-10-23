@@ -113,14 +113,14 @@ startup_SCRIPTS = \
 
 $(call DIR,startup)
 
-share_DATA = \
-	os/Cygwin/share/icons/bak.ico \
-	os/Cygwin/share/icons/cmp.ico \
-	os/Cygwin/share/icons/tageditor-generic.ico \
-	os/Cygwin/share/icons/text-html.ico \
-	os/Cygwin/share/icons/text-x-generic.ico
+# share_DATA = \
+# 	os/Cygwin/share/icons/bak.ico \
+# 	os/Cygwin/share/icons/cmp.ico \
+# 	os/Cygwin/share/icons/tageditor-generic.ico \
+# 	os/Cygwin/share/icons/text-html.ico \
+# 	os/Cygwin/share/icons/text-x-generic.ico
 
-$(eval $(call GROUP_template,$(share_DATA),$(sharedir),,os/Cygwin/share/))
+# $(eval $(call GROUP_template,$(share_DATA),$(sharedir),,os/Cygwin/share/))
 
 xdgconfighomezshos_DATA = \
 	os/Cygwin/zsh/env \
