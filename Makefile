@@ -264,14 +264,24 @@ userconfemacsdinitsdir = $(userconfemacsddir)/inits
 userconfemacsdinits_DATA = \
 	emacs.d/inits/package.elc
 
-userconfemacsdsitelispdir = $(userconfemacsddir)/site-lisp
-userconfemacsdsitelisp_DATA = \
+sitelisp_elcs = \
 	emacs.d/site-lisp/buff-menu-ext.elc \
 	emacs.d/site-lisp/hide-mode-line.elc \
 	emacs.d/site-lisp/ned-info-on-file.elc \
 	emacs.d/site-lisp/now-org.elc \
 	emacs.d/site-lisp/project.elc \
 	emacs.d/site-lisp/rnc-mode.elc
+
+userconfemacsdsitelispdir = $(userconfemacsddir)/site-lisp
+userconfemacsdsitelisp_DATA = \
+	$(sitelisp_elcs) \
+	emacs.d/site-lisp/userloaddefs.el
+
+emacs.d/site-lisp/userloaddefs.el: $(sitelisp_elcs)
+	$(V_ELC)$(EMACS) --batch -Q --eval '(setq vc-handled-backends nil)' \
+	  --eval '(setq generated-autoload-file "$(abspath $@)")' \
+	  -f batch-update-autoloads emacs.d/site-lisp
+	$(V_at)touch $@
 
 userconfopenofficeorg3userwordbookdir = $(userconfdir)/.openoffice.org/3/user/wordbook
 userconfopenofficeorg3userwordbook_DATA = \
@@ -327,16 +337,6 @@ $(call DIR,xdgconfighomefontconfig)
 $(call DIR,xdgconfighomegit)
 $(call DIR,xdgconfighomezsh,.)
 $(call DIR,xdgconfighomezshfunctions)
-
-install: emacs.d/site-lisp/userloaddefs.el
-
-emacs.d/site-lisp/userloaddefs.el: $(userconfemacsdsitelisp_DATA)
-	$(V_ELC)$(EMACS) --batch -Q --eval '(setq vc-handled-backends nil)' \
-	  --eval '(setq generated-autoload-file "$(abspath $@)")' \
-	  -f batch-update-autoloads emacs.d/site-lisp
-	$(V_at)touch $@
-
-$(call GROUP_template,emacs.d/site-lisp/userloaddefs.el,$(userconfdir),.)
 
 audacityuserconf_DATA = \
 	audacity.cfg

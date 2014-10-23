@@ -1,4 +1,4 @@
-userconfemacsdsitelisp_DATA += \
+sitelisp_elcs += \
 	emacs/site-lisp/windows-path.elc
 
 userconf_DATA += \
