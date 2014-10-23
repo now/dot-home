@@ -5,8 +5,6 @@ userconfxmonaddir = $(userconf)/xmonad
 userconfxmonad_DATA = \
 	os/Linux/xmonad/xmonad.hs
 
-$(call DIR,userconfxmonad)
-
 userconf_SCRIPTS += \
 	os/Linux/xsession
 
@@ -17,3 +15,5 @@ LDLIBS = -lX11
 bin_PROGRAMS += \
 	os/Linux/bin/xdigraph
 endif
+
+$(call DIR,userconfxmonad)

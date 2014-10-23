@@ -53,9 +53,9 @@ bindir = $(prefix)/opt/bin
 sharedir = $(prefix)/opt/share
 userconfdir = $(prefix)
 guiuserconfdir = $(prefix)
-audacityuserconfdir = $(userconfdir)/.audacity
+userconfaudacitydir = $(userconfdir)/.audacity
 userconfmozillafirefoxdir = $(userconfdir)/.mozilla/firefox
-vlcuserconfdir = $(prefix)/.config/vlc
+userconfvlcdir = $(prefix)/.config/vlc
 sysconfdir = /etc
 
 -include Config/$(uname)
@@ -299,21 +299,11 @@ xdgconfighomezshfunctions_DATA = \
 	zsh/functions/zle/vi-cmd-mode-silently \
 	zsh/functions/zle/yank-clipboard
 
-$(call DIR,xdgconfighome)
-$(call DIR,xdgconfighomefontconfig)
-$(call DIR,xdgconfighomegit)
-$(call DIR,xdgconfighomezsh,.)
-$(call DIR,xdgconfighomezshfunctions)
-
-audacityuserconf_DATA = \
+userconfaudacity_DATA = \
 	audacity.cfg
 
-$(call DIR,audacityuserconf)
-
-vlcuserconf_DATA = \
+userconfvlc_DATA = \
 	vlc/vlcrc
-
-$(call DIR,vlcuserconf)
 
 userconfmozillafirefox_DATA = \
 	firefox/profiles.ini
@@ -321,9 +311,6 @@ userconfmozillafirefox_DATA = \
 userconfmozillafirefoxprofilesdefaultdir = $(userconfmozillafirefoxdir)/Profiles/default
 userconfmozillafirefoxprofilesdefault_DATA = \
 	firefox/user.js
-
-$(call DIR,userconfmozillafirefox)
-$(call DIR,userconfmozillafirefoxprofilesdefault)
 
 bin_SCRIPTS = \
 	bin/a \
@@ -366,13 +353,21 @@ endif
 
 $(call DIR,bin)
 $(call DIR,userconf,.)
+$(call DIR,userconfaudacity)
 $(call DIR,userconfemacsd)
 $(call DIR,userconfemacsddelayedinits)
 $(call DIR,userconfemacsdetcschema)
 $(call DIR,userconfemacsdinits)
 $(call DIR,userconfemacsdsitelisp)
+$(call DIR,userconfmozillafirefox)
+$(call DIR,userconfmozillafirefoxprofilesdefault)
 $(call DIR,userconfopenofficeorg3userwordbook)
-
+$(call DIR,userconfvlc)
+$(call DIR,xdgconfighome)
+$(call DIR,xdgconfighomefontconfig)
+$(call DIR,xdgconfighomegit)
+$(call DIR,xdgconfighomezsh,.)
+$(call DIR,xdgconfighomezshfunctions)
 
 edit = sed \
 	-e 's|@SHELL[@]|$(SHELL)|g' \

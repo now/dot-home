@@ -2,7 +2,7 @@ INSTALL = ginstall
 ZSHELL = /opt/local/bin/zsh
 
 appsupportdir = $(prefix)/Library/Application\ Support
-audacityuserconfdir = $(appsupportdir)/audacity
+userconfaudacitydir = $(appsupportdir)/audacity
 userconfmozillafirefoxdir = $(appsupportdir)/Firefox
 guiuserconfdir = ~/Library/Preferences
-vlcuserconfdir = $(guiuserconfdir)/org.videolan.vlc
+userconfvlcdir = $(guiuserconfdir)/org.videolan.vlc

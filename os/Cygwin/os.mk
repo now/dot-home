@@ -84,25 +84,9 @@ appdataghislertoolsworkdir = $(appdataghislerdir)/tools/work
 appdataghislertoolswork_SCRIPTS = \
 	os/Cygwin/GHISLER/tools/work/open-in-tageditor-non-retardedly.vbs
 
-$(call DIR,appdataghisler)
-$(call DIR,appdataghislerlanguages)
-$(call DIR,appdataghislerpackersrar)
-$(call DIR,appdataghislerpluginswcx7zip)
-$(call DIR,appdataghislerpluginswcxiso)
-$(call DIR,appdataghislerpluginswcxtargzbz2)
-$(call DIR,appdataghislerpluginswdxencoding)
-$(call DIR,appdataghislerpluginswdxunicodetest)
-$(call DIR,appdataghislerpluginswfxenvironment)
-$(call DIR,appdataghislerpluginswfxregistry)
-$(call DIR,appdataghislerpluginswlxgswlx)
-$(call DIR,appdataghislerpluginswlximagine)
-$(call DIR,appdataghislertoolswork)
-
 appdatadialogdeathdir = $(appdatadir)/Dialog\ Death
 appdatadialogdeath_DATA = \
 	os/Cygwin/dialog-death.ini
-
-$(call DIR,appdatadialogdeath)
 
 startupdir = $(call shell_quote,$(shell cygpath -P))/Startup
 startup_SCRIPTS = \
@@ -110,8 +94,6 @@ startup_SCRIPTS = \
 	os/Cygwin/start-up/cygwin.lnk \
 	os/Cygwin/start-up/hotkeys.lnk \
 	os/Cygwin/start-up/totalcmd.lnk
-
-$(call DIR,startup)
 
 # share_DATA = \
 # 	os/Cygwin/share/icons/bak.ico \
@@ -129,3 +111,19 @@ xdgconfighomezshos_DATA = \
 
 bin_SCRIPTS += \
 	os/Cygwin/bin/im
+
+$(call DIR,appdatadialogdeath)
+$(call DIR,appdataghisler)
+$(call DIR,appdataghislerlanguages)
+$(call DIR,appdataghislerpackersrar)
+$(call DIR,appdataghislerpluginswcx7zip)
+$(call DIR,appdataghislerpluginswcxiso)
+$(call DIR,appdataghislerpluginswcxtargzbz2)
+$(call DIR,appdataghislerpluginswdxencoding)
+$(call DIR,appdataghislerpluginswdxunicodetest)
+$(call DIR,appdataghislerpluginswfxenvironment)
+$(call DIR,appdataghislerpluginswfxregistry)
+$(call DIR,appdataghislerpluginswlxgswlx)
+$(call DIR,appdataghislerpluginswlximagine)
+$(call DIR,appdataghislertoolswork)
+$(call DIR,startup)
