@@ -357,24 +357,8 @@ userconfmozillafirefoxprofilesdefault_DATA = \
 	firefox/mimeTypes.rdf \
 	firefox/user.js
 
-userconfmozillafirefoxprofilesdefaultsearchpluginsdir = $(userconfmozillafirefoxprofilesdefaultdir)/searchplugins
-userconfmozillafirefoxprofilesdefaultsearchplugins_DATA = \
-	firefox/searchplugins/adlibris.xml \
-	firefox/searchplugins/discogs.xml \
-	firefox/searchplugins/gatherer.xml \
-	firefox/searchplugins/hittase-where.xml \
-	firefox/searchplugins/hittase-who.xml \
-	firefox/searchplugins/imdb.xml \
-	firefox/searchplugins/juno-records.xml \
-	firefox/searchplugins/mancx.xml \
-	firefox/searchplugins/posix.xml \
-	firefox/searchplugins/thepiratebayse.xml \
-	firefox/searchplugins/tvragecom.xml \
-	firefox/searchplugins/youtube.xml
-
 $(call DIR,userconfmozillafirefox)
 $(call DIR,userconfmozillafirefoxprofilesdefault)
-$(call DIR,userconfmozillafirefoxprofilesdefaultsearchplugins)
 
 bin_SCRIPTS = \
 	bin/a \

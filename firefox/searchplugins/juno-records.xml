@@ -1,9 +1,0 @@
-<SearchPlugin xmlns="http://www.mozilla.org/2006/browser/search/" xmlns:os="http://a9.com/-/spec/opensearch/1.1/">
-<os:ShortName>Juno Records</os:ShortName>
-<os:Description>Juno Records</os:Description>
-<os:InputEncoding>UTF-8</os:InputEncoding>
-<os:Image width="16" height="16">data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAACnklEQVR42oVTz0tUURg937133rzRGW0yahIJfxSZmqDoxkBEW4nSD4u25SL8E9q06S+IVuGigjZKBv5iooUiLQoymtBaCDZgC81wiGmmeTPvvXu/FjNvmE31LQ9859xz7neIiACAAAgAur1vbDzcPjJxdujm7QzHI14+g0RMOLtvXzwrpTdW06m1JAAJwABgogoDADE8M7ugzk9cLWppPOcXVYgBgEORBralFv7O6uKbx3dvVAggKwSyd/rpstU1NVnIHnnGdVhIJYiIGIAggi7mtetrI5sHu+MtnQOHqaV5ACyJCMMzsy+trqnJUvbAFcoKMQkZWGMADEBIJYlI+E7Wqzsz2Nna1tG792FlTnb0Xx4/PnbvQSF7ZISyFADU5AIiAgPBY0BCSt8tmEhzzwX68WlThdtHRotaUkUIhhmCiAwzfpcMACBmy4CQAQDa46KWFG4fGaUrD3cKB3kZERWFmuAwfjEKAEhu51EzgRAl6rSjjnQ8Ap0BlFVdzBU1bg024v7kyerW/GYWMVvC+C4JZQHaQ4abIkIXcxDKgrRjMMz43whllW0qC7qYgzpV7zu7GYrU+xkWygIAitkSq1u56lJyO19WL+fDgqhqQcpoIh4/d2nIuI4mIUWQAxHh4zcHX/ZLCCsRgGX/vqtD9XGx/+75I1FKb6zbQnNteIbLXmK2DH6gigEAZIhsqbmU3lgX6dRaUn99tRRrPCYNs4fy5REArsmEKxiM73rh6AmZ+fx6KZ1aS0oior3N5YWGlp6Bupb+Tt/J+my0ISFFTU9gfNdno0248bT1a3sxufXkzvXglAkAH6aW5lrbOnop0dctrTrSXolYe0SiHF6soYHCtq2wu7L4fnb6WlAm+ledv+dMJBRtQhP9/Gud/wBduDaMPYFPswAAAABJRU5ErkJggg==</os:Image>
-<SearchForm>http://www.juno.co.uk/search/</SearchForm>
-<os:Url type="text/html" method="GET" template="http://www.juno.co.uk/search/?as=1&amp;s_search_precision=all&amp;s_search_type=all&amp;s_search_music=1&amp;s_music_product_type=all&amp;s_media_type=vinyl&amp;s_genre_id=0000&amp;s_show_out_of_stock=1&amp;q={searchTerms}">
-</os:Url>
-</SearchPlugin>
