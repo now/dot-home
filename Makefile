@@ -44,15 +44,12 @@ V_ELC = $(V_ELC_$(V))
 V_ELC_ = $(V_ELC_$(DEFAULT_VERBOSITY))
 V_ELC_0 = @echo "  ELC     " $@;
 
-ifeq ($(origin XDG_CONFIG_HOME), undefined)
-XDG_CONFIG_HOME = ~/.config
-endif
-
 prefix = ~
 bindir = $(prefix)/opt/bin
 sharedir = $(prefix)/opt/share
 userconfdir = $(prefix)
 guiuserconfdir = $(prefix)
+XDG_CONFIG_HOME ?= $(prefix)/.config
 userconfaudacitydir = $(userconfdir)/.audacity
 userconfemacsddir = $(userconfdir)/.emacs.d
 userconfemacsddelayedinitsdir = $(userconfemacsddir)/delayed-inits
