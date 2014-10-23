@@ -354,7 +354,6 @@ userconfmozillafirefox_DATA = \
 
 userconfmozillafirefoxprofilesdefaultdir = $(userconfmozillafirefoxdir)/Profiles/default
 userconfmozillafirefoxprofilesdefault_DATA = \
-	firefox/mimeTypes.rdf \
 	firefox/user.js
 
 $(call DIR,userconfmozillafirefox)
