@@ -54,8 +54,20 @@ sharedir = $(prefix)/opt/share
 userconfdir = $(prefix)
 guiuserconfdir = $(prefix)
 userconfaudacitydir = $(userconfdir)/.audacity
+userconfemacsddir = $(userconfdir)/.emacs.d
+userconfemacsddelayedinitsdir = $(userconfemacsddir)/delayed-inits
+userconfemacsdetcschemadir = $(userconfemacsddir)/etc/schema
+userconfemacsdinitsdir = $(userconfemacsddir)/inits
+userconfemacsdsitelispdir = $(userconfemacsddir)/site-lisp
 userconfmozillafirefoxdir = $(userconfdir)/.mozilla/firefox
+userconfmozillafirefoxprofilesdefaultdir = $(userconfmozillafirefoxdir)/Profiles/default
+userconfopenofficeorg3userwordbookdir = $(userconfdir)/.openoffice.org/3/user/wordbook
 userconfvlcdir = $(prefix)/.config/vlc
+xdgconfighomedir = $(XDG_CONFIG_HOME)
+xdgconfighomefontconfigdir = $(xdgconfighomedir)/fontconfig
+xdgconfighomegitconfigdir = $(xdgconfighomedir)/git
+xdgconfighomezshdir = $(xdgconfighomedir)/zsh
+xdgconfighomezshfunctionsdir = $(xdgconfighomezshdir)/functions
 sysconfdir = /etc
 
 -include Config/$(uname)
@@ -165,7 +177,6 @@ userconf_DATA = \
 	mailcap \
 	zshenv
 
-userconfemacsddir = $(userconfdir)/.emacs.d
 userconfemacsd_DATA = \
 	emacs.d/init.elc \
 	emacs.d/now-theme.elc
@@ -215,19 +226,16 @@ unprovided_elcs = \
 
 $(unprovided_elcs): ELCFLAGS = --eval '(load "$(basename $(notdir $@))" nil t)'
 
-userconfemacsddelayedinitsdir = $(userconfemacsddir)/delayed-inits
 userconfemacsddelayedinits_DATA = \
 	$(provided_elcs) \
 	$(unprovided_elcs)
 
-userconfemacsdetcschemadir = $(userconfemacsddir)/etc/schema
 userconfemacsdetcschema_DATA = \
 	emacs.d/etc/schema/catalog.rnc \
 	emacs.d/etc/schema/gtk-builder.rnc \
 	emacs.d/etc/schema/PropertyList-1.0.rnc \
 	emacs.d/etc/schema/schemas.xml
 
-userconfemacsdinitsdir = $(userconfemacsddir)/inits
 userconfemacsdinits_DATA = \
 	emacs.d/inits/package.elc
 
@@ -239,7 +247,6 @@ sitelisp_elcs = \
 	emacs.d/site-lisp/project.elc \
 	emacs.d/site-lisp/rnc-mode.elc
 
-userconfemacsdsitelispdir = $(userconfemacsddir)/site-lisp
 userconfemacsdsitelisp_DATA = \
 	$(sitelisp_elcs) \
 	emacs.d/site-lisp/userloaddefs.el
@@ -250,7 +257,6 @@ emacs.d/site-lisp/userloaddefs.el: $(sitelisp_elcs)
 	  -f batch-update-autoloads emacs.d/site-lisp
 	$(V_at)touch $@
 
-userconfopenofficeorg3userwordbookdir = $(userconfdir)/.openoffice.org/3/user/wordbook
 userconfopenofficeorg3userwordbook_DATA = \
 	openoffice.org/3/user/wordbook/en_GB-ise.aff \
 	openoffice.org/3/user/wordbook/en_GB-ise.dic \
@@ -259,25 +265,20 @@ userconfopenofficeorg3userwordbook_DATA = \
 	openoffice.org/3/user/wordbook/sv.aff \
 	openoffice.org/3/user/wordbook/sv.dic
 
-xdgconfighomedir = $(XDG_CONFIG_HOME)
 xdgconfighome_DATA = \
 	dircolors
 
-xdgconfighomefontconfigdir = $(xdgconfighomedir)/fontconfig
 xdgconfighomefontconfig_DATA = \
 	fontconfig/fonts.conf
 
-xdgconfighomegitconfigdir = $(xdgconfighomedir)/git
 xdgconfighomegitconfig_DATA = \
 	git/config
 
-xdgconfighomezshdir = $(xdgconfighomedir)/zsh
 xdgconfighomezsh_DATA = \
 	zsh/zlogin \
 	zsh/zprofile \
 	zsh/zshrc
 
-xdgconfighomezshfunctionsdir = $(xdgconfighomezshdir)/functions
 xdgconfighomezshfunctions_DATA = \
 	zsh/functions/_unpack \
 	zsh/functions/_up \
@@ -308,7 +309,6 @@ userconfvlc_DATA = \
 userconfmozillafirefox_DATA = \
 	firefox/profiles.ini
 
-userconfmozillafirefoxprofilesdefaultdir = $(userconfmozillafirefoxdir)/Profiles/default
 userconfmozillafirefoxprofilesdefault_DATA = \
 	firefox/user.js
 
