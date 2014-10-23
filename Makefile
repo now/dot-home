@@ -56,6 +56,7 @@ guiuserconfdir = $(prefix)
 audacityuserconfdir = $(userconfdir)/.audacity
 userconfmozillafirefoxdir = $(userconfdir)/.mozilla/firefox
 vlcuserconfdir = $(prefix)/.config/vlc
+sysconfdir = /etc
 
 -include Config/$(uname)
 -include config.mk
