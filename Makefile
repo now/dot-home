@@ -54,7 +54,7 @@ sharedir = $(prefix)/opt/share
 userconfdir = $(prefix)
 guiuserconfdir = $(prefix)
 audacityuserconfdir = $(userconfdir)/.audacity
-firefoxuserconfdir = $(firstword $(wildcard ~/.mozilla/firefox/*.default))
+userconfmozillafirefoxdir = $(userconfdir)/.mozilla/firefox
 vlcuserconfdir = $(prefix)/.config/vlc
 
 -include Config/$(uname)
@@ -349,9 +349,16 @@ vlcuserconf_DATA = \
 
 $(call DIR,vlcuserconf)
 
-ifneq ($(firefoxuserconfdir),)
-firefoxuserconf_DATA = \
+userconfmozillafirefox_DATA = \
+	firefox/profiles.ini
+
+userconfmozillafirefoxprofilesdefaultdir = $(userconfmozillafirefoxdir)/Profiles/default
+userconfmozillafirefoxprofilesdefault_DATA = \
 	firefox/mimeTypes.rdf \
+	firefox/user.js
+
+userconfmozillafirefoxprofilesdefaultsearchpluginsdir = $(userconfmozillafirefoxprofilesdefaultdir)/searchplugins
+userconfmozillafirefoxprofilesdefaultsearchplugins_DATA = \
 	firefox/searchplugins/adlibris.xml \
 	firefox/searchplugins/discogs.xml \
 	firefox/searchplugins/gatherer.xml \
@@ -363,11 +370,11 @@ firefoxuserconf_DATA = \
 	firefox/searchplugins/posix.xml \
 	firefox/searchplugins/thepiratebayse.xml \
 	firefox/searchplugins/tvragecom.xml \
-	firefox/searchplugins/youtube.xml \
-	firefox/user.js
+	firefox/searchplugins/youtube.xml
 
-$(call GROUP_template,$(firefoxuserconf_DATA),$(firefoxuserconfdir),,firefox/)
-endif
+$(call DIR,userconfmozillafirefox)
+$(call DIR,userconfmozillafirefoxprofilesdefault)
+$(call DIR,userconfmozillafirefoxprofilesdefaultsearchplugins)
 
 bin_SCRIPTS = \
 	bin/a \
@@ -412,8 +419,8 @@ $(call DIR,bin)
 $(call DIR,userconf,.)
 
 edit = sed \
-       -e 's|@SHELL[@]|$(SHELL)|g' \
-       -e 's|@ZSHELL[@]|$(ZSHELL)|g'
+	-e 's|@SHELL[@]|$(SHELL)|g' \
+	-e 's|@ZSHELL[@]|$(ZSHELL)|g' \
 
 $(bin_SCRIPTS) $(userconf_SCRIPTS): %: %.in Makefile
 	$(V_GEN)rm -f $@ $@.tmp

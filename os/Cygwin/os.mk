@@ -1,10 +1,3 @@
-firefoxprofilesdir = $(appdatadir)/Mozilla/Firefox
-
-firefoxprofiles_DATA = \
-	os/Cygwin/firefox/profiles.ini
-
-$(call GROUP_template,$(firefoxprofiles_DATA),$(firefoxprofilesdir),,os/Cygwin/firefox/)
-
 emacs_sitelisp_elcs += \
 	emacs/site-lisp/windows-path.el
 

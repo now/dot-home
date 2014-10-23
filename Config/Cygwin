@@ -1,2 +1,3 @@
 appdatadir = $(call shell_quote,$(shell cygpath -u "$(APPDATA)"))
 vlcuserconfdir = $(appdatadir)/vlc
+userconfmozillafirefoxdir = $(appdatadir)/Mozilla/Firefox
