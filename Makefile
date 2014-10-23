@@ -1,7 +1,4 @@
-uname := $(shell uname -s)
-ifeq ($(patsubst CYGWIN_%,,$(uname)),)
-  uname := Cygwin
-endif
+uname := $(patsubst CYGWIN_%,Cygwin,$(shell uname -s))
 
 CURL = curl
 DIFF = diff
