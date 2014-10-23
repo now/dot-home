@@ -188,7 +188,22 @@ openoffice.org/3/user/wordbook/sv.dic: $(HUNSPELL_SV_DICT_ZIP)
 	$(V_at)sed -e "s/'/’/g" $@ > $@.tmp
 	$(V_at)mv $@.tmp $@
 
-emacs_delayedinits_elcs = \
+userconf_DATA = \
+	editrc \
+	gemrc \
+	gtkrc-2.0 \
+	hunspell_en_US \
+	indent.pro \
+	inputrc \
+	mailcap \
+	zshenv
+
+userconfemacsddir = $(userconfdir)/.emacs.d
+userconfemacsd_DATA = \
+	emacs.d/init.elc \
+	emacs.d/now-theme.elc
+
+provided_elcs = \
 	emacs.d/delayed-inits/calc.elc \
 	emacs.d/delayed-inits/calendar.elc \
 	emacs.d/delayed-inits/cc-mode.elc \
@@ -224,45 +239,19 @@ emacs_delayedinits_elcs = \
 	emacs.d/delayed-inits/ruby-mode.elc \
 	emacs.d/delayed-inits/sh-script.elc \
 	emacs.d/delayed-inits/solar.elc \
-	emacs.d/delayed-inits/tabulated-list.elc \
-	emacs.d/inits/package.elc
+	emacs.d/delayed-inits/tabulated-list.elc
 
-emacs_sitelisp_elcs = \
-	emacs.d/site-lisp/buff-menu-ext.elc \
-	emacs.d/site-lisp/hide-mode-line.elc \
-	emacs.d/site-lisp/ned-info-on-file.elc \
-	emacs.d/site-lisp/now-org.elc \
-	emacs.d/site-lisp/project.elc \
-	emacs.d/site-lisp/rnc-mode.elc
+$(provided_elcs): ELCFLAGS = --eval "(require '$(basename $(notdir $@)))"
 
-emacs_unprovided_elcs = \
+unprovided_elcs = \
 	emacs.d/delayed-inits/buff-menu.elc
 
-$(emacs_delayedinits_elcs): ELCFLAGS = --eval "(require '$(basename $(notdir $@)))"
+$(unprovided_elcs): ELCFLAGS = --eval '(load "$(basename $(notdir $@))" nil t)'
 
-$(emacs_unprovided_elcs): ELCFLAGS = --eval '(load "$(basename $(notdir $@))" nil t)'
-
-userconf_DATA = \
-	$(emacs_delayedinits_elcs) \
-	$(emacs_sitelisp_elcs) \
-	$(emacs_unprovided_elcs)
-
-$(call GROUP_template,$(userconf_DATA),$(userconfdir),.)
-
-userconf_DATA = \
-	editrc \
-	gemrc \
-	gtkrc-2.0 \
-	hunspell_en_US \
-	indent.pro \
-	inputrc \
-	mailcap \
-	zshenv
-
-userconfemacsddir = $(userconfdir)/.emacs.d
-userconfemacsd_DATA = \
-	emacs.d/init.elc \
-	emacs.d/now-theme.elc
+userconfemacsddelayedinitsdir = $(userconfemacsddir)/delayed-inits
+userconfemacsddelayedinits_DATA = \
+	$(provided_elcs) \
+	$(unprovided_elcs)
 
 userconfemacsdetcschemadir = $(userconfemacsddir)/etc/schema
 userconfemacsdetcschema_DATA = \
@@ -270,6 +259,19 @@ userconfemacsdetcschema_DATA = \
 	emacs.d/etc/schema/gtk-builder.rnc \
 	emacs.d/etc/schema/PropertyList-1.0.rnc \
 	emacs.d/etc/schema/schemas.xml
+
+userconfemacsdinitsdir = $(userconfemacsddir)/inits
+userconfemacsdinits_DATA = \
+	emacs.d/inits/package.elc
+
+userconfemacsdsitelispdir = $(userconfemacsddir)/site-lisp
+userconfemacsdsitelisp_DATA = \
+	emacs.d/site-lisp/buff-menu-ext.elc \
+	emacs.d/site-lisp/hide-mode-line.elc \
+	emacs.d/site-lisp/ned-info-on-file.elc \
+	emacs.d/site-lisp/now-org.elc \
+	emacs.d/site-lisp/project.elc \
+	emacs.d/site-lisp/rnc-mode.elc
 
 userconfopenofficeorg3userwordbookdir = $(userconfdir)/.openoffice.org/3/user/wordbook
 userconfopenofficeorg3userwordbook_DATA = \
@@ -279,10 +281,6 @@ userconfopenofficeorg3userwordbook_DATA = \
 	openoffice.org/3/user/wordbook/en_US.dic \
 	openoffice.org/3/user/wordbook/sv.aff \
 	openoffice.org/3/user/wordbook/sv.dic
-
-$(call DIR,userconfemacsd)
-$(call DIR,userconfemacsdetcschema)
-$(call DIR,userconfopenofficeorg3userwordbook)
 
 xdgconfighomedir = $(XDG_CONFIG_HOME)
 xdgconfighome_DATA = \
@@ -332,7 +330,7 @@ $(call DIR,xdgconfighomezshfunctions)
 
 install: emacs.d/site-lisp/userloaddefs.el
 
-emacs.d/site-lisp/userloaddefs.el: $(emacs_sitelisp_elcs)
+emacs.d/site-lisp/userloaddefs.el: $(userconfemacsdsitelisp_DATA)
 	$(V_ELC)$(EMACS) --batch -Q --eval '(setq vc-handled-backends nil)' \
 	  --eval '(setq generated-autoload-file "$(abspath $@)")' \
 	  -f batch-update-autoloads emacs.d/site-lisp
@@ -401,6 +399,13 @@ endif
 
 $(call DIR,bin)
 $(call DIR,userconf,.)
+$(call DIR,userconfemacsd)
+$(call DIR,userconfemacsddelayedinits)
+$(call DIR,userconfemacsdetcschema)
+$(call DIR,userconfemacsdinits)
+$(call DIR,userconfemacsdsitelisp)
+$(call DIR,userconfopenofficeorg3userwordbook)
+
 
 edit = sed \
 	-e 's|@SHELL[@]|$(SHELL)|g' \

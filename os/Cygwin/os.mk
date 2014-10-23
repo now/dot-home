@@ -1,5 +1,5 @@
-emacs_sitelisp_elcs += \
-	emacs/site-lisp/windows-path.el
+userconfemacsdsitelisp_DATA += \
+	emacs/site-lisp/windows-path.elc
 
 userconf_DATA += \
 	os/Cygwin/hotkeys.ahk \
