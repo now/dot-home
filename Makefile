@@ -246,7 +246,7 @@ xdgconfighome_DATA = \
 	dircolors
 
 xdgconfighomefontconfig_DATA = \
-	fontconfig/fonts.conf
+	fonts.conf
 
 xdgconfighomegitconfig_DATA = \
 	git/config
