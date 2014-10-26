@@ -2,6 +2,7 @@ userconf_DATA += \
 	os/Linux/Xresources
 
 userconfxmonaddir = $(userconf)/xmonad
+
 userconfxmonad_DATA = \
 	os/Linux/xmonad/xmonad.hs
 
