@@ -82,9 +82,7 @@ $(2:.patch=):
 endef
 
 # patches, parent-directory, prefix, prefix-to-strip
-define PATCH_template
-$(eval $(foreach file,$(1),$(call PATCH_template_file,$(file),$(2)/$(3)$(file:$(4)%=%))))
-endef
+PATCH_template = $(eval $(foreach file,$(1),$(call PATCH_template_file,$(file),$(2)/$(3)$(file:$(4)%=%))))
 
 INSTALLFLAGS = -D --preserve-timestamps
 INSTALL_DATA = $(INSTALL) $(INSTALLFLAGS) -m 0644
@@ -105,9 +103,7 @@ $(2): $(1)
 endef
 
 # dir, prefix?
-define DIR
-$(eval $(foreach primary,DATA SCRIPTS,$(foreach file,$($(1)_$(primary)),$(if $(subst $(file),,$(lastword $(filter %/$(notdir $(file)),$($(1)_$(primary))))),,$(call DIR_primary,$(file),$($(1)dir)/$(2)$(notdir $(file)),$(primary))))))
-endef
+DIR = $(eval $(foreach primary,DATA SCRIPTS,$(foreach file,$($(1)_$(primary)),$(if $(subst $(file),,$(lastword $(filter %/$(notdir $(file)),$($(1)_$(primary))))),,$(call DIR_primary,$(file),$($(1)dir)/$(2)$(notdir $(file)),$(primary))))))
 
 %.elc: %.el
 	$(V_ELC)$(EMACS) --batch -Q -L emacs.d/site-lisp \
@@ -121,30 +117,17 @@ HUNSPELL_EN_US_DICT_ZIP = openoffice.org/3/user/wordbook/hunspell-en_US-$(HUNSPE
 $(HUNSPELL_EN_GB_DICT_ZIP) $(HUNSPELL_EN_US_DICT_ZIP):
 	$(V_CURL)$(CURL) -Ls http://downloads.sourceforge.net/wordlist/$(@F) > $@
 
-openoffice.org/3/user/wordbook/en_GB-ise.aff: $(HUNSPELL_EN_GB_DICT_ZIP)
+openoffice.org/3/user/wordbook/%.aff: openoffice.org/3/user/wordbook/hunspell-%-$(HUNSPELL_DICT_VERSION).zip
 	$(V_GEN)$(UNZIP) -qod $(@D) $< $(@F)
 	$(V_at)$(ICONV) -f iso-8859-1 -t utf-8 $@ > $@.tmp
 	$(V_at)mv $@.tmp $@
 	$(V_at)$(PATCH) -sp0 $@ < $@.patch
 
-openoffice.org/3/user/wordbook/en_GB-ise.dic: $(HUNSPELL_EN_GB_DICT_ZIP)
+openoffice.org/3/user/wordbook/%.dic: openoffice.org/3/user/wordbook/hunspell-%-$(HUNSPELL_DICT_VERSION).zip
 	$(V_GEN)$(UNZIP) -qod $(@D) $< $(@F)
 	$(V_at)$(ICONV) -f iso-8859-1 -t utf-8 $@ > $@.tmp
-	$(V_at)mv $@.tmp $@
-	$(V_at)sed -e "s/'/’/g" $@ > $@.tmp
-	$(V_at)mv $@.tmp $@
-
-openoffice.org/3/user/wordbook/en_US.aff: $(HUNSPELL_EN_US_DICT_ZIP)
-	$(V_GEN)$(UNZIP) -qod $(@D) $< $(@F)
-	$(V_at)$(ICONV) -f iso-8859-1 -t utf-8 $@ > $@.tmp
-	$(V_at)mv $@.tmp $@
-	$(V_at)$(PATCH) -sp0 $@ < $@.patch
-
-openoffice.org/3/user/wordbook/en_US.dic: $(HUNSPELL_EN_US_DICT_ZIP)
-	$(V_GEN)$(UNZIP) -qod $(@D) $< $(@F)
-	$(V_at)$(ICONV) -f iso-8859-1 -t utf-8 $@ > $@.tmp
-	$(V_at)mv $@.tmp $@
-	$(V_at)sed -e "s/'/’/g" $@ > $@.tmp
+	$(V_at)sed -e "s/'/’/g" $@.tmp > $@.tmp.tmp
+	$(V_at)mv $@.tmp.tmp $@.tmp
 	$(V_at)mv $@.tmp $@
 
 HUNSPELL_SV_DICT_ZIP = openoffice.org/3/user/wordbook/addon-474623-latest.xpi
