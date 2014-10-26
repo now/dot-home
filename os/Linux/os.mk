@@ -1,13 +1,13 @@
 userconf_DATA += \
 	os/Linux/Xresources
 
+userconf_SCRIPTS += \
+	os/Linux/xsession
+
 userconfxmonaddir = $(userconf)/xmonad
 
 userconfxmonad_DATA = \
 	os/Linux/xmonad/xmonad.hs
-
-userconf_SCRIPTS += \
-	os/Linux/xsession
 
 HAVE_X11 := $(realpath /usr/X11)
 
