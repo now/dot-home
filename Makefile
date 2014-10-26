@@ -111,35 +111,35 @@ DIR = $(eval $(foreach primary,DATA SCRIPTS,$(foreach file,$($(1)_$(primary)),$(
 	  $(ELCFLAGS) -f batch-byte-compile $<
 
 HUNSPELL_DICT_VERSION = 2014.08.11
-HUNSPELL_EN_GB_DICT_ZIP = openoffice.org/3/user/wordbook/hunspell-en_GB-ise-$(HUNSPELL_DICT_VERSION).zip
-HUNSPELL_EN_US_DICT_ZIP = openoffice.org/3/user/wordbook/hunspell-en_US-$(HUNSPELL_DICT_VERSION).zip
+HUNSPELL_EN_GB_DICT_ZIP = hunspell/hunspell-en_GB-ise-$(HUNSPELL_DICT_VERSION).zip
+HUNSPELL_EN_US_DICT_ZIP = hunspell/hunspell-en_US-$(HUNSPELL_DICT_VERSION).zip
 
 $(HUNSPELL_EN_GB_DICT_ZIP) $(HUNSPELL_EN_US_DICT_ZIP):
 	$(V_CURL)$(CURL) -Ls http://downloads.sourceforge.net/wordlist/$(@F) > $@
 
-openoffice.org/3/user/wordbook/%.aff: openoffice.org/3/user/wordbook/hunspell-%-$(HUNSPELL_DICT_VERSION).zip
+hunspell/%.aff: hunspell/hunspell-%-$(HUNSPELL_DICT_VERSION).zip
 	$(V_GEN)$(UNZIP) -qod $(@D) $< $(@F)
 	$(V_at)$(ICONV) -f iso-8859-1 -t utf-8 $@ > $@.tmp
 	$(V_at)mv $@.tmp $@
 	$(V_at)$(PATCH) -sp0 $@ < $@.patch
 
-openoffice.org/3/user/wordbook/%.dic: openoffice.org/3/user/wordbook/hunspell-%-$(HUNSPELL_DICT_VERSION).zip
+hunspell/%.dic: hunspell/hunspell-%-$(HUNSPELL_DICT_VERSION).zip
 	$(V_GEN)$(UNZIP) -qod $(@D) $< $(@F)
 	$(V_at)$(ICONV) -f iso-8859-1 -t utf-8 $@ > $@.tmp
 	$(V_at)sed -e "s/'/’/g" $@.tmp > $@.tmp.tmp
 	$(V_at)mv $@.tmp.tmp $@.tmp
 	$(V_at)mv $@.tmp $@
 
-HUNSPELL_SV_DICT_ZIP = openoffice.org/3/user/wordbook/addon-474623-latest.xpi
+HUNSPELL_SV_DICT_ZIP = hunspell/addon-474623-latest.xpi
 
 $(HUNSPELL_SV_DICT_ZIP):
 	$(V_CURL)$(CURL) -Ls https://addons.mozilla.org/firefox/downloads/latest/474623/$(@F) > $@
 
-openoffice.org/3/user/wordbook/sv.aff: $(HUNSPELL_SV_DICT_ZIP)
+hunspell/sv.aff: $(HUNSPELL_SV_DICT_ZIP)
 	$(V_GEN)$(UNZIP) -qojd $(@D) $< dictionaries/$(@F)
 	$(V_at)touch $@
 
-openoffice.org/3/user/wordbook/sv.dic: $(HUNSPELL_SV_DICT_ZIP)
+hunspell/sv.dic: $(HUNSPELL_SV_DICT_ZIP)
 	$(V_GEN)$(UNZIP) -qojd $(@D) $< dictionaries/$(@F)
 	$(V_at)sed -e "s/'/’/g" $@ > $@.tmp
 	$(V_at)mv $@.tmp $@
@@ -235,12 +235,12 @@ emacs.d/site-lisp/userloaddefs.el: $(sitelisp_elcs)
 	$(V_at)touch $@
 
 userconfopenofficeorg3userwordbook_DATA = \
-	openoffice.org/3/user/wordbook/en_GB-ise.aff \
-	openoffice.org/3/user/wordbook/en_GB-ise.dic \
-	openoffice.org/3/user/wordbook/en_US.aff \
-	openoffice.org/3/user/wordbook/en_US.dic \
-	openoffice.org/3/user/wordbook/sv.aff \
-	openoffice.org/3/user/wordbook/sv.dic
+	hunspell/en_GB-ise.aff \
+	hunspell/en_GB-ise.dic \
+	hunspell/en_US.aff \
+	hunspell/en_US.dic \
+	hunspell/sv.aff \
+	hunspell/sv.dic
 
 xdgconfighome_DATA = \
 	dircolors
