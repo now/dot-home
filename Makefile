@@ -281,7 +281,7 @@ userconfaudacity_DATA = \
 	audacity.cfg
 
 userconfvlc_DATA = \
-	vlc/vlcrc
+	vlcrc
 
 userconfmozillafirefox_DATA = \
 	firefox/profiles.ini
