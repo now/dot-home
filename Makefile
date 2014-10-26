@@ -45,7 +45,6 @@ prefix = ~
 bindir = $(prefix)/opt/bin
 sharedir = $(prefix)/opt/share
 userconfdir = $(prefix)
-guiuserconfdir = $(prefix)
 XDG_CONFIG_HOME ?= $(prefix)/.config
 userconfaudacitydir = $(userconfdir)/.audacity
 userconfemacsddir = $(userconfdir)/.emacs.d

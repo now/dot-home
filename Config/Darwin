@@ -4,5 +4,4 @@ ZSHELL = /opt/local/bin/zsh
 appsupportdir = $(prefix)/Library/Application\ Support
 userconfaudacitydir = $(appsupportdir)/audacity
 userconfmozillafirefoxdir = $(appsupportdir)/Firefox
-guiuserconfdir = ~/Library/Preferences
-userconfvlcdir = $(guiuserconfdir)/org.videolan.vlc
+userconfvlcdir = $(prefix)/Library/Preferences/org.videolan.vlc
