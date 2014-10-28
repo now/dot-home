@@ -198,12 +198,8 @@ provided_elcs = \
 	emacs.d/delayed-inits/solar.elc \
 	emacs.d/delayed-inits/tabulated-list.elc
 
-$(provided_elcs): ELCFLAGS = --eval "(require '$(basename $(notdir $@)))"
-
 unprovided_elcs = \
 	emacs.d/delayed-inits/buff-menu.elc
-
-$(unprovided_elcs): ELCFLAGS = --eval '(load "$(basename $(notdir $@))" nil t)'
 
 userconfemacsddelayedinits_DATA = \
 	$(provided_elcs) \
@@ -229,12 +225,6 @@ sitelisp_elcs = \
 userconfemacsdsitelisp_DATA = \
 	$(sitelisp_elcs) \
 	emacs.d/site-lisp/userloaddefs.el
-
-emacs.d/site-lisp/userloaddefs.el: $(sitelisp_elcs)
-	$(V_ELC)$(EMACS) --batch -Q --eval '(setq vc-handled-backends nil)' \
-	  --eval '(setq generated-autoload-file "$(abspath $@)")' \
-	  -f batch-update-autoloads emacs.d/site-lisp
-	$(V_at)touch $@
 
 userconfmozillafirefox_DATA = \
 	firefox/profiles.ini
@@ -326,6 +316,16 @@ userconf_DATA += \
 	vim/ftplugin/man.vim \
 	vimrc
 endif
+
+$(provided_elcs): ELCFLAGS = --eval "(require '$(basename $(notdir $@)))"
+
+$(unprovided_elcs): ELCFLAGS = --eval '(load "$(basename $(notdir $@))" nil t)'
+
+emacs.d/site-lisp/userloaddefs.el: $(sitelisp_elcs)
+	$(V_ELC)$(EMACS) --batch -Q --eval '(setq vc-handled-backends nil)' \
+	  --eval '(setq generated-autoload-file "$(abspath $@)")' \
+	  -f batch-update-autoloads emacs.d/site-lisp
+	$(V_at)touch $@
 
 $(call DIR,bin)
 $(call DIR,userconf,.)
