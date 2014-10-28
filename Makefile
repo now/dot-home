@@ -55,10 +55,10 @@ userconfemacsdsitelispdir = $(userconfemacsddir)/site-lisp
 userconfmozillafirefoxdir = $(userconfdir)/.mozilla/firefox
 userconfmozillafirefoxprofilesdefaultdir = $(userconfmozillafirefoxdir)/Profiles/default
 userconfopenofficeorg3userwordbookdir = $(userconfdir)/.openoffice.org/3/user/wordbook
-userconfvlcdir = $(prefix)/.config/vlc
 xdgconfighomedir = $(XDG_CONFIG_HOME)
 xdgconfighomefontconfigdir = $(xdgconfighomedir)/fontconfig
 xdgconfighomegitconfigdir = $(xdgconfighomedir)/git
+xdgconfighomevlcdir = $(xdgconfighomedir)/vlc
 xdgconfighomezshdir = $(xdgconfighomedir)/zsh
 xdgconfighomezshfunctionsdir = $(xdgconfighomezshdir)/functions
 sysconfdir = /etc
@@ -250,6 +250,9 @@ xdgconfighomefontconfig_DATA = \
 xdgconfighomegitconfig_DATA = \
 	git/config
 
+xdgconfighomevlc_DATA = \
+	vlcrc
+
 xdgconfighomezsh_DATA = \
 	zsh/zlogin \
 	zsh/zprofile \
@@ -278,9 +281,6 @@ xdgconfighomezshfunctions_DATA = \
 
 userconfaudacity_DATA = \
 	audacity.cfg
-
-userconfvlc_DATA = \
-	vlcrc
 
 userconfmozillafirefox_DATA = \
 	firefox/profiles.ini
@@ -338,10 +338,10 @@ $(call DIR,userconfemacsdsitelisp)
 $(call DIR,userconfmozillafirefox)
 $(call DIR,userconfmozillafirefoxprofilesdefault)
 $(call DIR,userconfopenofficeorg3userwordbook)
-$(call DIR,userconfvlc)
 $(call DIR,xdgconfighome)
 $(call DIR,xdgconfighomefontconfig)
 $(call DIR,xdgconfighomegit)
+$(call DIR,xdgconfighomevlc)
 $(call DIR,xdgconfighomezsh,.)
 $(call DIR,xdgconfighomezshfunctions)
 
