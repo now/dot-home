@@ -153,6 +153,9 @@ userconf_DATA = \
 	mailcap \
 	zshenv
 
+userconfaudacity_DATA = \
+	audacity.cfg
+
 userconfemacsd_DATA = \
 	emacs.d/init.elc \
 	emacs.d/now-theme.elc
@@ -233,6 +236,12 @@ emacs.d/site-lisp/userloaddefs.el: $(sitelisp_elcs)
 	  -f batch-update-autoloads emacs.d/site-lisp
 	$(V_at)touch $@
 
+userconfmozillafirefox_DATA = \
+	firefox/profiles.ini
+
+userconfmozillafirefoxprofilesdefault_DATA = \
+	firefox/user.js
+
 userconfopenofficeorg3userwordbook_DATA = \
 	hunspell/en_GB-ise.aff \
 	hunspell/en_GB-ise.dic \
@@ -278,15 +287,6 @@ xdgconfighomezshfunctions_DATA = \
 	zsh/functions/zle/urlify-current-argument \
 	zsh/functions/zle/vi-cmd-mode-silently \
 	zsh/functions/zle/yank-clipboard
-
-userconfaudacity_DATA = \
-	audacity.cfg
-
-userconfmozillafirefox_DATA = \
-	firefox/profiles.ini
-
-userconfmozillafirefoxprofilesdefault_DATA = \
-	firefox/user.js
 
 bin_SCRIPTS = \
 	bin/a \
