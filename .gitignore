@@ -1,4 +1,6 @@
 Environment
+/bin/a
+/bin/aa
 /bin/asciitable
 /bin/backup-home
 /bin/burn
@@ -14,7 +16,8 @@ Environment
 /bin/m
 /bin/mfedit
 /bin/mov-re-encode
-/bin/org-sync
+/bin/o
+/bin/oo
 /bin/pack
 /bin/terminal-colors
 /bin/unpack
@@ -23,6 +26,10 @@ Environment
 config.mk
 /emacs.d/site-lisp/userloaddefs.el
 /emacs.d/site-lisp/userloaddefs.el~
+/os/Cygwin/bin/im
+/os/Darwin/bin/a
+/os/Darwin/bin/im
+/os/Linux/bin/xdigraph
 *.aff
 *.dic
 *.elc

@@ -104,7 +104,7 @@ endef
 # dir, prefix?
 DIR = $(eval $(foreach primary,DATA SCRIPTS,$(foreach file,$($(1)_$(primary)),$(if $(subst $(file),,$(lastword $(filter %/$(notdir $(file)),$($(1)_$(primary))))),,$(call DIR_primary,$(file),$($(1)dir)/$(2)$(notdir $(file)),$(primary))))))
 
-%.elc: %.el
+%.elc: %.el emacs.d/site-lisp/userloaddefs.el emacs.d/inits/package.el
 	$(V_ELC)$(EMACS) --batch -Q -L emacs.d/site-lisp \
 	  -l emacs.d/site-lisp/userloaddefs.el -l emacs.d/inits/package.el \
 	  $(ELCFLAGS) -f batch-byte-compile $<
@@ -320,6 +320,10 @@ endif
 $(provided_elcs): ELCFLAGS = --eval "(require '$(basename $(notdir $@)))"
 
 $(unprovided_elcs): ELCFLAGS = --eval '(load "$(basename $(notdir $@))" nil t)'
+
+$(sitelisp_elcs): %.elc: %.el
+	$(V_ELC)$(EMACS) --batch -Q -L emacs.d/site-lisp \
+	  -l emacs.d/inits/package.el $(ELCFLAGS) -f batch-byte-compile $<
 
 emacs.d/site-lisp/userloaddefs.el: $(sitelisp_elcs)
 	$(V_ELC)$(EMACS) --batch -Q --eval '(setq vc-handled-backends nil)' \

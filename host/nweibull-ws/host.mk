@@ -1,2 +1,2 @@
 xdgconfighomezshhost_DATA = \
-	host/zsh/nweibull-ws/profile
+	host/nweibull-ws/zsh/profile

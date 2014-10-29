@@ -1,11 +1,11 @@
 sitelisp_elcs += \
-	emacs/site-lisp/windows-path.elc
+	emacs.d/site-lisp/windows-path.elc
 
 userconf_DATA += \
 	os/Cygwin/hotkeys.ahk \
 	os/Cygwin/minttyrc
 
-appdataghislerdir = $(appdata)/GHISLER
+appdataghislerdir = $(appdatadir)/GHISLER
 appdataghislerlanguagesdir = $(appdataghislerdir)/languages
 appdataghislerpackersrardir = $(appdataghislerdir)/packers/rar
 appdataghislerpluginsdir = $(appdataghislerdir)/plugins
@@ -22,6 +22,7 @@ appdataghislerpluginswfxregistrydir = $(appdataghislerpluginswfxdir)/registry
 appdataghislerpluginswlxdir = $(appdataghislerpluginsdir)/wlx
 appdataghislerpluginswlxgswlxdir = $(appdataghislerpluginswlxdir)/gswlx
 appdataghislerpluginswlximaginedir = $(appdataghislerpluginswlxdir)/imagine
+appdataghislerpluginswlximagineplugindir = $(appdataghislerpluginswlximaginedir)/plugin
 appdataghislertoolsworkdir = $(appdataghislerdir)/tools/work
 appdatadialogdeathdir = $(appdatadir)/Dialog\ Death
 startupdir = $(call shell_quote,$(shell cygpath -P))/Startup
@@ -84,6 +85,8 @@ appdataghislerpluginswlximagine_SCRIPTS = \
 	os/Cygwin/GHISLER/plugins/wlx/imagine/imagine.dll \
 	os/Cygwin/GHISLER/plugins/wlx/imagine/imagine.wcx \
 	os/Cygwin/GHISLER/plugins/wlx/imagine/imagine.wlx \
+
+appdataghislerpluginswlximagineplugin_SCRIPTS = \
 	os/Cygwin/GHISLER/plugins/wlx/imagine/plugin/j2k.dll \
 	os/Cygwin/GHISLER/plugins/wlx/imagine/plugin/jbig.dll
 
@@ -129,5 +132,6 @@ $(call DIR,appdataghislerpluginswfxenvironment)
 $(call DIR,appdataghislerpluginswfxregistry)
 $(call DIR,appdataghislerpluginswlxgswlx)
 $(call DIR,appdataghislerpluginswlximagine)
+$(call DIR,appdataghislerpluginswlximagineplugin)
 $(call DIR,appdataghislertoolswork)
 $(call DIR,startup)
