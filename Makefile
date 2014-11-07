@@ -6,7 +6,6 @@ EMACS = emacs
 ICONV = iconv
 INSTALL = install
 PATCH = patch
-TOUCH = touch
 UNZIP = unzip
 ZSHELL = /bin/zsh
 
