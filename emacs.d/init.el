@@ -116,9 +116,6 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-
 (setq pop-up-windows nil)
 
 (eval-when-compile
