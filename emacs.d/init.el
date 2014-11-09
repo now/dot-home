@@ -179,11 +179,6 @@
 
 (global-set-key (kbd "C-x C-o") 'other-window)
 
-(global-set-key (kbd "C-x i") 'iedit-mode)
-(eval-after-load 'iedit
-  '(define-key iedit-lib-keymap (kbd "M-o") 'iedit-toggle-unmatched-lines-visible))
-(global-set-key (kbd "C-x I") 'mc/mark-next-like-this)
-
 (define-key global-map "\C-s" 'isearch-forward-regexp)
 (define-key esc-map "\C-s" 'isearch-forward)
 (define-key global-map "\C-r" 'isearch-backward-regexp)
