@@ -1,6 +1,18 @@
 (defun now-org-refile-target-verify ()
   "Verify that refile target is not a done task."
   (not (org-entry-is-done-p)))
+(defface org-delegated nil
+  "Face used for DELEGATED todo keyword."
+  :group 'org-faces)
+(defface org-hold nil
+  "Face used for HOLD todo keyword."
+  :group 'org-faces)
+(defface org-next nil
+  "Face used for NEXT todo keyword."
+  :group 'org-faces)
+(defface org-waiting nil
+  "Face used for WAIT todo keyword."
+  :group 'org-faces)
 (setq org-directory "~/Documents/Org"
       org-agenda-deadline-faces '((0.0 . default))
       org-agenda-files (list org-directory)
