@@ -19,7 +19,6 @@
                    css-mode
                    desktop
                    diff
-                   diff-mode
                    dired
                    dired-aux
                    evil
@@ -32,7 +31,6 @@
                    lisp-mode
                    magit
                    make-mode
-                   man
                    nxml-mode
                    org
                    org-agenda
@@ -41,7 +39,6 @@
                    org-colview
                    org-id
                    org-mobile
-                   paredit
                    recentf
                    rng-loc
                    ruby-mode

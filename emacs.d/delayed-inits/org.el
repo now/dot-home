@@ -65,18 +65,6 @@
                                      ("NIXD" ("NIXD" . t)))
       org-treat-S-cursor-todo-selection-as-state-change nil
       org-yank-adjusted-subtrees t)
-(eval-after-load 'evil
-  '(progn
-     (evil-define-key 'motion org-mode-map
-       (kbd "RET") 'org-cycle)
-     (evil-define-key 'normal org-mode-map
-       ",<" 'org-mobile-pull
-       ",>" 'org-mobile-push
-       ",i" 'org-clock-in
-       ",o" 'org-clock-out
-       ",P" 'org-set-property
-       ",T" 'org-set-effort
-       ",t" 'org-todo)))
 
 (defun now-org-insert-heading-inactive-timestamp ()
   "Insert an inactive timestamp under the current headline."

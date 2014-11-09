@@ -91,3 +91,60 @@
 (define-key evil-motion-state-map "L" nil)
 (define-key evil-normal-state-map "L" 'evil-change-whole-line)
 (define-key evil-motion-state-map "S" 'evil-window-bottom)
+
+;;; Mode-specific bindings
+
+(evil-define-key 'motion Buffer-menu-mode-map
+  "s" 'evil-forward-char
+  "w" 'Buffer-menu-save)
+
+(evil-define-key 'motion calendar-mode-map
+  "\C-b" 'calendar-scroll-right-three-months
+  "\C-f" 'calendar-scroll-left-three-months
+  "H" 'calendar-cursor-holidays
+  "b" 'calendar-beginning-of-week
+  "h" 'calendar-backward-day
+  "j" 'calendar-forward-week
+  "k" 'calendar-backward-week
+  "s" 'calendar-forward-day
+  "w" 'calendar-end-of-week)
+
+(evil-define-key 'normal diff-mode-map
+  "q" 'close-buffer-and-window-unless-last)
+
+(evil-define-key 'normal Man-mode-map
+  "q" 'Man-quit)
+
+(evil-define-key 'motion org-mode-map
+  (kbd "RET") 'org-cycle)
+(evil-define-key 'normal org-mode-map
+  ",<" 'org-mobile-pull
+  ",>" 'org-mobile-push
+  ",i" 'org-clock-in
+  ",o" 'org-clock-out
+  ",P" 'org-set-property
+  ",T" 'org-set-effort
+  ",t" 'org-todo)
+
+(evil-define-key 'motion paredit-mode-map
+  "gB" 'evil-paredit-backward-up
+  "gb" 'evil-paredit-backward
+  "gW" 'evil-paredit-forward-up
+  "gw" 'evil-paredit-forward)
+(evil-define-key 'normal paredit-mode-map
+  "D" 'paredit-kill
+  "x" 'paredit-forward-delete
+  "X" 'paredit-backward-delete
+  "))" 'evil-paredit-forward-slurp-sexp
+  ")}" 'evil-paredit-forward-barf-sexp
+  "((" 'evil-paredit-backward-slurp-sexp
+  "({" 'evil-paredit-backward-barf-sexp
+  "(J" 'paredit-join-sexps
+  "(R" 'paredit-raise-sexp
+  "(S" 'paredit-splice-sexp-killing-backward
+  "(s" 'paredit-splice-sexp
+  "(W" 'paredit-wrap-round)
+
+(evil-define-key 'normal ruby-mode-map
+  ",t" 'ruby-find-other-file
+  ",M" 'ruby-run-test-at-line)

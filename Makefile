@@ -166,7 +166,6 @@ provided_elcs = \
 	emacs.d/delayed-inits/compile.elc \
 	emacs.d/delayed-inits/css-mode.elc \
 	emacs.d/delayed-inits/desktop.elc \
-	emacs.d/delayed-inits/diff-mode.elc \
 	emacs.d/delayed-inits/diff.elc \
 	emacs.d/delayed-inits/dired.elc \
 	emacs.d/delayed-inits/dired-aux.elc \
@@ -180,7 +179,6 @@ provided_elcs = \
 	emacs.d/delayed-inits/lisp-mode.elc \
 	emacs.d/delayed-inits/magit.elc \
 	emacs.d/delayed-inits/make-mode.elc \
-	emacs.d/delayed-inits/man.elc \
 	emacs.d/delayed-inits/nxml-mode.elc \
 	emacs.d/delayed-inits/org-agenda.elc \
 	emacs.d/delayed-inits/org-capture.elc \
@@ -189,7 +187,6 @@ provided_elcs = \
 	emacs.d/delayed-inits/org-id.elc \
 	emacs.d/delayed-inits/org-mobile.elc \
 	emacs.d/delayed-inits/org.elc \
-	emacs.d/delayed-inits/paredit.elc \
 	emacs.d/delayed-inits/recentf.elc \
 	emacs.d/delayed-inits/rng-loc.elc \
 	emacs.d/delayed-inits/ruby-mode.elc \
@@ -216,6 +213,7 @@ userconfemacsdinits_DATA = \
 
 sitelisp_elcs = \
 	emacs.d/site-lisp/buff-menu-ext.elc \
+	emacs.d/site-lisp/evil-paredit.elc \
 	emacs.d/site-lisp/hide-mode-line.elc \
 	emacs.d/site-lisp/ned-info-on-file.elc \
 	emacs.d/site-lisp/now-org.elc \

@@ -25,11 +25,6 @@
 (dolist (key '("d" "e" "f"))
   (define-key ruby-mode-map key 'ruby-electric-end-character))
 
-(eval-after-load 'evil
-  '(evil-define-key 'normal ruby-mode-map
-     ",t" 'ruby-find-other-file
-     ",M" 'ruby-run-test-at-line))
-
 (eval-when-compile
   (defvar project-filename))
 (add-hook 'ruby-mode-hook
