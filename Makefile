@@ -193,6 +193,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/recentf.elc \
 	emacs.d/delayed-inits/rng-loc.elc \
 	emacs.d/delayed-inits/ruby-mode.elc \
+	emacs.d/delayed-inits/scroll-bar.elc \
 	emacs.d/delayed-inits/sh-script.elc \
 	emacs.d/delayed-inits/solar.elc \
 	emacs.d/delayed-inits/tabulated-list.elc

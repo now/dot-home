@@ -45,6 +45,7 @@
                    recentf
                    rng-loc
                    ruby-mode
+                   scroll-bar
                    sh-script
                    solar
                    tabulated-list))
@@ -70,9 +71,6 @@
 
 (hide-mode-line)
 (add-hook 'window-setup-hook 'hide-mode-line-update)
-
-(eval-after-load 'scroll-bar
-  '(scroll-bar-mode -1))
 
 (eval-after-load 'tool-bar
   '(tool-bar-mode -1))
