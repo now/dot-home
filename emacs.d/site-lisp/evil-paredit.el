@@ -4,7 +4,7 @@
 ;;; This is needed, as eval-after-load reports it as possibly missing.
 (declare-function eldoc-add-command "eldoc.el")
 
-;;;###autoload
+;;;###autoload (autoload 'evil-paredit-forward-slurp-sexp "evil-paredit" "TBD." t)
 (evil-define-command evil-paredit-forward-slurp-sexp (count)
   "TBD."
   :repeat t
@@ -14,7 +14,7 @@
     (dotimes (i count)
       (paredit-forward-slurp-sexp))))
 
-;;;###autoload
+;;;###autoload (autoload 'evil-paredit-forward-barf-sexp "evil-paredit" "TBD." t)
 (evil-define-command evil-paredit-forward-barf-sexp (count)
   "TBD."
   :repeat t
@@ -24,7 +24,7 @@
     (dotimes (i count)
       (paredit-forward-barf-sexp))))
 
-;;;###autoload
+;;;###autoload (autoload 'evil-paredit-backward-slurp-sexp "evil-paredit" "TBD." t)
 (evil-define-command evil-paredit-backward-slurp-sexp (count)
   "TBD."
   :repeat t
@@ -34,7 +34,7 @@
     (dotimes (i count)
       (paredit-backward-slurp-sexp))))
 
-;;;###autoload
+;;;###autoload (autoload 'evil-paredit-backward-barf-sexp "evil-paredit" "TBD." t)
 (evil-define-command evil-paredit-backward-barf-sexp (count)
   "TBD."
   :repeat t
@@ -44,21 +44,21 @@
     (dotimes (i count)
       (paredit-backward-barf-sexp))))
 
-;;;###autoload
+;;;###autoload (autoload 'evil-paredit-backward "evil-paredit" "TBD." t)
 (evil-define-motion evil-paredit-backward (count)
   "TBD."
   :type exclusive
   (dotimes (i (or count 1))
     (paredit-backward)))
 
-;;;###autoload
+;;;###autoload (autoload 'evil-paredit-backward-up "evil-paredit" "TBD." t)
 (evil-define-motion evil-paredit-backward-up (count)
   "TBD."
   :type exclusive
   (dotimes (i (or count 1))
     (paredit-backward-up)))
 
-;;;###autoload
+;;;###autoload (autoload 'evil-paredit-forward "evil-paredit" "TBD." t)
 (evil-define-motion evil-paredit-forward (count)
   "TBD."
   :type exclusive
@@ -70,7 +70,7 @@
   (dotimes (i (or count 1))
     (paredit-forward)))
 
-;;;###autoload
+;;;###autoload (autoload 'evil-paredit-forward-up "evil-paredit" "TBD." t)
 (evil-define-motion evil-paredit-forward-up (count)
   "TBD."
   :type exclusive
