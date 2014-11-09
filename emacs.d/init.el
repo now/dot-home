@@ -104,8 +104,11 @@
                 calendar-mode-hook
                 compilation-mode-hook
                 diff-mode-hook
+                eww-mode-hook
                 help-mode-hook
-                magit-mode-hook))
+                magit-mode-hook
+                package-menu-mode-hook
+                term-mode-hook))
   (add-hook hook 'now-do-not-show-trailing-whitespace))
 
 (set-terminal-parameter nil 'background-mode 'light)
