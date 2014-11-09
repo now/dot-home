@@ -112,6 +112,9 @@
 (evil-define-key 'normal diff-mode-map
   "q" 'close-buffer-and-window-unless-last)
 
+(with-eval-after-load 'grep
+  (evil-make-overriding-map grep-mode-map nil))
+
 (evil-define-key 'normal Man-mode-map
   "q" 'Man-quit)
 
