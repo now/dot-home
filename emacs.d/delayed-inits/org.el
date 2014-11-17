@@ -32,6 +32,8 @@
                              (wl . wl))
       org-log-done 'time
       org-log-into-drawer t
+      org-log-redeadline t
+      org-log-reschedule t
       org-loop-over-headlines-in-active-region 'region-start-level
       org-outline-path-complete-in-steps nil
       org-refile-allow-creating-parent-nodes 'confirm
