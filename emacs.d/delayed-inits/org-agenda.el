@@ -42,7 +42,7 @@
                                (org-agenda-todo-ignore-deadlines t)))
                    (tags      "-REFILE/DONE|NIXD"
                               ((org-agenda-overriding-header "Archivals")
-                               (org-agenda-skip-function 'now-org-skip-unless-archival)
+                               (org-agenda-skip-function 'now-org-agenda-skip-unless-archival)
                                (org-tags-match-list-sublevels nil)))))
        (add-tag (lambda (tag s)
                   (let ((parts (split-string s "/")))
@@ -112,7 +112,7 @@
   (defvar org-clock-file-total-minutes))
 (defun now-org-agenda-skip-unless-archival ()
   "Skip tasks that are not ready for archival.  A task is ready
-fo archival if it is not a `now-org-project-task-p' or if it is
+for archival if it is not a `now-org-project-task-p' or if it is
 not a `now-org-project-p' that has time clocked on it during this
 or the previous month."
   (if (or (now-org-project-task-p)
