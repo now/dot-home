@@ -178,9 +178,30 @@ line, the position of the `org-agenda-restrict-begin' marker,
   (interactive)
   (now-org-agenda-set-restriction-lock 'project))
 
+(defun now-org-narrow-up ()
+  "Narrow to parent of current headline."
+  (interactive)
+  (widen)
+  (save-excursion
+    (outline-up-heading 1 'invisible-ok)
+    (org-narrow-to-subtree)
+    (save-restriction
+      (org-agenda-set-restriction-lock))))
+
+(defun now-org-agenda-narrow-up ()
+  "Narrow to parent of current headline in the agenda."
+  (interactive)
+  (let ((pom (now-org-agenda-get-pom-dwim)))
+    (when pom
+      (org-with-point-at pom
+        (now-org-narrow-up)))))
+
+(define-key org-agenda-mode-map "`" 'smex)
+(define-key org-agenda-mode-map "\M-d" 'smex)
 (define-key org-agenda-mode-map "n" 'org-agenda-next-item)
 (define-key org-agenda-mode-map "p" 'org-agenda-previous-item)
 (define-key org-agenda-mode-map "F" 'now-org-agenda-set-restriction-lock-to-file)
 (define-key org-agenda-mode-map "N" 'now-org-agenda-set-restriction-lock)
 (define-key org-agenda-mode-map "P" 'now-org-agenda-set-restriction-lock-to-project)
+(define-key org-agenda-mode-map "w" 'now-org-agenda-narrow-up)
 (define-key org-agenda-mode-map "W" 'org-agenda-remove-restriction-lock)
