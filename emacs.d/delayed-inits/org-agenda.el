@@ -63,9 +63,11 @@
         org-agenda-custom-commands `((" " "Agenda"
                                       ,commands)
                                      ("p" "Personal Agenda"
-                                      ,(funcall tag-commands "personal"))
+                                      ,(funcall tag-commands "personal")
+                                      ((org-agenda-hide-tags-regexp "\\`personal\\'")))
                                      ("w" "Work Agenda"
-                                      ,(funcall tag-commands "work")))
+                                      ,(funcall tag-commands "work")
+                                      ((org-agenda-hide-tags-regexp "\\`work\\'"))))
         org-agenda-deadline-leaders '("Deadline:  " "In %d days: " "%d days ago: ")
         org-agenda-diary-file (concat (file-name-as-directory org-directory) "diary.org")
         org-agenda-dim-blocked-tasks nil
