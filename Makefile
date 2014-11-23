@@ -179,6 +179,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/lisp-mode.elc \
 	emacs.d/delayed-inits/magit.elc \
 	emacs.d/delayed-inits/make-mode.elc \
+	emacs.d/delayed-inits/man.elc \
 	emacs.d/delayed-inits/nxml-mode.elc \
 	emacs.d/delayed-inits/org-agenda.elc \
 	emacs.d/delayed-inits/org-capture.elc \

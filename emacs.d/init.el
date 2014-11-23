@@ -31,6 +31,7 @@
                    lisp-mode
                    magit
                    make-mode
+                   man
                    nxml-mode
                    org
                    org-agenda
@@ -156,8 +157,6 @@
 
 (setq-default fill-column 79)
 (auto-fill-mode 1)
-
-(setq Man-notify-method 'pushy)
 
 (setq vc-handled-backends nil)
 (defun vc-git-mode-line-string (file) "")
