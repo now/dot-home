@@ -95,8 +95,11 @@
     (save-excursion (or (outline-next-heading) (point-max)))))
 
 (defun now-org-agenda-skip-unless-project-task ()
-  "Skip tasks that are `now-org-project-p' or are not `now-org-project-task-p'."
-  (if (or (now-org-project-p) (not (now-org-project-task-p)))
+  "Skip tasks that are `now-org-project-p' or are not `now-org-project-task-p'.
+Skip all tasks if `org-agenda-overriding-restriction' is not equal
+to 'subtree."
+  (if (or (not (eq org-agenda-overriding-restriction 'subtree))
+          (now-org-project-p) (not (now-org-project-task-p)))
       (save-excursion (or (outline-next-heading) (point-max)))))
 
 (defun now-org-agenda-skip-unless-standalone-task ()
