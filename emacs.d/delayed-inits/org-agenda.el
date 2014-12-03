@@ -78,9 +78,9 @@
                                    (todo . " %i %-13:c")
                                    (tags . " %i %-13:c")
                                    (search . " %i %-13:c"))
-        org-agenda-sorting-strategy '((agenda habit-down time-up effort-up priority-down category-keep)
-                                      (todo category-up priority-down effort-up)
-                                      (tags category-up priority-down effort-up)
+        org-agenda-sorting-strategy '((agenda habit-down time-up priority-down effort-up category-keep)
+                                      (todo priority-down effort-up category-up)
+                                      (tags priority-down effort-up category-up)
                                       (search category-up))
         org-agenda-span 'day
         org-agenda-use-time-grid nil))
