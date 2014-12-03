@@ -65,7 +65,7 @@
     ",M" 'compile
     ",n" 'next-error
     ",N" 'compilation-next-file
-    ",o" 'org-capture
+    ",O" 'org-capture
     ",p" 'previous-error
     ",P" 'compilation-previous-file
     ",r" 'recompile
