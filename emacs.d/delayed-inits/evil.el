@@ -112,6 +112,8 @@
 (evil-define-key 'normal diff-mode-map
   "q" 'close-buffer-and-window-unless-last)
 
+(eval-when-compile
+  (defvar grep-mode-map))
 (with-eval-after-load 'grep
   (evil-make-overriding-map grep-mode-map nil))
 
