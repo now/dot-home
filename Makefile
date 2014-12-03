@@ -246,7 +246,7 @@ xdgconfighomefontconfig_DATA = \
 	fonts.conf
 
 xdgconfighomegit_DATA = \
-	gitconfig
+	git/config
 
 xdgconfighomevlc_DATA = \
 	vlcrc
