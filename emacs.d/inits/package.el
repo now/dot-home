@@ -1,4 +1,3 @@
-(require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/")
@@ -21,4 +20,8 @@
 (cond
  ((eq system-type 'cygwin)
   (add-to-list 'package-load-list '(cygwin-mount t))))
+(dolist (p package-load-list)
+  (let ((name (symbol-name (car p))))
+    (unless (package-installed-p name)
+      (package-install name))))
 (package-initialize)
