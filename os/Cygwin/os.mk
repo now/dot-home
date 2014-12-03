@@ -31,8 +31,8 @@ appdataghisler_DATA = \
 	os/Cygwin/GHISLER/lsplugin.ini \
 	os/Cygwin/GHISLER/no.bar \
 	os/Cygwin/GHISLER/tcignore.txt \
-	os/Cygwin/GHISLER/totalcmd.ini \
 	os/Cygwin/GHISLER/usercmd.ini \
+	os/Cygwin/GHISLER/wincmd.ini \
 	os/Cygwin/GHISLER/work.ini
 
 appdataghislerlanguages_DATA = \
