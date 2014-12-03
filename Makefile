@@ -56,7 +56,7 @@ userconfmozillafirefoxprofilesdefaultdir = $(userconfmozillafirefoxdir)/Profiles
 userconfopenofficeorg3userwordbookdir = $(userconfdir)/.openoffice.org/3/user/wordbook
 xdgconfighomedir = $(XDG_CONFIG_HOME)
 xdgconfighomefontconfigdir = $(xdgconfighomedir)/fontconfig
-xdgconfighomegitconfigdir = $(xdgconfighomedir)/git
+xdgconfighomegitdir = $(xdgconfighomedir)/git
 xdgconfighomevlcdir = $(xdgconfighomedir)/vlc
 xdgconfighomezshdir = $(xdgconfighomedir)/zsh
 xdgconfighomezshfunctionsdir = $(xdgconfighomezshdir)/functions
@@ -245,8 +245,8 @@ xdgconfighome_DATA = \
 xdgconfighomefontconfig_DATA = \
 	fonts.conf
 
-xdgconfighomegitconfig_DATA = \
-	git/config
+xdgconfighomegit_DATA = \
+	gitconfig
 
 xdgconfighomevlc_DATA = \
 	vlcrc
