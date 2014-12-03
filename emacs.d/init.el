@@ -38,6 +38,7 @@
                    org-capture
                    org-clock
                    org-colview
+                   org-faces
                    org-id
                    org-mobile
                    recentf

@@ -185,6 +185,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/org-capture.elc \
 	emacs.d/delayed-inits/org-clock.elc \
 	emacs.d/delayed-inits/org-colview.elc \
+	emacs.d/delayed-inits/org-faces.elc \
 	emacs.d/delayed-inits/org-id.elc \
 	emacs.d/delayed-inits/org-mobile.elc \
 	emacs.d/delayed-inits/org.elc \
