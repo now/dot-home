@@ -73,11 +73,11 @@
         org-agenda-dim-blocked-tasks nil
         org-agenda-fontify-priorities t
         org-agenda-log-mode-items '(clocked closed state)
-        org-agenda-prefix-format '((agenda . " %i %-13:c%?-12t% s")
+        org-agenda-prefix-format '((agenda . " %i %-10c%?-12t% s")
                                    (timeline . "  % s")
-                                   (todo . " %i %-13:c")
-                                   (tags . " %i %-13:c")
-                                   (search . " %i %-13:c"))
+                                   (todo . " %i %-10c")
+                                   (tags . " %i %-10c")
+                                   (search . " %i %-10c"))
         org-agenda-sorting-strategy '((agenda habit-down time-up priority-down effort-up category-keep)
                                       (todo priority-down effort-up category-up)
                                       (tags priority-down effort-up category-up)
