@@ -83,6 +83,7 @@
                                       (tags priority-down effort-up category-up)
                                       (search category-up))
         org-agenda-span 'day
+        org-agenda-sticky t
         org-agenda-use-time-grid nil))
 
 (defun now-org-agenda-skip-unless-stuck-project ()
