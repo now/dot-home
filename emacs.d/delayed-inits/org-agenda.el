@@ -131,7 +131,7 @@ or the previous month."
                                      (cadr  (org-clock-special-range 'thismonth)))
                       org-clock-file-total-minutes))
                   0)))
-      (save-excursion (org-end-of-subtree))))
+      (save-excursion (org-end-of-subtree t))))
 
 (defun now-org-agenda-set-restriction-lock-to-file ()
   "Restrict agenda to file of current headline."
