@@ -198,6 +198,44 @@ line, the position of the `org-agenda-restrict-begin' marker,
       (org-with-point-at pom
         (now-org-narrow-up)))))
 
+(defun now-org-agenda-goto-first-item-in-block (n)
+  "Go to the first item of the Nth current or previous agenda block."
+  (interactive "p")
+  (dotimes (i n)
+    (let ((p (previous-single-property-change
+              (save-excursion
+                (when (or (not (zerop i))
+                          (eq (previous-single-property-change
+                               (point-at-bol)
+                               'org-agenda-structural-header)
+                              (1- (point-at-bol))))
+                  (org-agenda-previous-item 1))
+                (point-at-bol))
+              'org-agenda-structural-header)))
+      (when p
+        (goto-char p)
+        (move-beginning-of-line 2))))
+  (org-agenda-do-context-action))
+
+(defun now-org-agenda-goto-last-item-in-block (n)
+  "Go to the last item of the Nth current or next agenda block."
+  (interactive "p")
+   (dotimes (i n)
+    (let ((p (next-single-property-change
+              (save-excursion
+                (when (or (not (zerop i))
+                          (eq (next-single-property-change
+                               (point-at-eol)
+                               'org-agenda-structural-header)
+                              (1+ (point-at-eol))))
+                  (org-agenda-next-item 1))
+                (point-at-eol))
+              'org-agenda-structural-header)))
+      (when p
+        (goto-char p)
+        (move-beginning-of-line 0))))
+   (org-agenda-do-context-action))
+
 (define-key org-agenda-mode-map "`" 'smex)
 (define-key org-agenda-mode-map "\M-d" 'smex)
 (define-key org-agenda-mode-map "n" 'org-agenda-next-item)
@@ -207,3 +245,5 @@ line, the position of the `org-agenda-restrict-begin' marker,
 (define-key org-agenda-mode-map "P" 'now-org-agenda-set-restriction-lock-to-project)
 (define-key org-agenda-mode-map "w" 'now-org-agenda-narrow-up)
 (define-key org-agenda-mode-map "W" 'org-agenda-remove-restriction-lock)
+(define-key org-agenda-mode-map "<" 'now-org-agenda-goto-first-item-in-block)
+(define-key org-agenda-mode-map ">" 'now-org-agenda-goto-last-item-in-block)
