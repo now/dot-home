@@ -245,5 +245,5 @@ line, the position of the `org-agenda-restrict-begin' marker,
 (define-key org-agenda-mode-map "P" 'now-org-agenda-set-restriction-lock-to-project)
 (define-key org-agenda-mode-map "w" 'now-org-agenda-narrow-up)
 (define-key org-agenda-mode-map "W" 'org-agenda-remove-restriction-lock)
-(define-key org-agenda-mode-map "<" 'now-org-agenda-goto-first-item-in-block)
-(define-key org-agenda-mode-map ">" 'now-org-agenda-goto-last-item-in-block)
+(define-key org-agenda-mode-map "(" 'now-org-agenda-goto-first-item-in-block)
+(define-key org-agenda-mode-map ")" 'now-org-agenda-goto-last-item-in-block)
