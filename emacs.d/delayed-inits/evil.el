@@ -109,9 +109,6 @@
   "s" 'calendar-forward-day
   "w" 'calendar-end-of-week)
 
-(evil-define-key 'normal diff-mode-map
-  "q" 'close-buffer-and-window-unless-last)
-
 (eval-when-compile
   (defvar grep-mode-map))
 (with-eval-after-load 'grep

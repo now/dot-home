@@ -1,13 +1,3 @@
-(defun close-buffer-and-window-unless-last ()
-  (interactive)
-  (let* ((buffer (current-buffer))
-         (window (get-buffer-window buffer))
-         (next (next-window window)))
-    (kill-buffer buffer)
-    (when (and window
-               (not (eq window next)))
-      (delete-window window))))
-
 (add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
 (require 'userloaddefs)
 
