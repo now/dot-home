@@ -221,19 +221,19 @@ line, the position of the `org-agenda-restrict-begin' marker,
   "Go to the last item of the Nth current or next agenda block."
   (interactive "p")
    (dotimes (i n)
-    (let ((p (next-single-property-change
-              (save-excursion
-                (when (or (not (zerop i))
-                          (eq (next-single-property-change
-                               (point-at-eol)
-                               'org-agenda-structural-header)
-                              (1+ (point-at-eol))))
-                  (org-agenda-next-item 1))
-                (point-at-eol))
-              'org-agenda-structural-header)))
-      (when p
-        (goto-char p)
-        (move-beginning-of-line 0))))
+     (let ((p (or (next-single-property-change
+                   (save-excursion
+                     (when (or (not (zerop i))
+                               (eq (next-single-property-change
+                                    (point-at-eol)
+                                    'org-agenda-structural-header)
+                                   (1+ (point-at-eol))))
+                       (org-agenda-next-item 1))
+                     (point-at-eol))
+                   'org-agenda-structural-header)
+                  (point-max))))
+       (goto-char p)
+       (move-beginning-of-line 0)))
    (org-agenda-do-context-action))
 
 (define-key org-agenda-mode-map "`" 'smex)
