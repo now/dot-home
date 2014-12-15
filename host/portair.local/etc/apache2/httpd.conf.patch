@@ -1,23 +1,6 @@
 --- /etc/apache2/httpd.conf	2014-09-10 00:11:08.000000000 +0200
 +++ httpd.conf	2014-12-14 21:31:14.000000000 +0100
-@@ -149,21 +149,21 @@
- LoadModule unixd_module libexec/apache2/mod_unixd.so
- #LoadModule heartbeat_module libexec/apache2/mod_heartbeat.so
- #LoadModule heartmonitor_module libexec/apache2/mod_heartmonitor.so
--#LoadModule dav_module libexec/apache2/mod_dav.so
-+LoadModule dav_module libexec/apache2/mod_dav.so
- LoadModule status_module libexec/apache2/mod_status.so
- LoadModule autoindex_module libexec/apache2/mod_autoindex.so
- #LoadModule asis_module libexec/apache2/mod_asis.so
- #LoadModule info_module libexec/apache2/mod_info.so
- #LoadModule cgi_module libexec/apache2/mod_cgi.so
--#LoadModule dav_fs_module libexec/apache2/mod_dav_fs.so
--#LoadModule dav_lock_module libexec/apache2/mod_dav_lock.so
-+LoadModule dav_fs_module libexec/apache2/mod_dav_fs.so
-+LoadModule dav_lock_module libexec/apache2/mod_dav_lock.so
- #LoadModule vhost_alias_module libexec/apache2/mod_vhost_alias.so
- LoadModule negotiation_module libexec/apache2/mod_negotiation.so
- LoadModule dir_module libexec/apache2/mod_dir.so
+@@ -163,7 +163,7 @@
  #LoadModule imagemap_module libexec/apache2/mod_imagemap.so
  #LoadModule actions_module libexec/apache2/mod_actions.so
  #LoadModule speling_module libexec/apache2/mod_speling.so
@@ -43,12 +26,3 @@
  
  # Real-time info on requests and configuration
  #Include /private/etc/apache2/extra/httpd-info.conf
-@@ -502,7 +503,7 @@
- #Include /private/etc/apache2/extra/httpd-manual.conf
- 
- # Distributed authoring and versioning (WebDAV)
--#Include /private/etc/apache2/extra/httpd-dav.conf
-+Include /private/etc/apache2/extra/httpd-dav.conf
- 
- # Various default settings
- #Include /private/etc/apache2/extra/httpd-default.conf
