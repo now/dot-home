@@ -195,7 +195,8 @@ provided_elcs = \
 	emacs.d/delayed-inits/scroll-bar.elc \
 	emacs.d/delayed-inits/sh-script.elc \
 	emacs.d/delayed-inits/solar.elc \
-	emacs.d/delayed-inits/tabulated-list.elc
+	emacs.d/delayed-inits/tabulated-list.elc \
+	emacs.d/delayed-inits/tramp-sh.elc
 
 unprovided_elcs = \
 	emacs.d/delayed-inits/buff-menu.elc

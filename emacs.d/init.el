@@ -37,7 +37,8 @@
                    scroll-bar
                    sh-script
                    solar
-                   tabulated-list))
+                   tabulated-list
+                   tramp-sh))
   (eval-after-load feature `(load (concat user-emacs-directory "delayed-inits/" ,(if (symbolp feature) (symbol-name feature) feature)))))
 
 (dolist (feature '(package))
