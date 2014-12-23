@@ -212,7 +212,9 @@ userconfemacsdetcschema_DATA = \
 	emacs.d/etc/schema/schemas.xml
 
 userconfemacsdinits_DATA = \
-	emacs.d/inits/package.elc
+	emacs.d/inits/package.elc \
+	emacs.d/inits/provided-delayed-inits.elc \
+	emacs.d/inits/unprovided-delayed-inits.elc \
 
 sitelisp_elcs = \
 	emacs.d/site-lisp/buff-menu-ext.elc \
@@ -321,6 +323,20 @@ endif
 $(provided_elcs): ELCFLAGS = --eval "(require '$(basename $(notdir $@)))"
 
 $(unprovided_elcs): ELCFLAGS = --eval '(load "$(basename $(notdir $@))" nil t)'
+
+emacs.d/inits/provided-delayed-inits.el: $(provided_elcs) Makefile
+	$(V_GEN)echo "(dolist (feature '($(basename $(notdir $(provided_elcs))))) \
+	  (eval-after-load feature \
+	                   \`(load (concat user-emacs-directory \
+	                                   \"delayed-inits/\" \
+	                                   ,(symbol-name feature)))))" > $@
+
+emacs.d/inits/unprovided-delayed-inits.el: $(unprovided_elcs) Makefile
+	$(V_GEN)echo "(dolist (feature '($(basename $(notdir $(unprovided_elcs))))) \
+	  (eval-after-load (symbol-name feature) \
+			   \`(load (concat user-emacs-directory \
+	                                   \"delayed-inits/\" \
+	                                   ,(symbol-name feature)))))" > $@
 
 $(sitelisp_elcs): %.elc: %.el
 	$(V_ELC)$(EMACS) --batch -Q -L emacs.d/site-lisp \

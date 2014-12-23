@@ -24,6 +24,8 @@
 /bin/update-context
 /bin/valgrind-ruby
 config.mk
+/emacs.d/inits/provided-delayed-inits.el
+/emacs.d/inits/unprovided-delayed-inits.el
 /emacs.d/site-lisp/userloaddefs.el
 /emacs.d/site-lisp/userloaddefs.el~
 /os/Cygwin/bin/im

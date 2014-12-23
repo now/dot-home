@@ -1,47 +1,9 @@
 (add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
 (require 'userloaddefs)
-
-(dolist (feature '("buff-menu"
-                   calc
-                   calendar
-                   cc-mode
-                   compile
-                   css-mode
-                   desktop
-                   diff
-                   dired
-                   dired-aux
-                   evil
-                   flx-ido
-                   grep
-                   hideshow
-                   holidays
-                   ido
-                   ispell
-                   lisp-mode
-                   magit
-                   make-mode
-                   man
-                   nxml-mode
-                   org
-                   org-agenda
-                   org-capture
-                   org-clock
-                   org-colview
-                   org-faces
-                   org-id
-                   org-mobile
-                   recentf
-                   rng-loc
-                   ruby-mode
-                   scroll-bar
-                   sh-script
-                   solar
-                   tabulated-list
-                   tramp-sh))
-  (eval-after-load feature `(load (concat user-emacs-directory "delayed-inits/" ,(if (symbolp feature) (symbol-name feature) feature)))))
-
-(dolist (feature '(package))
+;; The order is important; package has to come last.
+(dolist (feature '(provided-delayed-inits
+                   unprovided-delayed-inits
+                   package))
   (load (concat user-emacs-directory "inits/" (symbol-name feature))))
 
 ;;; Interface
