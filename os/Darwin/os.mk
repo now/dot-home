@@ -28,7 +28,7 @@
 #         showLaunchpadGestureEnabled = 0;
 #         tilesize = 52;
 #     };
-os/Darwin/defaults.stamp: os/Darwin/os.mk
+os/Darwin/.defaults.stamp: os/Darwin/os.mk
 	defaults write com.apple.Terminal ShowTabBarInFullScreen -bool no
 	defaults write com.apple.dock autohide -bool yes
 	defaults write com.apple.dock dashboard-in-overlay -bool yes
