@@ -1,6 +1,11 @@
+*.aff
+*.dic
+*.elc
+*.xpi
+*.zip
 .dirstamp
 /.build/
-/Environment
+/Environment/
 /Makefile
 /bin/a
 /bin/aa
@@ -28,7 +33,7 @@
 /bin/valgrind-ruby
 /build/install-sh
 /config.log
-config.mk
+/config.mk
 /config.status
 /configure
 /emacs.d/inits/provided-delayed-inits.el
@@ -39,8 +44,3 @@ config.mk
 /os/Darwin/bin/a
 /os/Darwin/bin/im
 /os/Linux/bin/xdigraph
-*.aff
-*.dic
-*.elc
-*.xpi
-*.zip
