@@ -4,6 +4,6 @@ xdgconfighomezshos_DATA = \
 	os/zsh/login \
 	os/zsh/rc
 
--include os/$(uname)/os.mk
+-include $(srcdir)/os/$(uname)/os.mk
 
 $(call DIR,xdgconfighomezshos)

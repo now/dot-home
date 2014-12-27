@@ -4,6 +4,6 @@ xdgconfighomezshhostdir = $(xdgconfighomezshdir)/host
 xdgconfighomezshhost_DATA = \
 	host/zsh/profile
 
--include host/$(host)/host.mk
+-include $(srcdir)/host/$(host)/host.mk
 
 $(call DIR,xdgconfighomezshhost)

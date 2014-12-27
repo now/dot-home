@@ -1,3 +1,8 @@
+abs_builddir = @abs_builddir@
+srcdir = @srcdir@
+
+VPATH = @srcdir@
+
 uname := $(patsubst CYGWIN_%,Cygwin,$(shell uname -s))
 
 CURL = curl
@@ -5,6 +10,7 @@ DIFF = diff
 EMACS = emacs
 ICONV = iconv
 INSTALL = install
+MKDIR_P = @MKDIR_P@
 PATCH = patch
 UNZIP = unzip
 ZSHELL = /bin/zsh
@@ -25,11 +31,11 @@ V_GEN_ = $(V_GEN_$(DEFAULT_VERBOSITY))
 V_GEN_0 = @echo "  GEN     " $@;
 
 V_CURL = $(V_CURL_$(V))
-V_CURL = $(V_CURL_$(DEFAULT_VERBOSITY))
+V_CURL_ = $(V_CURL_$(DEFAULT_VERBOSITY))
 V_CURL_0 = @echo "  CURL    " $@;
 
 V_PATCH = $(V_PATCH_$(V))
-V_PATCH = $(V_PATCH_$(DEFAULT_VERBOSITY))
+V_PATCH_ = $(V_PATCH_$(DEFAULT_VERBOSITY))
 V_PATCH_0 = @echo "  PATCH   " $@;
 
 V_INSTALL = $(V_INSTALL_$(V))
@@ -62,19 +68,30 @@ xdgconfighomezshdir = $(xdgconfighomedir)/zsh
 xdgconfighomezshfunctionsdir = $(xdgconfighomezshdir)/functions
 sysconfdir = /etc
 
--include Config/$(uname)
--include config.mk
+-include $(srcdir)/Config/$(uname)
+-include $(srcdir)/config.mk
+
+.SUFFIXES:
 
 .PHONY: all diff install
 
 all: diff
+
+$(srcdir)/configure: configure.ac
+	cd $(srcdir) && autoconf
+
+Makefile: Makefile.in config.status
+	./config.status
+
+config.status: configure
+	./config.status --recheck
 
 # patch, target
 define PATCH_template_file
 .PHONY: $(2:.patch=)
 $(2:.patch=):
 	$$(V_PATCH)if $$(PATCH) -Nsg 0 --dry-run $$@ $(1) > /dev/null; then \
-	  $$(PATCH) -Nsg 0 $$@ $(1); \
+	  $$(PATCH) -Nsg 0 $$@ $(srcdir)/$(1); \
 	fi
 
 endef
@@ -91,7 +108,7 @@ INSTALL_SCRIPTS = $(INSTALL_PROGRAMS)
 define DIR_primary
 .PHONY diff: $(2).diff
 $(2).diff:
-	@$$(DIFF) -u $(2) $(1) || true
+	@$$(DIFF) -u $(2) $$(srcdir)/$(1) || true
 
 install: $(2)
 
@@ -103,25 +120,31 @@ endef
 # dir, prefix?
 DIR = $(eval $(foreach primary,DATA SCRIPTS,$(foreach file,$($(1)_$(primary)),$(if $(subst $(file),,$(lastword $(filter %/$(notdir $(file)),$($(1)_$(primary))))),,$(call DIR_primary,$(file),$($(1)dir)/$(2)$(notdir $(file)),$(primary))))))
 
+%/.dirstamp:
+	$(V_at)$(MKDIR_P) $*
+	$(V_at): > $@
+
 %.elc: %.el emacs.d/site-lisp/userloaddefs.el emacs.d/inits/package.el
-	$(V_ELC)$(EMACS) --batch -Q -L emacs.d/site-lisp \
-	  -l emacs.d/site-lisp/userloaddefs.el -l emacs.d/inits/package.el \
+	$(V_ELC)$(EMACS) --batch -Q -L $(srcdir)/emacs.d/site-lisp \
+	  -l emacs.d/site-lisp/userloaddefs.el \
+	  -l $(srcdir)/emacs.d/inits/package.el \
+	  --eval "(setq byte-compile-dest-file-function (lambda (file) \"$@\"))" \
 	  $(ELCFLAGS) -f batch-byte-compile $<
 
 HUNSPELL_DICT_VERSION = 2014.08.11
 HUNSPELL_EN_GB_DICT_ZIP = hunspell/hunspell-en_GB-ise-$(HUNSPELL_DICT_VERSION).zip
 HUNSPELL_EN_US_DICT_ZIP = hunspell/hunspell-en_US-$(HUNSPELL_DICT_VERSION).zip
 
-$(HUNSPELL_EN_GB_DICT_ZIP) $(HUNSPELL_EN_US_DICT_ZIP):
+$(HUNSPELL_EN_GB_DICT_ZIP) $(HUNSPELL_EN_US_DICT_ZIP): hunspell/.dirstamp
 	$(V_CURL)$(CURL) -Ls http://downloads.sourceforge.net/wordlist/$(@F) > $@
 
-hunspell/%.aff: hunspell/hunspell-%-$(HUNSPELL_DICT_VERSION).zip
+hunspell/%.aff: hunspell/hunspell-%-$(HUNSPELL_DICT_VERSION).zip hunspell/.dirstamp
 	$(V_GEN)$(UNZIP) -qod $(@D) $< $(@F)
 	$(V_at)$(ICONV) -f iso-8859-1 -t utf-8 $@ > $@.tmp
 	$(V_at)mv $@.tmp $@
-	$(V_at)$(PATCH) -sp0 $@ < $@.patch
+	$(V_at)$(PATCH) -sp0 $@ < $(srcdir)/$@.patch
 
-hunspell/%.dic: hunspell/hunspell-%-$(HUNSPELL_DICT_VERSION).zip
+hunspell/%.dic: hunspell/hunspell-%-$(HUNSPELL_DICT_VERSION).zip hunspell/.dirstamp
 	$(V_GEN)$(UNZIP) -qod $(@D) $< $(@F)
 	$(V_at)$(ICONV) -f iso-8859-1 -t utf-8 $@ > $@.tmp
 	$(V_at)sed -e "s/'/’/g" $@.tmp > $@.tmp.tmp
@@ -130,14 +153,14 @@ hunspell/%.dic: hunspell/hunspell-%-$(HUNSPELL_DICT_VERSION).zip
 
 HUNSPELL_SV_DICT_ZIP = hunspell/addon-474623-latest.xpi
 
-$(HUNSPELL_SV_DICT_ZIP):
+$(HUNSPELL_SV_DICT_ZIP): hunspell/.dirstamp
 	$(V_CURL)$(CURL) -Ls https://addons.mozilla.org/firefox/downloads/latest/474623/$(@F) > $@
 
-hunspell/sv.aff: $(HUNSPELL_SV_DICT_ZIP)
+hunspell/sv.aff: $(HUNSPELL_SV_DICT_ZIP) hunspell/.dirstamp
 	$(V_GEN)$(UNZIP) -qojd $(@D) $< dictionaries/$(@F)
 	$(V_at)touch $@
 
-hunspell/sv.dic: $(HUNSPELL_SV_DICT_ZIP)
+hunspell/sv.dic: $(HUNSPELL_SV_DICT_ZIP) hunspell/.dirstamp
 	$(V_GEN)$(UNZIP) -qojd $(@D) $< dictionaries/$(@F)
 	$(V_at)sed -e "s/'/’/g" $@ > $@.tmp
 	$(V_at)mv $@.tmp $@
@@ -158,6 +181,8 @@ userconfaudacity_DATA = \
 userconfemacsd_DATA = \
 	emacs.d/init.elc \
 	emacs.d/now-theme.elc
+
+$(userconfemacsd_DATA): emacs.d/.dirstamp
 
 provided_elcs = \
 	emacs.d/delayed-inits/calc.elc \
@@ -211,10 +236,13 @@ userconfemacsdetcschema_DATA = \
 	emacs.d/etc/schema/PropertyList-1.0.rnc \
 	emacs.d/etc/schema/schemas.xml
 
-userconfemacsdinits_DATA = \
+init_elcs = \
 	emacs.d/inits/package.elc \
 	emacs.d/inits/provided-delayed-inits.elc \
 	emacs.d/inits/unprovided-delayed-inits.elc \
+
+userconfemacsdinits_DATA = \
+	$(init_elcs)
 
 sitelisp_elcs = \
 	emacs.d/site-lisp/buff-menu-ext.elc \
@@ -306,8 +334,10 @@ bin_SCRIPTS = \
 	bin/unpack \
 	bin/valgrind-ruby
 
-include os/os.mk
-include host/host.mk
+$(bin_SCRIPTS): bin/.dirstamp
+
+include $(srcdir)/os/os.mk
+include $(srcdir)/host/host.mk
 
 ifdef INCLUDE_VIM
 userconf_DATA += \
@@ -324,28 +354,36 @@ $(provided_elcs): ELCFLAGS = --eval "(require '$(basename $(notdir $@)))"
 
 $(unprovided_elcs): ELCFLAGS = --eval '(load "$(basename $(notdir $@))" nil t)'
 
-emacs.d/inits/provided-delayed-inits.el: $(provided_elcs) Makefile
+$(provided_elcs) $(unprovided_elcs): emacs.d/delayed-inits/.dirstamp
+
+$(init_elcs): emacs.d/inits/.dirstamp
+
+emacs.d/inits/provided-delayed-inits.el: $(provided_elcs) Makefile emacs.d/inits/.dirstamp
 	$(V_GEN)echo "(dolist (feature '($(basename $(notdir $(provided_elcs))))) \
 	  (eval-after-load feature \
 	                   \`(load (concat user-emacs-directory \
 	                                   \"delayed-inits/\" \
 	                                   ,(symbol-name feature)))))" > $@
 
-emacs.d/inits/unprovided-delayed-inits.el: $(unprovided_elcs) Makefile
+emacs.d/inits/unprovided-delayed-inits.el: $(unprovided_elcs) Makefile emacs.d/inits/.dirstamp
 	$(V_GEN)echo "(dolist (feature '($(basename $(notdir $(unprovided_elcs))))) \
 	  (eval-after-load (symbol-name feature) \
 			   \`(load (concat user-emacs-directory \
 	                                   \"delayed-inits/\" \
 	                                   ,(symbol-name feature)))))" > $@
 
-$(sitelisp_elcs): %.elc: %.el
-	$(V_ELC)$(EMACS) --batch -Q -L emacs.d/site-lisp \
-	  -l emacs.d/inits/package.el $(ELCFLAGS) -f batch-byte-compile $<
+$(sitelisp_elcs): emacs.d/site-lisp/.dirstamp
 
-emacs.d/site-lisp/userloaddefs.el: $(sitelisp_elcs)
+$(sitelisp_elcs): %.elc: %.el
+	$(V_ELC)$(EMACS) --batch -Q -L $(srcdir)/emacs.d/site-lisp \
+	  -l $(srcdir)/emacs.d/inits/package.el \
+	  --eval "(setq byte-compile-dest-file-function (lambda (file) \"$@\"))" \
+	  $(ELCFLAGS) -f batch-byte-compile $<
+
+emacs.d/site-lisp/userloaddefs.el: $(sitelisp_elcs) emacs.d/site-lisp/.dirstamp
 	$(V_ELC)$(EMACS) --batch -Q --eval '(setq vc-handled-backends nil)' \
-	  --eval '(setq generated-autoload-file "$(abspath $@)")' \
-	  -f batch-update-autoloads emacs.d/site-lisp
+	  --eval '(setq generated-autoload-file "$(abs_builddir)/$@")' \
+	  -f batch-update-autoloads $(srcdir)/emacs.d/site-lisp
 	$(V_at)touch $@
 
 $(call DIR,bin)
@@ -366,14 +404,16 @@ $(call DIR,xdgconfighomevlc)
 $(call DIR,xdgconfighomezsh,.)
 $(call DIR,xdgconfighomezshfunctions)
 
-edit = sed \
-	-e 's|@SHELL[@]|$(SHELL)|g' \
-	-e 's|@ZSHELL[@]|$(ZSHELL)|g' \
+R_bin_GEN = \
+  $(V_GEN)rm -f $@ $@.tmp && \
+    sed \
+      -e 's|@SHELL[@]|$(SHELL)|g' \
+      -e 's|@ZSHELL[@]|$(ZSHELL)|g' \
+      $< > $@.tmp && \
+    mv $@.tmp $@
 
-$(bin_SCRIPTS) $(userconf_SCRIPTS): %: %.in Makefile
-	$(V_GEN)rm -f $@ $@.tmp
-	$(V_at)$(edit) $@.in > $@.tmp
-	$(V_at)mv $@.tmp $@
+%: %.in Makefile
+	$(R_bin_GEN)
 
 DEPENDENCIES = \
 	zap
