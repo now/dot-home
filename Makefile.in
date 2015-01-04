@@ -66,6 +66,7 @@ xdgconfighomegitdir = $(xdgconfighomedir)/git
 xdgconfighomevlcdir = $(xdgconfighomedir)/vlc
 xdgconfighomezshdir = $(xdgconfighomedir)/zsh
 xdgconfighomezshfunctionsdir = $(xdgconfighomezshdir)/functions
+xdgconfighomezshhostdir = $(xdgconfighomezshdir)/host
 xdgconfighomezshosdir = $(xdgconfighomezshdir)/os
 sysconfdir = /etc
 
@@ -310,6 +311,9 @@ xdgconfighomezshfunctions_DATA = \
 	zsh/functions/zle/vi-cmd-mode-silently \
 	zsh/functions/zle/yank-clipboard
 
+xdgconfighomezshhost_DATA = \
+	zsh/host/profile
+
 xdgconfighomezshos_DATA = \
 	zsh/os/env \
 	zsh/os/login \
@@ -342,8 +346,10 @@ bin_SCRIPTS = \
 
 $(bin_SCRIPTS): bin/.dirstamp
 
+host := $(shell hostname)
+
 -include $(srcdir)/os/$(uname)/os.mk
-include $(srcdir)/host/host.mk
+-include $(srcdir)/host/$(host)/host.mk
 
 ifdef INCLUDE_VIM
 userconf_DATA += \
@@ -409,6 +415,7 @@ $(call DIR,xdgconfighomegit)
 $(call DIR,xdgconfighomevlc)
 $(call DIR,xdgconfighomezsh,.)
 $(call DIR,xdgconfighomezshfunctions)
+$(call DIR,xdgconfighomezshhost)
 $(call DIR,xdgconfighomezshos)
 
 R_bin_GEN = \
