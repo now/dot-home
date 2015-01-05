@@ -10,7 +10,8 @@
         ((?, ?3) . ?\x22ef)
         ((?< ?Y) . ?\x227a)
         ((?< ?/) . ?\x27e8)
-        ((?> ?/) . ?\x27e9)))
+        ((?> ?/) . ?\x27e9))
+      evil-move-cursor-back nil)
 
 (delete 'shell-mode evil-insert-state-modes)
 
