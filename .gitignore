@@ -35,7 +35,6 @@
 /build/config.sub
 /build/install-sh
 /config.log
-/config.mk
 /config.status
 /configure
 /emacs.d/inits/provided-delayed-inits.el

@@ -6,8 +6,6 @@ VPATH = @srcdir@
 os_mk = @os_mk@
 host_mk = @host_mk@
 
-uname := $(patsubst CYGWIN_%,Cygwin,$(shell uname -s))
-
 CURL = curl
 DIFF = diff
 EMACS = emacs
@@ -72,9 +70,6 @@ xdgconfighomezshfunctionsdir = $(xdgconfighomezshdir)/functions
 xdgconfighomezshhostdir = $(xdgconfighomezshdir)/host
 xdgconfighomezshosdir = $(xdgconfighomezshdir)/os
 sysconfdir = /etc
-
--include $(srcdir)/Config/$(uname)
--include $(srcdir)/config.mk
 
 .SUFFIXES:
 

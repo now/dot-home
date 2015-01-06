@@ -1,3 +1,11 @@
+INSTALL = ginstall
+ZSHELL = /opt/local/bin/zsh
+
+appsupportdir = $(prefix)/Library/Application\ Support
+userconfaudacitydir = $(appsupportdir)/audacity
+userconfmozillafirefoxdir = $(appsupportdir)/Firefox
+xdgconfighomevlcdir = $(prefix)/Library/Preferences/org.videolan.vlc
+
 # {
 #     "com.apple.AppleMultitouchTrackpad" =     {
 #         Clicking = 1;
