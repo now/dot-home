@@ -3,6 +3,8 @@ srcdir = @srcdir@
 
 VPATH = @srcdir@
 
+os_mk = @os_mk@
+
 uname := $(patsubst CYGWIN_%,Cygwin,$(shell uname -s))
 
 CURL = curl
@@ -348,7 +350,7 @@ $(bin_SCRIPTS): bin/.dirstamp
 
 host := $(shell hostname)
 
--include $(srcdir)/os/$(uname)/os.mk
+include $(os_mk)
 -include $(srcdir)/host/$(host)/host.mk
 
 ifdef INCLUDE_VIM

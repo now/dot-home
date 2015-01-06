@@ -31,6 +31,8 @@
 /bin/unpack
 /bin/update-context
 /bin/valgrind-ruby
+/build/config.guess
+/build/config.sub
 /build/install-sh
 /config.log
 /config.mk
