@@ -4,6 +4,7 @@ srcdir = @srcdir@
 VPATH = @srcdir@
 
 os_mk = @os_mk@
+host_mk = @host_mk@
 
 uname := $(patsubst CYGWIN_%,Cygwin,$(shell uname -s))
 
@@ -348,10 +349,8 @@ bin_SCRIPTS = \
 
 $(bin_SCRIPTS): bin/.dirstamp
 
-host := $(shell hostname)
-
 include $(os_mk)
--include $(srcdir)/host/$(host)/host.mk
+include $(host_mk)
 
 ifdef INCLUDE_VIM
 userconf_DATA += \
