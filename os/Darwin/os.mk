@@ -1,5 +1,3 @@
-INSTALL = ginstall
-
 appsupportdir = $(prefix)/Library/Application\ Support
 userconfaudacitydir = $(appsupportdir)/audacity
 userconfmozillafirefoxdir = $(appsupportdir)/Firefox

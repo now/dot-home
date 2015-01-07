@@ -12,7 +12,7 @@ CURL = @CURL@
 DIFF = @DIFF@
 EMACS = @EMACS@
 ICONV = @ICONV@
-INSTALL = install
+INSTALL = @INSTALL@
 MKDIR_P = @MKDIR_P@
 PATCH = @PATCH@
 UNZIP = @UNZIP@
@@ -36,6 +36,10 @@ V_GEN_0 = @echo "  GEN     " $@;
 V_CURL = $(V_CURL_$(V))
 V_CURL_ = $(V_CURL_$(DEFAULT_VERBOSITY))
 V_CURL_0 = @echo "  CURL    " $@;
+
+V_MKDIR_P = $(V_MKDIR_P_$(V))
+V_MKDIR_P_ = $(V_MKDIR_P_$(DEFAULT_VERBOSITY))
+V_MKDIR_P_0 = @echo "  MKDIR   " $@;
 
 V_PATCH = $(V_PATCH_$(V))
 V_PATCH_ = $(V_PATCH_$(DEFAULT_VERBOSITY))
@@ -101,12 +105,19 @@ endef
 # patches, parent-directory, prefix, prefix-to-strip
 PATCH_template = $(eval $(foreach file,$(1),$(call PATCH_template_file,$(file),$(2)/$(3)$(file:$(4)%=%))))
 
-INSTALLFLAGS = -D -p
+INSTALLFLAGS = -p
 INSTALL_DATA = $(INSTALL) $(INSTALLFLAGS) -m 0644
 INSTALL_PROGRAMS = $(INSTALL) $(INSTALLFLAGS)
 INSTALL_SCRIPTS = $(INSTALL_PROGRAMS)
 
-# file, target, primary
+# dir
+define DIR_dir
+$(1):
+	$$(V_MKDIR_P)$$(MKDIR_P) $$@
+
+endef
+
+# file, target, dir, primary
 define DIR_primary
 .PHONY diff: $(2).diff
 $(2).diff:
@@ -114,13 +125,17 @@ $(2).diff:
 
 install: $(2)
 
+$(2): | $(3)
+
 $(2): $(1)
-	$$(V_INSTALL)$$(INSTALL_$(3)) $$< $$(call shell_quote,$$@)
+	$$(V_INSTALL)$$(INSTALL_$(4)) $$< $$(call shell_quote,$$@)
 
 endef
 
 # dir, prefix?
-DIR = $(eval $(foreach primary,DATA SCRIPTS,$(foreach file,$($(1)_$(primary)),$(if $(subst $(file),,$(lastword $(filter %/$(notdir $(file)),$($(1)_$(primary))))),,$(call DIR_primary,$(file),$($(1)dir)/$(2)$(notdir $(file)),$(primary))))))
+define DIR
+$(eval $(call DIR_dir,$($(1)dir)) $(foreach primary,DATA SCRIPTS,$(foreach file,$($(1)_$(primary)),$(if $(subst $(file),,$(lastword $(filter %/$(notdir $(file)),$($(1)_$(primary))))),,$(call DIR_primary,$(file),$($(1)dir)/$(2)$(notdir $(file)),$($(1)dir),$(primary))))))
+endef
 
 %/.dirstamp:
 	$(V_at)$(MKDIR_P) $*
