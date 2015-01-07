@@ -101,7 +101,7 @@ endef
 # patches, parent-directory, prefix, prefix-to-strip
 PATCH_template = $(eval $(foreach file,$(1),$(call PATCH_template_file,$(file),$(2)/$(3)$(file:$(4)%=%))))
 
-INSTALLFLAGS = -D --preserve-timestamps
+INSTALLFLAGS = -D -p
 INSTALL_DATA = $(INSTALL) $(INSTALLFLAGS) -m 0644
 INSTALL_PROGRAMS = $(INSTALL) $(INSTALLFLAGS)
 INSTALL_SCRIPTS = $(INSTALL_PROGRAMS)
