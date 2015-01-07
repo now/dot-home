@@ -1,5 +1,4 @@
 INSTALL = ginstall
-ZSHELL = /opt/local/bin/zsh
 
 appsupportdir = $(prefix)/Library/Application\ Support
 userconfaudacitydir = $(appsupportdir)/audacity

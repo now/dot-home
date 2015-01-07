@@ -23,7 +23,21 @@ AS_IF([test "x$enable_hostname_dotfiles" != xno],
      [*],
      [AC_MSG_FAILURE(
         [--enable-hostname-dotfiles for $enable_hostname_dotfiles is not supported])])])
+AC_CHECK_PROGS([CURL], [curl])
+AC_ARG_VAR([CURL], [the cURL command])
+AC_CHECK_PROGS([DIFF], [diff])
+AC_ARG_VAR([DIFF], [the diff command])
+AC_CHECK_PROGS([EMACS], [emacs])
+AC_ARG_VAR([EMACS], [the Emacs editor command])
+AC_CHECK_PROGS([ICONV], [iconv])
+AC_ARG_VAR([ICONV], [the iconv command])
 AC_PROG_INSTALL
 AC_PROG_MKDIR_P
+AC_CHECK_PROGS([PATCH], [patch])
+AC_ARG_VAR([PATCH], [the patch command])
+AC_CHECK_PROGS([UNZIP], [unzip])
+AC_ARG_VAR([UNZIP], [the unzip command])
+AC_PATH_PROGS([ZSHELL], [zsh])
+AC_ARG_VAR([ZSHELL], [the zsh command])
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT

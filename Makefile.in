@@ -1,3 +1,5 @@
+SHELL = /bin/sh
+
 abs_builddir = @abs_builddir@
 srcdir = @srcdir@
 
@@ -6,15 +8,15 @@ VPATH = @srcdir@
 os_mk = @os_mk@
 host_mk = @host_mk@
 
-CURL = curl
-DIFF = diff
-EMACS = emacs
-ICONV = iconv
+CURL = @CURL@
+DIFF = @DIFF@
+EMACS = @EMACS@
+ICONV = @ICONV@
 INSTALL = install
 MKDIR_P = @MKDIR_P@
-PATCH = patch
-UNZIP = unzip
-ZSHELL = /bin/zsh
+PATCH = @PATCH@
+UNZIP = @UNZIP@
+ZSHELL = @ZSHELL@
 
 empty :=
 space := $(empty) $(empty)
