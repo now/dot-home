@@ -1,49 +1,33 @@
-#! @ZSHELL@
-# contents: Unpack various kinds of archives.
-#
-# Copyright © 2004,2008 Nikolai Weibull <now@bitwi.se>
+#! @SHELL@
 
-autoload -U zap/init
-zap/init $0:t "1.0.0"
-
-local optdesc
-optdesc=(
-  ""  ""        ' FILE...'                                          ""  0 0 -1
-  ""  ""        'File unpacking utility.'                           ""  0 0 -1
-  ""  'FILE'    'file to unpack'                                    ""  0 0 0
-)
-
-# TODO: Add handling for verboseness.
-
-unpack () {
-  case $1 in
-    (*.tar) tar xf $1 ;;
-    (*.tar.bz2|*.tbz2) bzip2 -d < $1 | tar x ;;
-    (*.tar.gz|*.tgz|) gzip -d < $1 | tar x ;;
-    (*.tar.lzma) lzma -d < $1 | tar x ;;
-    (*.tar.xz) unxz < $1 | tar x ;;
-    (*.tar.Z) uncompress < $1 | tar x ;;
-    (*.gz) gzip -d -- $1 ;;
-    (*.bz2) bzip2 -d -- $1 ;;
-    (*.rar) unrar x -c- -o+ -idq -- $1 ;;
-    (*.zip|*.jar|*.oxt) unzip -q -o $1 ;;
-    (*.Z) uncompress -f $1 ;;
-    (*.7z) 7z x $1 ;;
-    (*) zap/error "can't find a decompressor for file (unrecognized extension):" \
-                 "    file: $1"
-  esac
-}
-
-
-zap/parse-options optdesc $*
-if (( $#ZAP_ARGUMENTS == 0 )); then
-  zap/error 1 "missing file argument"
-else
-  for file in "$ZAP_ARGUMENTS[@]"; do
-    if [[ ! -f $file ]]; then
-      zap/error "can't unpack file (no such file):" "    file: $file"
-    else
-      unpack $file
-    fi
-  done
+if test $# -eq 0; then
+  echo "`basename $0`: missing file argument" 1>&2
+  exit 1
 fi
+
+status=0
+
+for f in "$@"; do
+  if ! test -f "$f"; then
+    echo "$f: can’t unpack file (no such file)" 1>&2
+    status=1
+  else
+    case "$f" in
+      *.tar) tar xf "$f" ;;
+      *.tar.bz2|*.tbz2) bzip2 -d < "$f" | tar x ;;
+      *.tar.gz|*.tgz) gzip -d < "$f" | tar x ;;
+      *.tar.lzma) lzma -d < "$f" | tar x ;;
+      *.tar.xz) unxz < "$f" | tar x ;;
+      *.tar.Z) uncompress < "$f" | tar x ;;
+      *.gz) gzip -d -- "$f" ;;
+      *.bz2) bzip2 -d -- "$f" ;;
+      *.rar) unrar x -c- -o+ -idq -- "$f" ;;
+      *.zip|*.jar|*.oxt) unzip -q -o "$f" ;;
+      *.Z) uncompress -f "$f" ;;
+      *.7z) 7z x "$f" ;;
+      *) echo "$file: unknown format (unrecognized extension)" 1>&2; false ;;
+    esac || status=1
+  fi
+done
+
+exit $status
