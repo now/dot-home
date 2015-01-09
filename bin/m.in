@@ -1,37 +1,30 @@
-#! @ZSHELL@
+#! @SHELL@
 
-vlc-command-loop () {
-  local command=$1; shift
-  for arg in $*; do
-    vlc-command $command $arg
+vlccommand () {
+  { printf "%s\n" "$*"; } | nc localhost 4212 | sed -e 1d -e '$d'
+}
+
+vlcfilecommandloop () {
+  command=$1; shift
+  for f in "$@"; do
+    case "$f" in
+      /*) vlccommand $command "$f" ;;
+      *) vlccommand $command "$PWD/$f" ;;
+    esac
   done
 }
 
-vlc-file-command-loop () {
-  local command=$1; shift
-  for arg in $*; do
-    [[ $arg != /* ]] && arg=$PWD/$arg
-    vlc-command $command $arg
-  done
-}
-
-vlc-command () {
-  {print -- $*; sleep 0.1} | nc localhost 4212 | sed 1d
-}
-
-(( $# == 0 )) && set pause
-
-local command=$1; shift
-
+test $# -eq 0 && set pause
+command=$1; shift
 case $command in
-  (a|ad|add) vlc-file-command-loop enqueue $* ;;
-  (ls) vlc-command playlist ;;
-  (pause|status) vlc-command $command ;;
+  (a|ad|add) vlcfilecommandloop enqueue "$@" ;;
+  (ls) vlccommand playlist ;;
+  (pause|status) vlccommand $command ;;
   (*)
-    if [[ -e $command ]]; then
-      vlc-file-command-loop enqueue $command $*
+    if test -e "$command"; then
+      vlcfilecommandloop enqueue "$command" "$@"
     else
-      print -u2 "Unknown command: $command"
+      printf "%s\n" "`basename $0`: unknown command: $command" 1>&2
     fi
     ;;
 esac
