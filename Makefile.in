@@ -29,29 +29,35 @@ _v_at_ = $(_v_at_$(DEFAULT_VERBOSITY))
 _v_at_0 = @
 _v_at_1 =
 
-V_GEN = $(V_GEN_$(V))
-V_GEN_ = $(V_GEN_$(DEFAULT_VERBOSITY))
-V_GEN_0 = @echo "  GEN     " $@;
+V_GEN = $(_v_GEN_$(V))
+_v_GEN_ = $(_v_GEN_$(DEFAULT_VERBOSITY))
+_v_GEN_0 = @echo "  GEN     " $@;
+_v_GEN_1 =
 
-V_CURL = $(V_CURL_$(V))
-V_CURL_ = $(V_CURL_$(DEFAULT_VERBOSITY))
-V_CURL_0 = @echo "  CURL    " $@;
+V_CURL = $(_v_CURL_$(V))
+_V_CURL_ = $(_v_CURL_$(DEFAULT_VERBOSITY))
+_V_CURL_0 = @echo "  CURL    " $@;
+_v_CURL_1 =
 
-V_MKDIR_P = $(V_MKDIR_P_$(V))
-V_MKDIR_P_ = $(V_MKDIR_P_$(DEFAULT_VERBOSITY))
-V_MKDIR_P_0 = @echo "  MKDIR   " $@;
+V_MKDIR_P = $(_v_MKDIR_P_$(V))
+_v_MKDIR_P_ = $(_v_MKDIR_P_$(DEFAULT_VERBOSITY))
+_v_MKDIR_P_0 = @echo "  MKDIR   " $@;
+_v_MKDIR_1 =
 
-V_PATCH = $(V_PATCH_$(V))
-V_PATCH_ = $(V_PATCH_$(DEFAULT_VERBOSITY))
-V_PATCH_0 = @echo "  PATCH   " $@;
+V_PATCH = $(_v_PATCH_$(V))
+_v_PATCH_ = $(_v_PATCH_$(DEFAULT_VERBOSITY))
+_v_PATCH_0 = @echo "  PATCH   " $@;
+_v_PATCH_1 =
 
-V_INSTALL = $(V_INSTALL_$(V))
-V_INSTALL_ = $(V_INSTALL_$(DEFAULT_VERBOSITY))
-V_INSTALL_0 = @echo "  INSTALL " $@;
+V_INSTALL = $(_v_INSTALL_$(V))
+_v_INSTALL_ = $(_v_INSTALL_$(DEFAULT_VERBOSITY))
+_v_INSTALL_0 = @echo "  INSTALL " $@;
+_v_INSTALL_1 =
 
-V_ELC = $(V_ELC_$(V))
-V_ELC_ = $(V_ELC_$(DEFAULT_VERBOSITY))
-V_ELC_0 = @echo "  ELC     " $@;
+V_ELC = $(_v_ELC_$(V))
+_v_ELC_ = $(_v_ELC_$(DEFAULT_VERBOSITY))
+_v_ELC_0 = @echo "  ELC     " $@;
+_v_INSTALL_1 =
 
 prefix = ~
 bindir = $(prefix)/opt/bin
@@ -431,7 +437,7 @@ $(call DIR,xdgconfighomezshfunctions)
 $(call DIR,xdgconfighomezshhost)
 $(call DIR,xdgconfighomezshos)
 
-R_bin_GEN = \
+r_bin_gen = \
   $(V_GEN)rm -f $@ $@.tmp && \
     sed \
       -e 's|@SHELL[@]|$(SHELL)|g' \
@@ -440,7 +446,7 @@ R_bin_GEN = \
     mv $@.tmp $@
 
 %: %.in Makefile
-	$(R_bin_GEN)
+	$(r_bin_gen)
 
 DEPENDENCIES = \
 	zap

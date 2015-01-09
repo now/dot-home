@@ -73,4 +73,4 @@ os/Darwin/.defaults.stamp: os/Darwin/os.mk
 	touch $@
 
 bin/a bin/im: %: os/Darwin/%.in Makefile
-	$(R_bin_GEN)
+	$(r_bin_gen)
