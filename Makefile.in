@@ -448,10 +448,10 @@ DEPENDENCIES = \
 environmentdir = Environment
 
 install-dependencies:
-	mkdir -p $(environmentdir) && \
+	$(MKDIR_P) $(environmentdir) && \
 	  for d in $(DEPENDENCIES); do \
 	    ed=$(environmentdir)/$$d; \
-	    if [[ -d $$ed ]]; then \
+	    if test -d $$ed; then \
 	      (cd $$ed && git up && make install); \
 	    else \
 	      (git clone myhub:$$d.git $$ed && cd $$ed && make install); \
