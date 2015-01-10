@@ -103,7 +103,7 @@ define PATCH_template_file
 .PHONY: $(2:.patch=)
 $(2:.patch=):
 	$$(V_PATCH)if $$(PATCH) -Nsg 0 --dry-run $$@ $(1) > /dev/null; then \
-	  $$(PATCH) -Nsg 0 $$@ $(srcdir)/$(1); \
+	  $$(PATCH) -Nsg 0 $$@ $$(srcdir)/$(1); \
 	fi
 
 endef
