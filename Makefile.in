@@ -1,6 +1,6 @@
 SHELL = /bin/sh
 
-abs_builddir = @abs_builddir@
+abs_srcdir = @abs_srcdir@
 srcdir = @srcdir@
 
 VPATH = @srcdir@
@@ -413,8 +413,9 @@ $(sitelisp_elcs): %.elc: %.el
 
 emacs.d/site-lisp/userloaddefs.el: $(sitelisp_elcs) emacs.d/site-lisp/.dirstamp
 	$(V_ELC)$(EMACS) --batch -Q --eval '(setq vc-handled-backends nil)' \
-	  --eval '(setq generated-autoload-file "$(abs_builddir)/$@")' \
+	  --eval '(setq generated-autoload-file "$(abs_srcdir)/$@")' \
 	  -f batch-update-autoloads $(srcdir)/emacs.d/site-lisp
+	$(V_at)if test "$(srcdir)" != .; then mv $(srcdir)/$@ $@; fi
 	$(V_at)touch $@
 
 $(call DIR,bin)
