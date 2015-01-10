@@ -405,7 +405,7 @@ emacs.d/inits/unprovided-delayed-inits.el: $(unprovided_elcs) Makefile emacs.d/i
 
 $(sitelisp_elcs): emacs.d/site-lisp/.dirstamp
 
-$(sitelisp_elcs): %.elc: %.el
+$(sitelisp_elcs): %.elc: %.el emacs.d/inits/package.el
 	$(V_ELC)$(EMACS) --batch -Q -L $(srcdir)/emacs.d/site-lisp \
 	  -l $(srcdir)/emacs.d/inits/package.el \
 	  --eval "(setq byte-compile-dest-file-function (lambda (file) \"$@\"))" \
