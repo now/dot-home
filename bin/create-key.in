@@ -1,20 +1,12 @@
-#! @ZSHELL@
+#! @SHELL@
 
-local app=; app=$(basename $0)
-
-if (( $# != 2 )); then
-  print -r -- Usage: $app COMMENT FILE
+if test $# -ne 2; then
+  printf "usage: %s COMMENT FILE\n" "`basename $0`"
   exit 1
 fi
 
-ssh-keygen -b 8192 -N '' -C $1 -f $2 || exit 1
-mv $2 $2.tmp || exit 1
-{
-  openssl pkcs8 -topk8 -v2 des3 -in $2.tmp -out $2 || exit 1
-  if ! chmod 600 $2; then
-    rm $2 $2.pub
-    exit 1
-  fi
-} always {
-  rm $@.tmp
-}
+umask 177 || exit 1
+{ ssh-keygen -b 8192 -N '' -C $1 -f $2 &&
+  mv $2 $2.tmp; } || { rm -f $2 $2.pub; exit 1; }
+{ openssl pkcs8 -topk8 -v2 des3 -in $2.tmp -out $2 &&
+  chmod 644 $2.pub; } || { rm $2 $2.tmp $2.pub; exit 1; }
