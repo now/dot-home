@@ -145,14 +145,12 @@ DIR = $(eval $(call DIR_dir,$(DESTDIR)$($(1)dir)) $(foreach primary,DATA SCRIPTS
 	$(V_at)$(MKDIR_P) $*
 	$(V_at): > $@
 
-r_elc = \
+%.elc: %.el emacs.d/inits/package.el emacs.d/site-lisp/userloaddefs.el
 	$(V_ELC)$(EMACS) --batch -Q -L $(srcdir)/emacs.d/site-lisp \
 	  -l $(srcdir)/emacs.d/inits/package.el \
+	  -l emacs.d/site-lisp/userloaddefs.el \
 	  --eval "(setq byte-compile-dest-file-function (lambda (file) \"$@\"))" \
-	  $(ELCFLAGS) -f batch-byte-compile
-
-%.elc: %.el emacs.d/inits/package.el emacs.d/site-lisp/userloaddefs.el
-	$(r_elc) -l emacs.d/site-lisp/userloaddefs.el $<
+	  $(ELCFLAGS) -f batch-byte-compile $<
 
 HUNSPELL_DICT_VERSION = 2014.08.11
 HUNSPELL_EN_GB_DICT_ZIP = hunspell/hunspell-en_GB-ise-$(HUNSPELL_DICT_VERSION).zip
@@ -405,7 +403,10 @@ emacs.d/inits/unprovided-delayed-inits.el: $(unprovided_elcs) Makefile emacs.d/i
 $(sitelisp_elcs): emacs.d/site-lisp/.dirstamp
 
 $(sitelisp_elcs): %.elc: %.el emacs.d/inits/package.el
-	$(r_elc) $<
+	$(V_ELC)$(EMACS) --batch -Q -L $(srcdir)/emacs.d/site-lisp \
+	  -l $(srcdir)/emacs.d/inits/package.el \
+	  --eval "(setq byte-compile-dest-file-function (lambda (file) \"$@\"))" \
+	  $(ELCFLAGS) -f batch-byte-compile $<
 
 emacs.d/site-lisp/userloaddefs.el: $(sitelisp_elcs) emacs.d/site-lisp/.dirstamp
 	$(V_ELC)$(EMACS) --batch -Q --eval '(setq vc-handled-backends nil)' \
