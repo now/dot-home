@@ -1,16 +1,18 @@
-#! @ZSHELL@
+#! @SHELL@
 
-local -a switches; switches=(--alternate-editor '')
-[[ $TERM != dumb ]] && switches+=-t
+switches='--alternate-editor ""'
+test "x$TERM" != xdumb && switches="$switches -t"
 
-if [[ ! -t 0 ]]; then
-  local t=; t=$(mktemp e.XXXXXX) || exit 1
-  {
-    cat > $t
-    emacsclient "$switches[@]" $* $t
-  } always {
-    rm $t
-  }
+if test -t 0; then
+  exec emacsclient $switches "$@"
 else
-  exec emacsclient "$switches[@]" $*
+  : ${TMPDIR=/tmp}
+  { d=`(umask 077 && mktemp -d "$TMPDIR/eXXXXXX") 2>/dev/null` &&
+    test -n "$d" && test -d "$d"; } ||
+    { d=$TMPDIR/e$$$RANDOM; (umask 077 && mkdir "$d") 2>=/dev/null; } ||
+    { printf "%s: can’t create temporary directory" "`basename $0`"; exit 1; }
+  trap 'rm -rf "$d"' 0 1 2 13 15
+  t=$d/stdin
+  cat > "$t" || exit 1
+  emacsclient $switches "$@" "$t"
 fi
