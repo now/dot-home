@@ -1,10 +1,10 @@
 #! @SHELL@
 
-switches='--alternate-editor ""'
-test "x$TERM" != xdumb && switches="$switches -t"
+set -- --alternate-editor "" "$@"
+test "x$TERM" != xdumb && set -- -t "$@"
 
 if test -t 0; then
-  exec emacsclient $switches "$@"
+  exec emacsclient $@"
 else
   : ${TMPDIR=/tmp}
   { d=`(umask 077 && mktemp -d "$TMPDIR/eXXXXXX") 2>/dev/null` &&
@@ -14,5 +14,5 @@ else
   trap 'rm -rf "$d"' 0 1 2 13 15
   t=$d/stdin
   cat > "$t" || exit 1
-  emacsclient $switches "$@" "$t"
+  emacsclient $@" "$t"
 fi
