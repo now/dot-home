@@ -10,7 +10,7 @@ put () {
 
 get () {
   case `uname` in
-    Cygwin*) cat /dev/clipboard | tr -d '\r' ;;
+    Cygwin*) cat /dev/clipboard | tr -d '\015' ;;
     Darwin) pbpaste ;;
     *) xclip -o ;;
   esac
