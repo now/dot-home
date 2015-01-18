@@ -1,33 +1,25 @@
-#! @ZSHELL@
+#! @SHELL@
 
-zmodload zsh/zselect
-
-clipboard-put () {
-  print -rn -- $* | case $OSTYPE in
-    (cygwin) > /dev/clipboard ;;
-    (darwin*) pbcopy ;;
-    (*) xclip ;;
+put () {
+  case `uname` in
+    Cygwin*) cat > /dev/clipboard ;;
+    Darwin) pbcopy ;;
+    *) xclip ;;
   esac
 }
 
-clipboard-get () {
-  case $OSTYPE in
-    (cygwin) cat /dev/clipboard | tr -d '\r' ;;
-    (darwin*) pbpaste ;;
-    (*) xclip -o ;;
+get () {
+  case `uname` in
+    Cygwin*) cat /dev/clipboard | tr -d '\r' ;;
+    Darwin) pbpaste ;;
+    *) xclip -o ;;
   esac
 }
 
-if (( $# > 0 )); then
-  clipboard-put $*
-elif zselect -t 0 -r 0; then
-  local input=
-  IFS= read -d $'\0' -r input
-  if [[ -n $input ]]; then
-    clipboard-put $input
-  else
-    clipboard-get
-  fi
+if test $# -gt 0; then
+  printf "%s" "$*" | put
+elif test -t 0; then
+  get
 else
-  clipboard-get
+  put
 fi
