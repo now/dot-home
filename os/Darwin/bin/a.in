@@ -1,3 +1,7 @@
 #! @SHELL@
 
+if test "x${LS_COLORS-unset}" = xunset; then
+  . /Users/now/opt/bin/ls-colors
+  export LS_COLORS
+fi
 exec gls --color=auto "$@"

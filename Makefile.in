@@ -352,6 +352,7 @@ bin_SCRIPTS = \
 	bin/g \
 	bin/im \
 	bin/index-disc \
+	bin/ls-colors \
 	bin/m \
 	bin/mfedit \
 	bin/mov-re-encode \

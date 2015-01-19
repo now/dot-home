@@ -1,3 +1,5 @@
 #! @SHELL@
 
+eval `ls-colors`
+export $LS_COLORS
 exec ls --color=auto "$@"
