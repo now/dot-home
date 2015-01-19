@@ -26,24 +26,6 @@ add-zsh-hook chpwd chpwd_recent_dirs
 add-zsh-hook zsh_directory_name zsh_directory_name_cdr
 add-zsh-hook zsh_directory_name dynamic-directory-names
 
-zstyle ':dircolors:*' cache-policy dircolors-cache-policy
-{
-  dircolors-cache-policy () {
-    [[ ${XDG_CONFIG_HOME:-~/.config}/dircolors -nt $1 ]]
-  }
-  autoload -U cache-retrieve
-  cache-retrieve ':dircolors:*' dircolors-$TERM
-} always {
-  unfunction dircolors-cache-policy >&/dev/null
-}
-if [[ -z $LS_COLORS ]]; then
-  eval $(${commands[gdircolors]:-dircolors} ${XDG_CONFIG_HOME:-~/.config}/dircolors 2>/dev/null)
-  autoload -U cache-store
-  cache-store ':dircolors:*' dircolors-$TERM LS_COLORS
-else
-  export LS_COLORS
-fi
-
 # Modules
 
 zmodload -i zsh/complist
@@ -57,7 +39,6 @@ zstyle ':completion:*' ignore-parents parent pwd
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'r:|[:.,_-]=** r:|=**'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-separator ''
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:descriptions' format '%K{white}%d%k'
 zstyle ':completion:*:messages' format '%F{green}%d%f'
 zstyle ':completion:*:warnings' format '%F{red}no matches for %d%f'
