@@ -314,10 +314,6 @@ xdgconfighomezshfunctions_DATA = \
 	zsh/functions/up \
 	zsh/functions/urlify \
 	zsh/functions/dynamic-directory-names \
-	zsh/functions/cache-invalid \
-	zsh/functions/cache-path \
-	zsh/functions/cache-retrieve \
-	zsh/functions/cache-store \
 	zsh/functions/zle/cd-to-alternate-directory \
 	zsh/functions/zle/foreground-or-list-choices \
 	zsh/functions/zle/self-insert-redir \
