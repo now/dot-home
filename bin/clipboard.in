@@ -1,25 +1,11 @@
 #! @SHELL@
 
-put () {
-  case `uname` in
-    Cygwin*) cat > /dev/clipboard ;;
-    Darwin) pbcopy ;;
-    *) xclip ;;
-  esac
-}
-
-get () {
-  case `uname` in
-    Cygwin*) cat /dev/clipboard | tr -d '\015' ;;
-    Darwin) pbpaste ;;
-    *) xclip -o ;;
-  esac
-}
+libexecdir=@libexecdir@
 
 if test $# -gt 0; then
-  printf "%s" "$*" | put
+  printf '%s' "$*" | $libexecdir/clipboard-put
 elif test -t 0; then
-  get
+  exec $libexecdir/clipboard-get
 else
-  put
+  exec $libexecdir/clibpoard-put
 fi

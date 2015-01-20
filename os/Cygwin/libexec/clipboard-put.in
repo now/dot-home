@@ -1,0 +1,3 @@
+#! @SHELL@
+
+exec cat > /dev/clipboard

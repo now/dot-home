@@ -61,6 +61,7 @@ _v_INSTALL_1 =
 
 prefix = ~
 bindir = $(prefix)/opt/bin
+libexecdir = $(prefix)/opt/libexec
 sharedir = $(prefix)/opt/share
 userconfdir = $(prefix)
 XDG_CONFIG_HOME ?= $(prefix)/.config
@@ -357,6 +358,10 @@ bin_SCRIPTS = \
 
 $(bin_SCRIPTS): bin/.dirstamp
 
+libexec_SCRIPTS = \
+	libexec/clipboard-get \
+	libexec/clipboard-put
+
 include $(os_mk)
 include $(host_mk)
 
@@ -409,6 +414,7 @@ emacs.d/site-lisp/userloaddefs.el: $(sitelisp_elcs) emacs.d/site-lisp/.dirstamp
 	$(V_at)touch $@
 
 $(call DIR,bin)
+$(call DIR,libexec)
 $(call DIR,userconf,.)
 $(call DIR,userconfaudacity)
 $(call DIR,userconfemacsd)
@@ -432,6 +438,7 @@ r_bin_gen = \
     sed \
       -e 's|@SHELL[@]|$(SHELL)|g' \
       -e 's|@ZSHELL[@]|$(ZSHELL)|g' \
+      -e 's|@libexecdir[@]|$(libexecdir)|g' \
       $< > $@.tmp && \
     mv $@.tmp $@
 

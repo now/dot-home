@@ -5,9 +5,14 @@ AC_CONFIG_AUX_DIR([build])
 AC_CANONICAL_HOST
 AC_SUBST([os_mk], [/dev/null])
 AS_CASE([$host_os],
-  [cygwin], [os_mk=$srcdir/os/Cygwin/os.mk],
-  [darwin*], [os_mk=$srcdir/os/Darwin/os.mk],
-  [linux-*], [os_mk=$srcdir/os/Linux/os.mk])
+  [cygwin], [our_host_os=Cygwin],
+  [darwin*], [our_host_os=Darwin],
+  [linux-*], [our_host_os=Linux],
+  [our_host_os=generic])
+os_mk=$srcdir/os/$our_host_os/os.mk
+AC_CONFIG_LINKS(
+  [libexec/clipboard-get.in:$srcdir/os/$our_host_os/libexec/clipboard-get.in
+   libexec/clipboard-put.in:$srcdir/os/$our_host_os/libexec/clipboard-put.in])
 AC_SUBST([host_mk], [/dev/null])
 AC_ARG_ENABLE([hostname-dotfiles],
   [AS_HELP_STRING([--enable-hostname-dotfiles@<:@=HOSTNAME@:>@],

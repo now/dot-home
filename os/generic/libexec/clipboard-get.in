@@ -1,0 +1,4 @@
+#! @SHELL@
+
+echo "clipboard: can’t read from the clipboard on this system" >&2
+exit 1
