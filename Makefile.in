@@ -339,7 +339,6 @@ bin_SCRIPTS = \
 	bin/discogs-tags \
 	bin/duh \
 	bin/e \
-	bin/emv \
 	bin/g \
 	bin/im \
 	bin/index-disc \
