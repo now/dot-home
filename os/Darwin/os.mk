@@ -71,6 +71,3 @@ os/Darwin/.defaults.stamp: os/Darwin/os.mk
 	defaults write -g com.apple.springing.enabled -bool yes
 	defaults write -g userMenuExtraStyle -int 2
 	touch $@
-
-bin/im: %: os/Darwin/%.in Makefile
-	$(r_bin_gen)

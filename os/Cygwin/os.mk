@@ -120,9 +120,6 @@ xdgconfighomezshos_DATA = \
 	os/Cygwin/zsh/login \
 	os/Cygwin/zsh/rc
 
-bin/im: os/Cygwin/bin/im.in Makefile
-	$(r_bin_gen)
-
 $(call DIR,appdatadialogdeath)
 $(call DIR,appdataghisler)
 $(call DIR,appdataghislerlanguages)

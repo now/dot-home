@@ -430,17 +430,14 @@ $(call DIR,xdgconfighomezshfunctions)
 $(call DIR,xdgconfighomezshhost)
 $(call DIR,xdgconfighomezshos)
 
-r_bin_gen = \
-  $(V_GEN)rm -f $@ $@.tmp && \
-    sed \
-      -e 's|@SHELL[@]|$(SHELL)|g' \
-      -e 's|@ZSHELL[@]|$(ZSHELL)|g' \
-      -e 's|@libexecdir[@]|$(libexecdir)|g' \
-      $< > $@.tmp && \
-    mv $@.tmp $@
-
 %: %.in Makefile
-	$(r_bin_gen)
+	$(V_GEN)rm -f $@ $@.tmp && \
+	  sed \
+	    -e 's|@SHELL[@]|$(SHELL)|g' \
+	    -e 's|@ZSHELL[@]|$(ZSHELL)|g' \
+	    -e 's|@libexecdir[@]|$(libexecdir)|g' \
+	    $< > $@.tmp && \
+	  mv $@.tmp $@
 
 DEPENDENCIES = \
 	zap
