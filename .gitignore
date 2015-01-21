@@ -20,6 +20,8 @@
 /bin/e
 /bin/emv
 /bin/g
+/bin/im
+/bin/im.in
 /bin/index-disc
 /bin/m
 /bin/mfedit
@@ -46,8 +48,5 @@
 /libexec/clipboard-get.in
 /libexec/clipboard-put
 /libexec/clipboard-put.in
-/os/Cygwin/bin/im
-/os/Darwin/bin/a
-/os/Darwin/bin/im
 /os/Linux/bin/xdigraph
 /os/os.mk

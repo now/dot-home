@@ -29,6 +29,7 @@ AS_IF([test "x$enable_hostname_dotfiles" != xno],
            [--enable-hostname-dotfiles for $enable_hostname_dotfiles is not supported])])])])
 AC_CONFIG_LINKS(
   [bin/a.in:$os_bin_a_in
+   bin/im.in:os/$our_host_os/bin/im.in
    host/host.mk:host/$our_hostname/host.mk
    libexec/clipboard-get.in:os/$our_host_os/libexec/clipboard-get.in
    libexec/clipboard-put.in:os/$our_host_os/libexec/clipboard-put.in

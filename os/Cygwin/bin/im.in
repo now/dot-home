@@ -1,3 +1,9 @@
 #! @SHELL@
 
-totalcmd /S=L "$(cygpath -wl $1:a)"
+for f in "$@"; do
+  case $f in
+    /*) p=$f ;;
+    *) p=$PWD/$f ;;
+  esac
+  totalcmd /S=L "`cygpath -wl "$p"`"
+done
