@@ -8,25 +8,27 @@ AS_CASE([$host_os],
   [darwin*], [our_host_os=Darwin],
   [linux-*], [our_host_os=Linux],
   [our_host_os=generic])
-AC_CONFIG_LINKS(
-  [libexec/clipboard-get.in:os/$our_host_os/libexec/clipboard-get.in
-   libexec/clipboard-put.in:os/$our_host_os/libexec/clipboard-put.in
-   os/os.mk:os/$our_host_os/os.mk])
-AC_SUBST([host_mk], [/dev/null])
 AC_ARG_ENABLE([hostname-dotfiles],
   [AS_HELP_STRING([--enable-hostname-dotfiles@<:@=HOSTNAME@:>@],
      [enable hostname-specific dotfiles for HOSTNAME @<:@default=yes@:>@])],
   [],
-  [enable_hostname_dotfiles=yes])
+  [enable_hostname_dotfiles=yes
+   enable_hostname_dotfiles_default=yes])
 AS_IF([test "x$enable_hostname_dotfiles" != xno],
   [AS_IF([test "x$enable_hostname_dotfiles" = xyes],
      [enable_hostname_dotfiles=`hostname`])
    AS_CASE([$enable_hostname_dotfiles],
      [nweibull-ws|portair.local],
-     [host_mk=$srcdir/host/$enable_hostname_dotfiles/host.mk],
-     [*],
-     [AC_MSG_FAILURE(
-        [--enable-hostname-dotfiles for $enable_hostname_dotfiles is not supported])])])
+       [our_hostname=$enable_hostname_dotfiles],
+     [AS_IF([test "x$enable_hostname_dotfiles_default" = xyes],
+        [our_hostname=generic],
+        [AC_MSG_FAILURE(
+           [--enable-hostname-dotfiles for $enable_hostname_dotfiles is not supported])])])])
+AC_CONFIG_LINKS(
+  [host/host.mk:host/$our_hostname/host.mk
+   libexec/clipboard-get.in:os/$our_host_os/libexec/clipboard-get.in
+   libexec/clipboard-put.in:os/$our_host_os/libexec/clipboard-put.in
+   os/os.mk:os/$our_host_os/os.mk])
 AC_CHECK_PROGS([CURL], [curl])
 AC_ARG_VAR([CURL], [the cURL command])
 AC_CHECK_PROGS([DIFF], [diff])

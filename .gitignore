@@ -40,6 +40,7 @@
 /emacs.d/inits/unprovided-delayed-inits.el
 /emacs.d/site-lisp/userloaddefs.el
 /emacs.d/site-lisp/userloaddefs.el~
+/host/host.mk
 /libexec/clipboard-get
 /libexec/clipboard-get.in
 /libexec/clipboard-put

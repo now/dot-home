@@ -5,8 +5,6 @@ srcdir = @srcdir@
 
 VPATH = @srcdir@
 
-host_mk = @host_mk@
-
 CURL = @CURL@
 DIFF = @DIFF@
 EMACS = @EMACS@
@@ -362,7 +360,7 @@ libexec_SCRIPTS = \
 	libexec/clipboard-put
 
 include os/os.mk
-include $(host_mk)
+include host/host.mk
 
 ifdef INCLUDE_VIM
 userconf_DATA += \
