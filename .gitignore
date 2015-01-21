@@ -40,7 +40,12 @@
 /emacs.d/inits/unprovided-delayed-inits.el
 /emacs.d/site-lisp/userloaddefs.el
 /emacs.d/site-lisp/userloaddefs.el~
+/libexec/clipboard-get
+/libexec/clipboard-get.in
+/libexec/clipboard-put
+/libexec/clipboard-put.in
 /os/Cygwin/bin/im
 /os/Darwin/bin/a
 /os/Darwin/bin/im
 /os/Linux/bin/xdigraph
+/os/os.mk

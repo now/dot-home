@@ -3,16 +3,15 @@ AC_INIT([dot-home], [1.0.0], [now@disu.se])
 AC_CONFIG_SRCDIR([configure.ac])
 AC_CONFIG_AUX_DIR([build])
 AC_CANONICAL_HOST
-AC_SUBST([os_mk], [/dev/null])
 AS_CASE([$host_os],
   [cygwin], [our_host_os=Cygwin],
   [darwin*], [our_host_os=Darwin],
   [linux-*], [our_host_os=Linux],
   [our_host_os=generic])
-os_mk=$srcdir/os/$our_host_os/os.mk
 AC_CONFIG_LINKS(
-  [libexec/clipboard-get.in:$srcdir/os/$our_host_os/libexec/clipboard-get.in
-   libexec/clipboard-put.in:$srcdir/os/$our_host_os/libexec/clipboard-put.in])
+  [libexec/clipboard-get.in:os/$our_host_os/libexec/clipboard-get.in
+   libexec/clipboard-put.in:os/$our_host_os/libexec/clipboard-put.in
+   os/os.mk:os/$our_host_os/os.mk])
 AC_SUBST([host_mk], [/dev/null])
 AC_ARG_ENABLE([hostname-dotfiles],
   [AS_HELP_STRING([--enable-hostname-dotfiles@<:@=HOSTNAME@:>@],

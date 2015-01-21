@@ -5,7 +5,6 @@ srcdir = @srcdir@
 
 VPATH = @srcdir@
 
-os_mk = @os_mk@
 host_mk = @host_mk@
 
 CURL = @CURL@
@@ -362,7 +361,7 @@ libexec_SCRIPTS = \
 	libexec/clipboard-get \
 	libexec/clipboard-put
 
-include $(os_mk)
+include os/os.mk
 include $(host_mk)
 
 ifdef INCLUDE_VIM
