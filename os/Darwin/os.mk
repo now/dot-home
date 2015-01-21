@@ -72,5 +72,5 @@ os/Darwin/.defaults.stamp: os/Darwin/os.mk
 	defaults write -g userMenuExtraStyle -int 2
 	touch $@
 
-bin/a bin/im: %: os/Darwin/%.in Makefile
+bin/im: %: os/Darwin/%.in Makefile
 	$(r_bin_gen)

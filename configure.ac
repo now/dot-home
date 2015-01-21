@@ -8,6 +8,9 @@ AS_CASE([$host_os],
   [darwin*], [our_host_os=Darwin],
   [linux-*], [our_host_os=Linux],
   [our_host_os=generic])
+AS_CASE([$host_os],
+  [darwin*], [os_bin_a_in=os/$our_host_os/bin/a.in],
+  [os_bin_a_in=os/generic/bin/a.in])
 AC_ARG_ENABLE([hostname-dotfiles],
   [AS_HELP_STRING([--enable-hostname-dotfiles@<:@=HOSTNAME@:>@],
      [enable hostname-specific dotfiles for HOSTNAME @<:@default=yes@:>@])],
@@ -25,7 +28,8 @@ AS_IF([test "x$enable_hostname_dotfiles" != xno],
         [AC_MSG_FAILURE(
            [--enable-hostname-dotfiles for $enable_hostname_dotfiles is not supported])])])])
 AC_CONFIG_LINKS(
-  [host/host.mk:host/$our_hostname/host.mk
+  [bin/a.in:$os_bin_a_in
+   host/host.mk:host/$our_hostname/host.mk
    libexec/clipboard-get.in:os/$our_host_os/libexec/clipboard-get.in
    libexec/clipboard-put.in:os/$our_host_os/libexec/clipboard-put.in
    os/os.mk:os/$our_host_os/os.mk])
