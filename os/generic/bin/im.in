@@ -1,0 +1,4 @@
+#! @SHELL@
+
+echo "`expr "//$0" : '.*/\(.*\)'`: don’t know how to display on this system" >&2
+exit 1
