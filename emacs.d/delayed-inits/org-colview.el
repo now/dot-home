@@ -19,6 +19,7 @@
   (now-org-columns-forward-line (- n)))
 (define-key org-columns-map ",t" 'org-columns-todo)
 (define-key org-columns-map "b" 'backward-char)
+(define-key org-columns-map "h" 'backward-char)
 (define-key org-columns-map "j" 'now-org-columns-forward-line)
 (define-key org-columns-map "k" 'now-org-columns-backward-line)
 (define-key org-columns-map "s" 'now-org-columns-forward-char)
