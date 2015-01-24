@@ -321,9 +321,6 @@ xdgconfighomezshfunctions_DATA = \
 	zsh/functions/zle/vi-cmd-mode-silently \
 	zsh/functions/zle/yank-clipboard
 
-xdgconfighomezshhost_DATA = \
-	zsh/host/profile
-
 bin_SCRIPTS = \
 	bin/a \
 	bin/aa \
