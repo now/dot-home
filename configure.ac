@@ -27,13 +27,6 @@ AS_IF([test "x$enable_hostname_dotfiles" != xno],
         [our_hostname=generic],
         [AC_MSG_FAILURE(
            [--enable-hostname-dotfiles for $enable_hostname_dotfiles is not supported])])])])
-AC_CONFIG_LINKS(
-  [bin/a.in:$os_bin_a_in
-   bin/im.in:os/$our_host_os/bin/im.in
-   host/host.mk:host/$our_hostname/host.mk
-   libexec/clipboard-get.in:os/$our_host_os/libexec/clipboard-get.in
-   libexec/clipboard-put.in:os/$our_host_os/libexec/clipboard-put.in
-   os/os.mk:os/$our_host_os/os.mk])
 AC_CHECK_PROGS([CURL], [curl])
 AC_ARG_VAR([CURL], [the cURL command])
 AC_CHECK_PROGS([DIFF], [diff])
@@ -50,5 +43,12 @@ AC_CHECK_PROGS([UNZIP], [unzip])
 AC_ARG_VAR([UNZIP], [the unzip command])
 AC_PATH_PROGS([ZSHELL], [zsh])
 AC_ARG_VAR([ZSHELL], [the zsh command])
+AC_CONFIG_LINKS(
+  [bin/a.in:$os_bin_a_in
+   bin/im.in:os/$our_host_os/bin/im.in
+   host/host.mk:host/$our_hostname/host.mk
+   libexec/clipboard-get.in:os/$our_host_os/libexec/clipboard-get.in
+   libexec/clipboard-put.in:os/$our_host_os/libexec/clipboard-put.in
+   os/os.mk:os/$our_host_os/os.mk])
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
