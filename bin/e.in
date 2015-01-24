@@ -1,7 +1,8 @@
 #! @SHELL@
 
-set -- --alternate-editor "" "$@"
-test "x$TERM" != xdumb && set -- -t "$@"
+t=
+test "x$TERM != xdumb && t=-t
+set -- $t --alternate-editor "" "$@"
 
 if test -t 0; then
   exec emacsclient "$@"
