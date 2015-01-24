@@ -137,7 +137,7 @@ $(2): $(1)
 endef
 
 # dir, prefix?
-DIR = $(eval $(call DIR_dir,$(DESTDIR)$($(1)dir)) $(foreach primary,DATA SCRIPTS,$(foreach file,$($(1)_$(primary)),$(if $(subst $(file),,$(lastword $(filter %/$(notdir $(file)),$($(1)_$(primary))))),,$(call DIR_primary,$(file),$(DESTDIR)$($(1)dir)/$(2)$(notdir $(file)),$(DESTDIR)$($(1)dir),$(primary))))))
+DIR = $(eval $(call DIR_dir,$(DESTDIR)$($(1)dir)) $(foreach primary,DATA SCRIPTS,$(foreach file,$($(1)_$(primary)),$(call DIR_primary,$(file),$(DESTDIR)$($(1)dir)/$(2)$(notdir $(file)),$(DESTDIR)$($(1)dir),$(primary)))))
 
 %/.dirstamp:
 	$(V_at)$(MKDIR_P) $*
