@@ -152,8 +152,6 @@
 	</data>
 	<key>Bell</key>
 	<false/>
-	<key>CommandString</key>
-	<string>mkdir -p ~/.cache/dtach &amp;&amp; dtach -A ~/.cache/dtach/session -Ez zsh</string>
 	<key>CursorBlink</key>
 	<true/>
 	<key>CursorColor</key>
@@ -185,8 +183,6 @@
 	<true/>
 	<key>ProfileCurrentVersion</key>
 	<real>2.02</real>
-	<key>RunCommandAsShell</key>
-	<false/>
 	<key>ScrollbackLines</key>
 	<real>0.0</real>
 	<key>SetLanguageEnvironmentVariables</key>

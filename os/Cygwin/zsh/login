@@ -1,2 +1,1 @@
 stty -ixon
-mkdir -p ${XDG_CACHE_HOME:-~/.cache}/dtach && dtach -A ${XDG_CACHE_HOME:-~/.cache}/dtach/session -Ez zsh
