@@ -24,6 +24,9 @@
 (hide-mode-line)
 (add-hook 'window-setup-hook 'hide-mode-line-update)
 
+(eval-after-load 'menu-bar
+    (menu-bar-mode -1))
+
 (eval-after-load 'tool-bar
   '(tool-bar-mode -1))
 
@@ -211,18 +214,3 @@
   (windows-path-activate))
  ((eq system-type 'darwin)
   (setq insert-directory-program "a")))
-
-(cond
- ((eq window-system nil)
-  (eval-after-load 'menu-bar
-    (menu-bar-mode -1)))
- ((eq window-system 'ns)
-  (set-frame-font "DejaVu Sans Mono-14")
-  (setq default-frame-alist
-        '((font . "DejaVu Sans Mono-14") (left . 100) (width . 132) (height . 41)))
-  (if (fboundp 'set-fontset-font)
-      (set-fontset-font (frame-parameter nil 'font) 'symbol '("DejaVu Sans Mono" . "unicode-bmp"))))
- ((eq window-system 'w32)
-  (set-frame-font "DejaVu Sans Mono-9")
-  (setq default-frame-alist
-        '((font . "DejaVu Sans Mono-9") (width . 98) (height . 70)))))
