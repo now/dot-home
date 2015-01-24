@@ -6,7 +6,8 @@ limit coredumpsize 30m 2>/dev/null
 
 source $ZDOTDIR/os/login
 
-[[ -d ${XDG_CACHE_HOME:-~/.cache}/dtach ]] ||
-  ( umask 077 &&
-    mkdir -p ${XDG_CACHE_HOME:-~/.cache}/dtach ) &&
-    dtach -A ${XDG_CACHE_HOME:-~/.cache}/dtach/session -Ez zsh
+whence dtach >/dev/null &&
+  { [[ -d ${XDG_CACHE_HOME:-~/.cache}/dtach ]] ||
+      ( umask 077 &&
+          mkdir -p ${XDG_CACHE_HOME:-~/.cache}/dtach ) &&
+        dtach -A ${XDG_CACHE_HOME:-~/.cache}/dtach/session -Ez zsh; }
