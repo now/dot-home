@@ -1,1 +1,3 @@
 *.patch -whitespace
+/os/Cygwin/GHISLER/languages/wcmd_now.lng crlf
+/os/Cygwin/GHISLER/tcignore.txt crlf
