@@ -123,6 +123,8 @@
 (setq make-backup-files nil
       require-final-newline 'visit-save)
 
+(setq insert-directory-program "a")
+
 (setq-default indent-tabs-mode nil)
 
 (desktop-save-mode 1)
@@ -208,9 +210,3 @@
         (replace-match "-\\&"))))
   (set-marker end nil)
   nil)
-
-(cond
- ((eq system-type 'cygwin)
-  (windows-path-activate))
- ((eq system-type 'darwin)
-  (setq insert-directory-program "a")))
