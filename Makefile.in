@@ -324,11 +324,6 @@ xdgconfighomezshfunctions_DATA = \
 xdgconfighomezshhost_DATA = \
 	zsh/host/profile
 
-xdgconfighomezshos_DATA = \
-	zsh/os/env \
-	zsh/os/login \
-	zsh/os/rc
-
 bin_SCRIPTS = \
 	bin/a \
 	bin/aa \
