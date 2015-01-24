@@ -1,7 +1,7 @@
 #! @SHELL@
 
 t=
-test "x$TERM != xdumb && t=-t
+test "x$TERM" != xdumb && t=-t
 set -- $t --alternate-editor "" "$@"
 
 if test -t 0; then
