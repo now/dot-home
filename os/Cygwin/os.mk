@@ -97,9 +97,6 @@ appdataghislerpluginswlximagineplugin_SCRIPTS = \
 appdataghislertoolswork_SCRIPTS = \
 	os/Cygwin/GHISLER/tools/work/open-in-tageditor-non-retardedly.vbs
 
-appdatadialogdeath_DATA = \
-	os/Cygwin/dialog-death.ini
-
 startup_SCRIPTS = \
 	os/Cygwin/start-up/clipx.lnk \
 	os/Cygwin/start-up/cygwin.lnk \
@@ -120,7 +117,6 @@ xdgconfighomezshos_DATA = \
 	os/Cygwin/zsh/login \
 	os/Cygwin/zsh/rc
 
-$(call DIR,appdatadialogdeath)
 $(call DIR,appdataghisler)
 $(call DIR,appdataghislerlanguages)
 $(call DIR,appdataghislerpackersrar)
