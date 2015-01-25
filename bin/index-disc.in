@@ -5,13 +5,18 @@
 progname=`expr "//$0" : '.*/\(.*\)'`
 sha256sum=@SHA256SUM@
 discs=~/Documents/Google\ Drive/Discs
+lockdir=$discs/.discs.lock
+pidfile=$lockdir/pid
 
 warn () {
   printf '%s\n' "$progname: $*" >&2
 }
 
 warnunless () {
-  test $? -ne 0 && warn "$2: $1"
+  if test $? -ne 0; then
+    warn "$2: $1"
+    return 1
+  fi
 }
 
 die () {
@@ -23,60 +28,69 @@ dieunless () {
   test $? -ne 0 && die "$2: $1"
 }
 
-withlock () {
-  setopt localoptions localtraps
-  local lock=$1
-  shift
-
-  until (setopt noclobber && print -r -- $$ > $lock) >& /dev/null; do
-    if kill -0 "$(<$lock)" >& /dev/null; then
-      sleep 1
-    else
-      dieunless "`rm -f "$lock" 2>&1`" "can’t remove stale lock file"
-    fi
-  done
-
-  trap 'rm -f $lock; exit 130' INT
-  trap 'rm -f $lock; exit 143' TERM
-  $*
-  retval=$?
-  dieunless "`rm -f "$lock" 2>&1`" "can’t remove lock file"
-  return $retval
-}
-
-withdiscsdir () {
-  withlock $discs/.discs.lock $*
+writesha256sumsandeject () {
+  tmp=$discs/$progname$$.tmp
+  trap 'rm -f "$tmp"' 1 2 13 15
+  { writesha256sums "$1" "$tmp" && eject "$1"; } ||
+    { rm -f "$tmp"; return 1; }
 }
 
 writesha256sums () {
-  last=`find "$discs" | sort -nr | sed -n -e '1s,.*/\(.*\)\.[^.]*$,\1,p' -e 1q`
-  next=`expr $last + 1`
-  label=`printf '%0.3d' $next`
+  if test -d "$1/VIDEO_TS"; then
+    writesha256sumsin "`expr "//$1" : '//\(.*\)/.*'`" "$2"
+  else
+    writesha256sumsin "$1" "$2"
+  fi
+}
+
+writesha256sumsin () {
+  (cd "$1" &&
+      find . -print0 | xargs -0 -n1 -P4 "$sha256sum" | sed 's,^./,,' | \
+        sort -k2) > "$2" &&
+    { lockandlabel "$1" "$2" || { rm -f "$2"; return 1 } }
+}
+
+lockandlabel () {
+  chmod a-w "$2" &&
+    lock &&
+    { label "$2" "$1"
+      e=$?
+      warnunless "`rm -rf "$lockdir" 2>&1`" "can’t remove lock file" || return 1
+      return $e }
+}
+
+lock () {
+  while ! mkdir "$lockdir"; do
+    pid=`cat "$pidfile"` || { warn "possibly stale lock directory: $lockdir"; return 1; }
+    if kill -0 "$pid" >/dev/null 2>&1; then
+      sleep 1
+    else
+      warnunless "`rm -f "$lock" 2>&1`" "can’t remove stale lock file" || return 1
+    fi
+  done
+  echo $$ > "$pidfile"
+  trap 'rm -rf "$lockdir"' 1 2 13 15
+}
+
+label () {
+  last=`find "$discs" | sort -nr | sed -n -e '1s,.*/\(.*\)\.[^.]*$,\1,p' -e 1q` || return 1
+  next=`expr $last + 1` || return 1
+  label=`printf '%0.3d' $next` || return 1
   file=$discs/$label.sha256sum
-  ( umask $(($(umask) | 0200)) &&
-      printf '%s' "$*" > "$file.tmp" ) &&
-    mv "$file.tmp" "$file" &&
-    echo "label $mount as $label" ||
-      { rm -f "$file.tmp" "$file"; exitstatus=1; }
+  mv "$1" "$file" &&
+    echo "label $2 as $label" ||
+      { rm -f "$1" "$file"; return 1 }
 }
 
 eject () {
-  if diskutil list "$1" > /dev/null; then
+  diskutil list "$1" > /dev/null &&
     warnunless "`diskutil eject "$1" 2>&1`" "can’t eject disc"
-  fi
 }
 
 dieunless "`@MKDIR_P@ "$discs" 2>&1`" "can’t create discs directory"
 
+exitstatus=0
 for mount in ${*:-.}; do
-  target=$mount
-  prefix=
-  if test -d "$mount/VIDEO_TS"; then
-    prefix=`expr "//$target" : '.*/\(.*\)'`/
-    target=`expr "//$target" : '//\(.*\)/.*'`
-  fi
-
-  sha256sums=`cd "$target" && find . -print0 | xargs -0 -n1 -P4 "$sha256sum" | sort -k2` &&
-    withdiscsdir writesha256sums "$sha256sums" &&
-    eject "$mount"
+  writesh256sums "$mount" || exitstatus=1
 done
+exit $exitstatus
