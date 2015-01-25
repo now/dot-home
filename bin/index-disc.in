@@ -1,17 +1,29 @@
 #! @ZSHELL@
 
+# TODO Depend on a find and xargs that support -print0 and -0/-P.
+
+progname=`expr "//$0" : '.*/\(.*\)'`
+sha256sum=@SHA256SUM@
 discs=~/Documents/Google\ Drive/Discs
 
+warn () {
+  printf '%s\n' "$progname: $*" >&2
+}
+
+warnunless () {
+  test $? -ne 0 && warn "$2: $1"
+}
+
 die () {
- print -r -- $* >&2
- exit 1
+  warn "$*"
+  exit 1
 }
 
-with-discs-dir () {
-  with-lock $discs/.discs.lock $*
+dieunless () {
+  test $? -ne 0 && die "$2: $1"
 }
 
-with-lock () {
+withlock () {
   setopt localoptions localtraps
   local lock=$1
   shift
@@ -20,47 +32,51 @@ with-lock () {
     if kill -0 "$(<$lock)" >& /dev/null; then
       sleep 1
     else
-      rm -f $lock || die "Cannot remove stale lock file"
+      dieunless "`rm -f "$lock" 2>&1`" "can’t remove stale lock file"
     fi
   done
 
   trap 'rm -f $lock; exit 130' INT
   trap 'rm -f $lock; exit 143' TERM
   $*
-  local retval=$status
-  rm -f $lock || die "Cannot remove lock file"
+  retval=$?
+  dieunless "`rm -f "$lock" 2>&1`" "can’t remove lock file"
   return $retval
 }
 
-write-sha256sums () {
-  setopt localoptions noclobber
-  local -a last
-  local new file
-
-  last=($discs/[0-9][0-9][0-9].sha256sum(N.[-1]:t:r))
-  new=$(printf '%0.3d' $((${last:-0} + 1)))
-  file=$discs/$new.sha256sum
-
-  local saved_umask="$(umask)"
-  umask $((saved_umask | 0200))
-  print -r -- $1 > $file &&
-    print -r -- "Label $mount as $new"
-  umask $saved_umask
+withdiscsdir () {
+  withlock $discs/.discs.lock $*
 }
 
-mkdir $discs >& /dev/null
-[[ -d $discs ]] || die "Cannot create disc directory: $discs"
+writesha256sums () {
+  last=`find "$discs" | sort -nr | sed -n -e '1s,.*/\(.*\)\.[^.]*$,\1,p' -e 1q`
+  next=`expr $last + 1`
+  label=`printf '%0.3d' $next`
+  file=$discs/$label.sha256sum
+  ( umask $(($(umask) | 0200)) &&
+      printf '%s' "$*" > "$file.tmp" ) &&
+    mv "$file.tmp" "$file" &&
+    echo "label $mount as $label" ||
+      { rm -f "$file.tmp" "$file"; exitstatus=1; }
+}
+
+eject () {
+  if diskutil list "$1" > /dev/null; then
+    warnunless "`diskutil eject "$1" 2>&1`" "can’t eject disc"
+  fi
+}
+
+dieunless "`@MKDIR_P@ "$discs" 2>&1`" "can’t create discs directory"
 
 for mount in ${*:-.}; do
-  local target="$mount" prefix=
-  if [[ -d $mount/VIDEO_TS ]]; then
-    prefix=$target:t/
-    target=$target:h
+  target=$mount
+  prefix=
+  if test -d "$mount/VIDEO_TS"; then
+    prefix=`expr "//$target" : '.*/\(.*\)'`/
+    target=`expr "//$target" : '//\(.*\)/.*'`
   fi
 
-  sha256sums=$(cd $target && ${commands[sha256sum]:-$commands[gsha256sum]} $prefix**/*(.)) &&
-    with-discs-dir write-sha256sums $sha256sums &&
-    { diskutil list $mount > /dev/null &&
-      diskutil eject $mount > /dev/null ||
-      true }
+  sha256sums=`cd "$target" && find . -print0 | xargs -0 -n1 -P4 "$sha256sum" | sort -k2` &&
+    withdiscsdir writesha256sums "$sha256sums" &&
+    eject "$mount"
 done
