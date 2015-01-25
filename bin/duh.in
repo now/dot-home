@@ -1,6 +1,3 @@
 #! @ZSHELL@
 
-#matches () { test $# -gt 2 || test -e "$1" }
-#set --; for p in '.[^.]*' \*; do matches $p && set -- "$@" $p; done
-
 (($# > 0)) || set -- *(DN); exec ${commands[gdu]:-du} --si -s ${2:+-c} -- $*
