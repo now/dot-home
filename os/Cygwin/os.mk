@@ -1,4 +1,4 @@
-appdatadir = $(call shell_quote,$(shell cygpath -u "$(APPDATA)"))
+appdatadir := $(call shell_quote,$(shell cygpath -u "$(APPDATA)"))
 userconfmozillafirefoxdir = $(appdatadir)/Mozilla/Firefox
 xdgconfighomevlcdir = $(appdatadir)/vlc
 
@@ -26,7 +26,7 @@ appdataghislerpluginswlximaginedir = $(appdataghislerpluginswlxdir)/imagine
 appdataghislerpluginswlximagineplugindir = $(appdataghislerpluginswlximaginedir)/plugin
 appdataghislertoolsworkdir = $(appdataghislerdir)/tools/work
 appdatadialogdeathdir = $(appdatadir)/Dialog\ Death
-startupdir = $(call shell_quote,$(shell cygpath -P))/Startup
+startupdir := $(call shell_quote,$(shell cygpath -P))/Startup
 
 appdataghisler_DATA = \
 	os/Cygwin/GHISLER/lsplugin.ini \
