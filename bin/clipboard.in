@@ -7,5 +7,5 @@ if test $# -gt 0; then
 elif test -t 0; then
   exec $libexecdir/clipboard-get
 else
-  exec $libexecdir/clibpoard-put
+  exec $libexecdir/clipboard-put
 fi
