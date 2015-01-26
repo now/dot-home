@@ -101,6 +101,7 @@
     `(ned-info-on-file-read-only ((,class (:foreground ,red))))
     `(org-agenda-date-weekend ((,class)))
     `(org-agenda-done ((,class)))
+    `(org-agenda-restriction-lock ((,class)))
     `(org-agenda-structure ((,class)))
     `(org-block ((,class (:foreground "grey40"))))
     `(org-code ((,class (:foreground "grey40"))))
