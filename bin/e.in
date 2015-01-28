@@ -1,12 +1,12 @@
 #! @SHELL@
 
 usage () {
-  printf "Usage: %s [FILE...]" "expr "//$0" : '.*/\(.*\)'"
+  printf 'Usage: %s [FILE...]\n' "expr "//$0" : '.*/\(.*\)'"
   exit 1
 }
 
 warn () {
-  printf "%s: %s" "`expr "//$0" : '.*/\(.*\)'`" "$*"
+  printf '%s: %s\n' "`expr "//$0" : '.*/\(.*\)'`" "$*"
 }
 
 die () {
@@ -33,9 +33,9 @@ test -t 0 && exec emacsclient "$@"
 
 : ${TMPDIR=/tmp}
 { d=`(umask 077 && mktemp -d "$TMPDIR/eXXXXXX") 2>/dev/null` &&
-  test -n "$d" && test -d "$d"; } ||
+    test -n "$d" && test -d "$d"; } ||
   { d=$TMPDIR/e$$$RANDOM; (umask 077 && mkdir "$d") 2>/dev/null; } ||
-  { printf "%s: can’t create temporary directory" "`basename $0`"; exit 1; }
+  die "can’t create temporary directory"
 trap 'rm -rf "$d"' 0 1 2 13 15
 t=$d/stdin
 cat > "$t" || exit 1
