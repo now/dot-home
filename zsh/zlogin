@@ -4,8 +4,6 @@ fi
 
 limit coredumpsize 30m 2>/dev/null
 
-source $ZDOTDIR/os/login
-
 whence dtach >/dev/null &&
   { [[ -d ${XDG_CACHE_HOME:-~/.cache}/dtach ]] ||
       ( umask 077 &&
