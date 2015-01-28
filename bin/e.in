@@ -1,5 +1,30 @@
 #! @SHELL@
 
+usage () {
+  printf "Usage: %s [FILE...]" "expr "//$0" : '.*/\(.*\)'"
+  exit 1
+}
+
+warn () {
+  printf "%s: %s" "`expr "//$0" : '.*/\(.*\)'`" "$*"
+}
+
+die () {
+  warn "$@"
+  exit 1
+}
+
+while test $# -ne 0; do
+  case $1 in
+    --) shift; break ;;
+    -*) warn "unknown option “$1”"; usage ;;
+    *) break ;;
+  esac
+  shift
+done
+
+test -t 1 || exec cat "$@"
+
 t=
 test "x$TERM" != xdumb && t=-t
 set -- $t --alternate-editor "" "$@"
