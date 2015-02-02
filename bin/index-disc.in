@@ -9,7 +9,7 @@ lockdir=$discs/.discs.lock
 pidfile=$lockdir/pid
 
 warn () {
-  printf '%s\n' "$progname: $*" >&2
+  printf '%s: %s\n' "$progname" "$*" >&2
 }
 
 warnunless () {
@@ -47,7 +47,7 @@ writesha256sumsin () {
   (cd "$1" &&
       find . -print0 | xargs -0 -n1 -P4 "$sha256sum" | sed 's,^./,,' | \
         sort -k2) > "$2" &&
-    { lockandlabel "$1" "$2" || { rm -f "$2"; return 1 } }
+    { lockandlabel "$1" "$2" || { rm -f "$2"; return 1; }; }
 }
 
 lockandlabel () {
