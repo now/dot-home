@@ -36,6 +36,14 @@ AC_ARG_WITH([dtachsession],
    dtachsession='${dtachsessiondir}/session'])
 AC_SUBST([dtachsessiondir])
 AC_SUBST([dtachsession])
+AC_ARG_WITH([zshistory],
+  [AS_HELP_STRING([--with-zshistory], [override default Zsh history file])],
+  [zshistory=$withval
+   zshistorydir=`AS_DIRNAME(["$zshistory"])`],
+  [zshistorydir='${XDG_CONFIG_CACHE}/zsh'
+   zshistory='${zshistorydir}/history'])
+AC_SUBST([zshistorydir])
+AC_SUBST([zshistory])
 AC_CHECK_PROGS([CURL], [curl])
 AC_ARG_VAR([CURL], [the cURL command])
 AC_CHECK_PROGS([DIFF], [diff])

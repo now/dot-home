@@ -87,6 +87,9 @@ sysconfdir = /etc
 dtachsessiondir = @dtachsessiondir@
 dtachsession = @dtachsession@
 
+zshistorydir = @zshistorydir@
+zshistory = @zshistory@
+
 .SUFFIXES:
 
 .PHONY: all diff install
@@ -429,10 +432,14 @@ $(call DIR,xdgconfighomezshfunctions)
 $(call DIR,xdgconfighomezshhost)
 $(call DIR,xdgconfighomezshos)
 
-install: | $(dtachsessiondir)
+emptydirs = \
+	$(dtachsessiondir) \
+	$(zshistorydir)
 
-$(dtachsessiondir):
-	$(V_MKDIR_P)umask 077 && $(MKDIR_P) $@
+install: | $(emptydirs)
+
+$(emptydirs):
+	$(V_MKDIR_P)$(INSTALL) -d -m 0700 $@
 
 %: %.in Makefile
 	$(V_GEN)rm -f $@ $@.tmp && \
@@ -443,6 +450,7 @@ $(dtachsessiondir):
 	    -e 's|@ZSHELL[@]|$(ZSHELL)|g' \
 	    -e 's|@dtachsession[@]|$(dtachsession)|g' \
 	    -e 's|@libexecdir[@]|$(libexecdir)|g' \
+	    -e 's|@zshistory[@]|$(zshistory)|g' \
 	    $< > $@.tmp && \
 	  mv $@.tmp $@
 
