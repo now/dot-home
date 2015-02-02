@@ -47,6 +47,8 @@ AC_ARG_VAR([EMACS], [the Emacs editor command])
 AC_CHECK_PROGS([ICONV], [iconv])
 AC_ARG_VAR([ICONV], [the iconv command])
 AC_PROG_INSTALL
+AC_CHECK_PROGS([KEYCHAIN], [keychain], [:])
+AC_ARG_VAR([KEYCHAIN], [the keychain command])
 AC_PROG_MKDIR_P
 AC_CHECK_PROGS([PATCH], [patch])
 AC_ARG_VAR([PATCH], [the patch command])

@@ -11,6 +11,7 @@ DTACH = @DTACH@
 EMACS = @EMACS@
 ICONV = @ICONV@
 INSTALL = @INSTALL@
+KEYCHAIN = @KEYCHAIN@
 MKDIR_P = @MKDIR_P@
 PATCH = @PATCH@
 UNZIP = @UNZIP@
@@ -437,6 +438,7 @@ $(dtachsessiondir):
 	$(V_GEN)rm -f $@ $@.tmp && \
 	  sed \
 	    -e 's|@DTACH[@]|$(DTACH)|g' \
+	    -e 's|@KEYCHAIN[@]|$(KEYCHAIN)|g' \
 	    -e 's|@SHELL[@]|$(SHELL)|g' \
 	    -e 's|@ZSHELL[@]|$(ZSHELL)|g' \
 	    -e 's|@dtachsession[@]|$(dtachsession)|g' \
