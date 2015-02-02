@@ -1,0 +1,7 @@
+if [[ -z $SSH_AUTH_SOCK ]] && whence keychain >/dev/null; then
+  eval $(keychain --eval --quiet id_rsa)
+fi
+
+limit coredumpsize 30m 2>/dev/null
+
+@DTACH@ -A "@dtachsession@" -Ez zsh

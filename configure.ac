@@ -27,10 +27,21 @@ AS_IF([test "x$enable_hostname_dotfiles" != xno],
         [our_hostname=generic],
         [AC_MSG_FAILURE(
            [--enable-hostname-dotfiles for $enable_hostname_dotfiles is not supported])])])])
+AC_ARG_WITH([dtachsession],
+  [AS_HELP_STRING([--with-dtachsession],
+     [override default dtach cache session file])],
+  [dtachsession=$withval
+   dtachsessiondir=`AS_DIRNAME(["$dtachsession"])`],
+  [dtachsessiondir='${XDG_CONFIG_CACHE}/dtach'
+   dtachsession='${dtachsessiondir}/session'])
+AC_SUBST([dtachsessiondir])
+AC_SUBST([dtachsession])
 AC_CHECK_PROGS([CURL], [curl])
 AC_ARG_VAR([CURL], [the cURL command])
 AC_CHECK_PROGS([DIFF], [diff])
 AC_ARG_VAR([DIFF], [the diff command])
+AC_CHECK_PROGS([DTACH], [dtach], [:])
+AC_ARG_VAR([DTACH], [the dtach command])
 AC_CHECK_PROGS([EMACS], [emacs])
 AC_ARG_VAR([EMACS], [the Emacs editor command])
 AC_CHECK_PROGS([ICONV], [iconv])
@@ -43,6 +54,9 @@ AC_CHECK_PROGS([UNZIP], [unzip])
 AC_ARG_VAR([UNZIP], [the unzip command])
 AC_PATH_PROGS([ZSHELL], [zsh])
 AC_ARG_VAR([ZSHELL], [the zsh command])
+prefix=${HOME}
+AC_ARG_VAR([XDG_CONFIG_CACHE], [the user’s cache directory])
+: ${XDG_CONFIG_CACHE='${prefix}/.cache'}
 AC_CONFIG_LINKS(
   [bin/a.in:$os_bin_a_in
    bin/im.in:os/$our_host_os/bin/im.in

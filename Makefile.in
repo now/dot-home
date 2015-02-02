@@ -7,6 +7,7 @@ VPATH = @srcdir@
 
 CURL = @CURL@
 DIFF = @DIFF@
+DTACH = @DTACH@
 EMACS = @EMACS@
 ICONV = @ICONV@
 INSTALL = @INSTALL@
@@ -56,11 +57,12 @@ _v_ELC_ = $(_v_ELC_$(DEFAULT_VERBOSITY))
 _v_ELC_0 = @echo "  ELC     " $@;
 _v_INSTALL_1 =
 
-prefix = ~
+prefix = @prefix@
 bindir = $(prefix)/opt/bin
 libexecdir = $(prefix)/opt/libexec
 sharedir = $(prefix)/opt/share
 userconfdir = $(prefix)
+XDG_CONFIG_CACHE = @XDG_CONFIG_CACHE@
 XDG_CONFIG_HOME ?= $(prefix)/.config
 userconfaudacitydir = $(userconfdir)/.audacity
 userconfemacsddir = $(userconfdir)/.emacs.d
@@ -80,6 +82,9 @@ xdgconfighomezshfunctionsdir = $(xdgconfighomezshdir)/functions
 xdgconfighomezshhostdir = $(xdgconfighomezshdir)/host
 xdgconfighomezshosdir = $(xdgconfighomezshdir)/os
 sysconfdir = /etc
+
+dtachsessiondir = @dtachsessiondir@
+dtachsession = @dtachsession@
 
 .SUFFIXES:
 
@@ -304,6 +309,8 @@ xdgconfighomezsh_DATA = \
 	zsh/zprofile \
 	zsh/zshrc
 
+$(xdgconfighomezsh_DATA): zsh/.dirstamp
+
 xdgconfighomezshfunctions_DATA = \
 	zsh/functions/_unpack \
 	zsh/functions/_up \
@@ -421,11 +428,18 @@ $(call DIR,xdgconfighomezshfunctions)
 $(call DIR,xdgconfighomezshhost)
 $(call DIR,xdgconfighomezshos)
 
+install: | $(dtachsessiondir)
+
+$(dtachsessiondir):
+	$(V_MKDIR_P)umask 077 && $(MKDIR_P) $@
+
 %: %.in Makefile
 	$(V_GEN)rm -f $@ $@.tmp && \
 	  sed \
+	    -e 's|@DTACH[@]|$(DTACH)|g' \
 	    -e 's|@SHELL[@]|$(SHELL)|g' \
 	    -e 's|@ZSHELL[@]|$(ZSHELL)|g' \
+	    -e 's|@dtachsession[@]|$(dtachsession)|g' \
 	    -e 's|@libexecdir[@]|$(libexecdir)|g' \
 	    $< > $@.tmp && \
 	  mv $@.tmp $@
