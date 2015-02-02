@@ -1,3 +1,0 @@
-emulate -L zsh
-
-[[ $BUFFER != sudo\ * ]] && LBUFFER="sudo $LBUFFER"

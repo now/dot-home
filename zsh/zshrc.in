@@ -99,7 +99,6 @@ bindkey \
   '^U' up-directory \
   '^W' backward-kill-to-space-or-/ \
   '^X^L' history-beginning-search-menu \
-  '^X^S' sudo-command-line \
   '^Xu' urlify-current-argument \
   '^Y' yank-clipboard \
   '^^' cd-to-alternate-directory \
