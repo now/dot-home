@@ -1,33 +1,33 @@
 #! @SHELL@
 
 if test $# -eq 0; then
-  echo "`basename $0`: missing file argument" 1>&2
+  printf '%s: missing file argument\n' "expr "//$0" : '.*/\(.*\)'" >&2
   exit 1
 fi
 
 status=0
 
 for f in "$@"; do
-  if ! test -f "$f"; then
-    echo "$f: can’t unpack file (no such file)" 1>&2
-    status=1
-  else
-    case "$f" in
-      *.tar) tar xf "$f" ;;
-      *.tar.bz2|*.tbz2) bzip2 -d < "$f" | tar x ;;
-      *.tar.gz|*.tgz) gzip -d < "$f" | tar x ;;
-      *.tar.lzma) lzma -d < "$f" | tar x ;;
-      *.tar.xz) unxz < "$f" | tar x ;;
-      *.tar.Z) uncompress < "$f" | tar x ;;
-      *.gz) gzip -d -- "$f" ;;
-      *.bz2) bzip2 -d -- "$f" ;;
-      *.rar) unrar x -c- -o+ -idq -- "$f" ;;
-      *.zip|*.jar|*.oxt) unzip -q -o "$f" ;;
-      *.Z) uncompress -f "$f" ;;
-      *.7z) 7z x "$f" ;;
-      *) echo "$file: unknown format (unrecognized extension)" 1>&2; false ;;
-    esac || status=1
-  fi
+  test -f "$f" ||
+    { printf '%s: can’t unpack file (no such file)\n' "$f" >&2
+      status=1
+      continue; }
+  case $f in -*) f=./$f ;; esac
+  case "$f" in
+    *.tar) tar xf "$f" ;;
+    *.tar.bz2|*.tbz2) bunzip2 "$f" | tar x ;;
+    *.tar.gz|*.tgz) gunzip "$f" | tar x ;;
+    *.tar.lzma) unlzma "$f" | tar x ;;
+    *.tar.xz) unxz "$f" | tar x ;;
+    *.tar.Z) uncompress "$f" | tar x ;;
+    *.gz) gunzip "$f" ;;
+    *.bz2) bunzip2 "$f" ;;
+    *.rar) unrar x -c- -o+ -idq "$f" ;;
+    *.zip|*.jar|*.oxt) unzip -q -o "$f" ;;
+    *.Z) uncompress -f "$f" ;;
+    *.7z) 7z x "$f" ;;
+    *) printf '%s: unknown format (unrecognized extension)\n' "$f" >&2; false ;;
+  esac || status=1
 done
 
 exit $status
