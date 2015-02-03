@@ -1,5 +1,0 @@
-emulate -L zsh
-
-integer len=$#LBUFFER
-zle self-insert
-(( $len >= $#LBUFFER )) && LBUFFER[-1]=" $LBUFFER[-1]"

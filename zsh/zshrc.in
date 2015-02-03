@@ -56,7 +56,7 @@ autoload -U forward-word-match backward-word-match \
             backward-kill-word-match
 
 for command in cd-to-alternate-directory foreground-or-list-choices \
-  history-beginning-search-menu insert-composed-char self-insert-redir \
+  history-beginning-search-menu insert-composed-char \
   up-directory vi-cmd-mode-silently \
   yank-clipboard; do
   autoload -U $command
@@ -101,8 +101,7 @@ bindkey \
   '^X^L' history-beginning-search-menu \
   '^Y' yank-clipboard \
   '^^' cd-to-alternate-directory \
-  ' ' magic-space \
-  ${(s: :):-${^${(s::):-'|<>&'}}' self-insert-redir'}
+  ' ' magic-space
 bindkey -r '^['
 
 # Functions And Aliases
