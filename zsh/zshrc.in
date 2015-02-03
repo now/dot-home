@@ -95,5 +95,3 @@ bindkey -r '^['
 autoload -U cdr zargs zcalc hc up
 
 alias h='fc -lfiD'
-
-source $ZDOTDIR/os/rc
