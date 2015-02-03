@@ -37,6 +37,7 @@
     "q" 'delete-other-windows
     "Q" 'evil-record-macro
     "U" 'undo-tree-redo
+    "\C-r" nil
     "\M-d" 'smex
     "g\C-g" 'ned-info-on-file
     "gw" nil

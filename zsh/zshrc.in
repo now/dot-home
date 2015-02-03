@@ -71,10 +71,10 @@ bindkey -a \
   '?' history-incremental-search-forward \
   '^D' foreground-or-list-choices \
   '^O' accept-line-and-down-history \
-  '^R' redo \
   '^U' up-directory \
   '^^' cd-to-alternate-directory \
   'L' vi-change-whole-line \
+  'U' redo \
   'l' vi-substitute \
   's' vi-forward-char \
   'u' undo
