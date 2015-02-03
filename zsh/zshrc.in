@@ -106,7 +106,7 @@ bindkey -r '^['
 
 # Functions And Aliases
 
-autoload -U cdr zargs zcalc zmv freload hc up urlify
+autoload -U cdr zargs zcalc zmv hc up urlify
 
 alias \
   h='fc -lfiD' \

@@ -1,4 +1,0 @@
-emulate -L zsh
-
-unfunction $*
-autoload -U $*

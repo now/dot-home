@@ -318,7 +318,6 @@ $(xdgconfighomezsh_DATA): zsh/.dirstamp
 xdgconfighomezshfunctions_DATA = \
 	zsh/functions/_unpack \
 	zsh/functions/_up \
-	zsh/functions/freload \
 	zsh/functions/hc \
 	zsh/functions/up \
 	zsh/functions/urlify \
