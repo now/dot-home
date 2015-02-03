@@ -9,7 +9,6 @@ quartztext-font=Helvetica Neue
 macosx-mediakeys=0
 
 [main]
-#sout=#duplicate{dst=display{delay=4000},dst="transcode{acodec=alac,channels=2,samplerate=44100}:raop{host=10.0.1.6,volume=175}"}
 extraintf=lua
 key-toggle-fullscreen=f
 key-faster=]
