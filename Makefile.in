@@ -327,7 +327,6 @@ xdgconfighomezshfunctions_DATA = \
 	zsh/functions/zle/foreground-or-list-choices \
 	zsh/functions/zle/self-insert-redir \
 	zsh/functions/zle/up-directory \
-	zsh/functions/zle/urlify-current-argument \
 	zsh/functions/zle/vi-cmd-mode-silently \
 	zsh/functions/zle/yank-clipboard
 

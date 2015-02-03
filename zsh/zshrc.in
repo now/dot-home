@@ -57,7 +57,7 @@ autoload -U forward-word-match backward-word-match \
 
 for command in cd-to-alternate-directory foreground-or-list-choices \
   history-beginning-search-menu insert-composed-char self-insert-redir \
-  sudo-command-line up-directory urlify-current-argument vi-cmd-mode-silently \
+  up-directory vi-cmd-mode-silently \
   yank-clipboard; do
   autoload -U $command
   zle -N $command
@@ -99,7 +99,6 @@ bindkey \
   '^U' up-directory \
   '^W' backward-kill-to-space-or-/ \
   '^X^L' history-beginning-search-menu \
-  '^Xu' urlify-current-argument \
   '^Y' yank-clipboard \
   '^^' cd-to-alternate-directory \
   ' ' magic-space \

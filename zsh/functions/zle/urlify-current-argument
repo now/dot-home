@@ -1,5 +1,0 @@
-emulate -L zsh
-
-autoload -U modify-current-argument
-
-modify-current-argument '$(urlify ${(Q)ARG})'
