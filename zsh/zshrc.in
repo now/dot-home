@@ -106,11 +106,9 @@ bindkey -r '^['
 
 # Functions And Aliases
 
-autoload -U cdr zargs zcalc zmv hc up urlify
+autoload -U cdr zargs zcalc hc up urlify
 
-alias \
-  h='fc -lfiD' \
-  mmv='noglob zmv -W'
+alias h='fc -lfiD'
 
 # Operating System And Host Specific Settings
 
