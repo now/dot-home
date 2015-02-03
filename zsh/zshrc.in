@@ -77,6 +77,7 @@ bindkey -a \
   'u' undo
 
 bindkey -rp '^['
+bindkey -r '^['
 bindkey \
   '^?' backward-delete-char \
   '^D' vi-cmd-mode-silently \
@@ -89,7 +90,6 @@ bindkey \
   '^X^L' history-beginning-search-menu \
   '^^' cd-to-alternate-directory \
   ' ' magic-space
-bindkey -r '^['
 
 autoload -U zargs hc up
 
