@@ -1,7 +1,0 @@
-yank-clipboard-cygwin-path () {
-  emulate -L zsh
-  LBUFFER+=${(q)"$(cygpath "$(clipboard 2> /dev/null)" 2> /dev/null)"}
-}
-zle -N yank-clipboard-cygwin-path
-bindkey "^O^Y" yank-clipboard-cygwin-path
-bindkey "^Oy" yank-clipboard-cygwin-path

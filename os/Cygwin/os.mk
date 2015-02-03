@@ -112,9 +112,6 @@ startup_SCRIPTS = \
 
 # $(eval $(call GROUP_template,$(share_DATA),$(sharedir),,os/Cygwin/share/))
 
-xdgconfighomezshos_DATA = \
-	os/Cygwin/zsh/rc
-
 $(call DIR,appdataghisler)
 $(call DIR,appdataghislerlanguages)
 $(call DIR,appdataghislerpackersrar)

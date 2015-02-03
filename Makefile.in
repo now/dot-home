@@ -81,7 +81,6 @@ xdgconfighomevlcdir = $(xdgconfighomedir)/vlc
 xdgconfighomezshdir = $(xdgconfighomedir)/zsh
 xdgconfighomezshfunctionsdir = $(xdgconfighomezshdir)/functions
 xdgconfighomezshhostdir = $(xdgconfighomezshdir)/host
-xdgconfighomezshosdir = $(xdgconfighomezshdir)/os
 sysconfdir = /etc
 
 dtachsessiondir = @dtachsessiondir@
@@ -424,7 +423,6 @@ $(call DIR,xdgconfighomevlc)
 $(call DIR,xdgconfighomezsh,.)
 $(call DIR,xdgconfighomezshfunctions)
 $(call DIR,xdgconfighomezshhost)
-$(call DIR,xdgconfighomezshos)
 
 emptydirs = \
 	$(dtachsessiondir) \
