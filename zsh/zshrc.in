@@ -40,7 +40,6 @@ zstyle ':completion::complete:*' use-cache yes
 
 zstyle ':completion:*:processes' command 'ps -U $EUID 2>/dev/null'
 zstyle ':completion:*:manuals' separate-sections true
-zstyle ':completion:*:*:cdr:*:*' menu selection
 zstyle ':completion:*:*:kill:*:*' menu selection
 
 autoload -U forward-word-match backward-word-match backward-kill-word-match
@@ -92,6 +91,6 @@ bindkey \
   ' ' magic-space
 bindkey -r '^['
 
-autoload -U cdr zargs zcalc hc up
+autoload -U zargs hc up
 
 alias h='fc -lfiD'
