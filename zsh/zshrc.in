@@ -53,7 +53,6 @@ auto-zle history-beginning-search-menu
 auto-zle insert-composed-char
 auto-zle up-directory
 auto-zle vi-cmd-mode-silently
-auto-zle yank-clipboard
 unfunction auto-zle
 
 zle -N backward-kill-to-space-or-/ backward-kill-word-match
@@ -90,7 +89,6 @@ bindkey \
   '^U' up-directory \
   '^W' backward-kill-to-space-or-/ \
   '^X^L' history-beginning-search-menu \
-  '^Y' yank-clipboard \
   '^^' cd-to-alternate-directory \
   ' ' magic-space
 bindkey -r '^['

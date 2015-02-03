@@ -324,8 +324,7 @@ xdgconfighomezshfunctions_DATA = \
 	zsh/functions/zle/cd-to-alternate-directory \
 	zsh/functions/zle/foreground-or-list-choices \
 	zsh/functions/zle/up-directory \
-	zsh/functions/zle/vi-cmd-mode-silently \
-	zsh/functions/zle/yank-clipboard
+	zsh/functions/zle/vi-cmd-mode-silently
 
 bin_SCRIPTS = \
 	bin/a \

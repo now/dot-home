@@ -1,3 +1,0 @@
-emulate -L zsh
-
-LBUFFER+=$(clipboard 2> /dev/null)
