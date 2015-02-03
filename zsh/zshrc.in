@@ -43,8 +43,7 @@ zstyle ':completion:*:manuals' separate-sections true
 zstyle ':completion:*:*:cdr:*:*' menu selection
 zstyle ':completion:*:*:kill:*:*' menu selection
 
-autoload -U forward-word-match backward-word-match \
-            backward-kill-word-match
+autoload -U forward-word-match backward-word-match backward-kill-word-match
 
 function auto-zle () { autoload -U $1; zle -N $1; }
 auto-zle cd-to-alternate-directory
