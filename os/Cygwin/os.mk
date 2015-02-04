@@ -2,9 +2,6 @@ appdatadir = $(call shell_quote,$(shell cygpath -u "$(APPDATA)"))
 userconfmozillafirefoxdir = $(appdatadir)/Mozilla/Firefox
 xdgconfighomevlcdir = $(appdatadir)/vlc
 
-sitelisp_elcs += \
-	emacs.d/site-lisp/windows-path.elc
-
 userconf_DATA += \
 	os/Cygwin/hotkeys.ahk \
 	os/Cygwin/minttyrc
