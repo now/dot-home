@@ -67,6 +67,8 @@ AC_ARG_VAR([ZSHELL], [the zsh command])
 prefix=${HOME}
 AC_ARG_VAR([XDG_CONFIG_CACHE], [the user’s cache directory])
 : ${XDG_CONFIG_CACHE='${prefix}/.cache'}
+AC_ARG_VAR([XDG_CONFIG_HOME], [the user’s configuration directory])
+: ${XDG_CONFIG_HOME='${prefix}/.config'}
 AC_CONFIG_LINKS(
   [bin/a.in:$os_bin_a_in
    bin/im.in:os/$our_host_os/bin/im.in

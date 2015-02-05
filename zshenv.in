@@ -1,0 +1,3 @@
+ZDOTDIR=@xdgconfighomezshdir@
+fpath[1,0]=(@xdgconfighomezshfunctionsdir@)
+setopt extendedglob

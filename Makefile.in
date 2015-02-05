@@ -64,7 +64,7 @@ libexecdir = $(prefix)/opt/libexec
 sharedir = $(prefix)/opt/share
 userconfdir = $(prefix)
 XDG_CONFIG_CACHE = @XDG_CONFIG_CACHE@
-XDG_CONFIG_HOME ?= $(prefix)/.config
+XDG_CONFIG_HOME = @XDG_CONFIG_HOME@
 userconfaudacitydir = $(userconfdir)/.audacity
 userconfemacsddir = $(userconfdir)/.emacs.d
 userconfemacsddelayedinitsdir = $(userconfemacsddir)/delayed-inits
@@ -443,6 +443,8 @@ $(emptydirs):
 	    -e 's|@dtachsession[@]|$(dtachsession)|g' \
 	    -e 's|@libexecdir[@]|$(libexecdir)|g' \
 	    -e 's|@zshistory[@]|$(zshistory)|g' \
+	    -e 's|@xdgconfighomezshdir[@]|$(xdgconfighomezshdir)|g' \
+	    -e 's|@xdgconfighomezshfunctionsdir[@]|$(xdgconfighomezshfunctionsdir)|g' \
 	    $< > $@.tmp && \
 	  mv $@.tmp $@
 
