@@ -158,7 +158,8 @@ line, the position of the `org-agenda-restrict-begin' marker,
   (let ((pom (now-org-agenda-get-pom-dwim)))
     (when pom
       (let* ((headline (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
-            (headline-re (concat "^" (regexp-quote headline) "$")))
+             (headline-re (concat "^" (regexp-quote headline) "$"))
+             (name org-agenda-this-buffer-name))
         (org-with-point-at pom
           (when (eq type 'project)
             (save-restriction
@@ -172,8 +173,8 @@ line, the position of the `org-agenda-restrict-begin' marker,
           (unless (or (eq type 'file) (and (listp type) (numberp (car type))))
             (widen)
             (org-narrow-to-subtree))
-          (org-agenda-set-restriction-lock type))
-        (org-agenda-redo)
+          (let ((org-agenda-buffer-name name))
+            (org-agenda-set-restriction-lock type)))
         (if (or (re-search-backward headline-re nil t)
                 (re-search-forward headline-re nil t))
             (beginning-of-line))))))
@@ -198,8 +199,10 @@ line, the position of the `org-agenda-restrict-begin' marker,
   (interactive)
   (let ((pom (now-org-agenda-get-pom-dwim)))
     (when pom
-      (org-with-point-at pom
-        (now-org-narrow-up)))))
+      (let ((name org-agenda-this-buffer-name))
+        (org-with-point-at pom
+          (let ((org-agenda-buffer-name name))
+            (now-org-narrow-up)))))))
 
 (defun now-org-agenda-goto-first-item-in-block (n)
   "Go to the first item of the Nth current or previous agenda block."
