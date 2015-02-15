@@ -172,6 +172,7 @@ line, the position of the `org-agenda-restrict-begin' marker,
             (widen)
             (org-narrow-to-subtree))
           (org-agenda-set-restriction-lock type))
+        (org-agenda-redo)
         (if (re-search-forward (concat "^" (regexp-quote headline) "$") nil t)
             (beginning-of-line))))))
 
