@@ -157,7 +157,8 @@ line, the position of the `org-agenda-restrict-begin' marker,
   (interactive "P")
   (let ((pom (now-org-agenda-get-pom-dwim)))
     (when pom
-      (let ((headline (buffer-substring-no-properties (point-at-bol) (point-at-eol))))
+      (let* ((headline (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+            (headline-re (concat "^" (regexp-quote headline) "$")))
         (org-with-point-at pom
           (when (eq type 'project)
             (save-restriction
@@ -173,7 +174,8 @@ line, the position of the `org-agenda-restrict-begin' marker,
             (org-narrow-to-subtree))
           (org-agenda-set-restriction-lock type))
         (org-agenda-redo)
-        (if (re-search-forward (concat "^" (regexp-quote headline) "$") nil t)
+        (if (or (re-search-backward headline-re nil t)
+                (re-search-forward headline-re nil t))
             (beginning-of-line))))))
 
 (defun now-org-agenda-set-restriction-lock-to-project ()
