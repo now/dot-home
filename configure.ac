@@ -52,6 +52,8 @@ AC_CHECK_PROGS([DTACH], [dtach], [:])
 AC_ARG_VAR([DTACH], [the dtach command])
 AC_CHECK_PROGS([EMACS], [emacs])
 AC_ARG_VAR([EMACS], [the Emacs editor command])
+AC_CHECK_PROGS([GZIP], [gzip])
+AC_ARG_VAR([GZIP], [the gzip command])
 AC_CHECK_PROGS([ICONV], [iconv])
 AC_ARG_VAR([ICONV], [the iconv command])
 AC_PROG_INSTALL

@@ -9,6 +9,7 @@ CURL = @CURL@
 DIFF = @DIFF@
 DTACH = @DTACH@
 EMACS = @EMACS@
+GZIP = @GZIP@
 ICONV = @ICONV@
 INSTALL = @INSTALL@
 KEYCHAIN = @KEYCHAIN@
@@ -32,6 +33,11 @@ V_GEN = $(_v_GEN_$(V))
 _v_GEN_ = $(_v_GEN_$(DEFAULT_VERBOSITY))
 _v_GEN_0 = @echo "  GEN     " $@;
 _v_GEN_1 =
+
+V_GZIP = $(_v_GZIP_$(V))
+_v_GZIP_ = $(_v_GZIP_$(DEFAULT_VERBOSITY))
+_v_GZIP_0 = @echo "  GZIP    " $@;
+_v_GZIP_1 =
 
 V_CURL = $(_v_CURL_$(V))
 _V_CURL_ = $(_v_CURL_$(DEFAULT_VERBOSITY))
@@ -158,6 +164,10 @@ DIR = $(eval $(call DIR_dir,$(DESTDIR)$($(1)dir)) $(foreach primary,DATA SCRIPTS
 	  --eval "(setq byte-compile-dest-file-function (lambda (file) \"$@\"))" \
 	  $(ELCFLAGS) -f batch-byte-compile $<
 
+%.el.gz: %.el
+	$(V_GZIP)$(GZIP) -9n < $< > $@.tmp
+	$(V_at)mv $@.tmp $@
+
 HUNSPELL_DICT_VERSION = 2014.08.11
 HUNSPELL_EN_GB_DICT_ZIP = hunspell/hunspell-en_GB-ise-$(HUNSPELL_DICT_VERSION).zip
 HUNSPELL_EN_US_DICT_ZIP = hunspell/hunspell-en_US-$(HUNSPELL_DICT_VERSION).zip
@@ -282,6 +292,7 @@ sitelisp_elcs = \
 
 userconfemacsdsitelisp_DATA = \
 	$(sitelisp_elcs) \
+	$(sitelisp_elcs:%.elc=%.el.gz) \
 	emacs.d/site-lisp/userloaddefs.el
 
 userconfmozillafirefox_DATA = \
