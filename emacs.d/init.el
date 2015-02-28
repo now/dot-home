@@ -105,9 +105,6 @@
 (flx-ido-mode 1)
 (setq gc-cons-threshold 20000000)
 
-(eval-when-compile
-  (defvar smex-save-file))
-(setq smex-save-file (concat user-emacs-directory "smex-items"))
 (smex-initialize)
 
 ;;; Functionality
