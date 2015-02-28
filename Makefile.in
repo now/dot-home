@@ -157,7 +157,7 @@ DIR = $(eval $(call DIR_dir,$(DESTDIR)$($(1)dir)) $(foreach primary,DATA SCRIPTS
 	$(V_at)$(MKDIR_P) $*
 	$(V_at): > $@
 
-%.elc: %.el emacs.d/inits/package.el emacs.d/site-lisp/userloaddefs.el
+%.elc: %.el emacs.d/inits/package.el | emacs.d/site-lisp/userloaddefs.el
 	$(V_ELC)$(EMACS) --batch -Q -L $(srcdir)/emacs.d/site-lisp \
 	  -l $(srcdir)/emacs.d/inits/package.el \
 	  -l emacs.d/site-lisp/userloaddefs.el \
@@ -287,7 +287,6 @@ sitelisp_elcs = \
 	emacs.d/site-lisp/hide-mode-line.elc \
 	emacs.d/site-lisp/ned-info-on-file.elc \
 	emacs.d/site-lisp/now-org.elc \
-	emacs.d/site-lisp/project.elc \
 	emacs.d/site-lisp/rnc-mode.elc
 
 userconfemacsdsitelisp_DATA = \
@@ -408,6 +407,13 @@ $(sitelisp_elcs): %.elc: %.el emacs.d/inits/package.el
 	  -l $(srcdir)/emacs.d/inits/package.el \
 	  --eval "(setq byte-compile-dest-file-function (lambda (file) \"$@\"))" \
 	  $(ELCFLAGS) -f batch-byte-compile $<
+
+emacs.d/delayed-inits/buff-menu.elc: emacs.d/site-lisp/buff-menu-ext.elc
+emacs.d/delayed-inits/evil.elc: emacs.d/site-lisp/evil-paredit.elc \
+	emacs.d/site-lisp/ned-info-on-file.elc
+emacs.d/delayed-inits/org.elc: emacs.d/site-lisp/now-org.elc
+emacs.d/delayed-inits/org-agenda.elc: emacs.d/site-lisp/now-org.elc
+emacs.d/init.elc: emacs.d/site-lisp/hide-mode-line.elc
 
 emacs.d/site-lisp/userloaddefs.el: $(sitelisp_elcs) emacs.d/site-lisp/.dirstamp
 	$(V_ELC)$(EMACS) --batch -Q --eval '(setq vc-handled-backends nil)' \

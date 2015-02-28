@@ -83,7 +83,7 @@
          (line (or line (count-lines (point-min) (point))))
          (line-as-string (if (ruby-find-other-file-name file-name ruby-implementation-file-name-mapping)
                              (number-to-string line))))
-    (compile-project-immediately
+    (compile
      (concat
       "rake -s"
       " TEST=" test-file-name

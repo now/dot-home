@@ -1,7 +1,8 @@
 (eval-when-compile
   (require 'cl))
 
-(setq-default evil-shift-width 2)
+(setq-default evil-shift-width 2
+              evil-symbol-word-search t)
 (setq evil-digraphs-table-user
       '(((?c ?b) . ?\x2022)
         ((?t ?b) . ?\x2023)
@@ -57,14 +58,11 @@
     ",a" 'org-agenda
     ",b" 'ido-switch-buffer
     ",B" 'buffer-menu
-    ",c" 'project-shell-command
-    ",C" 'shell-command
+    ",c" 'shell-command
     ",d" 'dired
     ",e" 'find-file
-    ",E" 'find-project-file
     ",k" 'ido-kill-buffer
-    ",m" 'compile-project
-    ",M" 'compile
+    ",m" 'compile
     ",n" 'next-error
     ",N" 'compilation-next-file
     ",O" 'org-capture
