@@ -54,17 +54,16 @@
 (setq-default show-trailing-whitespace t)
 (defun now-do-not-show-trailing-whitespace ()
   (setq show-trailing-whitespace nil))
-(dolist (hook '(Buffer-menu-mode-hook
-                Info-mode-hook
-                calendar-mode-hook
-                compilation-mode-hook
-                diff-mode-hook
-                eww-mode-hook
-                help-mode-hook
-                magit-mode-hook
-                package-menu-mode-hook
-                term-mode-hook))
-  (add-hook hook 'now-do-not-show-trailing-whitespace))
+(add-hook 'Buffer-menu-mode-hook 'now-do-not-show-trailing-whitespace)
+(add-hook 'Info-mode-hook 'now-do-not-show-trailing-whitespace)
+(add-hook 'calendar-mode-hook 'now-do-not-show-trailing-whitespace)
+(add-hook 'compilation-mode-hook 'now-do-not-show-trailing-whitespace)
+(add-hook 'diff-mode-hook 'now-do-not-show-trailing-whitespace)
+(add-hook 'eww-mode-hook 'now-do-not-show-trailing-whitespace)
+(add-hook 'help-mode-hook 'now-do-not-show-trailing-whitespace)
+(add-hook 'magit-mode-hook 'now-do-not-show-trailing-whitespace)
+(add-hook 'package-menu-mode-hook 'now-do-not-show-trailing-whitespace)
+(add-hook 'term-mode-hook 'now-do-not-show-trailing-whitespace)
 
 (set-terminal-parameter nil 'background-mode 'light)
 (load-theme 'now t)
