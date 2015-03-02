@@ -14,20 +14,6 @@
         ((?> ?/) . ?\x27e9))
       evil-move-cursor-back nil)
 
-(delete 'shell-mode evil-insert-state-modes)
-
-(defun evil-delete-auto-indent-on-insert-state-exit ()
-  (if (and (eolp)
-           (member last-command '(evil-ret
-                                  evil-open-below
-                                  evil-open-above
-                                  reindent-then-newline-and-indent
-                                  c-context-line-break
-                                  c-electric-semi&comma)))
-      (delete-horizontal-space)))
-(add-hook 'evil-insert-state-exit-hook
-          'evil-delete-auto-indent-on-insert-state-exit)
-
 (cl-labels ((define-keys (map key def &rest bindings)
               (define-key map key def)
               (if bindings
