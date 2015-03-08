@@ -12,7 +12,6 @@
                           (goto-chg t)
                           (ido-ubiquitous t)
                           (magit t)
-                          (org t)
                           (paredit t)
                           (smex t)
                           (undo-tree t)))

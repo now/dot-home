@@ -1,4 +1,5 @@
 (add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
+(add-to-list 'load-path (concat user-emacs-directory "site-lisp/org"))
 (require 'userloaddefs)
 ;; The order is important; package has to come last.
 (dolist (feature '(provided-delayed-inits

@@ -238,6 +238,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/hideshow.elc \
 	emacs.d/delayed-inits/holidays.elc \
 	emacs.d/delayed-inits/ido.elc \
+	emacs.d/delayed-inits/info.elc \
 	emacs.d/delayed-inits/ispell.elc \
 	emacs.d/delayed-inits/lisp-mode.elc \
 	emacs.d/delayed-inits/magit.elc \
