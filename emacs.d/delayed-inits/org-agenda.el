@@ -107,7 +107,7 @@ to 'subtree."
 (defun now-org-agenda-skip-stuck-projects ()
   "Skip tasks that are `now-org-stuck-project-p'."
   (if (now-org-stuck-project-p)
-      (save-excursion (or (outline-next-heading) (point-max)))))
+      (save-excursion (org-end-of-subtree t))))
 
 (eval-when-compile
   (declare-function org-clock-special-range "org-clock.el")
