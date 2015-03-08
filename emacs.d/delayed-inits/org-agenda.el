@@ -209,7 +209,9 @@ line, the position of the `org-agenda-restrict-begin' marker,
                           (eq (previous-single-property-change
                                (point-at-bol)
                                'org-agenda-structural-header)
-                              (1- (point-at-bol))))
+                              (save-excursion
+                                (previous-line)
+                                (point))))
                   (org-agenda-previous-item 1))
                 (point-at-bol))
               'org-agenda-structural-header)))
@@ -228,7 +230,9 @@ line, the position of the `org-agenda-restrict-begin' marker,
                                (eq (next-single-property-change
                                     (point-at-eol)
                                     'org-agenda-structural-header)
-                                   (1+ (point-at-eol))))
+                                   (save-excursion
+                                     (next-line)
+                                     (point))))
                        (org-agenda-next-item 1))
                      (point-at-eol))
                    'org-agenda-structural-header)
