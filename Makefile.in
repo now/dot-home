@@ -81,6 +81,7 @@ userconfmozillafirefoxdir = $(userconfdir)/.mozilla/firefox
 userconfmozillafirefoxprofilesdefaultdir = $(userconfmozillafirefoxdir)/Profiles/default
 userconfopenofficeorg3userwordbookdir = $(userconfdir)/.openoffice.org/3/user/wordbook
 xdgconfighomedir = $(XDG_CONFIG_HOME)
+xdgconfighomecmusdir = $(xdgconfighomedir)/cmus
 xdgconfighomefontconfigdir = $(xdgconfighomedir)/fontconfig
 xdgconfighomegitdir = $(xdgconfighomedir)/git
 xdgconfighomevlcdir = $(xdgconfighomedir)/vlc
@@ -308,6 +309,10 @@ userconfopenofficeorg3userwordbook_DATA = \
 	hunspell/sv.aff \
 	hunspell/sv.dic
 
+xdgconfighomecmus_DATA = \
+	cmus/now.theme \
+	cmus/rc
+
 xdgconfighomefontconfig_DATA = \
 	fonts.conf
 
@@ -434,6 +439,7 @@ $(call DIR,userconfemacsdsitelisp)
 $(call DIR,userconfmozillafirefox)
 $(call DIR,userconfmozillafirefoxprofilesdefault)
 $(call DIR,userconfopenofficeorg3userwordbook)
+$(call DIR,xdgconfighomecmus)
 $(call DIR,xdgconfighomefontconfig)
 $(call DIR,xdgconfighomegit)
 $(call DIR,xdgconfighomevlc)
