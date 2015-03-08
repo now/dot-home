@@ -14,20 +14,14 @@
                    (tags-todo "-REFILE-HOLD-DLGT-WAIT-NIXD/!NEXT"
                               ((org-agenda-overriding-header "Project Next Tasks")
                                (org-agenda-skip-function 'now-org-agenda-skip-unless-project-task)
-                               (org-agenda-todo-ignore-scheduled t)
-                               (org-agenda-todo-ignore-deadlines t)
                                (org-agenda-todo-ignore-with-date t)))
                    (tags-todo "-REFILE-HOLD-DLGT-WAIT-NIXD/!-NEXT"
                               ((org-agenda-overriding-header "Project Tasks")
                                (org-agenda-skip-function 'now-org-agenda-skip-unless-project-task)
-                               (org-agenda-todo-ignore-scheduled t)
-                               (org-agenda-todo-ignore-deadlines t)
                                (org-agenda-todo-ignore-with-date t)))
                    (tags-todo "-REFILE-HOLD-DLGT-WAIT-NIXD"
                               ((org-agenda-overriding-header "Standalone Tasks")
                                (org-agenda-skip-function 'now-org-agenda-skip-unless-standalone-task)
-                               (org-agenda-todo-ignore-scheduled t)
-                               (org-agenda-todo-ignore-deadlines t)
                                (org-agenda-todo-ignore-with-date t)))
                    (tags-todo "+WAIT-DLGT-NIXD|+HOLD-DLGT-NIXD"
                               ((org-agenda-overriding-header "Waiting and Held Tasks")
@@ -72,15 +66,16 @@
         org-agenda-diary-file (concat (file-name-as-directory org-directory) "diary.org")
         org-agenda-dim-blocked-tasks nil
         org-agenda-fontify-priorities t
+        org-agenda-tags-todo-honor-ignore-options t
         org-agenda-log-mode-items '(clocked closed state)
         org-agenda-prefix-format '((agenda . " %i %-10c%?-12t% s")
                                    (timeline . "  % s")
                                    (todo . " %i %-10c")
                                    (tags . " %i %-10c")
                                    (search . " %i %-10c"))
-        org-agenda-sorting-strategy '((agenda habit-down time-up priority-down effort-up category-keep)
-                                      (todo priority-down effort-up category-up)
-                                      (tags priority-down effort-up category-up)
+        org-agenda-sorting-strategy '((agenda habit-down time-up priority-down effort-up timestamp-down category-keep)
+                                      (todo priority-down effort-up timestamp-down category-up)
+                                      (tags priority-down effort-up timestamp-down category-up)
                                       (search category-up))
         org-agenda-span 'day
         org-agenda-sticky t
