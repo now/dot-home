@@ -264,7 +264,8 @@ provided_elcs = \
 	emacs.d/delayed-inits/tramp-sh.elc
 
 unprovided_elcs = \
-	emacs.d/delayed-inits/buff-menu.elc
+	emacs.d/delayed-inits/buff-menu.elc \
+	emacs.d/delayed-inits/replace.elc
 
 userconfemacsddelayedinits_DATA = \
 	$(provided_elcs) \
