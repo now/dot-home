@@ -1,6 +1,5 @@
 (ido-everywhere 1)
-(eval-when-compile
-  (defvar recentf-save-file))
+(defvar recentf-save-file)
 (setq recentf-save-file (concat user-emacs-directory "recentf"))
 (setq ido-auto-merge-work-directories-length -1
       ido-decorations (append '("\n" "" "\n" "\n…") (nthcdr 4 ido-decorations))

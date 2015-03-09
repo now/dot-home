@@ -25,13 +25,10 @@
 (dolist (key '("d" "e" "f"))
   (define-key ruby-mode-map key 'ruby-electric-end-character))
 
-(eval-when-compile
-  (defvar project-filename))
 (add-hook 'ruby-mode-hook
           (lambda ()
             (hs-minor-mode 1)
             (set (make-local-variable 'compile-command) "rake -s ")
-            (set (make-local-variable 'project-filename) "Rakefile")
             (set (make-local-variable 'paragraph-start) "\f\\|[ \t]*$\\|[ \t]*#[ \t]*@[[:alpha:]]+[ \t]")
             (set (make-local-variable 'adaptive-fill-function)
                  (lambda ()

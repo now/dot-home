@@ -47,8 +47,7 @@
 
 (setq overlay-arrow-string "⇒")
 
-(eval-when-compile
-  (defvar show-paren-delay))
+(defvar show-paren-delay)
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 
@@ -73,8 +72,7 @@
 
 (setq pop-up-windows nil)
 
-(eval-when-compile
-  (defvar xterm-standard-colors))
+(defvar xterm-standard-colors)
 (setq xterm-standard-colors
   '(("black"          0 (  0   0   0))
     ("red"            1 (149  22  22))
