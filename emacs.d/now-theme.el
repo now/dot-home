@@ -62,6 +62,7 @@
     `(font-lock-type-face ((,class)))
     `(font-lock-variable-name-face ((,class)))
     `(font-lock-warning-face ((,class (:inherit warning))))
+    `(git-commit-branch-face ((,class (:inherit font-lock-comment-face))))
     `(glyphless-char ((,class (:inherit escape-glyph))))
     `(header-line ((,class (:inherit mode-line))))
     `(highlight ((,class (:foreground ,white :background ,blue))))
