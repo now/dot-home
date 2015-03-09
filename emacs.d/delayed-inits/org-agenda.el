@@ -251,3 +251,9 @@ line, the position of the `org-agenda-restrict-begin' marker,
 (define-key org-agenda-mode-map "W" 'org-agenda-remove-restriction-lock)
 (define-key org-agenda-mode-map "(" 'now-org-agenda-goto-first-item-in-block)
 (define-key org-agenda-mode-map ")" 'now-org-agenda-goto-last-item-in-block)
+
+(defun now-turn-on-hl-line-mode ()
+  "Turn on `hl-line-mode'."
+  (hl-line-mode 1))
+
+(add-hook 'org-agenda-mode-hook 'now-turn-on-hl-line-mode)
