@@ -210,7 +210,7 @@ line, the position of the `org-agenda-restrict-begin' marker,
                                (point-at-bol)
                                'org-agenda-structural-header)
                               (save-excursion
-                                (previous-line)
+                                (forward-visible-line -1)
                                 (point))))
                   (org-agenda-previous-item 1))
                 (point-at-bol))
@@ -231,7 +231,7 @@ line, the position of the `org-agenda-restrict-begin' marker,
                                     (point-at-eol)
                                     'org-agenda-structural-header)
                                    (save-excursion
-                                     (next-line)
+                                     (forward-visible-line 1)
                                      (point))))
                        (org-agenda-next-item 1))
                      (point-at-eol))
