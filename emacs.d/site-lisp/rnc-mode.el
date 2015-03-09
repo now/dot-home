@@ -1,4 +1,4 @@
-; TODO: \x{…} and """…""" and '''…''' and >>.
+(require 'smie)
 
 (defgroup rnc nil
   "Major mode for editing Relax NG Compact code."
@@ -9,113 +9,6 @@
   "Indentation of Relax NG Compact statements."
   :type 'integer
   :group 'rnc)
-
-(defun rnc-find-column (first start)
-  "Find which column to indent to."
-
-  ;; FIXME: backward-sexp doesn't work with unbalanced braces in comments
-
-  (let* (column
-	 pos
-	 ;; Find start of enclosing block or assignment
-	 (token
-	  (if (member first '("]" "}" ")"))
-	      (progn
-		(goto-char (+ start 1))
-		(backward-sexp)
-		(beginning-of-line)
-		(re-search-forward "\\S ")
-		(setq pos (point))
-		(setq column (- (current-column) 1))
-		'lpar)
-	    (catch 'done
-	      (while (setq pos (re-search-backward "[{}()=]\\|\\[\\|\\]"
-						   (point-min) t))
-		(let ((c (match-string 0)))
-		  (beginning-of-line)
-		  (re-search-forward "\\S ")
-		  (setq column (- (current-column) 1))
-		  (beginning-of-line)
-		  (cond
-		   ;; Don't match inside comments
-		   ;; FIXME: Should exclude matches inside string literals too
-		   ((re-search-forward "#" pos t) (beginning-of-line))
-		   ;; Skip block
-		   ((member c '("]" "}" ")"))
-		    (goto-char (+ pos 1))
-		    (backward-sexp))
-
-		   ((string= c "=") (throw 'done 'eq))
-		   (t (throw 'done 'lpar)))))))))
-
-    (cond
-     ((not pos) 0)
-     ((member first '("]" "}" ")")) column)
-     ((member first '("{" "(")) (+ column rnc-indent-level))
-
-     ;; Give lines starting with an operator a small negative indent.
-     ;; This allows for the following indentation style:
-     ;;   foo =
-     ;;      bar
-     ;;    | baz
-     ;;    | oof
-     ((member first '("," "&" "|")) (+ column (- rnc-indent-level 2)))
-
-     ;; Check if first preceding non-whitespace character was an operator
-     ;; If not, this is most likely a new assignment.
-     ;; FIXME: This doesn't play well with name classes starting on a new
-     ;; line
-     ((eq token 'eq)
-      (goto-char start)
-      (if (and (re-search-backward "[^ \t\n]" (point-min) t)
-	       (member (match-string 0) '("&" "|" "," "=" "~")))
-	  (+ column rnc-indent-level)
-	column))
-
-     (t (+ column rnc-indent-level)))))
-
-(defun rnc-indent-line ()
-  "Indents the current line."
-  (interactive)
-  (let ((orig-point (point)))
-    (beginning-of-line)
-    (let* ((beg-of-line (point))
-	   (pos (re-search-forward "\\(\\S \\|\n\\)" (point-max) t))
-	   (first (match-string 0))
-	   (start (match-beginning 0))
-	   (col (- (current-column) 1)))
-
-      (goto-char beg-of-line)
-
-      (let ((indent-column (rnc-find-column first start)))
-	(goto-char beg-of-line)
-
-	(cond
-	 ;; Only modify buffer if the line must be reindented
-	 ((not (= col indent-column))
-	  (if (not (or (null pos)
-		       (= beg-of-line start)))
-	      (kill-region beg-of-line start))
-
-	  (goto-char beg-of-line)
-
-	  (while (< 0 indent-column)
-	    (insert " ")
-	    (setq indent-column (- indent-column 1))))
-
-	 ((< orig-point start) (goto-char start))
-	 (t (goto-char orig-point)))))))
-
-(defun rnc-electric-brace (arg)
-  (interactive "*P")
-  (self-insert-command (prefix-numeric-value arg))
-  (rnc-indent-line)
-  (let ((p (point)))
-    (when (save-excursion
-            (beginning-of-line)
-            (let ((pos (re-search-forward "\\S " (point-max) t)))
-              (and pos (= (- pos 1) p))))
-      (forward-char))))
 
 (defconst rnc-font-lock-keywords
   (list
@@ -162,11 +55,7 @@
   "Keymap used in rnc-mode.")
 
 (unless rnc-mode-map
-  (setq rnc-mode-map (make-sparse-keymap))
-  (define-key rnc-mode-map "{" 'rnc-electric-brace)
-  (define-key rnc-mode-map "}" 'rnc-electric-brace)
-  (define-key rnc-mode-map "[" 'rnc-electric-brace)
-  (define-key rnc-mode-map "]" 'rnc-electric-brace))
+  (setq rnc-mode-map (make-sparse-keymap)))
 
 (defvar rnc-mode-syntax-table nil
   "Syntax table in use for rnc-mode buffers.")
@@ -188,12 +77,79 @@
   (modify-syntax-entry ?| "." rnc-mode-syntax-table)
   (modify-syntax-entry ?= "." rnc-mode-syntax-table)
   (modify-syntax-entry ?~ "." rnc-mode-syntax-table)
+  (modify-syntax-entry ?, "." rnc-mode-syntax-table)
+  (modify-syntax-entry ?\; "." rnc-mode-syntax-table) ;; This is a fake entry for SMIE
   (modify-syntax-entry ?\( "()" rnc-mode-syntax-table)
   (modify-syntax-entry ?\) ")(" rnc-mode-syntax-table)
-  (modify-syntax-entry ?\{ "(}" rnc-mode-syntax-table)
-  (modify-syntax-entry ?\} "){" rnc-mode-syntax-table)
+;  (modify-syntax-entry ?\{ "(}" rnc-mode-syntax-table)
+;  (modify-syntax-entry ?\} "){" rnc-mode-syntax-table)
   (modify-syntax-entry ?\[ "(]" rnc-mode-syntax-table)
   (modify-syntax-entry ?\] ")[" rnc-mode-syntax-table))
+
+(defconst rnc-mode-smie-grammar
+  (smie-prec2->grammar
+   (smie-bnf->prec2
+    '((id)
+      (top-level (grammar-content ";" grammar-content))
+;      (top-levels (grammar-content))
+      ;(decls (decls ";" decls) (decl))
+;      (decl ("namespace" id "=" id))
+      ;(patterns (patterns ";" patterns) (pattern))
+      (grammar-content (id "=" pattern)
+                       (id "|=" pattern)
+                       (id "&=" pattern))
+      (pattern ("element" id "{" pattern "}")
+               (pattern "," pattern)
+               ("empty"))
+      )
+    '((assoc ";" ","))
+    '((nonassoc "="))
+    '((nonassoc "|="))
+    '((nonassoc "&="))
+    )))
+
+(defun rnc-mode-newline-semi-p ()
+  (save-excursion
+    (skip-chars-backward " \t")
+    (not (or (bolp)
+             (memq (char-before) '(?, ?= ?{))))))
+
+(defun rnc-mode-smie-forward-token ()
+  (skip-chars-forward " \t")
+  (cond
+   ((and (looking-at "\n") (rnc-mode-newline-semi-p))
+    (if (eolp)
+        (forward-char 1)
+      (forward-comment 1))
+    ";")
+   (t
+    (smie-default-forward-token))))
+
+(defun rnc-mode-smie-backward-token ()
+  (let ((pos (point)))
+    (forward-comment (- (point)))
+    (cond
+     ((and (> pos (line-end-position)) (rnc-mode-newline-semi-p))
+      (skip-chars-forward " \t")
+      ";")
+     (t
+      (smie-default-backward-token)))))
+
+(defun rnc-mode-smie-rules (kind token)
+  (message "%s: %s" kind token)
+  (pcase (cons kind token)
+    (`(:elem . basic) rnc-indent-level)
+    (`(:after . "=")
+     (when (smie-rule-hanging-p)
+       rnc-indent-level))
+    (`(:before . "{")
+     (when (smie-rule-hanging-p)
+       (smie-rule-parent)))
+    (`(:after . "{")
+     rnc-indent-level)
+    (`(:after . "element")
+     0)
+    ))
 
 ;;;###autoload
 (defun rnc-mode ()
@@ -204,12 +160,14 @@
   (use-local-map rnc-mode-map)
   (set-syntax-table rnc-mode-syntax-table)
   (setq local-abbrev-table rnc-mode-abbrev-table)
-  (set (make-local-variable 'indent-line-function) 'rnc-indent-line)
-  (set (make-local-variable 'font-lock-defaults) '((rnc-font-lock-keywords) nil nil ((?. . "w") (?- . "w") (?_ . "w"))))
+  (set (make-local-variable 'font-lock-defaults)
+       '((rnc-font-lock-keywords) nil nil ((?. . "w") (?- . "w") (?_ . "w"))))
   (set (make-local-variable 'comment-start) "#")
   (set (make-local-variable 'comment-end) "")
-  ; TODO: Why not use \s- instead of [ \n\t]?
   (set (make-local-variable 'comment-start-skip) "\\([ \t]*\\)##?[ \t]*")
+  (smie-setup rnc-mode-smie-grammar #'rnc-mode-smie-rules
+              :forward-token #'rnc-mode-smie-forward-token
+              :backward-token #'rnc-mode-smie-backward-token)
   (setq mode-name "RNC"
 	major-mode 'rnc-mode)
   (run-mode-hooks 'rnc-mode-hook))
