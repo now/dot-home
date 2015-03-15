@@ -1,5 +1,3 @@
-; TODO: Add (add-to-list 'c-cleanup-list 'defun-close-semi)?
-; We don’t need it right now.
 (c-add-style "now-c-style"
              '("linux"
                (c-hanging-braces-alist . ((brace-list-open)
