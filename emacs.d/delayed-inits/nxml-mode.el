@@ -1,8 +1,9 @@
-(setq nxml-slash-auto-complete-flag t)
+(setq nxml-sexp-element-flag t
+ nxml-slash-auto-complete-flag t)
 (define-abbrev-table 'nxml-mode-abbrev-table ()
   "Abbrev table in use in nXML mode buffers.")
-(define-abbrev nxml-mode-abbrev-table "xsls" "" 'nxml-mode-skeleton-xsl-stylesheet)
-(define-abbrev nxml-mode-abbrev-table "xslt" "" 'nxml-mode-skeleton-xsl-template)
+(define-abbrev nxml-mode-abbrev-table "s" "" 'nxml-mode-skeleton-xsl-stylesheet)
+(define-abbrev nxml-mode-abbrev-table "t" "" 'nxml-mode-skeleton-xsl-template)
 (add-hook 'nxml-mode-hook
           (lambda ()
             (setq local-abbrev-table nxml-mode-abbrev-table)))
@@ -25,4 +26,3 @@
   (unless (run-hook-with-args-until-success 'nxml-completion-hook)
     (call-interactively 'indent-for-tab-command)))
 (define-key nxml-mode-map "\t" 'now-nxml-complete-or-indent-for-tab-command)
-(define-key nxml-mode-map "\C-j" 'reindent-then-newline-and-indent)
