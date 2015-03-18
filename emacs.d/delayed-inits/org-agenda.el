@@ -10,34 +10,23 @@
                    (tags-todo "-HOLD-DLGT-NIXD"
                               ((org-agenda-overriding-header "Projects")
                                (org-agenda-skip-function 'now-org-agenda-skip-unless-active-project)
+                               (org-agenda-sorting-strategy '((tags priority-down effort-up category-up)))
                                (org-tags-match-list-sublevels 'indented)))
-                   (tags-todo "-REFILE-HOLD-DLGT-WAIT-NIXD/!NEXT"
-                              ((org-agenda-overriding-header "Project Next Tasks")
-                               (org-agenda-skip-function 'now-org-agenda-skip-unless-project-task)
-                               (org-agenda-todo-ignore-with-date t)))
-                   (tags-todo "-REFILE-HOLD-DLGT-WAIT-NIXD/!-NEXT"
-                              ((org-agenda-overriding-header "Project Tasks")
-                               (org-agenda-skip-function 'now-org-agenda-skip-unless-project-task)
-                               (org-agenda-todo-ignore-with-date t)))
                    (tags-todo "-REFILE-HOLD-DLGT-WAIT-NIXD"
-                              ((org-agenda-overriding-header "Standalone Tasks")
-                               (org-agenda-skip-function 'now-org-agenda-skip-unless-standalone-task)
+                              ((org-agenda-overriding-header "Tasks")
+                               (org-agenda-skip-function 'now-org-agenda-skip-unless-task)
                                (org-agenda-todo-ignore-with-date t)))
                    (tags-todo "+WAIT-DLGT-NIXD|+HOLD-DLGT-NIXD"
-                              ((org-agenda-overriding-header "Waiting and Held Tasks")
+                              ((org-agenda-overriding-header "Waiting and Held")
                                (org-agenda-skip-function 'now-org-agenda-skip-stuck-projects)
                                (org-tags-match-list-sublevels nil)
                                (org-agenda-todo-ignore-scheduled t)
                                (org-agenda-todo-ignore-deadlines t)))
                    (tags-todo "+DLGT"
-                              ((org-agenda-overriding-header "Delegated Tasks")
+                              ((org-agenda-overriding-header "Delegated")
                                (org-agenda-todo-match-list-sublevels nil)
                                (org-agenda-todo-ignore-scheduled t)
-                               (org-agenda-todo-ignore-deadlines t)))
-                   (tags      "-REFILE/DONE|NIXD"
-                              ((org-agenda-overriding-header "Archivals")
-                               (org-agenda-skip-function 'now-org-agenda-skip-unless-archival)
-                               (org-tags-match-list-sublevels nil)))))
+                               (org-agenda-todo-ignore-deadlines t)))))
        (add-tag (lambda (tag s)
                   (let ((parts (split-string s "/")))
                     (mapconcat 'identity
@@ -56,6 +45,11 @@
         org-agenda-compact-blocks t
         org-agenda-custom-commands `((" " "Agenda"
                                       ,commands)
+                                     ("a" "Archivals"
+                                      ((tags "-REFILE/DONE|NIXD"
+                                              ((org-agenda-overriding-header "Archivals")
+                                               (org-agenda-skip-function 'now-org-agenda-skip-unless-archival)
+                                               (org-tags-match-list-sublevels nil)))))
                                      ("p" "Personal Agenda"
                                       ,(funcall tag-commands "personal")
                                       ((org-agenda-hide-tags-regexp "\\`personal\\'")))
@@ -103,6 +97,15 @@ to 'subtree."
   "Skip tasks that are not `now-org-standalone-task-p'."
   (unless (now-org-standalone-task-p)
     (save-excursion (org-end-of-subtree t))))
+
+(defun now-org-agenda-skip-unless-task ()
+  "Skip tasks that aren’t tasks, depending on context.
+If `org-agenda-overriding-restriction' is 'subtree,
+`now-org-agenda-skip-unless-project-task' is used.  Otherwise,
+`now-org-agenda-skip-unless-standalone-task' is used."
+  (if (eq org-agenda-overriding-restriction 'subtree)
+      (now-org-agenda-skip-unless-project-task)
+    (now-org-agenda-skip-unless-standalone-task)))
 
 (defun now-org-agenda-skip-stuck-projects ()
   "Skip tasks that are `now-org-stuck-project-p'."
@@ -193,10 +196,15 @@ line, the position of the `org-agenda-restrict-begin' marker,
   (interactive)
   (let ((pom (now-org-agenda-get-pom-dwim)))
     (when pom
-      (let ((name org-agenda-this-buffer-name))
+      (let* ((headline (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+             (headline-re (concat "^" (regexp-quote headline) "$"))
+             (name org-agenda-this-buffer-name))
         (org-with-point-at pom
           (let ((org-agenda-buffer-name name))
-            (now-org-narrow-up)))))))
+            (now-org-narrow-up)))
+        (if (or (re-search-backward headline-re nil t)
+                (re-search-forward headline-re nil t))
+            (beginning-of-line))))))
 
 (defun now-org-agenda-goto-first-item-in-block (n)
   "Go to the first item of the Nth current or previous agenda block."
