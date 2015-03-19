@@ -101,10 +101,11 @@
       (pattern ("element" id "{" pattern "}")
                (pattern "," pattern)
                (pattern "|" pattern)
+               (pattern "&" pattern)
                ("empty"))
       )
     '((assoc ";"))
-    '((assoc "," "|"))
+    '((assoc "," "|" "&"))
     '((nonassoc "="))
     '((nonassoc "|="))
     '((nonassoc "&="))
@@ -114,7 +115,7 @@
   (save-excursion
     (skip-chars-backward " \t")
     (not (or (bolp)
-             (memq (char-before) '(?, ?| ?= ?{))))))
+             (memq (char-before) '(?, ?| ?& ?= ?{))))))
 
 (defun rnc-mode-smie-forward-token ()
   (skip-chars-forward " \t")
