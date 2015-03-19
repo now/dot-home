@@ -14,6 +14,8 @@
         ((?> ?/) . ?\x27e9))
       evil-move-cursor-back nil)
 
+(add-to-list 'evil-emacs-state-modes 'git-rebase-mode)
+
 (cl-labels ((define-keys (map key def &rest bindings)
               (define-key map key def)
               (if bindings
@@ -61,12 +63,9 @@
     "gl" 'ace-jump-line-mode
     "gs" 'ace-jump-word-mode)
   (define-keys evil-read-key-map
-    "\C-k" 'evil-insert-digraph
-    "\C-^" 'evil-buffer)
-  (define-keys evil-ex-search-keymap ; TODO This doesn’t work either.
     "\C-k" 'evil-insert-digraph)
-  (define-keys minibuffer-local-map
-    "\C-k" 'evil-insert-digraph))
+  (define-keys evil-replace-state-map
+    "\C-d" 'evil-normal-state))
 
 (define-key evil-normal-state-map "s" nil)
 (define-key evil-motion-state-map "l" nil)
