@@ -26,7 +26,7 @@ done
 test -t 1 || exec cat "$@"
 
 t=
-test "x$TERM" != xdumb && t=-t
+test "x$TERM" != xdumb && test "x$TERM" != xeterm-color && t=-t
 set -- $t --alternate-editor "" "$@"
 
 test -t 0 && exec emacsclient "$@"
