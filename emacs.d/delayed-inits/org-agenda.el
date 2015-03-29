@@ -10,7 +10,7 @@
                    (tags-todo "-HOLD-DLGT-NIXD"
                               ((org-agenda-overriding-header "Projects")
                                (org-agenda-skip-function 'now-org-agenda-skip-unless-active-project)
-                               (org-agenda-sorting-strategy '((tags user-defined-up priority-down effort-up category-up)))
+                               (org-agenda-sorting-strategy '((tags user-defined-up effort-up category-up)))
                                (org-agenda-cmp-user-defined 'now-org-agenda-sort-projects)
                                (org-tags-match-list-sublevels 'indented)))
                    (tags-todo "-REFILE-HOLD-DLGT-WAIT-NIXD"
