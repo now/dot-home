@@ -4,21 +4,22 @@
                    (tags      "+REFILE"
                               ((org-agenda-overriding-header "Refilables")
                                (org-tags-match-list-sublevels nil)))
-                   (tags-todo "-DLGT-NIXD"
+                   (tags-todo "-HOLD-DLGT-NIXD"
                               ((org-agenda-overriding-header "Stuck Projects")
                                (org-agenda-skip-function 'now-org-agenda-skip-unless-stuck-project)))
                    (tags-todo "-HOLD-DLGT-NIXD"
                               ((org-agenda-overriding-header "Projects")
                                (org-agenda-skip-function 'now-org-agenda-skip-unless-active-project)
-                               (org-agenda-sorting-strategy '((tags priority-down effort-up category-up)))
+                               (org-agenda-sorting-strategy '((tags user-defined-up priority-down effort-up category-up)))
+                               (org-agenda-cmp-user-defined 'now-org-agenda-sort-projects)
                                (org-tags-match-list-sublevels 'indented)))
                    (tags-todo "-REFILE-HOLD-DLGT-WAIT-NIXD"
                               ((org-agenda-overriding-header "Tasks")
-                               (org-agenda-skip-function 'now-org-agenda-skip-unless-task)
+                               (org-agenda-skip-function 'now-org-agenda-skip-projects)
                                (org-agenda-todo-ignore-with-date t)))
                    (tags-todo "+WAIT-DLGT-NIXD|+HOLD-DLGT-NIXD"
                               ((org-agenda-overriding-header "Waiting and Held")
-                               (org-agenda-skip-function 'now-org-agenda-skip-stuck-projects)
+                               ;(org-agenda-skip-function 'now-org-agenda-skip-stuck-projects)
                                (org-tags-match-list-sublevels nil)
                                (org-agenda-todo-ignore-scheduled t)
                                (org-agenda-todo-ignore-deadlines t)))
@@ -85,27 +86,13 @@
   (unless (now-org-active-project-p)
     (save-excursion (or (outline-next-heading) (point-max)))))
 
-(defun now-org-agenda-skip-unless-project-task ()
-  "Skip tasks that are `now-org-project-p' or are not `now-org-project-task-p'.
-Skip all tasks if `org-agenda-overriding-restriction' is not equal
-to 'subtree."
-  (if (or (not (eq org-agenda-overriding-restriction 'subtree))
-          (now-org-project-p) (not (now-org-project-task-p)))
-      (save-excursion (or (outline-next-heading) (point-max)))))
-
-(defun now-org-agenda-skip-unless-standalone-task ()
-  "Skip tasks that are not `now-org-standalone-task-p'."
-  (unless (now-org-standalone-task-p)
-    (save-excursion (org-end-of-subtree t))))
-
-(defun now-org-agenda-skip-unless-task ()
+(defun now-org-agenda-skip-projects ()
   "Skip tasks that aren’t tasks, depending on context.
 If `org-agenda-overriding-restriction' is 'subtree,
 `now-org-agenda-skip-unless-project-task' is used.  Otherwise,
 `now-org-agenda-skip-unless-standalone-task' is used."
-  (if (eq org-agenda-overriding-restriction 'subtree)
-      (now-org-agenda-skip-unless-project-task)
-    (now-org-agenda-skip-unless-standalone-task)))
+  (when (now-org-project-p)
+    (save-excursion (or (outline-next-heading) (point-max)))))
 
 (defun now-org-agenda-skip-stuck-projects ()
   "Skip tasks that are `now-org-stuck-project-p'."
