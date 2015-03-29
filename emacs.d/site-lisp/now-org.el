@@ -1,4 +1,6 @@
 (require 'org)
+(require 'org-agenda)
+(require 'org-element)
 
 (defun now-org-each-descendant (f)
   "Call F for each descendant of the current heading."
@@ -103,13 +105,13 @@ priorities are the same, compare their
                      (when (and (>= la (org-outline-level)) (now-org-task-p))
                        (point-marker))))
              (result (if (and b-up (not (= a b-up)))
-                         (now-org-agenda-sort-projects-1 a b-up)
+                         (now-org-cmp-projects-at a b-up)
                        -1)))
         (when b-up
           (set-marker b-up nil))
         result))
      ((> la lb)
-      (let ((r (now-org-agenda-sort-projects-1 b a)))
+      (let ((r (now-org-cmp-projects-at b a)))
         (when r (- r))))
      (t
       (let ((pa (now-org-get-priority-at a))
