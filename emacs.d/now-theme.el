@@ -103,7 +103,7 @@
     `(org-agenda-date-weekend ((,class)))
     `(org-agenda-done ((,class)))
     `(org-agenda-restriction-lock ((,class)))
-    `(org-agenda-structure ((,class)))
+    `(org-agenda-structure ((,class (:weight bold))))
     `(org-block ((,class (:foreground "grey40"))))
     `(org-code ((,class (:foreground "grey40"))))
     `(org-column ((,class (:foreground ,black))))
