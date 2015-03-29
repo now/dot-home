@@ -239,6 +239,7 @@ line, the position of the `org-agenda-restrict-begin' marker,
 
 (define-key org-agenda-mode-map "`" 'smex)
 (define-key org-agenda-mode-map "\M-d" 'smex)
+(define-key org-agenda-mode-map "d" 'now-org-agenda-next-time-span)
 (define-key org-agenda-mode-map "n" 'org-agenda-next-item)
 (define-key org-agenda-mode-map "p" 'org-agenda-previous-item)
 (define-key org-agenda-mode-map "F" 'now-org-agenda-set-restriction-lock-to-file)

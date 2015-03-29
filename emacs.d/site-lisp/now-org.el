@@ -157,4 +157,26 @@ no priority has been set."
                     (setq ts tst))))))))
       ts)))
 
+(defun now-org-agenda-next-time-span (&optional arg)
+  "Switch to next time span view for agenda.
+With ARG, switch to that item in the next time span.
+
+The cycle of time spans is
+
+  day         week
+  week        month
+  fortnight   month
+  month       year
+  year        day"
+  (interactive "P")
+  (let* ((args (get-text-property (min (1- (point-max)) (point)) 'org-last-args))
+	 (curspan (nth 2 args))
+         (nextspan (or (cdr (assoc curspan '((day . week)
+                                             (week . month)
+                                             (fortnight . month)
+                                             (month . year)
+                                             (year . day))))
+                       'day)))
+    (org-agenda-change-time-span nextspan arg)))
+
 (provide 'now-org)
