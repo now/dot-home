@@ -45,7 +45,7 @@
         org-agenda-compact-blocks t
         org-agenda-custom-commands `((" " "Agenda"
                                       ,commands)
-                                     ("a" "Archivals"
+                                     ("A" "Archivals"
                                       ((tags "-REFILE/DONE|NIXD"
                                               ((org-agenda-overriding-header "Archivals")
                                                (org-agenda-skip-function 'now-org-agenda-skip-unless-archival)
