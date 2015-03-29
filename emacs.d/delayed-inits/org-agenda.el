@@ -210,19 +210,21 @@ line, the position of the `org-agenda-restrict-begin' marker,
   "Go to the first item of the Nth current or previous agenda block."
   (interactive "p")
   (dotimes (i n)
-    (let ((p (previous-single-property-change
-              (save-excursion
-                (when (or (not (zerop i))
-                          (eq (previous-single-property-change
-                               (point-at-bol)
-                               'org-agenda-structural-header)
-                              (save-excursion
-                                (forward-visible-line -1)
-                                (point))))
-                  (org-agenda-previous-item 1))
-                (point-at-bol))
-              'org-agenda-structural-header)))
-      (when p
+    (let* ((q (save-excursion
+                    (when (or (not (zerop i))
+                              (eq (previous-single-property-change
+                                   (point-at-bol)
+                                   'org-agenda-structural-header)
+                                  (save-excursion
+                                    (forward-visible-line -1)
+                                    (point-at-eol))))
+                      (org-agenda-previous-item 1))
+                    (point-at-bol)))
+           (p (previous-single-property-change
+               q
+               'org-agenda-structural-header)))
+      (if (not p)
+          (goto-char q)
         (goto-char p)
         (move-beginning-of-line 2))))
   (org-agenda-do-context-action))
