@@ -62,11 +62,11 @@
         org-agenda-fontify-priorities t
         org-agenda-tags-todo-honor-ignore-options t
         org-agenda-log-mode-items '(clocked closed state)
-        org-agenda-prefix-format '((agenda . " %i %-10c%?-12t% s")
-                                   (timeline . "  % s")
-                                   (todo . " %i %-10c")
-                                   (tags . " %i %-10c")
-                                   (search . " %i %-10c"))
+        org-agenda-prefix-format '((agenda . "% i%-11c%?-12t% s")
+                                   (timeline . "% s")
+                                   (todo . "% i%-11c")
+                                   (tags . "% i%-11c")
+                                   (search . "% i%-11c"))
         org-agenda-sorting-strategy '((agenda habit-down time-up priority-down effort-up timestamp-down category-keep)
                                       (todo priority-down effort-up timestamp-down category-up)
                                       (tags priority-down effort-up timestamp-down category-up)
