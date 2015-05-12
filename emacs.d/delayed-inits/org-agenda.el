@@ -7,19 +7,15 @@
                    (tags-todo "-HOLD-DLGT-NIXD"
                               ((org-agenda-overriding-header "Stuck Projects")
                                (org-agenda-skip-function 'now-org-agenda-skip-unless-stuck-project)))
-                   (tags-todo "-HOLD-DLGT-NIXD"
-                              ((org-agenda-overriding-header "Projects")
-                               (org-agenda-skip-function 'now-org-agenda-skip-unless-active-project)
-                               (org-agenda-sorting-strategy '((tags user-defined-up effort-up category-up)))
-                               (org-agenda-cmp-user-defined 'now-org-agenda-sort-projects)
-                               (org-tags-match-list-sublevels 'indented)))
                    (tags-todo "-REFILE-HOLD-DLGT-WAIT-NIXD"
                               ((org-agenda-overriding-header "Tasks")
-                               (org-agenda-skip-function 'now-org-agenda-skip-projects)
+                               (org-agenda-skip-function 'now-org-agenda-skip-stuck-projects)
+                               (org-agenda-sorting-strategy '((tags user-defined-up effort-up category-up)))
+                               (org-agenda-cmp-user-defined 'now-org-cmp-projects)
+                               (org-tags-match-list-sublevels 'indented)
                                (org-agenda-todo-ignore-with-date t)))
                    (tags-todo "+WAIT-DLGT-NIXD|+HOLD-DLGT-NIXD"
                               ((org-agenda-overriding-header "Waiting and Held")
-                               ;(org-agenda-skip-function 'now-org-agenda-skip-stuck-projects)
                                (org-tags-match-list-sublevels nil)
                                (org-agenda-todo-ignore-scheduled t)
                                (org-agenda-todo-ignore-deadlines t)))
