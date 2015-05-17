@@ -220,8 +220,6 @@ userconfemacsd_DATA = \
 	emacs.d/init.elc \
 	emacs.d/now-theme.elc
 
-$(userconfemacsd_DATA): emacs.d/.dirstamp
-
 provided_elcs = \
 	emacs.d/delayed-inits/calc.elc \
 	emacs.d/delayed-inits/calendar.elc \
@@ -330,8 +328,6 @@ xdgconfighomezsh_DATA = \
 	zsh/zprofile \
 	zsh/zshrc
 
-$(xdgconfighomezsh_DATA): zsh/.dirstamp
-
 xdgconfighomezshfunctions_DATA = \
 	zsh/functions/_unpack \
 	zsh/functions/_up \
@@ -366,8 +362,6 @@ bin_SCRIPTS = \
 	bin/unpack \
 	bin/valgrind-ruby
 
-$(bin_SCRIPTS): bin/.dirstamp
-
 libexec_SCRIPTS = \
 	libexec/clipboard-get \
 	libexec/clipboard-put
@@ -386,13 +380,17 @@ userconf_DATA += \
 	vimrc
 endif
 
+$(bin_SCRIPTS): bin/.dirstamp
+$(init_elcs): emacs.d/inits/.dirstamp
+$(sitelisp_elcs): emacs.d/site-lisp/.dirstamp
+$(userconfemacsd_DATA): emacs.d/.dirstamp
+$(xdgconfighomezsh_DATA): zsh/.dirstamp
+
 $(provided_elcs): ELCFLAGS = --eval "(require '$(basename $(notdir $@)))"
 
 $(unprovided_elcs): ELCFLAGS = --eval '(load "$(basename $(notdir $@))" nil t)'
 
 $(provided_elcs) $(unprovided_elcs): emacs.d/delayed-inits/.dirstamp
-
-$(init_elcs): emacs.d/inits/.dirstamp
 
 emacs.d/inits/provided-delayed-inits.el: $(provided_elcs) Makefile emacs.d/inits/.dirstamp
 	$(V_GEN)echo "(dolist (feature '($(basename $(notdir $(provided_elcs))))) \
@@ -407,8 +405,6 @@ emacs.d/inits/unprovided-delayed-inits.el: $(unprovided_elcs) Makefile emacs.d/i
 			   \`(load (concat user-emacs-directory \
 	                                   \"delayed-inits/\" \
 	                                   ,(symbol-name feature)))))" > $@
-
-$(sitelisp_elcs): emacs.d/site-lisp/.dirstamp
 
 $(sitelisp_elcs): %.elc: %.el emacs.d/inits/package.el
 	$(V_ELC)$(EMACS) --batch -Q -L $(srcdir)/emacs.d/site-lisp \
