@@ -62,7 +62,7 @@ _v_INSTALL_1 =
 V_ELC = $(_v_ELC_$(V))
 _v_ELC_ = $(_v_ELC_$(DEFAULT_VERBOSITY))
 _v_ELC_0 = @echo "  ELC     " $@;
-_v_INSTALL_1 =
+_v_ELC_1 =
 
 prefix = @prefix@
 bindir = $(prefix)/opt/bin
