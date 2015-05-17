@@ -1,0 +1,10 @@
+try
+  set frameVisible to do shell script "/Applications/MacPorts/Emacs.app/Contents/MacOS/bin/emacsclient -e '(<= 2 (length (visible-frame-list)))'"
+  if frameVisible is not "t" then
+    do shell script "/Applications/MacPorts/Emacs.app/Contents/MacOS/bin/emacsclient -c -n"
+  end if
+on error
+  do shell script "eval `/usr/libexec/path_helper -s` && . @xdgconfighomezshdir@/.zprofile && /Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs  --daemon"
+  do shell script "/Applications/MacPorts/Emacs.app/Contents/MacOS/bin/emacsclient -c -n"
+end try
+tell application "Emacs" to activate

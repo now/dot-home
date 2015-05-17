@@ -1,7 +1,37 @@
+appdir = $(prefix)/Applications
+appNowmacsappContentsdir = $(appdir)/Nowmacs.app/Contents
+appNowmacsappContentsMacOSdir = $(appNowmacsappContentsdir)/MacOS
+appNowmacsappContentsResourcesdir = $(appNowmacsappContentsdir)/Resources
+appNowmacsappContentsResourcesScriptsdir = $(appNowmacsappContentsResourcesdir)/Scripts
 appsupportdir = $(prefix)/Library/Application\ Support
 userconfaudacitydir = $(appsupportdir)/audacity
 userconfmozillafirefoxdir = $(appsupportdir)/Firefox
 xdgconfighomevlcdir = $(prefix)/Library/Preferences/org.videolan.vlc
+
+appNowmacsappContents_DATA = \
+	os/Darwin/bin/Nowmacs.app/Contents/Info.plist \
+	os/Darwin/bin/Nowmacs.app/Contents/PkgInfo
+
+appNowmacsappContentsMacOS_SCRIPTS = \
+	os/Darwin/bin/Nowmacs.app/Contents/MacOS/applet
+
+appNowmacsappContentsResources_DATA = \
+	os/Darwin/bin/Nowmacs.app/Contents/Resources/applet.icns \
+	os/Darwin/bin/Nowmacs.app/Contents/Resources/applet.rsrc
+
+appNowmacsappContentsResourcesScripts_DATA = \
+	os/Darwin/bin/Nowmacs.app/Contents/Resources/Scripts/main.scpt
+
+os/Darwin/bin/Nowmacs.app/Contents/Info.plist: os/Darwin/bin/Nowmacs.scpt \
+	os/Darwin/bin/.dirstamp
+	$(V_GEN)osacompile -o os/Darwin/bin/Nowmacs.app $<
+	$(V_at)cp $(srcdir)/os/Darwin/data/Emacs.icns \
+	  os/Darwin/bin/Nowmacs.app/Contents/Resources/applet.icns
+
+$(call DIR,appNowmacsappContents)
+$(call DIR,appNowmacsappContentsMacOS)
+$(call DIR,appNowmacsappContentsResources)
+$(call DIR,appNowmacsappContentsResourcesScripts)
 
 # {
 #     "com.apple.AppleMultitouchTrackpad" =     {
