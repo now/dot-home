@@ -1,4 +1,4 @@
-path[1,0]=(~/opt/ruby/current/bin ~/opt/bin)
+PATH=~/opt/ruby/current/bin:@bindir@
 
 LANG=en_US.UTF-8
 

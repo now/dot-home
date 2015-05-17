@@ -462,6 +462,7 @@ $(emptydirs):
 	    -e 's|@KEYCHAIN[@]|$(KEYCHAIN)|g' \
 	    -e 's|@SHELL[@]|$(SHELL)|g' \
 	    -e 's|@ZSHELL[@]|$(ZSHELL)|g' \
+	    -e 's|@bindir[@]|$(bindir)|g' \
 	    -e 's|@dtachsession[@]|$(dtachsession)|g' \
 	    -e 's|@libexecdir[@]|$(libexecdir)|g' \
 	    -e 's|@zshistory[@]|$(zshistory)|g' \

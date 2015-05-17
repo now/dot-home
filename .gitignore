@@ -49,3 +49,4 @@
 /libexec/clipboard-put.in
 /os/Linux/bin/xdigraph
 /os/os.mk
+/zsh/zprofile
