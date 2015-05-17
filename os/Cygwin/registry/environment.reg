@@ -1,6 +1,0 @@
-Windows Registry Editor Version 5.00
-
-[HKEY_CURRENT_USER\Environment]
-"HOME"="c:\\home\\nweibull"
-"PATH"="c:\\Ruby19\\bin"
-"RUBYOPT"="rubygems"
