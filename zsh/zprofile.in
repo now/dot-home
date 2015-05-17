@@ -10,5 +10,3 @@ EDITOR=e
 export \
   LANG \
   PAGER MANWIDTH MANPAGER EDITOR
-
-source $ZDOTDIR/host/profile

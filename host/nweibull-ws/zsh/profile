@@ -1,2 +1,0 @@
-path+=(//Filer/Programs/Cygwin/bin //Filer/Programs/Ruby187/bin)
-manpath+=//Filer/Programs/Cygwin/usr/share/man

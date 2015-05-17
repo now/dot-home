@@ -87,7 +87,6 @@ xdgconfighomegitdir = $(xdgconfighomedir)/git
 xdgconfighomevlcdir = $(xdgconfighomedir)/vlc
 xdgconfighomezshdir = $(xdgconfighomedir)/zsh
 xdgconfighomezshfunctionsdir = $(xdgconfighomezshdir)/functions
-xdgconfighomezshhostdir = $(xdgconfighomezshdir)/host
 sysconfdir = /etc
 
 dtachsessiondir = @dtachsessiondir@
@@ -444,7 +443,6 @@ $(call DIR,xdgconfighomegit)
 $(call DIR,xdgconfighomevlc)
 $(call DIR,xdgconfighomezsh,.)
 $(call DIR,xdgconfighomezshfunctions)
-$(call DIR,xdgconfighomezshhost)
 
 emptydirs = \
 	$(dtachsessiondir) \
