@@ -98,7 +98,8 @@ appdataghislertoolswork_SCRIPTS = \
 fonts_DATA = \
 	$(fontsdejavu_DATA)
 
-$(addprefix,$(fontsdir)/,$(fonts_DATA)): INSTALL_DATA = $(srcdir)/build/Cygwin/install-font
+$(addprefix $(fontsdir)/,$(notdir $(fonts_DATA))): \
+	INSTALL_DATA = $(srcdir)/build/Cygwin/install-font "$(abs_builddir)"
 
 startup_SCRIPTS = \
 	os/Cygwin/start-up/clipx.lnk \
@@ -129,4 +130,5 @@ $(call DIR,appdataghislerpluginswlxgswlx)
 $(call DIR,appdataghislerpluginswlximagine)
 $(call DIR,appdataghislerpluginswlximagineplugin)
 $(call DIR,appdataghislertoolswork)
+$(call DIR,fonts)
 $(call DIR,startup)

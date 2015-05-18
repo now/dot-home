@@ -1,5 +1,6 @@
 SHELL = /bin/sh
 
+abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 srcdir = @srcdir@
 
@@ -500,6 +501,7 @@ $(emptydirs):
 	    -e 's|@SHELL[@]|$(SHELL)|g' \
 	    -e 's|@ZSHELL[@]|$(ZSHELL)|g' \
 	    -e 's|@bindir[@]|$(bindir)|g' \
+	    -e 's|@abs_builddir[@]|$(abs_builddir)|g' \
 	    -e 's|@dtachsession[@]|$(dtachsession)|g' \
 	    -e 's|@libexecdir[@]|$(libexecdir)|g' \
 	    -e 's|@zshistory[@]|$(zshistory)|g' \

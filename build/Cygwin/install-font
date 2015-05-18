@@ -1,3 +1,3 @@
 #! /bin/sh
 
-powershell -command "(New-Object -ComObject Shell.Application).Namespace(0x14).CopyHere('$1')"
+powershell -command "(New-Object -ComObject Shell.Application).Namespace(0x14).CopyHere('$(cygpath -w "$1/$2")', 1044)"
