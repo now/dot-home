@@ -1,4 +1,5 @@
 appdatadir := $(call shell_quote,$(shell cygpath -u "$(APPDATA)"))
+fontsdir := $(call shell_quote,$(shell cygpath --folder 20))
 userconfmozillafirefoxdir = $(appdatadir)/Mozilla/Firefox
 xdgconfighomevlcdir = $(appdatadir)/vlc
 
@@ -93,6 +94,11 @@ appdataghislerpluginswlximagineplugin_SCRIPTS = \
 
 appdataghislertoolswork_SCRIPTS = \
 	os/Cygwin/GHISLER/tools/work/open-in-tageditor-non-retardedly.vbs
+
+fonts_DATA = \
+	$(fontsdejavu_DATA)
+
+$(addprefix,$(fontsdir)/,$(fonts_DATA)): INSTALL_DATA = $(srcdir)/build/Cygwin/install-font
 
 startup_SCRIPTS = \
 	os/Cygwin/start-up/clipx.lnk \

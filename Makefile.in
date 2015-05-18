@@ -64,6 +64,11 @@ _v_ELC_ = $(_v_ELC_$(DEFAULT_VERBOSITY))
 _v_ELC_0 = @echo "  ELC     " $@;
 _v_ELC_1 =
 
+V_UNZIP = $(_v_UNZIP_$(V))
+_v_UNZIP_ = $(_v_UNZIP_$(DEFAULT_VERBOSITY))
+_v_UNZIP_0 = @echo "  UNZIP   " $@;
+_v_UNZIP_1 =
+
 prefix = @prefix@
 bindir = $(prefix)/opt/bin
 libexecdir = $(prefix)/opt/libexec
@@ -167,6 +172,40 @@ DIR = $(eval $(call DIR_dir,$(DESTDIR)$($(1)dir)) $(foreach primary,DATA SCRIPTS
 %.el.gz: %.el
 	$(V_GZIP)$(GZIP) -9n < $< > $@.tmp
 	$(V_at)mv $@.tmp $@
+
+DEJAVU_FONTS_VERSION = 2.35
+dejavu_fonts_ttf_version = dejavu-fonts-ttf-$(DEJAVU_FONTS_VERSION)
+dejavu_fonts_ttf_version_zip = dejavu-fonts-ttf-$(DEJAVU_FONTS_VERSION).zip
+
+fontsdejavu_DATA = \
+	fonts/dejavu/DejaVuSans-Bold.ttf \
+	fonts/dejavu/DejaVuSans-BoldOblique.ttf \
+	fonts/dejavu/DejaVuSans-ExtraLight.ttf \
+	fonts/dejavu/DejaVuSans-Oblique.ttf \
+	fonts/dejavu/DejaVuSans.ttf \
+	fonts/dejavu/DejaVuSansCondensed-Bold.ttf \
+	fonts/dejavu/DejaVuSansCondensed-BoldOblique.ttf \
+	fonts/dejavu/DejaVuSansCondensed-Oblique.ttf \
+	fonts/dejavu/DejaVuSansCondensed.ttf \
+	fonts/dejavu/DejaVuSansMono-Bold.ttf \
+	fonts/dejavu/DejaVuSansMono-BoldOblique.ttf \
+	fonts/dejavu/DejaVuSansMono-Oblique.ttf \
+	fonts/dejavu/DejaVuSansMono.ttf \
+	fonts/dejavu/DejaVuSerif-Bold.ttf \
+	fonts/dejavu/DejaVuSerif-BoldItalic.ttf \
+	fonts/dejavu/DejaVuSerif-Italic.ttf \
+	fonts/dejavu/DejaVuSerif.ttf \
+	fonts/dejavu/DejaVuSerifCondensed-Bold.ttf \
+	fonts/dejavu/DejaVuSerifCondensed-BoldItalic.ttf \
+	fonts/dejavu/DejaVuSerifCondensed-Italic.ttf \
+	fonts/dejavu/DejaVuSerifCondensed.ttf
+
+fonts/$(dejavu_fonts_ttf_version_zip): fonts/.dirstamp
+	$(V_CURL)$(CURL) -Ls \
+	  http://sourceforge.net/projects/dejavu/files/dejavu/$(DEJAVU_FONTS_VERSION)/$(dejavu_fonts_ttf_version_zip) > $@
+
+$(fontsdejavu_DATA): fonts/$(dejavu_fonts_ttf_version_zip) fonts/dejavu/.dirstamp
+	$(V_UNZIP)$(UNZIP) -qop $< $(dejavu_fonts_ttf_version)/ttf/$(@F) > $@
 
 HUNSPELL_DICT_VERSION = 2014.08.11
 HUNSPELL_EN_GB_DICT_ZIP = hunspell/hunspell-en_GB-ise-$(HUNSPELL_DICT_VERSION).zip

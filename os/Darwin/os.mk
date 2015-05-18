@@ -4,6 +4,7 @@ appNowmacsappContentsMacOSdir = $(appNowmacsappContentsdir)/MacOS
 appNowmacsappContentsResourcesdir = $(appNowmacsappContentsdir)/Resources
 appNowmacsappContentsResourcesScriptsdir = $(appNowmacsappContentsResourcesdir)/Scripts
 appsupportdir = $(prefix)/Library/Application\ Support
+fontsdir = $(prefix)/Library/Fonts
 userconfaudacitydir = $(appsupportdir)/audacity
 userconfmozillafirefoxdir = $(appsupportdir)/Firefox
 xdgconfighomevlcdir = $(prefix)/Library/Preferences/org.videolan.vlc
@@ -28,10 +29,14 @@ os/Darwin/bin/Nowmacs.app/Contents/MacOs/applet: os/Darwin/bin/Nowmacs.scpt \
 	$(V_at)cp $(srcdir)/os/Darwin/data/Emacs.icns \
 	  os/Darwin/bin/Nowmacs.app/Contents/Resources/applet.icns
 
+fonts_DATA = \
+	$(fontsdejavu_DATA)
+
 $(call DIR,appNowmacsappContents)
 $(call DIR,appNowmacsappContentsMacOS)
 $(call DIR,appNowmacsappContentsResources)
 $(call DIR,appNowmacsappContentsResourcesScripts)
+$(call DIR,fonts)
 
 # {
 #     "com.apple.AppleMultitouchTrackpad" =     {
