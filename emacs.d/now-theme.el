@@ -2,7 +2,7 @@
   "Color theme by Nikolai Weibull.")
 
 (let ((class '((class color) (min-colors 89)))
-      (gui '((type x w32 mac)))
+      (gui '((type graphic)))
       (black "#000000")
       (red "#951616")
       (green "#257325")
@@ -34,7 +34,7 @@
     `(custom-button ((,gui (:box (:line-width 1 :color "#656a6f") :background "#e9ebed" :foreground ,black))))
     `(custom-button-mouse ((,gui (:box (:line-width 1 :color "#478cba") :background "#e9ebed" :foreground ,black))))
     `(custom-button-pressed ((,gui (:box (:line-width 1 :color "#35576d") :background "#d4d6da" :foreground ,black))))
-    `(default ((,gui (:foreground ,black :background ,white))))
+    `(default ((,gui (:foreground ,black :background ,white :family "DejaVu Sans Mono" :height 140))))
     `(diff-added ((,class (:foreground ,green))))
     `(diff-context ((,class)))
     `(diff-file-header ((,class)))
