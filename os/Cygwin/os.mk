@@ -128,3 +128,10 @@ $(call DIR,appdataghislerpluginswlximagineplugin)
 $(call DIR,appdataghislertoolswork)
 $(call DIR,fonts)
 $(call DIR,startup)
+
+os/Darwin/data/cursors/Vanilla/.install.stamp:
+	rundll32 syssetup,SetupInfObjectInstallAction DefaultInstall 128 \
+	  $(abs_srcdir)/os/Darwin/data/cursors/Vanilla/install.inf
+	touch $@
+
+all: os/Darwin/data/cursors/Vanilla/.install.stamp
