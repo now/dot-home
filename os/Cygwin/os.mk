@@ -92,9 +92,6 @@ appdataghislerpluginswlximagineplugin_SCRIPTS = \
 	os/Cygwin/GHISLER/plugins/wlx/imagine/plugin/j2k.dll \
 	os/Cygwin/GHISLER/plugins/wlx/imagine/plugin/jbig.dll
 
-appdataghislertoolswork_SCRIPTS = \
-	os/Cygwin/GHISLER/tools/work/open-in-tageditor-non-retardedly.vbs
-
 fonts_DATA = \
 	$(fontsdejavu_DATA)
 
@@ -110,7 +107,6 @@ startup_SCRIPTS = \
 # share_DATA = \
 # 	os/Cygwin/share/icons/bak.ico \
 # 	os/Cygwin/share/icons/cmp.ico \
-# 	os/Cygwin/share/icons/tageditor-generic.ico \
 # 	os/Cygwin/share/icons/text-html.ico \
 # 	os/Cygwin/share/icons/text-x-generic.ico
 
