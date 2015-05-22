@@ -23,11 +23,21 @@ appNowmacsappContentsResources_DATA = \
 appNowmacsappContentsResourcesScripts_DATA = \
 	os/Darwin/bin/Nowmacs.app/Contents/Resources/Scripts/main.scpt
 
-os/Darwin/bin/Nowmacs.app/Contents/MacOs/applet: os/Darwin/bin/Nowmacs.scpt \
+$(appNowmacsappContents_DATA) \
+$(appNowmacsappContentsMacOS_SCRIPTS) \
+$(appNowmacsappContentsResources_DATA) \
+$(appNowmacsappContentsResourcesScripts_DATA): os/Darwin/bin/Nowmacs.app
+
+os/Darwin/bin/Nowmacs.app: os/Darwin/bin/Nowmacs.scpt \
 	os/Darwin/bin/.dirstamp
 	$(V_GEN)osacompile -o os/Darwin/bin/Nowmacs.app $<
 	$(V_at)cp $(srcdir)/os/Darwin/data/Emacs.icns \
 	  os/Darwin/bin/Nowmacs.app/Contents/Resources/applet.icns
+	$(V_at)touch $@ \
+	  $(appNowmacsappContents_DATA) \
+	  $(appNowmacsappContentsMacOS_SCRIPTS) \
+	  $(appNowmacsappContentsResources_DATA) \
+	  $(appNowmacsappContentsResourcesScripts_DATA)
 
 fonts_DATA = \
 	$(fontsdejavu_DATA)
