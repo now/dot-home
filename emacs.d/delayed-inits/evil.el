@@ -15,6 +15,7 @@
       evil-move-cursor-back nil)
 
 (add-to-list 'evil-emacs-state-modes 'git-rebase-mode)
+(setq evil-insert-state-modes (delete 'term-mode evil-insert-state-modes))
 (add-to-list 'evil-emacs-state-modes 'term-mode)
 
 (cl-labels ((define-keys (map key def &rest bindings)
