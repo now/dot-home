@@ -140,9 +140,8 @@
 (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
 (add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
 
-(add-to-list 'auto-mode-alist (cons (purecopy "\\.xsd\\'") 'nxml-mode))
+(add-to-list 'auto-mode-alist (cons (purecopy "\\.xsd\\'") 'xml-mode))
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.at\\'") 'm4-mode))
-(add-to-list 'auto-mode-alist (cons (purecopy "\\(?:\\`\\|/\\)Rakefile\\'") 'ruby-mode))
 
 (defun rename-shows ()
   (interactive)
