@@ -57,6 +57,7 @@
         org-agenda-diary-file (concat (file-name-as-directory org-directory) "diary.org")
         org-agenda-dim-blocked-tasks nil
         org-agenda-fontify-priorities t
+        org-agenda-insert-diary-strategy 'date-tree-last
         org-agenda-tags-todo-honor-ignore-options t
         org-agenda-log-mode-items '(clocked closed state)
         org-agenda-prefix-format '((agenda . "% i%-11c%?-12t% s")
