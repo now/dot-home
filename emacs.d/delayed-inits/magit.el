@@ -1,1 +1,1 @@
-(magit-auto-revert-mode -1)
+; magit-revert-buffers t or 'silent
