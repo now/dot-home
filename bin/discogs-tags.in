@@ -1,6 +1,7 @@
 #! @ZSHELL@
 
 application=$(basename $0)
+useragent="discogs-tags/1.0 +http://disu.se"
 
 die () {
   print -r -- $application: $*
@@ -12,21 +13,21 @@ usage () {
   exit 1
 }
 
-xml () {
-  print -r $1 | ruby -e 'require "nokogiri"; print Nokogiri::XML($stdin).xpath(ARGV[0]).map(&:text).join("\0")' $2
+json () {
+  print -r $1 | jq -r $2
 }
 
-xml-array () {
-  # NOTE: Due to a bug in Zsh < 4.3.13, 0 retains an empty string when "$(…)"
-  # doesn’t generate any output.  Splitting it like this works around the
-  # problem.
-  local result="$(xml $2 $3)"
-  set -A $1 ${(0)result}
+json-array () {
+  set -A $1 ${(f)"$(json $2 $3)"}
 }
 
-xml-array-with-substituted-marks () {
-  xml-array $1 $2 $3
+json-array-with-substituted-marks () {
+  json-array $1 $2 $3
   substitute-marks-array $1
+}
+
+json-artist-array () {
+  json-array-with-substituted-marks $1 $2 "if $3 | length > 1 then ($3[0:-1]|map(.name,.join))+[$3[-1].name] | join(\" \") else empty end,($3[]|.name)"
 }
 
 substitute-marks-array () {
@@ -41,17 +42,6 @@ substitute-marks () {
   print -r -- ${${${*//\'/’}//(#b)\"([^\"]#)\"/“$match[1]”}/\"/″}
 }
 
-xml-artist-array () {
-  xml-array-with-substituted-marks $1 $2 $3/name
-  if (( ${#${(P@)1}} > 1 )); then
-    set -A $1 "$(substitute-marks "$(join-artist $3)")" ${(P)1}
-  fi
-}
-
-join-artist () {
-  print -r -- ${(j: :)${(0)"$(xml $release "$1/name|$1/join")"}}
-}
-
 clean-name () {
   local -a match mbegin mend
 
@@ -60,22 +50,21 @@ clean-name () {
 
 differentimages=0
 local -A images
-xml-image () {
+json-image () {
   local uri=
   case $2 in
     (primary)
-      uri=$(xml $1 "(/resp/release/images/image[@type='primary'])[1]/@uri")
-      [[ -z $uri ]] && uri=$(xml $1 '/resp/release/images/image[1]/@uri')
+      uri=$(json $1 '.images[0].uri//empty')
       ;;
     (secondary)
-      uri=$(xml $1 "(/resp/release/images/image[@type='secondary' and preceding-sibling::image[1][@type='primary']])[1]/@uri")
+      uri=$(json $1 '.images[1].uri//empty')
       ;;
   esac
   if [[ -n $uri ]]; then
     local image=; image=$(mktemp dti.XXXXXX) || exit 1
     trap 'rm -f $images; exit 130' INT
     trap 'rm -f $images; exit 143' TERM
-    curl -L --compressed --silent --show-error $uri > $image || { rm -f $image; exit 1 }
+    curl -L --compressed --silent --show-error --user-agent $useragent -H $authorization $uri > $image || { rm -f $image; exit 1 }
     local format=; format=$(identify -format %m $image) || exit 1
     if [[ format != (JPEG|PNG) ]]; then
       local jpeg=; jpeg=$(mktemp dti.jpeg.XXXXXX) || { rm -f $image; exit 1 }
@@ -123,23 +112,30 @@ done
 directory=$1
 [[ -d $directory ]] || die 'no such file or directory: ' $directory
 id=${2/http:\/\/(www.|)discogs.com\/([^\/]##\/|)release\/}
-release=$(curl --compressed --silent --header 'Accept: application/xml' http://api.discogs.com/release/$id)
-error=$(xml $release '/resp/error')
+TOKENFILE=~/.config/discogs-tags/.token
+token=$(cat $TOKENFILE)
+[[ -n $token ]] || die "$TOKENFILE missing or empty"
+authorization="Authorization: Discogs token=$token"
+release=$(curl --compressed --silent --user-agent $useragent -H $authorization https://api.discogs.com/releases/$id)
+if [[ -z $release ]]; then
+  die 'can’t access Discogs API'
+fi
+error=$(json $release .message//empty)
 if [[ -n $error ]]; then
   die $error
 fi
 
-xml-artist-array albumartists $release /resp/release/artists/artist
-album=$(substitute-marks $(xml $release /resp/release/title))
-xml-array-with-substituted-marks labels $release /resp/release/labels/label/@name
-xml-array catalognumbers $release /resp/release/labels/label/@catno
-released=$(xml $release /resp/release/released)
-location=$(xml $release /resp/release/country)
-xml-array genres $release /resp/release/styles/style
-xml-array positions $release /resp/release/tracklist/track/position
-xml-array-with-substituted-marks titles $release '/resp/release/tracklist/track[position!=""]/title'
-xml-image $release primary
-(( differentimages )) && xml-image $release secondary
+json-artist-array albumartists $release .artists
+album=$(substitute-marks $(json $release .title))
+json-array-with-substituted-marks labels $release '.labels[].name'
+json-array catalognumbers $release '.labels[].catno'
+released=$(json $release .released)
+location=$(json $release .country)
+json-array genres $release '.styles[]'
+json-array positions $release '.tracklist[]|select(.type_=="track").position'
+json-array-with-substituted-marks titles $release '.tracklist[]|select(.type_=="track").title'
+json-image $release primary
+(( differentimages )) && json-image $release secondary
 
 files=($directory/*.flac(Nn))
 if (( checkcount && $#files != $#positions )); then
@@ -171,24 +167,24 @@ fi
 # part.
 # TODO: We could have used DISCNUMBER+TRACKNUMBER to convert A1 to 1+1, but
 # Traktor doesn’t support DISCNUMBER.
-[[ -n $(xml $release /resp/release/tracklist/track/artists/artist/name) ]] && trackartists=y
+[[ -n $(json $release '.tracklist[].artists[]?.name') ]] && trackartists=y
 if [[ -z $trackartists ]]; then
   artists=($albumartists)
   albumartists=()
 fi
 nmdbid=${${directory:t}%%[^0-9]*}
 local -a mixartists
-xml-artist-array mixartists $release "/resp/release/extraartists/artist[role='Remix' or role='Edited By']"
-[[ -n $(xml $release "/resp/release/tracklist/track/extraartists/artist[role='Remix' or role='Edited By']/name") ]] && trackmixartists=y
+json-artist-array mixartists $release '(.extraartists[]|select(.role=="Remix" or .role=="Edited By"))'
+[[ -n $(json $release '.tracklist[].extraartists[]?|select(.role=="Remix" or .role=="Edited By").name') ]] && trackmixartists=y
 for (( i = 1; i <= $#files; i++ )); do
   if [[ -n $trackartists ]]; then
-    xml-artist-array artists $release "/resp/release/tracklist/track[position='$positions[i]']/artists/artist"
+    json-artist-array artists $release "(.tracklist[]|select(.position==\"$positions[i]\").artists)"
     if (( $#artists == 0 )); then
       artists=($albumartists)
     fi
   fi
   if [[ -n $trackmixartists ]]; then
-    xml-artist-array mixartists $release "/resp/release/tracklist/track[position='$positions[i]']/extraartists/artist[role='Remix' or role='Edited By']"
+    json-artist-array mixartists $release "(.tracklist[]/select(.position==\"$positions[i]\").extraartists[]|select(.role==\"Remix\" or .role==\"Edited By\"))"
   fi
   local image=
   (( differentimages )) && [[ $positions[i] != [aA]* ]] && image=$images[secondary]
