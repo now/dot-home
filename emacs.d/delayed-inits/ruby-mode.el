@@ -104,7 +104,7 @@
                         t))
                "::")))
 
-(define-abbrev ruby-mode-abbrev-table "d" "" 'ruby-skeleton-def)
+(define-abbrev ruby-mode-abbrev-table "d" "" 'ruby-skeleton-def :system t)
 
 (define-skeleton ruby-skeleton-def
   "Insert a method definition."
@@ -113,7 +113,7 @@
   > _ \n
   "end" >)
 
-(define-abbrev ruby-mode-abbrev-table "tlc" "" 'ruby-skeleton-top-level-class)
+(define-abbrev ruby-mode-abbrev-table "tlc" "" 'ruby-skeleton-top-level-class :system t)
 
 (define-skeleton ruby-skeleton-top-level-class
   "Insert a top-level class."
@@ -124,7 +124,7 @@
   > _ \n
   "end" >)
 
-(define-abbrev ruby-mode-abbrev-table "tlm" "" 'ruby-skeleton-top-level-module)
+(define-abbrev ruby-mode-abbrev-table "tlm" "" 'ruby-skeleton-top-level-module :system t)
 
 (define-skeleton ruby-skeleton-top-level-module
   "Insert a top-level module."
@@ -135,7 +135,7 @@
   > _ \n
   "end" >)
 
-(define-abbrev ruby-mode-abbrev-table "tle" "" 'ruby-skeleton-top-level-expectations)
+(define-abbrev ruby-mode-abbrev-table "tle" "" 'ruby-skeleton-top-level-expectations :system t)
 
 (define-skeleton ruby-skeleton-top-level-expectations
   "Insert top-level expectations."

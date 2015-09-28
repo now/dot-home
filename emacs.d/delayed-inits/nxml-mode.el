@@ -2,8 +2,8 @@
  nxml-slash-auto-complete-flag t)
 (define-abbrev-table 'nxml-mode-abbrev-table ()
   "Abbrev table in use in nXML mode buffers.")
-(define-abbrev nxml-mode-abbrev-table "s" "" 'nxml-mode-skeleton-xsl-stylesheet)
-(define-abbrev nxml-mode-abbrev-table "t" "" 'nxml-mode-skeleton-xsl-template)
+(define-abbrev nxml-mode-abbrev-table "s" "" 'nxml-mode-skeleton-xsl-stylesheet :system t)
+(define-abbrev nxml-mode-abbrev-table "t" "" 'nxml-mode-skeleton-xsl-template :system t)
 (add-hook 'nxml-mode-hook
           (lambda ()
             (setq local-abbrev-table nxml-mode-abbrev-table)))
