@@ -1,2 +1,3 @@
 (setq dired-dwim-target t
-      dired-listing-switches "--si -al")
+      dired-listing-switches "--si -al"
+      dired-recursive-copies 'always)
