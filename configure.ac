@@ -21,7 +21,7 @@ AS_IF([test "x$enable_hostname_dotfiles" != xno],
   [AS_IF([test "x$enable_hostname_dotfiles" = xyes],
      [enable_hostname_dotfiles=`hostname`])
    AS_CASE([$enable_hostname_dotfiles],
-     [nweibull-ws|portair.local],
+     [portair.local],
        [our_hostname=$enable_hostname_dotfiles],
      [AS_IF([test "x$enable_hostname_dotfiles_default" = xyes],
         [our_hostname=generic],
