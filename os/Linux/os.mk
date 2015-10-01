@@ -4,6 +4,8 @@ userconf_DATA += \
 userconf_SCRIPTS += \
 	os/Linux/xsession
 
+os/Linux/xsession: os/Linux/.dirstamp
+
 userconfxmonaddir = $(userconfdir)/xmonad
 
 userconfxmonad_DATA = \
