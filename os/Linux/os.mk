@@ -4,7 +4,7 @@ userconf_DATA += \
 userconf_SCRIPTS += \
 	os/Linux/xsession
 
-userconfxmonaddir = $(userconf)/xmonad
+userconfxmonaddir = $(userconfdir)/xmonad
 
 userconfxmonad_DATA = \
 	os/Linux/xmonad/xmonad.hs
