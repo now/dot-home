@@ -4,6 +4,7 @@
       org-clock-out-remove-zero-time-clocks t
       org-clock-out-when-done '("HOLD" "WAIT" "DLGT" "DONE" "NIXD")
       org-clock-persist t
+      org-clock-persist-query-resume nil
       org-clock-report-include-clocking-task t)
 
 (defun now-org-clock-in-switch-to-state (state)
