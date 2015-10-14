@@ -75,6 +75,7 @@
 
 (setq pop-up-windows nil)
 (add-to-list 'display-buffer-alist '("\`\*magit-diff: " . (display-buffer-pop-up-window)))
+(add-to-list 'display-buffer-alist '("\`\*magit-rev: " . (display-buffer-pop-up-window)))
 
 (defvar xterm-standard-colors)
 (setq xterm-standard-colors
