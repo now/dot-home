@@ -10,7 +10,7 @@
                    (tags-todo "-REFILE-HOLD-DLGT-WAIT-NIXD"
                               ((org-agenda-overriding-header "Tasks")
                                (org-agenda-skip-function 'now-org-agenda-skip-stuck-projects)
-                               (org-agenda-sorting-strategy '((tags user-defined-up effort-up category-up)))
+                               (org-agenda-sorting-strategy '((tags user-defined-up)))
                                (org-agenda-cmp-user-defined 'now-org-cmp-projects)
                                (org-tags-match-list-sublevels 'indented)
                                (org-agenda-todo-ignore-with-date t)))

@@ -83,17 +83,24 @@ headline."
 (defun now-org-cmp-projects (a b)
   "Compare projects A and B.  Calls `now-org-cmp-projects-at' for
 the 'org-marker of each."
-  (now-org-cmp-projects-at (get-text-property 1 'org-marker a)
-                           (get-text-property 1 'org-marker b)))
+  (let ((r
+         (now-org-cmp-projects-at (get-text-property 1 'org-marker a)
+                                  (get-text-property 1 'org-marker b))))
+    (message "comparing %s and %s: %s" a b r)
+    r))
 
 (defun now-org-cmp-projects-at (a b)
   "Compare project headline A with project headline B.  This is
 done by first comparing their `org-outline-level'.  If either is
 smaller, compare recursively against the parent, if possible.  If
 not possible, either -1 or +1 will be returned.  If the outline
-level is the same, compare priorities, highest first.  If
+level is the same and don’t belong to the same parent, compare
+parents.  Otherwise, if parent has property \"ORDERED\", compare
+positions.  Otherwise, compare priorities, highest first; if
 priorities are the same, compare their
-`now-org-most-recent-inactive-timestamp-in-tree'."
+`now-org-most-recent-inactive-timestamp-in-tree'.  Otherwise,
+compare effort and, if that’s also the same, finally compare
+category (up)."
   (let ((la (org-with-point-at a (org-outline-level)))
         (lb (org-with-point-at b (org-outline-level))))
     (cond
@@ -104,7 +111,7 @@ priorities are the same, compare their
                      ;; We know that this is a project, as the child is a task.
                      (when (and (>= la (org-outline-level)) (now-org-task-p))
                        (point-marker))))
-             (result (if (and b-up (not (= a b-up)))
+             (result (if (and b-up (/= a b-up))
                          (now-org-cmp-projects-at a b-up)
                        -1)))
         (when b-up
@@ -114,21 +121,67 @@ priorities are the same, compare their
       (let ((r (now-org-cmp-projects-at b a)))
         (when r (- r))))
      (t
-      (let ((pa (now-org-get-priority-at a))
-            (pb (now-org-get-priority-at b)))
+      (let ((a-up (org-with-point-at a
+                    (org-up-heading-safe)
+                    (when (now-org-task-p)
+                      (point-marker))))
+            (b-up (org-with-point-at b
+                    (org-up-heading-safe)
+                    (when (now-org-task-p)
+                      (point-marker)))))
+        (let ((r (cond
+                  ((and a-up b-up (/= a-up b-up))
+                   (now-org-cmp-projects-at a-up b-up))
+                  ((and a-up (not b-up)) -1)
+                  ((and (not a-up) b-up) +1)
+                  ((org-entry-get a-up "ORDERED")
+                   (cond
+                    ((< a b) -1)
+                    ((> a b) +1)))
+                  (t
+                   (let ((pa (now-org-get-priority-at a))
+                         (pb (now-org-get-priority-at b)))
+                     (cond
+                      ((< pa pb) +1)
+                      ((> pa pb) -1)
+                      (t
+                       (let ((ta (now-org-most-recent-inactive-timestamp-in-tree a))
+                             (tb (now-org-most-recent-inactive-timestamp-in-tree b)))
+                         (cond
+                          ((and ta tb)
+                           (cond
+                            ((time-less-p ta tb) +1)
+                            ((time-less-p tb ta) -1)
+                            (t (now--org-cmp-projects-at-fallback a b))))
+                          (ta -1)
+                          (tb +1)
+                          (t (now--org-cmp-projects-at-fallback a b)))))))))))
+          (when a-up
+            (set-marker a-up nil))
+          (when b-up
+            (set-marker b-up nil))
+          r))))))
+
+(defun now--org-cmp-projects-at-fallback (a b)
+  "Compare project headline A with project headline B using
+  fallback strategy.  this is done by comparing their effort and
+  then their category."
+  (let* ((default (if org-sort-agenda-noeffort-is-high 32767 -1))
+         (ea (or (org-with-point-at a (get-text-property (point) 'effort-minutes)) default))
+         (eb (or (org-with-point-at b (get-text-property (point) 'effort-minutes)) default)))
+    (cond
+     ((> ea eb) +1)
+     ((< ea eb) -1)
+     (t
+      (let ((ca (or (org-with-point-at a (get-text-property (point) 'org-category)) ""))
+            (cb (or (org-with-point-at b (get-text-property (point) 'org-category)) "")))
         (cond
-         ((< pa pb) +1)
-         ((> pa pb) -1)
+         ((string< ca cb) -1)
+         ((string< cb ca) +1)
          (t
-          (let ((ta (now-org-most-recent-inactive-timestamp-in-tree a))
-                (tb (now-org-most-recent-inactive-timestamp-in-tree b)))
-            (cond
-             ((and ta tb)
-              (cond
-               ((time-less-p ta tb) +1)
-               ((time-less-p tb ta) -1)))
-             (ta -1)
-             (tb +1))))))))))
+          (cond
+           ((< a b) -1)
+           ((> a b) +1)))))))))
 
 (defun now-org-get-priority-at (pom)
   "Return priority at POM. Return -1000 if not at a headline or
