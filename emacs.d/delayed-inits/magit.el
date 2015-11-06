@@ -1,1 +1,1 @@
-; magit-revert-buffers t or 'silent
+(setq magit-revert-buffers 'silent)
