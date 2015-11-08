@@ -41,9 +41,12 @@
      :inverse-video t))
   "Face for wrap glyph."
   :group 'basic-faces)
-(set-display-table-slot standard-display-table 'wrap (make-glyph-code #x21A9 'wrap-glyph))
-(set-display-table-slot standard-display-table 'selective-display (vector (make-glyph-code #x2026)))
-(set-display-table-slot standard-display-table 'vertical-border (make-glyph-code #x2502))
+(set-display-table-slot standard-display-table 'wrap
+                        (make-glyph-code #x21A9 'wrap-glyph))
+(set-display-table-slot standard-display-table 'selective-display
+                        (vector (make-glyph-code #x2026)))
+(set-display-table-slot standard-display-table 'vertical-border
+                        (make-glyph-code #x2502))
 
 (setq overlay-arrow-string "⇒")
 
@@ -72,10 +75,9 @@
 
 ; TODO Still undecided.  Magit works a lot better with t.  Help is displayed in
 ; separate window with this as t.
-
 (setq pop-up-windows nil)
-(add-to-list 'display-buffer-alist '("\`\*magit-diff: " . (display-buffer-pop-up-window)))
-(add-to-list 'display-buffer-alist '("\`\*magit-rev: " . (display-buffer-pop-up-window)))
+(add-to-list 'display-buffer-alist
+             '("\`\*magit-\(diff\|rev\): " . (display-buffer-pop-up-window)))
 
 (defvar xterm-standard-colors)
 (setq xterm-standard-colors
