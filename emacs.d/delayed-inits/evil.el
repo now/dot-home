@@ -136,3 +136,13 @@
 (evil-define-key 'normal ruby-mode-map
   ",t" 'ruby-find-other-file
   ",M" 'ruby-run-test-at-line)
+
+(defun evil-delete-auto-indent-on-insert-state-exit ()
+  (if (and (eolp)
+           (member last-command '(evil-ret
+                                  c-context-line-break
+                                  c-electric-semi&comma
+                                  newline)))
+      (delete-horizontal-space)))
+(add-hook 'evil-insert-state-exit-hook
+          'evil-delete-auto-indent-on-insert-state-exit)
