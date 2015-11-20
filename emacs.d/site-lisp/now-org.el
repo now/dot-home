@@ -83,11 +83,8 @@ headline."
 (defun now-org-cmp-projects (a b)
   "Compare projects A and B.  Calls `now-org-cmp-projects-at' for
 the 'org-marker of each."
-  (let ((r
-         (now-org-cmp-projects-at (get-text-property 1 'org-marker a)
-                                  (get-text-property 1 'org-marker b))))
-    (message "comparing %s and %s: %s" a b r)
-    r))
+  (now-org-cmp-projects-at (get-text-property 1 'org-marker a)
+                           (get-text-property 1 'org-marker b)))
 
 (defun now-org-cmp-projects-at (a b)
   "Compare project headline A with project headline B.  This is
