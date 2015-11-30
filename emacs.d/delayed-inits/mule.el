@@ -58,6 +58,8 @@ Also includes parts of RFC1345 mnemonics, for example, &a' → á."
  ("&7s" ?\₇)
  ("&8s" ?\₈)
  ("&9s" ?\₉)
+ ("&**" ?\×)
+; ... &-> …
  )
 
 (setq default-input-method "swedish-postfix+rfc1345")

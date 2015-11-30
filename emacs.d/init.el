@@ -73,9 +73,6 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-; TODO Still undecided.  Magit works a lot better with t.  Help is displayed in
-; separate window with this as t.
-;(setq pop-up-windows nil)
 (add-to-list 'display-buffer-alist
              '("\`\*magit-\(diff\|rev\): " . (display-buffer-pop-up-window)))
 
