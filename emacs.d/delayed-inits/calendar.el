@@ -7,3 +7,4 @@
                                            (calendar-absolute-from-gregorian (list month day year)))))
                                  'font-lock-face 'week)
       calendar-week-start-day 1)
+(add-hook 'calendar-mode-hook 'now-do-not-show-trailing-whitespace)

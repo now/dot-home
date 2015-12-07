@@ -1,4 +1,5 @@
 (setq compilation-scroll-output 'first-error)
+(add-hook 'compilation-mode-hook 'now-do-not-show-trailing-whitespace)
 
 (add-to-list 'compilation-error-regexp-alist-alist
              '(autotest-header
