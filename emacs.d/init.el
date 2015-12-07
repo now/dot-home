@@ -23,7 +23,6 @@
       eol-mnemonic-undecided "?")
 
 (hide-mode-line)
-(add-hook 'window-setup-hook 'hide-mode-line-update)
 
 (eval-after-load 'menu-bar
     (menu-bar-mode -1))
