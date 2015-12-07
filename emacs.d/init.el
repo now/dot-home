@@ -30,8 +30,6 @@
 (eval-after-load 'tool-bar
   '(tool-bar-mode -1))
 
-(setq initial-scratch-message nil)
-
 (require 'disp-table)
 (defface wrap-glyph
   '((((min-colors 16) (class color))
