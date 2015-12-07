@@ -281,6 +281,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/js.elc \
 	emacs.d/delayed-inits/lisp-mode.elc \
 	emacs.d/delayed-inits/magit.elc \
+	emacs.d/delayed-inits/magit-popup.elc \
 	emacs.d/delayed-inits/make-mode.elc \
 	emacs.d/delayed-inits/man.elc \
 	emacs.d/delayed-inits/mule.elc \
