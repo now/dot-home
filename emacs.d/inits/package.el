@@ -16,6 +16,7 @@
                           (magit t)
                           (magit-popup t)
                           (paredit t)
+                          (s t)
                           (smex t)
                           (undo-tree t)
                           (with-editor t)))
