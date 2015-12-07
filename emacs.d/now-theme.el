@@ -58,6 +58,7 @@
     `(font-lock-function-name-face ((,class)))
     `(font-lock-keyword-face ((,class)))
     `(font-lock-preprocessor-face ((,class)))
+    `(font-lock-regexp-grouping-backslash ((,class)))
     `(font-lock-regexp-grouping-construct ((,class)))
     `(font-lock-string-face ((,class)))
     `(font-lock-type-face ((,class)))
