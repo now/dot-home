@@ -28,6 +28,9 @@ Also includes parts of RFC1345 mnemonics, for example, &a' → á."
  ("e''" ["e'"])
  ("e'9" ["e’"])
 
+ ("(C)" ?\©)
+ ("^TM" ?\™)
+
  ("&->" ?\→)
  ("&cb" ?\•)
  ("&SE" ?\§)
