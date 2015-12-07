@@ -113,11 +113,6 @@
 
 (setq history-length 512)
 
-(setq make-backup-files nil
-      require-final-newline 'visit-save)
-
-(setq insert-directory-program "a")
-
 (setq-default indent-tabs-mode nil)
 
 (desktop-save-mode 1)
