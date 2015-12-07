@@ -111,10 +111,10 @@ $(srcdir)/configure: configure.ac
 	$(V_GEN)cd $(srcdir) && autoconf
 
 Makefile: Makefile.in config.status
-	$(V_GEN)./config.status
+	$(V_GEN)./config.status $(if $(V_GEN),-q)
 
 config.status: configure
-	$(V_GEN)./config.status --recheck
+	$(V_GEN)./config.status --recheck $(if $(V_GEN),-q)
 
 # patch, target
 define PATCH_template_file
@@ -300,7 +300,8 @@ provided_elcs = \
 	emacs.d/delayed-inits/sh-script.elc \
 	emacs.d/delayed-inits/solar.elc \
 	emacs.d/delayed-inits/tabulated-list.elc \
-	emacs.d/delayed-inits/tramp-sh.elc
+	emacs.d/delayed-inits/tramp-sh.elc \
+	emacs.d/delayed-inits/xterm.elc
 
 unprovided_elcs = \
 	emacs.d/delayed-inits/buff-menu.elc \
@@ -428,6 +429,8 @@ $(userconfemacsd_DATA): emacs.d/.dirstamp
 $(xdgconfighomezsh_DATA): zsh/.dirstamp
 
 $(provided_elcs): ELCFLAGS = --eval "(require '$(basename $(notdir $@)))"
+
+emacs.d/delayed-inits/xterm.elc: ELCFLAGS = --eval "(require 'xterm \"term/xterm\")"
 
 $(unprovided_elcs): ELCFLAGS = --eval '(load "$(basename $(notdir $@))" nil t)'
 
