@@ -30,7 +30,6 @@
 (eval-after-load 'tool-bar
   '(tool-bar-mode -1))
 
-(require 'disp-table)
 (defface wrap-glyph
   '((((min-colors 16) (class color))
      :foreground "blue")
@@ -47,8 +46,6 @@
 
 (setq overlay-arrow-string "⇒")
 
-(defvar show-paren-delay)
-(setq show-paren-delay 0)
 (show-paren-mode 1)
 
 (setq-default show-trailing-whitespace t)
