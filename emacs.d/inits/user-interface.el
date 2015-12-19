@@ -15,3 +15,8 @@
 (show-paren-mode 1)
 (set-terminal-parameter nil 'background-mode 'light)
 (load-theme 'now t)
+(ido-mode 1)
+(ido-ubiquitous-mode 1)
+(flx-ido-mode 1)
+(setq gc-cons-threshold 20000000)
+(smex-initialize)
