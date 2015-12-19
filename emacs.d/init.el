@@ -21,8 +21,6 @@
 
 (global-set-key (kbd "C-x C-o") 'other-window)
 
-(add-hook 'eval-expression-minibuffer-setup-hook 'enable-paredit-mode)
-
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.xsd\\'") 'xml-mode))
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.at\\'") 'm4-mode))
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.jsx\(inc\)?\\'") 'js-mode))
