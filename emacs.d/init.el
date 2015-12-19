@@ -31,8 +31,6 @@
 (setq vc-handled-backends nil)
 (defun vc-git-mode-line-string (file) "")
 
-(setq history-length 512)
-
 (setq-default indent-tabs-mode nil)
 
 (desktop-save-mode 1)
