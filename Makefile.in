@@ -273,6 +273,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/files.elc \
 	emacs.d/delayed-inits/flx-ido.elc \
 	emacs.d/delayed-inits/grep.elc \
+	emacs.d/delayed-inits/help-mode.elc \
 	emacs.d/delayed-inits/hideshow.elc \
 	emacs.d/delayed-inits/holidays.elc \
 	emacs.d/delayed-inits/ido.elc \
@@ -302,6 +303,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/sh-script.elc \
 	emacs.d/delayed-inits/solar.elc \
 	emacs.d/delayed-inits/tabulated-list.elc \
+	emacs.d/delayed-inits/term.elc \
 	emacs.d/delayed-inits/tramp-sh.elc \
 	emacs.d/delayed-inits/xterm.elc
 

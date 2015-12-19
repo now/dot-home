@@ -38,10 +38,6 @@
 (setq-default show-trailing-whitespace t)
 (defun now-do-not-show-trailing-whitespace ()
   (setq show-trailing-whitespace nil))
-(add-hook 'eww-mode-hook 'now-do-not-show-trailing-whitespace)
-(add-hook 'help-mode-hook 'now-do-not-show-trailing-whitespace)
-(add-hook 'package-menu-mode-hook 'now-do-not-show-trailing-whitespace)
-(add-hook 'term-mode-hook 'now-do-not-show-trailing-whitespace)
 
 (set-terminal-parameter nil 'background-mode 'light)
 (load-theme 'now t)
