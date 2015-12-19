@@ -11,7 +11,6 @@
       eol-mnemonic-undecided "?"
       mode-line-modes (butlast mode-line-modes)
       overlay-arrow-string "⇒")
-(fset 'yes-or-no-p 'y-or-n-p)
 (hide-mode-line)
 (show-paren-mode 1)
 (set-terminal-parameter nil 'background-mode 'light)
