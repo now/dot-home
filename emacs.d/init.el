@@ -9,20 +9,6 @@
                    user-interface))
   (load (concat user-emacs-directory "inits/" (symbol-name feature))))
 
-;;; Completion
-
-(setq completion-show-help nil
-      completions-format 'vertical)
-
-(ido-mode 1)
-
-(ido-ubiquitous-mode 1)
-
-(flx-ido-mode 1)
-(setq gc-cons-threshold 20000000)
-
-(smex-initialize)
-
 ;;; Functionality
 
 (setq-default fill-column 79)

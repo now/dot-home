@@ -286,6 +286,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/make-mode.elc \
 	emacs.d/delayed-inits/man.elc \
 	emacs.d/delayed-inits/menu-bar.elc \
+	emacs.d/delayed-inits/minibuffer.elc \
 	emacs.d/delayed-inits/mule.elc \
 	emacs.d/delayed-inits/nxml-mode.elc \
 	emacs.d/delayed-inits/org-agenda.elc \
@@ -302,6 +303,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/ruby-mode.elc \
 	emacs.d/delayed-inits/scroll-bar.elc \
 	emacs.d/delayed-inits/sh-script.elc \
+	emacs.d/delayed-inits/simple.elc \
 	emacs.d/delayed-inits/solar.elc \
 	emacs.d/delayed-inits/tabulated-list.elc \
 	emacs.d/delayed-inits/term.elc \
