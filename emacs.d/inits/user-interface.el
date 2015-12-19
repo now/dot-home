@@ -1,4 +1,4 @@
-(setq-default indicate-buffer-boundaries '((bottom . left))
+(setq-default indicate-buffer-boundaries t
               mode-line-buffer-identification (propertized-buffer-identification "%b")
               mode-line-format '(""
                                  mode-line-buffer-identification
