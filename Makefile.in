@@ -309,6 +309,8 @@ provided_elcs = \
 	emacs.d/delayed-inits/term.elc \
 	emacs.d/delayed-inits/tool-bar.elc \
 	emacs.d/delayed-inits/tramp-sh.elc \
+	emacs.d/delayed-inits/vc-hooks.elc \
+	emacs.d/delayed-inits/vc-git.elc \
 	emacs.d/delayed-inits/xterm.elc
 
 unprovided_elcs = \
