@@ -84,12 +84,7 @@
 (define-key global-map "\C-r" 'isearch-backward-regexp)
 (define-key esc-map "\C-r" 'isearch-backward)
 
-(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
 (add-hook 'eval-expression-minibuffer-setup-hook 'enable-paredit-mode)
-(add-hook 'ielm-mode-hook 'enable-paredit-mode)
-(add-hook 'lisp-mode-hook 'enable-paredit-mode)
-(add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
-(add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
 
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.xsd\\'") 'xml-mode))
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.at\\'") 'm4-mode))
