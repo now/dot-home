@@ -5,47 +5,9 @@
 (dolist (feature '(provided-delayed-inits
                    unprovided-delayed-inits
                    package
-                   disp-table))
+                   disp-table
+                   user-interface))
   (load (concat user-emacs-directory "inits/" (symbol-name feature))))
-
-;;; Interface
-
-(setq-default indicate-buffer-boundaries '((bottom . left))
-              mode-line-buffer-identification (propertized-buffer-identification "%b")
-              mode-line-modes (butlast mode-line-modes) ; NOTE not buffer-local
-              mode-line-format '(""
-                                 mode-line-buffer-identification
-                                 (:propertize " " 'help-echo help-echo)
-                                 mode-line-modes))
-
-(setq eol-mnemonic-unix ""
-      eol-mnemonic-mac "␍"
-      eol-mnemonic-dos "␍␊"
-      eol-mnemonic-undecided "?")
-
-(hide-mode-line)
-
-(eval-after-load 'menu-bar
-  '(menu-bar-mode -1))
-
-(eval-after-load 'tool-bar
-  '(tool-bar-mode -1))
-
-(setq overlay-arrow-string "⇒")
-
-(show-paren-mode 1)
-
-(setq-default show-trailing-whitespace t)
-(defun now-do-not-show-trailing-whitespace ()
-  (setq show-trailing-whitespace nil))
-
-(set-terminal-parameter nil 'background-mode 'light)
-(load-theme 'now t)
-
-(fset 'yes-or-no-p 'y-or-n-p)
-
-(add-to-list 'display-buffer-alist
-             '("\`\*magit-\(diff\|rev\): " . (display-buffer-pop-up-window)))
 
 ;;; Completion
 

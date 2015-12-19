@@ -285,6 +285,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/magit-popup.elc \
 	emacs.d/delayed-inits/make-mode.elc \
 	emacs.d/delayed-inits/man.elc \
+	emacs.d/delayed-inits/menu-bar.elc \
 	emacs.d/delayed-inits/mule.elc \
 	emacs.d/delayed-inits/nxml-mode.elc \
 	emacs.d/delayed-inits/org-agenda.elc \
@@ -304,6 +305,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/solar.elc \
 	emacs.d/delayed-inits/tabulated-list.elc \
 	emacs.d/delayed-inits/term.elc \
+	emacs.d/delayed-inits/tool-bar.elc \
 	emacs.d/delayed-inits/tramp-sh.elc \
 	emacs.d/delayed-inits/xterm.elc
 
@@ -326,6 +328,7 @@ init_elcs = \
 	emacs.d/inits/package.elc \
 	emacs.d/inits/provided-delayed-inits.elc \
 	emacs.d/inits/unprovided-delayed-inits.elc \
+	emacs.d/inits/user-interface.elc
 
 userconfemacsdinits_DATA = \
 	$(init_elcs)
@@ -335,6 +338,7 @@ sitelisp_elcs = \
 	emacs.d/site-lisp/evil-paredit.elc \
 	emacs.d/site-lisp/hide-mode-line.elc \
 	emacs.d/site-lisp/ned-info-on-file.elc \
+	emacs.d/site-lisp/now-init.elc \
 	emacs.d/site-lisp/now-org.elc \
 	emacs.d/site-lisp/rnc-mode.elc
 
@@ -466,7 +470,15 @@ emacs.d/delayed-inits/evil.elc: emacs.d/site-lisp/evil-paredit.elc \
 	emacs.d/site-lisp/ned-info-on-file.elc
 emacs.d/delayed-inits/org.elc: emacs.d/site-lisp/now-org.elc
 emacs.d/delayed-inits/org-agenda.elc: emacs.d/site-lisp/now-org.elc
-emacs.d/init.elc: emacs.d/site-lisp/hide-mode-line.elc
+emacs.d/delayed-inits/calendar.elc \
+emacs.d/delayed-inits/compile.elc \
+emacs.d/delayed-inits/diff.elc \
+emacs.d/delayed-inits/help-mode.elc \
+emacs.d/delayed-inits/info.elc \
+emacs.d/delayed-inits/magit.elc \
+emacs.d/delayed-inits/tabulated-list.elc \
+emacs.d/delayed-inits/term.elc: emacs.d/site-lisp/now-init.elc
+emacs.d/inits/user-interface.elc: emacs.d/site-lisp/hide-mode-line.elc
 
 emacs.d/site-lisp/userloaddefs.el: $(sitelisp_elcs) emacs.d/site-lisp/.dirstamp
 	$(V_ELC)$(EMACS) --batch -Q --eval '(setq vc-handled-backends nil)' \
