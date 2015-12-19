@@ -320,6 +320,7 @@ userconfemacsdetcschema_DATA = \
 	emacs.d/etc/schema/schemas.xml
 
 init_elcs = \
+	emacs.d/inits/disp-table.elc \
 	emacs.d/inits/package.elc \
 	emacs.d/inits/provided-delayed-inits.elc \
 	emacs.d/inits/unprovided-delayed-inits.elc \

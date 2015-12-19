@@ -4,7 +4,8 @@
 ;; The order is important; package has to come last.
 (dolist (feature '(provided-delayed-inits
                    unprovided-delayed-inits
-                   package))
+                   package
+                   disp-table))
   (load (concat user-emacs-directory "inits/" (symbol-name feature))))
 
 ;;; Interface
@@ -29,20 +30,6 @@
 
 (eval-after-load 'tool-bar
   '(tool-bar-mode -1))
-
-(defface wrap-glyph
-  '((((min-colors 16) (class color))
-     :foreground "blue")
-    (t
-     :inverse-video t))
-  "Face for wrap glyph."
-  :group 'basic-faces)
-(set-display-table-slot standard-display-table 'wrap
-                        (make-glyph-code #x21A9 'wrap-glyph))
-(set-display-table-slot standard-display-table 'selective-display
-                        (vector (make-glyph-code #x2026)))
-(set-display-table-slot standard-display-table 'vertical-border
-                        (make-glyph-code #x2502))
 
 (setq overlay-arrow-string "⇒")
 
