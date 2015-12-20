@@ -15,3 +15,4 @@
     ("brightmagenta" 13 (147  55  99))
     ("brightcyan"    14 (128 176 192))
     ("brightwhite"   15 (246 246 246))))
+(set-terminal-parameter nil 'background-mode 'light)
