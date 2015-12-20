@@ -298,6 +298,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/org-mobile.elc \
 	emacs.d/delayed-inits/org.elc \
 	emacs.d/delayed-inits/paren.elc \
+	emacs.d/delayed-inits/prog-mode.elc \
 	emacs.d/delayed-inits/recentf.elc \
 	emacs.d/delayed-inits/rng-loc.elc \
 	emacs.d/delayed-inits/ruby-mode.elc \
@@ -315,7 +316,8 @@ provided_elcs = \
 
 unprovided_elcs = \
 	emacs.d/delayed-inits/buff-menu.elc \
-	emacs.d/delayed-inits/replace.elc
+	emacs.d/delayed-inits/replace.elc \
+	emacs.d/delayed-inits/text-mode.elc
 
 userconfemacsddelayedinits_DATA = \
 	$(provided_elcs) \
@@ -480,8 +482,10 @@ emacs.d/delayed-inits/diff.elc \
 emacs.d/delayed-inits/help-mode.elc \
 emacs.d/delayed-inits/info.elc \
 emacs.d/delayed-inits/magit.elc \
+emacs.d/delayed-inits/prog-mode.elc: emacs.d/site-lisp/now-init.elc
 emacs.d/delayed-inits/tabulated-list.elc \
 emacs.d/delayed-inits/term.elc: emacs.d/site-lisp/now-init.elc
+emacs.d/delayed-inits/text-mode.elc: emacs.d/site-lisp/now-init.elc
 emacs.d/inits/user-interface.elc: emacs.d/site-lisp/hide-mode-line.elc
 
 emacs.d/site-lisp/userloaddefs.el: $(sitelisp_elcs) emacs.d/site-lisp/.dirstamp

@@ -10,9 +10,6 @@
 
 ;;; Functionality
 
-(setq-default fill-column 79)
-(auto-fill-mode 1)
-
 (setq-default indent-tabs-mode nil)
 
 (desktop-save-mode 1)
