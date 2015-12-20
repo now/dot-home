@@ -343,6 +343,7 @@ sitelisp_elcs = \
 	emacs.d/site-lisp/ned-info-on-file.elc \
 	emacs.d/site-lisp/now-init.elc \
 	emacs.d/site-lisp/now-org.elc \
+	emacs.d/site-lisp/now-simple.elc \
 	emacs.d/site-lisp/rnc-mode.elc
 
 userconfemacsdsitelisp_DATA = \
