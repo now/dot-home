@@ -90,6 +90,16 @@ one window in that frame, nil otherwise."
                'hide-mode-line-window-configuration-change-hook))
 
 ;;;###autoload
+(defun hide-mode-line-unhide-temporarily ()
+  (interactive)
+  (when (and hide-mode-line hide-mode-line-saved-mode-line-format)
+    (setq mode-line-format hide-mode-line-saved-mode-line-format)
+    (redraw-display)
+    ;(force-mode-line-update)
+    (sit-for 2)
+    (setq mode-line-format nil)))
+
+;;;###autoload
 (defun hide-mode-line ()
   "Toggle the hide-mode-line functionality."
   (interactive)

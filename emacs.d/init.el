@@ -17,6 +17,7 @@
 (flx-ido-mode 1)
 (desktop-save-mode 1)
 (evil-mode 1)
+(column-number-mode 1)
 (hide-mode-line)
 (load-theme 'now t)
 

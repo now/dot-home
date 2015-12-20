@@ -30,7 +30,7 @@
     "U" 'undo-tree-redo
     "\C-r" nil
     "\M-d" 'smex
-    "g\C-g" 'ned-info-on-file
+    "g\C-g" 'hide-mode-line-unhide-temporarily
     "gw" nil
     ",u" 'undo-tree-visualize
     ",w" 'save-buffer)
