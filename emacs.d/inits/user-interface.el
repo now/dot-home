@@ -1,15 +1,5 @@
-(setq-default indicate-buffer-boundaries t
-              mode-line-buffer-identification (propertized-buffer-identification "%b")
-              mode-line-format '(""
-                                 mode-line-buffer-identification
-                                 (:propertize " " 'help-echo help-echo)
-                                 mode-line-modes))
-(setq eol-mnemonic-unix ""
-      eol-mnemonic-mac "␍"
-      eol-mnemonic-dos "␍␊"
-      eol-mnemonic-undecided "?"
-      mode-line-modes (butlast mode-line-modes)
-      overlay-arrow-string "⇒")
+(setq-default indicate-buffer-boundaries t)
+(setq overlay-arrow-string "►")
 (hide-mode-line)
 (show-paren-mode 1)
 (load-theme 'now t)
