@@ -4,17 +4,21 @@
 (dolist (feature '(package
                    provided-delayed-inits
                    unprovided-delayed-inits
-                   disp-table
-                   user-interface))
+                   disp-table))
   (load (concat user-emacs-directory "inits/" (symbol-name feature))))
 
-;;; Functionality
-
-(setq-default indent-tabs-mode nil)
-
+(setq-default indent-tabs-mode nil
+              indicate-buffer-boundaries t)
+(setq gc-cons-threshold 20000000
+      overlay-arrow-string "►")
+(show-paren-mode 1)
+(ido-mode 1)
+(ido-ubiquitous-mode 1)
+(flx-ido-mode 1)
 (desktop-save-mode 1)
-
 (evil-mode 1)
+(hide-mode-line)
+(load-theme 'now t)
 
 (global-set-key (kbd "C-x C-o") 'other-window)
 

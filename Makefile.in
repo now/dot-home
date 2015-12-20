@@ -331,8 +331,7 @@ init_elcs = \
 	emacs.d/inits/disp-table.elc \
 	emacs.d/inits/package.elc \
 	emacs.d/inits/provided-delayed-inits.elc \
-	emacs.d/inits/unprovided-delayed-inits.elc \
-	emacs.d/inits/user-interface.elc
+	emacs.d/inits/unprovided-delayed-inits.elc
 
 userconfemacsdinits_DATA = \
 	$(init_elcs)
