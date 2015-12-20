@@ -141,6 +141,7 @@
   (if (and (eolp)
            (member last-command '(evil-ret
                                   c-context-line-break
+                                  c-electric-brace
                                   c-electric-semi&comma
                                   newline)))
       (delete-horizontal-space)))

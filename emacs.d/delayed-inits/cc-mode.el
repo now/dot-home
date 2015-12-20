@@ -1,12 +1,12 @@
 (c-add-style "now-c-style"
              '("linux"
-               (c-hanging-braces-alist . ((brace-list-open)
-                                          (brace-list-close)
-                                          (brace-entry-open)
+               (c-hanging-braces-alist . ((brace-entry-open)
+                                          (brace-list-open after)
+                                          (brace-list-close before)
+                                          (class-close before)
+                                          (class-open after)
                                           (substatement-open after)
-                                          (block-close . c-snug-do-while)
-                                          (arglist-cont-nonempty)
-                                          (class-close)))
+                                          (block-close before)))
                (c-hanging-colons-alist . ((case-label after)
                                           (label after)))))
 (c-add-style "now-java-style"
@@ -25,5 +25,6 @@
   (set (make-local-variable 'paragraph-start)
        "[ \t]*\\(//+\\|\\**\\)[ \t]*$\\|[ \t]*\\(//+\\|\\**\\)[ \t]*@[[:alpha:]]+[ \t]\\|^\f")
   (set (make-local-variable 'adaptive-fill-function)
-       'now-c-mode-adaptive-fill-function))
+       'now-c-mode-adaptive-fill-function)
+  (c-toggle-auto-newline 1))
 (add-hook 'c-mode-hook 'now-c-mode-hook)
