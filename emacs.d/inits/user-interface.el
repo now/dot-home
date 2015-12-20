@@ -3,8 +3,7 @@
               mode-line-format '(""
                                  mode-line-buffer-identification
                                  (:propertize " " 'help-echo help-echo)
-                                 mode-line-modes)
-              show-trailing-whitespace t)
+                                 mode-line-modes))
 (setq eol-mnemonic-unix ""
       eol-mnemonic-mac "␍"
       eol-mnemonic-dos "␍␊"
@@ -19,4 +18,3 @@
 (ido-ubiquitous-mode 1)
 (flx-ido-mode 1)
 (setq gc-cons-threshold 20000000)
-(smex-initialize)

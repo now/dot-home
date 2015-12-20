@@ -273,7 +273,6 @@ provided_elcs = \
 	emacs.d/delayed-inits/files.elc \
 	emacs.d/delayed-inits/flx-ido.elc \
 	emacs.d/delayed-inits/grep.elc \
-	emacs.d/delayed-inits/help-mode.elc \
 	emacs.d/delayed-inits/hideshow.elc \
 	emacs.d/delayed-inits/holidays.elc \
 	emacs.d/delayed-inits/ido.elc \
@@ -307,7 +306,6 @@ provided_elcs = \
 	emacs.d/delayed-inits/simple.elc \
 	emacs.d/delayed-inits/solar.elc \
 	emacs.d/delayed-inits/tabulated-list.elc \
-	emacs.d/delayed-inits/term.elc \
 	emacs.d/delayed-inits/tool-bar.elc \
 	emacs.d/delayed-inits/tramp-sh.elc \
 	emacs.d/delayed-inits/vc-hooks.elc \
@@ -474,17 +472,10 @@ $(sitelisp_elcs): %.elc: %.el emacs.d/inits/package.el
 emacs.d/delayed-inits/buff-menu.elc: emacs.d/site-lisp/buff-menu-ext.elc
 emacs.d/delayed-inits/evil.elc: emacs.d/site-lisp/evil-paredit.elc \
 	emacs.d/site-lisp/ned-info-on-file.elc
-emacs.d/delayed-inits/org.elc: emacs.d/site-lisp/now-org.elc
+emacs.d/delayed-inits/org.elc \
 emacs.d/delayed-inits/org-agenda.elc: emacs.d/site-lisp/now-org.elc
-emacs.d/delayed-inits/calendar.elc \
-emacs.d/delayed-inits/compile.elc \
-emacs.d/delayed-inits/diff.elc \
-emacs.d/delayed-inits/help-mode.elc \
-emacs.d/delayed-inits/info.elc \
-emacs.d/delayed-inits/magit.elc \
-emacs.d/delayed-inits/prog-mode.elc: emacs.d/site-lisp/now-init.elc
+emacs.d/delayed-inits/prog-mode.elc \
 emacs.d/delayed-inits/tabulated-list.elc \
-emacs.d/delayed-inits/term.elc: emacs.d/site-lisp/now-init.elc
 emacs.d/delayed-inits/text-mode.elc: emacs.d/site-lisp/now-init.elc
 emacs.d/inits/user-interface.elc: emacs.d/site-lisp/hide-mode-line.elc
 

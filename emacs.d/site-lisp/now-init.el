@@ -4,9 +4,9 @@
   (setq comment-auto-fill-only-comments t))
 
 ;;;###autoload
-(defun now-do-not-show-trailing-whitespace ()
-  "Set `show-trailing-whitespace' to 'nil."
-  (setq show-trailing-whitespace nil))
+(defun now-show-trailing-whitespace ()
+  "Set `show-trailing-whitespace' to t."
+  (setq show-trailing-whitespace t))
 
 ;;;###autoload
 (defun now-set-fill-column-to-79 ()
