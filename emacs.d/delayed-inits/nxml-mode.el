@@ -7,6 +7,7 @@
 (add-hook 'nxml-mode-hook
           (lambda ()
             (setq local-abbrev-table nxml-mode-abbrev-table)))
+(add-hook 'nxml-mode-hook 'turn-off-auto-fill)
 (define-skeleton nxml-mode-skeleton-xsl-stylesheet
   "Insert an XSL Stylesheet."
   ""
