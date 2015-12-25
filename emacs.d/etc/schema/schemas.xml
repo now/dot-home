@@ -8,4 +8,6 @@
   <typeId id="Entity Resolution XML Catalog" uri="catalog.rnc"/>
   <typeId id="GtkBuilder" uri="gtk-builder.rnc"/>
   <typeId id="PropertyList-1.0" uri="PropertyList-1.0.rnc"/>
+
+  <include rules="~/Projects/xtrf-templates/data/schemas.xml"/>
 </locatingRules>
