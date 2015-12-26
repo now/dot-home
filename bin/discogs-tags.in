@@ -3,6 +3,8 @@
 application=$(basename $0)
 useragent="discogs-tags/1.0 +http://disu.se"
 
+EXIFTOOL=@EXIFTOOL@
+
 die () {
   print -r -- $application: $*
   exit 1
@@ -65,7 +67,7 @@ json-image () {
     trap 'rm -f $images; exit 130' INT
     trap 'rm -f $images; exit 143' TERM
     curl -L --compressed --silent --show-error --user-agent $useragent -H $authorization $uri > $image || { rm -f $image; exit 1 }
-    local format=; format=$(identify -format %m $image) || exit 1
+    local format=; format=$($EXIFTOOL -p '$FileType' $image) || exit 1
     if [[ format != (JPEG|PNG) ]]; then
       local jpeg=; jpeg=$(mktemp dti.jpeg.XXXXXX) || { rm -f $image; exit 1 }
       convert $image jpg:- > $jpeg || { rm -f $image $jpeg; exit 1 }
