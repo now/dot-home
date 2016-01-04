@@ -273,6 +273,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/evil.elc \
 	emacs.d/delayed-inits/files.elc \
 	emacs.d/delayed-inits/flx-ido.elc \
+	emacs.d/delayed-inits/gnus.elc \
 	emacs.d/delayed-inits/grep.elc \
 	emacs.d/delayed-inits/hideshow.elc \
 	emacs.d/delayed-inits/holidays.elc \
