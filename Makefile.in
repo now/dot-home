@@ -289,6 +289,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/menu-bar.elc \
 	emacs.d/delayed-inits/minibuffer.elc \
 	emacs.d/delayed-inits/mule.elc \
+	emacs.d/delayed-inits/nnimap.elc \
 	emacs.d/delayed-inits/nxml-mode.elc \
 	emacs.d/delayed-inits/org-agenda.elc \
 	emacs.d/delayed-inits/org-capture.elc \
