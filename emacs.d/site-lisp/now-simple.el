@@ -20,10 +20,10 @@
               (delete-char 1))
             (goto-char 1)
             (beginning-of-line (+ i 1))
-            (re-search-forward "^/\\(.*?E\\([0-9]+\\).*?\\)\\.[^./]*/")
+            (re-search-forward "^/\\(.*?[. ]\\(?:[Ss][0-9][0-9][Ee]\\|[0-9][0-9]?\\|[0-9][0-9]?x\\)\\([0-9][0-9][abc]?\\)[. ].*?\\)\\.[^./]*/")
             (replace-match (concat "\\2-"
                                      (save-match-data
-                                       (dolist (r '(("'" . "’") (" " . "_") ("\\.\\.\\." . "…") ("?" . "") ("&" . "and") ("!" . "") ("$" . "s") ("\\\\" "\\\\")) line)
+                                       (dolist (r '(("'" . "’") (" " . "_") ("\\.\\.\\." . "…") ("?" . "") ("&" . "and") ("!" . "") ("\\$" . "s") ("#" . "") ("\\\\" "\\\\")) line)
                                          (setq line (replace-regexp-in-string (car r) (cdr r) line t t)))))
                              t nil nil 1)))))))
 
