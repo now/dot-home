@@ -96,6 +96,10 @@
   "s" 'calendar-forward-day
   "w" 'calendar-end-of-week)
 
+(defvar epa-key-list-mode-map)
+(with-eval-after-load 'epa
+  (evil-make-overriding-map epa-key-list-mode-map nil))
+
 (defvar grep-mode-map)
 (with-eval-after-load 'grep
   (evil-make-overriding-map grep-mode-map nil))
