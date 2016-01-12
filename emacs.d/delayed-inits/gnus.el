@@ -4,7 +4,7 @@
       gnus-parameters '((".*"
                          (gnus-use-scoring nil)
                          (display . all)))
-      gnus-permanently-visible-groups "INBOX\'"
+      gnus-permanently-visible-groups "INBOX\\'"
       gnus-select-method '(nnimap "gmail"
                                   (nnimap-address "imap.gmail.com")
                                   (nnimap-stream ssl))
