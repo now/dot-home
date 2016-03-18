@@ -36,6 +36,11 @@ AC_ARG_WITH([dtachsession],
    dtachsession='${dtachsessiondir}/session'])
 AC_SUBST([dtachsessiondir])
 AC_SUBST([dtachsession])
+AC_ARG_WITH([projectsdir],
+  [AS_HELP_STRING([--with-projectsdir], [override default projects directory])],
+  [projectsdir=$withval],
+  [projectsdir='${prefix}/Projects'])
+AC_SUBST([projectsdir])
 AC_ARG_WITH([zshistory],
   [AS_HELP_STRING([--with-zshistory], [override default Zsh history file])],
   [zshistory=$withval

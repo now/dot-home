@@ -74,6 +74,7 @@ _v_UNZIP_1 =
 prefix = @prefix@
 bindir = $(prefix)/opt/bin
 libexecdir = $(prefix)/opt/libexec
+projectsdir = @projectsdir@
 sharedir = $(prefix)/opt/share
 userconfdir = $(prefix)
 XDG_CONFIG_CACHE = @XDG_CONFIG_CACHE@
@@ -330,6 +331,8 @@ userconfemacsdetcschema_DATA = \
 	emacs.d/etc/schema/PropertyList-1.0.rnc \
 	emacs.d/etc/schema/schemas.xml
 
+emacs.d/etc/schema/schemas.xml: emacs.d/etc/schema/.dirstamp
+
 init_elcs = \
 	emacs.d/inits/disp-table.elc \
 	emacs.d/inits/package.elc \
@@ -528,6 +531,7 @@ $(emptydirs):
 	    -e 's|@abs_builddir[@]|$(abs_builddir)|g' \
 	    -e 's|@dtachsession[@]|$(dtachsession)|g' \
 	    -e 's|@libexecdir[@]|$(libexecdir)|g' \
+	    -e 's|@projectsdir[@]|$(projectsdir)|g' \
 	    -e 's|@zshistory[@]|$(zshistory)|g' \
 	    -e 's|@xdgconfighomezshdir[@]|$(xdgconfighomezshdir)|g' \
 	    -e 's|@xdgconfighomezshfunctionsdir[@]|$(xdgconfighomezshfunctionsdir)|g' \
