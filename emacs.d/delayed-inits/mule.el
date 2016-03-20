@@ -29,6 +29,7 @@ Also includes parts of RFC1345 mnemonics, for example, &a' → á."
  ("e'9" ["e’"])
 
  ("(C)" ?\©)
+ ("(R)" ?\®)
  ("^TM" ?\™)
 
  (":-)" ?\☺)
@@ -36,7 +37,7 @@ Also includes parts of RFC1345 mnemonics, for example, &a' → á."
 ; (";-)" ?\😉)
 ; (":-|" ?\😐)
  (":-(" ?\☹)
- ("&<3" ?♡)
+ ("&<3" ?\♡)
 
  ("&->" ?\→)
  ("&cb" ?\•)
@@ -74,6 +75,8 @@ Also includes parts of RFC1345 mnemonics, for example, &a' → á."
  ("&-+" ?\∓)
  ("&-N" ?\–)
  ("&-M" ?\—)
+ ("&>=" ?\≥)
+ ("&NO" ?\¬)
 ; ... &-> …
  )
 
