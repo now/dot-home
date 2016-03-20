@@ -1,6 +1,12 @@
 (setq compilation-scroll-output 'first-error)
 
 (add-to-list 'compilation-error-regexp-alist-alist
+             '(autotest-summary
+               "^\\(?:  [0-9]\\| [0-9][0-9]\\|[0-9][0-9][0-9]\\): .*\\(?: FAILED\\| WARNIN\\(G\\)\\) (\\([^\n :]+\\.at\\):\\([1-9][0-9]*\\))"
+               2 3 nil (1 . nil)))
+(add-to-list 'compilation-error-regexp-alist 'autotest-summary)
+
+(add-to-list 'compilation-error-regexp-alist-alist
              '(autotest-header
                "^\\([1-9][0-9]*\\. \\([^\n :]+\\.at\\):\\([1-9][0-9]*\\)\\): \\(?: FAILED\\|WARNIN\\(G\\)\\|\\(testing\\| ok\\)\\)"
                2 3 nil (4 . 5) 1))
