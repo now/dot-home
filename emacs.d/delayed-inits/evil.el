@@ -144,12 +144,17 @@
   ",M" 'ruby-run-test-at-line)
 
 (defun evil-delete-auto-indent-on-insert-state-exit ()
-  (if (and (eolp)
-           (member last-command '(evil-ret
-                                  c-context-line-break
-                                  c-electric-brace
-                                  c-electric-semi&comma
-                                  newline)))
-      (delete-horizontal-space)))
+  (when (eolp)
+    (cond
+     ((member last-command '(evil-ret
+                              c-context-line-break
+                              newline))
+      (delete-horizontal-space))
+     ((member last-command '(c-electric-brace
+                             c-electric-colon
+                             c-electric-semi&comma))
+      (delete-horizontal-space)
+      (when (bolp)
+        (delete-char -1))))))
 (add-hook 'evil-insert-state-exit-hook
           'evil-delete-auto-indent-on-insert-state-exit)
