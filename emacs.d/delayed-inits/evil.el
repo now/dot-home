@@ -103,6 +103,9 @@
 (with-eval-after-load 'grep
   (evil-make-overriding-map grep-mode-map nil))
 
+(evil-define-key 'motion Info-mode-map
+  "\C-i" 'Info-history-forward)
+
 (evil-define-key 'normal Man-mode-map
   "q" 'Man-quit)
 
