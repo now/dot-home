@@ -16,6 +16,7 @@
 (ido-ubiquitous-mode 1)
 (flx-ido-mode 1)
 (desktop-save-mode 1)
+(require 'evil)
 (evil-mode 1)
 (column-number-mode 1)
 (hide-mode-line)
