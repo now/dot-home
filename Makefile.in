@@ -205,7 +205,8 @@ fontsdejavu_DATA = \
 
 fonts/$(dejavu_fonts_ttf_version_zip): fonts/.dirstamp
 	$(V_CURL)$(CURL) -Ls \
-	  http://sourceforge.net/projects/dejavu/files/dejavu/$(DEJAVU_FONTS_VERSION)/$(dejavu_fonts_ttf_version_zip) > $@
+	  http://sourceforge.net/projects/dejavu/files/dejavu/$(DEJAVU_FONTS_VERSION)/$(dejavu_fonts_ttf_version_zip) > $@.tmp
+	$(V_at)mv $@.tmp $@
 
 $(fontsdejavu_DATA): fonts/$(dejavu_fonts_ttf_version_zip) fonts/dejavu/.dirstamp
 	$(V_UNZIP)$(UNZIP) -qop $< $(dejavu_fonts_ttf_version)/ttf/$(@F) > $@
@@ -215,7 +216,8 @@ HUNSPELL_EN_GB_DICT_ZIP = hunspell/hunspell-en_GB-ise-$(HUNSPELL_DICT_VERSION).z
 HUNSPELL_EN_US_DICT_ZIP = hunspell/hunspell-en_US-$(HUNSPELL_DICT_VERSION).zip
 
 $(HUNSPELL_EN_GB_DICT_ZIP) $(HUNSPELL_EN_US_DICT_ZIP): hunspell/.dirstamp
-	$(V_CURL)$(CURL) -Ls http://downloads.sourceforge.net/wordlist/$(@F) > $@
+	$(V_CURL)$(CURL) -Ls http://downloads.sourceforge.net/wordlist/$(@F) > $@.tmp
+	$(V_at)mv $@.tmp $@
 
 hunspell/%.aff: hunspell/hunspell-%-$(HUNSPELL_DICT_VERSION).zip hunspell/.dirstamp
 	$(V_GEN)$(UNZIP) -qod $(@D) $< $(@F)
@@ -233,7 +235,8 @@ hunspell/%.dic: hunspell/hunspell-%-$(HUNSPELL_DICT_VERSION).zip hunspell/.dirst
 HUNSPELL_SV_DICT_ZIP = hunspell/addon-474623-latest.xpi
 
 $(HUNSPELL_SV_DICT_ZIP): hunspell/.dirstamp
-	$(V_CURL)$(CURL) -Ls https://addons.mozilla.org/firefox/downloads/latest/474623/$(@F) > $@
+	$(V_CURL)$(CURL) -Ls https://addons.mozilla.org/firefox/downloads/latest/474623/$(@F) > $@.tmp
+	$(V_at)mv $@.tmp $@
 
 hunspell/sv.aff: $(HUNSPELL_SV_DICT_ZIP) hunspell/.dirstamp
 	$(V_GEN)$(UNZIP) -qojd $(@D) $< dictionaries/$(@F)
