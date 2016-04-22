@@ -128,7 +128,7 @@
     `(org-scheduled-today ((,class)))
     `(org-table ((,class)))
     `(org-tag ((,class)))
-    `(org-todo ((,class (:foreground ,white :background ,red))))
+    `(org-todo ((,class (:foreground ,white :background "grey30"))))
     `(org-waiting ((,class (:background ,yellow))))
     `(outline-1 ((,class)))
     `(outline-2 ((,class)))
