@@ -21,6 +21,9 @@
 (hide-mode-line)
 (load-theme 'now t)
 
+;; TODO Move this to the correct file.
+(setq switch-to-buffer-preserve-window-point t)
+
 (global-set-key (kbd "C-x C-o") 'other-window)
 
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.sch\\'") 'xml-mode))
