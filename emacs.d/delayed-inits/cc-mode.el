@@ -27,9 +27,14 @@
        '(("<=" . ?≤)
          (">=" . ?≥)
          ("!=" . ?≠)
-         ("==" . ?≡)
+         ("==" . ?=)
+         ;; ("NULL" . ?∅) ; This may be a bit too ambitious
+         ("=" . ?←)
          ("||" . ?∨)
          ("&&" . ?∧)
+         ;; ("*" . ?∗)
+         ;; ("*" . ?×)          ; We can’t use this, as * is also used to
+         ;;                     ; dereference a pointer
          ("!" . ?¬)
          ("-" . ?−)
          ("->" . ?→)))
