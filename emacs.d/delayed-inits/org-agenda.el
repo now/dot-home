@@ -65,12 +65,14 @@
                                    (todo . "% i%-11c")
                                    (tags . "% i%-11c")
                                    (search . "% i%-11c"))
+        org-agenda-remove-tags t
         org-agenda-sorting-strategy '((agenda habit-down time-up priority-down effort-up timestamp-down category-keep)
                                       (todo priority-down effort-up timestamp-down category-up)
                                       (tags priority-down effort-up timestamp-down category-up)
                                       (search category-up))
         org-agenda-span 'day
         org-agenda-sticky t
+        org-agenda-time-leading-zero t
         org-agenda-use-time-grid nil))
 
 (defun now-org-agenda-skip-unless-stuck-project ()

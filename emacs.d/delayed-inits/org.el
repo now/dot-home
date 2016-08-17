@@ -26,6 +26,7 @@
       org-enforce-todo-dependencies t
       org-global-properties '(("Effort_ALL" . "0:15 0:30 1:00 2:00 4:00 8:00 0:00"))
       org-hide-emphasis-markers t
+      org-highlight-sparse-tree-matches nil
       org-link-frame-setup '((vm . vm-visit-folder)
                              (gnus . org-gnus-no-new-news)
                              (file . find-file)
@@ -69,6 +70,8 @@
       org-treat-S-cursor-todo-selection-as-state-change nil
       org-yank-adjusted-subtrees t)
 
+(add-to-list 'org-file-apps '(directory . emacs))
+
 (defun now-org-insert-heading-inactive-timestamp ()
   "Insert an inactive timestamp under the current headline."
   (save-excursion
@@ -100,5 +103,50 @@
            (org-delete-property "Delegatee")))))
 
 (add-hook 'org-after-todo-state-change-hook 'now-org-adjust-properties-after-todo-state-change)
+
+(defun now-org-sort-entries ()
+  "Sort entries by TODO state, priority, effort, and timestamp."
+  (format "%03d %02d %03d %026.6f"
+          (if (looking-at org-complex-heading-regexp)
+              (let* ((m (match-string 2))
+                     (s (if (member m org-done-keywords) '- '+)))
+                (if m
+                    (- 99 (funcall s (length (member m org-todo-keywords-1))))
+                  0))
+            0)
+          (if (save-excursion (re-search-forward org-priority-regexp (point-at-eol) t))
+              (string-to-char (match-string 2))
+            org-default-priority)
+          (org-duration-string-to-minutes
+           (or (org-entry-get nil org-effort-property)
+               (car (last (org-property-get-allowed-values
+                           (point-min) org-effort-property)))))
+          (let ((end (save-excursion (outline-next-heading) (point))))
+            (if (or (re-search-forward org-ts-regexp end t)
+                    (re-search-forward org-ts-regexp-both end t))
+                (org-time-string-to-seconds (match-string 0))
+              (float-time)))))
+
+(defun now-org-sort (with-case)
+  "Like `org-sort', except use `now-org-sort-entries' directly."
+  (interactive "P")
+  (cond
+   ((org-at-table-p) (org-call-with-arg 'org-table-sort-lines with-case))
+   ((org-at-item-p) (org-call-with-arg 'org-sort-list with-case))
+   (t (org-sort-entries with-case ?f 'now-org-sort-entries)
+      (outline-hide-subtree)
+      (org-show-children))))
+
+(defun now-org-narrow-to-subtree-and-show-todo-tree ()
+  "Narrow buffer to TODO entries in the current subtree."
+  (interactive)
+  (widen)
+  (while (org-up-heading-safe))
+  (org-narrow-to-subtree)
+  (org-show-todo-tree '(4)))
+
+(if (boundp 'narrow-map)
+    (org-defkey narrow-map "T" 'now-org-narrow-to-subtree-and-show-todo-tree)
+  (org-defkey org-mode-map "\C-xnT" 'now-org-narrow-to-subtree-and-show-todo-tree))
 
 (org-clock-persistence-insinuate)
