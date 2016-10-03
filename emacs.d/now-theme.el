@@ -121,6 +121,7 @@
     `(org-done ((,class (:foreground ,white :background "#14892c"))))
     `(org-hold ((,class (:background "grey70"))))
     `(org-hide ((,class (:foreground ,white))))
+    `(org-mode-line-clock ((,class)))
     `(org-next ((,class (:foreground "#403000" :background "#ffd351"))))
     `(org-priority-a ((,class (:weight bold))))
     `(org-priority-b ((,class)))
