@@ -122,6 +122,7 @@
     `(org-hold ((,class (:background "grey70"))))
     `(org-hide ((,class (:foreground ,white))))
     `(org-mode-line-clock ((,class)))
+    `(org-mode-line-clock-overrun ((,class (:inherit warning))))
     `(org-next ((,class (:foreground "#403000" :background "#ffd351"))))
     `(org-priority-a ((,class (:weight bold))))
     `(org-priority-b ((,class)))
