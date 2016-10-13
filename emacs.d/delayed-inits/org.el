@@ -72,14 +72,11 @@
 
 (add-to-list 'org-file-apps '(directory . emacs))
 
-(defun now-org-insert-heading-inactive-timestamp ()
-  "Insert an inactive timestamp under the current headline."
-  (save-excursion
-    (org-return)
-    (org-cycle)
-    (org-insert-time-stamp nil t t nil nil nil)))
+(defun now-org-insert-heading-add-log-note ()
+  "Insert a logbook note under the current headline."
+  (org-add-log-setup 'note nil nil 'findpos 'time))
 
-(add-hook 'org-insert-heading-hook 'now-org-insert-heading-inactive-timestamp)
+(add-hook 'org-insert-heading-hook 'now-org-insert-heading-add-log-note)
 
 (defun now-org-set-delegatee-property ()
   "Set the Delegatee property when a task is marked as DLGT."
