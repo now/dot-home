@@ -99,6 +99,7 @@
     `(magit-log-head-label-remote ((,class (:foreground ,green :background "grey90"))))
     `(magit-log-head-label-tags ((,class (:foreground ,brown :background "grey90"))))
     `(magit-log-sha1 ((,class)))
+    `(magit-section-highlight ((,class (:inherit highlight))))
     `(makefile-space ((,class (:inherit error))))
     `(match ((,class (:inherit isearch))))
     `(minibuffer-prompt ((,class)))
