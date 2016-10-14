@@ -41,6 +41,8 @@ for file in $files; do
     -i $file \
     -codec:a libmp3lame \
     -codec:v libx264 \
+    -preset slow \
+    -crf 22 \
     -f mov \
     -map_metadata 0 \
     "$opts[@]" \
