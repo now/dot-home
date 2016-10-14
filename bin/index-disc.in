@@ -4,7 +4,7 @@
 
 progname=`expr "//$0" : '.*/\(.*\)'`
 sha256sum=@SHA256SUM@
-discs=~/Documents/Google\ Drive/Discs
+discs=~/Documents/Discs
 lockdir=$discs/.discs.lock
 pidfile=$lockdir/pid
 
