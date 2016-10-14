@@ -3,7 +3,7 @@ SAVEHIST=${HISTSIZE::=8192}
 REPORTTIME=300
 
 setopt completeinword nolistambiguous nolisttypes \
-       extendedhistory histnostore \
+       extendedhistory histignorespace histnostore \
        rcexpandparam \
        combiningchars ignoreeof \
        nonotify \
