@@ -10,6 +10,7 @@ CURL = @CURL@
 DIFF = @DIFF@
 DTACH = @DTACH@
 EMACS = @EMACS@
+EMACSCLIENT = @EMACSCLIENT@
 EXIFTOOL = @EXIFTOOL@
 GZIP = @GZIP@
 ICONV = @ICONV@
@@ -527,6 +528,8 @@ $(emptydirs):
 	$(V_GEN)rm -f $@ $@.tmp && \
 	  sed \
 	    -e 's|@DTACH[@]|$(DTACH)|g' \
+	    -e 's|@EMACS[@]|$(EMACS)|g' \
+	    -e 's|@EMACSCLIENT[@]|$(EMACSCLIENT)|g' \
 	    -e 's|@EXIFTOOL[@]|$(EXIFTOOL)|g' \
 	    -e 's|@KEYCHAIN[@]|$(KEYCHAIN)|g' \
 	    -e 's|@SHELL[@]|$(SHELL)|g' \

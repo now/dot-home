@@ -95,4 +95,4 @@ autoload -U zargs hc up
 
 alias h='fc -lfiD'
 
-alias ,b="emacsclient -e '(ido-switch-buffer)' > /dev/null"
+alias ,b="@EMACSCLIENT@ -e '(ido-switch-buffer)' > /dev/null"

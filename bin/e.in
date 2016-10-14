@@ -29,7 +29,7 @@ t=
 test "x$TERM" != xdumb && test "x$TERM" != xeterm-color && t=-t
 set -- $t --alternate-editor "" "$@"
 
-test -t 0 && exec emacsclient "$@"
+test -t 0 && exec @EMACSCLIENT@ "$@"
 
 : ${TMPDIR=/tmp}
 { d=`(umask 077 && mktemp -d "$TMPDIR/eXXXXXX") 2>/dev/null` &&
@@ -39,4 +39,4 @@ test -t 0 && exec emacsclient "$@"
 trap 'rm -rf "$d"' 0
 t=$d/stdin
 cat > "$t" || exit 1
-exec emacsclient "$@" "$t"
+exec @EMACSCLIENT@ "$@" "$t"
