@@ -9,7 +9,7 @@
                                  (let ((midsummer (calendar-dayname-on-or-before
                                                    6 (calendar-absolute-from-gregorian
                                                       (list 6 26 displayed-year)))))
-                                   (filter-visible-calendar-holidays
+                                   (holiday-filter-visible-calendar
                                     (list
                                      (list
                                       (calendar-gregorian-from-absolute (1- midsummer))
