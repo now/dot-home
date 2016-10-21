@@ -13,4 +13,5 @@
 the current headline is not a `now-org-project-p', return NEXT."
   (cond
    ((and (boundp 'org-capture-mode) org-capture-mode))
-   ((and (string= state "TODO") (not (now-org-project-p))) "NEXT")))
+   ((and (string= state "TODO")
+         (not (now-org-has-descendant-p #'now-org-task-p))) "NEXT")))
