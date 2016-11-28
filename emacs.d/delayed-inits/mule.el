@@ -77,6 +77,9 @@ Also includes parts of RFC1345 mnemonics, for example, &a' → á."
  ("&-M" ?\—)
  ("&>=" ?\≥)
  ("&NO" ?\¬)
+ ("&.3" ?\…)
+ ("&'1" ?\′)
+ ("&'2" ?\″)
 ; ... &-> …
  )
 
