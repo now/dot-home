@@ -1,3 +1,5 @@
+(require 'semantic/format)
+
 (c-add-style "now-c-style"
              '("linux"
                (c-hanging-braces-alist . ((brace-entry-open)
@@ -42,5 +44,6 @@
        "[ \t]*\\(//+\\|\\**\\)[ \t]*$\\|[ \t]*\\(//+\\|\\**\\)[ \t]*@[[:alpha:]]+[ \t]\\|^\f")
   (set (make-local-variable 'adaptive-fill-function)
        'now-c-mode-adaptive-fill-function)
-  (c-toggle-auto-newline 1))
+  (c-toggle-auto-newline 1)
+  (setq semantic-function-argument-separator ", "))
 (add-hook 'c-mode-hook 'now-c-mode-hook)
