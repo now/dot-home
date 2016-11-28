@@ -1,5 +1,6 @@
 (setq desktop-base-file-name "emacs.desktop"
-      desktop-dirname (car desktop-path))
+      desktop-dirname (car desktop-path)
+      desktop-restore-eager nil)
 (dolist (variable '(command-history
                     compile-history
                     evil-ex-history
