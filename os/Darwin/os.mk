@@ -6,6 +6,7 @@ appNowmacsappContentsResourcesScriptsdir = $(appNowmacsappContentsResourcesdir)/
 appsupportdir = $(prefix)/Library/Application\ Support
 fontsdir = $(prefix)/Library/Fonts
 userconfaudacitydir = $(appsupportdir)/audacity
+userconfmixxxdir = $(appsupportdir)/Mixxx
 userconfmozillafirefoxdir = $(appsupportdir)/Firefox
 xdgconfighomevlcdir = $(prefix)/Library/Preferences/org.videolan.vlc
 

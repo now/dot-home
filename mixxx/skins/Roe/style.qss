@@ -1,0 +1,261 @@
+/*
+ * Mixxx skin documentation:
+ * http://mixxx.org/wiki/doku.php/creating_skins
+ *
+ * List of controls:
+ * http://mixxx.org/wiki/doku.php/mixxxcontrols
+ *
+ * Qt Style Sheets documentation:
+ * http://doc.qt.io/qt-4.8/stylesheet-examples.html
+ */
+#Mixxx {
+  background-color: #333333;
+  font-family: "Open Sans";
+}
+
+WWidget, QLabel {
+  font-family: "Open Sans";
+  font-size: 8px;
+  text-transform: uppercase;
+}
+
+#DeckOverviewInformation {
+  qproperty-layoutSpacing: 10;
+  margin-right: 10;
+}
+
+#DeckOverviewInformation WCoverArt {
+  qproperty-minimumSize: 77px;
+  qproperty-maximumSize: 77px;
+}
+
+#DeckOverviewInformation WLabel {
+  font-size: 16px/18px;
+  text-transform: none;
+}
+
+#Deck1Overview WLabel {
+  color: #007bcd;
+}
+
+#Deck2Overview WLabel {
+  color: #e67a00;
+}
+
+#DeckTime WLabel, #DeckBpm WLabel {
+  qproperty-alignment: AlignRight;
+}
+
+WSplitter::handle::horizontal {
+  image: none;
+  width: 1px;
+}
+
+WSplitter::handle::vertical {
+  image: none;
+  height: 1px;
+}
+
+QTreeView, QTextBrowser, QTableView, WSearchLineEdit, #LibraryCoverArt {
+  border: none;
+  background-color: #1f1f1f;
+  selection-background-color: #006596;
+}
+
+WSearchLineEdit {
+  padding: 2px;
+  padding-bottom: 4px;
+  selection-color: #d2d2d2;
+}
+
+QTreeView {
+  margin-top: 1px;
+  show-decoration-selected: 1;
+}
+
+QTreeView::branch:has-children:closed {
+  image: url(skin:/style-branch-closed.svg);
+}
+
+QTreeView::branch:has-children:open {
+  image: url(skin:/style-branch-open.svg);
+}
+
+QHeaderView, QHeaderView::section {
+  background: #1a1a1a;
+}
+
+QHeaderView::section {
+  height: 18px;
+  padding: 2px;
+  border: 1px solid #141414;
+  border-width: 0 0 1px 1px;
+}
+
+QHeaderView::section:selected {
+  font-weight: bold;
+}
+
+QHeaderView::down-arrow {
+  image: url(skin:/style-down-arrow.svg)
+}
+
+QHeaderView::up-arrow {
+  image: url(skin:/style-up-arrow.svg)
+}
+
+QTableView {
+  alternate-background-color: #1a1a1a;
+}
+
+/* This is the checkbox in the “Played” column. */
+QTableView::indicator {
+  width: 12px;
+  height: 12px;
+}
+
+QTableView::indicator:unchecked {
+  background: url(skin:/style-indicator-unchecked.svg);
+}
+
+QTableView::indicator:checked {
+  background: url(skin:/style-indicator-checked.svg);
+}
+
+#LibraryPreviewButton {
+  width: 6px;
+  height: 8px;
+  background: transparent;
+  image: url(skin:/style-library-preview-play.svg);
+}
+
+#LibraryPreviewButton:checked {
+  image: url(skin:/style-library-preview-pause.svg);
+}
+
+#LibraryBPMButton::indicator:unchecked {
+  image: url(:/images/library/ic_library_unchecked.png);
+}
+
+#LibraryBPMButton::indicator:checked {
+  image: url(:/images/library/ic_library_checked.png);
+}
+
+QScrollBar {
+  background: #222222;
+  padding: 2px;
+}
+
+QScrollBar:horizontal {
+  border-top: 1px solid #141414;
+  min-width: 12px;
+  height: 15px;
+}
+
+QScrollBar:vertical {
+  border-left: 1px solid #141414;
+  min-height: 12px;
+  width: 15px;
+}
+
+/* The “add-page” and “sub-page” are the gutter of the scrollbar. */
+QScrollBar::add-page, QScrollBar::sub-page {
+  background: none;
+}
+
+/* Turn off buttons. */
+QScrollBar::add-line, QScrollBar::sub-line {
+  width: 0;
+  height: 0;
+}
+
+QScrollBar::handle {
+  background: #5f5f5f;
+  border-radius: 5px;
+}
+
+QScrollBar::handle:horizontal {
+  min-width: 25px;
+}
+
+QScrollBar::handle:vertical {
+  min-height: 25px;
+}
+
+QRadioButton::indicator {
+  margin: 0 5px 0 2px;
+  width: 18px;
+  height: 18px;
+}
+
+QRadioButton::indicator:unchecked {
+  background: url(skin:/style-radio-button-unchecked.svg);
+}
+
+QRadioButton::indicator:checked {
+  background: url(skin:/style-radio-button-checked.svg);
+}
+
+QSpinBox {
+  min-height: 20px;
+  max-height: 20px;
+  min-width: 40px;
+  max-width: 40px;
+}
+
+#Statusbar {
+  padding: 0 4px;
+  qproperty-layoutSpacing: 5;
+  qproperty-layoutAlignment: AlignRight;
+}
+
+#Statusbar WVuMeter {
+  qproperty-sizePolicy: Fixed;
+  qproperty-minimumSize: 50px 5px;
+  qproperty-maximumSize: 50px 5px;
+}
+
+#Statusbar QLabel {
+  font-size: 13px/15px;
+}
+
+WWidget, WLabel, QPushButton, QTableView, QHeaderView, QTextBrowser, QTreeView,
+WLibrary QSpinBox:editable,
+WLibrary QLabel, WLibrary QRadioButton, WSearchLineEdit {
+  color: #d2d2d2;
+}
+
+QPushButton, WSearchLineEdit, QSpinBox {
+  background-color: #4b4b4b;
+}
+
+QPushButton {
+  padding: 4px;
+  border-radius: 2px;
+}
+
+QPushButton:!enabled {
+  color: #808080;
+  background-color: rgba(95, 95, 95, 127);
+}
+
+QPushButton:hover, QScrollBar::handle:hover {
+  background: #b3b3b3;
+}
+
+QPushButton:checked, QPushButton:pressed, WSearchLineEdit:focus,
+QScrollBar::handle:pressed {
+  color: #fdfdfd;
+  background-color: #006596;
+}
+
+QPushButton:checked:hover, QPushButton:pressed:hover,
+QScrollBar::handle:pressed:hover {
+  background-color: #0080be;
+}
+
+QToolTip {
+    background-color: #222222;
+    color: #cccccc;
+    border: 1px solid #cccccc;
+}

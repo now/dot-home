@@ -86,6 +86,10 @@ userconfemacsddelayedinitsdir = $(userconfemacsddir)/delayed-inits
 userconfemacsdetcschemadir = $(userconfemacsddir)/etc/schema
 userconfemacsdinitsdir = $(userconfemacsddir)/inits
 userconfemacsdsitelispdir = $(userconfemacsddir)/site-lisp
+userconfmixxxdir = $(userconfdir)/.mixxx
+userconfmixxxcontrollersdir = $(userconfmixxxdir)/controllers
+userconfmixxxskinsdir = $(userconfmixxxdir)/skins
+userconfmixxxskinsroedir = $(userconfmixxxskinsdir)/Roe
 userconfmozillafirefoxdir = $(userconfdir)/.mozilla/firefox
 userconfmozillafirefoxprofilesdefaultdir = $(userconfmozillafirefoxdir)/Profiles/default
 userconfopenofficeorg3userwordbookdir = $(userconfdir)/.openoffice.org/3/user/wordbook
@@ -140,7 +144,7 @@ INSTALL_SCRIPTS = $(INSTALL_PROGRAMS)
 # dir
 define DIR_dir
 $(1):
-	$$(V_MKDIR_P)$$(MKDIR_P) $$@
+	$$(V_MKDIR_P)$$(MKDIR_P) $$(call shell_quote,$$@)
 
 endef
 
@@ -332,6 +336,9 @@ userconfemacsddelayedinits_DATA = \
 userconfemacsdetcschema_DATA = \
 	emacs.d/etc/schema/catalog.rnc \
 	emacs.d/etc/schema/gtk-builder.rnc \
+	emacs.d/etc/schema/mixxx-midi-controller-preset.rnc \
+	emacs.d/etc/schema/mixxx-skin.rnc \
+	emacs.d/etc/schema/mixxx-template.rnc \
 	emacs.d/etc/schema/PropertyList-1.0.rnc \
 	emacs.d/etc/schema/schemas.xml
 
@@ -360,6 +367,30 @@ userconfemacsdsitelisp_DATA = \
 	$(sitelisp_elcs) \
 	$(sitelisp_elcs:%.elc=%.el.gz) \
 	emacs.d/site-lisp/userloaddefs.el
+
+userconfmixxx_DATA = \
+	mixxx/mixxx.cfg
+
+userconfmixxxcontrollers_DATA = \
+	mixxx/controllers/XONEK2.midi.js \
+	mixxx/controllers/XONEK2.midi.xml
+
+userconfmixxxskinsroe_DATA = \
+	mixxx/skins/Roe/deck-overview.xml \
+	mixxx/skins/Roe/deck-visual.xml \
+	mixxx/skins/Roe/skin.xml \
+	mixxx/skins/Roe/style-branch-closed.svg \
+	mixxx/skins/Roe/style-branch-open.svg \
+	mixxx/skins/Roe/style-down-arrow.svg \
+	mixxx/skins/Roe/style-indicator-checked.svg \
+	mixxx/skins/Roe/style-indicator-unchecked.svg \
+	mixxx/skins/Roe/style-library-preview-pause.svg \
+	mixxx/skins/Roe/style-library-preview-play.svg \
+	mixxx/skins/Roe/style-radio-button-checked.svg \
+	mixxx/skins/Roe/style-radio-button-unchecked.svg \
+	mixxx/skins/Roe/style-up-arrow.svg \
+	mixxx/skins/Roe/style.qss \
+	mixxx/skins/Roe/vumeter-latency.svg
 
 userconfmozillafirefox_DATA = \
 	firefox/profiles.ini
@@ -505,6 +536,9 @@ $(call DIR,userconfemacsddelayedinits)
 $(call DIR,userconfemacsdetcschema)
 $(call DIR,userconfemacsdinits)
 $(call DIR,userconfemacsdsitelisp)
+$(call DIR,userconfmixxx)
+$(call DIR,userconfmixxxcontrollers)
+$(call DIR,userconfmixxxskinsroe)
 $(call DIR,userconfmozillafirefox)
 $(call DIR,userconfmozillafirefoxprofilesdefault)
 $(call DIR,userconfopenofficeorg3userwordbook)

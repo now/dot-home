@@ -1,0 +1,61 @@
+<!DOCTYPE template>
+<Template>
+  <Visual>
+    <Group>[Channel<Variable name="Deck"/>]</Group>
+    <!-- TODO Adjust x policy. -->
+    <SizePolicy>me,me</SizePolicy>
+    <Size>0,101</Size>
+    <TooltipId>waveform_display</TooltipId>
+    <BgColor>#333333</BgColor>
+    <!-- TODO Probably remove these -->
+    <SignalRGBLowColor>dodgerblue</SignalRGBLowColor>
+    <SignalRGBMidColor>limegreen</SignalRGBMidColor>
+    <SignalRGBHighColor>#ff0000</SignalRGBHighColor>
+    <SignalColor><Variable name="DeckSignalColor"/></SignalColor>
+    <!-- TODO This might be too agressive, but works quite well; was gray -->
+    <BeatColor><Variable name="DeckSignalColor"/></BeatColor>
+    <PlayPosColor><Variable name="PlayPosColor"/></PlayPosColor>
+    <EndOfTrackColor><Variable name="PlayPosColor"/></EndOfTrackColor>
+    <DefaultMark>
+      <Align>top</Align>
+      <Color><Variable name="DefaultMarkColor"/></Color>
+      <TextColor><Variable name="DefaultMarkTextColor"/></TextColor>
+      <Text> %1</Text>
+    </DefaultMark>
+    <Mark>
+      <Control>cue_point</Control>
+      <Align>bottom</Align>
+      <Text>▲</Text>
+      <Color><Variable name="DefaultMarkColor"/></Color>
+      <TextColor><Variable name="DefaultMarkTextColor"/></TextColor>
+    </Mark>
+    <Mark>
+      <Control>loop_start_position</Control>
+      <Align>bottom</Align>
+      <Color><Variable name="LoopMarkColor"/></Color>
+      <TextColor><Variable name="LoopMarkTextColor"/></TextColor>
+      <Text>▶</Text>
+    </Mark>
+    <Mark>
+      <Control>loop_end_position</Control>
+      <Align>bottom</Align>
+      <Color><Variable name="LoopMarkColor"/></Color>
+      <TextColor><Variable name="LoopMarkTextColor"/></TextColor>
+      <Text>◀</Text>
+    </Mark>
+    <MarkRange>
+      <StartControl>loop_start_position</StartControl>
+      <EndControl>loop_end_position</EndControl>
+      <EnabledControl>loop_enabled</EnabledControl>
+      <Color><Variable name="LoopMarkColor"/></Color>
+      <DisabledColor><Variable name="LoopMarkTextColor"/></DisabledColor>
+    </MarkRange>
+    <Connection>
+      <ConfigKey>[Master],maximize_library</ConfigKey>
+      <BindProperty>visible</BindProperty>
+      <Transform>
+        <Not/>
+      </Transform>
+    </Connection>
+  </Visual>
+</Template>

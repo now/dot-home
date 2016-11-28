@@ -1,0 +1,129 @@
+<!DOCTYPE template>
+<!-- TODO Still need to output the currently selected beatjump length.  Use a
+     WidgetStack to keep track of currently selected length, adding a
+     NextControl and PrevControl to select them, and a currentpage attribute to
+     read the selected value. -->
+<Template>
+  <WidgetGroup>
+    <ObjectName>Deck<Variable name="Deck"/>Overview</ObjectName>
+    <Layout>horizontal</Layout>
+    <SizePolicy>,f</SizePolicy>
+    <Children>
+      <WidgetGroup>
+        <ObjectName>DeckOverviewInformation</ObjectName>
+        <Layout>horizontal</Layout>
+        <Children>
+          <CoverArt>
+            <TooltipId>coverart</TooltipId>
+            <Group>[Channel<Variable name="Deck"/>]</Group>
+          </CoverArt>
+          <WidgetGroup>
+            <Layout>vertical</Layout>
+            <Children>
+              <TrackProperty>
+                <Group>[Channel<Variable name="Deck"/>]</Group>
+                <TooltipId>track_title</TooltipId>
+                <SizePolicy>me,</SizePolicy>
+                <Property>title</Property>
+                <Elide>right</Elide>
+              </TrackProperty>
+              <TrackProperty>
+                <Group>[Channel<Variable name="Deck"/>]</Group>
+                <TooltipId>track_artist</TooltipId>
+                <SizePolicy>me,</SizePolicy>
+                <Property>artist</Property>
+                <Elide>right</Elide>
+              </TrackProperty>
+              <TrackProperty>
+                <Group>[Channel<Variable name="Deck"/>]</Group>
+                <TooltipId>track_album</TooltipId>
+                <SizePolicy>me,</SizePolicy>
+                <Property>album</Property>
+                <Elide>right</Elide>
+              </TrackProperty>
+            </Children>
+          </WidgetGroup>
+          <WidgetGroup>
+            <ObjectName>DeckTime</ObjectName>
+            <Layout>vertical</Layout>
+            <SizePolicy>f,</SizePolicy>
+            <Children>
+              <Label/>
+              <Label/>
+              <NumberPos>
+                <Group>[Channel<Variable name="Deck"/>]</Group>
+                <TooltipId>track_time</TooltipId>
+              </NumberPos>
+            </Children>
+          </WidgetGroup>
+          <WidgetGroup>
+            <ObjectName>DeckBpm</ObjectName>
+            <Layout>vertical</Layout>
+            <SizePolicy>f,</SizePolicy>
+            <Children>
+              <Number>
+                <Group>[Channel<Variable name="Deck"/>]</Group>
+                <TooltipId>visual_bpm</TooltipId>
+                <Connection>
+                  <ConfigKey>[Channel<Variable name="Deck"/>],visual_bpm</ConfigKey>
+                </Connection>
+              </Number>
+              <NumberRate>
+                <Group>[Channel<Variable name="Deck"/>]</Group>
+                <TooltipId>rate_display</TooltipId>
+                <SizePolicy>me,</SizePolicy>
+              </NumberRate>
+              <Key>
+                <Group><Variable name="group"/></Group>
+                <TooltipId>visual_key</TooltipId>
+                <!-- TODO Probably set to false. -->
+                <DisplayCents>true</DisplayCents>
+                <Connection>
+                  <ConfigKey>[Channel<Variable name="Deck"/>],visual_key</ConfigKey>
+                </Connection>
+              </Key>
+            </Children>
+          </WidgetGroup>
+        </Children>
+      </WidgetGroup>
+      <Overview>
+        <Group>[Channel<Variable name="Deck"/>]</Group>
+        <TooltipId>waveform_overview</TooltipId>
+        <SizePolicy>me,me</SizePolicy>
+        <SignalColor><Variable name="DeckSignalColor"/></SignalColor>
+        <PlayPosColor><Variable name="PlayPosColor"/></PlayPosColor>
+        <DefaultMark>
+          <Align>top</Align>
+          <Color><Variable name="DefaultMarkColor"/></Color>
+          <TextColor><Variable name="OverviewDefaultMarkTextColor"/></TextColor>
+          <Text> %1</Text>
+        </DefaultMark>
+        <Mark>
+          <Control>cue_point</Control>
+          <Align>bottom</Align>
+          <Color><Variable name="DefaultMarkColor"/></Color>
+          <TextColor><Variable name="OverviewDefaultMarkTextColor"/></TextColor>
+          <Text>▲</Text>
+        </Mark>
+        <MarkRange>
+          <StartControl>loop_start_position</StartControl>
+          <EndControl>loop_end_position</EndControl>
+          <EnabledControl>loop_enabled</EnabledControl>
+          <Color><Variable name="LoopMarkColor"/></Color>
+          <DisabledColor><Variable name="LoopMarkTextColor"/></DisabledColor>
+        </MarkRange>
+        <Connection>
+          <ConfigKey>[Channel<Variable name="Deck"/>],playposition</ConfigKey>
+          <EmitOnDownPress>false</EmitOnDownPress>
+        </Connection>
+      </Overview>
+    </Children>
+    <Connection>
+      <ConfigKey>[Master],maximize_library</ConfigKey>
+      <BindProperty>visible</BindProperty>
+      <Transform>
+        <Not/>
+      </Transform>
+    </Connection>
+  </WidgetGroup>
+</Template>

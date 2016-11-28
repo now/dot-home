@@ -1,0 +1,111 @@
+<!DOCTYPE skin>
+<skin>
+  <manifest>
+    <title>Roe</title>
+    <author>Nikolai Weibull</author>
+    <version>1.0.0</version>
+    <description>An inflexible skin</description>
+    <language>en</language>
+    <license>Creative Commons Attribution, Share-Alike 3.0 Unported</license>
+    <attributes>
+      <attribute config_key="[Master],num_decks">2</attribute>
+      <attribute config_key="[Master],num_effectunits">0</attribute>
+      <attribute config_key="[Master],num_previewdecks">0</attribute>
+      <attribute config_key="[Master],num_samplers">0</attribute>
+    </attributes>
+  </manifest>
+  <ObjectName>Mixxx</ObjectName>
+  <Style src="skin:style.qss"/>
+  <SizePolicy>me,me</SizePolicy>
+  <MinimumSize>1024,700</MinimumSize>
+  <Layout>horizontal</Layout>
+  <Children>
+    <SetVariable name="PlayPosColor">#ff3700</SetVariable>
+    <SetVariable name="DefaultMarkColor">white</SetVariable>
+    <SetVariable name="DefaultMarkTextColor">#1f1f1f</SetVariable>
+    <SetVariable name="LoopMarkColor">lime</SetVariable>
+    <SetVariable name="LoopMarkTextColor">white</SetVariable>
+    <SetVariable name="OverviewDefaultMarkTextColor">white</SetVariable>
+    <SetVariable name="Deck1SignalColor">#007bcd</SetVariable>
+    <SetVariable name="Deck2SignalColor">#e67a00</SetVariable>
+    <WidgetGroup>
+      <SizePolicy>me,me</SizePolicy>
+      <Layout>vertical</Layout>
+      <Children>
+        <Template src="skin:deck-overview.xml">
+          <SetVariable name="Deck">1</SetVariable>
+          <SetVariable name="DeckSignalColor"><Variable name="Deck1SignalColor"/></SetVariable>
+        </Template>
+        <Template src="skin:deck-overview.xml">
+          <SetVariable name="Deck">2</SetVariable>
+          <SetVariable name="DeckSignalColor"><Variable name="Deck2SignalColor"/></SetVariable>
+        </Template>
+        <Template src="skin:deck-visual.xml">
+          <SetVariable name="Deck">1</SetVariable>
+          <SetVariable name="DeckSignalColor"><Variable name="Deck1SignalColor"/></SetVariable>
+        </Template>
+        <Template src="skin:deck-visual.xml">
+          <SetVariable name="Deck">2</SetVariable>
+          <SetVariable name="DeckSignalColor"><Variable name="Deck2SignalColor"/></SetVariable>
+        </Template>
+        <Splitter>
+          <Orientation>horizontal</Orientation>
+          <SizePolicy>me,me</SizePolicy>
+          <SplitSizesConfigKey>[Roe],LibrarySidebarSplitSize</SplitSizesConfigKey>
+          <SplitSizes>1,4</SplitSizes>
+          <Children>
+            <WidgetGroup>
+              <Layout>vertical</Layout>
+              <Children>
+                <SearchBox/>
+                <Splitter>
+                  <Orientation>vertical</Orientation>
+                  <SplitSizesConfigKey>[Roe],LibraryCoverartSplitSize</SplitSizesConfigKey>
+                  <SplitSizes>4,1</SplitSizes>
+                  <Children>
+                    <LibrarySidebar/>
+                    <CoverArt>
+                      <ObjectName>LibraryCoverArt</ObjectName>
+                      <TooltipId>coverart</TooltipId>
+                      <Connection>
+                        <ConfigKey persist="true">[Library],show_coverart</ConfigKey>
+                        <BindProperty>visible</BindProperty>
+                      </Connection>
+                    </CoverArt>
+                  </Children>
+                </Splitter>
+              </Children>
+            </WidgetGroup>
+            <Library/>
+          </Children>
+          <Connection>
+            <ConfigKey>[Master],maximize_library</ConfigKey>
+            <BindProperty>visible</BindProperty>
+          </Connection>
+        </Splitter>
+        <WidgetGroup>
+          <ObjectName>Statusbar</ObjectName>
+          <Layout>horizontal</Layout>
+          <Children>
+            <VuMeter>
+              <TooltipId>audio_latency_usage</TooltipId>
+              <Horizontal>true</Horizontal>
+              <PathVu>vumeter-latency.svg</PathVu>
+              <PeakHoldSize>5</PeakHoldSize>
+              <PeakFallStep>1</PeakFallStep>
+              <PeakHoldTime>1000</PeakHoldTime>
+              <PeakFallTime>100</PeakFallTime>
+              <Connection>
+                <ConfigKey>[Master],audio_latency_usage</ConfigKey>
+              </Connection>
+            </VuMeter>
+            <Time>
+              <TooltipId>time</TooltipId>
+              <CustomFormat>HH:mm</CustomFormat>
+            </Time>
+          </Children>
+        </WidgetGroup>
+      </Children>
+    </WidgetGroup>
+  </Children>
+</skin>

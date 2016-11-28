@@ -1,0 +1,76 @@
+start = element MixxxControllerPreset {
+  attribute mixxxVersion { text } &
+  attribute schemaVersion { '1' } &
+  element info {
+    element name { text }? &
+    element author { text }? &
+    element description { text }? &
+    element forums { xsd:anyURI }? &
+    element wiki { xsd:anyURI }?
+  }? &
+  element controller {
+    attribute id { text }? &
+    element scriptfiles {
+      element file {
+        ## TODO Limit this to valid JavaScript names.
+        attribute functionprefix { text }? &
+        attribute filename { text }?
+      }*
+    }? &
+    element controls {
+      element control {
+        ## TODO Limit to hex, decimal, and octal.  Default 0.
+        element status { text }? &
+        ## TODO Limit to hex, decimal, and octal.  Default 0.
+        element midino { text }? &
+        ## TODO Limit to valid groups.
+        element group { text }? &
+        element key { text }? &
+        element description { text }? &
+        element options {
+          ## TODO These elements are actually case-insensitively
+          ## checked for.  We use the camel-cased versions here, as
+          ## that’s what Mixxx writes.
+          (element invert { empty } |
+           element rot64 { empty } |
+           element rot64inv { empty } |
+           element rot64fast { empty } |
+           element diff { empty } |
+           ## TODO This is deprecated.
+           element button { empty } |
+           element switch { empty } |
+           ## TODO This is deprecated.
+           element hercjog { empty } |
+           element hercjogfast { empty } |
+           element normal { empty } |
+           element spread64 { empty } |
+           element selectknob { empty } |
+           element soft-takeover { empty } |
+           element script-binding { empty } |
+           element fourteen-bit-msb { empty } |
+           element fourteen-bit-lsb { empty })*
+        }?
+      }*
+    }? &
+    element outputs {
+      element output {
+        ## TODO Limit to valid groups.
+        element group { text }? &
+        element key { text }? &
+        element description { text }? &
+        ## TODO Limit to hex, decimal, and octal.  Default 0.
+        element status { text }? &
+        ## TODO Limit to hex, decimal, and octal.  Default 0.
+        element midino { text }? &
+        ## TODO Limit to hex, decimal, and octal.  Default 0x7f.
+        element on { text }? &
+        ## TODO Limit to hex, decimal, and octal.  Default 0.
+        element off { text }? &
+        ## TODO Default 0.0.
+        element minimum { xsd:double }? &
+        ## TODO Default 1.0.
+        element maximum { xsd:double }?
+      }*
+    }?
+  }
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="50" height="5" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="vumeter">
+      <stop offset="0%" stop-color="lime"/>
+      <stop offset="33%" stop-color="lime"/>
+      <stop offset="33%" stop-color="yellow"/>
+      <stop offset="66%" stop-color="yellow"/>
+      <stop offset="66%" stop-color="red"/>
+      <stop offset="100%" stop-color="red"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="50" height="5" style="fill:url(#vumeter)"/>
+</svg>

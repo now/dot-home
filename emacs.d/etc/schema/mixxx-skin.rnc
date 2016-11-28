@@ -1,0 +1,108 @@
+include 'mixxx-template.rnc' {
+  start = skin
+}
+
+## TODO Support old-style skins?  This is determined based on the
+## presence of a Layout element.
+skin = element skin {
+  manifest? &
+  Schemes? &
+  WidgetGroup.content
+}
+
+manifest = element manifest {
+  title? &
+  author? &
+  version? &
+  language? &
+  description? &
+  license? &
+  attributes?
+}
+
+title = element title { text }
+
+author = element author { text }
+
+version = element version { text }
+
+language = element language { text }
+
+description = element description { text }
+
+license = element license { text }
+
+attributes = element attributes { \attribute* }
+
+\attribute = element attribute {
+  attribute config_key { xsd:string { pattern = '\[[^\]]+\],.+' } } &
+  attribute persist { text }? &
+  text
+}
+
+Schemes = element Schemes { Scheme* }
+
+Scheme = element Scheme {
+  ## This isn’t actually verified, but it seems reasonable.
+  Name?,
+  Filters?
+}
+
+Name = element Name { text }
+
+Filters = element Filters {
+  (invert |
+   hueinv |
+   add |
+   scalewhite |
+   hsvtweak)*
+}
+
+invert = element invert { empty }
+
+hueinv = element hueinv { empty }
+
+add = element add { Amount? }
+
+Amount = element Amount { xsd:integer }
+
+scalewhite = element scalewhite { Amount? }
+
+hsvtweak = element hsvtweak {
+  HMin? &
+  HMax? &
+  SMin? &
+  SMax? &
+  VMin? &
+  VMax? &
+  HConst? &
+  SConst? &
+  VConst? &
+  HFact? &
+  SFact? &
+  VFact?
+}
+
+HMin = element HMin { xsd:integer }
+
+HMax = element HMax { xsd:integer }
+
+SMin = element SMin { xsd:integer }
+
+SMax = element SMax { xsd:integer }
+
+VMin = element VMin { xsd:integer }
+
+VMax = element VMax { xsd:integer }
+
+HConst = element HConst { xsd:integer }
+
+SConst = element SConst { xsd:integer }
+
+VConst = element VConst { xsd:integer }
+
+HFact = element HFact { xsd:float}
+
+SFact = element SFact { xsd:float }
+
+VFact = element VFact { xsd:float }

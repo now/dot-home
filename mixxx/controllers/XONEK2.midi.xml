@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE MixxxControllerPreset [
+<!ENTITY midiChannel "0">
+<!ENTITY on "0x9&midiChannel;">
+<!ENTITY off "0x8&midiChannel;">
+<!ENTITY cc "0xb&midiChannel;">
+<!ENTITY c0 "0x0c">
+<!ENTITY C0 "0x0d">
+<!ENTITY d0 "0x0e">
+<!ENTITY D0 "0x0f">
+<!ENTITY b0 "0x17">
+<!ENTITY c1 "0x18">
+<!ENTITY C1 "0x19">
+<!ENTITY e1 "0x1c">
+<!ENTITY f1 "0x1d">
+<!ENTITY G1 "0x20">
+<!ENTITY a1 "0x21">
+<!ENTITY c2 "0x24">
+<!ENTITY C2 "0x25">
+<!ENTITY e2 "0x28">
+<!ENTITY G2 "0x2c">
+<!ENTITY a2 "0x2d">
+<!ENTITY C3 "0x31">
+<!ENTITY e3 "0x34">
+<!ENTITY f3 "0x35">
+<!ENTITY c4 "0x3c">
+<!ENTITY e5 "0x4c">
+<!ENTITY C6 "0x55">
+<!ENTITY C7 "0x61">
+<!ENTITY G7 "0x68">
+<!ENTITY a7 "0x69">
+<!ENTITY c8 "0x6c">
+<!ENTITY C8 "0x6d">
+<!ENTITY G8 "0x74">
+<!ENTITY cc0 "0x00">
+<!ENTITY cc1 "0x01">
+<!ENTITY cc4 "0x04">
+<!ENTITY cc5 "0x05">
+<!ENTITY cc8 "0x08">
+<!ENTITY cc12 "0x0c">
+<!ENTITY cc16 "0x10">
+<!ENTITY cc20 "0x14">
+<!ENTITY cc21 "0x15">
+]>
+<MixxxControllerPreset mixxxVersion="" schemaVersion="1">
+  <info/>
+  <controller id="XONE:K2">
+    <scriptfiles>
+      <file functionprefix="XoneK2" filename="XONEK2.midi.js"/>
+    </scriptfiles>
+    <controls>
+      <control>
+        <midino>&c0;</midino>
+        <status>&on;</status>
+        <group>[Master]</group>
+        <key>XoneK2.shiftOn</key>
+        <options>
+          <script-binding/>
+        </options>
+      </control>
+      <control>
+        <midino>&c0;</midino>
+        <status>&off;</status>
+        <group>[Master]</group>
+        <key>XoneK2.shiftOff</key>
+        <options>
+          <script-binding/>
+        </options>
+      </control>
+      <control>
+        <midino>&C0;</midino>
+        <status>&on;</status>
+        <group>[Playlist]</group>
+        <key>XoneK2.toggleSelectedSidebarItem</key>
+        <options>
+          <script-binding/>
+        </options>
+      </control>
+      <control>
+        <midino>&cc20;</midino>
+        <status>&cc;</status>
+        <group>[Playlist]</group>
+        <key>XoneK2.selectPlaylist</key>
+        <options>
+          <script-binding/>
+        </options>
+      </control>
+      <control>
+        <midino>&d0;</midino>
+        <status>&on;</status>
+        <group>[Master]</group>
+        <key>maximize_library</key>
+      </control>
+      <control>
+        <midino>&cc21;</midino>
+        <status>&cc;</status>
+        <group>[Playlist]</group>
+        <key>XoneK2.selectTrackKnob</key>
+        <options>
+          <script-binding/>
+        </options>
+      </control>
+      <control>
+        <midino>&D0;</midino>
+        <status>&on;</status>
+        <group>[Playlist]</group>
+        <key>XoneK2.loadSelectedIntoFirstStopped</key>
+        <options>
+          <script-binding/>
+        </options>
+      </control>
+      <control>
+        <midino>&c1;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>cue_play</key>
+      </control>
+      <control>
+        <midino>&c1;</midino>
+        <status>&off;</status>
+        <group>[Channel1]</group>
+        <key>cue_play</key>
+      </control>
+      <control>
+        <midino>&C1;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>play</key>
+      </control>
+      <control>
+        <midino>&e1;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>slip_enabled</key>
+      </control>
+      <control>
+        <midino>&f1;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>XoneK2.reverseToggle</key>
+        <options>
+          <script-binding/>
+        </options>
+      </control>
+      <control>
+        <midino>&G1;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>XoneK2.hotcue3ActivateOrClear</key>
+        <options>
+          <script-binding/>
+        </options>
+      </control>
+      <control>
+        <midino>&a1;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>XoneK2.hotcue4ActivateOrClear</key>
+        <options>
+          <script-binding/>
+        </options>
+      </control>
+      <control>
+        <midino>&c2;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>XoneK2.hotcue1ActivateOrClear</key>
+        <options>
+          <script-binding/>
+        </options>
+      </control>
+      <control>
+        <midino>&C2;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>XoneK2.hotcue2ActivateOrClear</key>
+        <options>
+          <script-binding/>
+        </options>
+      </control>
+      <control>
+        <midino>&cc16;</midino>
+        <status>&cc;</status>
+        <group>[Channel1]</group>
+        <key>rate</key>
+        <options>
+          <soft-takeover/>
+        </options>
+      </control>
+      <control>
+        <midino>&e2;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>keylock</key>
+      </control>
+      <control>
+        <midino>&cc12;</midino>
+        <status>&cc;</status>
+        <group>[Channel1]</group>
+        <key>pitch_adjust</key>
+        <options>
+          <soft-takeover/>
+        </options>
+      </control>
+      <control>
+        <midino>&G2;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>XoneK2.beatloopToggle</key>
+        <options>
+          <script-binding/>
+        </options>
+      </control>
+      <control>
+        <midino>&a2;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>quantize</key>
+      </control>
+      <control>
+        <midino>&cc8;</midino>
+        <status>&cc;</status>
+        <group>[Channel1]</group>
+        <key>XoneK2.beatloopSize</key>
+        <options>
+          <script-binding/>
+        </options>
+      </control>
+      <control>
+        <midino>&C3;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>bpm_tap</key>
+      </control>
+      <control>
+        <midino>&C3;</midino>
+        <status>&off;</status>
+        <group>[Channel1]</group>
+        <key>bpm_tap</key>
+      </control>
+      <control>
+        <midino>&cc4;</midino>
+        <status>&cc;</status>
+        <group>[Channel1]</group>
+        <key>playposition</key>
+        <options>
+          <!-- TODO Not sure about this. -->
+          <soft-takeover/>
+        </options>
+      </control>
+      <control>
+        <midino>&cc5;</midino>
+        <status>&cc;</status>
+        <group>[Channel1]</group>
+        <key>waveform_zoom</key>
+        <options>
+          <invert/>
+        </options>
+      </control>
+      <control>
+        <midino>&e3;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>XoneK2.scratchEnable</key>
+        <options>
+          <script-binding/>
+        </options>
+      </control>
+      <control>
+        <midino>&e3;</midino>
+        <status>&off;</status>
+        <group>[Channel1]</group>
+        <key>XoneK2.scratchDisable</key>
+        <options>
+          <script-binding/>
+        </options>
+      </control>
+      <control>
+        <midino>&cc0;</midino>
+        <status>&cc;</status>
+        <group>[Channel1]</group>
+        <key>XoneK2.jogOrScratch</key>
+        <options>
+          <script-binding/>
+        </options>
+      </control>
+      <control>
+        <midino>&f3;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>beats_translate_curpos</key>
+      </control>
+      <control>
+        <midino>&f3;</midino>
+        <status>&off;</status>
+        <group>[Channel1]</group>
+        <key>beats_translate_curpos</key>
+      </control>
+      <control>
+        <midino>&cc1;</midino>
+        <status>&cc;</status>
+        <group>[Channel1]</group>
+        <key>XoneK2.beatsAdjust</key>
+        <options>
+          <script-binding/>
+        </options>
+      </control>
+    </controls>
+    <outputs>
+      <output>
+        <midino>&b0;</midino>
+        <status>&on;</status>
+        <group>[Playlist]</group>
+        <key>LoadSelectedIntoFirstStopped</key>
+        <minimum>1</minimum>
+      </output>
+      <output>
+        <midino>&c4;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>cue_indicator</key>
+        <minimum>1</minimum>
+      </output>
+      <output>
+        <midino>&C7;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>play_indicator</key>
+        <minimum>1</minimum>
+      </output>
+      <output>
+        <midino>&e1;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>slip_enabled</key>
+        <minimum>1</minimum>
+      </output>
+      <output>
+        <midino>&f1;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>reverse</key>
+        <minimum>1</minimum>
+      </output>
+      <output>
+        <midino>&G7;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>hotcue_3_enabled</key>
+        <minimum>1</minimum>
+      </output>
+      <output>
+        <midino>&a7;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>hotcue_4_enabled</key>
+        <minimum>1</minimum>
+      </output>
+      <output>
+        <midino>&c8;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>hotcue_1_enabled</key>
+        <minimum>1</minimum>
+      </output>
+      <output>
+        <midino>&C8;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>hotcue_2_enabled</key>
+        <minimum>1</minimum>
+      </output>
+      <output>
+        <midino>&e5;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>keylock</key>
+        <minimum>1</minimum>
+      </output>
+      <output>
+        <midino>&G8;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>loop_enabled</key>
+        <minimum>1</minimum>
+      </output>
+      <output>
+        <midino>&a2;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>quantize</key>
+        <minimum>1</minimum>
+      </output>
+      <output>
+        <midino>&C6;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>bpm_tap</key>
+        <minimum>1</minimum>
+      </output>
+      <output>
+        <midino>&e3;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>scratch2_enable</key>
+        <minimum>1</minimum>
+      </output>
+      <output>
+        <midino>&f3;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>beats_translate_curpos</key>
+        <minimum>1</minimum>
+      </output>
+    </outputs>
+  </controller>
+</MixxxControllerPreset>

@@ -1,0 +1,683 @@
+boolean.type = 'true' | 'false' | 'yes' | 'no'
+## TODO This is only true if the text matches true, case
+## insensitively, anywhere in its value.
+weirdbool.type = 'true' | 'false'
+## TODO This must be set to true, case insensitively, anywhere in its
+## value.
+weirderbool.type = 'true'
+## TODO This should be limited to RGB strings ('#hhhhhh'), SVG 1.0
+## color names.
+color.type = (text | Variable)*
+string.type = (text | Variable)*
+control.type = (text | Variable)*
+svg.type = svg | (text | Variable)*
+
+Variable = element Variable { attribute name { text } }
+
+## TODO Allow inline svg here.
+svg = element svg { empty }
+
+Widget.base =
+  Tooltip? &
+  TooltipId?
+
+Tooltip = element Tooltip { text }
+
+TooltipId = element TooltipId {
+  'waveform_overview' |
+  'waveform_display' |
+  'waveform_zoom_up' |
+  'waveform_zoom_down' |
+  'waveform_zoom_set_default' |
+  'spinny' |
+  'pregain' |
+  'channel_PeakIndicator' |
+  'channel_PeakIndicatorL' |
+  'channel_PeakIndicatorR' |
+  'master_PeakIndicator' |
+  'master_PeakIndicatorL' |
+  'master_PeakIndicatorR' |
+  'channel_VuMeter' |
+  'channel_VuMeterL' |
+  'channel_VuMeterR' |
+  'microphone_VuMeter' |
+  'microphone_PeakIndicator' |
+  'sampler_VuMeter' |
+  'sampler_PeakIndicator' |
+  'preview_VuMeter' |
+  'preview_PeakIndicator' |
+  'master_VuMeterL' |
+  'master_VuMeterR' |
+  'channel_volume' |
+  'master_volume' |
+  'master_gain' |
+  'crossfader' |
+  'balance' |
+  'headphone_volume' |
+  'headphone_gain' |
+  'headMix' |
+  'headSplit' |
+  'orientation' |
+  'show_microphone' |
+  'show_samplers' |
+  'show_vinylcontrol' |
+  'show_previewdeck' |
+  'show_coverart' |
+  'toggle_4decks' |
+  'show_library' |
+  'show_effects' |
+  'maximize_library' |
+  'show_mixer' |
+  'microphone_volume' |
+  'microphone_pregain' |
+  'microphone_talkover' |
+  'rate_perm_up_rate_perm_up_small' |
+  'rate_perm_down_rate_perm_down_small' |
+  'rate_temp_up_rate_temp_up_small' |
+  'rate_temp_down_rate_temp_down_small' |
+  'filterLow' |
+  'filterMid' |
+  'filterHigh' |
+  'filterHighKill' |
+  'filterMidKill' |
+  'filterLowKill' |
+  'visual_bpm' |
+  'visual_key' |
+  'bpm_tap' |
+  'beats_adjust_slower' |
+  'beats_adjust_faster' |
+  'beats_translate_earlier' |
+  'beats_translate_later' |
+  'beats_translate_curpos' |
+  'beats_translate_match_alignment' |
+  'bpm_tap_visual_bpm' |
+  'show_spinny' |
+  'keylock' |
+  'quantize' |
+  'reverse' |
+  'play_start' |
+  'play_cue_set' |
+  'cue_default_cue_gotoandstop' |
+  'pfl' |
+  'mute' |
+  'back_start' |
+  'fwd_end' |
+  'beatsync_beatsync_tempo' |
+  'sync_enabled' |
+  'sync_reset_key' |
+  'sync_master' |
+  'rate' |
+  'pitch' |
+  'pitch_up' |
+  'pitch_down' |
+  'pitch_adjust' |
+  'rate_display' |
+  'repeat' |
+  'eject' |
+  'hotcue' |
+  'toggle_recording' |
+  'shoutcast_enabled' |
+  'broadcast_enabled' |
+  'passthrough_enabled' |
+  'vinylcontrol_enabled' |
+  'vinylcontrol_status' |
+  'vinylcontrol_mode' |
+  'vinylcontrol_cueing' |
+  'loop_in' |
+  'loop_out' |
+  'loop_halve' |
+  'loop_double' |
+  'beatloop' |
+  'beatjump' |
+  'loop_move' |
+  'loop_exit' |
+  'reloop_exit' |
+  'slip_mode' |
+  'track_time' |
+  'track_duration' |
+  'track_artist' |
+  'track_title' |
+  'track_album' |
+  'track_key' |
+  'text' |
+  'time' |
+  'audio_latency_usage' |
+  'audio_latency_overload' |
+  'coverart' |
+  'starrating' |
+  'EffectUnit_clear' |
+  'EffectUnit_enabled' |
+  'EffectUnit_mix' |
+  'EffectUnit_super1' |
+  'EffectUnit_insertion_type' |
+  'EffectUnit_next_chain' |
+  'EffectUnit_prev_chain' |
+  'EffectUnit_chain_selector' |
+  'EffectUnit_group_enabled' |
+  'EffectSlot_clear' |
+  'EffectSlot_enabled' |
+  'EffectSlot_next_effect' |
+  'EffectSlot_prev_effect' |
+  'EffectSlot_effect_selector' |
+  'EffectSlot_parameter' |
+  'EffectSlot_parameter_link_type' |
+  'EffectSlot_button_parameter' |
+  'QuickEffectRack_super1' |
+  'QuickEffectRack_enabled' |
+  'EqualizerRack_effect_parameter' |
+  'EqualizerRack_effect_button_parameter'
+}
+
+Widget.w =
+  Widget.wWithoutPosition &
+  Pos?
+
+Pos = element Pos { xsd:string { pattern = '[0-9]+,[0-9]' } }
+
+## NOTE We’re skipping LegacyTableViewStyle.
+Widget.wWithoutPosition =
+  ObjectName? &
+  Widget.size &
+  Style?
+
+ObjectName = element ObjectName { string.type }
+
+Widget.size =
+  MinimumSize? &
+  MaximumSize? &
+  SizePolicy? &
+  Size?
+
+## TODO Add pattern
+MinimumSize = element MinimumSize { text }
+
+## TODO Add pattern
+MaximumSize = element MaximumSize { text }
+
+## TODO The constituents are actually matched with endsWith.
+SizePolicy = element SizePolicy {
+  xsd:string { pattern = '(f|i|min|max|p|e|me)?(,(f|i|min|max|p|e|me)?)?' }
+}
+
+Size = element Size { text }
+
+Style = element Style { attribute src { xsd:anyURI } | text }
+
+LegacyTableViewStyle = element LegacyTableViewStyle { weirdbool.type }
+
+Widget.common =
+  Widget.commonWithoutConnections &
+  Connection*
+
+Widget.label =
+  Widget.common
+
+## NOTE ConfigKey is technically optional, but if it’s not present,
+## the Connection will be skipped, making it useless, so avoid that.
+Connection = element Connection {
+  ConfigKey &
+  Transform? &
+  (BindProperty? |
+   (ButtonState? &
+    ConnectValueFromWidget? &
+    ConnectValueToWidget? &
+    (EmitOnDownPress |
+     EmitOnPressAndRelease)?))
+}
+
+ConfigKey = element ConfigKey {
+  attribute persist { boolean.type }?,
+  string.type
+}
+
+Transform = element Transform { (Invert | Add | Not)* }
+
+Invert = element Invert { empty }
+
+Add = element Add { xsd:double }
+
+Not = element Not { empty }
+
+## TODO Find a list of valid properties.
+BindProperty = element BindProperty { 'visible' }
+
+ButtonState = element ButtonState { 'LeftButton' | 'RightButton' }
+
+ConnectValueFromWidget = element ConnectValueFromWidget { weirdbool.type }
+
+ConnectValueToWidget = element ConnectValueToWidget { weirdbool.type }
+
+EmitOnDownPress = element EmitOnDownPress { weirdbool.type }
+
+EmitOnPressAndRelease = element EmitOnPressAndRelease { weirderbool.type }
+
+Widget.commonWithoutConnections =
+  Widget.base &
+  Widget.w
+
+start = Template
+
+Template = element Template { Children.content } |
+           element Template {
+  attribute src { xsd:anyURI },
+  SetVariable*
+}
+
+## TODO Children is optional, but is that sane?
+WidgetGroup = element WidgetGroup { WidgetGroup.content }
+WidgetGroup.content =
+  Widget.common &
+  BackPath? &
+  Layout? &
+  SizeConstraint? &
+  Children?
+
+BackPath = element BackPath { svg.type }
+
+Layout = element Layout { 'horizontal' | 'stacked' | 'vertical' }
+
+## TODO These are actually case insensitive…
+SizeConstraint = element SizeConstraint {
+  'SetDefaultConstraint' |
+  'SetFixedSize' |
+  'SetMinimumSize' |
+  'SetMaximumSize' |
+  'SetMinAndMaxSize' |
+  'SetNoConstraint'
+}
+
+Children = element Children { Children.content }
+Children.content =
+  (CoverArt |
+   Key |
+   Label |
+   Library |
+   LibrarySidebar |
+   Number |
+   NumberPos |
+   NumberRate |
+   Overview |
+   PushButton |
+   SearchBox |
+   SetVariable |
+   Splitter |
+   Template |
+   Time |
+   TrackProperty |
+   Visual |
+   VuMeter |
+   WidgetGroup)*
+
+CoverArt = element CoverArt {
+  Group? &
+  Widget.common &
+  CoverArt.BgColor? &
+  CoverArt.FgColor? &
+  DefaultCover?
+}
+
+## TODO Defaults to #ffffff.
+CoverArt.BgColor = element BgColor { color.type }
+
+## TODO Defaults to #000000.
+CoverArt.FgColor = element FgColor { color.type }
+
+DefaultCover = element DefaultCover { xsd:anyURI }
+
+Key = element Key { Group & Widget.label & Label.content & DisplayCents? }
+
+DisplayCents = element DisplayCents { weirdbool.type }
+
+Label = element Label { Widget.label & Label.content }
+Label.content =
+  Label.BgColor? &
+  Label.FgColor? &
+  Text? &
+  FontSize? &
+  Alignment? &
+  Elide?
+
+Label.BgColor = element BgColor { color.type }
+
+Label.FgColor = element FgColor { color.type }
+
+Text = element Text { string.type }
+
+FontSize = element FontSize { xsd:int }
+
+## TODO Matching is done case-insensitively.
+Alignment = element Alignment { 'center' | 'left' | 'right' }
+
+Elide = element Elide { 'left' | 'middle' | 'none' | 'right' }
+
+Library = element Library { Widget.common }
+
+LibrarySidebar = element LibrarySidebar { Widget.common }
+
+Number = element Number { Number.content }
+Number.content =
+  Group &
+  Widget.label &
+  Label.content &
+  NumberOfDigits?
+
+NumberOfDigits = element NumberOfDigits { xsd:int }
+
+NumberPos = element NumberPos { Number.content }
+
+## TODO BgColor defaults to #ffffff.
+NumberRate = element NumberRate { Number.content }
+
+Overview = element Overview {
+  Group &
+  Widget.common &
+  Waveform.common
+}
+
+Group = element Group { string.type }
+
+Waveform.common =
+  SignalColor &
+  SignalLowColor? &
+  SignalMidColor? &
+  SignalHighColor? &
+  SignalRGBLowColor? &
+  SignalRGBMidColor? &
+  SignalRGBHighColor? &
+  AxesColor? &
+  PlayPosColor? &
+  Waveform.BgColor? &
+  BgPixmap? &
+  EndOfTrackColor? &
+  DefaultMark* &
+  Mark* &
+  MarkRange* &
+  Orientation?
+
+SignalColor = element SignalColor { color.type }
+
+## Default is based on SignalColor.
+SignalLowColor = element SignalLowColor { color.type }
+
+## Default is based on SignalColor.
+SignalMidColor = element SignalMidColor { color.type }
+
+## Default is based on SignalColor.
+SignalHighColor = element SignalHighColor { color.type }
+
+## TODO Defaults to red.
+SignalRGBLowColor = element SignalRGBLowColor { color.type }
+
+## TODO Defaults to green.
+SignalRGBMidColor = element SignalRGBMidColor { color.type }
+
+## TODO Defaults to blue.
+SignalRGBHighColor = element SignalRGBHighColor { color.type }
+
+## TODO Defaults to #f5f5f5.
+AxesColor = element AxesColor { color.type }
+
+## TODO Defaults to AxesColor.
+PlayPosColor = element PlayPosColor { color.type }
+
+## TODO Defaults to #000000.
+Waveform.BgColor = element BgColor { color.type }
+
+BgPixmap = element BgPixmap { xsd:anyURI }
+
+## TODO Defaults to #c81914.
+EndOfTrackColor = element EndOfTrackColor { color.type }
+
+DefaultMark = element DefaultMark { Mark.content }
+
+Mark = element Mark { Mark.content }
+Mark.content =
+  Control? &
+  Color? &
+  TextColor? &
+  Align? &
+  Text? &
+  Pixmap?
+
+Control = element Control {
+  'cue_point' |
+  'hotcue_1_position' |
+  'hotcue_2_position' |
+  'hotcue_3_position' |
+  'hotcue_4_position' |
+  'hotcue_5_position' |
+  'hotcue_6_position' |
+  'hotcue_7_position' |
+  'hotcue_8_position' |
+  'hotcue_9_position' |
+  'hotcue_10_position' |
+  'hotcue_11_position' |
+  'hotcue_12_position' |
+  'hotcue_13_position' |
+  'hotcue_14_position' |
+  'hotcue_15_position' |
+  'hotcue_16_position' |
+  'hotcue_17_position' |
+  'hotcue_18_position' |
+  'hotcue_19_position' |
+  'hotcue_20_position' |
+  'hotcue_21_position' |
+  'hotcue_22_position' |
+  'hotcue_23_position' |
+  'hotcue_24_position' |
+  'hotcue_25_position' |
+  'hotcue_26_position' |
+  'hotcue_27_position' |
+  'hotcue_28_position' |
+  'hotcue_29_position' |
+  'hotcue_30_position' |
+  'hotcue_31_position' |
+  'hotcue_32_position' |
+  'hotcue_33_position' |
+  'hotcue_34_position' |
+  'hotcue_35_position' |
+  'hotcue_36_position' |
+  'loop_end_position' |
+  'loop_start_position'
+}
+
+Color = element Color { color.type }
+
+TextColor = element TextColor { color.type }
+
+Align = element Align {
+  xsd:string {
+    pattern = '((center|left|hcenter|right|top|vcenter|bottom)(\|(center|left|hcenter|right|top|vcenter|bottom))*)?'
+  }
+}
+
+Pixmap = element Pixmap { xsd:anyURI }
+
+MarkRange = element MarkRange {
+  Color &
+  DisabledColor &
+  StartControl? &
+  EndControl? &
+  EnabledControl?
+}
+
+DisabledColor = element DisabledColor { color.type }
+
+StartControl = element StartControl { 'loop_start_position' }
+
+EndControl = element EndControl { 'loop_end_position' }
+
+EnabledControl = element EnabledControl { 'loop_enabled' }
+
+## TODO This actually allows 'vertical', which gives a vertical
+## appearance, and any other value gives horizontal.
+Orientation = element Orientation { 'vertical' | 'horizontal' }
+
+PushButton = element PushButton {
+  Widget.common &
+  NumberStates? &
+  BackPath? &
+  State* &
+  PushButtonConnection* &
+  LeftClickIsPushButton? &
+  RightClickIsPushButton?
+}
+
+NumberStates = element NumberStates { xsd:nonNegativeInteger }
+
+State = element State {
+  State.Number? &
+  Unpressed? &
+  Pressed? &
+  Text? &
+  State.Alignment?
+}
+
+State.Number = element Number { xsd:nonNegativeInteger }
+
+Unpressed = element Unpressed { scalemode.attribute, xsd:anyURI }
+
+scalemode.attribute = attribute scalemode { 'FIXED' | 'STRETCH' | 'STRETCH_ASPECT' }
+
+Pressed = element Pressed { scalemode.attribute, xsd:anyURI }
+
+## TODO Default is center.  Oh, and any value except “left” or “right”
+## gives center.
+State.Alignment = element Alignment { 'left' | 'right' | 'center' }
+
+PushButtonConnection = element Connection { ConfigKey, ButtonState? }
+
+LeftClickIsPushButton = element LeftClickIsPushButton { weirdbool.type }
+
+RightClickIsPushButton = element RightClickIsPushButton { weirdbool.type }
+
+SearchBox = element SearchBox {
+  Widget.common &
+  SearchBox.BgColor? &
+  SearchBox.FgColor?
+}
+
+## TODO Defaults to #ffffff.
+SearchBox.BgColor = element BgColor { color.type }
+
+## TODO Defaults to #000000.
+SearchBox.FgColor = element FgColor { color.type }
+
+## TODO Children is optional, but does that make sense?
+Splitter = element Splitter {
+  Widget.common &
+  Children? &
+  SplitSizesConfigKey? &
+  SplitSizes? &
+  Splitter.Orientation? &
+  Collapsible?
+}
+
+SplitSizesConfigKey = element SplitSizesConfigKey {
+  xsd:string { pattern = '\[[^\]]+\],.+' }
+}
+
+SplitSizes = element SplitSizes {
+  xsd:string { pattern = '(-?[0-9]+(,-?[0-9]+)*)?' }
+}
+
+Collapsible = element Collapsible {
+  xsd:string { pattern = '(-?[0-9]+(,-?[0-9]+)*)?' }
+}
+
+Splitter.Orientation = element Orientation { 'vertical' | 'horizontal' }
+
+Time = element Time {
+  Widget.label &
+  Label.content &
+  (CustomFormat |
+   ShowSeconds)?
+}
+
+CustomFormat = element CustomFormat { text }
+
+## TODO This is actually only checked against “true” and “yes”.
+ShowSeconds = element ShowSeconds { boolean.type }
+
+TrackProperty = element TrackProperty {
+  Group &
+  Widget.label &
+  Label.content &
+  Property
+}
+
+Property = element Property {
+  'artist' |
+  'title' |
+  'album' |
+  'albumArtist' |
+  'genre' |
+  'composer' |
+  'grouping' |
+  'year' |
+  'track_number' |
+  'track_total' |
+  'times_played' |
+  'comment' |
+  'bpm' |
+  'bpmFormatted' |
+  'key' |
+  'duration' |
+  'durationFormatted' |
+  'durationFormattedCentiseconds' |
+  'durationFormattedMilliseconds'
+}
+
+Visual = element Visual {
+  Group &
+  Waveform.common &
+  Visual.Align? &
+  BeatColor? &
+  Widget.common
+}
+
+## TODO bottom and top are valid if Orientation is vertical, left and
+## right are valid if Orientation is horizontal.
+Visual.Align = element Align { 'bottom' | 'top' | 'left' | 'right' }
+
+BeatColor = element BeatColor { color.type }
+
+VuMeter = element VuMeter {
+  Widget.common &
+  Horizontal? &
+  PathBack? &
+  PathVu? &
+  PeakHoldSize? &
+  PeakFallStep? &
+  PeakHoldTime? &
+  PeakFallTime?
+}
+
+Horizontal = element Horizontal { weirdbool.type }
+
+## TODO Yes, really.  They should fix this.
+PathBack = element PathBack { xsd:anyURI }
+
+PathVu = element PathVu { xsd:anyURI }
+
+## TODO Defaults to 0, but should default to 5.
+PeakHoldSize = element PeakHoldSize {
+  xsd:int { minInclusive = '0' maxInclusive = '100' }
+}
+
+## TODO Defaults to 0, but should default to 1.
+PeakFallStep = element PeakFallStep {
+  xsd:int { minInclusive = '1' maxInclusive = '1000' }
+}
+
+## TODO Defaults to 0, but should default to 400.
+PeakHoldTime = element PeakHoldTime {
+  xsd:int { minInclusive = '1' maxInclusive = '3000' }
+}
+
+## TODO Defaults to 0, but should default to 20.
+PeakFallTime = element PeakFallTime {
+  xsd:int { minInclusive = '1' maxInclusive = '1000' }
+}
+
+SetVariable = element SetVariable { attribute name { text }, (text | Variable)* }
