@@ -16,6 +16,7 @@
                           (ido-ubiquitous t)
                           (magit t)
                           (magit-popup t)
+                          (org t)
                           (paredit t)
                           (s t)
                           (smex t)
