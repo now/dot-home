@@ -20,7 +20,6 @@
       org-catch-invisible-edits 'smart
       org-columns-default-format "%80ITEM(Task) %7Effort{:} %7CLOCKSUM(Clocked)"
       org-columns-ellipses "…"
-      org-completion-use-ido t
       org-default-notes-file (concat (file-name-as-directory org-directory) "refile.org")
       org-edit-src-persistent-message nil
       org-enforce-todo-dependencies t
@@ -72,9 +71,14 @@
 
 (add-to-list 'org-file-apps '(directory . emacs))
 
+(defun now-org-insert-heading-finish-log-note ()
+  (remove-hook 'org-log-buffer-setup-hook 'now-org-insert-heading-finish-log-note)
+  (org-ctrl-c-ctrl-c))
+
 (defun now-org-insert-heading-add-log-note ()
   "Insert a logbook note under the current headline."
-  (org-add-log-setup 'note nil nil 'findpos 'time))
+  (add-hook 'org-log-buffer-setup-hook 'now-org-insert-heading-finish-log-note 'append)
+  (org-add-log-setup 'note nil nil 'findpos ""))
 
 (add-hook 'org-insert-heading-hook 'now-org-insert-heading-add-log-note)
 
