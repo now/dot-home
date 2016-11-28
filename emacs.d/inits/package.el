@@ -5,6 +5,7 @@
              'append)
 (setq package-load-list '((ace-jump-mode t)
                           (async t)
+                          (company t)
                           (dash t)
                           (evil t)
                           (flx t)
