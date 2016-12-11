@@ -484,7 +484,7 @@ $(xdgconfighomezsh_DATA): zsh/.dirstamp
 
 $(provided_elcs): ELCFLAGS = --eval "(require '$(basename $(notdir $@)))"
 
-emacs.d/delayed-inits/xterm.elc: ELCFLAGS = --eval "(require 'xterm \"term/xterm\")"
+emacs.d/delayed-inits/xterm.elc: ELCFLAGS = --eval "(require 'term/xterm)"
 
 $(unprovided_elcs): ELCFLAGS = --eval '(load "$(basename $(notdir $@))" nil t)'
 
