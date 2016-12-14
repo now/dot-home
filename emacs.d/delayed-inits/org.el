@@ -107,12 +107,18 @@
 
 (defun now-org-sort-entries ()
   "Sort entries by TODO state, priority, effort, and timestamp."
-  (format "%03d %02d %03d %026.6f"
+  (format "%03d %03d %02d %03d %+026.6f"
+          (if (looking-at org-complex-heading-regexp)
+              (let ((m (match-string 2)))
+                (if m
+                    (- 99 (length (member m org-todo-keywords-1)))
+                  0))
+            0)
           (if (looking-at org-complex-heading-regexp)
               (let* ((m (match-string 2))
                      (s (if (member m org-done-keywords) '- '+)))
                 (if m
-                    (- 99 (funcall s (length (member m org-todo-keywords-1))))
+                    (funcall s (length (member m org-todo-keywords-1)))
                   0))
             0)
           (if (save-excursion (re-search-forward org-priority-regexp (point-at-eol) t))
@@ -122,11 +128,13 @@
            (or (org-entry-get nil org-effort-property)
                (car (last (org-property-get-allowed-values
                            (point-min) org-effort-property)))))
-          (let ((end (save-excursion (outline-next-heading) (point))))
-            (if (or (re-search-forward org-ts-regexp end t)
-                    (re-search-forward org-ts-regexp-both end t))
-                (org-time-string-to-seconds (match-string 0))
-              (float-time)))))
+          (let ((end (save-excursion (outline-next-heading) (point)))
+                (now (float-time)))
+            (- (if (or (re-search-forward org-ts-regexp end t)
+                       (re-search-forward org-ts-regexp-both end t))
+                   (org-time-string-to-seconds (match-string 0))
+                 (float-time))
+               now))))
 
 (defun now-org-sort (with-case)
   "Like `org-sort', except use `now-org-sort-entries' directly."
@@ -135,8 +143,8 @@
    ((org-at-table-p) (org-call-with-arg 'org-table-sort-lines with-case))
    ((org-at-item-p) (org-call-with-arg 'org-sort-list with-case))
    (t (org-sort-entries with-case ?f 'now-org-sort-entries)
-      (outline-hide-subtree)
-      (org-show-children))))
+      (hide-subtree)
+      (org-cycle))))
 
 (defun now-org-narrow-to-subtree-and-show-todo-tree ()
   "Narrow buffer to TODO entries in the current subtree."
