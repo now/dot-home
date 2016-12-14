@@ -3,47 +3,32 @@
    (list "##.*\n" '(0 font-lock-comment-face t))
    (list "#\\*\\([^\\*]\\|\\*[^#]\\)*\\*#" '(0 font-lock-comment-face t))))
 
-(defvar velocity-mode-abbrev-table nil
-  "Abbreviation table used in rnc-mode.")
-
-(define-abbrev-table 'velocity-mode-abbrev-table ())
-
-(defvar velocity-mode-map nil
+(defvar velocity-mode-map
+  (let ((map (make-sparse-keymap)))
+    map)
   "Keymap used in rnc-mode.")
 
-(unless velocity-mode-map
-  (setq velocity-mode-map (make-sparse-keymap)))
-
-(defvar velocity-mode-syntax-table nil
-  "Syntax table in use for rnc-mode buffers.")
-
-(unless velocity-mode-syntax-table
-  (setq velocity-mode-syntax-table (make-syntax-table))
-  (modify-syntax-entry ?' "\"" velocity-mode-syntax-table)
-  (modify-syntax-entry ?\" "\"" velocity-mode-syntax-table)
-  (modify-syntax-entry ?= "." velocity-mode-syntax-table)
-  (modify-syntax-entry ?\( "()" velocity-mode-syntax-table)
-  (modify-syntax-entry ?\) ")(" velocity-mode-syntax-table)
-  (modify-syntax-entry ?\{ "(}" velocity-mode-syntax-table)
-  (modify-syntax-entry ?\} "){" velocity-mode-syntax-table))
+(defvar velocity-mode-syntax-table
+  (let ((table (make-syntax-table)))
+    (modify-syntax-entry ?' "\"" table)
+    (modify-syntax-entry ?\" "\"" table)
+    (modify-syntax-entry ?= "." table)
+    (modify-syntax-entry ?\( "()" table)
+    (modify-syntax-entry ?\) ")(" table)
+    (modify-syntax-entry ?\{ "(}" table)
+    (modify-syntax-entry ?\} "){" table)
+    table)
+  "Syntax table in use for velocity-mode buffers.")
 
 ;;;###autoload
-(defun velocity-mode ()
+(define-derived-mode velocity-mode prog-mode "VTL"
   "Major mode for editing Velocity Templating Language templates.
 \\{velocity-mode-map}"
-  (interactive)
-  (kill-all-local-variables)
-  (use-local-map velocity-mode-map)
-  (set-syntax-table velocity-mode-syntax-table)
-  (setq local-abbrev-table velocity-mode-abbrev-table)
-  (set (make-local-variable 'font-lock-defaults)
-       '((velocity-font-lock-keywords) nil nil ((?_ . "w"))))
-  (set (make-local-variable 'comment-start) "##")
-  (set (make-local-variable 'comment-end) "")
-  (set (make-local-variable 'comment-start-skip) "\\([ \t]*\\)##?[ \t]*")
-  (setq mode-name "VTL"
-	major-mode 'velocity-mode)
-  (run-mode-hooks 'velocity-mode-hook))
+  (setq comment-start "##"
+        comment-end ""
+        comment-start-skip "\\([ \t]*\\)##?[ \t]*"
+        font-lock-defaults '((velocity-font-lock-keywords) nil nil ((?_ . "w")))
+        local-abbrev-table velocity-mode-abbrev-table))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.vm\\'") 'velocity-mode))
