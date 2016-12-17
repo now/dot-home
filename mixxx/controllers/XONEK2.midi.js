@@ -4,6 +4,7 @@ var XoneK2 = {
     engine.connectControl('[Channel1]', 'pitch_adjust', function(value) { print(value); });
   },
   shutdown: function(id) {
+    // TODO Clear buttons
   },
   clickButton: function(group, control) {
     engine.setParameter(group, control, 1);
