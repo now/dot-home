@@ -73,7 +73,10 @@
 <!ENTITY cc21 "0x15">
 ]>
 <MixxxControllerPreset mixxxVersion="" schemaVersion="1">
-  <info/>
+  <info>
+    <name>Allen &amp; Heath XONE K2</name>
+    <author>Nikolai Weibull</author>
+  </info>
   <controller id="XONE:K2">
     <scriptfiles>
       <file functionprefix="XoneK2" filename="XONEK2.midi.js"/>
