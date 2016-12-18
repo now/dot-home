@@ -26,7 +26,9 @@
 <!ENTITY d2 "0x26">
 <!ENTITY D2 "0x27">
 <!ENTITY e2 "0x28">
+<!ENTITY f2 "0x29">
 <!ENTITY F2 "0x2a">
+<!ENTITY g2 "0x2b">
 <!ENTITY G2 "0x2c">
 <!ENTITY a2 "0x2d">
 <!ENTITY A2 "0x2e">
@@ -40,7 +42,9 @@
 <!ENTITY c4 "0x3c">
 <!ENTITY d4 "0x3e">
 <!ENTITY e5 "0x4c">
+<!ENTITY f5 "0x4d">
 <!ENTITY F5 "0x4e">
+<!ENTITY g5 "0x4f">
 <!ENTITY C6 "0x55">
 <!ENTITY D6 "0x57">
 <!ENTITY C7 "0x61">
@@ -305,10 +309,34 @@
         <key>keylock</key>
       </control>
       <control>
+        <midino>&f2;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>beatsync</key>
+      </control>
+      <control>
+        <midino>&f2;</midino>
+        <status>&off;</status>
+        <group>[Channel1]</group>
+        <key>beatsync</key>
+      </control>
+      <control>
         <midino>&F2;</midino>
         <status>&on;</status>
         <group>[Channel2]</group>
         <key>keylock</key>
+      </control>
+      <control>
+        <midino>&g2;</midino>
+        <status>&on;</status>
+        <group>[Channel2]</group>
+        <key>beatsync</key>
+      </control>
+      <control>
+        <midino>&g2;</midino>
+        <status>&off;</status>
+        <group>[Channel2]</group>
+        <key>beatsync</key>
       </control>
       <control>
         <midino>&cc12;</midino>
@@ -663,10 +691,24 @@
         <minimum>1</minimum>
       </output>
       <output>
+        <midino>&f5;</midino>
+        <status>&on;</status>
+        <group>[Channel1]</group>
+        <key>beatsync</key>
+        <minimum>1</minimum>
+      </output>
+      <output>
         <midino>&F5;</midino>
         <status>&on;</status>
         <group>[Channel2]</group>
         <key>keylock</key>
+        <minimum>1</minimum>
+      </output>
+      <output>
+        <midino>&g5;</midino>
+        <status>&on;</status>
+        <group>[Channel2]</group>
+        <key>beatsync</key>
         <minimum>1</minimum>
       </output>
       <output>
