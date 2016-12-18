@@ -146,13 +146,13 @@
         <midino>&c1;</midino>
         <status>&on;</status>
         <group>[Channel1]</group>
-        <key>cue_play</key>
+        <key>cue_default</key>
       </control>
       <control>
         <midino>&c1;</midino>
         <status>&off;</status>
         <group>[Channel1]</group>
-        <key>cue_play</key>
+        <key>cue_default</key>
       </control>
       <control>
         <midino>&C1;</midino>
@@ -164,13 +164,13 @@
         <midino>&d1;</midino>
         <status>&on;</status>
         <group>[Channel2]</group>
-        <key>cue_play</key>
+        <key>cue_default</key>
       </control>
       <control>
-        <midino>&c1;</midino>
+        <midino>&d1;</midino>
         <status>&off;</status>
         <group>[Channel2]</group>
-        <key>cue_play</key>
+        <key>cue_default</key>
       </control>
       <control>
         <midino>&D1;</midino>
