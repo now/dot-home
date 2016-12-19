@@ -24,7 +24,7 @@
 (define-derived-mode velocity-mode prog-mode "VTL"
   "Major mode for editing Velocity Templating Language templates.
 \\{velocity-mode-map}"
-  (setq comment-start "##"
+  (setq comment-start "## "
         comment-end ""
         comment-start-skip "\\([ \t]*\\)##?[ \t]*"
         font-lock-defaults '((velocity-font-lock-keywords) nil nil ((?_ . "w")))
