@@ -72,7 +72,9 @@
 <!ENTITY cc12 "0x0c">
 <!ENTITY cc14 "0x0e">
 <!ENTITY cc16 "0x10">
+<!ENTITY cc17 "0x11">
 <!ENTITY cc18 "0x12">
+<!ENTITY cc19 "0x13">
 <!ENTITY cc20 "0x14">
 <!ENTITY cc21 "0x15">
 ]>
@@ -294,12 +296,30 @@
         </options>
       </control>
       <control>
+        <midino>&cc17;</midino>
+        <status>&cc;</status>
+        <group>[Channel1]</group>
+        <key>XoneK2.rateTempDownOrUp</key>
+        <options>
+          <script-binding/>
+        </options>
+      </control>
+      <control>
         <midino>&cc18;</midino>
         <status>&cc;</status>
         <group>[Channel2]</group>
         <key>rate</key>
         <options>
           <soft-takeover/>
+        </options>
+      </control>
+      <control>
+        <midino>&cc19;</midino>
+        <status>&cc;</status>
+        <group>[Channel2]</group>
+        <key>XoneK2.rateTempDownOrUp</key>
+        <options>
+          <script-binding/>
         </options>
       </control>
       <control>

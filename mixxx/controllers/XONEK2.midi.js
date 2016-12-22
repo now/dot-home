@@ -152,6 +152,20 @@ var XoneK2 = {
         XoneK2.clickButton(group, i > c ? 'loop_double' : 'loop_halve');
     }
   },
+  rateTempDownOrUp: function(channel, control, value, status, group) {
+    switch (value) {
+    case 0:
+      engine.setParameter(group, 'rate_temp_up', 1);
+      break;
+    case 127:
+      engine.setParameter(group, 'rate_temp_down', 1);
+      break;
+    default:
+      engine.setParameter(group, 'rate_temp_down', 0);
+      engine.setParameter(group, 'rate_temp_up', 0);
+      break;
+    }
+  },
 };
 
 XoneK2.layer = XoneK2.unshiftedLayer;
