@@ -68,6 +68,7 @@
                                      ("NIXD" ("NIXD" . t)))
       org-treat-S-cursor-todo-selection-as-state-change nil
       org-yank-adjusted-subtrees t)
+(setf (cdr (assq 'state org-log-note-headings)) "State %s from %S %t")
 
 (add-to-list 'org-file-apps '(directory . emacs))
 
