@@ -1,2 +1,1 @@
-(setq magit-repository-directories '("~/Projects")
-      magit-repository-directories-depth 1)
+(setq magit-repository-directories '(("~/Projects". 1)))
