@@ -144,7 +144,7 @@
    ((org-at-table-p) (org-call-with-arg 'org-table-sort-lines with-case))
    ((org-at-item-p) (org-call-with-arg 'org-sort-list with-case))
    (t (org-sort-entries with-case ?f 'now-org-sort-entries)
-      (hide-subtree)
+      (outline-hide-subtree)
       (org-cycle))))
 
 (defun now-org-narrow-to-subtree-and-show-todo-tree ()
