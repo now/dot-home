@@ -282,6 +282,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/evil.elc \
 	emacs.d/delayed-inits/files.elc \
 	emacs.d/delayed-inits/flx-ido.elc \
+	emacs.d/delayed-inits/gnus-msg.elc \
 	emacs.d/delayed-inits/gnus.elc \
 	emacs.d/delayed-inits/grep.elc \
 	emacs.d/delayed-inits/hideshow.elc \
@@ -296,6 +297,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/make-mode.elc \
 	emacs.d/delayed-inits/man.elc \
 	emacs.d/delayed-inits/menu-bar.elc \
+	emacs.d/delayed-inits/message.elc \
 	emacs.d/delayed-inits/minibuffer.elc \
 	emacs.d/delayed-inits/mule.elc \
 	emacs.d/delayed-inits/nnimap.elc \
@@ -316,6 +318,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/scroll-bar.elc \
 	emacs.d/delayed-inits/sh-script.elc \
 	emacs.d/delayed-inits/simple.elc \
+	emacs.d/delayed-inits/smtpmail-multi.elc \
 	emacs.d/delayed-inits/solar.elc \
 	emacs.d/delayed-inits/tabulated-list.elc \
 	emacs.d/delayed-inits/tool-bar.elc \

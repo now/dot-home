@@ -21,6 +21,7 @@
                           (paredit t)
                           (s t)
                           (smex t)
+                          (smtpmail-multi t)
                           (undo-tree t)
                           (with-editor t)))
 (cond

@@ -3,8 +3,16 @@
       gnus-fetch-old-headers t
       gnus-parameters '((".*"
                          (gnus-use-scoring nil)
-                         (display . all)))
+                         (display . all))
+                        ("^nnimap\\+work:"
+                         (posting-style
+                          (address "nikolai.weibull@amesto.se")
+                          (gcc "nnimap+work:\"Sent Items\""))))
       gnus-permanently-visible-groups "INBOX\\'"
+      ;; TODO Should ssl perhaps be starttls?
+      gnus-secondary-select-methods '((nnimap "work"
+                                              (nnimap-address "imap-z91.telecomputing.no")
+                                              (nnimap-stream ssl)))
       gnus-select-method '(nnimap "gmail"
                                   (nnimap-address "imap.gmail.com")
                                   (nnimap-stream ssl))
@@ -17,3 +25,6 @@
                                     (604800 . "%a, %b %-d")
                                     (15778476 . "%b %-d")
                                     (t . "%Y-%m-%d")))
+; TODO This should be set per method, and to the right folder.
+;(setq gnu-message-archive-method nil)
+
