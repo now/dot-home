@@ -1,3 +1,5 @@
+[[ $TERM = dumb ]] && unsetopt zle && PS1='$ ' && return
+
 HISTFILE=@zshistory@
 SAVEHIST=${HISTSIZE::=8192}
 REPORTTIME=300
@@ -10,12 +12,10 @@ setopt completeinword nolistambiguous nolisttypes \
        promptsubst \
        nobeep
 
-if [[ $TERM != dumb ]]; then
-  PS1='%(?..; (exit %9F%?%f%))${SSH_CONNECTION:+; ssh %M}; cd %~; '
-  PS2='${(l|$((2 * ${(w)#${(%%):-%_}}))|)}'
-  PS3='Your selection: '
-  PS4='+%N:%i: '
-fi
+PS1='%(?..; (exit %9F%?%f%))${SSH_CONNECTION:+; ssh %M}; cd %~; '
+PS2='${(l|$((2 * ${(w)#${(%%):-%_}}))|)}'
+PS3='Your selection: '
+PS4='+%N:%i: '
 
 TIMEFMT=%J$'\n''real: %*E, user: %*U, system: %*S (%P)'
 
