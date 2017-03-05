@@ -11,7 +11,6 @@
               indicate-buffer-boundaries t)
 (setq gc-cons-threshold 20000000
       overlay-arrow-string "►")
-(show-paren-mode 1)
 (ido-mode 1)
 (ido-ubiquitous-mode 1)
 (flx-ido-mode 1)
