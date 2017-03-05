@@ -273,6 +273,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/calc.elc \
 	emacs.d/delayed-inits/calendar.elc \
 	emacs.d/delayed-inits/cc-mode.elc \
+	emacs.d/delayed-inits/company.elc \
 	emacs.d/delayed-inits/compile.elc \
 	emacs.d/delayed-inits/css-mode.elc \
 	emacs.d/delayed-inits/desktop.elc \
