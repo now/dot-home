@@ -45,6 +45,7 @@
   (set (make-local-variable 'adaptive-fill-function)
        'now-c-mode-adaptive-fill-function)
   (c-toggle-auto-newline 1)
+  (setq hs-adjust-block-beginning 'hs-c-like-adjust-block-beginning)
   (setq semantic-function-argument-separator ", ")
   (semantic-mode 1)
   (company-mode 1))
