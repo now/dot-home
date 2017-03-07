@@ -29,6 +29,7 @@
     "U" 'undo-tree-redo
     "\C-r" nil
     "\M-d" 'smex
+    "\C-t" 'xref-pop-marker-stack
     "g\C-g" 'hide-mode-line-unhide-temporarily
     "gw" nil
     ",u" 'undo-tree-visualize
@@ -43,6 +44,8 @@
     " " 'evil-scroll-page-down
     "`" 'smex
     "~" 'smex-major-mode-commands
+    "\C-]" 'xref-find-definitions
+    "g\C-]" 'xref-find-references
     "\C-d" 'suspend-frame
     ",a" 'org-agenda
     ",b" 'ido-switch-buffer
@@ -62,9 +65,9 @@
     ",r" 'recompile
     ",s" 'magit-status
     ",W" 'save-some-buffers
-    "gc" 'ace-jump-char-mode
-    "gl" 'ace-jump-line-mode
-    "gs" 'ace-jump-word-mode)
+    "gc" 'evil-ace-jump-char-mode
+    "gl" 'evil-ace-jump-line-mode
+    "gs" 'evil-ace-jump-word-mode)
   (define-keys evil-read-key-map
     "\C-k" 'evil-insert-digraph)
   (define-keys evil-replace-state-map
@@ -160,3 +163,5 @@
         (delete-char -1))))))
 (add-hook 'evil-insert-state-exit-hook
           'evil-delete-auto-indent-on-insert-state-exit)
+
+(evil-put-command-property 'xref-find-definitions :jump t)

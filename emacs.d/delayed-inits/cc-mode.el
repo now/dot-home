@@ -1,3 +1,4 @@
+(require 'hideshow)
 (require 'semantic/format)
 
 (c-add-style "now-c-style"
@@ -46,6 +47,5 @@
        'now-c-mode-adaptive-fill-function)
   (c-toggle-auto-newline 1)
   (setq hs-adjust-block-beginning 'hs-c-like-adjust-block-beginning)
-  (setq semantic-function-argument-separator ", ")
-  (company-mode 1))
+  (setq semantic-function-argument-separator ", "))
 (add-hook 'c-mode-hook 'now-c-mode-hook)

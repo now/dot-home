@@ -10,18 +10,17 @@
 (setq-default indent-tabs-mode nil
               indicate-buffer-boundaries t)
 (setq gc-cons-threshold 20000000
-      overlay-arrow-string "►")
-(ido-mode 1)
-(ido-ubiquitous-mode 1)
-(flx-ido-mode 1)
-(desktop-save-mode 1)
-(evil-mode 1)
-(column-number-mode 1)
+      overlay-arrow-string "►"
+      switch-to-buffer-preserve-window-point t)
+(column-number-mode)
+(desktop-save-mode)
 (hide-mode-line)
+(evil-mode)
+(ido-mode)
+(ido-ubiquitous-mode)
+(flx-ido-mode)
+(global-company-mode)
 (load-theme 'now t)
-
-;; TODO Move this to the correct file.
-(setq switch-to-buffer-preserve-window-point t)
 
 (global-set-key (kbd "C-x C-o") 'other-window)
 
