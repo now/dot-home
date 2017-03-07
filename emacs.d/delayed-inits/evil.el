@@ -51,6 +51,8 @@
     ",d" 'dired
     ",e" 'find-file
     ",k" 'ido-kill-buffer
+    ",l" 'loccur-current
+    ",L" 'loccur
     ",m" 'compile
     ",n" 'next-error
     ",N" 'compilation-next-file

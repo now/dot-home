@@ -15,6 +15,7 @@
                           (hyperbole t)
                           (ido-completing-read+ t)
                           (ido-ubiquitous t)
+                          (loccur t)
                           (magit t)
                           (magit-popup t)
                           (org t)
