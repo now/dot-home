@@ -148,7 +148,6 @@
     `(show-paren-match ((,class (:inherit success))))
     `(show-paren-mismatch ((,class (:inherit error))))
     `(success ((,class (:foreground ,white :background ,green))))
-    `(trailing-whitespace ((,class (:inherit error))))
     `(undo-tree-visualizer-active-branch-face ((t)))
     `(warning ((,class (:foreground ,white :background ,yellow))))
     `(week ((,class (:inherit font-lock-comment-face))))
@@ -161,7 +160,7 @@
     `(whitespace-space-after-tab ((,class (:inherit whitespace-trailing))))
     `(whitespace-space-before-tab ((,class (:inherit whitespace-trailing))))
     `(whitespace-tab ((,class (:inherit whitespace-space))))
-    `(whitespace-trailing ((,class (:inherit trailing-whitespace))))
+    `(whitespace-trailing ((,class (:inherit error))))
     `(woman-bold ((,gui (:weight bold)) (,class (:foreground ,blue))))
     `(woman-italic ((,gui (:slant italic)) (,class (:foreground ,red))))))
 
