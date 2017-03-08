@@ -32,6 +32,8 @@
     "\C-t" 'xref-pop-marker-stack
     "g\C-g" 'hide-mode-line-unhide-temporarily
     "gw" nil
+    ",e" 'find-file
+    ",E" 'now-gxref-find-file
     ",u" 'undo-tree-visualize
     ",w" 'save-buffer)
   (define-keys evil-visual-state-map
@@ -52,7 +54,6 @@
     ",B" 'buffer-menu
     ",c" 'shell-command
     ",d" 'dired
-    ",e" 'find-file
     ",k" 'ido-kill-buffer
     ",l" 'loccur-current
     ",L" 'loccur

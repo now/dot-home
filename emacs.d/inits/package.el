@@ -12,6 +12,7 @@
                           (flx-ido t)
                           (git-commit t)
                           (goto-chg t)
+                          (gxref t)
                           (hyperbole t)
                           (ido-completing-read+ t)
                           (ido-ubiquitous t)

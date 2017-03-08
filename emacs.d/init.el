@@ -29,3 +29,5 @@
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.xsd\\'") 'xml-mode))
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.at\\'") 'm4-mode))
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.jsx\(inc\)?\\'") 'js-mode))
+
+(add-to-list 'xref-backend-functions 'gxref-xref-backend)

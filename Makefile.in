@@ -361,6 +361,7 @@ sitelisp_elcs = \
 	emacs.d/site-lisp/buff-menu-ext.elc \
 	emacs.d/site-lisp/evil-paredit.elc \
 	emacs.d/site-lisp/hide-mode-line.elc \
+	emacs.d/site-lisp/now-gxref.elc \
 	emacs.d/site-lisp/now-init.elc \
 	emacs.d/site-lisp/now-org.elc \
 	emacs.d/site-lisp/now-simple.elc \
