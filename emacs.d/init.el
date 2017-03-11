@@ -7,6 +7,12 @@
                    disp-table))
   (load (concat user-emacs-directory "inits/" (symbol-name feature))))
 
+(setq mode-line-front-space
+      '(:eval (if (display-graphic-p)
+                  (concat (propertize "\u200b" 'display '((raise -0.125)
+                                                          (height 1.25)))
+                          " ")
+                "-")))
 (setq-default indent-tabs-mode nil
               indicate-buffer-boundaries t)
 (setq gc-cons-threshold 20000000
