@@ -20,10 +20,12 @@
       org-catch-invisible-edits 'smart
       org-columns-default-format "%80ITEM(Task) %7Effort{:} %7CLOCKSUM(Clocked)"
       org-columns-ellipses "…"
-      org-default-notes-file (concat (file-name-as-directory org-directory) "refile.org")
+      org-default-notes-file (concat (file-name-as-directory org-directory)
+                                     "refile.org")
       org-edit-src-persistent-message nil
       org-enforce-todo-dependencies t
-      org-global-properties '(("Effort_ALL" . "0:15 0:30 1:00 2:00 4:00 8:00 0:00"))
+      org-global-properties '(("Effort_ALL" .
+                               "0:15 0:30 1:00 2:00 4:00 8:00 0:00"))
       org-hide-emphasis-markers t
       org-highlight-sparse-tree-matches nil
       org-link-frame-setup '((vm . vm-visit-folder)
@@ -42,30 +44,17 @@
       org-refile-targets '((org-agenda-files . (:maxlevel . 9)))
       org-refile-use-outline-path 'file
       org-src-window-setup 'current-window
-      org-tag-alist '(("personal" . ?p)
-                      ("shopping" . ?s)
-                      ("work" . ?w)
-                      ("HOLD" . ?h)
-                      ("WAIT" . ?W)
-                      ("DLGT" . ?g)
-                      ("NIXD" . ?c))
-      org-time-clocksum-format '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
+      org-time-clocksum-format '(:hours "%d" :require-hours t :minutes ":%02d"
+                                        :require-minutes t)
       org-todo-keyword-faces '(("DLGT" . org-delegated)
                                ("HOLD" . org-hold)
                                ("NEXT" . org-next)
                                ("WAIT" . org-waiting))
       org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-                          (sequence "HOLD(h)" "WAIT(w@/@)" "DLGT(g@/!)" "|" "NIXD(c@/!)")
+                          (sequence "HOLD(h)" "WAIT(w@/@)" "DLGT(g@/!)" "|"
+                                    "NIXD(c@/!)")
                           (type "CALL")
                           (type "CHAT"))
-      org-todo-state-tags-triggers '(("TODO" ("HOLD") ("WAIT") ("DLGT") ("NIXD"))
-                                     ("NEXT" ("HOLD") ("WAIT") ("DLGT") ("NIXD"))
-                                     ("DONE" ("HOLD") ("WAIT") ("DLGT") ("NIXD"))
-                                     (done   ("HOLD") ("WAIT") ("DLGT"))
-                                     ("HOLD" ("HOLD" . t))
-                                     ("WAIT" ("WAIT" . t))
-                                     ("DLGT" ("DLGT" . t))
-                                     ("NIXD" ("NIXD" . t)))
       org-treat-S-cursor-todo-selection-as-state-change nil
       org-yank-adjusted-subtrees t)
 (setf (cdr (assq 'state org-log-note-headings)) "State %s from %S %t")
@@ -73,12 +62,15 @@
 (add-to-list 'org-file-apps '(directory . emacs))
 
 (defun now-org-insert-heading-finish-log-note ()
-  (remove-hook 'org-log-buffer-setup-hook 'now-org-insert-heading-finish-log-note)
+  (remove-hook 'org-log-buffer-setup-hook
+               'now-org-insert-heading-finish-log-note)
   (org-ctrl-c-ctrl-c))
 
 (defun now-org-insert-heading-add-log-note ()
   "Insert a logbook note under the current headline."
-  (add-hook 'org-log-buffer-setup-hook 'now-org-insert-heading-finish-log-note 'append)
+  (add-hook 'org-log-buffer-setup-hook
+            'now-org-insert-heading-finish-log-note
+            'append)
   (org-add-log-setup 'note nil nil 'findpos ""))
 
 (add-hook 'org-insert-heading-hook 'now-org-insert-heading-add-log-note)
@@ -104,7 +96,8 @@
           ((and (string= org-last-state "DLGT") org-last-todo-state-is-todo)
            (org-delete-property "Delegatee")))))
 
-(add-hook 'org-after-todo-state-change-hook 'now-org-adjust-properties-after-todo-state-change)
+(add-hook 'org-after-todo-state-change-hook
+          'now-org-adjust-properties-after-todo-state-change)
 
 (defun now-org-sort-entries ()
   "Sort entries by TODO state, priority, effort, and timestamp."
@@ -157,6 +150,7 @@
 
 (if (boundp 'narrow-map)
     (org-defkey narrow-map "T" 'now-org-narrow-to-subtree-and-show-todo-tree)
-  (org-defkey org-mode-map "\C-xnT" 'now-org-narrow-to-subtree-and-show-todo-tree))
+  (org-defkey org-mode-map "\C-xnT"
+              'now-org-narrow-to-subtree-and-show-todo-tree))
 
 (org-clock-persistence-insinuate)
