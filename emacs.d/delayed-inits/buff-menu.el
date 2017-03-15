@@ -17,3 +17,5 @@
 (define-key Buffer-menu-mode-map "Q" 'Buffer-menu-do-query-replace-regexp)
 (define-key Buffer-menu-mode-map "U" 'Buffer-menu-unmark-all)
 (define-key Buffer-menu-mode-map "r" 'Buffer-menu-toggle-read-only)
+
+(add-hook 'Buffer-menu-mode-hook 'hl-line-mode)
