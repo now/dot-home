@@ -149,6 +149,9 @@
   ",t" 'ruby-find-other-file
   ",M" 'ruby-run-test-at-line)
 
+(evil-define-key 'normal xref--xref-buffer-mode-map
+  "q" 'quit-window)
+
 (defun evil-delete-auto-indent-on-insert-state-exit ()
   (when (eolp)
     (cond
