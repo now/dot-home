@@ -280,8 +280,10 @@ provided_elcs = \
 	emacs.d/delayed-inits/diff.elc \
 	emacs.d/delayed-inits/dired.elc \
 	emacs.d/delayed-inits/dired-aux.elc \
+	emacs.d/delayed-inits/evil-multiedit.elc \
 	emacs.d/delayed-inits/evil.elc \
 	emacs.d/delayed-inits/files.elc \
+	emacs.d/delayed-inits/find-func.elc \
 	emacs.d/delayed-inits/flx-ido.elc \
 	emacs.d/delayed-inits/gnus-group.elc \
 	emacs.d/delayed-inits/gnus-msg.elc \

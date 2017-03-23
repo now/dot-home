@@ -29,14 +29,20 @@
     "U" 'undo-tree-redo
     "\C-r" nil
     "\M-d" 'smex
+    "\M-n" 'evil-multiedit-match-symbol-and-next
+    "\M-p" 'evil-multiedit-match-symbol-and-prev
     "\C-t" 'xref-pop-marker-stack
     "g\C-g" 'hide-mode-line-unhide-temporarily
     "gw" nil
     ",e" 'find-file
     ",E" 'now-gxref-find-file
+    ",l" 'now-occur
     ",u" 'undo-tree-visualize
     ",w" 'save-buffer)
   (define-keys evil-visual-state-map
+    "R" 'evil-multiedit-match-all
+    "\M-n" 'evil-multiedit-match-and-next
+    "\M-p" 'evil-multiedit-match-and-prev
     "\C-d" 'evil-normal-state)
   (define-keys evil-insert-state-map
     "\C-d" 'evil-normal-state)
@@ -55,8 +61,6 @@
     ",c" 'shell-command
     ",d" 'dired
     ",k" 'ido-kill-buffer
-    ",l" 'loccur-current
-    ",L" 'loccur
     ",m" 'compile
     ",n" 'next-error
     ",N" 'compilation-next-file
@@ -68,7 +72,8 @@
     ",W" 'save-some-buffers
     "gc" 'evil-ace-jump-char-mode
     "gl" 'evil-ace-jump-line-mode
-    "gs" 'evil-ace-jump-word-mode)
+    "gs" 'evil-ace-jump-word-mode
+    (kbd "RET") 'evil-multiedit-toggle-or-restrict-region)
   (define-keys evil-read-key-map
     "\C-k" 'evil-insert-digraph)
   (define-keys evil-replace-state-map
@@ -169,3 +174,11 @@
           'evil-delete-auto-indent-on-insert-state-exit)
 
 (evil-put-command-property 'xref-find-definitions :jump t)
+
+(defun now-occur (&optional arg)
+  "Limit display to lines containing current symbol.
+A prefix ARG specifies how many lines of context to keep."
+  (interactive "P")
+  (evil-multiedit-match-all)
+  (iedit-toggle-unmatched-lines-visible arg)
+  (recenter))
