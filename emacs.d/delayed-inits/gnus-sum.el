@@ -1,5 +1,6 @@
 (setq gnus-ancient-mark ?\s
       gnus-fetch-old-headers t
+      gnus-thread-hide-subtree t
       gnus-thread-sort-functions '((not gnus-thread-sort-by-number))
       gnus-unread-mark ?\·
       gnus-user-date-format-alist '(((gnus-seconds-today) . "%H:%M")

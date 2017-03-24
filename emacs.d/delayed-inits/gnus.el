@@ -2,8 +2,13 @@
 (setq gnus-parameters '((".*"
                          (gnus-use-scoring nil)
                          (display . all))
+                        ("^nnimap\\+gmail:"
+                         (expiry-target "nnimap+gmail:\"Trash\"")
+                         (expiry-wait 'immediate)
+                         (gcc nil))
                         ("^nnimap\\+work:"
                          (expiry-target "nnimap+work:\"Deleted Items\"")
+                         (expiry-wait 'immediate)
                          (posting-style
                           (address "nikolai.weibull@amesto.se")
                           (gcc "nnimap+work:\"Sent Items\"")
