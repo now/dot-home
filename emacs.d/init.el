@@ -30,7 +30,6 @@
 (flx-ido-mode)
 (global-company-mode)
 (load-theme 'now t)
-(loccur-mode)
 (show-paren-mode)
 
 (global-set-key (kbd "C-x C-o") 'other-window)

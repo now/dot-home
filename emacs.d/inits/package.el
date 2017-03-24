@@ -18,7 +18,6 @@
                           (ido-completing-read+ t)
                           (ido-ubiquitous t)
                           (iedit t)
-                          (loccur t)
                           (magit t)
                           (magit-popup t)
                           (org t)
