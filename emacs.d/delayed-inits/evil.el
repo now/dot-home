@@ -179,6 +179,9 @@
   "Limit display to lines containing current symbol.
 A prefix ARG specifies how many lines of context to keep."
   (interactive "P")
-  (evil-multiedit-match-all)
-  (iedit-toggle-unmatched-lines-visible arg)
-  (recenter))
+  (if (evil-multiedit-state-p)
+      (evil-multiedit-abort)
+    (evil-multiedit-match-all)
+    (evil-multiedit-state-p)
+    (iedit-toggle-unmatched-lines-visible arg)
+    (recenter)))
