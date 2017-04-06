@@ -3,7 +3,6 @@
                          (gnus-use-scoring nil)
                          (display . all))
                         ("^nnimap\\+gmail:"
-                         (expiry-target . "nnimap+gmail:\"Trash\"")
                          (expiry-wait . immediate))
                         ("^nnimap\\+work:"
                          (expiry-target . "nnimap+work:\"Deleted Items\"")
