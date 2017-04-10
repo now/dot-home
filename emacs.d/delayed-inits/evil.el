@@ -180,7 +180,9 @@
 A prefix ARG specifies how many lines of context to keep."
   (interactive "P")
   (if (evil-multiedit-state-p)
-      (evil-multiedit-abort)
+      (progn
+        (setq iedit-unmatched-lines-invisible nil)
+        (evil-multiedit-abort))
     (evil-multiedit-match-all)
     (evil-multiedit-state-p)
     (iedit-toggle-unmatched-lines-visible arg)
