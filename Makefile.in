@@ -324,6 +324,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/scroll-bar.elc \
 	emacs.d/delayed-inits/sh-script.elc \
 	emacs.d/delayed-inits/simple.elc \
+	emacs.d/delayed-inits/smie.elc \
 	emacs.d/delayed-inits/smtpmail-multi.elc \
 	emacs.d/delayed-inits/solar.elc \
 	emacs.d/delayed-inits/tabulated-list.elc \
