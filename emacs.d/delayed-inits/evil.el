@@ -1,6 +1,8 @@
 (eval-when-compile
   (require 'cl))
 
+(require 'evil-multiedit)
+
 (setq-default evil-shift-width 2
               evil-symbol-word-search t)
 (setq evil-digraphs-table-user
@@ -179,11 +181,10 @@
   "Limit display to lines containing current symbol.
 A prefix ARG specifies how many lines of context to keep."
   (interactive "P")
+  (setq iedit-unmatched-lines-invisible nil)
   (if (evil-multiedit-state-p)
       (progn
-        (setq iedit-unmatched-lines-invisible nil)
         (evil-multiedit-abort))
     (evil-multiedit-match-all)
-    (evil-multiedit-state-p)
     (iedit-toggle-unmatched-lines-visible arg)
     (recenter)))
