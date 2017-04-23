@@ -36,7 +36,7 @@
          ("||" . ?∨)
          ("&&" . ?∧)
          ;; ("*" . ?∗)
-         ;; ("*" . ?×)          ; We can’t use this, as * is also used to
+         ;; (" * " . ?×)          ; We can’t use this, as * is also used to
          ;;                     ; dereference a pointer
          ("!" . ?¬)
          ("-" . ?−)
