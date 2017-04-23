@@ -52,7 +52,7 @@
     `(flyspell-duplicate ((,class (:foreground ,yellow :underline t))))
     `(flyspell-incorrect ((,class (:foreground ,red :underline t))))
     `(font-lock-builtin-face ((,class)))
-    `(font-lock-comment-face ((,class (:background "grey90"))))
+    `(font-lock-comment-face ((,class (:foreground ,green))))
     `(font-lock-constant-face ((,class)))
     `(font-lock-doc-face ((,class (:inherit font-lock-comment-face))))
     `(font-lock-function-name-face ((,class)))
