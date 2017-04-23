@@ -36,6 +36,7 @@
     "\C-t" 'xref-pop-marker-stack
     "g\C-g" 'hide-mode-line-unhide-temporarily
     "gw" nil
+    "zC" 'hs-hide-all-comments
     ",e" 'find-file
     ",E" 'now-gxref-find-file
     ",l" 'now-occur
