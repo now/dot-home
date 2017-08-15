@@ -46,45 +46,32 @@
          0 'font-lock-keyword-face))
   "Keywords to higlight in rnc-mode.")
 
-(defvar rnc-mode-abbrev-table nil
-  "Abbreviation table used in rnc-mode.")
-
-(define-abbrev-table 'rnc-mode-abbrev-table ())
-
-(defvar rnc-mode-map nil
-  "Keymap used in rnc-mode.")
-
-(unless rnc-mode-map
-  (setq rnc-mode-map (make-sparse-keymap)))
-
-(defvar rnc-mode-syntax-table nil
-  "Syntax table in use for rnc-mode buffers.")
-
-(unless rnc-mode-syntax-table
-  (setq rnc-mode-syntax-table (make-syntax-table))
-  (modify-syntax-entry ?' "\"" rnc-mode-syntax-table)
-  (modify-syntax-entry ?\" "\"" rnc-mode-syntax-table)
-  (modify-syntax-entry ?# "<" rnc-mode-syntax-table)
-  (modify-syntax-entry ?\n ">" rnc-mode-syntax-table)
-  (modify-syntax-entry ?\\ "\\" rnc-mode-syntax-table)
-  (modify-syntax-entry ?. "_" rnc-mode-syntax-table)
-  (modify-syntax-entry ?- "_" rnc-mode-syntax-table)
-  (modify-syntax-entry ?_ "_" rnc-mode-syntax-table)
-  (modify-syntax-entry ?+ "." rnc-mode-syntax-table)
-  (modify-syntax-entry ?* "." rnc-mode-syntax-table)
-  (modify-syntax-entry ?? "." rnc-mode-syntax-table)
-  (modify-syntax-entry ?& "." rnc-mode-syntax-table)
-  (modify-syntax-entry ?| "." rnc-mode-syntax-table)
-  (modify-syntax-entry ?= "." rnc-mode-syntax-table)
-  (modify-syntax-entry ?~ "." rnc-mode-syntax-table)
-  (modify-syntax-entry ?, "." rnc-mode-syntax-table)
-  (modify-syntax-entry ?\; "." rnc-mode-syntax-table) ;; This is a fake entry for SMIE
-  (modify-syntax-entry ?\( "()" rnc-mode-syntax-table)
-  (modify-syntax-entry ?\) ")(" rnc-mode-syntax-table)
-;  (modify-syntax-entry ?\{ "(}" rnc-mode-syntax-table)
-;  (modify-syntax-entry ?\} "){" rnc-mode-syntax-table)
-  (modify-syntax-entry ?\[ "(]" rnc-mode-syntax-table)
-  (modify-syntax-entry ?\] ")[" rnc-mode-syntax-table))
+(defvar rnc-mode-syntax-table
+  (let ((table (make-syntax-table)))
+    (modify-syntax-entry ?' "\"" table)
+    (modify-syntax-entry ?\" "\"" table)
+    (modify-syntax-entry ?# "<" table)
+    (modify-syntax-entry ?\n ">" table)
+    (modify-syntax-entry ?\\ "\\" table)
+    (modify-syntax-entry ?. "_" table)
+    (modify-syntax-entry ?- "_" table)
+    (modify-syntax-entry ?_ "_" table)
+    (modify-syntax-entry ?+ "." table)
+    (modify-syntax-entry ?* "." table)
+    (modify-syntax-entry ?? "." table)
+    (modify-syntax-entry ?& "." table)
+    (modify-syntax-entry ?| "." table)
+    (modify-syntax-entry ?= "." table)
+    (modify-syntax-entry ?~ "." table)
+    (modify-syntax-entry ?, "." table)
+    (modify-syntax-entry ?\; "." table) ; This is a fake entry for SMIE
+    (modify-syntax-entry ?\( "()" table)
+    (modify-syntax-entry ?\) ")(" table)
+    ;; (modify-syntax-entry ?\{ "(}" table)
+    ;; (modify-syntax-entry ?\} "){" table)
+    (modify-syntax-entry ?\[ "(]" table)
+    (modify-syntax-entry ?\] ")[" table)
+    table))
 
 (defconst rnc-mode-smie-grammar
   (smie-prec2->grammar
@@ -98,13 +85,16 @@
       (grammar-content (id "=" pattern)
                        (id "|=" pattern)
                        (id "&=" pattern))
-      (pattern ("element" id "{" pattern "}")
+      (pattern ("attribute" id "{" pattern "}" modifiers)
+               ("element" id "{" pattern "}" modifiers)
                (pattern "," pattern)
                (pattern "|" pattern)
                (pattern "&" pattern)
                ("empty"))
+      (modifiers ("?"))
       )
     '((assoc ";"))
+    '((assoc "?"))
     '((assoc "," "|" "&"))
     '((nonassoc "="))
     '((nonassoc "|="))
@@ -162,25 +152,17 @@
     ))
 
 ;;;###autoload
-(defun rnc-mode ()
+(define-derived-mode rnc-mode prog-mode "RNC"
   "Major mode for editing RELAX NG Compact Syntax schemas.
 \\{rnc-mode-map}"
-  (interactive)
-  (kill-all-local-variables)
-  (use-local-map rnc-mode-map)
-  (set-syntax-table rnc-mode-syntax-table)
-  (setq local-abbrev-table rnc-mode-abbrev-table)
-  (set (make-local-variable 'font-lock-defaults)
-       '((rnc-font-lock-keywords) nil nil ((?. . "w") (?- . "w") (?_ . "w"))))
-  (set (make-local-variable 'comment-start) "#")
-  (set (make-local-variable 'comment-end) "")
-  (set (make-local-variable 'comment-start-skip) "\\([ \t]*\\)##?[ \t]*")
+  (setq comment-start "#"
+        comment-end ""
+        comment-start-skip "\\([ \t]*\\)##?[ \t]*"
+        font-lock-defaults '((rnc-font-lock-keywords) nil nil
+                             ((?. . "w") (?- . "w") (?_ . "w"))))
   (smie-setup rnc-mode-smie-grammar #'rnc-mode-smie-rules
               :forward-token #'rnc-mode-smie-forward-token
-              :backward-token #'rnc-mode-smie-backward-token)
-  (setq mode-name "RNC"
-	major-mode 'rnc-mode)
-  (run-mode-hooks 'rnc-mode-hook))
+              :backward-token #'rnc-mode-smie-backward-token))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.rnc\\'") 'rnc-mode))
