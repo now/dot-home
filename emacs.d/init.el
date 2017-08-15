@@ -41,3 +41,7 @@
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.jsx\(inc\)?\\'") 'js-mode))
 
 (add-to-list 'xref-backend-functions 'gxref-xref-backend)
+
+(add-hook 'desktop-after-read-hook
+          (lambda ()
+            (desktop-auto-save-enable)))
