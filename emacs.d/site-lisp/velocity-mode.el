@@ -6,7 +6,7 @@
 (defvar velocity-mode-map
   (let ((map (make-sparse-keymap)))
     map)
-  "Keymap used in rnc-mode.")
+  "Keymap used in velocity-mode.")
 
 (defvar velocity-mode-syntax-table
   (let ((table (make-syntax-table)))
