@@ -8,5 +8,5 @@
                          company-cmake
                          company-capf
                          company-files
-                         (company-gtags company-keywords)
+                         (company-dabbrev-code company-gtags company-keywords)
                          company-dabbrev))
