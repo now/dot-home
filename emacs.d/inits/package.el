@@ -20,6 +20,7 @@
                           (iedit t)
                           (magit t)
                           (magit-popup t)
+                          (memoize t)
                           (org t)
                           (paredit t)
                           (s t)
