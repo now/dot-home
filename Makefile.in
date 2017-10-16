@@ -333,6 +333,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/tramp-sh.elc \
 	emacs.d/delayed-inits/vc-hooks.elc \
 	emacs.d/delayed-inits/vc-git.elc \
+	emacs.d/delayed-inits/xref.elc \
 	emacs.d/delayed-inits/xterm.elc
 
 unprovided_elcs = \
@@ -365,6 +366,7 @@ userconfemacsdinits_DATA = \
 	$(init_elcs)
 
 sitelisp_elcs = \
+	emacs.d/site-lisp/autotest-mode.elc \
 	emacs.d/site-lisp/buff-menu-ext.elc \
 	emacs.d/site-lisp/evil-paredit.elc \
 	emacs.d/site-lisp/hide-mode-line.elc \
