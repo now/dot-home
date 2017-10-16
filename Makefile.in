@@ -280,6 +280,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/diff.elc \
 	emacs.d/delayed-inits/dired.elc \
 	emacs.d/delayed-inits/dired-aux.elc \
+	emacs.d/delayed-inits/ediff.elc \
 	emacs.d/delayed-inits/evil-multiedit.elc \
 	emacs.d/delayed-inits/evil.elc \
 	emacs.d/delayed-inits/files.elc \
