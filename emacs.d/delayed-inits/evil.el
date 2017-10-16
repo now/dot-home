@@ -4,7 +4,8 @@
 (require 'evil-multiedit)
 
 (setq-default evil-shift-width 2
-              evil-symbol-word-search t)
+              evil-symbol-word-search t
+              evil-want-abbrev-expand-on-insert-exit nil)
 (setq evil-digraphs-table-user
       '(((?c ?b) . ?\x2022)
         ((?t ?b) . ?\x2023)
@@ -57,7 +58,9 @@
     "~" 'smex-major-mode-commands
     "\C-]" 'xref-find-definitions
     "g\C-]" 'xref-find-references
-    "\C-d" 'suspend-frame
+    "gb" 'backward-sexp
+    "gw" 'forward-sexp
+    "\C-d" 'evil-insert
     ",a" 'org-agenda
     ",b" 'ido-switch-buffer
     ",B" 'buffer-menu
