@@ -6,6 +6,7 @@
 (setq-default evil-shift-width 2
               evil-symbol-word-search t
               evil-want-abbrev-expand-on-insert-exit nil)
+(remove-hook 'evil-insert-state-exit-hook 'expand-abbrev)
 (setq evil-digraphs-table-user
       '(((?c ?b) . ?\x2022)
         ((?t ?b) . ?\x2023)
