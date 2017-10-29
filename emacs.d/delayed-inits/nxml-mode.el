@@ -11,9 +11,9 @@
 (define-skeleton nxml-mode-skeleton-xsl-stylesheet
   "Insert an XSL Stylesheet."
   ""
-  "<?xml version=\"1.0\" encoding=\"utf-8\"?>" \n
+  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" \n
   > "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">" \n
-  > "<xsl:output method=\"xml\" encoding=\"utf-8\"/>" \n
+  > "<xsl:output method=\"xml\" encoding=\"UTF-8\"/>" \n
   > _ \n
   "</xsl:stylesheet>" >)
 (define-skeleton nxml-mode-skeleton-xsl-template
