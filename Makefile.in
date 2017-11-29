@@ -421,6 +421,9 @@ userconfopenofficeorg3userwordbook_DATA = \
 	hunspell/sv.aff \
 	hunspell/sv.dic
 
+xdgconfighome_DATA = \
+	rss2email.cfg
+
 xdgconfighomecmus_DATA = \
 	cmus/now.theme \
 	cmus/rc
