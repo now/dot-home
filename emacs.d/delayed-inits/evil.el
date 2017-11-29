@@ -18,8 +18,8 @@
         ((?> ?/) . ?\x27e9))
       evil-move-cursor-back nil)
 
-(setq evil-emacs-state-modes
-      (delete 'git-rebase-mode (delete 'git-commit-mode evil-emacs-state-modes)))
+(dolist (m '(archive-mode git-commit-mode git-rebase-mode))
+  (setq evil-emacs-state-modes (delete m evil-emacs-state-modes)))
 (setq evil-insert-state-modes (delete 'term-mode evil-insert-state-modes))
 (add-to-list 'evil-emacs-state-modes 'term-mode)
 
