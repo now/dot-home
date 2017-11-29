@@ -27,6 +27,7 @@
                           (smex t)
                           (smtpmail-multi t)
                           (undo-tree t)
+                          (visual-fill-column t)
                           (with-editor t)))
 (cond
  ((eq system-type 'cygwin)

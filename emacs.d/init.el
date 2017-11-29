@@ -43,3 +43,5 @@
 (add-hook 'desktop-after-read-hook
           (lambda ()
             (desktop-auto-save-enable)))
+
+(require 'mu4e)

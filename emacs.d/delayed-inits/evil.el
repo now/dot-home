@@ -172,8 +172,55 @@
   ",t" 'ruby-find-other-file
   ",M" 'ruby-run-test-at-line)
 
+(evil-define-key 'normal view-mode-map
+  "q" 'quit-window)
+
 (evil-define-key 'normal xref--xref-buffer-mode-map
   "q" 'quit-window)
+
+(with-eval-after-load 'mu4e
+  (defvar mu4e-main-mode-map)
+  ;; Keys to remember : S, $
+  ;; Obvious keys here: b, B, s, q, j, C, m, f, U, ;
+  (evil-make-overriding-map mu4e-main-mode-map 'normal)
+  (defvar mu4e-headers-mode-map)
+  (evil-make-overriding-map mu4e-headers-mode-map 'normal)
+  ;; Keys to remember : s, S, /, b, B, O, Q, W, %, [, ], ;, y, ?, !, A,
+  ;;                    +, -, =, &, #, $, H
+  ;; Obvious keys here: q, g, t, T, p, n, d, m, r, u, *, U, x, a,
+  ;;                    R, F, C, E, RET
+  ;; TODO Add o or v as alternative to y?
+  (evil-define-key 'normal mu4e-headers-mode-map
+    "G" 'mu4e-update-mail-and-index
+    "J" 'mu4e-headers-jump-to-maildir
+    "\C-i" 'mu4e-headers-query-next
+    "\C-o" 'mu4e-headers-query-prev
+    "j" 'mu4e-headers-next
+    "k" 'mu4e-headers-prev
+    "l" 'mu4e-headers-mark-for-later
+    "q" 'now-mu4e-headers-quit-buffer
+    (kbd "<backspace>") 'scroll-down-command)
+  (defvar mu4e-view-mode-map)
+  (evil-make-overriding-map mu4e-view-mode-map 'normal)
+  ;; Keys to remember : TAB, C, c, s, S, /, b, B, %, v, f, |, ;, O,
+  ;;                    Q, W, y, e, o, A, d, m, r, ?, !, +, -, =,
+  ;;                    &, *, #, w, h, #, M-q, $
+  ;; Obvious keys here: q, t, T, g, F, R, C, E, ., a, p, n, [, ],
+  ;;                    u, U, x
+  (evil-define-key 'normal mu4e-view-mode-map
+    "#" 'mu4e-mark-resolve-deferred-marks
+    "G" 'mu4e-update-mail-and-index
+    "J" 'mu4e-headers-jump-to-maildir
+    "K" 'mu4e-view-save-url
+    "\C-i" 'mu4e-headers-query-next
+    "\C-o" 'mu4e-headers-query-prev
+    "l" 'mu4e-view-mark-for-later
+    "zr" 'mu4e-view-toggle-hide-cited
+    (kbd "S-SPC") 'now-mu4e-view-scroll-down-or-prev)
+  (evil-set-initial-state 'mu4e-main-mode 'normal)
+  (evil-set-initial-state 'mu4e-headers-mode 'normal)
+  (evil-set-initial-state 'mu4e-view-mode 'normal)
+  (evil-set-initial-state 'mu4e~update-mail-mode 'normal))
 
 (defun evil-delete-auto-indent-on-insert-state-exit ()
   (when (eolp)
