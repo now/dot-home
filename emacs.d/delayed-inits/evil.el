@@ -101,6 +101,14 @@
 
 ;;; Mode-specific bindings
 
+(with-eval-after-load 'arc-mode
+  (defvar archive-mode-map)
+  (evil-make-overriding-map archive-mode-map 'normal)
+  (evil-define-key 'motion archive-mode-map
+    "j" 'archive-next-line
+    "k" 'archive-previous-line
+    "h" 'evil-backward-char))
+
 (evil-define-key 'motion Buffer-menu-mode-map
   "s" 'evil-forward-char
   "w" 'Buffer-menu-save)
