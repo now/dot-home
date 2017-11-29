@@ -1,0 +1,79 @@
+BufferLimit 20mb
+CopyArrivalDate yes
+SyncState *
+Create Both
+Expunge Both
+Remove Both
+
+MaildirStore local
+Path ~/Maildir/
+
+IMAPStore Amesto
+Host imap-z91.telecomputing.no
+SSLType IMAPS
+SSLVersions TLSv1.2
+AuthMechs PLAIN
+User nikolai.weibull@amesto.com
+PassCmd "/usr/bin/security find-internet-password -w -a nikolai.weibull@amesto.com -s imap-z91.telecomputing.no ~/Library/Keychains/login.keychain"
+
+IMAPStore Amesto.Webmaster
+Host imap.safetycomputing.com
+SSLType STARTTLS
+AuthMechs PLAIN
+User webmaster@amesto.com
+PassCmd "/usr/bin/security find-internet-password -w -a webmaster@amesto.com -s imap.safetycomputing.com ~/Library/Keychains/login.keychain"
+
+IMAPStore disu.se
+Host disu.se
+SSLVersions TLSv1.2
+User now
+PassCmd "/usr/bin/security find-internet-password -w -a now -s imap.disu.se ~/Library/Keychains/login.keychain"
+
+Channel Amesto.INBOX
+Master :Amesto:INBOX
+Slave :local:.Amesto.INBOX
+
+Channel Amesto
+Master :Amesto:
+Slave :local:.Amesto.
+Pattern Archive Drafts
+
+Channel Amesto.Chat
+Master :Amesto:"Conversation History"
+Slave :local:.Amesto.Chat
+
+Channel Amesto.Junk
+Master :Amesto:"Junk Email"
+Slave :local:.Amesto.Junk
+
+Channel Amesto.Sent
+Master :Amesto:"Sent Items"
+Slave :local:.Amesto.Sent
+
+Channel Amesto.Trash
+Master :Amesto:"Deleted Items"
+Slave :local:.Amesto.Trash
+
+Channel Amesto.Webmaster
+Master :Amesto.Webmaster:INBOX
+Slave :local:.Amesto.Webmaster.INBOX
+
+Channel Amesto.Webmaster.Trash
+Master :Amesto.Webmaster:"Deleted Items"
+Slave :local:.Amesto.Webmaster.Trash
+
+Channel disu.se
+Master :disu.se:
+Slave :local:.Disuse.
+Pattern *
+
+Group Amesto
+Channel Amesto
+Channel Amesto.Chat
+Channel Amesto.Junk
+Channel Amesto.Sent
+Channel Amesto.Trash
+
+Group Amesto.Webmaster
+Channel Amesto.Webmaster
+Channel Amesto.Webmaster.Trash
