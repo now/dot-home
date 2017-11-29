@@ -44,8 +44,6 @@
       org-refile-targets '((org-agenda-files . (:maxlevel . 9)))
       org-refile-use-outline-path 'file
       org-src-window-setup 'current-window
-      org-time-clocksum-format '(:hours "%d" :require-hours t :minutes ":%02d"
-                                        :require-minutes t)
       org-todo-keyword-faces '(("DLGT" . org-delegated)
                                ("HOLD" . org-hold)
                                ("NEXT" . org-next)
@@ -118,7 +116,7 @@
           (if (save-excursion (re-search-forward org-priority-regexp (point-at-eol) t))
               (string-to-char (match-string 2))
             org-default-priority)
-          (org-duration-string-to-minutes
+          (org-duration-to-minutes
            (or (org-entry-get nil org-effort-property)
                (car (last (org-property-get-allowed-values
                            (point-min) org-effort-property)))))
