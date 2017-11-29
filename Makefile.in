@@ -171,7 +171,7 @@ DIR = $(eval $(call DIR_dir,$(DESTDIR)$($(1)dir)) $(foreach primary,DATA SCRIPTS
 	$(V_at): > $@
 
 %.elc: %.el emacs.d/inits/package.el | emacs.d/site-lisp/userloaddefs.el
-	$(V_ELC)$(EMACS) --batch -Q -L $(srcdir)/emacs.d/site-lisp \
+	$(V_ELC)$(EMACS) --batch -q -L $(srcdir)/emacs.d/site-lisp \
 	  -l $(srcdir)/emacs.d/inits/package.el \
 	  -l emacs.d/site-lisp/userloaddefs.el \
 	  --eval "(setq byte-compile-dest-file-function (lambda (file) \"$@\"))" \
@@ -520,7 +520,7 @@ emacs.d/inits/unprovided-delayed-inits.el: $(unprovided_elcs) Makefile emacs.d/i
 	                                   ,(symbol-name feature)))))" > $@
 
 $(sitelisp_elcs): %.elc: %.el emacs.d/inits/package.el
-	$(V_ELC)$(EMACS) --batch -Q -L $(srcdir)/emacs.d/site-lisp \
+	$(V_ELC)$(EMACS) --batch -q -L $(srcdir)/emacs.d/site-lisp \
 	  -l $(srcdir)/emacs.d/inits/package.el \
 	  --eval "(setq byte-compile-dest-file-function (lambda (file) \"$@\"))" \
 	  $(ELCFLAGS) -f batch-byte-compile $<
@@ -536,7 +536,7 @@ emacs.d/delayed-inits/text-mode.elc: emacs.d/site-lisp/now-init.elc
 emacs.d/inits/user-interface.elc: emacs.d/site-lisp/hide-mode-line.elc
 
 emacs.d/site-lisp/userloaddefs.el: $(sitelisp_elcs) emacs.d/site-lisp/.dirstamp
-	$(V_ELC)$(EMACS) --batch -Q --eval '(setq vc-handled-backends nil)' \
+	$(V_ELC)$(EMACS) --batch -q --eval '(setq vc-handled-backends nil)' \
 	  --eval '(setq generated-autoload-file "$(abs_srcdir)/$@")' \
 	  -f batch-update-autoloads $(srcdir)/emacs.d/site-lisp
 	$(V_at)if test "$(srcdir)" != .; then mv $(srcdir)/$@ $@; fi
