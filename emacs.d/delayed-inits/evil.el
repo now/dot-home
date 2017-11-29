@@ -29,6 +29,7 @@
                   (apply #'define-keys map bindings))))
   (define-keys evil-normal-state-map
     (kbd "DEL") 'evil-scroll-page-up
+    (kbd "S-SPC") 'evil-scroll-page-up
     "K" 'man
     "q" 'delete-other-windows
     "Q" 'evil-record-macro
