@@ -43,7 +43,8 @@
                          :name "Drafts"
                          :query (concat
                                  "maildir:/.Disuse.Drafts OR "
-                                 "maildir:/.Amesto.Drafts ")
+                                 "maildir:/.Amesto.Drafts OR "
+                                 "maildir:/.Amesto.Webmaster.Drafts ")
                          :key ?d))
       mu4e-change-filenames-when-moving t
       mu4e-compose-dont-reply-to-self t

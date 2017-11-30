@@ -22,6 +22,7 @@ SSLType STARTTLS
 AuthMechs PLAIN
 User webmaster@amesto.com
 PassCmd "/usr/bin/security find-internet-password -w -a webmaster@amesto.com -s imap.safetycomputing.com ~/Library/Keychains/login.keychain"
+Timeout 0
 
 IMAPStore disu.se
 Host disu.se
@@ -54,9 +55,22 @@ Channel Amesto.Trash
 Master :Amesto:"Deleted Items"
 Slave :local:.Amesto.Trash
 
-Channel Amesto.Webmaster
+Channel Amesto.Webmaster.INBOX
 Master :Amesto.Webmaster:INBOX
 Slave :local:.Amesto.Webmaster.INBOX
+
+Channel Amesto.Webmaster
+Master :Amesto.Webmaster:
+Slave :local:.Amesto.Webmaster.
+Pattern Archive Drafts
+
+Channel Amesto.Webmaster.Junk
+Master :Amesto.Webmaster:"Junk Email"
+Slave :local:.Amesto.Webmaster.Junk
+
+Channel Amesto.Webmaster.Sent
+Master :Amesto.Webmaster:"Sent Items"
+Slave :local:.Amesto.Webmaster.Sent
 
 Channel Amesto.Webmaster.Trash
 Master :Amesto.Webmaster:"Deleted Items"
@@ -76,4 +90,6 @@ Channel Amesto.Trash
 
 Group Amesto.Webmaster
 Channel Amesto.Webmaster
+Channel Amesto.Webmaster.Junk
+Channel Amesto.Webmaster.Sent
 Channel Amesto.Webmaster.Trash
