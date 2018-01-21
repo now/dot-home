@@ -4,10 +4,11 @@ bind -f common < player-prev
 bind -f common > player-next
 bind -f common J win-mv-after
 bind -f common K win-mv-before
-bind -f common P player-play
+bind -f common C player-play
 bind -f common h seek -5
-bind -f common p player-pause
+bind -f common H seek -1m
 bind -f common s seek +5
+bind -f common S seek +1m
 
 set altformat_current= %{filename}
 set altformat_playlist=  │%{filename}%=│%8{duration}
@@ -18,3 +19,5 @@ set format_playlist=%2{tracknumber}│%-25%{artist}│%{title}%=│%-25%{album}�
 set format_playlist_va=%2{tracknumber}│%-25%{albumartist}│%-12%{artist} – %{title}%=│%-25%{album}│%-10{date}│%8{duration}
 set format_trackwin=%2{tracknumber}|%-25%{artist}|%{title}%=|%-25%{album}|%-10{date}|%8{duration}
 set format_trackwin_va=%2{tracknumber}|%-20%{albumartist}|%-12%{artist} – %{title}%=|%-20%{album}|%-10{date}|%8{duration}
+
+set replaygain=track
