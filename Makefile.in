@@ -90,8 +90,6 @@ userconfmixxxdir = $(userconfdir)/.mixxx
 userconfmixxxcontrollersdir = $(userconfmixxxdir)/controllers
 userconfmixxxskinsdir = $(userconfmixxxdir)/skins
 userconfmixxxskinsroedir = $(userconfmixxxskinsdir)/Roe
-userconfmozillafirefoxdir = $(userconfdir)/.mozilla/firefox
-userconfmozillafirefoxprofilesdefaultdir = $(userconfmozillafirefoxdir)/Profiles/default
 userconfopenofficeorg3userwordbookdir = $(userconfdir)/.openoffice.org/3/user/wordbook
 xdgconfighomedir = $(XDG_CONFIG_HOME)
 xdgconfighomecmusdir = $(xdgconfighomedir)/cmus
@@ -412,12 +410,6 @@ userconfmixxxskinsroe_DATA = \
 	mixxx/skins/Roe/style.qss \
 	mixxx/skins/Roe/vumeter-latency.svg
 
-userconfmozillafirefox_DATA = \
-	firefox/profiles.ini
-
-userconfmozillafirefoxprofilesdefault_DATA = \
-	firefox/user.js
-
 userconfopenofficeorg3userwordbook_DATA = \
 	hunspell/en_GB-ise.aff \
 	hunspell/en_GB-ise.dic \
@@ -564,8 +556,6 @@ endif
 $(call DIR,userconfmixxx)
 $(call DIR,userconfmixxxcontrollers)
 $(call DIR,userconfmixxxskinsroe)
-$(call DIR,userconfmozillafirefox)
-$(call DIR,userconfmozillafirefoxprofilesdefault)
 $(call DIR,userconfopenofficeorg3userwordbook)
 $(call DIR,xdgconfighomecmus)
 $(call DIR,xdgconfighomefontconfig)
