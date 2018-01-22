@@ -58,7 +58,8 @@
                                              msg '(:from :to)
                                              "^\\(?:\\(?:now\\|nikolai\\)@\\(?:bitwi\\|disu\\.se\\)\\|nikolai\\.weibull@\\(?:gmail\\|icloud\\)\\.com\\)$")
                                             (string-prefix-p "/.Disuse." (mu4e-message-field msg :maildir)))))
-                        :vars '((mu4e-drafts-folder . "/.Disuse.Drafts")
+                        :vars '((mu4e-compose-signature . t)
+                                (mu4e-drafts-folder . "/.Disuse.Drafts")
                                 (mu4e-refile-folder . "/.Disuse.Archive")
                                 (mu4e-sent-folder . "/.Disuse.Sent")
                                 (mu4e-trash-folder . "/.Disuse.Trash")
@@ -90,7 +91,12 @@
                                         (mu4e-message-contact-field-matches
                                          msg '(:from :to)
                                          "^webmaster@amesto\\.com$")))
-                        :vars '((mu4e-drafts-folder . "/.Amesto.Webmaster.Drafts")
+                        :vars '((mu4e-compose-signature .
+                                 (concat "Nikolai Weibull\n"
+                                         "Systems Developer\n"
+                                         "Office: +46 31-360 98 39 | "
+                                         "Amesto Translations"))
+                                (mu4e-drafts-folder . "/.Amesto.Webmaster.Drafts")
                                 (mu4e-refile-folder . "/.Amesto.Webmaster.Archive")
                                 (mu4e-sent-folder . "/.Amesto.Webmaster.Sent")
                                 (mu4e-trash-folder . "/.Amesto.Webmaster.Trash")
@@ -222,6 +228,39 @@ anymore, go to the previous message."
 	(mu4e-view-headers-prev)))))
 
 (setq org-mu4e-link-query-in-headers-mode nil)
+
+(defun now-mu4e-fill-yanked-message (&optional justify)
+  "Fill the paragraphs of a message yanked into this one.
+Numeric argument means justify as well.  This function respects
+`mu4e-compose-format-flowed'."
+  (interactive (progn
+		 (barf-if-buffer-read-only)
+		 (list (if current-prefix-arg 'full))))
+  (save-excursion
+    (goto-char (point-min))
+    (search-forward (concat "\n" mail-header-separator "\n") nil t)
+    (let ((max (save-excursion
+                 (or (re-search-forward message-signature-separator nil t)
+                     (point-max)))))
+      (if mu4e-compose-format-flowed
+          (let ((fill-column max)
+                (fill-prefix message-yank-prefix))
+            (fill-individual-paragraphs (point) max justify))
+        (let ((fill-prefix message-yank-prefix))
+          (fill-individual-paragraphs (point) max justify))))))
+
+(defun now-mu4e-fill-paragraph (&optional justify region)
+  "Fill a multi-line paragraph, respecting `mu4e-compose-format-flowed'."
+  (interactive (progn
+		 (barf-if-buffer-read-only)
+		 (list (if current-prefix-arg 'full) t)))
+  (if mu4e-compose-format-flowed
+    (let ((fill-column (point-max)))
+      (fill-paragraph justify region))
+    (fill-paragraph justify region)))
+
+(define-key mu4e-compose-mode-map (kbd "C-c C-q") 'now-mu4e-fill-yanked-message)
+(define-key mu4e-compose-mode-map (kbd "M-q") 'now-mu4e-fill-paragraph)
 
 ;; Commands:
 ;;    mu4e-update-mail-and-index
