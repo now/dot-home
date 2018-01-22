@@ -338,6 +338,7 @@ provided_elcs = \
 	emacs.d/delayed-inits/tramp-sh.elc \
 	emacs.d/delayed-inits/vc-hooks.elc \
 	emacs.d/delayed-inits/vc-git.elc \
+	emacs.d/delayed-inits/whitespace.elc \
 	emacs.d/delayed-inits/xref.elc \
 	emacs.d/delayed-inits/xterm.elc
 

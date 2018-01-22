@@ -11,9 +11,6 @@
 ;;;###autoload
 (defun now-turn-on-whitespace-mode ()
   "Turn on `whitespace-mode' with reasonable `whitespace-style'."
-  (set (make-local-variable 'whitespace-style)
-       '(face trailing lines-tail empty indentation space-before-tab))
-  (set (make-local-variable 'whitespace-line-column) 81)
   (whitespace-mode))
 
 (provide 'now-init)
