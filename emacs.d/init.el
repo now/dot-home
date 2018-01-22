@@ -33,6 +33,10 @@
 (show-paren-mode)
 
 (global-set-key (kbd "C-x C-o") 'other-window)
+(global-set-key [f1] nil)
+(global-set-key [f2] nil)
+(global-set-key [f3] nil)
+(global-set-key [f4] nil)
 
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.at\\'") 'autotest-mode))
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.jsx\(inc\)?\\'") 'js-mode))
