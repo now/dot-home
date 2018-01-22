@@ -249,5 +249,5 @@ A prefix ARG specifies how many lines of context to keep."
       (progn
         (evil-multiedit-abort))
     (evil-multiedit-match-all)
-    (iedit-toggle-unmatched-lines-visible arg)
+    (iedit-show/hide-unmatched-lines arg)
     (recenter)))
