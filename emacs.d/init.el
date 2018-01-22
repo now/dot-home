@@ -44,8 +44,6 @@
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.sch\\'") 'xml-mode))
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.xsd\\'") 'xml-mode))
 
-(add-hook 'desktop-after-read-hook
-          (lambda ()
-            (desktop-auto-save-enable)))
+(add-hook 'desktop-after-read-hook 'desktop-auto-save-enable)
 
 (require 'mu4e)
