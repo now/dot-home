@@ -32,7 +32,7 @@
 (load-theme 'now t)
 (show-paren-mode)
 
-(global-set-key (kbd "C-x C-o") 'other-window)
+(global-set-key (kbd "C-x C-o") 'ace-window)
 (global-set-key [f1] nil)
 (global-set-key [f2] nil)
 (global-set-key [f3] nil)
