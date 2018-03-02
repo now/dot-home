@@ -13,4 +13,9 @@
   "Turn on `whitespace-mode' with reasonable `whitespace-style'."
   (whitespace-mode))
 
+;;;###autoload
+(defun now-turn-off-whitespace-mode ()
+  "Turn off `whitespace-mode'."
+  (whitespace-mode -1))
+
 (provide 'now-init)
