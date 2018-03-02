@@ -8,7 +8,7 @@
                                             (org-agenda-skip-function 'now-org-agenda-skip-unless-archival)
                                             (org-tags-match-list-sublevels nil))))))
       org-agenda-deadline-leaders '("Deadline:  " "In %d days: " "%d days ago: ")
-      org-agenda-diary-file (concat (file-name-as-directory org-directory) "diary.org")
+      org-agenda-diary-file (concat (file-name-as-directory org-directory) "personal.org")
       org-agenda-dim-blocked-tasks nil
       org-agenda-fontify-priorities t
       org-agenda-insert-diary-strategy 'date-tree-last
