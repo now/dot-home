@@ -270,6 +270,7 @@ userconfemacsd_DATA = \
 	emacs.d/now-theme.elc
 
 provided_elcs = \
+	emacs.d/delayed-inits/ace-jump-mode.elc \
 	emacs.d/delayed-inits/auth-source.elc \
 	emacs.d/delayed-inits/calc.elc \
 	emacs.d/delayed-inits/calendar.elc \
