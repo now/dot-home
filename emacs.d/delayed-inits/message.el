@@ -15,14 +15,11 @@
 (define-abbrev message-mode-abbrev-table "br" "Best regards,\n  Nikolai"
   nil :system t :case-fixed t)
 
-(define-abbrev message-mode-abbrev-table "n" "\n  Nikolai"
-  nil :system t :case-fixed t)
-
 (define-abbrev message-mode-abbrev-table "tbr"
   "Thank you and best regards,\n  Nikolai"
   nil :system t :case-fixed t)
 
-(define-abbrev message-mode-abbrev-table "ts" "Thanks,\n  Nikolai"
+(define-abbrev message-mode-abbrev-table "tsn" "Thanks,\n  Nikolai"
   nil :system t :case-fixed t)
 
 (add-hook 'message-mode-hook 'now-message-mode-hook)
