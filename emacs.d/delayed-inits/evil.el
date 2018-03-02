@@ -172,6 +172,16 @@
   ",t" 'ruby-find-other-file
   ",M" 'ruby-run-test-at-line)
 
+(with-eval-after-load 'tar-mode
+  (defvar tar-mode-map)
+  (evil-make-overriding-map tar-mode-map 'motion)
+  (evil-define-key 'motion tar-mode-map
+    (kbd "RET") 'tar-extract)
+  (evil-define-key 'motion tar-mode-map
+    "j" 'tar-next-line
+    "k" 'tar-previous-line
+    "h" 'evil-backward-char))
+
 (evil-define-key 'normal view-mode-map
   "q" 'quit-window)
 
