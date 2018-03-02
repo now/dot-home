@@ -255,6 +255,7 @@ userconf_DATA = \
 	gemrc \
 	gtkrc-2.0 \
 	hunspell_en_US \
+	hunspell_sv \
 	indent.pro \
 	inputrc \
 	mailcap \
