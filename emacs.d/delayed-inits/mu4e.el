@@ -113,9 +113,7 @@
       mu4e-headers-from-or-to-prefix '("" . "« ")
       mu4e-headers-date-format "%Y-%m-%d" ; TODO Just use the default, once we
                                           ; have our own locale set up.
-      ;; TODO Check that spam goes to junk, not trash.  May need to
-      ;; configure it.
-      ; mu4e-headers-include-related nil
+      mu4e-headers-include-related nil
       mu4e-headers-show-target nil
       ; mu4e-headers-skip-duplicates t
       mu4e-headers-visible-columns 82
@@ -210,7 +208,8 @@
 (defun now-mu4e-headers-quit-buffer ()
   "Quit the mu4e-view buffer or the mu4e-headers buffer."
   (interactive)
-  (let ((w (and mu4e~view-buffer (get-buffer-window mu4e~view-buffer))))
+  (let* ((b (mu4e-get-view-buffer))
+         (w (and (buffer-live-p b) (get-buffer-window b))))
     (if (not (window-live-p w))
         (mu4e~headers-quit-buffer)
       (select-window w)
