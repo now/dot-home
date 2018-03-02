@@ -1,6 +1,11 @@
 (defun now-org-refile-target-verify ()
   "Verify that refile target is not a done task."
-  (not (org-entry-is-done-p)))
+  (cond
+   ((looking-at (concat "^.*:" org-archive-tag ":.*$"))
+    (org-end-of-subtree t)
+    nil)
+   ((org-entry-is-done-p) nil)
+   (t t)))
 (defface org-delegated nil
   "Face used for DELEGATED todo keyword."
   :group 'org-faces)
@@ -29,14 +34,12 @@
       org-hide-emphasis-markers t
       org-highlight-sparse-tree-matches nil
       org-link-frame-setup '((vm . vm-visit-folder)
-                             (gnus . org-gnus-no-new-news)
-                             (file . find-file)
-                             (wl . wl))
+                             (file . find-file))
       org-log-done 'time
       org-log-into-drawer t
       org-log-redeadline t
       org-log-reschedule t
-      org-loop-over-headlines-in-active-region 'region-start-level
+      org-loop-over-headlines-in-active-region 'start-level
       org-reverse-note-order t
       org-outline-path-complete-in-steps nil
       org-refile-allow-creating-parent-nodes 'confirm
@@ -58,6 +61,8 @@
 (setf (cdr (assq 'state org-log-note-headings)) "State %s from %S %t")
 
 (add-to-list 'org-file-apps '(directory . emacs))
+
+(define-key org-mode-map "\C-c$" 'org-archive-to-archive-sibling)
 
 (defun now-org-insert-heading-finish-log-note ()
   (remove-hook 'org-log-buffer-setup-hook
@@ -152,3 +157,51 @@
               'now-org-narrow-to-subtree-and-show-todo-tree))
 
 (org-clock-persistence-insinuate)
+
+(add-hook 'org-mode-hook 'now-turn-off-whitespace-mode)
+
+(defun org-do-emphasis-faces (limit)
+  "Run through the buffer and emphasize strings."
+  (let ((quick-re (format "\\([%s]\\|^\\)\\([~=*/_+]\\)"
+			  (car org-emphasis-regexp-components))))
+    (catch :exit
+      (while (re-search-forward quick-re limit t)
+	(let* ((marker (match-string 2))
+	       (verbatim? (member marker '("~" "="))))
+	  (when (save-excursion
+		  (goto-char (match-beginning 0))
+		  (and
+		   ;; Do not match headline stars.  Do not consider
+		   ;; stars of a headline as closing marker for bold
+		   ;; markup either.
+		   (not (and (equal marker "*")
+			     (save-excursion
+			       (forward-char)
+			       (skip-chars-backward "*")
+			       (looking-at-p org-outline-regexp-bol))))
+		   ;; Do not match table hlines.
+		   (not (and (equal marker "+")
+			     (org-match-line
+			      "[ \t]*\\(|[-+]+|?\\|\\+[-+]+\\+\\)[ \t]*$")))
+		   ;; Match full emphasis markup regexp.
+		   (looking-at (if verbatim? org-verbatim-re org-emph-re))
+		   ;; Do not span over paragraph boundaries.
+		   (not (string-match-p org-element-paragraph-separate
+					(match-string 2)))
+		   ;; Do not span over cells in table rows.
+		   (not (and (save-match-data (org-match-line "[ \t]*|"))
+			     (string-match-p "|" (match-string 4))))))
+	    (pcase-let ((`(,_ ,face ,_) (assoc marker org-emphasis-alist)))
+	      (font-lock-prepend-text-property
+	       (match-beginning 2) (match-end 2) 'face face)
+	      (when verbatim?
+		(org-remove-flyspell-overlays-in
+		 (match-beginning 0) (match-end 0)))
+	      (add-text-properties (match-beginning 2) (match-end 2)
+				   '(font-lock-multiline t org-emphasis t))
+	      (when org-hide-emphasis-markers
+		(add-text-properties (match-end 4) (match-beginning 5)
+				     '(invisible org-link))
+		(add-text-properties (match-beginning 3) (match-end 3)
+				     '(invisible org-link)))
+	      (throw :exit t))))))))
