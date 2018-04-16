@@ -97,6 +97,8 @@
     `(link ((,class (:foreground ,blue))))
     `(link-visited ((,class (:foreground ,purple))))
     `(magit-branch ((,class (:inherit dired-directory))))
+    `(magit-diff-context-highlight ((,class (:inherit magit-diff-context
+                                             :background "grey90"))))
     `(magit-log-head-label-bisect-bad ((,class (:inherit error))))
     `(magit-log-head-label-bisect-good ((,class (:inherit success))))
     `(magit-log-head-label-default ((,class (:background "grey90"))))
