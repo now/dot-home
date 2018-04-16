@@ -1,16 +1,8 @@
-[lua]
-lua-intf=cli
-lua-config=cli={host='localhost:4212',welcome='',prompt=''}
-
-[quartztext]
-quartztext-font=Helvetica Neue
-
-[macosx]
-macosx-mediakeys=0
-macosx-nativefullscreenmode=1
-
-[main]
+[core]
+playlist-autostart=0
+recursive=expand
 extraintf=lua
+fullscreen=1
 key-toggle-fullscreen=f
 key-faster=]
 key-slower=[
@@ -38,3 +30,15 @@ key-subdelay-up=q
 key-subdelay-down=;
 key-audiodelay-up=Shift-+
 key-audiodelay-down=-
+
+[freetype]
+freetype-font=Helvetica Neue
+
+[lua]
+lua-intf=cli
+lua-config=cli={host='localhost:4212',welcome='',prompt=''}
+
+[macosx]
+macosx-mediakeys=0
+macosx-nativefullscreenmode=1
+macosx-statusicon=0
