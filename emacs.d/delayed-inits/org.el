@@ -106,10 +106,12 @@
   "Sort entries by TODO state, priority, effort, and timestamp."
   (format "%03d %03d %02d %03d %+026.6f"
           (if (looking-at org-complex-heading-regexp)
-              (let ((m (match-string 2)))
-                (if m
-                    (- 99 (length (member m org-todo-keywords-1)))
-                  0))
+              (let ((m (match-string 2))
+                    (tags (match-string 5)))
+                (cond
+                 ((string-equal tags ":ARCHIVE:") 1000)
+                 (m (- 99 (length (member m org-todo-keywords-1))))
+                 (t 0)))
             0)
           (if (looking-at org-complex-heading-regexp)
               (let* ((m (match-string 2))
