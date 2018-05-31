@@ -84,12 +84,14 @@ Pattern *
 Group Amesto
 Channel Amesto
 Channel Amesto.Chat
+Channel Amesto.INBOX
 Channel Amesto.Junk
 Channel Amesto.Sent
 Channel Amesto.Trash
 
 Group Amesto.Webmaster
 Channel Amesto.Webmaster
+Channel Amesto.Webmaster.INBOX
 Channel Amesto.Webmaster.Junk
 Channel Amesto.Webmaster.Sent
 Channel Amesto.Webmaster.Trash
