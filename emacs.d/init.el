@@ -7,7 +7,8 @@
                    disp-table))
   (load (concat user-emacs-directory "inits/" (symbol-name feature))))
 
-(setq mode-line-client `(""
+(setq column-number-indicator-zero-based nil
+      mode-line-client `(""
                          (:propertize ("" (:eval (if server-buffer-clients "@" "")))
                                       help-echo ,(purecopy "emacsclient frame")))
       mode-line-front-space '(:eval (if (display-graphic-p)
