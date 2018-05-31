@@ -101,7 +101,6 @@
                                 (mu4e-sent-folder . "/.Amesto.Webmaster.Sent")
                                 (mu4e-trash-folder . "/.Amesto.Webmaster.Trash")
                                 (user-mail-address . "webmaster@amesto.com"))))
-      mu4e-get-mail-command "mbsync -a"
       mu4e-headers-fields '((:flags . 4)
                             (:human-date . 11)
                             (:from-or-to . 22)
@@ -120,7 +119,7 @@
       mu4e-hide-index-messages t
       mu4e-index-lazy-check t
       mu4e-split-view 'vertical
-      mu4e-update-interval 600
+      mu4e-update-interval nil
       mu4e-use-fancy-chars t
       mu4e-user-agent-string nil
       mu4e-user-mail-address-list '("now@bitwi.se"

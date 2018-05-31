@@ -16,6 +16,7 @@ GZIP = @GZIP@
 ICONV = @ICONV@
 INSTALL = @INSTALL@
 KEYCHAIN = @KEYCHAIN@
+LAUNCHCTL = @LAUNCHCTL@
 MKDIR_P = @MKDIR_P@
 PATCH = @PATCH@
 UNZIP = @UNZIP@
@@ -34,42 +35,47 @@ _v_at_1 =
 
 V_GEN = $(_v_GEN_$(V))
 _v_GEN_ = $(_v_GEN_$(DEFAULT_VERBOSITY))
-_v_GEN_0 = @echo "  GEN     " $@;
+_v_GEN_0 = @echo "  GEN       " $@;
 _v_GEN_1 =
 
 V_GZIP = $(_v_GZIP_$(V))
 _v_GZIP_ = $(_v_GZIP_$(DEFAULT_VERBOSITY))
-_v_GZIP_0 = @echo "  GZIP    " $@;
+_v_GZIP_0 = @echo "  GZIP      " $@;
 _v_GZIP_1 =
 
 V_CURL = $(_v_CURL_$(V))
 _V_CURL_ = $(_v_CURL_$(DEFAULT_VERBOSITY))
-_V_CURL_0 = @echo "  CURL    " $@;
+_V_CURL_0 = @echo "  CURL      " $@;
 _v_CURL_1 =
 
 V_MKDIR_P = $(_v_MKDIR_P_$(V))
 _v_MKDIR_P_ = $(_v_MKDIR_P_$(DEFAULT_VERBOSITY))
-_v_MKDIR_P_0 = @echo "  MKDIR   " $@;
+_v_MKDIR_P_0 = @echo "  MKDIR     " $@;
 _v_MKDIR_1 =
 
 V_PATCH = $(_v_PATCH_$(V))
 _v_PATCH_ = $(_v_PATCH_$(DEFAULT_VERBOSITY))
-_v_PATCH_0 = @echo "  PATCH   " $@;
+_v_PATCH_0 = @echo "  PATCH     " $@;
 _v_PATCH_1 =
 
 V_INSTALL = $(_v_INSTALL_$(V))
 _v_INSTALL_ = $(_v_INSTALL_$(DEFAULT_VERBOSITY))
-_v_INSTALL_0 = @echo "  INSTALL " $@;
+_v_INSTALL_0 = @echo "  INSTALL   " $@;
 _v_INSTALL_1 =
+
+V_LAUNCHCTL = $(_v_LAUNCHCTL_$(V))
+_v_LAUNCHCTL_ = $(_v_LAUNCHCTL_$(DEFAULT_VERBOSITY))
+_v_LAUNCHCTL_0 = @echo "  LAUNCHCTL " $@;
+_v_LAUNCHCTL_1 =
 
 V_ELC = $(_v_ELC_$(V))
 _v_ELC_ = $(_v_ELC_$(DEFAULT_VERBOSITY))
-_v_ELC_0 = @echo "  ELC     " $@;
+_v_ELC_0 = @echo "  ELC       " $@;
 _v_ELC_1 =
 
 V_UNZIP = $(_v_UNZIP_$(V))
 _v_UNZIP_ = $(_v_UNZIP_$(DEFAULT_VERBOSITY))
-_v_UNZIP_0 = @echo "  UNZIP   " $@;
+_v_UNZIP_0 = @echo "  UNZIP     " $@;
 _v_UNZIP_1 =
 
 prefix = @prefix@
@@ -146,7 +152,7 @@ $(1):
 
 endef
 
-# file, target, dir, primary
+# file, target, dir, primary, rules?
 define DIR_primary
 .PHONY diff: $(2).diff
 $(2).diff:
@@ -158,11 +164,14 @@ $(2): | $(3)
 
 $(2): $(1)
 	$$(V_INSTALL)$$(INSTALL_$(4)) $$< $$(call shell_quote,$$@)
+ifneq ($(5),)
+	$(5)
+endif
 
 endef
 
-# dir, prefix?
-DIR = $(eval $(call DIR_dir,$(DESTDIR)$($(1)dir)) $(foreach primary,DATA SCRIPTS,$(foreach file,$($(1)_$(primary)),$(call DIR_primary,$(file),$(DESTDIR)$($(1)dir)/$(2)$(notdir $(file)),$(DESTDIR)$($(1)dir),$(primary)))))
+# dir, prefix?, rules?
+DIR = $(eval $(call DIR_dir,$(DESTDIR)$($(1)dir)) $(foreach primary,DATA SCRIPTS,$(foreach file,$($(1)_$(primary)),$(call DIR_primary,$(file),$(DESTDIR)$($(1)dir)/$(2)$(notdir $(file)),$(DESTDIR)$($(1)dir),$(primary),$(3)))))
 
 %/.dirstamp:
 	$(V_at)$(MKDIR_P) $*
