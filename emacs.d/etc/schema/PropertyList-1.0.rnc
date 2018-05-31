@@ -17,5 +17,5 @@ data = element data { text }
 date = element date { text }
 true = element true { empty }
 false = element false { empty }
-real = element real { xsd:string { pattern = '[+-]?[0-9]+(\.[0-9]*)?(E[+-][0-9]+)?' } }
-integer = element integer { xsd:string { pattern = '[+-]?[0-9]+' } }
+real = element real { xsd:string { pattern = '[+\-]?[0-9]+(\.[0-9]*)?(E[+\-][0-9]+)?' } }
+integer = element integer { xsd:string { pattern = '[+\-]?[0-9]+' } }
