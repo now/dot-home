@@ -188,7 +188,7 @@ DIR = $(eval $(call DIR_dir,$(DESTDIR)$($(1)dir)) $(foreach primary,DATA SCRIPTS
 	$(V_GZIP)$(GZIP) -9n < $< > $@.tmp
 	$(V_at)mv $@.tmp $@
 
-DEJAVU_FONTS_VERSION = 2.35
+DEJAVU_FONTS_VERSION = 2.37
 dejavu_fonts_ttf_version = dejavu-fonts-ttf-$(DEJAVU_FONTS_VERSION)
 dejavu_fonts_ttf_version_zip = dejavu-fonts-ttf-$(DEJAVU_FONTS_VERSION).zip
 
