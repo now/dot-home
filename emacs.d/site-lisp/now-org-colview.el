@@ -1,7 +1,12 @@
+(require 'org)
+
+;;;###autoload
 (defun now-org-columns-forward-char ()
   "Go to the next column field in the current row."
   (interactive)
   (goto-char (1+ (point))))
+
+;;;###autoload
 (eval-when-compile
   (declare-function org-agenda-do-context-action "org-agenda.el"))
 (defun now-org-columns-forward-line (n)
@@ -14,13 +19,10 @@
     (move-to-column col)
     (if (eq major-mode 'org-agenda-mode)
         (org-agenda-do-context-action))))
+
+;;;###autoload
 (defun now-org-columns-backward-line (n)
   (interactive "p")
   (now-org-columns-forward-line (- n)))
-(define-key org-columns-map ",t" 'org-columns-todo)
-(define-key org-columns-map "b" 'backward-char)
-(define-key org-columns-map "h" 'backward-char)
-(define-key org-columns-map "j" 'now-org-columns-forward-line)
-(define-key org-columns-map "k" 'now-org-columns-backward-line)
-(define-key org-columns-map "s" 'now-org-columns-forward-char)
-(define-key org-columns-map "w" 'now-org-columns-forward-char)
+
+(provide 'now-org-colview)

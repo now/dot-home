@@ -174,6 +174,8 @@
     `(show-paren-mismatch ((,class (:inherit error))))
     `(success ((,class (:foreground ,white :background ,green))))
     `(undo-tree-visualizer-active-branch-face ((t)))
+    `(undo-tree-visualizer-current-face ((t)))
+    `(undo-tree-visualizer-unmodified-face ((,class (:foreground ,green))))
     `(warning ((,class (:foreground ,white :background ,yellow))))
     `(week ((,class (:inherit font-lock-comment-face))))
     `(whitespace-empty ((,class (:inherit whitespace-trailing))))

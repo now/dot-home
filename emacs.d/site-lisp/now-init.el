@@ -9,13 +9,18 @@
   (setq fill-column 79))
 
 ;;;###autoload
-(defun now-turn-on-whitespace-mode ()
-  "Turn on `whitespace-mode' with reasonable `whitespace-style'."
-  (whitespace-mode))
+(defun now-tabulated-list-mode-use-global-glyphless-char-display ()
+  "Kill the local variable `glyphless-char-display'."
+  (kill-local-variable 'glyphless-char-display))
 
 ;;;###autoload
-(defun now-turn-off-whitespace-mode ()
-  "Turn off `whitespace-mode'."
-  (whitespace-mode -1))
+(defun now-remove-continuation-fringe-indicator ()
+  "Remove `'continuation' from `fringe-indicator-alist'."
+  (setf (alist-get 'continuation fringe-indicator-alist) nil))
+
+;;;###autoload
+(defun now-remove-truncation-fringe-indicator ()
+  "Remove `'continuation' from `fringe-indicator-alist'."
+  (setf (alist-get 'truncation fringe-indicator-alist) nil))
 
 (provide 'now-init)

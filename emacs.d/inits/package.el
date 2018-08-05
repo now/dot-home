@@ -3,14 +3,14 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/")
              'append)
-(setq package-load-list '((ace-jump-mode t)
-                          (ace-window t)
+;; TODO Replace with (use-package … :ensure t)?
+(setq package-load-list '((ace-window t)
                           (async t)
                           (avy t)
+                          (bind-key t)
                           (company t)
                           (dash t)
                           (evil t)
-                          (evil-multiedit t)
                           (flx t)
                           (flx-ido t)
                           (ghub t)
@@ -19,7 +19,6 @@
                           (gxref t)
                           (ido-completing-read+ t)
                           (ido-ubiquitous t)
-                          (iedit t)
                           (let-alist t)
                           (magit t)
                           (magit-popup t)
@@ -30,6 +29,7 @@
                           (smex t)
                           (smtpmail-multi t)
                           (undo-tree t)
+                          (use-package t)
                           (visual-fill-column t)
                           (with-editor t)))
 (cond

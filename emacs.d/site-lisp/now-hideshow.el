@@ -1,7 +1,7 @@
-(setq hs-set-up-overlay (lambda (ov)
-                          (overlay-put ov 'display " …")))
+(require 'hideshow)
 
-(defun hs-hide-all-comments ()
+;;;###autoload
+(defun now-hs-hide-all-comments ()
   "Hide all top level blocks, if they are comments, displaying only first line.
 Move point to the beginning of the line, and run the normal hook
 `hs-hide-hook'.  See documentation for `run-hooks'."
@@ -26,3 +26,10 @@ Move point to the beginning of the line, and run the normal hook
        (progress-reporter-done spew)))
    (beginning-of-line)
    (run-hooks 'hs-hide-hook)))
+
+;;;###autoload
+(defun now-hs-set-c-like-adjust-block-beginning ()
+  "Set `hs-adjust-block-beginning' to 'hs-c-like-adjust-block-beginning."
+  (setq hs-adjust-block-beginning 'hs-c-like-adjust-block-beginning))
+
+(provide 'now-hideshow)

@@ -88,7 +88,6 @@ XDG_CONFIG_CACHE = @XDG_CONFIG_CACHE@
 XDG_CONFIG_HOME = @XDG_CONFIG_HOME@
 userconfaudacitydir = $(userconfdir)/.audacity
 userconfemacsddir = $(userconfdir)/.emacs.d
-userconfemacsddelayedinitsdir = $(userconfemacsddir)/delayed-inits
 userconfemacsdetcschemadir = $(userconfemacsddir)/etc/schema
 userconfemacsdinitsdir = $(userconfemacsddir)/inits
 userconfemacsdsitelispdir = $(userconfemacsddir)/site-lisp
@@ -278,88 +277,6 @@ userconfemacsd_DATA = \
 	emacs.d/init.elc \
 	emacs.d/now-theme.elc
 
-provided_elcs = \
-	emacs.d/delayed-inits/ace-jump-mode.elc \
-	emacs.d/delayed-inits/auth-source.elc \
-	emacs.d/delayed-inits/calc.elc \
-	emacs.d/delayed-inits/calendar.elc \
-	emacs.d/delayed-inits/cc-mode.elc \
-	emacs.d/delayed-inits/company.elc \
-	emacs.d/delayed-inits/compile.elc \
-	emacs.d/delayed-inits/css-mode.elc \
-	emacs.d/delayed-inits/desktop.elc \
-	emacs.d/delayed-inits/diff.elc \
-	emacs.d/delayed-inits/dired.elc \
-	emacs.d/delayed-inits/dired-aux.elc \
-	emacs.d/delayed-inits/ediff.elc \
-	emacs.d/delayed-inits/evil-multiedit.elc \
-	emacs.d/delayed-inits/evil.elc \
-	emacs.d/delayed-inits/files.elc \
-	emacs.d/delayed-inits/find-func.elc \
-	emacs.d/delayed-inits/flx-ido.elc \
-	emacs.d/delayed-inits/gnus-group.elc \
-	emacs.d/delayed-inits/gnus-msg.elc \
-	emacs.d/delayed-inits/gnus-spec.elc \
-	emacs.d/delayed-inits/gnus-sum.elc \
-	emacs.d/delayed-inits/gnus.elc \
-	emacs.d/delayed-inits/grep.elc \
-	emacs.d/delayed-inits/hideshow.elc \
-	emacs.d/delayed-inits/holidays.elc \
-	emacs.d/delayed-inits/ido.elc \
-	emacs.d/delayed-inits/info.elc \
-	emacs.d/delayed-inits/ispell.elc \
-	emacs.d/delayed-inits/js.elc \
-	emacs.d/delayed-inits/lisp-mode.elc \
-	emacs.d/delayed-inits/magit.elc \
-	emacs.d/delayed-inits/magit-popup.elc \
-	emacs.d/delayed-inits/make-mode.elc \
-	emacs.d/delayed-inits/man.elc \
-	emacs.d/delayed-inits/menu-bar.elc \
-	emacs.d/delayed-inits/message.elc \
-	emacs.d/delayed-inits/minibuffer.elc \
-	emacs.d/delayed-inits/mu4e.elc \
-	emacs.d/delayed-inits/mule.elc \
-	emacs.d/delayed-inits/nnimap.elc \
-	emacs.d/delayed-inits/nxml-mode.elc \
-	emacs.d/delayed-inits/org-agenda.elc \
-	emacs.d/delayed-inits/org-capture.elc \
-	emacs.d/delayed-inits/org-clock.elc \
-	emacs.d/delayed-inits/org-colview.elc \
-	emacs.d/delayed-inits/org-faces.elc \
-	emacs.d/delayed-inits/org-id.elc \
-	emacs.d/delayed-inits/org-mobile.elc \
-	emacs.d/delayed-inits/org.elc \
-	emacs.d/delayed-inits/paren.elc \
-	emacs.d/delayed-inits/prog-mode.elc \
-	emacs.d/delayed-inits/recentf.elc \
-	emacs.d/delayed-inits/rng-loc.elc \
-	emacs.d/delayed-inits/ruby-mode.elc \
-	emacs.d/delayed-inits/scroll-bar.elc \
-	emacs.d/delayed-inits/sh-script.elc \
-	emacs.d/delayed-inits/shr.elc \
-	emacs.d/delayed-inits/simple.elc \
-	emacs.d/delayed-inits/smie.elc \
-	emacs.d/delayed-inits/smtpmail-multi.elc \
-	emacs.d/delayed-inits/smtpmail.elc \
-	emacs.d/delayed-inits/solar.elc \
-	emacs.d/delayed-inits/tabulated-list.elc \
-	emacs.d/delayed-inits/tool-bar.elc \
-	emacs.d/delayed-inits/tramp-sh.elc \
-	emacs.d/delayed-inits/vc-hooks.elc \
-	emacs.d/delayed-inits/vc-git.elc \
-	emacs.d/delayed-inits/whitespace.elc \
-	emacs.d/delayed-inits/xref.elc \
-	emacs.d/delayed-inits/xterm.elc
-
-unprovided_elcs = \
-	emacs.d/delayed-inits/buff-menu.elc \
-	emacs.d/delayed-inits/replace.elc \
-	emacs.d/delayed-inits/text-mode.elc
-
-userconfemacsddelayedinits_DATA = \
-	$(provided_elcs) \
-	$(unprovided_elcs)
-
 userconfemacsdetcschema_DATA = \
 	emacs.d/etc/schema/catalog.rnc \
 	emacs.d/etc/schema/gtk-builder.rnc \
@@ -372,10 +289,8 @@ userconfemacsdetcschema_DATA = \
 emacs.d/etc/schema/schemas.xml: emacs.d/etc/schema/.dirstamp
 
 init_elcs = \
-	emacs.d/inits/disp-table.elc \
 	emacs.d/inits/package.elc \
-	emacs.d/inits/provided-delayed-inits.elc \
-	emacs.d/inits/unprovided-delayed-inits.elc
+	emacs.d/inits/provided-delayed-inits.elc
 
 userconfemacsdinits_DATA = \
 	$(init_elcs)
@@ -385,11 +300,21 @@ sitelisp_elcs = \
 	emacs.d/site-lisp/buff-menu-ext.elc \
 	emacs.d/site-lisp/evil-paredit.elc \
 	emacs.d/site-lisp/hide-mode-line.elc \
+	emacs.d/site-lisp/now-cc-mode.elc \
+	emacs.d/site-lisp/now-evil.elc \
 	emacs.d/site-lisp/now-gxref.elc \
+	emacs.d/site-lisp/now-hideshow.elc \
 	emacs.d/site-lisp/now-init.elc \
+	emacs.d/site-lisp/now-mu4e.elc \
+	emacs.d/site-lisp/now-org-agenda.elc \
+	emacs.d/site-lisp/now-org-clock.elc \
+	emacs.d/site-lisp/now-org-colview.elc \
 	emacs.d/site-lisp/now-org.elc \
+	emacs.d/site-lisp/now-ruby.elc \
 	emacs.d/site-lisp/now-simple.elc \
+	emacs.d/site-lisp/now-smie.elc \
 	emacs.d/site-lisp/rnc-mode.elc \
+	emacs.d/site-lisp/use-package-evil-bind.elc \
 	emacs.d/site-lisp/velocity-mode.elc
 
 userconfemacsdsitelisp_DATA = \
@@ -508,38 +433,16 @@ $(sitelisp_elcs): emacs.d/site-lisp/.dirstamp
 $(userconfemacsd_DATA): emacs.d/.dirstamp
 $(xdgconfighomezsh_DATA): zsh/.dirstamp
 
-$(provided_elcs): ELCFLAGS = --eval "(require '$(basename $(notdir $@)))"
-
-emacs.d/delayed-inits/xterm.elc: ELCFLAGS = --eval "(require 'term/xterm)"
-
-$(unprovided_elcs): ELCFLAGS = --eval '(load "$(basename $(notdir $@))" nil t)'
-
-$(provided_elcs) $(unprovided_elcs): emacs.d/delayed-inits/.dirstamp
-
-emacs.d/inits/provided-delayed-inits.el: $(provided_elcs) Makefile emacs.d/inits/.dirstamp
-	$(V_GEN)echo "(dolist (feature '($(basename $(notdir $(provided_elcs))))) \
-	  (eval-after-load feature \
-	                   \`(load (concat user-emacs-directory \
-	                                   \"delayed-inits/\" \
-	                                   ,(symbol-name feature)))))" > $@
-
-emacs.d/inits/unprovided-delayed-inits.el: $(unprovided_elcs) Makefile emacs.d/inits/.dirstamp
-	$(V_GEN)echo "(dolist (feature '($(basename $(notdir $(unprovided_elcs))))) \
-	  (eval-after-load (symbol-name feature) \
-			   \`(load (concat user-emacs-directory \
-	                                   \"delayed-inits/\" \
-	                                   ,(symbol-name feature)))))" > $@
-
 $(sitelisp_elcs): %.elc: %.el emacs.d/inits/package.el
 	$(V_ELC)$(EMACS) --batch -q -L $(srcdir)/emacs.d/site-lisp \
 	  -l $(srcdir)/emacs.d/inits/package.el \
 	  --eval "(setq byte-compile-dest-file-function (lambda (file) \"$@\"))" \
 	  $(ELCFLAGS) -f batch-byte-compile $<
 
+# TODO Update these dependencies
 emacs.d/delayed-inits/buff-menu.elc: emacs.d/site-lisp/buff-menu-ext.elc
 emacs.d/delayed-inits/evil.elc: emacs.d/site-lisp/evil-paredit.elc \
 	emacs.d/site-lisp/ned-info-on-file.elc
-emacs.d/delayed-inits/org.elc \
 emacs.d/delayed-inits/org-agenda.elc: emacs.d/site-lisp/now-org.elc
 emacs.d/delayed-inits/prog-mode.elc \
 emacs.d/delayed-inits/tabulated-list.elc \
