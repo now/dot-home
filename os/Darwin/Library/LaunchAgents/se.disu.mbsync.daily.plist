@@ -9,7 +9,7 @@
     <key>ProgramArguments</key>
     <array>
       <string>/opt/local/bin/mbsync</string>
-      <string>Amesto.Webmaster</string>
+      <string>XTRF</string>
     </array>
 
     <key>Nice</key>
