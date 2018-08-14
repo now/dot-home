@@ -57,6 +57,7 @@
                ("l")
                ("s" . evil-forward-char))
          (:map evil-normal-state-map
+               (", b" . switch-to-buffer)
                ("<DEL>" . evil-scroll-page-up)
                ("L" . evil-change-whole-line)
                ("Q" . evil-record-macro)
@@ -315,7 +316,6 @@
   :bind ((:map evil-motion-state-map
                ;; TODO Move to evil-normal-state-map?
                (", D" . counsel-dired-jump)
-               (", b" . counsel-buffer-menu)
                (", G" . counsel-git-grep)
                (", j" . counsel-file-jump)
                (", J" . counsel-git)

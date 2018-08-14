@@ -298,7 +298,6 @@ userconfemacsdinits_DATA = \
 sitelisp_elcs = \
 	emacs.d/site-lisp/autotest-mode.elc \
 	emacs.d/site-lisp/buff-menu-ext.elc \
-	emacs.d/site-lisp/counsel-buffer-menu.elc \
 	emacs.d/site-lisp/evil-paredit.elc \
 	emacs.d/site-lisp/hide-mode-line.elc \
 	emacs.d/site-lisp/now-cc-mode.elc \
@@ -450,7 +449,10 @@ emacs.d/delayed-inits/tabulated-list.elc \
 emacs.d/delayed-inits/text-mode.elc: emacs.d/site-lisp/now-init.elc
 emacs.d/inits/user-interface.elc: emacs.d/site-lisp/hide-mode-line.elc
 
-emacs.d/site-lisp/userloaddefs.el: $(sitelisp_elcs) emacs.d/site-lisp/.dirstamp
+emacs.d/site-lisp/userloaddefs.el: \
+	$(sitelisp_elcs) \
+	emacs.d/site-lisp/.dirstamp \
+	Makefile
 	$(V_ELC)$(EMACS) --batch -q --eval '(setq vc-handled-backends nil)' \
 	  --eval '(setq generated-autoload-file "$(abs_srcdir)/$@")' \
 	  -f batch-update-autoloads $(srcdir)/emacs.d/site-lisp
