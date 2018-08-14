@@ -58,6 +58,7 @@
                ("s" . evil-forward-char))
          (:map evil-normal-state-map
                (", b" . switch-to-buffer)
+               (", e" . find-file)
                ("<DEL>" . evil-scroll-page-up)
                ("L" . evil-change-whole-line)
                ("Q" . evil-record-macro)
@@ -314,15 +315,14 @@
 (use-package counsel
   :after evil
   :bind ((:map evil-motion-state-map
-               ;; TODO Move to evil-normal-state-map?
-               (", D" . counsel-dired-jump)
-               (", G" . counsel-git-grep)
-               (", j" . counsel-file-jump)
-               (", J" . counsel-git)
-               ("`" . counsel-M-x))
+               (", D" . counsel-dired-jump))
          (:map evil-normal-state-map
+               (", G" . counsel-git-grep)
+               (", J" . counsel-git)
                (", e" . counsel-find-file)
-               ("M-d" . counsel-M-x))))
+               (", j" . counsel-file-jump)
+               ("M-d" . counsel-M-x)
+               ("`" . counsel-M-x))))
 
 (use-package counsel
   :defines org-agenda-mode-map
@@ -426,7 +426,6 @@
   :after evil
   :bind (:map evil-normal-state-map
               (", W" . save-some-buffers)
-              (", e" . find-file)
               (", w" . save-buffer)))
 
 (use-package find-func
@@ -3307,8 +3306,7 @@ For example, “&a'” → “á”"
   :after evil
   :bind ((:map evil-motion-state-map
                ("C-]" . xref-find-definitions)
-               ("g C-]" . xref-find-references)
-               )
+               ("g C-]" . xref-find-references))
          (:map evil-normal-state-map
                ("C-t" . xref-pop-marker-stack)))
   :config (progn
