@@ -298,6 +298,7 @@ userconfemacsdinits_DATA = \
 sitelisp_elcs = \
 	emacs.d/site-lisp/autotest-mode.elc \
 	emacs.d/site-lisp/buff-menu-ext.elc \
+	emacs.d/site-lisp/counsel-buffer-menu.elc \
 	emacs.d/site-lisp/evil-paredit.elc \
 	emacs.d/site-lisp/hide-mode-line.elc \
 	emacs.d/site-lisp/now-cc-mode.elc \

@@ -7,11 +7,9 @@
 
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (message "Emacs ready in %s with %d garbage collections."
-                     (format "%.2f seconds"
-                             (float-time
-                              (time-subtract after-init-time before-init-time)))
-                     gcs-done)))
+            (message "Emacs ready in %.2f seconds"
+                     (float-time (time-subtract after-init-time
+                                     before-init-time)))))
 
 ;; TODO eval-when-compile?
 (eval-and-compile
@@ -47,23 +45,10 @@
                (",")
                ("<SPC>" . evil-scroll-page-down)
                (", B" . buffer-menu)
-               (", O" . org-capture)
-               (", W" . save-some-buffers)
-               (", a" . org-agenda)
-               (", b" . ido-switch-buffer)
-               (", c" . shell-command)
-               (", d" . dired)
-               (", k" . ido-kill-buffer)
-               (", m" . compile)
-               (", n" . next-error)
-               (", p" . previous-error)
-               (", s" . magit-status)
-               ("C-]" . xref-find-definitions)
+               (", k" . kill-buffer)
                ("C-d" . evil-insert)
                ("L")
                ("S" . evil-window-bottom)
-               ("`" . smex)
-               ("g C-]" . xref-find-references)
                ("g b" . backward-sexp)
                ("g c" . evil-avy-goto-char-timer)
                ("g l" . evil-avy-goto-line)
@@ -72,27 +57,16 @@
                ("l")
                ("s" . evil-forward-char))
          (:map evil-normal-state-map
-               (", E" . now-gxref-find-file)
-               (", e" . find-file)
-               (", l" . now-occur)
-               (", u" . undo-tree-visualize)
-               (", w" . save-buffer)
                ("<DEL>" . evil-scroll-page-up)
                ("L" . evil-change-whole-line)
                ("Q" . evil-record-macro)
                ("S")
                ("S-<SPC>" . evil-scroll-page-up)
-               ("U" . undo-tree-redo)
                ("C-r")
-               ("C-t" . xref-pop-marker-stack)
-               ("M-d" . smex)
-               ("g C-g" . hide-mode-line-unhide-temporarily)
                ("g w")
                ("l" . evil-substitute)
                ("s")
-               ("q" . delete-other-windows)
-               ("z C" . now-hs-hide-all-comments)
-               ("~" . smex-major-mode-commands))
+               ("q" . delete-other-windows))
          (:map evil-replace-state-map
                ("C-d" . evil-normal-state))
          (:map evil-visual-state-map
@@ -110,10 +84,30 @@
             (add-to-list 'evil-emacs-state-modes 'term-mode)))
 
 (use-package now-evil
+  ;; We include a function that’s defined by evil that’s later used in
+  ;; :after evil use-packages.
+  ;; TODO We can add more functions that the byte compiler is
+  ;; complaining about here.
+  :functions (evil-change-state evil-make-overriding-map evil-set-initial-state)
   :hook ((evil-insert-state-exit . now-evil-delete-auto-indent)))
+
+(use-package ivy
+  :diminish
+  :custom ((ivy-count-format "")
+           (ivy-height 20)
+           (ivy-use-virtual-buffers t))
+  :config (progn
+            (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
+                                          (t . ivy--regex-fuzzy)))
+            (ivy-mode 1)))
 
 (use-package ace-window
   :bind (("C-x C-o" . ace-window)))
+
+(use-package amx
+  :after evil
+  :bind (:map evil-normal-state-map
+              ("~" . amx-major-mode-commands)))
 
 (use-package arc-mode
   :after evil
@@ -213,24 +207,6 @@
                     ("s" . calendar-forward-day)
                     ("w" . calendar-end-of-week))))
 
-(use-package company
-  :defer 1
-  :custom ((company-show-numbers t)
-           (company-backends '(company-bbdb
-                               company-css
-                               company-eclim
-                               company-semantic
-                               company-xcode
-                               company-cmake
-                               company-capf
-                               company-files
-                               (company-dabbrev-code
-                                company-gtags
-                                company-keywords)
-                               company-dabbrev)))
-  :config (progn
-            (global-company-mode)))
-
 (use-package cc-mode
   :custom ((c-default-style '((java-mode . "now-java-style")
                               (awk-mode . "awk")
@@ -288,17 +264,72 @@
   :hook ((c-mode . now-c-mode-hook)
          (c-mode . now-c-auto-newline-mode)))
 
+(use-package company
+  :diminish
+  :defer 1
+  :custom ((company-show-numbers t)
+           (company-backends '(company-bbdb
+                               company-css
+                               company-eclim
+                               company-semantic
+                               company-xcode
+                               company-cmake
+                               company-capf
+                               company-files
+                               (company-dabbrev-code
+                                company-gtags
+                                company-keywords)
+                               company-dabbrev)))
+  :config (progn
+            (global-company-mode)))
+
 (use-package compile
   :no-require t
   :custom ((compilation-scroll-output 'first-error)))
 
 (use-package compile
-  :defines (evil-motion-state-map)
+  :after evil
+  :bind ((:map evil-normal-state-map
+               (", m" . compile)
+               (", r" . recompile))
+         (:map evil-motion-state-map
+               (", N" . compilation-next-file)
+               (", P" . compilation-previous-file))))
+
+(use-package counsel
+  ;; TODO After ivy?  I don’t quite see why that’d matter, but John
+  ;; has it.
+  :custom ((counsel-find-file-ignore-regexp
+            (concat "\\(\\`\\.[^.]\\|"
+                    (regexp-opt completion-ignored-extensions)
+                    "\\'\\)")))
+  :bind (("C-h f" . counsel-describe-function)
+         ("C-h i" . counsel-info-lookup-symbol)
+         ("C-h l" . counsel-find-library)
+         ("C-h u" . counsel-unicode-char)
+         ("C-h v" . counsel-describe-variable)
+         ("C-x C-f" . counsel-find-file)))
+
+(use-package counsel
   :after evil
   :bind ((:map evil-motion-state-map
-               (", N" . compilation-next-file)
-               (", P" . compilation-previous-file)
-               (", r" . recompile))))
+               ;; TODO Move to evil-normal-state-map?
+               (", D" . counsel-dired-jump)
+               (", b" . counsel-buffer-menu)
+               (", G" . counsel-git-grep)
+               (", j" . counsel-file-jump)
+               (", J" . counsel-git)
+               ("`" . counsel-M-x))
+         (:map evil-normal-state-map
+               (", e" . counsel-find-file)
+               ("M-d" . counsel-M-x))))
+
+(use-package counsel
+  :defines org-agenda-mode-map
+  :after org
+  :bind ((:map org-agenda-mode-map
+               ("`" . counsel-M-x)
+               ("M-d" . counsel-M-x))))
 
 (use-package css-mode
   :no-require t
@@ -338,13 +369,19 @@
   :custom ((dired-dwim-target t)
            (dired-listing-switches "--si -al")
            (dired-recursive-copies 'always)
-           (dired-recursive-deletes 'always))
-  :config (progn
-            (require 'dired-x)))
+           (dired-recursive-deletes 'always)))
+
+(use-package dired
+  :after evil
+  :bind (:map evil-normal-state-map
+              (", d" . dired)))
 
 (use-package dired-aux
   :no-require t
   :custom ((dired-isearch-filenames 'dwim)))
+
+(use-package dired-x
+  :after dired)
 
 (use-package disp-table
   :config (progn
@@ -368,6 +405,7 @@
            (ediff-split-window-function 'split-window-horizontally)))
 
 (use-package eldoc
+  :diminish
   :hook ((emacs-lisp-mode . eldoc-mode)))
 
 (use-package epa
@@ -384,14 +422,17 @@
   :config (progn
             (setq insert-directory-program "a")))
 
+(use-package files
+  :after evil
+  :bind (:map evil-normal-state-map
+              (", W" . save-some-buffers)
+              (", e" . find-file)
+              (", w" . save-buffer)))
+
 (use-package find-func
   :defer t
   :config (progn
             (setq find-function-C-source-directory "~/Projects/emacs/src")))
-
-(use-package flx-ido
-  :no-require t
-  :custom ((flx-ido-use-faces nil)))
 
 (use-package flyspell
   :hook ((message-mode . flyspell-mode)))
@@ -424,6 +465,7 @@
            (gnus-select-method '(nnnil))
            (gnus-summary-line-format "%U%R%z%>%(%*%-23,23f%)  %s%-67=  %11&user-date;\n"))
   :config (progn
+            ;; TODO Should we use-package :after gnus this require?
             (require 'nnir)
             (gnus-add-configuration '(article (vertical 1.0
                                                         (summary 0.5 point)
@@ -459,13 +501,24 @@
 (use-package grep
   :after evil
   :no-require t
-  :defer t
+  :bind ((:map evil-normal-state-map
+               (", g" . grep)))
   :config (progn
             (evil-make-overriding-map grep-mode-map nil)))
+
+(use-package now-gxref
+  :after evil
+  :bind ((:map evil-normal-state-map
+               (", E" . now-gxref-find-file))))
 
 (use-package hide-mode-line
   :config (progn
             (hide-mode-line)))
+
+(use-package hide-mode-line
+  :after evil
+  :bind (:map evil-normal-state-map
+              ("g C-g" . hide-mode-line-unhide-temporarily)))
 
 (use-package hideshow
   :hook ((prog-mode . hs-minor-mode))
@@ -475,6 +528,11 @@
 
 (use-package now-hideshow
   :hook ((c-mode . now-hs-set-c-like-adjust-block-beginning)))
+
+(use-package now-hideshow
+  :after evil
+  :bind (:map evil-normal-state-map
+              ("z C" . now-hs-hide-all-comments)))
 
 (use-package hl-line
   :hook (((Buffer-menu-mode
@@ -507,27 +565,6 @@
                                       holiday-solar-holidays)))
   :evil-bind ((:map motion calendar-mode-map
                     ("H" . calendar-cursor-holidays))))
-
-(use-package ido
-  :custom ((ido-auto-merge-work-directories-length -1)
-           (ido-enable-flex-matching t)
-           (ido-enable-last-directory-history nil)
-           (ido-max-prospects 70)
-           (ido-max-window-height 0.99)
-           (ido-use-filename-at-point nil)
-           (ido-use-virtual-buffers t))
-  :commands (ido-mode ido-everywhere)
-  :defer 1
-  :config (progn
-            (setq ido-decorations
-                  (append '("\n" "" "\n" "\n…") (nthcdr 4 ido-decorations)))
-            (defun now-ido-disable-line-truncation ()
-              (setq-local truncate-lines nil))
-            (add-hook 'ido-minibuffer-setup-hook 'now-ido-disable-line-truncation)
-            (ido-mode)
-            (ido-ubiquitous-mode)
-            (ido-everywhere 1)
-            (flx-ido-mode)))
 
 (use-package indent
   :no-require t
@@ -564,6 +601,12 @@
 (use-package magit-popup
   :no-require t
   :custom ((magit-popup-show-common-commands nil)))
+
+(use-package magit-status
+  :no-require t
+  :after evil
+  :bind ((:map evil-normal-state-map
+               (", s" . magit-status))))
 
 (use-package make-mode
   :no-require t
@@ -603,7 +646,6 @@
   :custom ((completions-format 'vertical)))
 
 (use-package mu4e
-  :functions (evil-set-initial-state evil-make-overriding-map evil-change-state)
   :custom ((mu4e-attachment-dir "~/Downloads")
            (mu4e-change-filenames-when-moving t)
            (mu4e-compose-dont-reply-to-self t)
@@ -640,7 +682,6 @@
            (mu4e-view-prefer-html t))
   :defer t
   :config (progn
-            (require 'org-mu4e)
             (setq mu4e-contexts `(,(make-mu4e-context
                                     :name "Disu.se"
                                     :match-func (lambda (msg)
@@ -830,6 +871,10 @@
                                        "maildir:/.Semantix.Drafts OR "
                                        "maildir:/.XTRF.Drafts ")
                                :key ?d)))))
+
+(use-package mu4e-vars
+  :after (mu4e ivy)
+  :custom ((mu4e-completing-read-function #'ivy-read)))
 
 (use-package mu4e-view
   :evil-bind ((:map normal mu4e-view-mode-map
@@ -2876,10 +2921,13 @@ For example, “&a'” → “á”"
            (org-agenda-time-leading-zero t)
            (org-agenda-use-time-grid nil))
   :bind ((:map org-agenda-mode-map
-               ("`" . smex)
-               ("\M-d" . smex)
                ("n" . org-agenda-next-item)
                ("p" . org-agenda-previous-item))))
+
+(use-package org-agenda
+  :after evil
+  :bind ((:map evil-motion-state-map
+               (", a" . org-agenda))))
 
 (use-package org-archive
   :custom ((org-archive-save-context-info '(time olpath category todo itags))))
@@ -2908,6 +2956,11 @@ For example, “&a'” → “á”"
                                     ("T" "Annotated Todo" entry (file "")
                                      "* TODO %?\n%U\n%i\n%a"
                                      :clock-in t :clock-resume t)))))
+
+(use-package org-capture
+  :after evil
+  :bind ((:map evil-motion-state-map
+               (", O" . org-capture))))
 
 (use-package org-clock
   :after org
@@ -2958,7 +3011,7 @@ For example, “&a'” → “á”"
                                        "refile.org"))))
 
 (use-package org-mu4e
-  :defer t
+  :after (mu4e org)
   :config (progn
             (setq org-mu4e-link-query-in-headers-mode nil)))
 
@@ -3108,6 +3161,14 @@ For example, “&a'” → “á”"
   :config (progn
             (column-number-mode)))
 
+(use-package simple
+  :no-require t
+  :after evil
+  :bind ((:map evil-normal-state-map
+               (", c" . shell-command)
+               (", n" . next-error)
+               (", p" . previous-error))))
+
 (use-package smie
   :defer t
   :config (progn
@@ -3142,6 +3203,11 @@ For example, “&a'” → “á”"
            (smtpmail-multi-associations '(("now@disu.se" disuse)
                                           ("nikolai.weibull@semantix.se" semantix)
                                           ("xtrf@semantix.se" xtrf)))))
+
+(use-package swiper
+  :after evil
+  :bind ((:map evil-motion-state-map
+               (", /" . swiper))))
 
 (use-package tar-mode
   :after evil
@@ -3186,8 +3252,16 @@ For example, “&a'” → “á”"
   :custom ((tramp-copy-size-limit nil)))
 
 (use-package undo-tree
+  :diminish undo-tree-mode
   :no-require t
   :custom ((undo-tree-visualizer-timestamps t)))
+
+(use-package undo-tree
+  :no-require t
+  :after evil
+  :bind (:map evil-normal-state-map
+              (", u" . undo-tree-visualize)
+              ("U" . undo-tree-redo)))
 
 (use-package vc-git
   :defer t
@@ -3231,6 +3305,12 @@ For example, “&a'” → “á”"
   :functions (evil-put-command-property)
   :no-require t
   :after evil
+  :bind ((:map evil-motion-state-map
+               ("C-]" . xref-find-definitions)
+               ("g C-]" . xref-find-references)
+               )
+         (:map evil-normal-state-map
+               ("C-t" . xref-pop-marker-stack)))
   :config (progn
             (evil-put-command-property 'xref-find-definitions :jump t)))
 
