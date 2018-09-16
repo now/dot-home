@@ -3092,7 +3092,7 @@ For example, “&a'” → “á”"
               >
               str
               '(setq v1 (skeleton-read "Element name: "))
-              "." v1 " = element " v1 " { " str "." v1 ".attributes & "
+              "." v1 " = element " v1 " { " str "." v1 ".attributes, "
               str "." v1 ".content }" \n
               > str "." v1 ".attributes = " _ \n
               (- rnc-indent-level) str "." v1 ".content = " \n
