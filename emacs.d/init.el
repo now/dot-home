@@ -53,7 +53,7 @@
                ("g b" . backward-sexp)
                ("g c" . evil-avy-goto-char-timer)
                ("g l" . evil-avy-goto-line)
-               ("g s" . evil-avy-goto-symbol)
+               ("g s" . evil-avy-goto-symbol-1)
                ("g w" . forward-sexp)
                ("l")
                ("s" . evil-forward-char))
