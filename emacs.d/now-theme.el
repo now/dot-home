@@ -25,6 +25,10 @@
       (yellow "#ffbd00"))
   (custom-theme-set-faces
     'now
+    `(avy-lead-face ((,class (:foreground ,black :background ,off-red))))
+    `(avy-lead-face-0 ((,class (:inherit avy-lead-face))))
+    `(avy-lead-face-1 ((,class (:inherit avy-lead-face))))
+    `(avy-lead-face-2 ((,class (:inherit avy-lead-face))))
     `(buffer-menu-buffer ((,class)))
     `(compilation-column-number ((,class (:inherit compilation-line-number))))
     `(compilation-line-number ((,class)))
