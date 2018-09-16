@@ -36,6 +36,7 @@
                                        ((?< ?/) . ?⟨)
                                        ((?> ?/) . ?⟩)))
            (evil-move-cursor-back nil)
+           (evil-shift-round nil)
            (evil-shift-width 2)
            (evil-symbol-word-search t)
            (evil-want-abbrev-expand-on-insert-exit nil))
