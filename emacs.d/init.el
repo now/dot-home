@@ -2781,7 +2781,8 @@ For example, “&a'” → “á”"
          ((nxml-mode text-mode) . now-set-fill-column-to-79)))
 
 (use-package nxml-mode
-  :custom ((nxml-sexp-element-flag t)
+  :custom ((nxml-char-ref-display-glyph-flag nil)
+           (nxml-sexp-element-flag t)
            (nxml-slash-auto-complete-flag t))
   :mode ("\\.rng\\'"
          "\\.sch\\'"
