@@ -2797,7 +2797,7 @@ For example, “&a'” → “á”"
               :system t)
             (define-skeleton nxml-mode-skeleton-xsl-stylesheet
               "Insert an XSL Stylesheet."
-              ""
+              nil
               "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" \n
               > "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">" \n
               > "<xsl:output method=\"xml\" encoding=\"UTF-8\"/>" \n
@@ -2805,7 +2805,7 @@ For example, “&a'” → “á”"
               "</xsl:stylesheet>" >)
             (define-skeleton nxml-mode-skeleton-xsl-template
               "Insert an XSL Template."
-              ""
+              nil
               > "<xsl:template match=\"" _ "\">" \n
               > "</xsl:template>" >)))
 
@@ -3124,7 +3124,7 @@ For example, “&a'” → “á”"
               :system t)
             (define-skeleton ruby-skeleton-top-level-class
               "Insert a top-level class."
-              ""
+              nil
               "# -*- coding: utf-8 -*-" \n
               \n
               > "class " (ruby-file-name-to-module-name) \n
@@ -3135,7 +3135,7 @@ For example, “&a'” → “á”"
               :system t)
             (define-skeleton ruby-skeleton-top-level-module
               "Insert a top-level module."
-              ""
+              nil
               "# -*- coding: utf-8 -*-" \n
               \n
               "module " (ruby-file-name-to-module-name) \n
@@ -3145,7 +3145,7 @@ For example, “&a'” → “á”"
               'ruby-skeleton-top-level-expectations :system t)
             (define-skeleton ruby-skeleton-top-level-expectations
               "Insert top-level expectations."
-              ""
+              nil
               "# -*- coding: utf-8 -*-" \n
               \n
               "Expectations do" \n
