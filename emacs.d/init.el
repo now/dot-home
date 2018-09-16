@@ -3327,8 +3327,7 @@ For example, “&a'” → “á”"
                                lines-tail
                                empty
                                indentation
-                               space-before-tab))
-           (whitespace-line-column 81))
+                               space-before-tab)))
   :hook (((prog-mode text-mode) . whitespace-mode)
          (message-mode . whitespace-turn-off)))
 
