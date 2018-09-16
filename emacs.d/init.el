@@ -323,6 +323,8 @@
                (", e" . counsel-find-file)
                (", j" . counsel-file-jump)
                ("M-d" . counsel-M-x)
+               ("`" . counsel-M-x))
+         (:map evil-visual-state-map
                ("`" . counsel-M-x))))
 
 (use-package counsel
