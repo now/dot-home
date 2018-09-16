@@ -3055,6 +3055,45 @@ For example, “&a'” → “á”"
   :no-require t
   :custom ((replace-lax-whitespace t)))
 
+(use-package rnc-mode
+  :defer t
+  :config (progn
+            (define-abbrev rnc-mode-abbrev-table "a" ""
+              'now-rnc-mode-skeleton-attribute :system t)
+            (define-skeleton now-rnc-mode-skeleton-attribute
+              "Insert an attribute definition."
+              "Prefix: "
+              "div {" \n
+              >
+              str
+              '(setq v1 (skeleton-read "Element name: "))
+              '(setq v2 (skeleton-read "Attribute name: "))
+              "." v1 ".attributes &= " str "." v1 ".attributes." v2 \n
+              > str "." v1 ".attributes." v2 " = attribute " v2 " { " _ " }" \n
+              "}" >)
+            (define-abbrev rnc-mode-abbrev-table "d" ""
+              'now-rnc-mode-skeleton-div :system t)
+            (define-skeleton now-rnc-mode-skeleton-div
+              "Insert a div."
+              nil
+              "div {" \n
+              > _ \n
+              "}" >)
+            (define-abbrev rnc-mode-abbrev-table "e" ""
+              'now-rnc-mode-skeleton-element :system t)
+            (define-skeleton now-rnc-mode-skeleton-element
+              "Insert an element definition."
+              "Prefix: "
+              "div {" \n
+              >
+              str
+              '(setq v1 (skeleton-read "Element name: "))
+              "." v1 " = element " v1 " { " str "." v1 ".attributes & "
+              str "." v1 ".content }" \n
+              > str "." v1 ".attributes = " _ \n
+              (- rnc-indent-level) str "." v1 ".content = " \n
+              "}" >)))
+
 (use-package rng-loc
   :defer t
   :config (progn
