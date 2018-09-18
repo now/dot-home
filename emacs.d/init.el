@@ -318,7 +318,7 @@
   :bind ((:map evil-motion-state-map
                (", D" . counsel-dired-jump))
          (:map evil-normal-state-map
-               (", G" . counsel-git-grep)
+               (", F" . counsel-git-grep)
                (", J" . counsel-git)
                (", e" . counsel-find-file)
                (", j" . counsel-file-jump)
@@ -507,6 +507,12 @@
                (", g" . grep)))
   :config (progn
             (evil-make-overriding-map grep-mode-map nil)))
+
+(use-package now-git
+  :after evil
+  :no-require t
+  :bind ((:map evil-normal-state-map
+               (", G" . now-git-grep))))
 
 (use-package now-gxref
   :after evil

@@ -302,6 +302,7 @@ sitelisp_elcs = \
 	emacs.d/site-lisp/hide-mode-line.elc \
 	emacs.d/site-lisp/now-cc-mode.elc \
 	emacs.d/site-lisp/now-evil.elc \
+	emacs.d/site-lisp/now-git.elc \
 	emacs.d/site-lisp/now-gxref.elc \
 	emacs.d/site-lisp/now-hideshow.elc \
 	emacs.d/site-lisp/now-init.elc \
