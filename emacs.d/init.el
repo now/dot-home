@@ -2813,15 +2813,15 @@ For example, “&a'” → “á”"
               "Insert an XSL Stylesheet."
               nil
               "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" \n
-              > "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">" \n
-              > "<xsl:output method=\"xml\" encoding=\"UTF-8\"/>" \n
-              > _ \n
+              "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">" \n
+              "<xsl:output method=\"xml\" encoding=\"UTF-8\"/>" \n
+              _ \n
               "</xsl:stylesheet>" >)
             (define-skeleton nxml-mode-skeleton-xsl-template
               "Insert an XSL Template."
               nil
-              > "<xsl:template match=\"" _ "\">" \n
-              > "</xsl:template>" >)))
+              "<xsl:template match=\"" _ "\">" \n
+              "</xsl:template>" >)))
 
 (use-package org
   :custom ((org-directory "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents")
@@ -3082,12 +3082,11 @@ For example, “&a'” → “á”"
               "Insert an attribute definition."
               "Prefix: "
               "div {" \n
-              >
               str
               '(setq v1 (skeleton-read "Element name: "))
               '(setq v2 (skeleton-read "Attribute name: "))
               "." v1 ".attributes &= " str "." v1 ".attributes." v2 \n
-              > str "." v1 ".attributes." v2 " = attribute " v2 " { " _ " }" \n
+              str "." v1 ".attributes." v2 " = attribute " v2 " { " _ " }" \n
               "}" >)
             (define-abbrev rnc-mode-abbrev-table "d" ""
               'now-rnc-mode-skeleton-div :system t)
@@ -3095,7 +3094,7 @@ For example, “&a'” → “á”"
               "Insert a div."
               nil
               "div {" \n
-              > _ \n
+              _ \n
               "}" >)
             (define-abbrev rnc-mode-abbrev-table "e" ""
               'now-rnc-mode-skeleton-element :system t)
@@ -3103,12 +3102,13 @@ For example, “&a'” → “á”"
               "Insert an element definition."
               "Prefix: "
               "div {" \n
-              >
               str
               '(setq v1 (skeleton-read "Element name: "))
               "." v1 " = element " v1 " { " str "." v1 ".attributes, "
-              str "." v1 ".content }" \n
-              > str "." v1 ".attributes = " _ \n
+              str "." v1 ".content }" "\n"
+              \n
+              str "." v1 ".attributes = " _ "\n"
+              \n
               (- rnc-indent-level) str "." v1 ".content = " \n
               "}" >)))
 
@@ -3130,8 +3130,8 @@ For example, “&a'” → “á”"
             (define-skeleton ruby-skeleton-def
               "Insert a method definition."
               "Method name and argument list: "
-              > "def " str \n
-              > _ \n
+              "def " str \n
+              _ \n
               "end" >)
             (define-abbrev ruby-mode-abbrev-table "tlc" ""
               'ruby-skeleton-top-level-class
@@ -3141,8 +3141,8 @@ For example, “&a'” → “á”"
               nil
               "# -*- coding: utf-8 -*-" \n
               \n
-              > "class " (ruby-file-name-to-module-name) \n
-              > _ \n
+              "class " (ruby-file-name-to-module-name) \n
+              _ \n
               "end" >)
             (define-abbrev ruby-mode-abbrev-table "tlm" ""
               'ruby-skeleton-top-level-module
@@ -3153,7 +3153,7 @@ For example, “&a'” → “á”"
               "# -*- coding: utf-8 -*-" \n
               \n
               "module " (ruby-file-name-to-module-name) \n
-              > _ \n
+              _ \n
               "end" >)
             (define-abbrev ruby-mode-abbrev-table "tle" ""
               'ruby-skeleton-top-level-expectations :system t)
@@ -3163,9 +3163,9 @@ For example, “&a'” → “á”"
               "# -*- coding: utf-8 -*-" \n
               \n
               "Expectations do" \n
-              > "expect " _ " do" \n
-              >  _ \n
-              "end" > \n
+              "expect " _ " do" \n
+               _ \n
+              "end" \n
               "end" >)
             (defun now-ruby-mode-hook ()
               (setq-local compile-command "rake -s ")
