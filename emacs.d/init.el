@@ -498,7 +498,7 @@
   :commands (grep-apply-setting)
   :defer t
   :config (progn
-            (grep-apply-setting 'grep-command "grep -nH -P -e ")))
+            (grep-apply-setting 'grep-command "g -He ")))
 
 (use-package grep
   :after evil

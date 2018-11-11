@@ -12,6 +12,7 @@ DTACH = @DTACH@
 EMACS = @EMACS@
 EMACSCLIENT = @EMACSCLIENT@
 EXIFTOOL = @EXIFTOOL@
+GREP = @GREP@
 GZIP = @GZIP@
 ICONV = @ICONV@
 INSTALL = @INSTALL@
@@ -498,6 +499,7 @@ $(emptydirs):
 	    -e 's|@EMACS[@]|$(EMACS)|g' \
 	    -e 's|@EMACSCLIENT[@]|$(EMACSCLIENT)|g' \
 	    -e 's|@EXIFTOOL[@]|$(EXIFTOOL)|g' \
+	    -e 's|@GREP[@]|$(GREP)|g' \
 	    -e 's|@KEYCHAIN[@]|$(KEYCHAIN)|g' \
 	    -e 's|@SHELL[@]|$(SHELL)|g' \
 	    -e 's|@ZSHELL[@]|$(ZSHELL)|g' \
