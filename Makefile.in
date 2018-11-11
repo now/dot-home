@@ -321,7 +321,7 @@ sitelisp_elcs = \
 	emacs.d/site-lisp/use-package-evil-bind.elc \
 	emacs.d/site-lisp/velocity-mode.elc
 
-ifneq($(MU), :)
+ifneq ($(MU), :)
 sitelisp_elcs += \
 	emacs.d/site-lisp/now-mu4e.elc
 endif
