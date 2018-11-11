@@ -372,7 +372,9 @@
   :custom ((dired-dwim-target t)
            (dired-listing-switches "--si -al")
            (dired-recursive-copies 'always)
-           (dired-recursive-deletes 'always)))
+           (dired-recursive-deletes 'always))
+  :bind (:map dired-mode-map
+              ("e" . now-dired-ediff-files)))
 
 (use-package dired
   :after evil

@@ -302,6 +302,7 @@ sitelisp_elcs = \
 	emacs.d/site-lisp/evil-paredit.elc \
 	emacs.d/site-lisp/hide-mode-line.elc \
 	emacs.d/site-lisp/now-cc-mode.elc \
+	emacs.d/site-lisp/now-dired.elc \
 	emacs.d/site-lisp/now-evil.elc \
 	emacs.d/site-lisp/now-git.elc \
 	emacs.d/site-lisp/now-gxref.elc \
