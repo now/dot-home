@@ -27,6 +27,9 @@ AS_IF([test "x$enable_hostname_dotfiles" != xno],
         [our_hostname=generic],
         [AC_MSG_FAILURE(
            [--enable-hostname-dotfiles for $enable_hostname_dotfiles is not supported])])])])
+AC_ARG_ENABLE([fonts],
+  [AS_HELP_STRING([--enable-fonts],
+     [enable installation of fonts])])
 AC_ARG_WITH([dtachsession],
   [AS_HELP_STRING([--with-dtachsession],
      [override default dtach cache session file])],
