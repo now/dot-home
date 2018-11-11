@@ -308,7 +308,6 @@ sitelisp_elcs = \
 	emacs.d/site-lisp/now-gxref.elc \
 	emacs.d/site-lisp/now-hideshow.elc \
 	emacs.d/site-lisp/now-init.elc \
-	emacs.d/site-lisp/now-mu4e.elc \
 	emacs.d/site-lisp/now-org-agenda.elc \
 	emacs.d/site-lisp/now-org-clock.elc \
 	emacs.d/site-lisp/now-org-colview.elc \
@@ -319,6 +318,11 @@ sitelisp_elcs = \
 	emacs.d/site-lisp/rnc-mode.elc \
 	emacs.d/site-lisp/use-package-evil-bind.elc \
 	emacs.d/site-lisp/velocity-mode.elc
+
+ifneq($(MU), :)
+sitelisp_elcs += \
+	emacs.d/site-lisp/now-mu4e.elc
+endif
 
 userconfemacsdsitelisp_DATA = \
 	$(sitelisp_elcs) \
