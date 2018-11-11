@@ -443,6 +443,12 @@
 (use-package flyspell
   :hook ((message-mode . flyspell-mode)))
 
+(use-package git-rebase
+  :after evil
+  :defer t
+  :config (progn
+            (evil-make-overriding-map git-rebase-mode-map nil)))
+
 (use-package gnus
   :after gnus
   :custom ((gnus-parameters '((".*"
