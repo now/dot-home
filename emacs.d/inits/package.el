@@ -39,9 +39,6 @@
                           (treepy t)
                           (visual-fill-column t)
                           (with-editor t)))
-(cond
- ((eq system-type 'cygwin)
-  (add-to-list 'package-load-list '(cygwin-mount t))))
 (package-initialize t)
 (dolist (p package-load-list)
   (unless (package-installed-p (car p))
