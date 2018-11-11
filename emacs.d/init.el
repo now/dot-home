@@ -616,6 +616,10 @@
   :bind ((:map evil-normal-state-map
                (", s" . magit-status))))
 
+(use-package magithub
+  :after magit
+  :config (magithub-feature-autoinject t))
+
 (use-package make-mode
   :no-require t
   :custom ((makefile-backslash-align nil)))

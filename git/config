@@ -27,3 +27,5 @@
         cmd = vim -d -c 'wincmd J' "$MERGED" "$LOCAL" "$BASE" "$REMOTE"
 [push]
         default = simple
+[github]
+	user = now
