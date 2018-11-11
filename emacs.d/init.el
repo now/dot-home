@@ -271,7 +271,8 @@
 (use-package company
   :diminish
   :defer 1
-  :custom ((company-show-numbers t)
+  :custom ((company-idle-delay .175)
+           (company-show-numbers t)
            (company-backends '(company-bbdb
                                company-css
                                company-eclim
