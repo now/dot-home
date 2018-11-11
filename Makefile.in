@@ -293,8 +293,7 @@ userconfemacsdetcschema_DATA = \
 emacs.d/etc/schema/schemas.xml: emacs.d/etc/schema/.dirstamp
 
 init_elcs = \
-	emacs.d/inits/package.elc \
-	emacs.d/inits/provided-delayed-inits.elc
+	emacs.d/inits/package.elc
 
 userconfemacsdinits_DATA = \
 	$(init_elcs)
