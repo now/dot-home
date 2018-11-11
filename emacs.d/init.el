@@ -241,21 +241,22 @@
                                                                   ?•)
                                                                (in ?\ ?\t))))
                                                       (: bol ?\f))))
-                           (prettify-symbols-alist . '(("<=" . ?≤)
-                                                       (">=" . ?≥)
-                                                       ("!=" . ?≠)
-                                                       ("==" . ?=)
-                                                       ;; ("NULL" . ?∅)
-                                                       ("=" . ?←)
-                                                       ("||" . ?∨)
-                                                       ("&&" . ?∧)
-                                                       ;; We can’t use this, as * is also
-                                                       ;; used to dereference a pointer.
-                                                       ;; ("*" . ?∗)
-                                                       ;; (" * " . ?×)
-                                                       ("!" . ?¬)
-                                                       ("-" . ?−)
-                                                       ("->" . ?→)))))
+                           (prettify-symbols-alist . (("<=" . ?≤)
+                                                      (">=" . ?≥)
+                                                      ("!=" . ?≠)
+                                                      ("==" . ?=)
+                                                      ("NULL" . ?∅)
+                                                      ("=" . ?←)
+                                                      ("||" . ?∨)
+                                                      ;; (?\s (Br . Bl) ?\s (Bc . Bc) ?∧))
+                                                      ("&&" . ?∧)
+                                                      ;; We can’t use this, as * is also
+                                                      ;; used to dereference a pointer.
+                                                      ;; ("*" . ?∗)
+                                                      ;; (" * " . ?×)
+                                                      ("!" . ?¬)
+                                                      ("-" . ?−)
+                                                      ("->" . ?→)))))
             (c-add-style "now-java-style"
                          '("java"
                            (c-basic-offset . 2)))
