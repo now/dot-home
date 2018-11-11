@@ -92,11 +92,13 @@ appdataghislerpluginswlximagineplugin_SCRIPTS = \
 	os/Cygwin/GHISLER/plugins/wlx/imagine/plugin/j2k.dll \
 	os/Cygwin/GHISLER/plugins/wlx/imagine/plugin/jbig.dll
 
+ifeq ($(enable_fonts), yes)
 fonts_DATA = \
 	$(fontsdejavu_DATA)
 
 $(addprefix $(fontsdir)/,$(notdir $(fonts_DATA))): \
 	INSTALL_DATA = $(srcdir)/build/Cygwin/install-font "$(abs_builddir)"
+endif
 
 startup_SCRIPTS = \
 	os/Cygwin/start-up/clipx.lnk \

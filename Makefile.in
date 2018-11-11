@@ -23,6 +23,8 @@ PATCH = @PATCH@
 UNZIP = @UNZIP@
 ZSHELL = @ZSHELL@
 
+enable_fonts = @enable_fonts@
+
 empty :=
 space := $(empty) $(empty)
 shell_quote = $(subst $(space),\ ,$(1))

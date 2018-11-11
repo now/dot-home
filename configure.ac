@@ -30,6 +30,7 @@ AS_IF([test "x$enable_hostname_dotfiles" != xno],
 AC_ARG_ENABLE([fonts],
   [AS_HELP_STRING([--enable-fonts],
      [enable installation of fonts])])
+AC_SUBST([enable_fonts])
 AC_ARG_WITH([dtachsession],
   [AS_HELP_STRING([--with-dtachsession],
      [override default dtach cache session file])],
