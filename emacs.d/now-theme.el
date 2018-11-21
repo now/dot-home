@@ -99,6 +99,7 @@
     `(isearch-fail ((,class (:inherit error))))
     `(ivy-current-match ((,class (:inherit highlight))))
     `(ivy-cursor ((,class (:inherit cursor))))
+    `(ivy-highlight-face ((,class (:foreground ,blue))))
     `(ivy-match-required-face ((,class (:inherit error))))
     `(ivy-minibuffer-match-face-1 ((,class (:inherit isearch))))
     `(ivy-minibuffer-match-face-2 ((,class (:inherit isearch))))
