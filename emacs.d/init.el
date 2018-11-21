@@ -69,7 +69,8 @@
                ("g w")
                ("l" . evil-substitute)
                ("s")
-               ("q" . delete-other-windows))
+               ("q" . delete-other-windows)
+               ("z C" . evil-hide-fold-rec))
          (:map evil-replace-state-map
                ("C-d" . evil-normal-state))
          (:map evil-visual-state-map
@@ -84,7 +85,21 @@
                   evil-insert-state-modes
                   (cl-set-difference evil-insert-state-modes
                                      '(term-mode)))
-            (add-to-list 'evil-emacs-state-modes 'term-mode)))
+            (add-to-list 'evil-emacs-state-modes 'term-mode)
+            (push '((docfold-minor-mode)
+                    :open-all   docfold-show-all
+                    :close-all  docfold-hide-all
+                    :toggle     docfold-toggle-section
+                    :open       docfold-show-section
+                    :open-rec   docfold-show-section-recursively
+                    :close      docfold-hide-section
+                    :close-rec  docfold-hide-section-recursively)
+                  evil-fold-list)
+
+            (evil-define-command evil-hide-fold-rec ()
+              "Close fold at point recursively.
+See also `evil-open-fold' and `evil-close-fold'."
+              (evil-fold-action evil-fold-list :close-rec))))
 
 (use-package now-evil
   ;; We include a function that’s defined by evil that’s later used in
@@ -262,7 +277,9 @@
                            (c-basic-offset . 2)))
             (defun now-c-mode-hook ()
               (setq-local adaptive-fill-function
-                          'now-c-mode-adaptive-fill-function))))
+                          'now-c-mode-adaptive-fill-function)
+              (setq-local docfold-set-up-overlay
+                          'docfold-c-set-up-overlay))))
 
 (use-package now-cc-mode
   :hook ((c-mode . now-c-mode-hook)
@@ -406,6 +423,9 @@
             (set-display-table-slot standard-display-table 'vertical-border
                                     (make-glyph-code #x2502))))
 
+(use-package docfold
+  :hook ((prog-mode . docfold-minor-mode)))
+
 (use-package ediff
   :no-require t
   :custom ((ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -537,20 +557,6 @@
   :after evil
   :bind (:map evil-normal-state-map
               ("g C-g" . hide-mode-line-unhide-temporarily)))
-
-(use-package hideshow
-  :hook ((prog-mode . hs-minor-mode))
-  :defer t
-  :config (progn
-            (setq hs-set-up-overlay (lambda (ov) (overlay-put ov 'display " …")))))
-
-(use-package now-hideshow
-  :hook ((c-mode . now-hs-set-c-like-adjust-block-beginning)))
-
-(use-package now-hideshow
-  :after evil
-  :bind (:map evil-normal-state-map
-              ("z C" . now-hs-hide-all-comments)))
 
 (use-package hl-line
   :hook (((Buffer-menu-mode
