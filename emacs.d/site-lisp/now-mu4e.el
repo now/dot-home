@@ -1,6 +1,43 @@
 (require 'mu4e)
 
 ;;;###autoload
+(defun now-mu4e-disu-se-p (msg)
+  (when msg
+    (or
+     (mu4e-message-contact-field-matches
+      msg '(:from :to) (eval-when-compile
+                         (concat
+                          "^"
+                          (regexp-opt
+                           '("now@bitwi.se"
+                             "now@disu.se"
+                             "nikolai@bitwi.se"
+                             "nikolai.weibull@gmail.com"
+                             "nikolai.weibull@icloud.com"))
+                          "$")))
+     (string-prefix-p "/.Disuse." (mu4e-message-field msg :maildir)))))
+
+;;;###autoload
+(defun now-mu4e-semantix-p (msg)
+  (when msg
+    (or (mu4e-message-contact-field-matches
+         msg ':from "^nikolai\\.weibull@semantix\\.se$")
+        (mu4e-message-contact-field-matches
+         msg '(:to :cc :bcc) "@\\(?:amesto\\|semantix\\)\\.se$"))))
+
+;;;###autoload
+(defun now-mu4e-xtrf-p (msg)
+  (when msg
+    (mu4e-message-contact-field-matches
+     msg '(:from :to) "^xtrf@semantix\\.se$")))
+
+;;;###autoload
+(defun now-mu4e-add-mark (mark)
+  (add-to-list 'mu4e-marks mark)
+  (mu4e~headers-defun-mark-for (car mark))
+  (mu4e~view-defun-mark-for (car mark)))
+
+;;;###autoload
 (defun now-mu4e-headers-quit-buffer ()
   "Quit the mu4e-view buffer or the mu4e-headers buffer."
   (interactive)

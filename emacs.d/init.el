@@ -95,20 +95,22 @@
                     :open-rec   docfold-show-section-recursively
                     :close      docfold-hide-section
                     :close-rec  docfold-hide-section-recursively)
-                  evil-fold-list)
-
-            (evil-define-command evil-hide-fold-rec ()
-              "Close fold at point recursively.
-See also `evil-open-fold' and `evil-close-fold'."
-              (evil-fold-action evil-fold-list :close-rec))))
+                  evil-fold-list)))
 
 (use-package now-evil
   ;; We include a function that’s defined by evil that’s later used in
   ;; :after evil use-packages.
-  ;; TODO We can add more functions that the byte compiler is
-  ;; complaining about here.
-  :functions (evil-change-state evil-make-overriding-map evil-set-initial-state)
-  :hook ((evil-insert-state-exit . now-evil-delete-auto-indent)))
+  :functions (evil-change-state
+              evil-fold-action
+              evil-get-auxiliary-keymap ; TODO Figure out why this is required.
+              evil-make-overriding-map ; TODO Figure out why this is required.
+              evil-set-command-properties
+              evil-set-initial-state)
+  :hook ((evil-insert-state-exit . now-evil-delete-auto-indent))
+  :config (evil-define-command evil-hide-fold-rec ()
+              "Close fold at point recursively.
+See also `evil-open-fold' and `evil-close-fold'."
+              (evil-fold-action evil-fold-list :close-rec)))
 
 (use-package ivy
   :diminish
@@ -713,24 +715,7 @@ See also `evil-open-fold' and `evil-close-fold'."
   :config (progn
             (setq mu4e-contexts `(,(make-mu4e-context
                                     :name "Disu.se"
-                                    :match-func (lambda (msg)
-                                                  (when msg
-                                                    (or
-                                                     (mu4e-message-contact-field-matches
-                                                      msg '(:from :to)
-                                                      (eval-when-compile
-                                                        (concat
-                                                         "^"
-                                                         (regexp-opt
-                                                          '("now@bitwi.se"
-                                                            "now@disu.se"
-                                                            "nikolai@bitwi.se"
-                                                            "nikolai.weibull@gmail.com"
-                                                            "nikolai.weibull@icloud.com"))
-                                                         "$")))
-                                                     (string-prefix-p
-                                                      "/.Disuse."
-                                                      (mu4e-message-field msg :maildir)))))
+                                    :match-func 'now-mu4e-disu-se-p
                                     :vars '((mu4e-compose-signature . t)
                                             (mu4e-drafts-folder . "/.Disuse.Drafts")
                                             (mu4e-refile-folder . "/.Disuse.Archive")
@@ -739,11 +724,7 @@ See also `evil-open-fold' and `evil-close-fold'."
                                             (user-mail-address . "now@disu.se")))
                                   ,(make-mu4e-context
                                     :name "XTRF"
-                                    :match-func (lambda (msg)
-                                                  (when msg
-                                                    (mu4e-message-contact-field-matches
-                                                     msg '(:from :to)
-                                                     "^xtrf@semantix\\.se$")))
+                                    :match-func 'now-mu4e-xtrf-p
                                     :vars '((mu4e-compose-signature
                                              . (concat "Nikolai Weibull\n"
                                                        "Systems Developer\n"
@@ -755,15 +736,7 @@ See also `evil-open-fold' and `evil-close-fold'."
                                             (user-mail-address . "xtrf@semantix.se")))
                                   ,(make-mu4e-context
                                     :name "Semantix"
-                                    :match-func (lambda (msg)
-                                                  (when msg
-                                                    (or
-                                                     (mu4e-message-contact-field-matches
-                                                      msg ':from
-                                                      "^nikolai\\.weibull@semantix\\.se$")
-                                                     (mu4e-message-contact-field-matches
-                                                      msg '(:to :cc :bcc)
-                                                      "@\\(?:amesto\\|semantix\\)\\.se$"))))
+                                    :match-func 'now-mu4e-semantix-p
                                     :vars '((mu4e-compose-signature
                                              . (concat "Nikolai Weibull\n"
                                                        "Systems Developer\n"
@@ -806,17 +779,14 @@ See also `evil-open-fold' and `evil-close-fold'."
                   (plist-put (alist-get 'action mu4e-marks) :char '("a" . "⚙"))
                   (alist-get 'something mu4e-marks)
                   (plist-put (alist-get 'something mu4e-marks) :char '("*" . "★")))
-            (add-to-list 'mu4e-marks
-                         '(later
-                           :char ("l" . "⌘")
-                           :prompt "later"
-                           :dyn-target (lambda (target msg) (mu4e-get-refile-folder msg))
-                           :action (lambda (docid msg target)
-                                     (mu4e~proc-move docid
-                                                     (mu4e~mark-check-target target)
-                                                     "+F-N"))))
-            (mu4e~headers-defun-mark-for later)
-            (mu4e~view-defun-mark-for later)
+            (now-mu4e-add-mark
+             '(later
+               :char ("l" . "⌘")
+               :prompt "later"
+               :dyn-target (lambda (target msg) (mu4e-get-refile-folder msg))
+               :action (lambda (docid msg target)
+                         (mu4e~proc-move
+                          docid (mu4e~mark-check-target target) "+F-N"))))
             (setq mu4e-headers-has-child-prefix '("" . "")
                   mu4e-headers-empty-parent-prefix '("" . "")
                   mu4e-headers-first-child-prefix '("" . "")
