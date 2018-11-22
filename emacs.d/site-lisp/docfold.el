@@ -115,11 +115,6 @@ Returns the number of characters used as indent for the section
 at `point'."
   (docfold-forward-section (- (or n 1)) target))
 
-;; TODO Why not use text properties instead?  Should be about the
-;; same?  Though text properties doesn’t work with isearch.  And
-;; nesting would require a bit more work (a counter that would record
-;; nesting level and we would add and remove to it when
-;; folding/unfolding).
 (defun docfold-make-overlay (beginning end &optional indent position)
   "Return a new overlay spanning BEGINNING to END.
 Actually, the overlay BEGINNING is adjusted to start at the
@@ -329,32 +324,51 @@ is used."
       (docfold-show-section point-at-end)
     (docfold-hide-section)))
 
-(defun docfold--occur-mode-find-occurence ()
-  (docfold--next-error-move nil (point)))
-
-(defun docfold--next-error-move (_error-buffer-position error-position)
-  (save-excursion
-    (goto-char error-position)
-    (docfold-show-section)))
+(defvar-local docfold--global-disable-point-adjustment nil
+  "Variable to store the value of
+  `global-disable-point-adjustment' before `docfold-minor-mode'
+  was activated so that it may be restored afterwards.")
 
 (defvar-local docfold--line-move-ignore-invisible nil
   "Variable to store the value of `line-move-ignore-invisible'
   before `docfold-minor-mode' was activated so that it may be
   restored afterwards.")
 
-;; TODO Docstring.
+;; TODO Having to set global-disable-point-adjustment seems bad.
+
 ;;;###autoload
 (define-minor-mode docfold-minor-mode
-  ""
+  "Minor mode to selectively hide and show sections of comments and code.
+
+A section, more formally referred to as a docfold section,
+consists of a comment followed by some code.  A section can be
+followed by more sections and may also consist of sub-sections.
+A section extends to the following section or to a line that has
+less indention than the first line of the section in question.
+
+When hidden, a section is represented by an overlay that may have
+its \\='display property set to something usefull.  The standard
+value is to use the first sentence of the section’s comment, see
+`docfold-set-up-overlay', but more advanced values are possible,
+see `docfold-c-set-up-overlay'.
+
+As sections always start at the beginning of lines,
+`docfold-minor-mode' sets `global-disable-point-adjustment' to t
+so that normal cursor movement works as expected.
+`Line-move-ignore-invisible' is also set to t."
   :group 'docfold
   :lighter " df"
   (if docfold-minor-mode
       (progn
+        (setq docfold--global-disable-point-adjustment
+              global-disable-point-adjustment)
+        (setq-local global-disable-point-adjustment t)
         (setq docfold--line-move-ignore-invisible line-move-ignore-invisible)
         (setq-local line-move-ignore-invisible t)
-        (add-hook 'occur-mode-find-occurrence-hook
-                  'docfold--occur-mode-find-occurence nil t)
-        (setq next-error-move-function 'docfold--next-error-move))
+        (add-hook 'occur-mode-find-occurrence-hook 'docfold-show-section nil t)
+        (add-hook 'next-error-hook 'docfold-show-section nil t))
+    (setq-local global-disable-point-adjustment
+                docfold--global-disable-point-adjustment)
     (setq-local line-move-ignore-invisible docfold--line-move-ignore-invisible)
     (docfold-show-all)))
 
