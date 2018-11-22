@@ -62,6 +62,7 @@
                ("l")
                ("s" . evil-forward-char))
          (:map evil-normal-state-map
+               ("<DEL>")
                ("L" . evil-change-whole-line)
                ("Q" . evil-record-macro)
                ("S")
