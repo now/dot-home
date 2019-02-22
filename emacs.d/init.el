@@ -122,6 +122,11 @@ See also `evil-open-fold' and `evil-close-fold'."
                                           (t . ivy--regex-fuzzy)))
             (ivy-mode 1)))
 
+(use-package now-ivy
+  :after ivy
+  :bind (:map ivy-mode-map
+              ([remap switch-to-buffer] . 'now-ivy-switch-buffer)))
+
 (use-package ace-window
   :bind (("C-x C-o" . ace-window)))
 
