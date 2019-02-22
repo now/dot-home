@@ -477,61 +477,6 @@ See also `evil-open-fold' and `evil-close-fold'."
   :config (progn
             (evil-make-overriding-map git-rebase-mode-map nil)))
 
-(use-package gnus
-  :after gnus
-  :custom ((gnus-parameters '((".*"
-                               (gnus-use-scoring nil)
-                               (display . all))
-                              ("^nnimap\\+disuse:"
-                               (expiry-wait . immediate))
-                              ("^nnimap\\+work:"
-                               (expiry-target . "nnimap+work:\"Deleted Items\"")
-                               (expiry-wait . immediate)
-                               (posting-style
-                                (address "nikolai.weibull@semantix.se")
-                                (gcc "nnimap+work:\"Sent Items\"")
-                                (signature (concat
-                                            "Nikolai Weibull\n"
-                                            "Systems Developer\n"
-                                            "Semantix Sweden, Gothenburg"))))))
-           (gnus-secondary-select-methods '((nnimap
-                                             "disuse"
-                                             (nnimap-address "disu.se")
-                                             (nnimap-stream starttls))
-                                            (nnimap
-                                             "work"
-                                             (nnimap-address "outlook.office365.com")
-                                             (nnimap-stream starttls))))
-           (gnus-select-method '(nnnil))
-           (gnus-summary-line-format "%U%R%z%>%(%*%-23,23f%)  %s%-67=  %11&user-date;\n"))
-  :config (progn
-            ;; TODO Should we use-package :after gnus this require?
-            (require 'nnir)
-            (gnus-add-configuration '(article (vertical 1.0
-                                                        (summary 0.5 point)
-                                                        (article 1.0))))))
-
-(use-package gnus-group
-  :after gnus
-  :custom ((gnus-permanently-visible-groups "INBOX\\'")))
-
-(use-package gnus-msg
-  :after gnus
-  :custom ((gnus-gcc-mark-as-read t)))
-
-(use-package gnus-sum
-  :after gnus
-  :custom ((gnus-ancient-mark ?\s)
-           (gnus-fetch-old-headers t)
-           (gnus-thread-hide-subtree t)
-           (gnus-thread-sort-functions '((not gnus-thread-sort-by-number)))
-           (gnus-unread-mark ?\·)
-           (gnus-user-date-format-alist '(((gnus-seconds-today) . "%H:%M")
-                                          ((+ 86400 (gnus-seconds-today)) . "%a %H:%M")
-                                          (604800 . "%a, %b %-d")
-                                          (15778476 . "%b %-d")
-                                          (t . "%Y-%m-%d")))))
-
 (use-package grep
   :commands (grep-apply-setting)
   :defer t
@@ -570,8 +515,6 @@ See also `evil-open-fold' and `evil-close-fold'."
   :hook (((Buffer-menu-mode
             arc-mode
             dired-mode
-            gnus-group-mode
-            gnus-summary-mode
             org-agenda-mode
             tar-mode)
            . hl-line-mode)))
