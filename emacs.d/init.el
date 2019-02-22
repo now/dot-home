@@ -22,8 +22,6 @@
 (global-set-key [f3] nil)
 (global-set-key [f4] nil)
 
-(autoload 'mu4e "mu4e" "" t)
-
 ;; This comes first, as keybindings here, notably that of ‘,’, affect
 ;; other packages’ keybinding potentials.
 (use-package evil
@@ -682,217 +680,6 @@ See also `evil-open-fold' and `evil-close-fold'."
 (use-package minibuffer
   :no-require t
   :custom ((completions-format 'vertical)))
-
-(use-package mu4e
-  :custom ((mu4e-attachment-dir "~/Downloads")
-           (mu4e-change-filenames-when-moving t)
-           (mu4e-compose-dont-reply-to-self t)
-           (mu4e-compose-format-flowed t)
-           (mu4e-confirm-quit nil)
-           (mu4e-context-policy 'pick-first)
-           (mu4e-headers-fields '((:flags . 4)
-                                  (:human-date . 11)
-                                  (:from-or-to . 22)
-                                  (:subject)))
-           (mu4e-headers-date-format "%Y-%m-%d")
-           (mu4e-headers-include-related nil)
-           (mu4e-headers-visible-columns 82)
-           (mu4e-hide-index-messages t)
-           (mu4e-index-lazy-check t)
-           (mu4e-split-view 'vertical)
-           (mu4e-use-fancy-chars t)
-           (mu4e-user-mail-address-list '("now@bitwi.se"
-                                          "now@disu.se"
-                                          "nikolai.weibull@gmail.com"
-                                          "nikolai.weibull@icloud.com"
-                                          "nikolai.weibull@amesto.se"
-                                          "nikolai.weibull@semantix.se"))
-           (mu4e-view-fields '(:from
-                               :signature
-                               :subject
-                               :date
-                               :decryption
-                               :attachments
-                               :to
-                               :cc
-                               :tags
-                               :maildir))
-           (mu4e-view-prefer-html t))
-  :defer t
-  :config (progn
-            (setq mu4e-contexts `(,(make-mu4e-context
-                                    :name "Disu.se"
-                                    :match-func 'now-mu4e-disu-se-p
-                                    :vars '((mu4e-compose-signature . t)
-                                            (mu4e-drafts-folder . "/.Disuse.Drafts")
-                                            (mu4e-refile-folder . "/.Disuse.Archive")
-                                            (mu4e-sent-folder . "/.Disuse.Sent")
-                                            (mu4e-trash-folder . "/.Disuse.Trash")
-                                            (user-mail-address . "now@disu.se")))
-                                  ,(make-mu4e-context
-                                    :name "XTRF"
-                                    :match-func 'now-mu4e-xtrf-p
-                                    :vars '((mu4e-compose-signature
-                                             . (concat "Nikolai Weibull\n"
-                                                       "Systems Developer\n"
-                                                       "Semantix Sweden, Gothenburg"))
-                                            (mu4e-drafts-folder . "/.XTRF.Drafts")
-                                            (mu4e-refile-folder . "/.XTRF.Archive")
-                                            (mu4e-sent-folder . "/.XTRF.Sent")
-                                            (mu4e-trash-folder . "/.XTRF.Trash")
-                                            (user-mail-address . "xtrf@semantix.se")))
-                                  ,(make-mu4e-context
-                                    :name "Semantix"
-                                    :match-func 'now-mu4e-semantix-p
-                                    :vars '((mu4e-compose-signature
-                                             . (concat "Nikolai Weibull\n"
-                                                       "Systems Developer\n"
-                                                       "Semantix Sweden, Gothenburg"))
-                                            (mu4e-drafts-folder . "/.Semantix.Drafts")
-                                            (mu4e-refile-folder . "/.Semantix.Archive")
-                                            (mu4e-sent-folder . "/.Semantix.Sent")
-                                            (mu4e-trash-folder . "/.Semantix.Trash")
-                                            (user-mail-address
-                                             . "nikolai.weibull@semantix.se"))))
-                  mu4e-headers-from-or-to-prefix '("" . "« ")
-                  mu4e-headers-show-target nil
-                  mu4e-user-agent-string nil
-                  mu4e-view-actions '(("capture message" . mu4e-action-capture-message)
-                                      ("show this thread" . mu4e-action-show-thread)
-                                      ("view in browser" . mu4e-action-view-in-browser)))
-            (setq mu4e-headers-flagged-mark '("F" . "⚑")
-                  mu4e-headers-new-mark '("" . "")
-                  mu4e-headers-attach-mark '("" . "")
-                  mu4e-headers-passed-mark '("P" . "»")
-                  mu4e-headers-replied-mark '("R" . "«")
-                  mu4e-headers-seen-mark '("" . "")
-                  mu4e-headers-trashed-mark '("T" . "☑")
-                  mu4e-headers-unread-mark '("u" . "•"))
-            (setf (alist-get 'delete mu4e-marks)
-                  (plist-put (alist-get 'delete mu4e-marks) :char '("D" . "☒"))
-                  (alist-get 'flag mu4e-marks)
-                  (plist-put (alist-get 'flag mu4e-marks) :char '("+" . "⚑"))
-                  (alist-get 'read mu4e-marks)
-                  (plist-put (alist-get 'read mu4e-marks) :char '("!" . "◦"))
-                  (alist-get 'trash mu4e-marks)
-                  (plist-put (alist-get 'trash mu4e-marks) :char '("d" . "☑"))
-                  (alist-get 'unflag mu4e-marks)
-                  (plist-put (alist-get 'unflag mu4e-marks) :char '("-" . "⚐"))
-                  (alist-get 'unread mu4e-marks)
-                  (plist-put (alist-get 'unread mu4e-marks) :char '("?" . "•"))
-                  (alist-get 'untrash mu4e-marks)
-                  (plist-put (alist-get 'untrash mu4e-marks) :char '("=" . "☐"))
-                  (alist-get 'action mu4e-marks)
-                  (plist-put (alist-get 'action mu4e-marks) :char '("a" . "⚙"))
-                  (alist-get 'something mu4e-marks)
-                  (plist-put (alist-get 'something mu4e-marks) :char '("*" . "★")))
-            (now-mu4e-add-mark
-             '(later
-               :char ("l" . "⌘")
-               :prompt "later"
-               :dyn-target (lambda (target msg) (mu4e-get-refile-folder msg))
-               :action (lambda (docid msg target)
-                         (mu4e~proc-move
-                          docid (mu4e~mark-check-target target) "+F-N"))))
-            (setq mu4e-headers-has-child-prefix '("" . "")
-                  mu4e-headers-empty-parent-prefix '("" . "")
-                  mu4e-headers-first-child-prefix '("" . "")
-                  mu4e-headers-duplicate-prefix '("=" . "≡")
-                  mu4e-headers-default-prefix '("" . ""))))
-
-(use-package mu4e
-  :after evil
-  :no-require t
-  :defer t
-  :config (progn
-            (evil-set-initial-state 'mu4e-main-mode 'normal)
-            (evil-set-initial-state 'mu4e-headers-mode 'normal)
-            (evil-set-initial-state 'mu4e-view-mode 'normal)
-            (evil-set-initial-state 'mu4e~update-mail-mode 'normal)
-            (evil-make-overriding-map mu4e-main-mode-map 'normal)
-            (evil-make-overriding-map mu4e-headers-mode-map 'normal)
-            (evil-make-overriding-map mu4e-view-mode-map 'normal)))
-
-(use-package mu4e-compose
-  :bind ((:map mu4e-compose-mode-map
-               ("C-c C-q" . now-mu4e-fill-yanked-message)
-               ("M-q" . now-mu4e-fill-paragraph))))
-
-(use-package mu4e-headers
-  :evil-bind ((:map normal mu4e-headers-mode-map
-                    ("G" . mu4e-update-mail-and-index)
-                    ("J" . mu4e-headers-jump-to-maildir)
-                    ("C-i" . mu4e-headers-query-next)
-                    ("C-o" . mu4e-headers-query-prev)
-                    ("j" . mu4e-headers-next)
-                    ("k" . mu4e-headers-prev)
-                    ("l" . mu4e-headers-mark-for-later)
-                    ("q" . now-mu4e-headers-quit-buffer)
-                    ("<backspace>" . scroll-down-command))))
-
-(use-package mu4e-vars
-  :no-require t
-  :after mu4e
-  :custom ((mu4e-bookmarks `(,(make-mu4e-bookmark
-                               :name "Incoming"
-                               :query (concat
-                                       "maildir:/.Disuse.INBOX OR "
-                                       "maildir:/.Semantix.INBOX OR "
-                                       "maildir:/.XTRF.INBOX ")
-                               :key ?i)
-                             ,(make-mu4e-bookmark
-                               :name "Flagged"
-                               :query "flag:flagged "
-                               :key ?f)
-                             ,(make-mu4e-bookmark
-                               :name "Archived"
-                               :query (concat
-                                       "maildir:/.Disuse.Archive OR "
-                                       "maildir:/.Semantix.Archive ")
-                               :key ?a)
-                             ,(make-mu4e-bookmark
-                               :name "Sent"
-                               :query (concat
-                                       "maildir:/.Disuse.Sent OR "
-                                       "maildir:/.Semantix.Sent ")
-                               :key ?s)
-                             ,(make-mu4e-bookmark
-                               :name "Junk"
-                               :query (concat
-                                       "maildir:/.Disuse.Junk OR "
-                                       "maildir:/.Semantix.Junk OR "
-                                       "maildir:/.XTRF.Junk ")
-                               :key ?j)
-                             ,(make-mu4e-bookmark
-                               :name "Trashed"
-                               :query (concat
-                                       "maildir:/.Disuse.Trash OR "
-                                       "maildir:/.Semantix.Trash OR "
-                                       "maildir:/.XTRF.Trash ")
-                               :key ?t)
-                             ,(make-mu4e-bookmark
-                               :name "Drafts"
-                               :query (concat
-                                       "maildir:/.Disuse.Drafts OR "
-                                       "maildir:/.Semantix.Drafts OR "
-                                       "maildir:/.XTRF.Drafts ")
-                               :key ?d)))))
-
-(use-package mu4e-vars
-  :after (mu4e ivy)
-  :custom ((mu4e-completing-read-function #'ivy-read)))
-
-(use-package mu4e-view
-  :evil-bind ((:map normal mu4e-view-mode-map
-                    ("#" . mu4e-mark-resolve-deferred-marks)
-                    ("G" . mu4e-update-mail-and-index)
-                    ("J" . mu4e-headers-jump-to-maildir)
-                    ("K" . mu4e-view-save-url)
-                    ("C-i" . mu4e-headers-query-next)
-                    ("C-o" . mu4e-headers-query-prev)
-                    ("l" . mu4e-view-mark-for-later)
-                    ("z r" . mu4e-view-toggle-hide-cited)
-                    ("S-<SPC>" . now-mu4e-view-scroll-down-or-prev))))
 
 (use-package mule
   :custom ((default-input-method "rfc1345--"))
@@ -2775,10 +2562,7 @@ For example, “&a'” → “á”"
             (setq truncate-string-ellipsis "…")))
 
 (use-package now-init
-  :hook (((message-mode
-           mu4e-view-mode)
-          . now-remove-continuation-fringe-indicator)
-         (mu4e-headers-mode . now-remove-truncation-fringe-indicator)
+  :hook ((message-mode . now-remove-continuation-fringe-indicator)
          (prog-mode . now-comment-auto-fill-only-comments)
          (tabulated-list-mode
           . now-tabulated-list-mode-use-global-glyphless-char-display)
@@ -3017,11 +2801,6 @@ For example, “&a'” → “á”"
                                        (file-name-as-directory org-directory)
                                        "refile.org"))))
 
-(use-package org-mu4e
-  :after (mu4e org)
-  :config (progn
-            (setq org-mu4e-link-query-in-headers-mode nil)))
-
 (use-package paredit
   :evil-bind ((:map motion paredit-mode-map
                     ("g B" . evil-paredit-backward-up)
@@ -3198,11 +2977,9 @@ For example, “&a'” → “á”"
 
 (use-package simple
   :no-require t
-  :custom ((completion-show-help nil)
-           (mail-user-agent 'mu4e-user-agent))
+  :custom ((completion-show-help nil))
   :hook (((prog-mode text-mode) . auto-fill-mode)
-         (nxml-mode . turn-off-auto-fill)
-         (mu4e-view-mode . visual-line-mode))
+         (nxml-mode . turn-off-auto-fill))
   :defer nil
   :config (progn
             (column-number-mode)))
