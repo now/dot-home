@@ -32,9 +32,12 @@ overlay, followed by `docfold-ellipsis'."
   (save-excursion
     (goto-char (overlay-start overlay))
     (forward-sentence)
+    (when (>= (point) (overlay-end overlay))
+      (goto-char (overlay-start overlay))
+      (end-of-line))
     (overlay-put overlay 'display
                  (concat (buffer-substring (overlay-start overlay) (point))
-                         docfold-ellipsis))))
+                         docfold-ellipsis "\n"))))
 
 (defun docfold-c-set-up-overlay (overlay)
   "Function called to set up docfold OVERLAY for `c-mode'.
@@ -47,11 +50,16 @@ comment, followed by `docfold-ellipsis'."
         (goto-char (overlay-start overlay))
         (looking-at-p "[ \t]"))
       (docfold-set-up-overlay overlay)
-    (let ((comment (buffer-substring (overlay-start overlay)
-                                     (save-excursion
-                                       (goto-char (overlay-start overlay))
-                                       (forward-sentence)
-                                       (point)))))
+    (let ((comment (replace-regexp-in-string
+                    "//[ \t]*" ""
+                    (buffer-substring (overlay-start overlay)
+                                      (save-excursion
+                                        (goto-char (overlay-start overlay))
+                                        (forward-sentence)
+                                        (if (< (point) (overlay-end overlay))
+                                            (point)
+                                          (goto-char (overlay-start overlay))
+                                          (line-end-position)))))))
       (save-excursion
         (goto-char (overlay-start overlay))
         (forward-comment (buffer-size))
@@ -64,10 +72,12 @@ comment, followed by `docfold-ellipsis'."
                          (skip-chars-backward "{ \t\n\f")
                          (point)))))))
           (if (or (>= p (overlay-end overlay)) (not q))
-              (overlay-put overlay 'display (concat comment docfold-ellipsis))
+              (overlay-put overlay 'display
+                           (concat comment docfold-ellipsis "\n"))
             (overlay-put overlay 'display
                          (concat comment docfold-ellipsis "\n"
-                                 (buffer-substring p q) docfold-ellipsis))))))))
+                                 (buffer-substring p q) docfold-ellipsis
+                                 "\n"))))))))
 
 (defun docfold-forward-section (&optional n target)
   "Move N docfold sections forward (backward if N is negative).
@@ -86,10 +96,13 @@ at `point'."
    ((null n) (setq n 1))
    ((= n 0) (error "Must move at least one section forward or backward")))
   (beginning-of-line)
-  (while (and (or (not (forward-comment 1))
-                  (not (forward-comment -1))
+  (while (and (or (not (save-excursion (forward-comment 1)))
                   (and target
-                       (> (- (point) (line-beginning-position)) target))
+                       (> (- (save-excursion
+                               (skip-syntax-forward " " (line-end-position))
+                               (point))
+                             (line-beginning-position))
+                          target))
                   (/= (setq n (+ n (if (> n 0) -1 1))) 0))
               (not (if (> n 0) (eobp) (bobp))))
     (forward-line (cl-signum n)))
@@ -324,17 +337,10 @@ is used."
       (docfold-show-section point-at-end)
     (docfold-hide-section)))
 
-(defvar-local docfold--global-disable-point-adjustment nil
-  "Variable to store the value of
-  `global-disable-point-adjustment' before `docfold-minor-mode'
-  was activated so that it may be restored afterwards.")
-
 (defvar-local docfold--line-move-ignore-invisible nil
   "Variable to store the value of `line-move-ignore-invisible'
   before `docfold-minor-mode' was activated so that it may be
   restored afterwards.")
-
-;; TODO Having to set global-disable-point-adjustment seems bad.
 
 ;;;###autoload
 (define-minor-mode docfold-minor-mode
@@ -352,23 +358,15 @@ value is to use the first sentence of the section’s comment, see
 `docfold-set-up-overlay', but more advanced values are possible,
 see `docfold-c-set-up-overlay'.
 
-As sections always start at the beginning of lines,
-`docfold-minor-mode' sets `global-disable-point-adjustment' to t
-so that normal cursor movement works as expected.
-`Line-move-ignore-invisible' is also set to t."
+`Line-move-ignore-invisible' is set to t."
   :group 'docfold
   :lighter " df"
   (if docfold-minor-mode
       (progn
-        (setq docfold--global-disable-point-adjustment
-              global-disable-point-adjustment)
-        (setq-local global-disable-point-adjustment t)
         (setq docfold--line-move-ignore-invisible line-move-ignore-invisible)
         (setq-local line-move-ignore-invisible t)
         (add-hook 'occur-mode-find-occurrence-hook 'docfold-show-section nil t)
         (add-hook 'next-error-hook 'docfold-show-section nil t))
-    (setq-local global-disable-point-adjustment
-                docfold--global-disable-point-adjustment)
     (setq-local line-move-ignore-invisible docfold--line-move-ignore-invisible)
     (docfold-show-all)))
 
