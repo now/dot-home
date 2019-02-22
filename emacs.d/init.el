@@ -239,7 +239,7 @@ See also `evil-open-fold' and `evil-close-fold'."
                               (other . "now-c-style")))
            (c-electric-pound-behavior '(alignleft)))
   :bind ((:map c-mode-base-map
-                ("C-j" . c-context-line-break)))
+               ("C-j" . c-context-line-break)))
   :config (progn
             (c-add-style "now-c-style"
                          `("linux"
@@ -290,6 +290,8 @@ See also `evil-open-fold' and `evil-close-fold'."
                           'docfold-c-set-up-overlay))))
 
 (use-package now-cc-mode
+  :bind ((:map c-mode-base-map
+               ([remap c-fill-paragraph] . now-c-fill-paragraph)))
   :hook ((c-mode . now-c-mode-hook)
          (c-mode . now-c-auto-newline-mode)))
 
