@@ -34,8 +34,10 @@
 ;;;###autoload
 (defun now-mu4e-add-mark (mark)
   (add-to-list 'mu4e-marks mark)
-  (eval `((mu4e~headers-defun-mark-for ,(car mark))
-          (mu4e~view-defun-mark-for ,(car mark)))))
+  (eval `(progn
+           (require 'mu4e-headers)
+           (mu4e~headers-defun-mark-for ,(car mark))
+           (mu4e~view-defun-mark-for ,(car mark)))))
 
 ;;;###autoload
 (defun now-mu4e-headers-quit-buffer ()
