@@ -313,6 +313,11 @@ See also `evil-open-fold' and `evil-close-fold'."
   :config (progn
             (global-company-mode)))
 
+(use-package company-dabbrev
+  :no-require t
+  :custom ((company-dabbrev-downcase nil)
+           (company-dabbrev-ignore-case nil)))
+
 (use-package compile
   :no-require t
   :custom ((compilation-scroll-output 'first-error)))
