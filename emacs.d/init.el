@@ -2578,7 +2578,7 @@ For example, “&a'” → “á”"
                                      ("NEXT" . org-next)
                                      ("WAIT" . org-waiting)))
            (org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-                                (sequence "HOLD(h)" "WAIT(w@/@)" "DLGT(g@/!)" "|"
+                                (sequence "WAIT(w@/@)" "DLGT(g@/!)" "HOLD(h)" "|"
                                           "NIXD(c@/!)")
                                 (type "CALL")
                                 (type "CHAT")))
