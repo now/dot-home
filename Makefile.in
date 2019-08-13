@@ -252,11 +252,11 @@ $(HUNSPELL_SV_DICT_ZIP): hunspell/.dirstamp
 	$(V_CURL)$(CURL) -Ls https://addons.mozilla.org/firefox/downloads/latest/474623/$(@F) > $@.tmp
 	$(V_at)mv $@.tmp $@
 
-hunspell/sv.aff: $(HUNSPELL_SV_DICT_ZIP) hunspell/.dirstamp
+hunspell/sv_SE.aff: $(HUNSPELL_SV_DICT_ZIP) hunspell/.dirstamp
 	$(V_GEN)$(UNZIP) -qojd $(@D) $< dictionaries/$(@F)
 	$(V_at)touch $@
 
-hunspell/sv.dic: $(HUNSPELL_SV_DICT_ZIP) hunspell/.dirstamp
+hunspell/sv_SE.dic: $(HUNSPELL_SV_DICT_ZIP) hunspell/.dirstamp
 	$(V_GEN)$(UNZIP) -qojd $(@D) $< dictionaries/$(@F)
 	$(V_at)sed -e "s/'/’/g" $@ > $@.tmp
 	$(V_at)mv $@.tmp $@
@@ -356,8 +356,8 @@ userconfopenofficeorg3userwordbook_DATA = \
 	hunspell/en_GB-ise.dic \
 	hunspell/en_US.aff \
 	hunspell/en_US.dic \
-	hunspell/sv.aff \
-	hunspell/sv.dic
+	hunspell/sv_SE.aff \
+	hunspell/sv_SE.dic
 
 xdgconfighome_DATA = \
 	rss2email.cfg
