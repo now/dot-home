@@ -1,4 +1,7 @@
 (require 'package)
+(require 'tls)
+
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/")
@@ -39,13 +42,11 @@
                           (use-package t)
                           (visual-fill-column t)
                           (with-editor t)))
-(eval-when-compile
-  (package-initialize t))
+(package-initialize t)
 (dolist (p package-load-list)
   (unless (package-installed-p (car p))
     (condition-case nil
         (package-install (car p))
       (error (package-refresh-contents)
              (package-install (car p))))))
-(eval-when-compile
-  (package-initialize))
+(package-initialize)
