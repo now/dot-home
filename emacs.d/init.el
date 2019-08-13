@@ -144,7 +144,7 @@ See also `evil-open-fold' and `evil-close-fold'."
 
 (use-package auth-source
   :no-require t
-  :custom ((auth-sources '(macos-keychain-internet))))
+  :custom ((auth-sources '("secrets:Login" macos-keychain-internet))))
 
 (use-package autotest-mode
   :mode ("\\.at\\'"))
