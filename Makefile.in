@@ -6,6 +6,8 @@ srcdir = @srcdir@
 
 VPATH = @srcdir@
 
+emailaddress = @emailaddress@
+
 CURL = @CURL@
 DIFF = @DIFF@
 DTACH = @DTACH@
@@ -439,6 +441,7 @@ $(init_elcs): emacs.d/inits/.dirstamp
 $(sitelisp_elcs): emacs.d/site-lisp/.dirstamp
 $(userconfemacsd_DATA): emacs.d/.dirstamp
 $(xdgconfighomezsh_DATA): zsh/.dirstamp
+git/config: git/.dirstamp
 
 $(sitelisp_elcs): %.elc: %.el emacs.d/inits/package.el
 	$(V_ELC)$(EMACS) --batch -q -L $(srcdir)/emacs.d/site-lisp \
@@ -503,6 +506,7 @@ $(emptydirs):
 	    -e 's|@DTACH[@]|$(DTACH)|g' \
 	    -e 's|@EMACS[@]|$(EMACS)|g' \
 	    -e 's|@EMACSCLIENT[@]|$(EMACSCLIENT)|g' \
+	    -e 's|@emailaddress[@]|$(emailaddress)|g' \
 	    -e 's|@EXIFTOOL[@]|$(EXIFTOOL)|g' \
 	    -e 's|@GREP[@]|$(GREP)|g' \
 	    -e 's|@KEYCHAIN[@]|$(KEYCHAIN)|g' \

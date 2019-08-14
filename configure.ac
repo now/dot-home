@@ -40,6 +40,11 @@ AC_ARG_WITH([dtachsession],
    dtachsession='${dtachsessiondir}/session'])
 AC_SUBST([dtachsessiondir])
 AC_SUBST([dtachsession])
+AC_ARG_WITH([e-mail-address],
+  [AS_HELP_STRING([--with-e-mail-address], [override default e-mail address])],
+  [emailaddress=$withval],
+  [emailaddress=now@disu.se])
+AC_SUBST([emailaddress])
 AC_ARG_WITH([projectsdir],
   [AS_HELP_STRING([--with-projectsdir], [override default projects directory])],
   [projectsdir=$withval],
