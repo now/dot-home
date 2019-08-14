@@ -3,6 +3,7 @@
 (dolist (feature '(package))
   (load (concat user-emacs-directory "inits/" (symbol-name feature))))
 
+(setq ring-bell-function 'ignore)
 (setq gc-cons-threshold 20000000)
 
 (add-hook 'emacs-startup-hook
