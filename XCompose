@@ -1,0 +1,124 @@
+# -*- conf-colon -*-
+
+# `! ¡ ™ £ ¢ ∞ § ¶ • (a super)! °! ” ’
+#  æ ≤ ≥ π ¥ (math f)! © (c with cedila) (reg) (neg) (div) ≠ «
+#  å ø ´ ˝ ^ (delta?) (?) (raised t) ~ ß –
+#  … œ (delta?) (?) (roughly equal) ∫ μ Σ √ Ω
+
+# ` /? € ‹ › ﬁ ﬂ (raised tt) ° (small center dot) (,?) “ ‘
+#  Æ (?) (?) Π Á (turkish I) (?) (C with cedila) (promille) Ò (rev ?) ± »
+#  Å Ø (?) (?) (?) (I^) Ó (?) (?) (?) —
+#  Ú Œ (O^) (apple) (?) (?) (A^) (?) (?) (?)
+
+# TODO , . - v
+
+#
+<Multi_key> <1> : "¡"
+<Multi_key> <2> : "™"
+<Multi_key> <3> : "£"
+<Multi_key> <4> : "¢"
+<Multi_key> <5> : "∞"
+<Multi_key> <6> : "§"
+<Multi_key> <7> : "¶"
+<Multi_key> <8> : "•"
+#
+#
+<Multi_key> <9> : "”"
+<Multi_key> <0> : "’"
+
+<Multi_key> <apostrophe> : "æ"
+<Multi_key> None <comma> : "≤"
+<Multi_key> None <period> : "≥"
+<Multi_key> <p> : "π"
+<Multi_key> <y> : "¥"
+# <Multi_key> <f> : ""
+<Multi_key> <c> : "©"
+#
+#
+#
+#
+#
+#
+
+<Multi_key> <a> : "å"
+<Multi_key> <o> : "ø"
+#
+#
+#
+#
+#
+#
+#
+<Multi_key> <s> : "ß"
+<Multi_key> None <minus> : "–"
+
+<Multi_key> <semicolon> : "…"
+<Multi_key> <q> : "œ"
+#
+#
+#
+<Multi_key> <b> : "∫"
+<Multi_key> <m> : "μ"
+<Multi_key> <w> : "Σ"
+<Multi_key> <v> : "√"
+<Multi_key> <z> : "Ω"
+
+#
+# <Multi_key> <exclam> : "/"
+<Multi_key> <at> : "€"
+<Multi_key> <numbersign> : "‹"
+<Multi_key> <dollar> : "›"
+<Multi_key> <percent> : "ﬁ"
+<Multi_key> <asciicircum> : "ﬂ"
+#
+#
+#
+#
+<Multi_key> <parenleft> : "“"
+<Multi_key> <parenright> : "‘"
+
+<Multi_key> <quotedbl> : "Æ"
+# <Multi_key> <less> : ""
+# <Multi_key> <greater> : ""
+<Multi_key> <P> : "Π"
+<Multi_key> <Y> : "Á"
+# <Multi_key> <F> : ""
+#
+#
+# …
+
+<Multi_key> <A> : "Å"
+<Multi_key> <O> : "Ø"
+#
+#
+#
+#
+<Multi_key> <T> : "Ó"
+#
+#
+<Multi_key> ! Shift <minus> : "—"
+
+<Multi_key> <colon> : "Ú"
+<Multi_key> <Q> : "Œ"
+#
+# <Multi_key> <K> : ""
+#
+#
+#
+#
+#
+#
+
+<Multi_key> <u> <y> : "ÿ"
+<Multi_key> <u> <a> : "ä"
+<Multi_key> <u> <o> : "ö"
+<Multi_key> <u> <e> : "ë"
+<Multi_key> <u> <u> : "ü"
+<Multi_key> <u> <i> : "ï"
+
+<Multi_key> <U> <Y> : "Ÿ"
+<Multi_key> <U> <A> : "Ä"
+<Multi_key> <U> <O> : "Ö"
+<Multi_key> <U> <E> : "Ë"
+<Multi_key> <U> <U> : "Ü"
+<Multi_key> <U> <I> : "Ï"

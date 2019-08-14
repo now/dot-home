@@ -263,6 +263,7 @@ hunspell/sv_SE.dic: $(HUNSPELL_SV_DICT_ZIP) hunspell/.dirstamp
 	$(V_at)mv $@.tmp $@
 
 userconf_DATA = \
+	XCompose \
 	editrc \
 	gemrc \
 	gtkrc-2.0 \
