@@ -21,6 +21,7 @@ LAUNCHCTL = @LAUNCHCTL@
 MKDIR_P = @MKDIR_P@
 PATCH = @PATCH@
 UNZIP = @UNZIP@
+XCLIP = @XCLIP@
 ZSHELL = @ZSHELL@
 
 enable_fonts = @enable_fonts@
@@ -505,6 +506,7 @@ $(emptydirs):
 	    -e 's|@GREP[@]|$(GREP)|g' \
 	    -e 's|@KEYCHAIN[@]|$(KEYCHAIN)|g' \
 	    -e 's|@SHELL[@]|$(SHELL)|g' \
+	    -e 's|@XCLIP[@]|$(XCLIP)|g' \
 	    -e 's|@ZSHELL[@]|$(ZSHELL)|g' \
 	    -e 's|@bindir[@]|$(bindir)|g' \
 	    -e 's|@abs_builddir[@]|$(abs_builddir)|g' \
