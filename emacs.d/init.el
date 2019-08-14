@@ -2513,8 +2513,11 @@ For example, “&a'” → “á”"
              ("&cb" ?\•)
              ("&:)" ?\☺)
              ("&:(" ?\☹)
-             ("&<3" ?\❤))
-            (setq truncate-string-ellipsis "…")))
+             ("&<3" ?\❤))))
+
+(use-package mule-util
+  :defer t
+  :config (setq truncate-string-ellipsis "…"))
 
 (use-package now-init
   :hook ((message-mode . now-remove-continuation-fringe-indicator)
