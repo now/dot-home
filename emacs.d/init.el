@@ -2990,6 +2990,12 @@ For example, “&a'” → “á”"
               (setq-local adaptive-fill-function
                           'now-ruby-mode-adaptive-fill-function))))
 
+(use-package sbt-mode
+  :hook ((sbt-mode . now-sbt-mode-hook))
+  :config (progn
+            (defun now-sbt-mode-hook ()
+              (setq-local comint-use-prompt-regexp nil))))
+
 (use-package scroll-bar
   :commands (scroll-bar-mode)
   :defer t

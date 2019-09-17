@@ -34,6 +34,8 @@
                           (org t)
                           (paredit t)
                           (s t)
+                          (sbt-mode t)
+                          (scala-mode t)
                           (smtpmail-multi t)
                           (swiper t)
                           (transient t)
