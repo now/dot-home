@@ -1,3 +1,3 @@
 #! @SHELL@
 
-exec @XCLIP@
+exec @XCLIP@ -selection clipboard
