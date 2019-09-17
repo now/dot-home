@@ -136,7 +136,7 @@ See also `evil-open-fold' and `evil-close-fold'."
 
 (use-package amx
   :after evil
-  :bind (:map evil-normal-state-map
+  :bind (:map evil-motion-state-map
               ("~" . amx-major-mode-commands)))
 
 (use-package arc-mode
@@ -390,8 +390,7 @@ See also `evil-open-fold' and `evil-close-fold'."
 (use-package counsel
   :after evil
   :bind ((:map evil-motion-state-map
-               (", D" . counsel-dired-jump))
-         (:map evil-normal-state-map
+               (", D" . counsel-dired-jump)
                (", F" . counsel-git-grep)
                (", J" . counsel-git)
                (", e" . counsel-find-file)
@@ -452,7 +451,7 @@ See also `evil-open-fold' and `evil-close-fold'."
 
 (use-package dired
   :after evil
-  :bind (:map evil-normal-state-map
+  :bind (:map evil-motion-state-map
               (", d" . dired)))
 
 (use-package dired-aux
@@ -506,7 +505,7 @@ See also `evil-open-fold' and `evil-close-fold'."
 
 (use-package files
   :after evil
-  :bind (:map evil-normal-state-map
+  :bind (:map evil-motion-state-map
               (", W" . save-some-buffers)
               (", w" . save-buffer)))
 
@@ -533,7 +532,7 @@ See also `evil-open-fold' and `evil-close-fold'."
 (use-package grep
   :after evil
   :no-require t
-  :bind ((:map evil-normal-state-map
+  :bind ((:map evil-motion-state-map
                (", g" . grep)))
   :config (progn
             (evil-make-overriding-map grep-mode-map nil)))
@@ -541,12 +540,12 @@ See also `evil-open-fold' and `evil-close-fold'."
 (use-package now-git
   :after evil
   :no-require t
-  :bind ((:map evil-normal-state-map
+  :bind ((:map evil-motion-state-map
                (", G" . now-git-grep))))
 
 (use-package now-gxref
   :after evil
-  :bind ((:map evil-normal-state-map
+  :bind ((:map evil-motion-state-map
                (", E" . now-gxref-find-file))))
 
 (use-package hide-mode-line
@@ -555,7 +554,7 @@ See also `evil-open-fold' and `evil-close-fold'."
 
 (use-package hide-mode-line
   :after evil
-  :bind (:map evil-normal-state-map
+  :bind (:map evil-motion-state-map
               ("g C-g" . hide-mode-line-unhide-temporarily)))
 
 (use-package hl-line
@@ -627,7 +626,7 @@ See also `evil-open-fold' and `evil-close-fold'."
 (use-package magit-status
   :no-require t
   :after evil
-  :bind ((:map evil-normal-state-map
+  :bind ((:map evil-motion-state-map
                (", s" . magit-status))))
 
 (use-package magithub
@@ -2980,7 +2979,7 @@ For example, “&a'” → “á”"
 (use-package simple
   :no-require t
   :after evil
-  :bind ((:map evil-normal-state-map
+  :bind ((:map evil-motion-state-map
                (", c" . shell-command)
                (", n" . next-error)
                (", p" . previous-error))))
@@ -3075,7 +3074,7 @@ For example, “&a'” → “á”"
 (use-package undo-tree
   :no-require t
   :after evil
-  :bind (:map evil-normal-state-map
+  :bind (:map evil-motion-state-map
               (", u" . undo-tree-visualize)
               ("U" . undo-tree-redo)))
 
