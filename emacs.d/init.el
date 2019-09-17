@@ -361,12 +361,56 @@ See also `evil-open-fold' and `evil-close-fold'."
            (company-dabbrev-ignore-case nil)))
 
 (use-package compile
-  :no-require t
-  :custom ((compilation-scroll-output 'first-error)))
+  :custom ((compilation-error-regexp-alist '(maven
+                                             sbt
+                                             clang-include
+                                             gcc-include
+                                             gnu
+                                             gcov-file
+                                             gcov-header
+                                             gcov-nomark
+                                             gcov-called-line
+                                             gcov-never-called))
+           (compilation-scroll-output 'first-error))
+  :config (progn
+            (push `(maven
+                    ,(rx bol
+                         (| (group-n 5 "[INFO]")
+                            (: "[" (| "ERROR" (group-n 4 "WARNING")) "] "
+                               (group-n 1 (: (* (in (?0 . ?9)))
+                                             (not (in (?0 . ?9) ?\n))
+                                             (*? (| (not (in ?\n ?\s ?:))
+                                                    (: ?\s (not (in ?- ?/ ?\n)))
+                                                    (: ?: (not (in ?\s ?\n)))))))
+                               ":"
+                               (| (: "["
+                                     (group-n 2 (+ (in (?0 . ?9))))
+                                     ","
+                                     (group-n 3 (+ (in (?0 . ?9))))
+                                     "]")
+                                  (: (group-n 2 (+ (in (?0 . ?9)))) ":"))
+                               " ")))
+                    1 2 3 (4 . 5))
+                  compilation-error-regexp-alist-alist)
+            (push `(sbt
+                    ,(rx bol
+                         (: "[" (| "error" (group-n 4 "warn")) "] "
+                            (group-n 1 (: (* (in (?0 . ?9)))
+                                          (not (in (?0 . ?9) ?\n))
+                                          (*? (| (not (in ?\n ?\s ?:))
+                                                 (: ?\s (not (in ?- ?/ ?\n)))
+                                                 (: ?: (not (in ?\s ?\n)))))))
+                            ":"
+                            (group-n 2 (+ (in (?0 . ?9))))
+                            ":"
+                            (group-n 3 (+ (in (?0 . ?9))))
+                            ": "))
+                    1 2 3 (4))
+                  compilation-error-regexp-alist-alist)))
 
 (use-package compile
   :after evil
-  :bind ((:map evil-normal-state-map
+  :bind ((:map evil-motion-state-map
                (", m" . compile)
                (", r" . recompile))
          (:map evil-motion-state-map
