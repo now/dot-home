@@ -7,9 +7,9 @@
   (let ((default-directory (gxref--find-project-root)))
     (unless default-directory (error "Not under a GTAGS project"))
     (let* ((minibuffer-completing-file-name t)
-           (filename (ido-completing-read "Find file: "
-                                          (gxref--global-to-list '("-P")) nil
-                                          (confirm-nonexistent-file-or-buffer)
-                                          nil 'ido-file-history)))
+           (filename (completing-read "Find file: "
+                                      (gxref--global-to-list '("-P")) nil
+                                      (confirm-nonexistent-file-or-buffer)
+                                      nil 'file-name-history)))
       (when filename
         (find-file filename)))))
