@@ -23,8 +23,8 @@
 <Multi_key> <8> : "•"
 #
 #
-<Multi_key> <9> : "”"
-<Multi_key> <0> : "’"
+<Multi_key> <9> : "“"
+<Multi_key> <0> : "‘"
 
 <Multi_key> <apostrophe> : "æ"
 <Multi_key> None <comma> : "≤"
@@ -74,8 +74,8 @@
 #
 #
 #
-<Multi_key> <parenleft> : "“"
-<Multi_key> <parenright> : "‘"
+<Multi_key> <parenleft> : "”"
+<Multi_key> <parenright> : "’"
 
 <Multi_key> <quotedbl> : "Æ"
 # <Multi_key> <less> : ""
