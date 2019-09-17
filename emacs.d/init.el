@@ -85,7 +85,11 @@
                                        tar-mode))
                   evil-insert-state-modes
                   (cl-set-difference evil-insert-state-modes
-                                     '(term-mode)))
+                                     '(term-mode))
+                  evil-overriding-maps
+                  (cl-set-difference evil-overriding-maps
+                                     '((compilation-mode-map . nil))
+                                     :key 'car))
             (add-to-list 'evil-emacs-state-modes 'term-mode)
             (push '((docfold-minor-mode)
                     :open-all   docfold-show-all
