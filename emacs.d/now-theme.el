@@ -44,7 +44,7 @@
                                   :background "#e9ebed" :foreground ,black))))
     `(custom-button-pressed ((,gui (:box (:line-width 1 :color "#35576d")
                                    :background "#d4d6da" :foreground ,black))))
-    `(default ((((type gtk)) (,@default :height 90))
+    `(default ((((type gtk)) (,@default :height 105))
                (,gui (,@default :height 140))))
     `(diff-added ((,class (:foreground ,green))))
     `(diff-context ((,class)))
