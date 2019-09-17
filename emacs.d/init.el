@@ -619,6 +619,10 @@ See also `evil-open-fold' and `evil-close-fold'."
   :no-require t
   :custom ((magit-repository-directories '(("~/Projects". 1)))))
 
+(use-package magit-files
+  :bind ((:map evil-motion-state-map
+               (", S" . magit-file-dispatch))))
+
 (use-package magit-popup
   :no-require t
   :custom ((magit-popup-show-common-commands nil)))
