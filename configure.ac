@@ -64,9 +64,11 @@ AC_CHECK_PROGS([DIFF], [diff])
 AC_ARG_VAR([DIFF], [the diff command])
 AC_CHECK_PROGS([DTACH], [dtach], [:])
 AC_ARG_VAR([DTACH], [the dtach command])
-AC_PATH_PROGS([EMACS], [emacs emacs-nox])
+AC_PATH_PROGS([EMACS], [Emacs emacs emacs-nox], [],
+  [/Applications/MacPorts/Emacs.app/Contents/MacOS$PATH_SEPARATOR$PATH])
 AC_ARG_VAR([EMACS], [the Emacs editor command])
-AC_PATH_PROGS([EMACSCLIENT], [emacsclient emacsclient-nox])
+AC_PATH_PROGS([EMACSCLIENT], [emacsclient emacsclient-nox], [],
+  [/Applications/MacPorts/Emacs.app/Contents/MacOS/bin$PATH_SEPARATOR$PATH])
 AC_ARG_VAR([EMACSCLIENT], [the emacsclient command])
 AC_CHECK_PROGS([EXIFTOOL], [exiftool exiftool-5.22])
 AC_ARG_VAR([EXIFTOOL], [the exiftool command])
