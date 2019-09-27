@@ -50,8 +50,8 @@ _v_GZIP_0 = @echo "  GZIP      " $@;
 _v_GZIP_1 =
 
 V_CURL = $(_v_CURL_$(V))
-_V_CURL_ = $(_v_CURL_$(DEFAULT_VERBOSITY))
-_V_CURL_0 = @echo "  CURL      " $@;
+_v_CURL_ = $(_v_CURL_$(DEFAULT_VERBOSITY))
+_v_CURL_0 = @echo "  CURL      " $@;
 _v_CURL_1 =
 
 V_MKDIR_P = $(_v_MKDIR_P_$(V))
