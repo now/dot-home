@@ -4,7 +4,9 @@
   (load (concat user-emacs-directory "inits/" (symbol-name feature))))
 
 (setq ring-bell-function 'ignore)
-(setq split-width-threshold 180)
+(pcase (cdr (assoc 'geometry (car (display-monitor-attributes-list))))
+  ((and `(,_ ,_ ,width ,height) (guard (< width height)))
+   (setq split-width-threshold nil)))
 (setq gc-cons-threshold 20000000)
 (setq process-connection-type nil)
 
