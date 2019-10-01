@@ -291,7 +291,8 @@ userconfemacsdetcschema_DATA = \
 	emacs.d/etc/schema/mixxx-skin.rnc \
 	emacs.d/etc/schema/mixxx-template.rnc \
 	emacs.d/etc/schema/PropertyList-1.0.rnc \
-	emacs.d/etc/schema/schemas.xml
+	emacs.d/etc/schema/schemas.xml \
+	emacs.d/etc/schema/testng-1.0.rnc
 
 emacs.d/etc/schema/schemas.xml: emacs.d/etc/schema/.dirstamp
 
@@ -465,6 +466,8 @@ emacs.d/site-lisp/userloaddefs.el: \
 	Makefile
 	$(V_ELC)$(EMACS) --batch -q --eval '(setq vc-handled-backends nil)' \
 	  --eval '(setq generated-autoload-file "$(abs_srcdir)/$@")' \
+	  --eval "(defun byte-compile-info-string (&rest args) \
+	            (concat \"  INFO       \" (apply 'format args)))" \
 	  -f batch-update-autoloads $(srcdir)/emacs.d/site-lisp
 	$(V_at)if test "$(srcdir)" != .; then mv $(srcdir)/$@ $@; fi
 	$(V_at)touch $@

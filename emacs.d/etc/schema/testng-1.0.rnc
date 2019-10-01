@@ -1,0 +1,622 @@
+namespace a = 'http://relaxng.org/ns/compatibility/annotations/1.0'
+
+start = tng.suite
+
+##   A suite is made up of tests and parameters.
+##
+##   A test is made up of three parts:
+##
+## •   parameters, which override the suite parameters
+## •   groups, made up of two parts
+## •   classes, defining which classes are going to be part of this
+##     test run
+##
+##   And groups are made up of two parts:
+##
+## •   Definitions, which allow you to group groups into bigger groups
+## •   Runs, which define the groups that the methods must belong to
+##     in order to be runing during this test
+
+tng.class-name.type = xsd:string {
+  pattern = '[a-zA-Z_$][a-zA-Z_$0-9]*(\.[a-zA-Z_$][a-zA-Z_$0-9]*)*'
+}
+
+tng.any.element = element * {
+  grammar {
+    start = any
+    any = (attribute * { text } | element * { any } | text)*
+  }
+}
+
+## A suite is the top-level element of a testng.xml file.
+div {
+  tng.suite = element suite { tng.suite.attributes, tng.suite.content }
+
+  div {
+    tng.suite.attributes = empty
+
+    ## The name of this suite, as it will appear in the reports.
+    div {
+      tng.suite.attributes &= tng.suite.attributes.name
+      tng.suite.attributes.name = attribute name { text }
+    }
+
+    ## Whether to run in JUnit mode.
+    div {
+      tng.suite.attributes &= tng.suite.attributes.junit?
+      tng.suite.attributes.junit =
+        [a:defaultValue = 'false']
+        attribute junit { 'true' | 'false' }
+    }
+
+    ## How verbose the output on the console will be.  This setting
+    ## has no impact on the HTML reports.
+    div {
+      tng.suite.attributes &= tng.suite.attributes.verbose?
+      tng.suite.attributes.verbose =
+        attribute verbose { xsd:nonNegativeInteger }
+    }
+
+    ## Whether TestNG should use different threads to run your tests.
+    div {
+      tng.suite.attributes &= tng.suite.attributes.parallel?
+      tng.suite.attributes.parallel =
+        [a:defaultValue = 'none']
+        attribute parallel {
+          'none' | 'methods' | 'tests' | 'classes' | 'instances'
+        }
+    }
+
+    ## A module used to create the parent injector of all guice
+    ## injectors used in tests of the suite.
+    div {
+      tng.suite.attributes &= tng.suite.attributes.parent-module?
+      tng.suite.attributes.parent-module = attribute parent-module { text }
+    }
+
+    ## The stage with which the parent injector is created.
+    div {
+      tng.suite.attributes &= tng.suite.attributes.guice-stage?
+      tng.suite.attributes.guice-stage =
+        [a:defaultValue = 'DEVELOPMENT']
+        attribute guice-stage { 'DEVELOPMENT' | 'PRODUCTION' | 'TOOL'}
+    }
+
+    ## Whether to continue attempting Before/After Class/Methods after
+    ## they’ve failed once or just skip remaining.
+    div {
+      tng.suite.attributes &= tng.suite.attributes.configfailurepolicy?
+      tng.suite.attributes.configfailurepolicy =
+        [a:defaultValue = 'skip']
+        attribute configfailurepolicy { 'skip' | 'continue' }
+    }
+
+    ## An integer giving the size of the thread pool to use if you set
+    ## parallel.
+    div {
+      tng.suite.attributes &= tng.suite.attributes.thread-count?
+      tng.suite.attributes.thread-count =
+        [a:defaultValue = '5']
+        attribute thread-count { xsd:nonNegativeInteger }
+    }
+
+    ## If “javadoc”, TestNG will look for JavaDoc annotations in your
+    ## sources, otherwise it will use JDK5 annotations.
+    div {
+      tng.suite.attributes &= tng.suite.attributes.annotations?
+      tng.suite.attributes.annotations = attribute annotations { text }
+    }
+
+    ## The time to wait in milliseconds before aborting the method (if
+    ## parallel="methods") or the test (parallel="tests").
+    div {
+      tng.suite.attributes &= tng.suite.attributes.time-out?
+      tng.suite.attributes.time-out =
+        attribute time-out { xsd:nonNegativeInteger }
+    }
+
+    ## Whether to skip failed invocations.
+    div {
+      tng.suite.attributes &= tng.suite.attributes.skipfailedinvocationcounts?
+      tng.suite.attributes.skipfailedinvocationcounts =
+        [a:defaultValue = 'false']
+        attribute skipfailedinvocationcounts { 'true' | 'false' }
+    }
+
+    ## An integer giving the size of the thread pool to use for
+    ## parallel data providers.
+    div {
+      tng.suite.attributes &= tng.suite.attributes.data-provider-thread-count?
+      tng.suite.attributes.data-provider-thread-count =
+        [a:defaultValue = '10']
+        attribute data-provider-thread-count { xsd:nonNegativeInteger }
+    }
+
+    ## A class that implements IObjectFactory that will be used to
+    ## instantiate the test objects.
+    div {
+      tng.suite.attributes &= tng.suite.attributes.object-factory?
+      tng.suite.attributes.object-factory =
+        attribute object-factory { tng.class-name.type }
+    }
+
+    ## Group dependendent methods by instances.
+    div {
+      tng.suite.attributes &= tng.suite.attributes.group-by-instances?
+      tng.suite.attributes.group-by-instances =
+        [a:defaultValue = 'false']
+        attribute group-by-instances { 'true' | 'false' }
+    }
+
+    ## If set to false, TestNG will run the tests in a random order.
+    div {
+      tng.suite.attributes &= tng.suite.attributes.preserve-order?
+      tng.suite.attributes.preserve-order =
+        [a:defaultValue = 'true']
+        attribute preserve-order { 'true' | 'false' }
+    }
+
+    ## If true, tests that return a value will be run as well.
+    div {
+      tng.suite.attributes &= tng.suite.attributes.allow-return-values?
+      tng.suite.attributes.allow-return-values =
+        [a:defaultValue = 'false']
+        attribute allow-return-values { 'true' | 'false' }
+    }
+  }
+
+  tng.suite.content = tng.groups?, tng.suite.class*
+}
+
+## A list of XML files that contain more suite descriptions.
+div {
+  tng.suite.class |= tng.suite-files
+  tng.suite-files =
+    element suite-files { tng.suite-files.attributes, tng.suite-files.content }
+
+  tng.suite-files.attributes = empty
+
+  div {
+    tng.suite-files.content = tng.suite-file*
+
+    div {
+      tng.suite-file =
+        element suite-file { tng.suite-file.attributes, tng.suite-file.content }
+
+      div {
+        tng.suite-file.attributes = empty
+
+        div {
+          tng.suite-file.attributes &= tng.suite-file.attributes.path
+          tng.suite-file.attributes.path = attribute path { text }
+        }
+      }
+
+      tng.suite-file.content = empty
+    }
+  }
+}
+
+## Parameters can be defined at the suite or at the test level.
+## Parameters defined at the test level override parameters of the
+## same name in suite.  Parameters are used to link Java method
+## parameters to their actual value, defined here.
+div {
+  tng.suite.class |= tng.parameter
+  tng.parameter =
+    element parameter { tng.parameter.attributes, tng.parameter.content }
+
+  div {
+    tng.parameter.attributes = empty
+
+    div {
+      tng.parameter.attributes &= tng.parameter.attributes.name
+      tng.parameter.attributes.name = attribute name { text }
+    }
+
+    div {
+      tng.parameter.attributes &= tng.parameter.attributes.value
+      tng.parameter.attributes.value = attribute value { text }
+    }
+  }
+
+  tng.parameter.content = empty
+}
+
+## Method selectors define user classes used to select which methods
+## to run.  They need to implement org.testng.IMethodSelector.
+div {
+  tng.suite.class |= tng.method-selectors
+  tng.method-selectors = element method-selectors {
+    tng.method-selectors.attributes, tng.method-selectors.content
+  }
+
+  tng.method-selectors.attributes = empty
+
+  div {
+    tng.method-selectors.content = tng.method-selector*
+
+    div {
+      tng.method-selector = element method-selector {
+        tng.method-selector.attributes, tng.method-selector.content
+      }
+
+      tng.method-selector.attributes = empty
+
+      tng.method-selector.content = tng.selector-class* | tng.script
+
+      div {
+        tng.selector-class = element selector-class {
+          tng.selector-class.attributes, tng.selector-class.content
+        }
+
+        div {
+          tng.selector-class.attributes = empty
+
+          div {
+            tng.selector-class.attributes &= tng.selector-class.attributes.name
+            tng.selector-class.attributes.name = attribute name { text }
+          }
+
+          div {
+            tng.selector-class.attributes &=
+              tng.selector-class.attributes.priority?
+            tng.selector-class.attributes.priority =
+              attribute priority { xsd:nonNegativeInteger }
+          }
+        }
+
+        tng.selector-class.content = empty
+      }
+
+      div {
+        tng.script =
+          element script { tng.script.attributes, tng.script.content }
+
+        div {
+          tng.script.attributes = empty
+
+          div {
+            tng.script.attributes &= tng.script.attributes.language
+            tng.script.attributes.language = attribute language { text }
+          }
+        }
+
+        tng.script.content = tng.any.element*
+      }
+    }
+  }
+}
+
+## A test contains parameters and classes.  Additionally, you can
+## define additional groups (“groups of groups”).
+div {
+  tng.suite.class |= tng.test
+  tng.test = element test { tng.test.attributes, tng.test.content }
+
+  div {
+    tng.test.attributes = empty
+
+    ## The name of this test, as it will appear in the reports.
+    div {
+      tng.test.attributes &= tng.test.attributes.name
+      tng.test.attributes.name = attribute name { text }
+    }
+
+    ## Whether to run in JUnit mode.
+    div {
+      tng.test.attributes &= tng.test.attributes.junit?
+      tng.test.attributes.junit =
+        [a:defaultValue = 'false']
+        attribute junit { 'true' | 'false' }
+    }
+
+    ## How verbose the output on the console will be.  This setting has
+    ## no impact on the HTML reports.
+    div {
+      tng.test.attributes &= tng.test.attributes.verbose?
+      tng.test.attributes.verbose = attribute verbose { xsd:nonNegativeInteger }
+    }
+
+    ## Whether TestNG should use different threads to run your tests
+    ## (might speed up the process).
+    div {
+      tng.test.attributes &= tng.test.attributes.parallel?
+      tng.test.attributes.parallel = attribute parallel {
+        'none' | 'methods' | 'tests' | 'classes' | 'instances'
+      }
+    }
+
+    ## An integer giving the size of the thread pool to be used if
+    ## parallel mode is used.  Overrides the suite level value.
+    div {
+      tng.test.attributes &= tng.test.attributes.thread-count?
+      tng.test.attributes.thread-count =
+        attribute thread-count { xsd:nonNegativeInteger }
+    }
+
+    ## If “javadoc”, TestNG will look for JavaDoc annotations in your
+    ## sources, otherwise it will use JDK5 annotations.
+    div {
+      tng.test.attributes &= tng.test.attributes.annotations?
+      tng.test.attributes.annotations = attribute annotations { text }
+    }
+
+    ## The time to wait in milliseconds before aborting the method (if
+    ## parallel="methods") or the test (if parallel="tests").
+    div {
+      tng.test.attributes &= tng.test.attributes.time-out?
+      tng.test.attributes.time-out =
+        attribute time-out { xsd:nonNegativeInteger }
+    }
+
+    ## Flag to enable/disable current test.
+    div {
+      tng.test.attributes &= tng.test.attributes.enabled?
+      tng.test.attributes.enabled =
+        [a:defaultValue = 'true']
+        attribute enabled { 'true' | 'false' }
+    }
+
+    ## Whether to skip failed invocations.
+    div {
+      tng.test.attributes &= tng.test.attributes.skipfailedinvocationcounts?
+      tng.test.attributes.skipfailedinvocationcounts =
+        [a:defaultValue = 'false']
+        attribute skipfailedinvocationcounts { 'true' | 'false' }
+    }
+
+    ## If set to false, TestNG will run the tests in a random order.
+    div {
+      tng.test.attributes &= tng.test.attributes.preserver-order?
+      tng.test.attributes.preserver-order =
+        [a:defaultValue = 'true']
+        attribute preserver-order { 'true' | 'false' }
+    }
+
+    ## If true, the classes in this tag will be run in the same order
+    ## as found in the XML file.
+    div {
+      tng.test.attributes &= tng.test.attributes.group-by-instances?
+      tng.test.attributes.group-by-instances =
+        [a:defaultValue = 'false']
+        attribute group-by-instances { 'true' | 'false' }
+    }
+
+    ## If true, tests that return a value will be run as well.
+    div {
+      tng.test.attributes &= tng.test.attributes.allow-return-values?
+      tng.test.attributes.allow-return-values =
+        [a:defaultValue = 'false']
+        attribute allow-return-values { 'true' | 'false' }
+    }
+  }
+
+  div {
+    tng.test.content =
+      tng.method-selectors?,
+      tng.parameter*,
+      tng.groups?,
+      tng.packages?,
+      tng.classes?
+
+    ## The list of classes to include in this test.
+    div {
+      tng.classes =
+        element classes { tng.classes.attributes, tng.classes.content }
+
+      div {
+        tng.classes.attributes = empty
+
+        div {
+          tng.classes.attributes &= tng.classes.attributes.name
+          tng.classes.attributes.name = attribute name { text }
+        }
+      }
+
+      div {
+        tng.classes.content = tng.class*, tng.parameter*
+
+        div {
+          tng.class = element class { tng.class.attributes, tng.class.content }
+
+          div {
+            tng.class.attributes = empty
+
+            div {
+              tng.class.attributes &= tng.class.attributes.name
+              tng.class.attributes.name = attribute name { text }
+            }
+          }
+
+          div {
+            tng.class.content = (tng.methods | tng.parameter)*
+
+            ## The list of methods to include/exclude from this test.
+            div {
+              tng.methods =
+                element methods { tng.methods.attributes, tng.methods.content }
+
+              tng.methods.attributes = empty
+
+              tng.methods.content = (tng.include | tng.exclude | tng.parameter)*
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+## Defines additional groups (“groups of groups”) and also which
+## groups to include in this test run.
+div {
+  tng.groups = element groups { tng.groups.attributes, tng.groups.content }
+
+  tng.groups.attributes = empty
+
+  div {
+    tng.groups.content = tng.define*, tng.run?, tng.dependencies?
+
+    div {
+      tng.define = element define { tng.define.attributes, tng.define.content }
+
+      div {
+        tng.define.attributes = empty
+
+        div {
+          tng.define.attributes &= tng.define.attributes.name
+          tng.define.attributes.name = attribute name { text }
+        }
+      }
+
+      tng.define.content = tng.include*
+    }
+
+    ## The subtag of groups used to define which groups should be run.
+    div {
+      tng.run = element run { tng.run.attributes, tng.run.content }
+
+      tng.run.attributes = empty
+
+      tng.run.content = (tng.include | tng.exclude)*
+    }
+
+    div {
+      tng.dependencies = element dependencies {
+        tng.dependencies.attributes, tng.dependencies.content
+      }
+
+      tng.dependencies.attributes = empty
+
+      tng.dependencies.content = tng.group*
+    }
+  }
+}
+
+## Defines which groups to include in the current group of groups.
+div {
+  tng.include = element include { tng.include.attributes, tng.include.content }
+
+  div {
+    tng.include.attributes = empty
+
+    div {
+      tng.include.attributes &= tng.include.attributes.name
+      tng.include.attributes.name = attribute name { text }
+    }
+
+    div {
+      tng.include.attributes &= tng.include.attributes.description?
+      tng.include.attributes.description = attribute description { text }
+    }
+
+    div {
+      tng.include.attributes &= tng.include.attributes.invocation-numbers?
+      tng.include.attributes.invocation-numbers =
+        attribute invocation-numbers { xsd:nonNegativeInteger }
+    }
+  }
+
+  tng.include.content = empty
+}
+
+## Defines which groups to exclude from the current group of groups
+div {
+  tng.exclude = element exclude { tng.exclude.attributes, tng.exclude.content }
+
+  div {
+    tng.exclude.attributes = empty
+
+    div {
+      tng.exclude.attributes &= tng.exclude.attributes.name
+      tng.exclude.attributes.name = attribute name { text }
+    }
+  }
+
+  tng.exclude.content = empty
+}
+
+div {
+  tng.group = element group { tng.group.attributes, tng.group.content }
+
+  div {
+    tng.group.attributes = empty
+
+    div {
+      tng.group.attributes &= tng.group.attributes.name
+      tng.group.attributes.name = attribute name { text }
+    }
+
+    div {
+      tng.group.attributes &= tng.group.attributes.depends-on
+      tng.group.attributes.depends-on = attribute depends-on { text }
+    }
+  }
+
+  tng.group.content = empty
+}
+
+## The list of packages to include in this test.
+div {
+  tng.suite.class |= tng.packages
+  tng.packages =
+    element packages { tng.packages.attributes, tng.packages.content }
+
+  tng.packages.attributes = empty
+
+  tng.packages.content = tng.package*
+
+  div {
+    tng.package =
+      element package { tng.package.attributes, tng.package.content }
+
+    ## The package description.  If the package name ends with .* then
+    ## subpackages are included too.
+    div {
+      tng.package.attributes = empty
+
+      div {
+        tng.package.attributes &= tng.package.attributes.name
+        tng.package.attributes.name = attribute name {
+          xsd:string{
+            pattern = '[a-zA-Z][a-zA-Z_0-9]*(\.*[a-zA-Z_][a-zA-Z_0-9]*)*'
+          }
+        }
+      }
+    }
+
+    tng.package.content = (tng.include | tng.exclude)*
+  }
+}
+
+## The list of listeners that will be passed to TestNG.
+div {
+  tng.suite.class |= tng.listeners
+  tng.listeners =
+    element listeners { tng.listeners.attributes, tng.listeners.content }
+
+  tng.listeners.attributes = empty
+
+  div {
+    tng.listeners.content = tng.listener*
+
+    div {
+      tng.listener =
+        element listener { tng.listener.attributes, tng.listener.content }
+
+      div {
+        tng.listener.attributes = empty
+
+        div {
+          tng.listener.attributes &= tng.listener.attributes.class-name
+          tng.listener.attributes.class-name = attribute class-name {
+            tng.class-name.type
+          }
+        }
+      }
+
+      tng.listener.content = empty
+    }
+  }
+}

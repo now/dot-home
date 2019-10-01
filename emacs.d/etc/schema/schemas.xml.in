@@ -1,19 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
   <namespace ns="urn:oasis:names:tc:entity:xmlns:xml:catalog"
              typeId="Entity Resolution XML Catalog"/>
 
   <documentElement localName="interface" typeId="GtkBuilder"/>
   <documentElement localName="plist" typeId="PropertyList-1.0"/>
-  <documentElement localName="MixxxControllerPreset" typeId="Mixxx MIDI Controller Preset"/>
+  <documentElement localName="MixxxControllerPreset"
+                   typeId="Mixxx MIDI Controller Preset"/>
   <documentElement localName="skin" typeId="Mixxx Skin"/>
+  <documentElement localName="suite" typeId="TestNG Suite"/>
   <documentElement localName="Template" typeId="Mixxx Template"/>
 
   <typeId id="Entity Resolution XML Catalog" uri="catalog.rnc"/>
   <typeId id="GtkBuilder" uri="gtk-builder.rnc"/>
   <typeId id="PropertyList-1.0" uri="PropertyList-1.0.rnc"/>
-  <typeId id="Mixxx MIDI Controller Preset" uri="mixxx-midi-controller-preset.rnc"/>
+  <typeId id="Mixxx MIDI Controller Preset"
+          uri="mixxx-midi-controller-preset.rnc"/>
   <typeId id="Mixxx Skin" uri="mixxx-skin.rnc"/>
   <typeId id="Mixxx Template" uri="mixxx-template.rnc"/>
-
-  <include rules="@projectsdir@/xtrf-templates/data/schemas.xml"/>
+  <typeId id="TestNG Suite" uri="testng-1.0.rnc"/>
 </locatingRules>
