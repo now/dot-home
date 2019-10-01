@@ -575,7 +575,7 @@ See also `evil-open-fold' and `evil-close-fold'."
            (grep-program "g")
            (grep-use-null-device nil)
            (grep-use-null-filename-separator t))
-  :config (defconst grep-regexp-alist
+  :config (setq grep-regexp-alist
             `((,(concat "^\\(?:"
                         ;; Parse using NUL characters when `--null' is used.
                         ;; Note that we must still assume no newlines in
