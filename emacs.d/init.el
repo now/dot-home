@@ -6,6 +6,7 @@
 (setq ring-bell-function 'ignore)
 (setq split-width-threshold 180)
 (setq gc-cons-threshold 20000000)
+(setq process-connection-type nil)
 
 (add-hook 'emacs-startup-hook
           (lambda ()
@@ -568,10 +569,48 @@ See also `evil-open-fold' and `evil-close-fold'."
             (evil-make-overriding-map git-rebase-mode-map nil)))
 
 (use-package grep
-  :commands (grep-apply-setting)
-  :defer t
-  :config (progn
-            (grep-apply-setting 'grep-command "g -He ")))
+  :custom ((grep-highlight-matches t)
+           (grep-program "g")
+           (grep-use-null-device nil)
+           (grep-use-null-filename-separator t))
+  :config (defconst grep-regexp-alist
+            `((,(concat "^\\(?:"
+                        ;; Parse using NUL characters when `--null' is used.
+                        ;; Note that we must still assume no newlines in
+                        ;; filenames due to "foo: Is a directory." type
+                        ;; messages.
+                        "\\(?1:[^\0\n]+\\)\\(?3:\0\\)\\(?2:[0-9]+\\)\\(?::\\|\\(?4:\0\\)\\)"
+                        "\\|"
+                        ;; Fallback if `--null' is not used, use a tight regexp
+                        ;; to handle weird file names (with colons in them) as
+                        ;; well as possible.  E.g., use [1-9][0-9]* rather than
+                        ;; [0-9]+ so as to accept ":034:" in file names.
+                        "\\(?1:"
+                        "\\(?:[a-zA-Z]:\\)?" ; Allow "C:..." for w32.
+                        "[^\n:]+?[^\n/:]\\):[\t ]*\\(?2:[1-9][0-9]*\\)[\t ]*:"
+                        "\\)")
+               1 2
+               ;; Calculate column positions (col . end-col) of first grep match on a line
+               (,(lambda ()
+                   (when grep-highlight-matches
+                     (let* ((beg (match-end 0))
+                            (end (save-excursion (goto-char beg) (line-end-position)))
+                            (mbeg (text-property-any beg end 'font-lock-face grep-match-face)))
+                       (when mbeg
+                         (- mbeg beg)))))
+                .
+                ,(lambda ()
+                   (when grep-highlight-matches
+                     (let* ((beg (match-end 0))
+                            (end (save-excursion (goto-char beg) (line-end-position)))
+                            (mbeg (text-property-any beg end 'font-lock-face grep-match-face))
+                            (mend (and mbeg (next-single-property-change mbeg 'font-lock-face nil end))))
+                       (when mend
+                         (- mend beg))))))
+               nil nil
+               (3 '(face nil display ":"))
+               (4 '(face nil display ":")))
+              ("^Binary file \\(.+\\) matches$" 1 nil nil 0 1))))
 
 (use-package grep
   :after evil
