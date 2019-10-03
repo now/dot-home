@@ -7,6 +7,22 @@ MANWIDTH=80
 MANPAGER='less -R'
 EDITOR=e
 
+MAVEN_OPTS="-Xms256m \
+-Xmx512m \
+-XX:+UseConcMarkSweepGC \
+-XX:+CMSClassUnloadingEnabled \
+-Dorg.slf4j.simpleLogger.log.org.apache.maven.plugin.ear.EarMojo=warn \
+-Dorg.slf4j.simpleLogger.log.org.apache.maven.scm.manager.plexus.DefaultScmManager=warn \
+-Dorg.slf4j.simpleLogger.log.com.spotify.docker.BuildMojo=warn \
+-Dorg.slf4j.simpleLogger.log.scala_maven.AddSourceMojo=warn \
+-Dorg.slf4j.simpleLogger.log.org.codehaus.mojo.build.CreateMojo=warn \
+-Dorg.slf4j.simpleLogger.log.org.hibernate.cfg.AnnotationBinder=warn \
+-Dorg.slf4j.simpleLogger.log.org.hibernate.cfg.annotations.EntityBinder=warn \
+-Dorg.slf4j.simpleLogger.log.org.hibernate.cfg.annotations.QueryBinder=warn \
+-Dorg.slf4j.simpleLogger.log.org.hibernate.cfg.annotations.CollectionBinder=warn \
+-Dorg.slf4j.simpleLogger.log.org.hibernate.cfg.HbmBinder=warn"
+
 export \
   LANG \
-  PAGER MANWIDTH MANPAGER EDITOR
+  PAGER MANWIDTH MANPAGER EDITOR \
+  MAVEN_OPTS
