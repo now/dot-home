@@ -624,7 +624,7 @@ See also `evil-open-fold' and `evil-close-fold'."
   :after evil
   :no-require t
   :bind ((:map evil-motion-state-map
-               (", g" . grep)))
+               (", G" . grep)))
   :config (progn
             (evil-make-overriding-map grep-mode-map nil)))
 
@@ -632,7 +632,7 @@ See also `evil-open-fold' and `evil-close-fold'."
   :after evil
   :no-require t
   :bind ((:map evil-motion-state-map
-               (", G" . now-git-grep))))
+               (", g" . now-git-grep))))
 
 (use-package now-gxref
   :after evil
