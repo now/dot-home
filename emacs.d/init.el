@@ -152,12 +152,12 @@ See also `evil-open-fold' and `evil-close-fold'."
             (evil-make-overriding-map archive-mode-map 'normal)))
 
 (use-package auth-source
-  :when (eq window-system 'ns)
+  :when (eq system-type 'darwin)
   :no-require t
   :custom ((auth-sources '(macos-keychain-internet))))
 
 (use-package auth-source
-  :when (eq window-system 'x)
+  :when (eq system-type 'gnu/linux)
   :no-require t
   :custom ((auth-sources '("secrets:Login"))))
 
