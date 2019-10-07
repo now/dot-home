@@ -86,6 +86,8 @@ AC_ARG_VAR([LAUNCHCTL], [the launchctl command])
 AC_PROG_MKDIR_P
 AC_CHECK_PROGS([PATCH], [patch])
 AC_ARG_VAR([PATCH], [the patch command])
+AC_PATH_PROGS([SOCAT], [socat])
+AC_ARG_VAR([SOCAT], [the socat command])
 AC_CHECK_PROGS([UNZIP], [unzip])
 AC_ARG_VAR([UNZIP], [the unzip command])
 AC_CHECK_PROGS([XCLIP], [xclip])

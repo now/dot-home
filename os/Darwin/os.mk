@@ -48,7 +48,10 @@ fonts_DATA = \
 	$(fontsdejavu_DATA)
 
 librarylaunchagents_DATA = \
-	   os/Darwin/Library/LaunchAgents/se.disu.kinesis.plist
+	   os/Darwin/Library/LaunchAgents/se.disu.kinesis.plist \
+	   os/Darwin/Library/LaunchAgents/se.disu.socat.plist
+
+os/Darwin/Library/LaunchAgents/se.disu.socat.plist: os/Darwin/Library/Launchagents/.dirstamp
 
 $(call DIR,appNowmacsappContents)
 $(call DIR,appNowmacsappContentsMacOS)

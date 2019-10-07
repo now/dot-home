@@ -22,6 +22,7 @@ KEYCHAIN = @KEYCHAIN@
 LAUNCHCTL = @LAUNCHCTL@
 MKDIR_P = @MKDIR_P@
 PATCH = @PATCH@
+SOCAT = @SOCAT@
 UNZIP = @UNZIP@
 XCLIP = @XCLIP@
 ZSHELL = @ZSHELL@
@@ -514,6 +515,7 @@ $(emptydirs):
 	    -e 's|@GREP[@]|$(GREP)|g' \
 	    -e 's|@KEYCHAIN[@]|$(KEYCHAIN)|g' \
 	    -e 's|@SHELL[@]|$(SHELL)|g' \
+	    -e 's|@SOCAT[@]|$(SOCAT)|g' \
 	    -e 's|@XCLIP[@]|$(XCLIP)|g' \
 	    -e 's|@ZSHELL[@]|$(ZSHELL)|g' \
 	    -e 's|@bindir[@]|$(bindir)|g' \
