@@ -17,9 +17,7 @@ start = tng.suite
 ## •   Runs, which define the groups that the methods must belong to
 ##     in order to be runing during this test
 
-tng.class-name.type = xsd:string {
-  pattern = '[a-zA-Z_$][a-zA-Z_$0-9]*(\.[a-zA-Z_$][a-zA-Z_$0-9]*)*'
-}
+tng.class-name.type = text
 
 tng.any.element = element * {
   grammar {
@@ -405,14 +403,7 @@ div {
       tng.classes =
         element classes { tng.classes.attributes, tng.classes.content }
 
-      div {
-        tng.classes.attributes = empty
-
-        div {
-          tng.classes.attributes &= tng.classes.attributes.name
-          tng.classes.attributes.name = attribute name { text }
-        }
-      }
+      tng.classes.attributes = empty
 
       div {
         tng.classes.content = tng.class*, tng.parameter*
@@ -578,11 +569,7 @@ div {
 
       div {
         tng.package.attributes &= tng.package.attributes.name
-        tng.package.attributes.name = attribute name {
-          xsd:string{
-            pattern = '[a-zA-Z][a-zA-Z_0-9]*(\.*[a-zA-Z_][a-zA-Z_0-9]*)*'
-          }
-        }
+        tng.package.attributes.name = attribute name { text }
       }
     }
 
