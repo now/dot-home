@@ -482,12 +482,12 @@ div {
           }
 
           div {
-            pom.notifier.content &= pom.configuration?
-            pom.configuration = element configuration { pom.configuration.attributes, pom.configuration.content }
+            pom.notifier.content &= pom.notifier.content.configuration?
+            pom.notifier.content.configuration = element configuration { pom.notifier.content.configuration.attributes, pom.notifier.content.configuration.content }
 
-            pom.configuration.attributes = empty
+            pom.notifier.content.configuration.attributes = empty
 
-            pom.configuration.content = string
+            pom.notifier.content.configuration.content = string
           }
         }
       }
@@ -498,9 +498,178 @@ div {
 div {
   pom.distributionManagement = element distributionManagement { pom.distributionManagement.attributes, pom.distributionManagement.content }
 
-  pom.distributionManagement.attributes = 
+  pom.distributionManagement.attributes = empty
 
-  pom.distributionManagement.content = 
+  div {
+    pom.distributionManagement.content = empty
+
+    div {
+      pom.distributionManagement.content &= pom.distributionManagement.content.repository?
+      pom.distributionManagement.content.repository = element repository { pom.distributionManagement.content.repository.attributes, pom.distributionManagement.content.repository.content }
+
+      pom.distributionManagement.content.repository.attributes = empty
+
+      pom.distributionManagement.content.repository.content = pom.deployment-repository.content
+    }
+
+    div {
+      pom.distributionManagement.content &= pom.distributionManagement.content.snapshotRepository?
+      pom.distributionManagement.content.snapshotRepository = element snapshotRepository { pom.distributionManagement.content.snapshotRepository.attributes, pom.distributionManagement.content.snapshotRepository.content }
+
+      pom.distributionManagement.content.snapshotRepository.attributes = empty
+
+      pom.distributionManagement.content.snapshotRepository.content = pom.deployment-repository.content
+    }
+
+    div {
+      pom.distributionManagement.content &= pom.site?
+      pom.site = element site { pom.site.attributes, pom.site.content }
+
+      pom.site.attributes = pom.attributes.child.site.url.inherit.append.path?
+
+      div {
+        pom.site.content = empty
+
+        div {
+          pom.site.content &= pom.site.content.id?
+          pom.site.content.id = pom.id
+        }
+
+        div {
+          pom.site.content &= pom.site.content.name?
+          pom.site.content.name = pom.name
+        }
+
+        div {
+          pom.site.content &= pom.site.content.url?
+          pom.site.content.url = pom.url
+        }
+      }
+    }
+
+    div {
+      pom.distributionManagement.content &= pom.downloadUrl?
+      pom.downloadUrl = element downloadUrl { pom.downloadUrl.attributes, pom.downloadUrl.content }
+
+      pom.downloadUrl.attributes = empty
+
+      pom.downloadUrl.content = text
+    }
+
+    div {
+      pom.distributionManagement.content &= pom.relocation?
+      pom.relocation = element relocation { pom.relocation.attributes, pom.relocation.content }
+
+      pom.relocation.attributes = empty
+
+      div {
+        pom.relocation.content =
+          pom.groupId? & pom.artifactId? & pom.version?
+
+        div {
+          pom.relocation.content &= pom.message?
+          pom.message = element message { pom.message.attributes, pom.message.content }
+
+          pom.message.attributes = empty
+
+          pom.message.content = text
+        }
+      }
+    }
+
+    div {
+      pom.distributionManagement.content &= pom.status?
+      pom.status = element status { pom.status.attributes, pom.status.content }
+
+      pom.status.attributes = empty
+
+      pom.status.content = text
+    }
+
+    div {
+      pom.deployment-repository.content = empty
+
+      div {
+        pom.deployment-repository.content &= pom.uniqueVersion?
+        pom.uniqueVersion = element uniqueVersion { pom.uniqueVersion.attributes, pom.uniqueVersion.content }
+
+        pom.uniqueVersion.attributes = empty
+
+        pom.uniqueVersion.content = xsd:boolean >> a:defaultValue = 'true'
+      }
+
+      div {
+        pom.deployment-repository.content &= pom.releases?
+        pom.releases = element releases { pom.releases.attributes, pom.releases.content }
+
+        pom.releases.attributes = empty
+
+        pom.releases.content = pom.repository-policy.content
+      }
+
+      div {
+        pom.deployment-repository.content &= pom.snapshots?
+        pom.snapshots = element snapshots { pom.snapshots.attributes, pom.snapshots.content }
+
+        pom.snapshots.attributes = empty
+
+        pom.snapshots.content = pom.repository-policy.content
+      }
+
+      div {
+        pom.deployment-repository.content &= pom.deployment-repository.content.id?
+        pom.deployment-repository.content.id = pom.id
+      }
+
+      div {
+        pom.deployment-repository.content &= pom.deployment-repository.content.name?
+        pom.deploypment-repository.content.name = pom.name
+      }
+
+      div {
+        pom.deployment-repository.content &= pom.deployment-repository.content.url?
+        pom.deploypment-repository.content.url = pom.url
+      }
+
+      div {
+        pom.deployment-repository.content &= pom.layout?
+        pom.layout = element layout { pom.layout.attributes, pom.layout.content }
+
+        pom.layout.attributes = empty
+
+        pom.layout.content = text >> a:defaultValue = 'default'
+      }
+
+      div {
+        pom.repository-policy.content = empty
+
+        div {
+          pom.repository-policy.content &= pom.enabled?
+          pom.enabled = element enabled { pom.enabled.attributes, pom.enabled.content }
+
+          pom.enabled.attributes = empty
+
+          pom.enabled.content = text
+        }
+
+        div {
+          pom.updatePolicy = element updatePolicy { pom.updatePolicy.attributes, pom.updatePolicy.content }
+
+          pom.updatePolicy.attributes = empty
+
+          pom.updatePolicy.content = text
+        }
+
+        div {
+          pom.checksumPolicy = element checksumPolicy { pom.checksumPolicy.attributes, pom.checksumPolicy.content }
+
+          pom.checksumPolicy.attributes = empty
+
+          pom.checksumPolicy.content = text
+        }
+      }
+    }
+  }
 }
 
 div {
@@ -524,7 +693,7 @@ div {
 
   pom.dependencies.attributes = empty
 
-  pom.dependencies.content = pom.depednency*
+  pom.dependencies.content = pom.dependency*
 }
 
 div {
@@ -562,9 +731,129 @@ div {
 div {
   pom.reporting = element reporting { pom.reporting.attributes, pom.reporting.content }
 
-  pom.reporting.attributes = 
+  pom.reporting.attributes = empty
 
-  pom.reporting.content = 
+  div {
+    pom.reporting.content = empty
+
+    div {
+      pom.reporting.content &= pom.excludeDefaults?
+      pom.excludeDefaults = element excludeDefaults { pom.excludeDefaults.attributes, pom.excludeDefaults.content }
+
+      pom.excludeDefaults.attributes = empty
+
+      pom.excludeDefaults.content = text
+    }
+
+    div {
+      pom.reporting.content &= pom.outputDirectory?
+      pom.outputDirectory = element outputDirectory { pom.outputDirectory.attributes, pom.outputDirectory.content }
+
+      pom.outputDirectory.attributes = empty
+
+      pom.outputDirectory.content = text
+    }
+
+    div {
+      pom.reporting.content &= pom.reporting.content.plugins?
+      pom.reporting.content.plugins = element plugins { pom.reporting.content.plugins.attributes, pom.reporting.content.plugins.content }
+
+      pom.reporting.content.plugins.attributes = empty
+
+      pom.reporting.content.plugins.content = pom.reporting.content.plugin*
+
+      div {
+        pom.reporting.content.pluigin = element plugin { pom.reporting.content.plugin.attributes, pom.reporting.content.plugin.content }
+
+        pom.reporting.content.plugin.attributes = empty
+
+        div {
+          pom.reporting.content.plugin.content = empty
+
+          div {
+            pom.reporting.content.plugin.content &= pom.reporting.content.plugin.content.groupId?
+            pom.reporting.content.plugin.content.groupId = pom.groupId?
+          }
+
+          div {
+            pom.reporting.content.plugin.content &= pom.reporting.content.plugin.content.artifactId?
+            pom.reporting.content.plugin.content.artifactId = pom.artifactId?
+          }
+
+          div {
+            pom.reporting.content.plugin.content &= pom.reporting.content.plugin.content.version?
+            pom.reporting.content.plugin.content.version = pom.version?
+          }
+
+          div {
+            pom.reporting.content.plugin.content &= pom.reporting.content.plugin.content.groupId?
+            pom.reporting.content.plugin.content.groupId = pom.groupId?
+          }
+
+          div {
+            pom.reporting.content.plugin.content &= pom.reportSets?
+            pom.reportSets = element reportSets { pom.reportSets.attributes, pom.reportSets.content }
+
+            pom.reportSets.attributes = empty
+
+            pom.reportSets.content = pom.reportSet*
+
+            div {
+              pom.reportSet = element reportSet { pom.reportSet.attributes, pom.reportSet.content }
+
+              pom.reportSet.attributes = empty
+
+              div {
+                pom.reportSet.content = empty
+
+                div {
+                  pom.reportSet.content &= pom.reportSet.content.id?
+                  pom.reportSet.content.id = pom.id
+                }
+
+                div {
+                  pom.reportSet.content &= pom.reportSet.reports?
+                  pom.reportSet.content.reports = element reports { pom.reportSet.content.reports.attributes, pom.reportSet.content.reports.content }
+
+                  pom.reportSet.content.reports.attributes = empty
+
+                  pom.reportSet.content.reports.content = pom.report*
+
+                  div {
+                    pom.report = element report { pom.report.attributes, pom.report.content }
+
+                    pom.report.attributes = empty
+
+                    pom.report.content = text
+                  }
+                }
+
+                div {
+                  pom.reportSet.content &= pom.reportSet.content.inherited?
+                  pom.reportSet.content.inherited = pom.inherited
+                }
+
+                div {
+                  pom.reportSet.content &= pom.reportSet.content.configuration?
+                  pom.reportSet.content.configuration = pom.configuration
+                }
+              }
+            }
+          }
+
+          div {
+            pom.reporting.content.plugin.content &= pom.reporting.content.plugin.content.inherited?
+            pom.reporting.content.plugin.content.inherited = pom.inherited
+          }
+
+          div {
+            pom.reporting.content.plugin.content &= pom.reporting.content.plugin.content.configuration?
+            pom.reporting.content.plugin.content.configuration = pom.configuration
+          }
+        }
+      }
+    }
+  }
 }
 
 div {
@@ -577,16 +866,38 @@ div {
 
 # Shared
 
+pom.attributes.child.site.url.inherit.append.path = attribute child.site.url.inherit.append.path { text }
+
+div {
+  pom.id = element id { pom.id.attributes, pom.id.content }
+
+  pom.id.attributes = empty
+
+  pom.id.content = text
+}
+
+div {
+  pom.inherited = element inherited { pom.inherited.attributes, pom.inherited.content }
+
+  pom.inherited.attributes = empty
+
+  pom.inherited.content = text
+}
+
+div {
+  pom.configuration = element configuration { pom.configuration.attributes, pom.configuration.content }
+
+  pom.configuration.attributes = empty
+
+  pom.configuration.content = pom.any.element*
+}
+
 div {
   pom.person-content = pom.properties?
 
   div {
-    pom.person-content &= pom.id?
-    pom.id = element id { pom.id.attributes, pom.id.content }
-
-    pom.id.attributes = empty
-
-    pom.id.content = text
+    pom.person-content &= pom.person-content.id?
+    pom.person-content.id = pom.id
   }
 
   div {
