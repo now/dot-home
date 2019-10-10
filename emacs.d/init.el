@@ -3249,9 +3249,11 @@ For example, “&a'” → “á”"
             (setq overlay-arrow-string "►")))
 
 (use-package xref
+  :defer nil
   :bind ((:map xref--xref-buffer-mode-map
                ("q" . quit-window)))
   :config (progn
+	    (require 'xref)
             (add-to-list 'xref-backend-functions 'gxref-xref-backend)))
 
 (use-package xref
