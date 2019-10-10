@@ -367,16 +367,13 @@ See also `evil-open-fold' and `evil-close-fold'."
               (setq-local adaptive-fill-function
                           'now-c-mode-adaptive-fill-function)
               (setq-local docfold-set-up-overlay
-                          'docfold-c-set-up-overlay))
-            (defun now-java-mode-hook ()
-              (make-local-variable 'whitespace-line-column))))
+                          'docfold-c-set-up-overlay))))
 
 (use-package now-cc-mode
   :bind ((:map c-mode-base-map
                ([remap c-fill-paragraph] . now-c-fill-paragraph)))
   :hook ((c-mode . now-c-mode-hook)
-         (c-mode . now-c-auto-newline-mode)
-         (java-mode . now-java-mode-hook)))
+         (c-mode . now-c-auto-newline-mode)))
 
 (use-package company
   :diminish
@@ -3243,7 +3240,8 @@ For example, “&a'” → “á”"
                                indentation
                                space-before-tab)))
   :hook (((prog-mode text-mode) . whitespace-mode)
-         (message-mode . whitespace-turn-off)))
+         (message-mode . whitespace-turn-off))
+  :config (make-variable-buffer-local 'whitespace-line-column))
 
 (use-package xdisp
   :no-require t
