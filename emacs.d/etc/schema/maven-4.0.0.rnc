@@ -861,7 +861,159 @@ div {
 
   pom.profiles.attributes = empty
 
-  pom.profiles.content = pom.profile*
+  div {
+    pom.profiles.content = pom.profile*
+
+    div {
+      pom.profile = element profile { pom.profile.attributes, pom.profile.content }
+
+      pom.profile.attributes = empty
+
+      div {
+        pom.profile.content = empty
+
+        [a:defaultValue = 'default']
+        div {
+          pom.profile.content &= pom.profile.content.id?
+          pom.profile.content.id = pom.id?
+        }
+
+        div {
+          pom.profile.content &= pom.activation?
+          pom.activation = element activation { pom.activation.attributes, pom.activation.content }
+
+          pom.activation.attributes = empty
+
+          div {
+            pom.activation.content = empty
+
+            div {
+              pom.activation.content &= pom.activeByDefault?
+              pom.activeByDefault = element activeByDefault { pom.activeByDefault.attributes, pom.activeByDefault.content }
+
+              pom.activeByDefault.attributes = empty
+
+              pom.activeByDefault.content = xsd:boolean >> a:defaultValue = 'false'
+            }
+
+            div {
+              pom.activation.content &= pom.jdk?
+              pom.jdk = element jdk { pom.jdk.attributes, pom.jdk.content }
+
+              pom.jdk.attributes = empty
+
+              pom.jdk.content = text
+            }
+
+            div {
+              pom.activation.content &= pom.os?
+              pom.os = element os { pom.os.attributes, pom.os.content }
+
+              pom.os.attributes = 
+
+              pom.os.content = 
+            }
+
+            div {
+              pom.activation.content &= pom.property?
+              pom.property = element property { pom.property.attributes, pom.property.content }
+
+              pom.property.attributes = empty
+
+              div {
+                pom.property.content = empty
+
+                div {
+                  pom.property.content &= pom.property.content.name?
+                  pom.property.content.name = pom.name
+                }
+
+                div {
+                  pom.property.content &= pom.value?
+                  pom.value = element value { pom.value.attributes, pom.value.content }
+
+                  pom.value.attributes = empty
+
+                  pom.value.content = text
+                }
+              }
+            }
+
+            div {
+              pom.activation.content &= pom.file?
+              pom.file = element file { pom.file.attributes, pom.file.content }
+
+              pom.file.attributes = 
+
+              pom.file.content = 
+            }
+          }
+        }
+
+        div {
+          pom.profile.content &= pom.profile.content.build?
+          pom.profile.content.build = element build { pom.profile.content.build.attributes, pom.profile.content.build.content }
+
+          pom.profile.content.build.attributes = 
+
+          pom.profile.content.build.content = 
+        }
+
+        div {
+          pom.profile.content &= pom.profile.content.modules?
+          pom.profile.content.modules = element modules { pom.profile.content.modules.attributes, pom.profile.content.modules.content }
+
+          pom.profile.content.modules.attributes = empty
+
+          pom.profile.content.modules.content = pom.profile.content.modules.content.module*
+
+          div {
+            # TODO Simplify and use pom.profile.content.module
+            pom.profile.content.modules.content.module = element module { pom.profile.content.modules.content.module.attributes, pom.profile.content.modules.content.module.content }
+
+            pom.profile.content.modules.content.module.attributes = empty
+
+            pom.profile.content.modules.content.module.content = text
+          }
+        }
+
+        div {
+          pom.profile.content &= pom.profile.content.distributionManagement?
+          pom.profile.content.distributionManagement = pom.distributionManagement
+        }
+
+        div {
+          pom.profile.content &= pom.profile.content.properties?
+          pom.profile.content.properties = pom.properties
+        }
+
+        div {
+          pom.profile.content &= pom.profile.content.dependencyManagement?
+          pom.profile.content.dependencyManagement = pom.dependencyManagement
+        }
+
+        div {
+          pom.profile.content &= pom.profile.content.dependencies?
+          pom.profile.content.dependencies = pom.dependencies
+        }
+
+        div {
+          pom.profile.content &= pom.profile.content.repositories?
+          pom.profile.content.repositories = pom.repositories
+        }
+
+        div {
+          pom.profile.content &= pom.profile.content.pluginRepositories?
+          pom.profile.content.pluginRepositories = pom.pluginRepositories
+        }
+
+        div {
+          pom.profile.content &= pom.profile.content.reporting?
+          pom.profile.content.reporting = pom.reporting
+        }
+      }
+    }
+  }
 }
 
 # Shared
