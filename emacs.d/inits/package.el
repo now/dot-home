@@ -36,6 +36,7 @@
                           (s t)
                           (sbt-mode t)
                           (scala-mode t)
+                          (sed-mode t)
                           (smtpmail-multi t)
                           (swiper t)
                           (transient t)

@@ -3084,6 +3084,11 @@ For example, “&a'” → “á”"
   :config (progn
             (scroll-bar-mode -1)))
 
+(use-package sed-mode
+  :hook ((sed-mode . now-sed-mode-hook))
+  :config (defun now-sed-mode-hook ()
+            (setq-local smie-indent-basic 2)))
+
 (use-package semantic/format
   :no-require t
   :config (progn
