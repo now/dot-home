@@ -3240,8 +3240,9 @@ For example, “&a'” → “á”"
                                indentation
                                space-before-tab)))
   :hook (((prog-mode text-mode) . whitespace-mode)
-         (message-mode . whitespace-turn-off))
-  :config (make-variable-buffer-local 'whitespace-line-column))
+         (message-mode . whitespace-turn-off)))
+(make-variable-buffer-local 'whitespace-line-column)
+(setq-default whitespace-line-column 80)
 
 (use-package xdisp
   :no-require t
