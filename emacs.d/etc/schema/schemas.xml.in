@@ -2,6 +2,7 @@
 <locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
   <namespace ns="urn:oasis:names:tc:entity:xmlns:xml:catalog"
              typeId="Entity Resolution XML Catalog"/>
+  <namespace ns="http://maven.apache.org/POM/4.0.0" typeId="Project Object Model"/>
 
   <documentElement localName="interface" typeId="GtkBuilder"/>
   <documentElement localName="plist" typeId="PropertyList-1.0"/>
@@ -18,5 +19,6 @@
           uri="mixxx-midi-controller-preset.rnc"/>
   <typeId id="Mixxx Skin" uri="mixxx-skin.rnc"/>
   <typeId id="Mixxx Template" uri="mixxx-template.rnc"/>
+  <typeId id="Project Object Model" uri="maven-4.0.0.rnc"/>
   <typeId id="TestNG Suite" uri="testng-1.0.rnc"/>
 </locatingRules>
