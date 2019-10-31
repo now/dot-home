@@ -600,6 +600,9 @@ See also `evil-open-fold' and `evil-close-fold'."
   :config (progn
             (evil-make-overriding-map epa-key-list-mode-map nil)))
 
+(use-package ffap
+  :custom ((ffap-machine-p-known 'accept)))
+
 (use-package files
   :custom ((make-backup-files nil)
            (require-final-newline t)
