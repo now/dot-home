@@ -4,9 +4,6 @@
   (load (concat user-emacs-directory "inits/" (symbol-name feature))))
 
 (setq ring-bell-function 'ignore)
-(pcase (cdr (assoc 'geometry (car (display-monitor-attributes-list))))
-  ((and `(,_ ,_ ,width ,height) (guard (< width height)))
-   (setq split-width-threshold nil)))
 (setq gc-cons-threshold 20000000)
 (setq process-connection-type nil)
 
@@ -624,6 +621,13 @@ See also `evil-open-fold' and `evil-close-fold'."
 
 (use-package flyspell
   :hook ((message-mode . flyspell-mode)))
+
+(defun now-before-make-frame-hook ()
+            (pcase (cdr (assoc 'geometry
+                               (car (display-monitor-attributes-list))))
+              ((and `(,_ ,_ ,width ,height) (guard (< width height)))
+               (setq split-width-threshold nil))))
+(add-hook 'before-make-frame-hook 'now-before-make-frame-hook)
 
 (use-package git-rebase
   :after evil
