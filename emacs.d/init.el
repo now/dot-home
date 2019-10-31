@@ -403,7 +403,6 @@ See also `evil-open-fold' and `evil-close-fold'."
 (use-package compile
   :custom ((compilation-disable-input t)
            (compilation-error-regexp-alist '(maven
-                                             sbt
                                              clang-include
                                              gcc-include
                                              gnu
@@ -417,37 +416,58 @@ See also `evil-open-fold' and `evil-close-fold'."
             (push `(maven
                     ,(rx bol
                          (| (group-n 5 "[INFO]")
-                            (: "[" (| "ERROR" (group-n 4 "WARNING")) "] "
-                               (group-n 1 (: (* (in (?0 . ?9)))
-                                             (not (in (?0 . ?9) ?\n))
-                                             (*? (| (not (in ?\n ?\s ?:))
-                                                    (: ?\s (not (in ?- ?/ ?\n)))
-                                                    (: ?: (not (in ?\s ?\n)))))))
+                            (: "[" (| "ERROR" (group-n 4 "WARN" (? "ING"))) "] "
+                               (group-n 1
+                                        (* (in (?0 . ?9)))
+                                        (not (in (?0 . ?9) ?\n))
+                                        (*? (| (not (in ?\n ?\s ?:))
+                                               (: ?\s (not (in ?- ?/ ?\n)))
+                                               (: ?: (not (in ?\s ?\n))))))
                                ":"
                                (| (: "["
                                      (group-n 2 (+ (in (?0 . ?9))))
                                      ","
                                      (group-n 3 (+ (in (?0 . ?9))))
                                      "]")
-                                  (: (group-n 2 (+ (in (?0 . ?9)))) ":"))
+                                  (: (group-n 2 (+ (in (?0 . ?9)))) ":"
+                                     (? (group-n 3 (+ (in (?0 . ?9)))) ":")))
                                " ")))
-                    1 2 3 (4 . 5))
+                    now-compilation-maven-file
+                    2 3 (4 . 5) nil (1 (funcall 'now-compilation-maven-highlight)))
                   compilation-error-regexp-alist-alist)
-            (push `(sbt
-                    ,(rx bol
-                         (: "[" (| "error" (group-n 4 "warn")) "] "
-                            (group-n 1 (: (* (in (?0 . ?9)))
-                                          (not (in (?0 . ?9) ?\n))
-                                          (*? (| (not (in ?\n ?\s ?:))
-                                                 (: ?\s (not (in ?- ?/ ?\n)))
-                                                 (: ?: (not (in ?\s ?\n)))))))
-                            ":"
-                            (group-n 2 (+ (in (?0 . ?9))))
-                            ":"
-                            (group-n 3 (+ (in (?0 . ?9))))
-                            ": "))
-                    1 2 3 (4))
-                  compilation-error-regexp-alist-alist)))
+            (defun now-compilation-maven-file ()
+              (let ((s (match-string-no-properties 1)))
+                (when s
+                  (if (file-exists-p s)
+                      s
+                    (let ((java-1 (format "%s.java" s))
+                          (scala-1 (format "%s.scala" s))
+                          (java-2 (format "%s.java"
+                                          (replace-regexp-in-string "\\." "/" s)))
+                          (scala-2 (format "%s.scala"
+                                           (replace-regexp-in-string "\\." "/" s))))
+                      (cl-find-if
+                       'file-exists-p
+                       (list
+                        java-1
+                        scala-1
+                        java-2
+                        scala-2
+                        (format "src/main/java/%s" java-1)
+                        (format "src/main/scala/%s" scala-1)
+                        (format "src/test/java/%s" java-1)
+                        (format "src/test/scala/%s" scala-1)
+                        (format "src/main/java/%s" java-2)
+                        (format "src/main/scala/%s" scala-2)
+                        (format "src/test/java/%s" java-2)
+                        (format "src/test/scala/%s" scala-2))))))))
+            (defun now-compilation-maven-highlight ()
+              (let ((type (compilation-type '(4 . 5))))
+                (compilation--note-type type)
+                (symbol-value (aref [compilation-info-face
+                                     compilation-warning-face
+                                     compilation-error-face]
+                                    type))))))
 
 (use-package compile
   :after evil
