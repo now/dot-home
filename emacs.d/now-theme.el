@@ -50,6 +50,8 @@
     `(diff-context ((,class)))
     `(diff-file-header ((,class)))
     `(diff-header ((,class)))
+    `(diff-indicator-added ((,class (:inherit diff-added))))
+    `(diff-indicator-removed ((,class (:inherit diff-removed))))
     `(diff-nonexistent ((,class (:foreground ,red))))
     `(diff-refine-added ((,class (:inherit (diff-added diff-refine-change)))))
     `(diff-refine-removed ((,class (:inherit
