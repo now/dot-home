@@ -401,7 +401,8 @@ See also `evil-open-fold' and `evil-close-fold'."
            (company-dabbrev-ignore-case nil)))
 
 (use-package compile
-  :custom ((compilation-disable-input t)
+  :custom ((compilation-context-lines 0)
+           (compilation-disable-input t)
            (compilation-error-regexp-alist '(maven
                                              clang-include
                                              gcc-include
