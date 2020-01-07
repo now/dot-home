@@ -4,7 +4,7 @@ try
     do shell script "@EMACSCLIENT@ -c -n"
   end if
 on error
-  do shell script "eval `/usr/libexec/path_helper -s` && . @xdgconfighomezshdir@/.zprofile && @EMACS@ --daemon"
+  do shell script "@ZSHELL@ -lc '@EMACS@ --daemon'"
   do shell script "@EMACSCLIENT@ -c -n"
 end try
 on open of finderObjects
