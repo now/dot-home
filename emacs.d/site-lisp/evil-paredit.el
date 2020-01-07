@@ -1,8 +1,6 @@
-(require 'evil)
+(require 'evil-common)
+(require 'evil-types)
 (require 'paredit)
-
-;;; This is needed, as eval-after-load reports it as possibly missing.
-(declare-function eldoc-add-command "eldoc.el")
 
 ;;;###autoload (autoload 'evil-paredit-forward-slurp-sexp "evil-paredit" "TBD." t)
 (evil-define-command evil-paredit-forward-slurp-sexp (count)
