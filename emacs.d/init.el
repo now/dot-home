@@ -3277,6 +3277,11 @@ For example, “&a'” → “á”"
          (message-mode . whitespace-turn-off)))
 (make-variable-buffer-local 'whitespace-line-column)
 (setq-default whitespace-line-column 80)
+(add-hook 'hack-local-variables-hook
+          '(lambda ()
+             (when (and whitespace-mode (not (= whitespace-line-column 80)))
+               (whitespace-mode -1)
+               (whitespace-mode))))
 
 (use-package xdisp
   :no-require t
