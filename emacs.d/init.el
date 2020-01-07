@@ -158,6 +158,9 @@ See also `evil-open-fold' and `evil-close-fold'."
   :no-require t
   :custom ((auth-sources '("secrets:Login"))))
 
+(use-package autorevert
+  :diminish auto-revert-mode)
+
 (use-package autotest-mode
   :mode ("\\.at\\'"))
 
@@ -2946,6 +2949,7 @@ For example, “&a'” → “á”"
                                        "refile.org"))))
 
 (use-package paredit
+  :diminish paredit-mode
   :evil-bind ((:map motion paredit-mode-map
                     ("g B" . evil-paredit-backward-up)
                     ("g W" . evil-paredit-forward-up)
@@ -3131,6 +3135,7 @@ For example, “&a'” → “á”"
            (shr-bullet "• ")))
 
 (use-package simple
+  :diminish auto-fill-function
   :no-require t
   :custom ((completion-show-help nil))
   :hook (((prog-mode text-mode) . auto-fill-mode)
@@ -3258,6 +3263,7 @@ For example, “&a'” → “á”"
   :hook ((message-mode . visual-fill-column-mode)))
 
 (use-package whitespace
+  :diminish whitespace-mode
   :custom ((whitespace-style '(face
                                trailing
                                lines-tail
