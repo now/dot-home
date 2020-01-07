@@ -625,12 +625,14 @@ See also `evil-open-fold' and `evil-close-fold'."
 (use-package flyspell
   :hook ((message-mode . flyspell-mode)))
 
-(defun now-before-make-frame-hook ()
-            (pcase (cdr (assoc 'geometry
-                               (car (display-monitor-attributes-list))))
-              ((and `(,_ ,_ ,width ,height) (guard (< width height)))
-               (setq split-width-threshold nil))))
-(add-hook 'before-make-frame-hook 'now-before-make-frame-hook)
+(defun now-window-size-change-function (worf)
+  (pcase (cdr (assoc 'geometry
+                     (car (display-monitor-attributes-list))))
+    ((and `(,_ ,_ ,width ,height) (guard (< width height)))
+     (setq split-width-threshold nil))
+    (_
+     (setq split-width-threshold 240))))
+(setq window-size-change-functions '(now-window-size-change-function))
 
 (use-package git-rebase
   :after evil
