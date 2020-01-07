@@ -1,6 +1,3 @@
-(eval-when-compile
-  (require 'cl))
-
 (defcustom now-ruby-unit-test-file-name-mapping
   '(("\\(.*\\)\\(?:/lib/\\)\\(.*\\.\\(?:rb\\)\\)$" . "\\1/test/unit/\\2"))
   "Unit test file-name mapping."
@@ -37,7 +34,7 @@ that is, the unit test or the implementation, see
 If MISSING-OK is `t', then the other file isn’t required to exist on the
 filesystem."
   (let ((replacement
-         (loop for e in mapping
+         (cl-loop for e in mapping
                if (and (string-match (car e) file-name)
                        (or missing-ok
                            (file-exists-p
