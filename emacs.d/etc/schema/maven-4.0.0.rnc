@@ -269,16 +269,17 @@ div {
     }
 
     ## The primary method by which this project may be distributed.
-    ##
-    ## • repo: may be downloaded from the maven repository
-    ## • manual: user must manually download and install the dependency
     div {
       pom.license.content &= pom.distribution?
       pom.distribution = element distribution {
         pom.distribution.attributes, pom.distribution.content
       }
       pom.distribution.attributes = empty
-      pom.distribution.content = text
+      pom.distribution.content =
+        ## May be downloaded from the maven repository
+        'repo' |
+        ## User must manually download and install the dependency
+        'manual'
     }
 
     ## Addendum information pertaining to this license.
@@ -1698,10 +1699,10 @@ div {
                 ## “combine.children” or “combine.self” attributes to
                 ## the children of the configuration element:
                 ##
-                ## • “combine.children”: available values are “merge”
-                ##   (default) and “append”
-                ## • “combine.self”: available values are “merge”
-                ##   (default) and “override”
+                ## •   “combine.children”: available values are
+                ##     “merge” (default) and “append”
+                ## •   “combine.self”: available values are “merge”
+                ##     (default) and “override”
                 ##
                 ## See https://maven.apache.org/pom.html#Plugins and
                 ## https://codehaus-plexus.github.io/plexus-utils/apidocs/org/codehaus/plexus/util/xml/Xpp3DomUtils.html
@@ -1736,10 +1737,10 @@ div {
           ## “combine.self” attributes to the children of the
           ## configuration element:
           ##
-          ## • “combine.children”: available values are “merge”
-          ##   (default) and “append”
-          ## • “combine.self”: available values are “merge” (default)
-          ##   and “override”
+          ## •   “combine.children”: available values are “merge”
+          ##     (default) and “append”
+          ## •   “combine.self”: available values are “merge”
+          ##     (default) and “override”
           ##
           ## See https://maven.apache.org/pom.html#Plugins and
           ## https://codehaus-plexus.github.io/plexus-utils/apidocs/org/codehaus/plexus/util/xml/Xpp3DomUtils.html
@@ -2178,10 +2179,10 @@ div {
 ## POMs by adding “combine.children” or “combine.self” attributes to
 ## the children of the configuration element:
 ##
-## • “combine.children”: available values are “merge” (default) and
-##   “append”
-## • “combine.self”: available values are “merge” (default) and
-##   “override”
+## •   “combine.children”: available values are “merge” (default) and
+##     “append”
+## •   “combine.self”: available values are “merge” (default) and
+##     “override”
 ##
 ## See https://maven.apache.org/pom.html#Plugins and
 ## https://codehaus-plexus.github.io/plexus-utils/apidocs/org/codehaus/plexus/util/xml/Xpp3DomUtils.html
@@ -2455,10 +2456,10 @@ div {
                     ## “combine.children” or “combine.self” attributes
                     ## to the children of the configuration element:
                     ##
-                    ## • “combine.children”: available values are
-                    ##   “merge” (default) and “append”
-                    ## • “combine.self”: available values are “merge”
-                    ##   (default) and “override”
+                    ## •   “combine.children”: available values are
+                    ##     “merge” (default) and “append”
+                    ## •   “combine.self”: available values are
+                    ##     “merge” (default) and “override”
                     ##
                     ## See https://maven.apache.org/pom.html#Plugins
                     ## and
@@ -2502,10 +2503,10 @@ div {
             ## “combine.self” attributes to the children of the
             ## configuration element:
             ##
-            ## • “combine.children”: available values are “merge”
-            ##   (default) and “append”
-            ## • “combine.self”: available values are “merge”
-            ##   (default) and “override”
+            ## •   “combine.children”: available values are “merge”
+            ##     (default) and “append”
+            ## •   “combine.self”: available values are “merge”
+            ##     (default) and “override”
             ##
             ## See https://maven.apache.org/pom.html#Plugins and
             ## https://codehaus-plexus.github.io/plexus-utils/apidocs/org/codehaus/plexus/util/xml/Xpp3DomUtils.html
