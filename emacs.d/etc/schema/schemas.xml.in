@@ -4,6 +4,8 @@
              typeId="Entity Resolution XML Catalog"/>
   <namespace ns="http://maven.apache.org/POM/4.0.0" typeId="Project Object Model"/>
 
+  <documentElement localName="configuration" typeId="Logback Configuration"/>
+  <documentElement localName="included" typeId="Logback Configuration"/>
   <documentElement localName="interface" typeId="GtkBuilder"/>
   <documentElement localName="plist" typeId="PropertyList-1.0"/>
   <documentElement localName="MixxxControllerPreset"
@@ -12,6 +14,7 @@
   <documentElement localName="suite" typeId="TestNG Suite"/>
   <documentElement localName="Template" typeId="Mixxx Template"/>
 
+  <typeId id="Logback Configuration" uri="logback.rnc"/>
   <typeId id="Entity Resolution XML Catalog" uri="catalog.rnc"/>
   <typeId id="GtkBuilder" uri="gtk-builder.rnc"/>
   <typeId id="PropertyList-1.0" uri="PropertyList-1.0.rnc"/>

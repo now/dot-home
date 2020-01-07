@@ -1,0 +1,457 @@
+logback.any.element =
+  element * { attribute * { text }*, (logback.any.element | text)* }
+
+logback.attributes.scope = attribute scope { 'local' | 'context' | 'system' }
+
+start = logback.configuration | logback.included
+
+div {
+  logback.configuration = element configuration {
+    logback.configuration.attributes, logback.configuration.content
+  }
+
+  div {
+    logback.configuration.attributes = empty
+
+    div {
+      logback.configuration.attributes &= logback.configuration.attributes.scan?
+      logback.configuration.attributes.scan =
+        attribute scan { 'true' | 'false' }
+    }
+
+    div {
+      logback.configuration.attributes &=
+        logback.configuration.attributes.scanPeriod?
+      # TODO Type
+      logback.configuration.attributes.scanPeriod =
+        attribute scanPeriod { text }
+    }
+
+    div {
+      logback.configuration.attributes &=
+        logback.configuration.attributes.packagingData?
+      logback.configuration.attributes.packagingData =
+        attribute packagingData { 'true' | 'false' }
+    }
+
+    div {
+      logback.configuration.attributes &=
+        logback.configuration.attributes.debug?
+      logback.configuration.attributes.debug =
+        attribute debug { 'true' | 'false' }
+    }
+  }
+
+  logback.configuration.content =
+    logback.if* &
+    logback.include* &
+    logback.jmxConfigurator? &
+    logback.insertFromJNDI? &
+    logback.contextName? &
+    logback.property* &
+    logback.contextListener* &
+    logback.statusListener* &
+    logback.shutdownHook* &
+    logback.appender* &
+    logback.logger* &
+    logback.root?
+}
+
+div {
+  logback.included =
+    element included { logback.included.attributes, logback.included.content }
+
+  logback.included.attributes = empty
+
+  logback.included.content = logback.configuration.content
+}
+
+div {
+  logback.if = element if { logback.if.attributes, logback.if.content }
+
+  div {
+    logback.if.attributes = empty
+
+    div {
+      logback.if.attributes &= logback.if.attributes.condition
+      logback.if.attributes.condition = attribute condition { text }
+    }
+  }
+
+  logback.if.content = logback.then, logback.else?
+
+  div {
+    logback.then =
+      element then { logback.then.attributes, logback.then.content }
+
+    logback.then.attributes = empty
+
+    logback.then.content = logback.configuration.content
+  }
+
+  div {
+    logback.else =
+      element else { logback.else.attributes, logback.else.content }
+
+    logback.else.attributes = empty
+
+    logback.else.content = logback.configuration.content
+  }
+}
+
+div {
+  logback.include =
+    element include { logback.include.attributes, logback.include.content }
+
+  div {
+    logback.include.attributes = empty
+
+    div {
+      logback.include.attributes &= logback.include.attributes.alternatives
+      logback.include.attributes.alternatives = empty
+
+      div {
+        logback.include.attributes.alternatives |=
+          logback.include.attributes.file
+        # TODO Type
+        logback.include.attributes.file = attribute file { text }
+      }
+
+      div {
+        logback.include.attributes.alternatives |=
+          logback.include.attributes.resource
+        logback.include.attributes.resource = attribute resource { text }
+      }
+
+      div {
+        logback.include.attributes.alternatives |=
+          logback.include.attributes.url
+        logback.include.attributes.url = attribute url { xsd:anyURI }
+      }
+    }
+
+    div {
+      logback.include.attributes &= logback.include.attributes.optional
+      logback.include.attributes.optional =
+        attribute optional { 'true' | 'false' }
+    }
+  }
+
+  logback.include.content = empty
+}
+
+div {
+  logback.jmxConfigurator = element jmxConfigurator {
+    logback.jmxConfigurator.attributes, logback.jmxConfigurator.content
+  }
+
+  logback.jmxConfigurator.attributes = empty
+
+  logback.jmxConfigurator.content = empty
+}
+
+div {
+  logback.insertFromJNDI = element insertFromJNDI {
+    logback.insertFromJNDI.attributes, logback.insertFromJNDI.content
+  }
+
+  div {
+    logback.insertFromJNDI.attributes = empty
+
+    div {
+      logback.insertFromJNDI.attributes &=
+        logback.insertFromJNDI.attributes.env-entry-name
+      logback.insertFromJNDI.attributes.env-entry-name =
+        attribute env-entry-name { text }
+    }
+
+    div {
+      logback.insertFromJNDI.attributes &= logback.insertFromJNDI.attributes.as
+      logback.insertFromJNDI.attributes.as = attribute as { text }
+    }
+
+    div {
+      logback.insertFromJNDI.attributes &=
+        logback.insertFromJNDI.attributes.scope?
+      logback.insertFromJNDI.attributes.scope = logback.attributes.scope
+    }
+  }
+
+  logback.insertFromJNDI.content = empty
+}
+
+div {
+  logback.contextName = element contextName {
+    logback.contextName.attributes, logback.contextName.content
+  }
+
+  logback.contextName.attributes = empty
+
+  logback.contextName.content = text
+}
+
+div {
+  logback.property =
+    element property { logback.property.attributes, logback.property.content }
+
+  div {
+    logback.property.attributes = empty
+
+    div {
+      logback.property.attributes &= logback.property.attributes.name
+      logback.property.attributes.name = attribute name { text }
+    }
+
+    div {
+      logback.property.attributes &= logback.property.attributes.value
+      logback.property.attributes.value = attribute value { text }
+    }
+
+    div {
+      logback.property.attributes &= logback.property.attributes.scope?
+      logback.property.attributes.scope = logback.attributes.scope
+    }
+  }
+
+  logback.property.content = empty
+}
+
+div {
+  logback.define =
+    element define { logback.define.attributes, logback.define.content }
+
+  div {
+    logback.define.attributes = empty
+
+    div {
+      logback.define.attributes &= logback.define.attributes.name
+      logback.define.attributes.name = attribute name { text }
+    }
+
+    div {
+      logback.define.attributes &= logback.define.attributes.class
+      # TODO Type
+      logback.define.attributes.class = attribute class { text }
+    }
+
+    div {
+      logback.define.attributes &= logback.define.attributes.scope?
+      logback.define.attributes.scope = logback.attributes.scope
+    }
+  }
+
+  logback.define.content = logback.any.element*
+}
+
+div {
+  logback.contextListener = element contextListener {
+    logback.contextListener.attributes, logback.contextListener.content
+  }
+
+  div {
+    logback.contextListener.attributes = empty
+
+    div {
+      logback.contextListener.attributes &=
+        logback.contextListener.attributes.class
+      # TODO Type
+      logback.contextListener.attributes.class = attribute class { text }
+    }
+  }
+
+  div {
+    logback.contextListener.content = empty
+
+    div {
+      logback.resetJul = element resetJul {
+        logback.resetJul.attributes, logback.resetJul.content
+      }
+
+      logback.resetJul.attributes = empty
+
+      logback.resetJul.content = 'true' | 'false'
+    }
+  }
+}
+
+div {
+  logback.statusListener = element statusListener {
+    logback.statusListener.attributes, logback.statusListener.content
+  }
+
+  div {
+    logback.statusListener.attributes = empty
+
+    div {
+      logback.statusListener.attributes &=
+        logback.statusListener.attributes.class
+      # TODO Type
+      logback.statusListener.attributes.class = attribute class { text }
+    }
+  }
+
+  logback.statusListener.content = empty
+}
+
+div {
+  logback.shutdownHook = element shutdownHook {
+    logback.shutdownHook.attributes, logback.shutdownHook.content
+  }
+
+  div {
+    logback.shutdownHook.attributes = empty
+
+    div {
+      logback.shutdownHook.attributes &= logback.shutdownHook.attributes.class?
+      # TODO Type
+      logback.shutdownHook.attributes.class = attribute class { text }
+    }
+  }
+
+  logback.shutdownHook.content = empty
+}
+
+div {
+  logback.appender =
+    element appender { logback.appender.attributes, logback.appender.content }
+
+  div {
+    logback.appender.attributes = empty
+
+    div {
+      logback.appender.attributes &= logback.appender.attributes.name
+      logback.appender.attributes.name = attribute name { text }
+    }
+
+    div {
+      logback.appender.attributes &= logback.appender.attributes.class
+      # TODO Type
+      logback.appender.attributes.class = attribute class { text }
+    }
+  }
+
+  div {
+    logback.appender.content =
+      logback.layout? &
+      logback.encoder* &
+      logback.filter* &
+      element * - (layout | encoder | filter) {
+        attribute * { text }*, (logback.any.element | text)*
+      }*
+
+    div {
+      logback.layout =
+        element layout { logback.layout.attributes, logback.layout.content }
+
+      div {
+        logback.layout.attributes = empty
+
+        div {
+          logback.layout.attributes &= logback.layout.attributes.class?
+          # TODO Type
+          logback.layout.attributes.class = attribute class { text }
+        }
+      }
+
+      logback.layout.content = logback.any.element*
+    }
+
+    div {
+      logback.encoder =
+        element encoder { logback.encoder.attributes, logback.encoder.content }
+
+      div {
+        logback.encoder.attributes = empty
+
+        div {
+          logback.encoder.attributes &= logback.encoder.attributes.class?
+          # TODO Type
+          logback.encoder.attributes.class = attribute class { text }
+        }
+      }
+
+      logback.encoder.content = logback.any.element*
+    }
+
+    div {
+      logback.filter =
+        element filter { logback.filter.attributes, logback.filter.content }
+
+      logback.filter.attributes = empty
+
+      logback.filter.content = empty
+    }
+  }
+}
+
+div {
+  logback.logger =
+    element logger { logback.logger.attributes, logback.logger.content }
+
+  div {
+    logback.logger.attributes = empty
+
+    div {
+      logback.logger.attributes &= logback.logger.attributes.name
+      logback.logger.attributes.name = attribute name { text }
+    }
+
+    div {
+      logback.logger.attributes &= logback.logger.attributes.level?
+      logback.logger.attributes.level = attribute level {
+        'TRACE' |
+        'DEBUG' |
+        'INFO' |
+        'WARN' |
+        'ERROR' |
+        'ALL' |
+        'OFF' |
+        'INHERITED' |
+        'NULL'
+      }
+    }
+
+    div {
+      logback.logger.attributes &= logback.logger.attributes.additivity?
+      logback.logger.attributes.additivity =
+        attribute additivity { 'true' | 'false' }
+    }
+  }
+
+  logback.logger.content = logback.appender-ref*
+}
+
+div {
+  logback.appender-ref = element appender-ref {
+    logback.appender-ref.attributes, logback.appender-ref.content
+  }
+
+  div {
+    logback.appender-ref.attributes = empty
+
+    div {
+      logback.appender-ref.attributes &= logback.appender-ref.attributes.ref
+      # TODO Schematron
+      logback.appender-ref.attributes.ref = attribute ref { text }
+    }
+  }
+
+  logback.appender-ref.content = empty
+}
+
+div {
+  logback.root = element root { logback.root.attributes, logback.root.content }
+
+  div {
+    logback.root.attributes = empty
+
+    div {
+      logback.root.attributes &= logback.root.attributes.level
+      logback.root.attributes.level = attribute level {
+        'TRACE' | 'DEBUG' | 'INFO' | 'WARN' | 'ERROR' | 'ALL' | 'OFF'
+      }
+    }
+  }
+
+  logback.root.content = logback.appender-ref*
+}
