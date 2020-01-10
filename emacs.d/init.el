@@ -3122,10 +3122,11 @@ For example, “&a'” → “á”"
                           'now-ruby-mode-adaptive-fill-function))))
 
 (use-package sbt-mode
-  :hook ((sbt-mode . now-sbt-mode-hook))
   :config (progn
             (defun now-sbt-mode-hook ()
-              (setq-local comint-use-prompt-regexp nil))))
+              (setq-local comint-use-prompt-regexp nil)
+              (setq-local compilation-disable-input nil))
+            (add-hook 'sbt-mode-hook 'now-sbt-mode-hook -20)))
 
 (use-package scroll-bar
   :commands (scroll-bar-mode)
