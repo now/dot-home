@@ -994,19 +994,19 @@ div {
 
         ## The group ID the artifact has moved to.
         div {
-          pom.relocationt.content &= pom.relocatio.content.groupId?
+          pom.relocation.content &= pom.relocation.content.groupId?
           pom.relocation.content.groupId = pom.groupId
         }
 
         ## The new artifact ID of the artifact.
         div {
-          pom.relocationt.content &= pom.relocatio.content.artifactId?
+          pom.relocation.content &= pom.relocation.content.artifactId?
           pom.relocation.content.artifactId = pom.artifactId
         }
 
         ## The new version of the artifact.
         div {
-          pom.relocationt.content &= pom.relocatio.content.version?
+          pom.relocation.content &= pom.relocation.content.version?
           pom.relocation.content.version = pom.version
         }
 
