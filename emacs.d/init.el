@@ -544,13 +544,20 @@ See also `evil-open-fold' and `evil-close-fold'."
   :demand t
   :config (progn
             (setq desktop-dirname (car desktop-path))
+            ;; TODO Move these variables to the respective
+            ;; use-package.
             (dolist (variable '(command-history
                                 compile-history
                                 evil-ex-history
                                 evil-ex-search-history
+                                log-edit-comment-ring
+                                minibuffer-history
                                 read-expression-history
                                 shell-command-history))
-              (add-to-list 'desktop-globals-to-save variable))))
+              (add-to-list 'desktop-globals-to-save variable))
+            (setq desktop-globals-to-save
+                  (cl-set-difference desktop-globals-to-save
+                                     '(register-alist)))))
 
 (use-package desktop
   :defer 2
