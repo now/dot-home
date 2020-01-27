@@ -31,7 +31,8 @@ This command shares argument histories with \\[rgrep] and \\[grep]."
            (grep-highlight-matches t)
            (grep-template nil)
            (grep-use-null-device nil)
-           (grep-use-null-filename-separator t))
+           (grep-use-null-filename-separator t)
+           (null-device "*/dev/null"))
        (grep-compute-defaults)
        (cond
         ((and grep-command (equal current-prefix-arg '(16)))
