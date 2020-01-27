@@ -42,7 +42,10 @@
    '(face-font-family-alternatives
      '(("Monospace" "DejaVu Sans Mono" "fixed")
        ("Monospace Serif" "DejaVu Sans Mono" "fixed")
-       ("Sans Serif" "DejaVu Sans" "fixed"))))
+       ("Sans Serif" "DejaVu Sans" "fixed")))
+   '(magit-diff-highlight-hunk-region-functions
+     '(magit-diff-highlight-hunk-region-dim-outside
+       magit-diff-highlight-hunk-region-using-face)))
   (custom-theme-set-faces
     'now
     `(avy-lead-face ((,cui (:foreground ,black :background ,off-red))))
@@ -67,9 +70,9 @@
                (,gui-dark . (:foreground ,off-white :background ,off-black))
                (,gui-lite . (:foreground ,black :background ,white))))
     `(diff-added ((,cui (:foreground ,green))))
-    `(diff-context ((,cui)))
-    `(diff-file-header ((,cui)))
-    `(diff-header ((,cui)))
+    `(diff-context ((,cui (:foreground "grey50"))))
+    `(diff-file-header ((,cui (:inherit diff-header))))
+    `(diff-header ((,cui (:inherit diff-context :weight bold))))
     `(diff-indicator-added ((,cui (:inherit diff-added))))
     `(diff-indicator-removed ((,cui (:inherit diff-removed))))
     `(diff-nonexistent ((,cui (:foreground ,red))))
@@ -137,9 +140,26 @@
     `(link ((,cui (:foreground ,blue))))
     `(link-visited ((,cui (:foreground ,purple))))
     `(magit-branch ((,cui (:inherit dired-directory))))
-    `(magit-diff-context-highlight ((,cui (:inherit magit-diff-context
-                                             :background "grey90"))))
+    `(magit-diff-added ((,cui (:inherit diff-added))))
+    `(magit-diff-added-highlight ((,cui (:foreground ,light-green
+                                         :background ,blue
+                                         :extend t))))
+    `(magit-diff-context ((,cui (:inherit diff-context))))
+    `(magit-diff-context-highlight ((,cui (:foreground "grey70"
+                                           :background ,blue
+                                           :extend t))))
     `(magit-diff-file-heading-selection ((,cui (:inherit magit-diff-file-heading-highlight))))
+    `(magit-diff-file-heading-selection ((,cui (:inherit region :extend t))))
+    `(magit-diff-hunk-heading ((,cui (:inherit diff-hunk-header))))
+    `(magit-diff-hunk-heading-highlight ((,cui (:inherit magit-diff-hunk-heading))))
+    `(magit-diff-hunk-heading-selection ((,cui (:inherit region :extend t))))
+    `(magit-diff-hunk-region ((,cui (:inherit region :extend t))))
+    `(magit-diff-removed ((,cui (:inherit diff-removed))))
+    `(magit-diff-removed-highlight ((,cui (:foreground ,light-red
+                                           :background ,blue
+                                           :extend t))))
+    `(magit-diffstat-added ((,cui (:inherit diff-added))))
+    `(magit-diffstat-removed ((,cui (:inherit diff-removed))))
     `(magit-log-head-label-bisect-bad ((,cui (:inherit error))))
     `(magit-log-head-label-bisect-good ((,cui (:inherit success))))
     `(magit-log-head-label-default ((,cui (:background "grey90"))))
@@ -153,7 +173,7 @@
     `(magit-process-ng ((,cui (:inherit error))))
     `(magit-process-ok ((,cui)))
     `(magit-section-heading ((,cui (:weight bold))))
-    `(magit-section-highlight ((,cui (:inherit highlight))))
+    `(magit-section-highlight ((,cui (:inherit highlight :extend t))))
     `(makefile-space ((,cui (:inherit error))))
     `(match ((,cui (:inherit isearch))))
     `(message-cited-text ((,cui (:inherit font-lock-comment-face))))
