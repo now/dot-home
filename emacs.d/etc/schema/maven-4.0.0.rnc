@@ -584,10 +584,10 @@ div {
     ## version of Maven required to use the resulting plugin.
     ##
     ## In Maven 2, this was also specifying the minimum version of
-    ##Maven required to build a project, but this usage is
-    ##/deprecated/; in Maven 3 and not checked any more: use the Maven
-    ##Enforcer Plugin’s “requireMavenVersion” rule instead, see
-    ##https://maven.apache.org/enforcer/enforcer-rules/requireMavenVersion.html
+    ## Maven required to build a project, but this usage is
+    ## /deprecated/; in Maven 3 and not checked any more: use the
+    ## Maven Enforcer Plugin’s “requireMavenVersion” rule instead, see
+    ## https://maven.apache.org/enforcer/enforcer-rules/requireMavenVersion.html
     div {
       pom.prerequisites.content &= pom.maven?
       pom.maven = element maven { pom.maven.attributes, pom.maven.content }
