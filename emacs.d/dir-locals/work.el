@@ -1,4 +1,5 @@
-((java-mode . ((c-basic-offset . 4)
+((nil . ((bug-reference-url-format . "https://pagero.atlassian.net/browse/%s")))
+ (java-mode . ((c-basic-offset . 4)
                (c-comment-only-line-offset . (0 . 0))
                (c-file-offsets . ((inline-open . 0)
                                   (topmost-intro-cont    . +)

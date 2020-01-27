@@ -213,6 +213,9 @@ See also `evil-open-fold' and `evil-close-fold'."
   :no-require t
   :custom ((indicate-buffer-boundaries t)))
 
+(use-package bug-reference
+  :custom ((bug-reference-bug-regexp "\\(\b\\([A-Z]+-[0-9]+\\)\b\\)")))
+
 (use-package calc
   :no-require t
   :config (progn
@@ -3348,3 +3351,8 @@ For example, “&a'” → “á”"
 ;; TODO Move these to the relevant use-package
 (evil-mode)
 (load-theme 'now t)
+(defun now-bug-reference-fontify-around (next &rest args)
+  (let ((case-fold-search nil))
+    (apply next args)))
+
+(advice-add 'bug-reference-fontify :around 'now-bug-reference-fontify-around)
