@@ -3186,6 +3186,10 @@ For example, “&a'” → “á”"
                (", n" . next-error)
                (", p" . previous-error))))
 
+(use-package smerge-mode
+  :custom ((smerge-auto-leave nil)
+           (smerge-command-prefix "\C-cv")))
+
 (use-package smie
   :defer t
   :config (progn
