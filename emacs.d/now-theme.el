@@ -148,7 +148,6 @@
     `(magit-diff-context-highlight ((,cui (:foreground "grey70"
                                            :background ,blue
                                            :extend t))))
-    `(magit-diff-file-heading-selection ((,cui (:inherit magit-diff-file-heading-highlight))))
     `(magit-diff-file-heading-selection ((,cui (:inherit region :extend t))))
     `(magit-diff-hunk-heading ((,cui (:inherit diff-hunk-header))))
     `(magit-diff-hunk-heading-highlight ((,cui (:inherit magit-diff-hunk-heading))))
@@ -173,6 +172,7 @@
     `(magit-process-ng ((,cui (:inherit error))))
     `(magit-process-ok ((,cui)))
     `(magit-section-heading ((,cui (:weight bold))))
+    `(magit-section-heading-selection ((,cui (:inherit region :extend t))))
     `(magit-section-highlight ((,cui (:inherit highlight :extend t))))
     `(makefile-space ((,cui (:inherit error))))
     `(match ((,cui (:inherit isearch))))
