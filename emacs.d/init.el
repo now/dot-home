@@ -364,6 +364,7 @@ See also `evil-open-fold' and `evil-close-fold'."
                                  ))))
               (c-add-style "now-java-style"
                            '("java"
+                             (c-offsets-alist . ((arglist-intro . ++)))
                              (prettify-symbols-alist . common-prettify-symbols)
                              (whitespace-line-column . 120))))
             (defun now-c-mode-hook ()
