@@ -20,6 +20,22 @@ indent, if we're filling a paragraph, though not any higher than
     (concat (match-string 1) "  ")))
 
 ;;;###autoload
+(defun now-c-arglist-intro (langelem)
+  (save-excursion
+    (goto-char (c-langelem-pos langelem))
+    (vector (+ (current-indentation) (* 2 c-basic-offset)))))
+
+;;;###autoload
+(defun now-c-lineup-arglist-decl-only (langelem)
+  (save-excursion
+    (goto-char (c-langelem-pos c-syntactic-element))
+    (if (memq (car (car (c-guess-basic-syntax)))
+              '(annotation-top-cont inclass))
+        (c-lineup-arglist langelem)
+      (goto-char (c-langelem-pos langelem))
+      (vector (+ (current-indentation) (* 2 c-basic-offset))))))
+
+;;;###autoload
 (defun now-c-auto-newline-mode (&optional arg)
   "Toggle auto-newline mode on or off.
 With a prefix argument ARG, enable auto-newline mode if ARG is
