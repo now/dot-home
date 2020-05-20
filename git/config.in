@@ -22,10 +22,10 @@
 [help]
         autocorrect = 15
 [merge]
-        tool = vimdiff3
-[mergetool.vimdiff3]
-        cmd = vim -d -c 'wincmd J' "$MERGED" "$LOCAL" "$BASE" "$REMOTE"
+        conflictStyle = diff3
 [push]
         default = simple
 [github]
 	user = now
+[diff]
+        algorithm = histogram
