@@ -506,6 +506,22 @@ See also `evil-open-fold' and `evil-close-fold'."
                ("`" . counsel-M-x))))
 
 (use-package counsel
+  :defines magit-mode-map
+  :after magit
+  :bind ((:map magit-mode-map
+               (", B" . buffer-menu)
+               (", D" . counsel-dired-jump)
+               (", F" . counsel-git-grep)
+               (", J" . counsel-git)
+               (", b" . switch-to-buffer)
+               (", e" . counsel-find-file)
+               (", j" . counsel-file-jump)
+               (", k" . kill-buffer)
+               (", o" . ace-window)
+               ("M-d" . counsel-M-x)
+               ("`" . counsel-M-x))))
+
+(use-package counsel
   :defines org-agenda-mode-map
   :after org
   :bind ((:map org-agenda-mode-map
