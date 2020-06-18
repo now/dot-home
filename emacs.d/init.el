@@ -3248,9 +3248,9 @@ For example, “&a'” → “á”"
   :custom ((tramp-copy-size-limit nil)))
 
 (use-package undo-tree
-  :diminish undo-tree-mode
   :no-require t
-  :custom ((undo-tree-visualizer-timestamps t)))
+  :custom ((undo-tree-mode-lighter nil)
+           (undo-tree-visualizer-timestamps t)))
 
 (use-package undo-tree
   :no-require t
