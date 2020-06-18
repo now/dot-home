@@ -170,9 +170,6 @@ See also `evil-open-fold' and `evil-close-fold'."
 (use-package autotest-mode
   :mode ("\\.at\\'"))
 
-(use-package avy
-  :custom ((avy-all-windows nil)))
-
 (use-package bindings
   :no-require t
   :custom ((column-number-indicator-zero-based nil))
