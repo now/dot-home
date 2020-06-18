@@ -62,7 +62,7 @@
                                   :background "#e9ebed" :foreground ,black))))
     `(custom-button-pressed ((,gui (:box (:line-width 1 :color "#35576d")
                                    :background "#d4d6da" :foreground ,black))))
-    `(default ((default . (:family "DejaVu Sans Mono" :height 140))
+    `(default ((default . (:family "DejaVu Sans Mono" :height 120))
                (,gtk . (:height 105))
                (,gui-dark . (:foreground ,off-white :background ,off-black))
                (,gui-lite . (:foreground ,black :background ,white))))
