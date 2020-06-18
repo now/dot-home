@@ -132,7 +132,13 @@ See also `evil-open-fold' and `evil-close-fold'."
               ([remap switch-to-buffer] . 'now-ivy-switch-buffer)))
 
 (use-package ace-window
-  :bind (("C-x C-o" . ace-window)))
+  :bind (("C-x C-o" . ace-window)
+         ("C-x o" . ace-window)))
+
+(use-package ace-window
+  :after evil
+  :bind ((:map evil-motion-state-map
+                (", o" . ace-window))))
 
 (use-package amx
   :after evil
