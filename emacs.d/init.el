@@ -706,13 +706,12 @@ See also `evil-open-fold' and `evil-close-fold'."
                (", E" . now-gxref-find-file))))
 
 (use-package hide-mode-line
-  :config (progn
-            (hide-mode-line)))
+  :config (hide-mode-line-mode))
 
 (use-package hide-mode-line
   :after evil
   :bind (:map evil-motion-state-map
-              ("g C-g" . hide-mode-line-unhide-temporarily)))
+              (", i" . hide-mode-line-show-mode-line)))
 
 (use-package hl-line
   :hook (((Buffer-menu-mode

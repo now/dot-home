@@ -461,7 +461,6 @@ emacs.d/delayed-inits/org-agenda.elc: emacs.d/site-lisp/now-org.elc
 emacs.d/delayed-inits/prog-mode.elc \
 emacs.d/delayed-inits/tabulated-list.elc \
 emacs.d/delayed-inits/text-mode.elc: emacs.d/site-lisp/now-init.elc
-emacs.d/inits/user-interface.elc: emacs.d/site-lisp/hide-mode-line.elc
 
 emacs.d/site-lisp/userloaddefs.el: \
 	$(sitelisp_elcs) \
