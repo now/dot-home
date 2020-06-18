@@ -633,6 +633,9 @@ See also `evil-open-fold' and `evil-close-fold'."
 (use-package flyspell
   :hook ((message-mode . flyspell-mode)))
 
+(use-package frame
+  :custom ((blink-cursor-blinks 0)))
+
 (defun now-window-size-change-function (worf)
   (pcase (cdr (assoc 'geometry
                      (car (display-monitor-attributes-list))))
