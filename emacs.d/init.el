@@ -175,23 +175,15 @@ See also `evil-open-fold' and `evil-close-fold'."
   :custom ((column-number-indicator-zero-based nil))
   :config (progn
             (setq mode-line-client `(""
-                                     (:propertize (""
-                                                   (:eval
-                                                    (if (bound-and-true-p
-                                                         server-buffer-clients)
-                                                        "@"
-                                                      "")))
-                                                  help-echo
-                                                  "emacsclient frame"))
-                  mode-line-front-space '(:eval
-                                          (if (display-graphic-p)
-                                              (concat
-                                               (propertize "\u200b"
-                                                           'display
-                                                           '((raise -0.125)
-                                                             (height 1.25)))
-                                               " ")
-                                            "-")))))
+                                     (:propertize
+                                      (""
+                                       (:eval
+                                        (if (bound-and-true-p
+                                             server-buffer-clients)
+                                            "@"
+                                          "")))
+                                      help-echo
+                                      "emacsclient frame")))))
 
 (use-package buff-menu-ext
   :bind ((:map Buffer-menu-mode-map
@@ -587,8 +579,7 @@ See also `evil-open-fold' and `evil-close-fold'."
                                     (make-glyph-code #x21A9 'wrap-glyph))
             (set-display-table-slot standard-display-table 'selective-display
                                     (vector (make-glyph-code #x2026)))
-            (set-display-table-slot standard-display-table 'vertical-border
-                                    (make-glyph-code #x2502))))
+            (set-display-table-slot standard-display-table 'vertical-border 0)))
 
 (use-package docfold
   :hook ((prog-mode . docfold-minor-mode)))
