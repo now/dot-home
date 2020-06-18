@@ -713,6 +713,9 @@ See also `evil-open-fold' and `evil-close-fold'."
   :bind (:map evil-motion-state-map
               (", i" . hide-mode-line-show-mode-line)))
 
+(use-package highlight-selected-window
+  :config (highlight-selected-window-mode))
+
 (use-package hl-line
   :hook (((Buffer-menu-mode
             arc-mode
