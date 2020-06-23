@@ -85,7 +85,8 @@
                                      '(archive-mode
                                        git-commit-mode
                                        git-rebase-mode
-                                       tar-mode))
+                                       tar-mode
+                                       xref--xref-buffer-mode))
                   evil-insert-state-modes
                   (cl-set-difference evil-insert-state-modes
                                      '(term-mode))
