@@ -24,6 +24,9 @@
 (global-set-key [f3] nil)
 (global-set-key [f4] nil)
 
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(load custom-file)
+
 ;; This comes first, as keybindings here, notably that of ‘,’, affect
 ;; other packages’ keybinding potentials.
 (use-package evil
