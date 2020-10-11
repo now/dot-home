@@ -235,6 +235,28 @@ If DELIMITED (prefix arg), replace only word-delimited matches."
             (perform-replace from to t t delimited nil
                              multi-query-replace-map)))))))
 
+;;;###autoload
+(defun Buffer-menu-execute-extended-command (prefixarg &optional command-name
+                                                       typed)
+  (interactive
+   (let ((execute-extended-command--last-typed nil))
+     (list current-prefix-arg
+           (read-extended-command)
+           execute-extended-command--last-typed)))
+  (let ((function (and (stringp command-name) (intern-soft command-name)))
+        (buffers (Buffer-menu-marked-buffers)))
+    (unless (commandp function)
+      (error "`%s' is not a valid command name" command-name))
+    (save-window-excursion
+      (dolist (b buffers)
+        (switch-to-buffer b)
+        (save-excursion
+          (set--this-command-keys (concat "\M-x" (symbol-name function) "\r"))
+          (setq this-command function)
+          (setq real-this-command function)
+          (let ((prefix-arg prefixarg))
+            (command-execute function nil)))))))
+
 ;; TODO Is there no (uniq)?
 (defun Buffer-menu-buffer-modes ()
   "Create a completion table of buffer modes currently in use."
