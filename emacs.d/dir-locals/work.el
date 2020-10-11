@@ -35,7 +35,7 @@
                (indent-tabs-mode . nil)
                (whitespace-line-column . 120)))
  (mhtml-mode . ((fill-column . 119)
-                (indent-tabs-mode .nil)
+                (indent-tabs-mode . nil)
                 (sgml-basic-offset . 4)
                 (whitespace-line-column . 120)))
  (nxml-mode . ((nxml-child-indent . 4)
