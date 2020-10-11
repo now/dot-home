@@ -67,4 +67,84 @@ The symbol starts at position START and ends at position END."
                (memq (char-syntax (or (char-after end) ?\s)) syntaxes-end)
                (nth 8 (syntax-ppss)))))))
 
+;;;#autoload
+(defun now-java-mode-clean-up-imports ()
+  (interactive)
+  (save-match-data
+    (save-excursion
+      (goto-char (point-min))
+      (let* ((case-fold-search)
+             (imports (save-excursion
+                        (cl-remove-duplicates
+                         (cl-loop while (search-forward-regexp
+                                         (rx bol
+                                             "import"
+                                             (+ space)
+                                             (? (group "static") (+ space))
+                                             (group (+ (not (or ?. ?\n))))
+                                             ?.
+                                             (* any)
+                                             ?.
+                                             (group (+ (not (or ?. ?\n))))
+                                             ?\;
+                                             ?\n)
+                                         nil t)
+                                  collect (list (match-string 0)
+                                                (match-string-no-properties 1)
+                                                (match-string-no-properties 2)
+                                                (match-string-no-properties 3))
+                                  do (progn
+                                       (previous-line)
+                                       (kill-whole-line)))
+                         :test (lambda (a b) (string= (nth 0 a) (nth 0 b)))))))
+        (search-forward-regexp "^package ")
+        (forward-line)
+        (while (string-empty-p
+                (buffer-substring-no-properties (line-beginning-position)
+                                                (line-end-position)))
+          (kill-whole-line))
+        (newline)
+        (let* ((used (cl-remove-if-not
+                      (lambda (matches)
+                        (or (string= (nth 3 matches) "*")
+                            (save-excursion
+                              (search-forward-regexp
+                               (concat "\\b"
+                                       (regexp-quote (nth 3 matches))
+                                       "\\b")
+                               nil
+                               t))))
+                      imports))
+               (select (lambda (selector imports)
+                         (sort (cl-mapcar (lambda (matches) (nth 0 matches))
+                                          (cl-remove-if-not
+                                           (lambda (matches)
+                                             (funcall selector (nth 2 matches)))
+                                           imports))
+                               'string<)))
+               (both (cl-mapcar
+                      (lambda (imports)
+                        (list
+                         (funcall select
+                                  (lambda (root)
+                                    (not (member root '("java" "javax"))))
+                                  imports)
+                         (nconc
+                          (funcall select
+                                   (lambda (root) (string= root "javax"))
+                                   imports)
+                          (funcall select
+                                   (lambda (root) (string= root "java"))
+                                   imports))))
+                      (cl-mapcar (lambda (f)
+                                   (funcall f
+                                            (lambda (matches) (nth 1 matches))
+                                            used))
+                                 '(cl-remove-if cl-remove-if-not)))))
+          (dolist (group both)
+            (dolist (imports group)
+              (when imports
+                (apply 'insert imports)
+                (newline)))))))))
+
 (provide 'now-cc-mode)
