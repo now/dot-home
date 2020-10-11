@@ -132,6 +132,9 @@ See also `evil-open-fold' and `evil-close-fold'."
   :custom ((ivy-count-format "")
            (ivy-height 20)
            (ivy-use-virtual-buffers t))
+  :bind (:map ivy-mode-map
+              ("C-j" . ivy-immediate-done)
+              ("C-M-j" . ivy-alt-done))
   :config (progn
             (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
                                           (t . ivy--regex-fuzzy)))
