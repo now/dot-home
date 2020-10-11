@@ -642,6 +642,22 @@ See also `evil-open-fold' and `evil-close-fold'."
   :diminish
   :hook ((emacs-lisp-mode . eldoc-mode)))
 
+(use-package elisp-mode
+  :config (font-lock-add-keywords
+           'emacs-lisp-mode
+           `((,(concat "(" (eval-when-compile
+                             (regexp-opt '("cl-assert"
+                                           "cl-check-type"
+                                           "error"
+                                           "signal"
+                                           "user-error"
+                                           "warn")
+                                         t)) "\\_>")
+              (1 font-lock-keyword-face)))))
+
+(use-package now-elisp-mode
+  :hook ((emacs-lisp-mode . now-emacs-lisp-mode-hook)))
+
 (use-package epa
   :after evil
   :defer t
