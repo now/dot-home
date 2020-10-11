@@ -3340,8 +3340,8 @@ For example, “&a'” → “á”"
             (defun vc-git-mode-line-string (file) "")))
 
 (use-package vc-hooks
-  :no-require t
-  :custom ((vc-handled-backends nil)))
+  :defer t
+  :custom ((vc-handled-backends '(Git))))
 
 (use-package view
   :evil-bind ((:map normal view-mode-map
