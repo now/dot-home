@@ -647,6 +647,9 @@ See also `evil-open-fold' and `evil-close-fold'."
   :diminish
   :hook ((emacs-lisp-mode . eldoc-mode)))
 
+(use-package electric
+  :hook ((prog-mode . electric-quote-local-mode)))
+
 (use-package elisp-mode
   :config (font-lock-add-keywords
            'emacs-lisp-mode
