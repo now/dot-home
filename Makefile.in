@@ -27,6 +27,19 @@ UNZIP = @UNZIP@
 XCLIP = @XCLIP@
 ZSHELL = @ZSHELL@
 
+ELC_INCLUDES = -l emacs.d/site-lisp/userloaddefs.el
+ELC = $(EMACS) \
+	--batch \
+	-q \
+	-L $(srcdir)/emacs.d/site-lisp \
+	$(ELC_INCLUDES) \
+	--eval "(setq package-quickstart t)" \
+	--eval "(require 'package)" \
+	--eval "(package-initialize)" \
+	--eval "(setq byte-compile-dest-file-function (lambda (file) \"$@\"))" \
+	$(ELCFLAGS) \
+	-f batch-byte-compile
+
 enable_fonts = @enable_fonts@
 
 empty :=
@@ -183,12 +196,8 @@ DIR = $(eval $(call DIR_dir,$(DESTDIR)$($(1)dir)) $(foreach primary,DATA SCRIPTS
 	$(V_at)$(MKDIR_P) $*
 	$(V_at): > $@
 
-%.elc: %.el emacs.d/inits/package.el | emacs.d/site-lisp/userloaddefs.el
-	$(V_ELC)$(EMACS) --batch -q -L $(srcdir)/emacs.d/site-lisp \
-	  -l $(srcdir)/emacs.d/inits/package.el \
-	  -l emacs.d/site-lisp/userloaddefs.el \
-	  --eval "(setq byte-compile-dest-file-function (lambda (file) \"$@\"))" \
-	  $(ELCFLAGS) -f batch-byte-compile $<
+%.elc: %.el | emacs.d/site-lisp/userloaddefs.el
+	$(V_ELC)$(ELC) $<
 
 %.el.gz: %.el
 	$(V_GZIP)$(GZIP) -9n < $< > $@.tmp
@@ -298,12 +307,6 @@ userconfemacsdetcschema_DATA = \
 	emacs.d/etc/schema/testng-1.0.rnc
 
 emacs.d/etc/schema/schemas.xml: emacs.d/etc/schema/.dirstamp
-
-init_elcs = \
-	emacs.d/inits/package.elc
-
-userconfemacsdinits_DATA = \
-	$(init_elcs)
 
 sitelisp_elcs = \
 	emacs.d/site-lisp/autotest-mode.elc \
@@ -442,17 +445,14 @@ userconf_DATA += \
 endif
 
 $(bin_SCRIPTS): bin/.dirstamp
-$(init_elcs): emacs.d/inits/.dirstamp
 $(sitelisp_elcs): emacs.d/site-lisp/.dirstamp
 $(userconfemacsd_DATA): emacs.d/.dirstamp
 $(xdgconfighomezsh_DATA): zsh/.dirstamp
 git/config: git/.dirstamp
 
-$(sitelisp_elcs): %.elc: %.el emacs.d/inits/package.el
-	$(V_ELC)$(EMACS) --batch -q -L $(srcdir)/emacs.d/site-lisp \
-	  -l $(srcdir)/emacs.d/inits/package.el \
-	  --eval "(setq byte-compile-dest-file-function (lambda (file) \"$@\"))" \
-	  $(ELCFLAGS) -f batch-byte-compile $<
+$(sitelisp_elcs): ELC_INCLUDES =
+$(sitelisp_elcs): %.elc: %.el
+	$(V_ELC)$(ELC) $<
 
 # TODO Update these dependencies
 emacs.d/delayed-inits/buff-menu.elc: emacs.d/site-lisp/buff-menu-ext.elc
@@ -469,8 +469,12 @@ emacs.d/site-lisp/userloaddefs.el: \
 	Makefile
 	$(V_ELC)$(EMACS) --batch -q --eval '(setq vc-handled-backends nil)' \
 	  --eval '(setq generated-autoload-file "$(abs_srcdir)/$@")' \
-	  --eval "(defun byte-compile-info-string (&rest args) \
-	            (concat \"  INFO       \" (apply 'format args)))" \
+	  --eval "(defun byte-compile-info (string &optional message type) \
+	            (let ((string (format \"  %-11s%s\" (or type \"INFO\") \
+	                                  string))) \
+	              (when message \
+	                (message \"%s\" string)) \
+	              string))" \
 	  -f batch-update-autoloads $(srcdir)/emacs.d/site-lisp
 	$(V_at)if test "$(srcdir)" != .; then mv $(srcdir)/$@ $@; fi
 	$(V_at)touch $@

@@ -1,7 +1,13 @@
+;; -*- lexical-binding: t; -*-
+
 (add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
 (require 'userloaddefs)
-(dolist (feature '(package))
-  (load (concat user-emacs-directory "inits/" (symbol-name feature))))
+
+;(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/")
+             'append)
 
 (setq ring-bell-function 'ignore)
 (setq gc-cons-threshold 20000000)
@@ -30,6 +36,7 @@
 ;; This comes first, as keybindings here, notably that of ‘,’, affect
 ;; other packages’ keybinding potentials.
 (use-package evil
+  :ensure t
   :custom ((evil-digraphs-table-user '(((?c ?b) . ?•)
                                        ((?t ?b) . ?‣)
                                        ((?\( ?/) . ?∉)
@@ -136,6 +143,7 @@ See also `evil-open-fold' and `evil-close-fold'."
               ([remap switch-to-buffer] . 'now-ivy-switch-buffer)))
 
 (use-package ace-window
+  :ensure t
   :bind (("C-x C-o" . ace-window)
          ("C-x o" . ace-window)))
 
@@ -143,6 +151,9 @@ See also `evil-open-fold' and `evil-close-fold'."
   :after evil
   :bind ((:map evil-motion-state-map
                 (", o" . ace-window))))
+
+(use-package amx
+  :ensure t)
 
 (use-package amx
   :after evil
@@ -384,6 +395,7 @@ See also `evil-open-fold' and `evil-close-fold'."
          (c-mode . now-c-auto-newline-mode)))
 
 (use-package company
+  :ensure t
   :diminish
   :defer 1
   :custom ((company-idle-delay .175)
@@ -488,6 +500,8 @@ See also `evil-open-fold' and `evil-close-fold'."
                (", P" . compilation-previous-file))))
 
 (use-package counsel
+  :ensure t
+  :functions (ivy-configure)
   ;; TODO After ivy?  I don’t quite see why that’d matter, but John
   ;; has it.
   :custom ((counsel-find-file-ignore-regexp
@@ -653,6 +667,10 @@ See also `evil-open-fold' and `evil-close-fold'."
   :config (progn
             (setq find-function-C-source-directory "~/Projects/emacs/src")))
 
+;; TODO Customize
+(use-package flycheck
+  :ensure t)
+
 (use-package flyspell
   :hook ((message-mode . flyspell-mode)))
 
@@ -731,6 +749,8 @@ See also `evil-open-fold' and `evil-close-fold'."
   :no-require t
   :bind ((:map evil-motion-state-map
                (", g" . now-git-grep))))
+(use-package gxref
+  :ensure t)
 
 (use-package now-gxref
   :after evil
@@ -807,6 +827,7 @@ See also `evil-open-fold' and `evil-close-fold'."
   :custom ((js-indent-level 2)))
 
 (use-package magit
+  :ensure t
   :no-require t
   :custom ((magit-repository-directories '(("~/Projects". 1)))))
 
@@ -834,6 +855,9 @@ See also `evil-open-fold' and `evil-close-fold'."
   :custom ((Man-notify-method 'pushy))
   :evil-bind ((:map normal Man-mode-map
                     ("q" . Man-quit))))
+
+(use-package markdown-mode
+  :ensure t)
 
 (use-package menu-bar
   :commands (menu-bar-mode)
@@ -2986,7 +3010,12 @@ For example, “&a'” → “á”"
                                        (file-name-as-directory org-directory)
                                        "refile.org"))))
 
+(use-package package
+  :no-require t
+  :custom ((package-quickstart t)))
+
 (use-package paredit
+  :ensure t
   :diminish paredit-mode
   :evil-bind ((:map motion paredit-mode-map
                     ("g B" . evil-paredit-backward-up)
@@ -3018,6 +3047,9 @@ For example, “&a'” → “á”"
   :custom ((show-paren-delay 0))
   :config (progn
             (show-paren-mode)))
+
+(use-package project
+  :ensure t)
 
 (use-package recentf
   :no-require t
@@ -3137,11 +3169,15 @@ For example, “&a'” → “á”"
                           'now-ruby-mode-adaptive-fill-function))))
 
 (use-package sbt-mode
+  :ensure t
   :config (progn
             (defun now-sbt-mode-hook ()
               (setq-local comint-use-prompt-regexp nil)
               (setq-local compilation-disable-input nil))
             (add-hook 'sbt-mode-hook 'now-sbt-mode-hook -20)))
+
+(use-package scala-mode
+  :ensure t)
 
 (use-package scroll-bar
   :commands (scroll-bar-mode)
@@ -3150,6 +3186,7 @@ For example, “&a'” → “á”"
             (scroll-bar-mode -1)))
 
 (use-package sed-mode
+  :ensure t
   :hook ((sed-mode . now-sed-mode-hook))
   :config (defun now-sed-mode-hook ()
             (setq-local smie-indent-basic 2)))
@@ -3213,6 +3250,7 @@ For example, “&a'” → “á”"
   :custom ((smtpmail-queue-dir "~/Maildir/.Queue/cur")))
 
 (use-package smtpmail-multi
+  :ensure t
   :no-require t
   :custom ((smtpmail-multi-accounts '((disuse . ("now@disu.se"
                                                  "disu.se"
@@ -3303,6 +3341,7 @@ For example, “&a'” → “á”"
                     ("q" . quit-window))))
 
 (use-package visual-fill-column
+  :ensure t
   :hook ((message-mode . visual-fill-column-mode)))
 
 (use-package whitespace
