@@ -680,7 +680,7 @@ See also `evil-open-fold' and `evil-close-fold'."
 (use-package frame
   :custom ((blink-cursor-blinks 0)))
 
-(defun now-window-size-change-function (worf)
+(defun now-window-size-change-function (_)
   (pcase (cdr (assoc 'geometry
                      (car (display-monitor-attributes-list))))
     ((and `(,_ ,_ ,width ,height) (guard (< width height)))
@@ -3337,7 +3337,7 @@ For example, “&a'” → “á”"
 (use-package vc-git
   :defer t
   :config (progn
-            (defun vc-git-mode-line-string (file) "")))
+            (defun vc-git-mode-line-string (_) "")))
 
 (use-package vc-hooks
   :defer t
