@@ -638,6 +638,11 @@ See also `evil-open-fold' and `evil-close-fold'."
   :custom ((ediff-window-setup-function 'ediff-setup-windows-plain)
            (ediff-split-window-function 'split-window-horizontally)))
 
+(use-package eglot
+  :ensure t
+  :custom ((eglot-ignored-server-capabilites '(:documentHighlightProvider
+                                               :hoverProvider))))
+
 (use-package eldoc
   :diminish
   :hook ((emacs-lisp-mode . eldoc-mode)))
