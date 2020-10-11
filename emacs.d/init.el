@@ -485,14 +485,7 @@ See also `evil-open-fold' and `evil-close-fold'."
                         (format "src/main/java/%s" java-2)
                         (format "src/main/scala/%s" scala-2)
                         (format "src/test/java/%s" java-2)
-                        (format "src/test/scala/%s" scala-2))))))))
-            (defun now-compilation-maven-highlight ()
-              (let ((type (compilation-type '(4 . 5))))
-                (compilation--note-type type)
-                (symbol-value (aref [compilation-info-face
-                                     compilation-warning-face
-                                     compilation-error-face]
-                                    type))))))
+                        (format "src/test/scala/%s" scala-2))))))))))
 
 (use-package compile
   :after evil
