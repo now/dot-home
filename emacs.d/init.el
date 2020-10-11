@@ -3017,6 +3017,10 @@ For example, “&a'” → “á”"
   :no-require t
   :custom ((package-quickstart t)))
 
+(use-package page
+  :no-require t
+  :config (put 'narrow-to-page 'disabled nil))
+
 (use-package paredit
   :ensure t
   :diminish paredit-mode
