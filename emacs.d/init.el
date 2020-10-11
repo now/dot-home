@@ -711,7 +711,7 @@ See also `evil-open-fold' and `evil-close-fold'."
     ((and `(,_ ,_ ,width ,height) (guard (< width height)))
      (setq split-width-threshold nil))
     (_
-     (setq split-width-threshold 240))))
+     (setq split-width-threshold 200))))
 (setq window-size-change-functions '(now-window-size-change-function))
 
 (use-package git-rebase
