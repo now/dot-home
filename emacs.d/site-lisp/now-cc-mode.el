@@ -16,7 +16,7 @@ indent, if we're filling a paragraph, though not any higher than
 
 ;;;###autoload
 (defun now-c-mode-adaptive-fill-function ()
-  (when (looking-at "\\([ \t]*\\(//+\\|\\**\\)[ \t]*\\)\\(?:@[[:alpha:]]+\\|•\\)[ \t]")
+  (when (looking-at "\\([ \t]*\\(?://+\\|\\**\\)[ \t]*\\)\\(?:@[[:alpha:]]+\\|•\\)[ \t]")
     (concat (match-string 1) "  ")))
 
 ;;;###autoload

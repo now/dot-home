@@ -3,7 +3,8 @@
               (fill-column . 119)
               (indent-tabs-mode . nil)
               (whitespace-line-column . 120)))
- (java-mode . ((c-basic-offset . 4)
+ (java-mode . ((adaptive-fill-function . now-c-mode-adaptive-fill-function)
+               (c-basic-offset . 4)
                (c-comment-only-line-offset . (0 . 0))
                (c-file-offsets . (;; This is the default java style
                                   ;; from cc-styles.
