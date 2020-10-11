@@ -232,7 +232,7 @@ See also `evil-open-fold' and `evil-close-fold'."
   :custom ((indicate-buffer-boundaries t)))
 
 (use-package bug-reference
-  :custom ((bug-reference-bug-regexp "\\(\b\\([A-Z]+-[0-9]+\\)\b\\)")))
+  :custom ((bug-reference-bug-regexp "\\(\\b\\([A-Z]+-[0-9]+\\)\\b\\)")))
 
 (use-package calc
   :no-require t
