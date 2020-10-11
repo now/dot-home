@@ -437,8 +437,11 @@ See also `evil-open-fold' and `evil-close-fold'."
   :config (progn
             (push `(maven
                     ,(rx bol
-                         (| (group-n 5 "[INFO]")
-                            (: "[" (| "ERROR" (group-n 4 "WARN" (? "ING"))) "] "
+                         (| (group-n 5 (: "[" (| "INFO" "info") "]"))
+                            (: "[" (| "ERROR" "error"
+                                      (group-n 4 (| (: "WARN" (? "ING"))
+                                                    "warn"))) "] "
+                               (? "[" (or "Warn" "Error") "] ")
                                (group-n 1
                                         (* (in (?0 . ?9)))
                                         (not (in (?0 . ?9) ?\n))
