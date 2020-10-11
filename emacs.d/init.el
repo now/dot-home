@@ -714,6 +714,12 @@ See also `evil-open-fold' and `evil-close-fold'."
      (setq split-width-threshold 200))))
 (setq window-size-change-functions '(now-window-size-change-function))
 
+(use-package now-git
+  :after evil
+  :no-require t
+  :bind ((:map evil-motion-state-map
+               (", g" . now-git-grep))))
+
 (use-package git-rebase
   :after evil
   :defer t
@@ -772,11 +778,6 @@ See also `evil-open-fold' and `evil-close-fold'."
   :config (progn
             (evil-make-overriding-map grep-mode-map nil)))
 
-(use-package now-git
-  :after evil
-  :no-require t
-  :bind ((:map evil-motion-state-map
-               (", g" . now-git-grep))))
 (use-package gxref
   :ensure t)
 
