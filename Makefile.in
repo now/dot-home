@@ -318,6 +318,7 @@ sitelisp_elcs = \
 	emacs.d/site-lisp/nmc-mode.elc \
 	emacs.d/site-lisp/now-cc-mode.elc \
 	emacs.d/site-lisp/now-compile.elc \
+	emacs.d/site-lisp/now-counsel-evil.elc \
 	emacs.d/site-lisp/now-dired.elc \
 	emacs.d/site-lisp/now-evil.elc \
 	emacs.d/site-lisp/now-git.elc \

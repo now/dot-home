@@ -510,7 +510,12 @@ See also `evil-open-fold' and `evil-close-fold'."
          ("C-h l" . counsel-find-library)
          ("C-h u" . counsel-unicode-char)
          ("C-h v" . counsel-describe-variable)
-         ("C-x C-f" . counsel-find-file)))
+         ("C-x C-f" . counsel-find-file))
+  :config (progn
+            (ivy-configure 'counsel-evil-registers :height ivy-height)))
+
+(use-package now-counsel-evil
+  :after (counsel evil))
 
 (use-package counsel
   :after evil
@@ -518,6 +523,7 @@ See also `evil-open-fold' and `evil-close-fold'."
                (", D" . counsel-dired-jump)
                (", F" . counsel-git-grep)
                (", J" . counsel-git)
+               (", \"" . counsel-evil-registers)
                (", e" . counsel-find-file)
                (", j" . counsel-file-jump)
                ("M-d" . counsel-M-x)
