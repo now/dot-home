@@ -392,7 +392,7 @@ See also `evil-open-fold' and `evil-close-fold'."
                           'docfold-c-set-up-overlay))))
 
 (use-package now-cc-mode
-  :bind ((:map c-mode-base-map
+  :bind ((:map c-mode-map
                ([remap c-fill-paragraph] . now-c-fill-paragraph)))
   :hook ((c-mode . now-c-mode-hook)
          (c-mode . now-c-auto-newline-mode)))
