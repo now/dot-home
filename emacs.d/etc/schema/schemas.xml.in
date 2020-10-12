@@ -5,6 +5,7 @@
   <namespace ns="http://maven.apache.org/POM/4.0.0" typeId="Project Object Model"/>
 
   <documentElement localName="configuration" typeId="Logback Configuration"/>
+  <documentElement localName="environment" typeId="Environment"/>
   <documentElement localName="included" typeId="Logback Configuration"/>
   <documentElement localName="interface" typeId="GtkBuilder"/>
   <documentElement localName="plist" typeId="PropertyList-1.0"/>
@@ -16,6 +17,7 @@
 
   <typeId id="Logback Configuration" uri="logback.rnc"/>
   <typeId id="Entity Resolution XML Catalog" uri="catalog.rnc"/>
+  <typeId id="Environment" uri="environment.rnc"/>
   <typeId id="GtkBuilder" uri="gtk-builder.rnc"/>
   <typeId id="PropertyList-1.0" uri="PropertyList-1.0.rnc"/>
   <typeId id="Mixxx MIDI Controller Preset"

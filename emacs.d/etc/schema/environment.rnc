@@ -1,0 +1,74 @@
+div {
+  env.environment =
+    element environment { env.environment.attributes, env.environment.content }
+
+  env.environment.attributes = empty
+
+  div {
+    env.environment.content = env.variable*
+
+    div {
+      env.variable =
+        element variable { env.variable.attributes, env.variable.content }
+
+      env.variable.attributes = empty
+
+      div {
+        ## TODO env.name must be unique.
+        env.variable.content = env.name, env.value
+
+        div {
+          env.name = element name { env.name.attributes, env.name.content }
+
+          env.name.attributes = empty
+
+          env.name.content = xsd:string { pattern = '[^=]+' }
+        }
+
+        div {
+          env.value = element value { env.value.attributes, env.value.content }
+
+          env.value.attributes = empty
+
+          div {
+            ## TODO Limit to only valid values.
+            env.value.content = env.paths | text
+
+            div {
+              env.paths =
+                element paths { env.paths.attributes, env.paths.content }
+
+              env.paths.attributes = empty
+
+              div {
+                env.paths.content = env.path*, env.current-value*, env.path*
+
+                div {
+                  env.path =
+                    element path { env.path.attributes, env.path.content }
+
+                  env.path.attributes = empty
+
+                  ## TODO Limit to only valid values.
+                  env.path.content = text
+                }
+
+                div {
+                  env.current-value = element current-value {
+                    env.current-value.attributes, env.current-value.content
+                  }
+
+                  env.current-value.attributes = empty
+
+                  env.current-value.content = empty
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+start = env.environment

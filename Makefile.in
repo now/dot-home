@@ -25,13 +25,15 @@ PATCH = @PATCH@
 SOCAT = @SOCAT@
 UNZIP = @UNZIP@
 XCLIP = @XCLIP@
+XSLTPROC = @XSLTPROC@
 ZSHELL = @ZSHELL@
 
 ELC_INCLUDES = -l emacs.d/site-lisp/userloaddefs.el
+ELC_LOADPATH = -L $(srcdir)/emacs.d/site-lisp
 ELC = $(EMACS) \
 	--batch \
 	-q \
-	-L $(srcdir)/emacs.d/site-lisp \
+	$(ELC_LOADPATH) \
 	$(ELC_INCLUDES) \
 	--eval "(setq package-quickstart t)" \
 	--eval "(require 'package)" \
@@ -97,6 +99,11 @@ V_UNZIP = $(_v_UNZIP_$(V))
 _v_UNZIP_ = $(_v_UNZIP_$(DEFAULT_VERBOSITY))
 _v_UNZIP_0 = @echo "  UNZIP     " $@;
 _v_UNZIP_1 =
+
+V_XSLTPROC = $(_v_XSLTPROC_$(V))
+_v_XSLTPROC_ = $(_v_XSLTPROC_$(DEFAULT_VERBOSITY))
+_v_XSLTPROC_0 = @echo "  XSLTPROC  " $@;
+_v_XSLTPROC_1 =
 
 prefix = @prefix@
 bindir = $(prefix)/opt/bin
@@ -296,6 +303,7 @@ userconfemacsd_DATA = \
 
 userconfemacsdetcschema_DATA = \
 	emacs.d/etc/schema/catalog.rnc \
+	emacs.d/etc/schema/environment.rnc \
 	emacs.d/etc/schema/gtk-builder.rnc \
 	emacs.d/etc/schema/logback.rnc \
 	emacs.d/etc/schema/maven-4.0.0.rnc \
@@ -391,7 +399,6 @@ xdgconfighomevlc_DATA = \
 
 xdgconfighomezsh_DATA = \
 	zsh/zlogin \
-	zsh/zprofile \
 	zsh/zshrc
 
 xdgconfighomezshfunctions_DATA = \

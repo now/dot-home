@@ -33,6 +33,10 @@
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file)
 
+;; This comes first, as we want path set early on.
+(use-package now-path
+  :when (eq (window-system) 'ns))
+
 ;; This comes first, as keybindings here, notably that of ‘,’, affect
 ;; other packages’ keybinding potentials.
 (use-package evil
@@ -3238,6 +3242,11 @@ For example, “&a'” → “á”"
   :no-require t
   :config (progn
             (setq-default semantic-function-argument-separator ", ")))
+
+(use-package server
+  :unless noninteractive
+  :no-require
+  :hook (after-init . server-start))
 
 (use-package sh-script
   :custom ((sh-indentation 2)

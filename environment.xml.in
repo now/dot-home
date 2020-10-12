@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<environment>
+  <variable>
+    <name>PATH</name>
+    <value>
+      <paths>
+        <path>@bindir@</path>
+        <current-value/>
+      </paths>
+    </value>
+  </variable>
+  <variable>
+    <name>LANG</name>
+    <value>en_US.UTF-8</value>
+  </variable>
+  <variable>
+    <name>EDITOR</name>
+    <value>e</value>
+  </variable>
+  <variable>
+    <name>PAGER</name>
+    <value>e</value>
+  </variable>
+  <variable>
+    <name>MANPAGER</name>
+    <value>less -iR</value>
+  </variable>
+  <variable>
+    <name>MANWIDTH</name>
+    <value>80</value>
+  </variable>
+</environment>

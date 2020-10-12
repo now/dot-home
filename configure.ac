@@ -92,6 +92,8 @@ AC_CHECK_PROGS([UNZIP], [unzip])
 AC_ARG_VAR([UNZIP], [the unzip command])
 AC_CHECK_PROGS([XCLIP], [xclip])
 AC_ARG_VAR([XCLIP], [the xclip command])
+AC_CHECK_PROGS([XSLTPROC], [xsltproc])
+AC_ARG_VAR([XSLTPROC], [the xsltproc command])
 AC_PATH_PROGS([ZSHELL], [zsh])
 AC_ARG_VAR([ZSHELL], [the zsh command])
 prefix=${HOME}
