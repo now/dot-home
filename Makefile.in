@@ -456,15 +456,6 @@ $(sitelisp_elcs): ELC_INCLUDES =
 $(sitelisp_elcs): %.elc: %.el
 	$(V_ELC)$(ELC) $<
 
-# TODO Update these dependencies
-emacs.d/delayed-inits/buff-menu.elc: emacs.d/site-lisp/buff-menu-ext.elc
-emacs.d/delayed-inits/evil.elc: emacs.d/site-lisp/evil-paredit.elc \
-	emacs.d/site-lisp/ned-info-on-file.elc
-emacs.d/delayed-inits/org-agenda.elc: emacs.d/site-lisp/now-org.elc
-emacs.d/delayed-inits/prog-mode.elc \
-emacs.d/delayed-inits/tabulated-list.elc \
-emacs.d/delayed-inits/text-mode.elc: emacs.d/site-lisp/now-init.elc
-
 emacs.d/site-lisp/userloaddefs.el: \
 	$(sitelisp_elcs) \
 	emacs.d/site-lisp/.dirstamp \
