@@ -569,7 +569,8 @@ See also `evil-open-fold' and `evil-close-fold'."
 
 (use-package desktop
   :custom ((desktop-base-file-name "emacs.desktop")
-           (desktop-restore-eager 5)
+           (desktop-restore-eager 0)
+           (desktop-lazy-idle-delay 2)
            (desktop-lazy-verbose nil))
   :hook ((desktop-after-read . desktop-auto-save-enable))
   :demand t
