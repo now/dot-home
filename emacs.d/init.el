@@ -156,6 +156,9 @@ See also `evil-open-fold' and `evil-close-fold'."
                                           (t . ivy--regex-fuzzy)))
             (ivy-mode 1)))
 
+(use-package ivy-avy
+  :ensure t)
+
 (use-package now-ivy
   :after ivy
   :bind (:map ivy-mode-map
