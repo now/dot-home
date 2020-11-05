@@ -442,6 +442,12 @@ See also `evil-open-fold' and `evil-close-fold'."
   :hook ((c-mode . now-c-mode-hook)
          (c-mode . now-c-auto-newline-mode)))
 
+(use-package checkdoc
+  :no-require t
+  :custom ((checkdoc-arguments-in-order-flag t)
+           (checkdoc-package-keywords-flag t)
+           (checkdoc-spellcheck-documentation-flag t)))
+
 (use-package company
   :ensure t
   :diminish
