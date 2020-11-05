@@ -10,8 +10,11 @@
              'append)
 
 (setq ring-bell-function 'ignore)
-(setq gc-cons-threshold 20000000)
 (setq process-connection-type nil)
+(setq gc-cons-threshold 20000000
+      undo-limit 80000000
+      undo-strong-limit 120000000
+      undo-outer-limit 360000000)
 
 (add-hook 'emacs-startup-hook
           (lambda ()
