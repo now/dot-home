@@ -754,7 +754,8 @@ See also `evil-open-fold' and `evil-close-fold'."
   :hook ((message-mode . flyspell-mode)))
 
 (use-package frame
-  :custom ((blink-cursor-blinks 0))
+  :custom ((blink-cursor-blinks 0)
+           (default-frame-alist '((right-fringe . 0))))
   :config (blink-cursor-mode))
 
 (defun now-window-size-change-function (_)
