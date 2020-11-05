@@ -3412,13 +3412,33 @@ For example, “&a'” → “á”"
   :no-require t
   :custom ((tramp-copy-size-limit nil)))
 
-(use-package undo-tree
+(use-package typescript-mode
   :no-require t
-  :custom ((undo-tree-mode-lighter nil)
-           (undo-tree-visualizer-timestamps t)))
+  :ensure t
+  :custom ((typescript-indent-columns nil))
+  :bind (:map typescript-mode-map
+              ("*" . c-electric-star))
+  :init (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode)))
+
+(use-package typescript-mode
+  :no-require t
+  :after typescript-mode
+  :config (dolist (entry '(typescript-tsc
+                           typescript-tsc-pretty
+                           typescript-tslint
+                           typescript-nglint-error
+                           typescript-nglint-warning))
+            (setq compilation-error-regexp-alist
+                  (delq entry compilation-error-regexp-alist))))
 
 (use-package undo-tree
-  :no-require t
+  :disabled
+  :custom ((undo-tree-mode-lighter nil)
+           (undo-tree-visualizer-timestamps t))
+  :config (global-undo-tree-mode))
+
+(use-package undo-tree
+  :disabled
   :after evil
   :bind (:map evil-motion-state-map
               (", u" . undo-tree-visualize)
