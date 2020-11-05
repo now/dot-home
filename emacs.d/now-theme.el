@@ -85,6 +85,7 @@
     `(dired-symlink ((,cui (:foreground ,light-cyan))))
     `(error ((,cui (:foreground ,white :background ,red))))
     `(escape-glyph ((,cui (:foreground ,light-blue))))
+    `(flymake-warning ((,cui (:underline (:style wave :color ,yellow)))))
     `(flyspell-duplicate ((,cui (:foreground ,yellow :underline t))))
     `(flyspell-incorrect ((,cui (:foreground ,red :underline t))))
     `(font-lock-builtin-face ((,cui)))
