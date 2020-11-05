@@ -201,6 +201,24 @@ See also `evil-open-fold' and `evil-close-fold'."
   :no-require t
   :custom ((auth-sources '("secrets:Login"))))
 
+(use-package autoinsert
+  :config (progn
+            (setq auto-insert-alist
+                  (assoc-delete-all
+                   nil auto-insert-alist
+                   (lambda (key _)
+                     (or (member (cdr-safe key)
+                                 '("C / C++ header"
+                                   "C / C++ program"
+                                   "Makefile"))
+                         (member key
+                                 '(html-mode
+                                   plain-tex-mode
+                                   bibtex-mode
+                                   latex-mode
+                                   ada-mode))))))
+            (auto-insert-mode)))
+
 (use-package autorevert
   :diminish auto-revert-mode)
 
