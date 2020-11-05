@@ -31,6 +31,7 @@
                                   (arglist-cont-nonempty . now-c-lineup-arglist-decl-only)
                                   (annotation-var-cont   . 0)
                                   (inexpr-class          . 0)
+                                  (inher-cont            . (add [0] ++))
                                   (inher-intro           . ++)))
                (fill-column . 119)
                (indent-tabs-mode . nil)
