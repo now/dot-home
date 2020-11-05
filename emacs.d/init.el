@@ -748,7 +748,7 @@ See also `evil-open-fold' and `evil-close-fold'."
 
 ;; TODO Customize
 (use-package flycheck
-  :ensure t)
+  :disabled)
 
 (use-package flyspell
   :hook ((message-mode . flyspell-mode)))
