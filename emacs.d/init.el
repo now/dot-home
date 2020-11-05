@@ -3265,6 +3265,12 @@ For example, “&a'” → “á”"
 (use-package scala-mode
   :ensure t)
 
+(use-package now-scala-mode
+  :no-require t
+  :config (define-auto-insert
+            'scala-mode
+            #'now-scala-mode-auto-insert-mode-skeleton))
+
 (use-package scroll-bar
   :commands (scroll-bar-mode)
   :defer t
