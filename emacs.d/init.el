@@ -52,11 +52,14 @@
                                        ((?< ?Y) . ?≺)
                                        ((?< ?/) . ?⟨)
                                        ((?> ?/) . ?⟩)))
+           (evil-echo-state nil)
+           (evil-mode-line-fomat nil)
            (evil-move-cursor-back nil)
            (evil-shift-round nil)
            (evil-shift-width 2)
            (evil-symbol-word-search t)
-           (evil-want-abbrev-expand-on-insert-exit nil))
+           (evil-want-abbrev-expand-on-insert-exit nil)
+           (evil-want-fine-undo t))
   :bind ((:map evil-insert-state-map
                ("C-d" . evil-normal-state))
          (:map evil-motion-state-map
