@@ -122,6 +122,12 @@
                     :close-rec  docfold-hide-section-recursively)
                   evil-fold-list)))
 
+(use-package evil-jumps
+  :functions (evil--jumps-install-or-uninstall)
+  :defer t
+  :config (remove-hook 'evil-local-mode-hook
+                       #'evil--jumps-install-or-uninstall))
+
 (use-package now-evil
   ;; We include a function that’s defined by evil that’s later used in
   ;; :after evil use-packages.
