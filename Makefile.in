@@ -297,9 +297,13 @@ userconf_DATA = \
 userconfaudacity_DATA = \
 	audacity.cfg
 
-userconfemacsd_DATA = \
+userconf_elcs = \
 	emacs.d/init.elc \
 	emacs.d/now-theme.elc
+
+userconfemacsd_DATA = \
+	$(userconf_elcs) \
+	$(userconf_elcs:%.elc=%.el.gz)
 
 userconfemacsdetcschema_DATA = \
 	emacs.d/etc/schema/catalog.rnc \
