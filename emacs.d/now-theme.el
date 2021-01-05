@@ -127,6 +127,8 @@
     `(info-node ((,cui)))
     `(isearch ((,cui (:foreground ,black :background ,lighter-yellow))))
     `(isearch-fail ((,cui (:inherit error))))
+    `(isearch-group-1 ((,cui (:inherit underline))))
+    `(isearch-group-2 ((,cui (:inherit underline))))
     `(ivy-current-match ((,cui (:inherit highlight))))
     `(ivy-cursor ((,cui (:inherit cursor))))
     `(ivy-highlight-face ((,cui (:foreground ,blue))))
