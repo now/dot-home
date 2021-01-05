@@ -759,6 +759,9 @@ See also `evil-open-fold' and `evil-close-fold'."
      (setq split-width-threshold 200))))
 (setq window-size-change-functions '(now-window-size-change-function))
 
+(use-package json-mode
+  :ensure t)
+
 (use-package now-git
   :after evil
   :no-require t
