@@ -311,6 +311,7 @@ userconfemacsdetcschema_DATA = \
 	emacs.d/etc/schema/gtk-builder.rnc \
 	emacs.d/etc/schema/logback.rnc \
 	emacs.d/etc/schema/maven-4.0.0.rnc \
+	emacs.d/etc/schema/maven-settings-1.0.0.rnc \
 	emacs.d/etc/schema/mixxx-midi-controller-preset.rnc \
 	emacs.d/etc/schema/mixxx-skin.rnc \
 	emacs.d/etc/schema/mixxx-template.rnc \

@@ -1,0 +1,955 @@
+namespace a = 'http://relaxng.org/ns/compatibility/annotations/1.0'
+default namespace settings = 'http://maven.apache.org/SETTINGS/1.0.0'
+namespace xsi = 'http://www.w3.org/2001/XMLSchema-instance'
+
+settings.any.element =
+  element * { (attribute * { text } | text | settings.any.element)* }
+
+xsi.schemaLocation = attribute xsi:schemaLocation { text }
+xsi.noNamespaceSchemaLocation = attribute xsi:noNamespaceSchemaLocation { text }
+
+start = settings.settings
+
+## Root element of the user configuration file.
+div {
+  settings.settings =
+    element settings { settings.settings.attributes, settings.settings.content }
+
+  settings.settings.attributes =
+    xsi.schemaLocation? & xsi.noNamespaceSchemaLocation?
+
+  settings.settings.content = empty
+}
+
+## The local repository.
+div {
+  settings.settings.content &= settings.localRepository?
+
+  settings.localRepository = element localRepository {
+    settings.localRepository.attributes, settings.localRepository.content
+  }
+
+  settings.localRepository.attributes = empty
+
+  settings.localRepository.content = text
+}
+
+## Whether Maven should attempt to interact with the user for input.
+div {
+  settings.settings.content &= settings.interactiveMode?
+
+  settings.interactiveMode = element interactiveMode {
+    settings.interactiveMode.attributes, settings.interactiveMode.content
+  }
+
+  settings.interactiveMode.attributes = empty
+
+  [a:defaultValue = 'true']
+  settings.interactiveMode.content = xsd:boolean
+}
+
+## Whether Maven should use the plugin-registry.xml file to manage
+## plugin versions.
+div {
+  settings.settings.content &= settings.usePluginRepository?
+
+  settings.usePluginRepository = element usePluginRepository {
+    settings.usePluginRepository.attributes,
+    settings.usePluginRepository.content
+  }
+
+  settings.usePluginRepository.attributes = empty
+
+  [a:defaultValue = 'false']
+  settings.usePluginRepository.content = xsd:boolean
+}
+
+## Indicate whether maven should operate in offline mode full-time.
+div {
+  settings.settings.content &= settings.offline?
+
+  settings.offline =
+    element offline { settings.offline.attributes, settings.offline.content }
+
+  settings.offline.attributes = empty
+
+  [a:defaultValue = 'false']
+  settings.offline.content = xsd:boolean
+}
+
+## Configuration for different proxy profiles. Multiple proxy profiles
+## might come in handy for anyone working from a notebook or other
+## mobile platform, to enable easy switching of entire proxy
+## configurations by simply specifying the profile id, again either
+## from the command line or from the defaults section below.
+div {
+  settings.settings.content &= settings.proxies?
+
+  settings.proxies =
+    element proxies { settings.proxies.attributes, settings.proxies.content }
+
+  settings.proxies.attributes = empty
+
+  div {
+    settings.proxies.content = settings.proxy*
+
+    div {
+      settings.proxy =
+        element proxy { settings.proxy.attributes, settings.proxy.content }
+
+      settings.proxy.attributes = empty
+
+      div {
+        settings.proxy.content = empty
+
+        ## Whether this proxy configuration is the active one.
+        div {
+          settings.proxy.content &= settings.proxy.active?
+
+          settings.proxy.active = element active {
+            settings.proxy.active.attributes, settings.proxy.active.content
+          }
+
+          settings.proxy.active.attributes = empty
+
+          [a:defaultValue = 'false']
+          settings.proxy.active.content = xsd:boolean
+        }
+
+        ## The proxy protocol.
+        div {
+          settings.proxy.content &= settings.proxy.protocol?
+
+          settings.proxy.protocol = element protocol {
+            settings.proxy.protocol.attributes, settings.proxy.protocol.content
+          }
+
+          settings.proxy.protocol.attributes = empty
+
+          [a:defaultValue = 'http']
+          settings.proxy.protocol.content = text
+        }
+
+        ## The proxy user.
+        div {
+          settings.proxy.content &= settings.proxy.username?
+
+          settings.proxy.username = element username {
+            settings.proxy.username.attributes, settings.proxy.username.content
+          }
+
+          settings.proxy.username.attributes = empty
+
+          settings.proxy.username.content = text
+        }
+
+        ## The proxy password.
+        div {
+          settings.proxy.content &= settings.proxy.password?
+
+          settings.proxy.password = element password {
+            settings.proxy.password.attributes, settings.proxy.password.content
+          }
+
+          settings.proxy.password.attributes = empty
+
+          settings.proxy.password.content = text
+        }
+
+        ## The proxy port.
+        div {
+          settings.proxy.content &= settings.proxy.port?
+
+          settings.proxy.port = element port {
+            settings.proxy.port.attributes, settings.proxy.port.content
+          }
+
+          settings.proxy.port.attributes = empty
+
+          [a:defaultValue = '8080']
+          settings.proxy.port.content = xsd:int
+        }
+
+        ## The proxy host.
+        div {
+          settings.proxy.content &= settings.proxy.host?
+
+          settings.proxy.host = element host {
+            settings.proxy.host.attributes, settings.proxy.host.content
+          }
+
+          settings.proxy.host.attributes = empty
+
+          settings.proxy.host.content = text
+        }
+
+        ## The list of non-proxied hosts (delimited by |).
+        div {
+          settings.proxy.content &= settings.proxy.nonProxyHosts?
+
+          settings.proxy.nonProxyHosts = element nonProxyHosts {
+            settings.proxy.nonProxyHosts.attributes,
+            settings.proxy.nonProxyHosts.content
+          }
+
+          settings.proxy.nonProxyHosts.attributes = empty
+
+          settings.proxy.nonProxyHosts.content = text
+        }
+
+        div {
+          settings.proxy.content &= settings.proxy.id?
+
+          settings.proxy.id = element id {
+            settings.proxy.id.attributes, settings.proxy.id.content
+          }
+
+          settings.proxy.id.attributes = empty
+
+          settings.proxy.id.content = text
+        }
+      }
+    }
+  }
+}
+
+## Configuration of server-specific settings, mainly authentication
+## method. This allows configuration of authentication on a per-server
+## basis.
+div {
+  settings.settings.content &= settings.servers?
+
+  settings.servers =
+    element servers { settings.servers.attributes, settings.servers.content }
+
+  settings.servers.attributes = empty
+
+  div {
+    settings.servers.content = settings.server*
+
+    div {
+      settings.server =
+        element server { settings.server.attributes, settings.server.content }
+
+      settings.server.attributes = empty
+
+      div {
+        settings.server.content = empty
+
+        ## The username used to authenticate
+        div {
+          settings.server.content &= settings.server.username?
+
+          settings.server.username = element username {
+            settings.server.username.attributes,
+            settings.server.username.content
+          }
+
+          settings.server.username.attributes = empty
+
+          settings.server.username.content = text
+        }
+
+        ## The password used in conjunction with the username to
+        ## authenticate.
+        div {
+          settings.server.content &= settings.server.password?
+
+          settings.server.password = element password {
+            settings.server.password.attributes,
+            settings.server.password.content
+          }
+
+          settings.server.password.attributes = empty
+
+          settings.server.password.content = text
+        }
+
+        ## The private key location used to authenticate.
+        div {
+          settings.server.content &= settings.server.privateKey?
+
+          settings.server.privateKey = element privateKey {
+            settings.server.privateKey.attributes,
+            settings.server.privateKey.content
+          }
+
+          settings.server.privateKey.attributes = empty
+
+          settings.server.privateKey.content = text
+        }
+
+        ## The passphrase used in conjunction with the privateKey to
+        ## authenticate.
+        div {
+          settings.server.content &= settings.server.passphrase?
+
+          settings.server.passphrase = element passphrase {
+            settings.server.passphrase.attributes,
+            settings.server.passphrase.content
+          }
+
+          settings.server.passphrase.attributes = empty
+
+          settings.server.passphrase.content = text
+        }
+
+        ## The permissions for files when they are created.
+        div {
+          settings.server.content &= settings.server.filePermissions?
+
+          settings.server.filePermissions = element filePermissions {
+            settings.server.filePermissions.attributes,
+            settings.server.filePermissions.content
+          }
+
+          settings.server.filePermissions.attributes = empty
+
+          settings.server.filePermissions.content = text
+        }
+
+        ## The permissions for directories when they are created.
+        div {
+          settings.server.content &= settings.server.directoryPermissions?
+
+          settings.server.directoryPermissions = element directoryPermissions {
+            settings.server.directoryPermissions.attributes,
+            settings.server.directoryPermissions.content
+          }
+
+          settings.server.directoryPermissions.attributes = empty
+
+          settings.server.directoryPermissions.content = text
+        }
+
+        ## Extra configuration for the transport layer.
+        div {
+          settings.server.content &= settings.server.configuration?
+
+          settings.server.configuration = element configuration {
+            settings.server.configuration.attributes,
+            settings.server.configuration.content
+          }
+
+          settings.server.configuration.attributes = empty
+
+          settings.server.configuration.content = settings.any.element*
+        }
+
+        div {
+          settings.server.content &= settings.server.id?
+
+          settings.server.id = element id {
+            settings.server.id.attributes,
+            settings.server.id.content
+          }
+
+          settings.server.id.attributes = empty
+
+          settings.server.id.content = text
+        }
+      }
+    }
+  }
+}
+
+## Configuration of download mirrors for repositories.
+div {
+  settings.settings.content &= settings.mirrors?
+
+  settings.mirrors = element mirrors {
+    settings.mirrors.attributes, settings.mirrors.content
+  }
+
+  settings.mirrors.attributes = empty
+
+  div {
+    settings.mirrors.content = settings.mirror*
+
+    ## A download mirror for a given repository.
+    div {
+      settings.mirror =
+        element mirror { settings.mirror.attributes, settings.mirror.content }
+
+      settings.mirror.attributes = empty
+
+      div {
+        settings.mirror.content = empty
+
+        ## The server ID of the repository being mirrored, for example,
+        ## “central”. This MUST NOT match the mirror id.
+        div {
+          settings.mirror.content &= settings.mirror.mirrorOf?
+
+          settings.mirror.mirrorOf = element mirrorOf {
+            settings.mirror.mirrorOf.attributes,
+            settings.mirror.mirrorOf.content
+          }
+
+          settings.mirror.mirrorOf.attributes = empty
+
+          settings.mirror.mirrorOf.content = text
+        }
+
+        ## The optional name that describes the mirror.
+        div {
+          settings.mirror.content &= settings.mirror.name?
+
+          settings.mirror.name = element name {
+            settings.mirror.name.attributes, settings.mirror.name.content
+          }
+
+          settings.mirror.name.attributes = empty
+
+          settings.mirror.name.content = text
+        }
+
+        ## The URL of the mirror repository.
+        div {
+          settings.mirror.content &= settings.mirror.url?
+
+          settings.mirror.url = element url {
+            settings.mirror.url.attributes, settings.mirror.url.content
+          }
+
+          settings.mirror.url.attributes = empty
+
+          settings.mirror.url.content = text
+        }
+
+        div {
+          settings.mirror.content &= settings.mirror.id?
+
+          settings.mirror.id = element id {
+            settings.mirror.id.attributes, settings.mirror.id.content
+          }
+
+          settings.mirror.id.attributes = empty
+
+          settings.mirror.id.content = text
+        }
+      }
+    }
+  }
+}
+
+## Configuration of build profiles for adjusting the build according
+## to environmental parameters.
+div {
+  settings.settings.content &= settings.profiles?
+
+  settings.profiles =
+    element profiles { settings.profiles.attributes, settings.profiles.content }
+
+  settings.profiles.attributes = empty
+
+  div {
+    settings.profiles.content = settings.profile*
+
+    div {
+      settings.profile = element profile {
+        settings.profile.attributes, settings.profile.content
+      }
+
+      settings.profile.attributes = empty
+
+      ## Modifications to the build process which is keyed on some
+      ## sort of environmental parameter.
+      div {
+        settings.profile.content = empty
+
+        ## The conditional logic which will automatically trigger the
+        ## inclusion of this profile.
+        div {
+          settings.profile.content &= settings.profile.activation?
+
+          settings.profile.activation = element activation {
+            settings.profile.activation.attributes,
+            settings.profile.activation.content
+          }
+
+          settings.profile.activation.attributes = empty
+
+          div {
+            settings.profile.activation.content = empty
+
+            ## Flag specifying whether this profile is active as a
+            ## default.
+            div {
+              settings.profile.activation.content &=
+                settings.profile.activation.activeByDefault?
+
+              settings.profile.activation.activeByDefault =
+                element activeByDefault {
+                settings.profile.activation.activeByDefault.attributes,
+                settings.profile.activation.activeByDefault.content
+              }
+
+              settings.profile.activation.activeByDefault.attributes = empty
+
+              [a:defaultValue = 'false']
+              settings.profile.activation.activeByDefault.content = xsd:boolean
+            }
+
+            ## Specifies that this profile will be activated when a
+            ## matching JDK is detected.
+            div {
+              settings.profile.activation.content &=
+                settings.profile.activation.jdk?
+
+              settings.profile.activation.jdk = element jdk {
+                settings.profile.activation.jdk.attributes,
+                settings.profile.activation.jdk.content
+              }
+
+              settings.profile.activation.jdk.attributes = empty
+
+              settings.profile.activation.jdk.content = text
+            }
+
+            ## Specifies that this profile will be activated when
+            ## matching OS attributes are detected.
+            div {
+              settings.profile.activation.content &=
+                settings.profile.activation.os?
+
+              settings.profile.activation.os = element os {
+                settings.profile.activation.os.attributes,
+                settings.profile.activation.os.content
+              }
+
+              settings.profile.activation.os.attributes = empty
+
+              ## This is an activator which will detect an operating
+              ## system’s attributes in order to activate its profile.
+              div {
+                settings.profile.activation.os.content = empty
+
+                ## The name of the OS to be used to activate a profile.
+                div {
+                  settings.profile.activation.os.name = element name {
+                    settings.profile.activation.os.name.attributes,
+                    settings.profile.activation.os.name.content
+                  }
+
+                  settings.profile.activation.os.name.attributes = empty
+
+                  settings.profile.activation.os.name.content = text
+                }
+
+                ## The general family of the OS to be used to activate
+                ## a profile, for example, “windows”.
+                div {
+                  settings.profile.activation.os.family = element family {
+                    settings.profile.activation.os.family.attributes,
+                    settings.profile.activation.os.family.content
+                  }
+
+                  settings.profile.activation.os.family.attributes = empty
+
+                  settings.profile.activation.os.family.content = text
+                }
+
+                ## The architecture of the OS to be used to activate a
+                ## profile.
+                div {
+                  settings.profile.activation.os.arch = element arch {
+                    settings.profile.activation.os.arch.attributes,
+                    settings.profile.activation.os.arch.content
+                  }
+
+                  settings.profile.activation.os.arch.attributes = empty
+
+                  settings.profile.activation.os.arch.content = text
+                }
+
+                ## The version of the OS to be used to activate a
+                ## profile.
+                div {
+                  settings.profile.activation.os.version = element version {
+                    settings.profile.activation.os.version.attributes,
+                    settings.profile.activation.os.version.content
+                  }
+
+                  settings.profile.activation.os.version.attributes = empty
+
+                  settings.profile.activation.os.version.content = text
+                }
+              }
+            }
+
+            ## Specifies that this profile will be activated when this
+            ## System property is specified.
+            div {
+              settings.profile.activation.content &=
+                settings.profile.activation.property?
+
+              settings.profile.activation.property = element property {
+                settings.profile.activation.property.attributes,
+                settings.profile.activation.property.content
+              }
+
+              settings.profile.activation.property.attributes = empty
+
+              ## This is the property specification used to activate a
+              ## profile. If the value field is empty, then the
+              ## existence of the named property will activate the
+              ## profile, otherwise it does a case-sensitive match
+              ## against the property value as well.
+              div {
+                settings.profile.activation.property.content = empty
+
+                ## The name of the property to be used to activate a
+                ## profile.
+                div {
+                  settings.profile.activation.property.name = element name {
+                    settings.profile.activation.property.name.attributes,
+                    settings.profile.activation.property.name.content
+                  }
+
+                  settings.profile.activation.property.name.attributes = empty
+
+                  settings.profile.activation.property.name.content = text
+                }
+
+                ## The value of the property to be used to activate a
+                ## profile.
+                div {
+                  settings.profile.activation.property.value = element value {
+                    settings.profile.activation.property.value.attributes,
+                    settings.profile.activation.property.value.content
+                  }
+
+                  settings.profile.activation.property.value.attributes = empty
+
+                  settings.profile.activation.property.value.content = text
+                }
+              }
+            }
+
+            ## Specifies that this profile will be activated based on
+            ## existence of a file.
+            div {
+              settings.profile.activation.content &=
+                settings.profile.activation.file?
+
+              settings.profile.activation.file = element file {
+                settings.profile.activation.file.attributes,
+                settings.profile.activation.file.content
+              }
+
+              settings.profile.activation.file.attributes = empty
+
+              ## This is the file specification used to activate a
+              ## profile. The missing value will be a the location of
+              ## a file that needs to exist, and if it doesn’t the
+              ## profile must run.  On the other hand exists will test
+              ## for the existence of the file and if it is there will
+              ## run the profile.
+              div {
+                settings.profile.activation.file.content = empty
+
+                ## The name of the file that should be missing to
+                ## activate a profile.
+                div {
+                  settings.profile.activation.file.missing = element missing {
+                    settings.profile.activation.file.missing.attributes,
+                    settings.profile.activation.file.missing.content
+                  }
+
+                  settings.profile.activation.file.missing.attributes = empty
+
+                  settings.profile.activation.file.missing.content = text
+                }
+
+                ## The name of the file that should exist to activate
+                ## a profile.
+                div {
+                  settings.profile.activation.file.exists = element exists {
+                    settings.profile.activation.file.exists.attributes,
+                    settings.profile.activation.file.exists.content
+                  }
+
+                  settings.profile.activation.file.exists.attributes = empty
+
+                  settings.profile.activation.file.exists.content = text
+                }
+              }
+            }
+          }
+        }
+
+        ## Extended configuration specific to this profile goes
+        ## here. Contents take the form of
+        ## <property.name>property.value</property.name>.
+        div {
+          settings.profile.content &= settings.profile.properties?
+
+          settings.profile.properties = element properties {
+            settings.profile.properties.attributes,
+            settings.profile.properties.content
+          }
+
+          settings.profile.properties.attributes = empty
+
+          settings.profile.properties.content = settings.any.element*
+        }
+
+        ## The lists of the remote repositories.
+        div {
+          settings.profile.content &= settings.profile.repositories?
+
+          settings.profile.repositories = element repositories {
+            settings.profile.repositories.attributes,
+            settings.profile.repositories.content
+          }
+
+          settings.profile.repositories.attributes = empty
+
+          div {
+            settings.profile.repositories.content =
+              settings.profile.repositories.repository*
+
+            div {
+              settings.profile.repositories.repository = element repository {
+                settings.profile.repositories.repository.attributes,
+                settings.profile.repositories.repository.content
+              }
+
+              settings.profile.repositories.repository.attributes = empty
+
+              settings.profile.repositories.repository.content =
+                settings.repository-content
+            }
+          }
+        }
+
+        ## The lists of the remote repositories for discovering
+        ## plugins.
+        div {
+          settings.profile.content &= settings.profile.pluginRepositories?
+
+          settings.profile.pluginRepositories = element pluginRepositories {
+            settings.profile.pluginRepositories.attributes,
+            settings.profile.pluginRepositories.content
+          }
+
+          settings.profile.pluginRepositories.attributes = empty
+
+          div {
+            settings.profile.pluginRepositories.content =
+              settings.profile.pluginRepositories.pluginRepository*
+
+            div {
+              settings.profile.pluginRepositories.pluginRepository =
+                element pluginRepository {
+                settings.profile.pluginRepositories.pluginRepository.attributes,
+                settings.profile.pluginRepositories.pluginRepository.content
+              }
+
+              settings.profile.pluginRepositories.pluginRepository.attributes =
+                empty
+
+              settings.profile.pluginRepositories.pluginRepository.content =
+                settings.repository-content
+            }
+          }
+        }
+
+        div {
+          settings.profile.content &= settings.profile.id?
+
+          settings.profile.id = element id {
+            settings.profile.id.attributes,
+            settings.profile.id.content
+          }
+
+          settings.profile.id.attributes = empty
+
+          settings.profile.id.content = text
+        }
+      }
+    }
+  }
+}
+
+## List of manually-activated build profiles, specified in the order
+## in which they should be applied.
+div {
+  settings.settings.content &= settings.activeProfiles?
+
+  settings.activeProfiles = element activeProfiles {
+    settings.activeProfiles.attributes, settings.activeProfiles.content
+  }
+
+  settings.activeProfiles.attributes = empty
+
+  div {
+    settings.activeProfiles.content = settings.activeProfile*
+
+    div {
+      settings.activeProfile = element activeProfile {
+        settings.activeProfile.attributes, settings.activeProfile.content
+      }
+
+      settings.activeProfile.attributes = empty
+
+      settings.activeProfile.content = text
+    }
+  }
+}
+
+## Repository contains the information needed for establishing
+## connections with remote repoistory.
+div {
+  settings.repository-content = empty
+
+  ## How to handle downloading of releases from this repository.
+  div {
+    settings.repository-content &= settings.repository-content.releases?
+
+    settings.repository-content.releases = element releases {
+      settings.repository-content.releases.attributes,
+      settings.repository-content.releases.content
+    }
+
+    settings.repository-content.releases.attributes = empty
+
+    settings.repository-content.releases.content =
+      settings.repository-policy-content
+  }
+
+  ## How to handle downloading of snapshots from this repository.
+  div {
+    settings.repository-content &= settings.repository-content.snapshots?
+
+    settings.repository-content.snapshots = element snapshots {
+      settings.repository-content.snapshots.attributes,
+      settings.repository-content.snapshots.content
+    }
+
+    settings.repository-content.snapshots.attributes = empty
+
+    settings.repository-content.snapshots.content =
+      settings.repository-policy-content
+  }
+
+  ## A unique identifier for a repository.
+  div {
+    settings.repository-content &= settings.repository-content.id?
+
+    settings.repository-content.id = element id {
+      settings.repository-content.id.attributes,
+      settings.repository-content.id.content
+    }
+
+    settings.repository-content.id.attributes = empty
+
+    settings.repository-content.id.content = text
+  }
+
+  ## Human readable name of the repository.
+  div {
+    settings.repository-content &= settings.repository-content.name?
+
+    settings.repository-content.name = element name {
+      settings.repository-content.name.attributes,
+      settings.repository-content.name.content
+    }
+
+    settings.repository-content.name.attributes = empty
+
+    settings.repository-content.name.content = text
+  }
+
+  ## The url of the repository.
+  div {
+    settings.repository-content &= settings.repository-content.url?
+
+    settings.repository-content.url = element url {
+      settings.repository-content.url.attributes,
+      settings.repository-content.url.content
+    }
+
+    settings.repository-content.url.attributes = empty
+
+    settings.repository-content.url.content = text
+  }
+
+  ## The type of layout this repository uses for locating and
+  ## storing artifacts – can be “legacy” or “default”.
+  div {
+    settings.repository-content &= settings.repository-content.layout?
+
+    settings.repository-content.layout = element layout {
+      settings.repository-content.layout.attributes,
+      settings.repository-content.layout.content
+    }
+
+    settings.repository-content.layout.attributes = empty
+
+    [a:defaultValue = 'default']
+    settings.repository-content.layout.content = 'legacy' | 'default'
+  }
+}
+
+
+## Download policy.
+div {
+  settings.repository-policy-content = empty
+
+  ## Whether to use this repository for downloading this type of
+  ## artifact.
+  div {
+    settings.repository-policy-content &=
+      settings.repository-policy-content.enabled?
+
+    settings.repository-policy-content.enabled = element enabled {
+      settings.repository-policy-content.enabled.attributes,
+      settings.repository-policy-content.enabled.content
+    }
+
+    settings.repository-policy-content.enabled.attributes = empty
+
+    [a:defaultValue = 'true']
+    settings.repository-policy-content.enabled.content = xsd:boolean
+  }
+
+  ## The frequency for downloading updates – can be “always”, “daily”
+  ## (default), “interval:XXX” (in minutes) or “never” (only if it
+  ## doesn’t exist locally).
+  div {
+    settings.repository-policy-content &=
+      settings.repository-policy-content.updatePolicy?
+
+    settings.repository-policy-content.updatePolicy = element updatePolicy {
+      settings.repository-policy-content.updatePolicy.attributes,
+      settings.repository-policy-content.updatePolicy.content
+    }
+
+    settings.repository-policy-content.updatePolicy.attributes = empty
+
+    [a:defaultValue = 'daily']
+    settings.repository-policy-content.updatePolicy.content =
+      'always' |
+      'daily' |
+      xsd:string { pattern = 'interval:[0-9]+' } |
+      'never'
+  }
+
+  ## What to do when verification of an artifact checksum fails –
+  ## warn, fail, and so on. Valid values are “fail” or “warn”.
+  div {
+    settings.repository-policy-content &=
+      settings.repository-policy-content.checksumPolicy?
+
+    settings.repository-policy-content.checksumPolicy = element checksumPolicy {
+      settings.repository-policy-content.checksumPolicy.attributes,
+      settings.repository-policy-content.checksumPolicy.content
+    }
+
+    settings.repository-policy-content.checksumPolicy.attributes = empty
+
+    settings.repository-policy-content.checksumPolicy.content = 'fail' | 'warn'
+  }
+}
