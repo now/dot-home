@@ -5,13 +5,13 @@
   "Like `c-fill-paragraph', but add indent to `fill-column'.
 The `fill-column' will be set to its current value, plus any
 indent, if we're filling a paragraph, though not any higher than
-79."
+80."
   (interactive "*P")
   (let ((c-lit-limits (c-literal-limits nil t)))
     (when (memq (c-literal-type c-lit-limits) '(c c++))
       (let ((fill-column (min (+ (current-fill-column)
                                  (- (car c-lit-limits) (point-at-bol)))
-                              79)))
+                              80)))
         (c-fill-paragraph arg)))))
 
 ;;;###autoload

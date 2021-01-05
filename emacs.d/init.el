@@ -682,6 +682,9 @@ See also `evil-open-fold' and `evil-close-fold'."
                                     (vector (make-glyph-code #x2026)))
             (set-display-table-slot standard-display-table 'vertical-border 0)))
 
+(use-package display-fill-column-indicator
+  :hook (((prog-mode text-mode) . display-fill-column-indicator-mode)))
+
 (use-package docfold
   :hook ((prog-mode . docfold-minor-mode)))
 
@@ -2857,7 +2860,7 @@ For example, “&a'” → “á”"
          (prog-mode . now-comment-auto-fill-only-comments)
          (tabulated-list-mode
           . now-tabulated-list-mode-use-global-glyphless-char-display)
-         ((nxml-mode text-mode) . now-set-fill-column-to-79)))
+         ((nxml-mode text-mode) . now-set-fill-column-to-80)))
 
 (use-package nxml-mode
   :custom ((nxml-char-ref-display-glyph-flag nil)

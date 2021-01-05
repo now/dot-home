@@ -4,9 +4,9 @@
   (setq comment-auto-fill-only-comments t))
 
 ;;;###autoload
-(defun now-set-fill-column-to-79 ()
-  "Set `fill-column' to 79."
-  (setq fill-column 79))
+(defun now-set-fill-column-to-80 ()
+  "Set `fill-column' to 80."
+  (setq fill-column 80))
 
 ;;;###autoload
 (defun now-tabulated-list-mode-use-global-glyphless-char-display ()
