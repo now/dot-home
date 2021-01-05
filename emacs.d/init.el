@@ -731,7 +731,7 @@ See also `evil-open-fold' and `evil-close-fold'."
   :after evil
   :bind (:map evil-motion-state-map
               (", W" . save-some-buffers)
-              (", w" . save-buffer)))
+              ))
 
 (use-package find-func
   :defer t
