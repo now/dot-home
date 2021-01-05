@@ -3412,8 +3412,7 @@ For example, “&a'” → “á”"
   :ensure t
   :custom ((typescript-indent-columns nil))
   :bind (:map typescript-mode-map
-              ("*" . c-electric-star))
-  :init (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode)))
+              ("*" . c-electric-star)))
 
 (use-package typescript-mode
   :no-require t
