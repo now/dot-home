@@ -463,8 +463,9 @@ See also `evil-open-fold' and `evil-close-fold'."
 
 (use-package compile
   :custom ((compilation-context-lines 0)
-           (compilation-disable-input t)
-           (compilation-error-regexp-alist '(maven
+           ;;(compilation-disable-input t)
+           (compilation-error-regexp-alist '(sbt
+                                             maven
                                              clang-include
                                              gcc-include
                                              gnu
@@ -475,57 +476,128 @@ See also `evil-open-fold' and `evil-close-fold'."
                                              gcov-never-called))
            (compilation-scroll-output 'first-error))
   :config (progn
-            (push `(maven
-                    ,(rx bol
-                         (| (group-n 5 (: "[" (| "INFO" "info") "]"))
-                            (: "[" (| "ERROR" "error"
-                                      (group-n 4 (| (: "WARN" (? "ING"))
-                                                    "warn"))) "] "
-                               (? "[" (or "Warn" "Error") "] ")
-                               (group-n 1
-                                        (* (in (?0 . ?9)))
-                                        (not (in (?0 . ?9) ?\n))
-                                        (*? (| (not (in ?\n ?\s ?:))
-                                               (: ?\s (not (in ?- ?/ ?\n)))
-                                               (: ?: (not (in ?\s ?\n))))))
-                               ":"
-                               (| (: "["
-                                     (group-n 2 (+ (in (?0 . ?9))))
-                                     ","
-                                     (group-n 3 (+ (in (?0 . ?9))))
-                                     "]")
-                                  (: (group-n 2 (+ (in (?0 . ?9)))) ":"
-                                     (? (group-n 3 (+ (in (?0 . ?9)))) ":")))
-                               " ")))
-                    now-compilation-maven-file
-                    2 3 (4 . 5) nil (1 (funcall 'now-compilation-maven-highlight)))
-                  compilation-error-regexp-alist-alist)
+            (dolist (cons
+                     `((maven
+                        ,(rx bol
+                             "["
+                             (| "ERROR"
+                                (group-n 4 "WARNING")
+                                (group-n 5 "INFO"))
+                             "] "
+                             (? "[" (or "Warn" "Error") "] ")
+                             (group-n 1
+                                      (* digit)
+                                      (not (in digit ?\n))
+                                      (*? (| (not (in ?\n ?\s ?:))
+                                             (: ?\s (not (in ?- ?/ ?\n)))
+                                             (: ?: (not (in ?\s ?\n))))))
+                             ":"
+                             (| (: "["
+                                   (group-n 2 (+ digit))
+                                   ","
+                                   (group-n 3 (+ digit))
+                                   "]")
+                                (: (group-n 2 (+ digit)) ":"
+                                   (? (group-n 3 (+ digit)) ":")))
+                             " ")
+                        now-compilation-maven-file
+                        2 3 (4 . 5) nil (1 (funcall 'now-compilation-maven-highlight)))
+                       (sbt
+                        ,(rx bol
+                             "["
+                             (| "error"
+                                (group-n 4 "warning")
+                                (group-n 5 "info"))
+                             "] "
+                             (group-n 1
+                                      (* digit)
+                                      (not (in digit ?\n))
+                                      (*? (| (not (in ?\n ?\s ?:))
+                                             (: ?\s (not (in ?- ?/ ?\n)))
+                                             (: ?: (not (in ?\s ?\n))))))
+                             ":"
+                             (| (: "["
+                                   (group-n 2 (+ digit))
+                                   ","
+                                   (group-n 3 (+ digit))
+                                   "]")
+                                (: (group-n 2 (+ digit)) ":"
+                                   (? (group-n 3 (+ digit)) ":")))
+                             " ")
+                        1 2 3 (4 . 5))
+                       (typescript-X
+                        ,(rx bol
+                             (: (group-n 1
+                                         (* (in (?0 . ?9)))
+                                         (not (in (?0 . ?9) ?\n))
+                                         (*? (| (not (in ?\n ?\s ?:))
+                                                (: ?\s (not (in ?- ?/ ?\n)))
+                                                (: ?: (not (in ?\s ?\n))))))
+                                "("
+                                (group-n 2 (+ (in (?0 . ?9))))
+                                ","
+                                (group-n 3 (+ (in (?0 . ?9))))
+                                "): "))
+                        1 2 3)
+                       (typescript ;; webkit?
+                        ,(rx bol
+                             (: (group-n 1
+                                         (* (in (?0 . ?9)))
+                                         (not (in (?0 . ?9) ?\n))
+                                         (*? (| (not (in ?\n ?\s ?:))
+                                                (: ?\s (not (in ?- ?/ ?\n)))
+                                                (: ?: (not (in ?\s ?\n))))))
+                                "\n  Line "
+                                (group-n 2 (+ (in (?0 . ?9))))
+                                ":"
+                                (group-n 3 (+ (in (?0 . ?9))))
+                                ":  "))
+                        1 2 3)
+                       (typescript-following
+                        ,(rx bol
+                             (: "  Line "
+                                (group-n 2 (+ (in (?0 . ?9))))
+                                ":"
+                                (group-n 3 (+ (in (?0 . ?9))))
+                                ":  "))
+                        nil 2 3)))
+              (setf (alist-get (car cons) compilation-error-regexp-alist-alist)
+                    (cdr cons)))
             (defun now-compilation-maven-file ()
               (let ((s (match-string-no-properties 1)))
-                (when s
-                  (if (file-exists-p s)
-                      s
-                    (let ((java-1 (format "%s.java" s))
-                          (scala-1 (format "%s.scala" s))
-                          (java-2 (format "%s.java"
-                                          (replace-regexp-in-string "\\." "/" s)))
-                          (scala-2 (format "%s.scala"
-                                           (replace-regexp-in-string "\\." "/" s))))
-                      (cl-find-if
-                       'file-exists-p
-                       (list
-                        java-1
-                        scala-1
-                        java-2
-                        scala-2
-                        (format "src/main/java/%s" java-1)
-                        (format "src/main/scala/%s" scala-1)
-                        (format "src/test/java/%s" java-1)
-                        (format "src/test/scala/%s" scala-1)
-                        (format "src/main/java/%s" java-2)
-                        (format "src/main/scala/%s" scala-2)
-                        (format "src/test/java/%s" java-2)
-                        (format "src/test/scala/%s" scala-2))))))))))
+                (if (or (null s) (file-name-absolute-p s))
+                    s
+                  (let* ((pos (compilation--previous-directory
+                               (match-beginning 0)))
+                         (dir (when pos
+                                (or (get-text-property (1- pos) 'compilation-directory)
+                                    (get-text-property pos 'compilation-directory))))
+                         (dir (when dir (file-name-as-directory (car dir)))))
+                    (if dir
+                        (if (file-exists-p (concat dir s))
+                            s
+                          (let ((java-1 (format "%s.java" s))
+                                (scala-1 (format "%s.scala" s))
+                                (java-2 (format "%s.java"
+                                                (replace-regexp-in-string "\\." "/" s)))
+                                (scala-2 (format "%s.scala"
+                                                 (replace-regexp-in-string "\\." "/" s))))
+                            (cl-find-if
+                             (lambda (f) (file-exists-p (concat dir f)))
+                             (list
+                              java-1
+                              scala-1
+                              java-2
+                              scala-2
+                              (format "src/main/java/%s" java-1)
+                              (format "src/main/scala/%s" scala-1)
+                              (format "src/test/java/%s" java-1)
+                              (format "src/test/scala/%s" scala-1)
+                              (format "src/main/java/%s" java-2)
+                              (format "src/main/scala/%s" scala-2)
+                              (format "src/test/java/%s" java-2)
+                              (format "src/test/scala/%s" scala-2)))))
+                      s)))))))
 
 (use-package compile
   :after evil
