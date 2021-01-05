@@ -39,9 +39,9 @@ div {
 }
 
 ## The “parent” element contains information required to locate the
-## parent project from which this project will inherit
-## from. Note: The children of this element are not interpolated and
-## must be given as literal values.
+## parent project from which this project will inherit from.  Note:
+## The children of this element are not interpolated and must be given
+## as literal values.
 div {
   pom.project.content &= pom.parent?
 
@@ -98,7 +98,7 @@ div {
 ## a fully-qualified package name to distinguish it from other
 ## projects with a similar name, for example, “org.apache.maven”.
 div {
-  pom.parent.content &= pom.groupId?
+  pom.project.content &= pom.groupId?
   pom.groupId = element groupId { pom.groupId.attributes, pom.groupId.content }
   pom.groupId.attributes = empty
   pom.groupId.content = text
@@ -110,7 +110,7 @@ div {
 ## Maven for a project include: JARs, source and binary distributions,
 ## and WARs.
 div {
-  pom.parent.content &= pom.artifactId?
+  pom.project.content &= pom.artifactId?
   pom.artifactId =
     element artifactId { pom.artifactId.attributes, pom.artifactId.content }
   pom.artifactId.attributes = empty
@@ -119,7 +119,7 @@ div {
 
 ## The current version of the artifact produced by this project.
 div {
-  pom.parent.content &= pom.version?
+  pom.project.content &= pom.version?
   pom.version = element version { pom.version.attributes, pom.version.content }
   pom.version.attributes = empty
   pom.version.content = text
@@ -130,7 +130,7 @@ div {
 ## and therefore their own packaging types, so this list does not
 ## contain all possible types.
 div {
-  pom.parent.content &= pom.packaging?
+  pom.project.content &= pom.packaging?
   pom.packaging =
     element packaging { pom.packaging.attributes, pom.packaging.content }
   pom.packaging.attributes = empty
@@ -140,7 +140,7 @@ div {
 
 ## The full name of the project.
 div {
-  pom.parent.content &= pom.name?
+  pom.project.content &= pom.name?
   pom.name = element name { pom.name.attributes, pom.name.content }
   pom.name.attributes = empty
   pom.name.content = text
@@ -154,7 +154,7 @@ div {
 ## generated web site, you are able to specify your own instead of
 ## adjusting this text.
 div {
-  pom.parent.content &= pom.description?
+  pom.project.content &= pom.description?
   pom.description =
     element description { pom.description.attributes, pom.description.content }
   pom.description.attributes = empty
@@ -166,7 +166,7 @@ div {
 ## or just parent value if project’s
 ## “child.project.url.inherit.append.path” attribute is “false”.
 div {
-  pom.parent.content &= pom.url?
+  pom.project.content &= pom.url?
   pom.url = element url { pom.url.attributes, pom.url.content }
   pom.url.attributes = empty
   pom.url.content = text
@@ -176,7 +176,7 @@ div {
 ## value is used when generating copyright notices as well as being
 ## informational.
 div {
-  pom.parent.content &= pom.inceptionYear?
+  pom.project.content &= pom.inceptionYear?
   pom.inceptionYear = element inceptionYear {
     pom.inceptionYear.attributes, pom.inceptionYear.content
   }
@@ -188,7 +188,7 @@ div {
 ## which the project belongs.  These attributes are utilized when
 ## documentation is created (for copyright notices and links).
 div {
-  pom.parent.content &= pom.organization?
+  pom.project.content &= pom.organization?
 
   pom.organization = element organization {
     pom.organization.attributes, pom.organization.content
@@ -221,7 +221,7 @@ div {
 ## assumed that the user can select any of them, not that they must
 ## accept all.
 div {
-  pom.parent.content &= pom.licenses?
+  pom.project.content &= pom.licenses?
   pom.licenses =
     element licenses { pom.licenses.attributes, pom.licenses.content }
   pom.licenses.attributes = empty
@@ -280,7 +280,7 @@ div {
 
 ## Describes the committers of a project.
 div {
-  pom.parent.content &= pom.developers?
+  pom.project.content &= pom.developers?
 
   pom.developers =
     element developers { pom.developers.attributes, pom.developers.content }
@@ -368,7 +368,7 @@ div {
 
 ## Describes the contributors to a project that are not yet committers.
 div {
-  pom.parent.content &= pom.contributors?
+  pom.project.content &= pom.contributors?
 
   pom.contributors = element contributors {
     pom.contributors.attributes, pom.contributors.content
@@ -455,7 +455,7 @@ div {
 
 ## Contains information about a project’s mailing lists.
 div {
-  pom.parent.content &= pom.mailingLists?
+  pom.project.content &= pom.mailingLists?
 
   pom.mailingLists = element mailingLists {
     pom.mailingLists.attributes, pom.mailingLists.content
@@ -562,7 +562,7 @@ div {
 ## Describes the prerequisites in the build environment for this
 ## project.
 div {
-  pom.parent.content &= pom.prerequisites?
+  pom.project.content &= pom.prerequisites?
 
   pom.prerequisites = element prerequisites {
     pom.prerequisites.attributes, pom.prerequisites.content
@@ -597,7 +597,7 @@ div {
 ## default urls are calculated from parent, it is recommended to have
 ## module names match artifact ids.
 div {
-  pom.parent.content &= pom.modules?
+  pom.project.content &= pom.modules?
 
   pom.modules = element modules { pom.modules.attributes, pom.modules.content }
 
@@ -617,7 +617,7 @@ div {
 ## The “scm” element contains informations required to the SCM (Source
 ## Control Management) of the project.
 div {
-  pom.parent.content &= pom.scm?
+  pom.project.content &= pom.scm?
 
   pom.scm = element scm { pom.scm.attributes, pom.scm.content }
 
@@ -727,7 +727,7 @@ div {
 
 ## The project’s issue management system information.
 div {
-  pom.parent.content &= pom.issueManagement?
+  pom.project.content &= pom.issueManagement?
 
   pom.issueManagement = element issueManagement {
     pom.issueManagement.attributes, pom.issueManagement.content
@@ -755,7 +755,7 @@ div {
 ## The “ciManagement” element contains informations required to the
 ## continuous integration system of the project.
 div {
-  pom.parent.content &= pom.ciManagement?
+  pom.project.content &= pom.ciManagement?
 
   pom.ciManagement = element ciManagement {
     pom.ciManagement.attributes, pom.ciManagement.content
@@ -874,7 +874,7 @@ div {
 ## the site and artifacts to remote web servers and repositories
 ## respectively.
 div {
-  pom.parent.content &= pom.distributionManagement?
+  pom.project.content &= pom.distributionManagement?
 
   pom.distributionManagement = element distributionManagement {
     pom.distributionManagement.attributes, pom.distributionManagement.content
@@ -1117,7 +1117,7 @@ div {
 ## and are used as filters in resources if enabled.  The format is
 ## “<name>value</name>”.
 div {
-  pom.parent.content &= pom.properties?
+  pom.project.content &= pom.properties?
   pom.properties =
     element properties { pom.properties.attributes, pom.properties.content }
   pom.properties.attributes = empty
@@ -1131,7 +1131,7 @@ div {
 ## version and other values from this section are used for that
 ## dependency if they were not already specified.
 div {
-  pom.parent.content &= pom.dependencyManagement?
+  pom.project.content &= pom.dependencyManagement?
   pom.dependencyManagement = element dependencyManagement {
     pom.dependencyManagement.attributes, pom.dependencyManagement.content
   }
@@ -1146,7 +1146,7 @@ div {
 ## https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html
 ## for more information.
 div {
-  pom.parent.content &= pom.dependencies?
+  pom.project.content &= pom.dependencies?
 
   pom.dependencies = element dependencies {
     pom.dependencies.attributes, pom.dependencies.content
@@ -1317,7 +1317,7 @@ div {
 ## The lists of the remote repositories for discovering dependencies
 ## and extensions.
 div {
-  pom.parent.content &= pom.repositories?
+  pom.project.content &= pom.repositories?
 
   pom.repositories = element repositories {
     pom.repositories.attributes, pom.repositories.content
@@ -1340,7 +1340,7 @@ div {
 ## The lists of the remote repositories for discovering plugins for
 ## builds and reports.
 div {
-  pom.parent.content &= pom.pluginRepositories?
+  pom.project.content &= pom.pluginRepositories?
 
   pom.pluginRepositories = element pluginRepositories {
     pom.pluginRepositories.attributes, pom.pluginRepositories.content
@@ -1364,7 +1364,7 @@ div {
 ## The “build” element contains informations required to build the
 ## project.  Default values are defined in Super POM.
 div {
-  pom.parent.content &= pom.build?
+  pom.project.content &= pom.build?
 
   pom.build = element build { pom.build.attributes, pom.build.content }
 
@@ -1556,7 +1556,7 @@ div {
 ## will be run when a user executes “mvn site”.  All of the reports
 ## will be included in the navigation bar for browsing.
 div {
-  pom.parent.content &= pom.reporting?
+  pom.project.content &= pom.reporting?
 
   pom.reporting =
     element reporting { pom.reporting.attributes, pom.reporting.content }
@@ -1775,7 +1775,7 @@ div {
 ## A listing of project-local build profiles which will modify the
 ## build process when activated.
 div {
-  pom.parent.content &= pom.profiles?
+  pom.project.content &= pom.profiles?
 
   pom.profiles =
     element profiles { pom.profiles.attributes, pom.profiles.content }
