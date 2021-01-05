@@ -70,7 +70,9 @@ if you want to do the same for files renamed in WDired mode."
                                                     (split-string table "\n"
                                                                   t))))
                            (seq-map (lambda (columns)
-                                      (list (seq-elt columns 1)
+                                      (list (replace-regexp-in-string
+                                             "\\`\\([0-9]+\\)\\(?:\\[[0-9]+\\]\\)?\\'"
+                                             "\\1" (seq-elt columns 1) t)
                                             (replace-regexp-in-string
                                              "\\`\"\\(.+\\)\".*" "\\1"
                                              (seq-elt columns 2) t)))
@@ -78,7 +80,7 @@ if you want to do the same for files renamed in WDired mode."
                                                   (and (>= (seq-length columns)
                                                            3)
                                                        (string-match-p
-                                                        "\\`[0-9]+\\'"
+                                                        "\\`[0-9]+\\(?:\\[[0-9]+\\]\\)?\\'"
                                                         (seq-elt columns 1))
                                                        (string-match-p
                                                         "\\`\".+\""
