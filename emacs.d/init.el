@@ -934,7 +934,8 @@ See also `evil-open-fold' and `evil-close-fold'."
                     ("q" . Man-quit))))
 
 (use-package markdown-mode
-  :ensure t)
+  :ensure t
+  :custom ((markdown-list-item-bullets '("•" "◦" "‣"))))
 
 (use-package menu-bar
   :commands (menu-bar-mode)
