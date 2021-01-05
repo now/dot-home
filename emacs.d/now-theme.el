@@ -233,6 +233,7 @@
     `(outline-7 ((,cui)))
     `(outline-8 ((,cui)))
     `(region ((,cui (:background ,light-cyan))))
+    `(scala-font-lock:var-face ((,cui (:inherit font-lock-variable-name-face))))
     `(secondary-selection ((,cui (:background ,cyan))))
     `(sh-heredoc ((,cui (:inherit font-lock-string-face))))
     `(sh-quoted-exec ((,cui (:inherit font-lock-string-face))))
