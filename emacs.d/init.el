@@ -3460,7 +3460,6 @@ For example, “&a'” → “á”"
   :diminish whitespace-mode
   :custom ((whitespace-style '(face
                                trailing
-                               lines-tail
                                empty
                                indentation
                                space-before-tab)))
