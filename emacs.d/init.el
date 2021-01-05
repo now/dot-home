@@ -3426,6 +3426,9 @@ For example, “&a'” → “á”"
             (setq compilation-error-regexp-alist
                   (delq entry compilation-error-regexp-alist))))
 
+(use-package typescriptreact-mode
+  :no-require t
+  )
 (use-package undo-tree
   :disabled
   :custom ((undo-tree-mode-lighter nil)
