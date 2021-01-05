@@ -348,15 +348,7 @@ See also `evil-open-fold' and `evil-close-fold'."
                      )))
               (c-add-style "now-c-style"
                            `("linux"
-                             (c-hanging-braces-alist . ((brace-entry-open)
-                                                        (brace-list-open after)
-                                                        (brace-list-close before)
-                                                        (class-close before)
-                                                        (class-open after)
-                                                        (substatement-open after)
-                                                        (block-close before)))
-                             (c-hanging-colons-alist . ((case-label after)
-                                                        (label after)))
+                             (c-hanging-colons-alist . ((label after)))
                              (c-offsets-alist . ((arglist-cont . +)
                                                  (arglist-cont-nonempty . +)
                                                  (cpp-define-intro . +)
