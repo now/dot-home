@@ -972,6 +972,12 @@ See also `evil-open-fold' and `evil-close-fold'."
   :no-require t
   :custom ((magit-repository-directories '(("~/Projects". 1)))))
 
+(use-package magit-blame
+  :no-require t
+  :config (setf (alist-get 'heading-format
+                           (alist-get 'headings magit-blame-styles))
+                "%-20a %C %.6H %s\n"))
+
 (use-package magit-files
   :no-require t
   :after evil
