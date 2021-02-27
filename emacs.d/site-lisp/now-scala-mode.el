@@ -40,7 +40,8 @@ Insert a package definition based on the ‘buffer-file-name’."
            ;; mask multi-line comments and fill
            (save-restriction
              (narrow-to-region (save-excursion (goto-char (nth 8 state))
-                                               (if (looking-back "^\\s-+")
+                                               (if (looking-back "^\\s-+"
+                                                                 (point-at-bol))
                                                    (point-at-bol)
                                                  (point)))
                                (save-excursion (goto-char (nth 8 state))
