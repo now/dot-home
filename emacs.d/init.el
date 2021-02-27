@@ -1683,19 +1683,11 @@ For example, “&a'” → “á”"
                                trailing
                                empty
                                indentation
-                               space-before-tab)))
-  :hook (((prog-mode text-mode) . whitespace-mode)
-         (message-mode . whitespace-turn-off)))
-(make-variable-buffer-local 'whitespace-line-column)
-(setq-default whitespace-line-column 80)
-(add-hook 'hack-local-variables-hook
-          '(lambda ()
-             (when (and whitespace-mode (not (= whitespace-line-column 80)))
-               (whitespace-mode -1)
-               (whitespace-mode))))
+                               space-before-tab))))
 
 (use-package xdisp
   :no-require t
+  :custom ((show-trailing-whitespace t))
   :config (progn
             (setq overlay-arrow-string "►")))
 
