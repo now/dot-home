@@ -636,7 +636,6 @@ See also `evil-open-fold' and `evil-close-fold'."
                (", F" . counsel-git-grep)
                (", J" . counsel-git)
                (", \"" . counsel-evil-registers)
-               (", e" . counsel-find-file)
                (", j" . counsel-file-jump)
                ("M-d" . counsel-M-x)
                ("`" . counsel-M-x))
@@ -652,7 +651,6 @@ See also `evil-open-fold' and `evil-close-fold'."
                (", F" . counsel-git-grep)
                (", J" . counsel-git)
                (", b" . switch-to-buffer)
-               (", e" . counsel-find-file)
                (", j" . counsel-file-jump)
                (", k" . kill-buffer)
                (", o" . ace-window)
@@ -715,11 +713,6 @@ See also `evil-open-fold' and `evil-close-fold'."
            (dired-recursive-deletes 'always))
   :bind (:map dired-mode-map
               ("e" . now-dired-ediff-files)))
-
-(use-package dired
-  :after evil
-  :bind (:map evil-motion-state-map
-              (", d" . dired)))
 
 (use-package dired-aux
   :no-require t
