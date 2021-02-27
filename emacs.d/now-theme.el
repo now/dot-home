@@ -241,6 +241,7 @@
     `(show-paren-match ((,cui (:inherit success))))
     `(show-paren-mismatch ((,cui (:inherit error))))
     `(success ((,cui (:foreground ,white :background ,green))))
+    `(trailing-whitespace ((,cui (:inherit error))))
     `(typescript-jsdoc-tag ((,cui (:inherit font-lock-comment-face))))
     `(typescript-jsdoc-type ((,cui (:inherit font-lock-comment-face))))
     `(typescript-jsdoc-value ((,cui (:inherit font-lock-comment-face))))
