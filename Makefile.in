@@ -123,6 +123,9 @@ userconfmixxxcontrollersdir = $(userconfmixxxdir)/controllers
 userconfmixxxskinsdir = $(userconfmixxxdir)/skins
 userconfmixxxskinsroedir = $(userconfmixxxskinsdir)/Roe
 userconfopenofficeorg3userwordbookdir = $(userconfdir)/.openoffice.org/3/user/wordbook
+userconfsbtdir = $(userconfdir)/.sbt
+userconfsbt10dir = $(userconfsbtdir)/1.0
+userconfsbt10pluginsdir = $(userconfsbt10dir)/plugins
 xdgconfighomedir = $(XDG_CONFIG_HOME)
 xdgconfighomecmusdir = $(xdgconfighomedir)/cmus
 xdgconfighomefontconfigdir = $(xdgconfighomedir)/fontconfig
@@ -388,6 +391,12 @@ userconfopenofficeorg3userwordbook_DATA = \
 	hunspell/en_US.dic \
 	hunspell/sv_SE.aff \
 	hunspell/sv_SE.dic
+
+userconfsbt10_DATA = \
+	sbt/1.0/global.sbt
+
+userconfsbt10plugins_DATA = \
+	sbt/1.0/plugins/plugins.sbt
 
 xdgconfighome_DATA = \
 	rss2email.cfg
