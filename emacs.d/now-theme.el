@@ -40,8 +40,8 @@
   (custom-theme-set-variables
    'now
    '(face-font-family-alternatives
-     '(("Monospace" "DejaVu Sans Mono" "fixed")
-       ("Monospace Serif" "DejaVu Sans Mono" "fixed")
+     '(("Monospace" "SF Mono" "DejaVu Sans Mono" "fixed")
+       ("Monospace Serif" "SF Mono" "DejaVu Sans Mono" "fixed")
        ("Sans Serif" "DejaVu Sans" "fixed")))
    '(magit-diff-highlight-hunk-region-functions
      '(magit-diff-highlight-hunk-region-dim-outside
@@ -65,7 +65,7 @@
                                   :background "#e9ebed" :foreground ,black))))
     `(custom-button-pressed ((,gui (:box (:line-width 1 :color "#35576d")
                                    :background "#d4d6da" :foreground ,black))))
-    `(default ((default . (:family "DejaVu Sans Mono" :height 120))
+    `(default ((default . (:family "SF Mono" :height 120))
                (,gtk . (:height 105))
                (,gui-dark . (:foreground ,off-white :background ,off-black))
                (,gui-lite . (:foreground ,black :background ,white))))
