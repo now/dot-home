@@ -259,7 +259,7 @@
     `(whitespace-space-after-tab ((,cui (:inherit whitespace-trailing))))
     `(whitespace-space-before-tab ((,cui (:inherit whitespace-trailing))))
     `(whitespace-tab ((,cui (:inherit whitespace-space))))
-    `(whitespace-trailing ((,cui (:inherit error))))
+    `(whitespace-trailing ((,cui (:inherit trailing-whitespace))))
     `(woman-bold ((,gui (:weight bold)) (,cui (:foreground ,blue))))
     `(woman-italic ((,gui (:slant italic)) (,cui (:foreground ,red))))))
 
