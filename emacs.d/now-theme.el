@@ -90,7 +90,7 @@
     `(flyspell-duplicate ((,cui (:foreground ,yellow :underline t))))
     `(flyspell-incorrect ((,cui (:foreground ,red :underline t))))
     `(font-lock-builtin-face ((,cui)))
-    `(font-lock-comment-face ((,cui (:foreground ,green))))
+    `(font-lock-comment-face ((,cui)))
     `(font-lock-constant-face ((,cui)))
     `(font-lock-doc-face ((,cui (:inherit font-lock-comment-face))))
     `(font-lock-function-name-face ((,cui)))
