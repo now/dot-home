@@ -178,6 +178,7 @@
     `(magit-section-heading-selection ((,cui (:inherit region :extend t))))
     `(magit-section-highlight ((,cui (:inherit highlight :extend t))))
     `(makefile-space ((,cui (:inherit error))))
+    `(markdown-blockquote-face ((,cui (:inherit markdown-code-face))))
     `(markdown-code-face ((,cui (:foreground "grey40"))))
     `(markdown-list-face ((,cui)))
     `(match ((,cui (:inherit isearch))))
