@@ -1062,11 +1062,12 @@ For example, “&a'” → “á”"
   :config (setq truncate-string-ellipsis "…"))
 
 (use-package now-init
-  :hook ((message-mode . now-remove-continuation-fringe-indicator)
+  :hook ((compilation-mode . now-do-not-show-trailing-whitespace)
+         (message-mode . now-remove-continuation-fringe-indicator)
          (prog-mode . now-comment-auto-fill-only-comments)
          (tabulated-list-mode
           . now-tabulated-list-mode-use-global-glyphless-char-display)
-         ((nxml-mode text-mode) . now-set-fill-column-to-80)))
+         ((nxml-mode prog-mode text-mode) . now-set-fill-column-to-80)))
 
 (use-package nxml-mode
   :custom ((nxml-char-ref-display-glyph-flag nil)
