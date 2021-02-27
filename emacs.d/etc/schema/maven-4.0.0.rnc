@@ -30,7 +30,7 @@ div {
 
 ## Declares to which version of project descriptor this POM conforms.
 div {
-  pom.project.content &= pom.modelVersion?
+  pom.project.content &= pom.modelVersion
   pom.modelVersion = element modelVersion {
     pom.modelVersion.attributes, pom.modelVersion.content
   }
@@ -54,19 +54,19 @@ div {
 
     ## The group id of the parent project to inherit from.
     div {
-      pom.parent.content &= pom.parent.groupId?
+      pom.parent.content &= pom.parent.groupId
       pom.parent.groupId = pom.groupId
     }
 
     ## The artifact id of the parent project to inherit from.
     div {
-      pom.parent.content &= pom.parent.artifactId?
+      pom.parent.content &= pom.parent.artifactId
       pom.parent.artifactId = pom.artifactId
     }
 
     ## The version of the parent project to inherit.
     div {
-      pom.parent.content &= pom.parent.version?
+      pom.parent.content &= pom.parent.version
       pom.parent.version = pom.version
     }
 
@@ -1218,7 +1218,7 @@ div {
         ##     https://maven.apache.org/ref/3.6.3/maven-core/artifact-handlers.html
         ##     for a list
         ## •   Distinguishing two artifacts that belong to the same POM
-        ##     but were built differently, for example, “jdk14”nd “jdk15”.
+        ##     but were built differently, for example, “jdk14” and “jdk15”.
         div {
           pom.dependency.content &= pom.classifier?
           pom.classifier = element classifier {
