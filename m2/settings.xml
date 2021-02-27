@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                              https://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <localRepository>/Users/now/Library/Caches/Maven</localRepository>
+
+  <interactiveMode>false</interactiveMode>
+
+  <profiles>
+    <profile>
+      <id>settings</id>
+
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+
+      <properties>
+        <!-- build.pom -->
+        <buildDirectory>.build</buildDirectory>
+
+        <!-- maven-failsafe-plugin -->
+        <failsafe.useFile>false</failsafe.useFile>
+
+        <!-- maven-source-plugin -->
+        <maven.source.skip>true</maven.source.skip>
+        <source.skip>true</source.skip>
+
+        <!-- maven-surefire-plugin -->
+        <disableXmlReport>true</disableXmlReport>
+        <surefire.useFile>false</surefire.useFile>
+        <surefire.testng.usedefaultlisteners>false</surefire.testng.usedefaultlisteners>
+
+        <!-- scalatest-maven-plugin -->
+        <stdout>NCXEHLOPQRMW</stdout>
+      </properties>
+    </profile>
+  </profiles>
+</settings>
