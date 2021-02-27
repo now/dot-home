@@ -481,7 +481,7 @@ See also `evil-open-fold' and `evil-close-fold'."
                         ,(rx bol
                              "["
                              (| "ERROR"
-                                (group-n 4 "WARNING")
+                                (group-n 4 (: "WARN" (? "ING")))
                                 (group-n 5 "INFO"))
                              "] "
                              (? "[" (or "Warn" "Error") "] ")
@@ -494,8 +494,8 @@ See also `evil-open-fold' and `evil-close-fold'."
                              ":"
                              (| (: "["
                                    (group-n 2 (+ digit))
-                                   ","
-                                   (group-n 3 (+ digit))
+                                   (? ","
+                                      (group-n 3 (+ digit)))
                                    "]")
                                 (: (group-n 2 (+ digit)) ":"
                                    (? (group-n 3 (+ digit)) ":")))
@@ -506,7 +506,7 @@ See also `evil-open-fold' and `evil-close-fold'."
                         ,(rx bol
                              "["
                              (| "error"
-                                (group-n 4 "warning")
+                                (group-n 4 (: "warn" (? "ing")))
                                 (group-n 5 "info"))
                              "] "
                              (group-n 1
