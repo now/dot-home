@@ -1476,7 +1476,8 @@ For example, “&a'” → “á”"
   :ensure t
   :config (progn
             (defun now-scala-mode-hook ()
-              (setq adaptive-fill-function #'now-scala-adaptive-fill-function))
+              (setq adaptive-fill-function #'now-scala-adaptive-fill-function
+                    fill-paragraph-function #'now-scala-fill-paragraph))
             (add-hook 'scala-mode-hook 'now-scala-mode-hook)))
 
 (use-package now-scala-mode
