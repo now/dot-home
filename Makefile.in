@@ -326,6 +326,7 @@ sitelisp_elcs = \
 	emacs.d/site-lisp/buff-menu-ext.elc \
 	emacs.d/site-lisp/docfold.elc \
 	emacs.d/site-lisp/evil-paredit.elc \
+	emacs.d/site-lisp/google-java-format.elc \
 	emacs.d/site-lisp/hide-mode-line.elc \
 	emacs.d/site-lisp/highlight-selected-window.elc \
 	emacs.d/site-lisp/nmc-mode.elc \
