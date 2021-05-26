@@ -768,7 +768,8 @@ See also `evil-open-fold' and `evil-close-fold'."
                                            "signal"
                                            "user-error"
                                            "warn")
-                                         t)) "\\_>")
+                                         t))
+                       "\\_>")
               (1 font-lock-keyword-face)))))
 
 (use-package now-elisp-mode
