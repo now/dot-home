@@ -1478,15 +1478,11 @@ For example, “&a'” → “á”"
             (add-hook 'sbt-mode-hook 'now-sbt-mode-hook -20)))
 
 (use-package scala-mode
-  :ensure t
-  :config (progn
-            (defun now-scala-mode-hook ()
-              (setq adaptive-fill-function #'now-scala-adaptive-fill-function
-                    fill-paragraph-function #'now-scala-fill-paragraph))
-            (add-hook 'scala-mode-hook 'now-scala-mode-hook)))
+  :ensure t)
 
 (use-package now-scala-mode
   :no-require t
+  :hook ((scala-mode . now-scala-mode-setup))
   :config (define-auto-insert
             'scala-mode
             #'now-scala-mode-auto-insert-mode-skeleton))
