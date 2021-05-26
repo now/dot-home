@@ -1568,18 +1568,8 @@ For example, “&a'” → “á”"
   :custom ((smtpmail-multi-accounts '((disuse . ("now@disu.se"
                                                  "disu.se"
                                                  587
-                                                 nil nil nil nil nil))
-                                      (semantix . ("nikolai.weibull@semantix.se"
-                                                   "smtp.office365.com"
-                                                   587
-                                                   nil nil nil nil nil))
-                                      (xtrf . ("xtrf@semantix.se"
-                                               "smtp.office365.com"
-                                               587
-                                               nil nil nil nil nil))))
-           (smtpmail-multi-associations '(("now@disu.se" disuse)
-                                          ("nikolai.weibull@semantix.se" semantix)
-                                          ("xtrf@semantix.se" xtrf)))))
+                                                 nil nil nil nil nil))))
+           (smtpmail-multi-associations '(("now@disu.se" disuse)))))
 
 (use-package swiper
   :after evil
