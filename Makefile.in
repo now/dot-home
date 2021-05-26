@@ -351,6 +351,7 @@ sitelisp_elcs = \
 	emacs.d/site-lisp/now-ruby.elc \
 	emacs.d/site-lisp/now-scala-mode.elc \
 	emacs.d/site-lisp/now-smie.elc \
+	emacs.d/site-lisp/now-sort.elc \
 	emacs.d/site-lisp/rnc-mode.elc \
 	emacs.d/site-lisp/typescriptreact-mode.elc \
 	emacs.d/site-lisp/use-package-evil-bind.elc \
