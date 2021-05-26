@@ -748,8 +748,7 @@ See also `evil-open-fold' and `evil-close-fold'."
 
 (use-package eglot
   :ensure t
-  :custom ((eglot-ignored-server-capabilites '(:documentHighlightProvider
-                                               :hoverProvider))))
+  :custom ((eglot-ignored-server-capabilites '(:documentHighlightProvider))))
 
 (use-package eldoc
   :diminish
