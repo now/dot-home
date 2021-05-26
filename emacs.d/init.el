@@ -441,7 +441,8 @@ See also `evil-open-fold' and `evil-close-fold'."
   :ensure t
   :diminish
   :defer 1
-  :custom ((company-idle-delay .175)
+  :custom ((company-format-margin-function nil)
+           (company-idle-delay .175)
            (company-show-numbers t)
            (company-backends '(company-bbdb
                                company-semantic
