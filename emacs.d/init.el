@@ -949,6 +949,10 @@ See also `evil-open-fold' and `evil-close-fold'."
             (add-to-list 'Info-additional-directory-list
                          (concat user-emacs-directory "info"))))
 
+(use-package isearch
+  :no-require t
+  :custom ((search-whitespace-regexp "[ \t\r\n]+")))
+
 (use-package ispell
   :no-require t
   :custom ((ispell-local-dictionary-alist
