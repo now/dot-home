@@ -378,6 +378,7 @@ sitelisp_elcs = \
 	emacs/site-lisp/hide-mode-line.elc \
 	emacs/site-lisp/highlight-selected-window.elc \
 	emacs/site-lisp/nmc-mode.elc \
+	emacs/site-lisp/now-calc.elc \
 	emacs/site-lisp/now-cc-mode.elc \
 	emacs/site-lisp/now-compile.elc \
 	emacs/site-lisp/now-counsel-evil.elc \

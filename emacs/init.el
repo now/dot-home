@@ -280,13 +280,10 @@ See also `evil-open-fold' and `evil-close-fold'."
 (use-package calc
   :no-require t
   :config (progn
+            (require 'now-calc)
             (setq-default calc-group-char " "
                           calc-gnuplot-default-device "dumb"
-                          calc-show-banner nil)
-            (defmath circleSegmentArea (r n)
-              (interactive 2 "csa")
-              (let ((θ (* 180 (/ n (* 2 pi r)))))
-                (- (* (/ θ 180) pi (^ r 2)) (* (sin θ) (cos θ) (^ r 2)))))))
+                          calc-show-banner nil)))
 
 (use-package calendar
   :custom ((calendar-date-style 'iso)
