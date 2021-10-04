@@ -28,8 +28,8 @@ XCLIP = @XCLIP@
 XSLTPROC = @XSLTPROC@
 ZSHELL = @ZSHELL@
 
-ELC_INCLUDES = -l emacs.d/site-lisp/userloaddefs.el
-ELC_LOADPATH = -L $(srcdir)/emacs.d/site-lisp
+ELC_INCLUDES = -l emacs/site-lisp/userloaddefs.el
+ELC_LOADPATH = -L $(srcdir)/emacs/site-lisp
 ELC = $(EMACS) \
 	--batch \
 	-q \
@@ -114,10 +114,6 @@ userconfdir = $(prefix)
 XDG_CONFIG_CACHE = @XDG_CONFIG_CACHE@
 XDG_CONFIG_HOME = @XDG_CONFIG_HOME@
 userconfaudacitydir = $(userconfdir)/.audacity
-userconfemacsddir = $(userconfdir)/.emacs.d
-userconfemacsdetcschemadir = $(userconfemacsddir)/etc/schema
-userconfemacsdinitsdir = $(userconfemacsddir)/inits
-userconfemacsdsitelispdir = $(userconfemacsddir)/site-lisp
 userconfmixxxdir = $(userconfdir)/.mixxx
 userconfmixxxcontrollersdir = $(userconfmixxxdir)/controllers
 userconfmixxxskinsdir = $(userconfmixxxdir)/skins
@@ -128,6 +124,10 @@ userconfsbt10dir = $(userconfsbtdir)/1.0
 userconfsbt10pluginsdir = $(userconfsbt10dir)/plugins
 xdgconfighomedir = $(XDG_CONFIG_HOME)
 xdgconfighomecmusdir = $(xdgconfighomedir)/cmus
+xdgconfighomeemacsdir = $(xdgconfighomedir)/emacs
+xdgconfighomeemacsetcschemadir = $(xdgconfighomeemacsdir)/etc/schema
+xdgconfighomeemacsinitsdir = $(xdgconfighomeemacsdir)/inits
+xdgconfighomeemacssitelispdir = $(xdgconfighomeemacsdir)/site-lisp
 xdgconfighomefontconfigdir = $(xdgconfighomedir)/fontconfig
 xdgconfighomegitdir = $(xdgconfighomedir)/git
 xdgconfighomevlcdir = $(xdgconfighomedir)/vlc
@@ -206,7 +206,7 @@ DIR = $(eval $(call DIR_dir,$(DESTDIR)$($(1)dir)) $(foreach primary,DATA SCRIPTS
 	$(V_at)$(MKDIR_P) $*
 	$(V_at): > $@
 
-%.elc: %.el | emacs.d/site-lisp/userloaddefs.el
+%.elc: %.el | emacs/site-lisp/userloaddefs.el
 	$(V_ELC)$(ELC) $<
 
 %.el.gz: %.el
@@ -300,68 +300,6 @@ userconf_DATA = \
 userconfaudacity_DATA = \
 	audacity.cfg
 
-userconf_elcs = \
-	emacs.d/init.elc \
-	emacs.d/now-theme.elc
-
-userconfemacsd_DATA = \
-	$(userconf_elcs) \
-	$(userconf_elcs:%.elc=%.el.gz)
-
-userconfemacsdetcschema_DATA = \
-	emacs.d/etc/schema/catalog.rnc \
-	emacs.d/etc/schema/environment.rnc \
-	emacs.d/etc/schema/gtk-builder.rnc \
-	emacs.d/etc/schema/logback.rnc \
-	emacs.d/etc/schema/maven-4.0.0.rnc \
-	emacs.d/etc/schema/maven-settings-1.0.0.rnc \
-	emacs.d/etc/schema/mixxx-midi-controller-preset.rnc \
-	emacs.d/etc/schema/mixxx-skin.rnc \
-	emacs.d/etc/schema/mixxx-template.rnc \
-	emacs.d/etc/schema/PropertyList-1.0.rnc \
-	emacs.d/etc/schema/schemas.xml \
-	emacs.d/etc/schema/testng-1.0.rnc
-
-emacs.d/etc/schema/schemas.xml: emacs.d/etc/schema/.dirstamp
-
-sitelisp_elcs = \
-	emacs.d/site-lisp/autotest-mode.elc \
-	emacs.d/site-lisp/buff-menu-ext.elc \
-	emacs.d/site-lisp/docfold.elc \
-	emacs.d/site-lisp/evil-paredit.elc \
-	emacs.d/site-lisp/google-java-format.elc \
-	emacs.d/site-lisp/hide-mode-line.elc \
-	emacs.d/site-lisp/highlight-selected-window.elc \
-	emacs.d/site-lisp/nmc-mode.elc \
-	emacs.d/site-lisp/now-cc-mode.elc \
-	emacs.d/site-lisp/now-compile.elc \
-	emacs.d/site-lisp/now-counsel-evil.elc \
-	emacs.d/site-lisp/now-dired.elc \
-	emacs.d/site-lisp/now-eglot.elc \
-	emacs.d/site-lisp/now-elisp-mode.elc \
-	emacs.d/site-lisp/now-evil.elc \
-	emacs.d/site-lisp/now-git.elc \
-	emacs.d/site-lisp/now-gxref.elc \
-	emacs.d/site-lisp/now-init.elc \
-	emacs.d/site-lisp/now-ivy.elc \
-	emacs.d/site-lisp/now-org-agenda.elc \
-	emacs.d/site-lisp/now-org-clock.elc \
-	emacs.d/site-lisp/now-org-colview.elc \
-	emacs.d/site-lisp/now-org.elc \
-	emacs.d/site-lisp/now-ruby.elc \
-	emacs.d/site-lisp/now-scala-mode.elc \
-	emacs.d/site-lisp/now-smie.elc \
-	emacs.d/site-lisp/now-sort.elc \
-	emacs.d/site-lisp/rnc-mode.elc \
-	emacs.d/site-lisp/typescriptreact-mode.elc \
-	emacs.d/site-lisp/use-package-evil-bind.elc \
-	emacs.d/site-lisp/velocity-mode.elc
-
-userconfemacsdsitelisp_DATA = \
-	$(sitelisp_elcs) \
-	$(sitelisp_elcs:%.elc=%.el.gz) \
-	emacs.d/site-lisp/userloaddefs.el
-
 userconfmixxx_DATA = \
 	mixxx/mixxx.cfg
 
@@ -406,6 +344,68 @@ xdgconfighome_DATA = \
 xdgconfighomecmus_DATA = \
 	cmus/now.theme \
 	cmus/rc
+
+userconf_elcs = \
+	emacs/init.elc \
+	emacs/now-theme.elc
+
+xdgconfighomeemacs_DATA = \
+	$(userconf_elcs) \
+	$(userconf_elcs:%.elc=%.el.gz)
+
+xdgconfighomeemacsetcschema_DATA = \
+	emacs/etc/schema/catalog.rnc \
+	emacs/etc/schema/environment.rnc \
+	emacs/etc/schema/gtk-builder.rnc \
+	emacs/etc/schema/logback.rnc \
+	emacs/etc/schema/maven-4.0.0.rnc \
+	emacs/etc/schema/maven-settings-1.0.0.rnc \
+	emacs/etc/schema/mixxx-midi-controller-preset.rnc \
+	emacs/etc/schema/mixxx-skin.rnc \
+	emacs/etc/schema/mixxx-template.rnc \
+	emacs/etc/schema/PropertyList-1.0.rnc \
+	emacs/etc/schema/schemas.xml \
+	emacs/etc/schema/testng-1.0.rnc
+
+emacs/etc/schema/schemas.xml: emacs/etc/schema/.dirstamp
+
+sitelisp_elcs = \
+	emacs/site-lisp/autotest-mode.elc \
+	emacs/site-lisp/buff-menu-ext.elc \
+	emacs/site-lisp/docfold.elc \
+	emacs/site-lisp/evil-paredit.elc \
+	emacs/site-lisp/google-java-format.elc \
+	emacs/site-lisp/hide-mode-line.elc \
+	emacs/site-lisp/highlight-selected-window.elc \
+	emacs/site-lisp/nmc-mode.elc \
+	emacs/site-lisp/now-cc-mode.elc \
+	emacs/site-lisp/now-compile.elc \
+	emacs/site-lisp/now-counsel-evil.elc \
+	emacs/site-lisp/now-dired.elc \
+	emacs/site-lisp/now-eglot.elc \
+	emacs/site-lisp/now-elisp-mode.elc \
+	emacs/site-lisp/now-evil.elc \
+	emacs/site-lisp/now-git.elc \
+	emacs/site-lisp/now-gxref.elc \
+	emacs/site-lisp/now-init.elc \
+	emacs/site-lisp/now-ivy.elc \
+	emacs/site-lisp/now-org-agenda.elc \
+	emacs/site-lisp/now-org-clock.elc \
+	emacs/site-lisp/now-org-colview.elc \
+	emacs/site-lisp/now-org.elc \
+	emacs/site-lisp/now-ruby.elc \
+	emacs/site-lisp/now-scala-mode.elc \
+	emacs/site-lisp/now-smie.elc \
+	emacs/site-lisp/now-sort.elc \
+	emacs/site-lisp/rnc-mode.elc \
+	emacs/site-lisp/typescriptreact-mode.elc \
+	emacs/site-lisp/use-package-evil-bind.elc \
+	emacs/site-lisp/velocity-mode.elc
+
+xdgconfighomeemacssitelisp_DATA = \
+	$(sitelisp_elcs) \
+	$(sitelisp_elcs:%.elc=%.el.gz) \
+	emacs/site-lisp/userloaddefs.el
 
 xdgconfighomefontconfig_DATA = \
 	fonts.conf
@@ -473,8 +473,8 @@ userconf_DATA += \
 endif
 
 $(bin_SCRIPTS): bin/.dirstamp
-$(sitelisp_elcs): emacs.d/site-lisp/.dirstamp
-$(userconfemacsd_DATA): emacs.d/.dirstamp
+$(sitelisp_elcs): emacs/site-lisp/.dirstamp
+$(xdgconfighomeemacs_DATA): emacs/.dirstamp
 $(xdgconfighomezsh_DATA): zsh/.dirstamp
 git/config: git/.dirstamp
 
@@ -482,9 +482,9 @@ $(sitelisp_elcs): ELC_INCLUDES =
 $(sitelisp_elcs): %.elc: %.el
 	$(V_ELC)$(ELC) $<
 
-emacs.d/site-lisp/userloaddefs.el: \
+emacs/site-lisp/userloaddefs.el: \
 	$(sitelisp_elcs) \
-	emacs.d/site-lisp/.dirstamp \
+	emacs/site-lisp/.dirstamp \
 	Makefile
 	$(V_ELC)$(EMACS) --batch -q --eval '(setq vc-handled-backends nil)' \
 	  --eval '(setq generated-autoload-file "$(abs_srcdir)/$@")' \
@@ -494,7 +494,7 @@ emacs.d/site-lisp/userloaddefs.el: \
 	              (when message \
 	                (message \"%s\" string)) \
 	              string))" \
-	  -f batch-update-autoloads $(srcdir)/emacs.d/site-lisp
+	  -f batch-update-autoloads $(srcdir)/emacs/site-lisp
 	$(V_at)if test "$(srcdir)" != .; then mv $(srcdir)/$@ $@; fi
 	$(V_at)touch $@
 
@@ -503,11 +503,9 @@ $(call DIR,libexec)
 $(call DIR,userconf,.)
 $(call DIR,userconfaudacity)
 ifneq ($(EMACS),)
-$(call DIR,userconfemacsd)
-$(call DIR,userconfemacsddelayedinits)
-$(call DIR,userconfemacsdetcschema)
-$(call DIR,userconfemacsdinits)
-$(call DIR,userconfemacsdsitelisp)
+$(call DIR,xdgconfighomeemacs)
+$(call DIR,xdgconfighomeemacsetcschema)
+$(call DIR,xdgconfighomeemacssitelisp)
 endif
 $(call DIR,userconfmixxx)
 $(call DIR,userconfmixxxcontrollers)

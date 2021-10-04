@@ -7,7 +7,7 @@ userconfmixxxdir = $(appsupportdir)/Mixxx
 userconfmozillafirefoxdir = $(appsupportdir)/Firefox
 xdgconfighomevlcdir = $(prefix)/Library/Preferences/org.videolan.vlc
 
-ELC_LOADPATH = -L emacs.d/site-lisp
+ELC_LOADPATH = -L emacs/site-lisp
 
 fonts_DATA = \
 	$(fontsdejavu_DATA)
@@ -22,18 +22,18 @@ librarylaunchagents_DATA = \
 	os/Darwin/Library/LaunchAgents/se.disu.socat.plist
 
 sitelisp_elcs += \
-	emacs.d/site-lisp/now-path.elc
+	emacs/site-lisp/now-path.elc
 
-emacs.d/init.elc: | emacs.d/site-lisp/now-path.el
+emacs/init.elc: | emacs/site-lisp/now-path.el
 
-emacs.d/site-lisp/now-path.el: \
+emacs/site-lisp/now-path.el: \
 	environment.xml \
-	os/Darwin/emacs.d/site-lisp/now-path.el.xsl \
-	os/Darwin/emacs.d/site-lisp/.dirstamp
+	os/Darwin/emacs/site-lisp/now-path.el.xsl \
+	os/Darwin/emacs/site-lisp/.dirstamp
 	$(V_XSLTPROC)$(XSLTPROC) \
 	  --stringparam home "$(prefix)" \
 	  --stringparam path "$(PATH)" \
-	  $(srcdir)/os/Darwin/emacs.d/site-lisp/now-path.el.xsl \
+	  $(srcdir)/os/Darwin/emacs/site-lisp/now-path.el.xsl \
 	  $< > $@.tmp
 	$(V_at)mv $@.tmp $@
 
@@ -63,3 +63,10 @@ $(call DIR,librarylaunchagents,,\
 
 # sudo launchctl config user path '~/opt/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/local/bin:/opt/local/sbin:/Library/Apple/usr/bin'
 
+fix-keybindings:
+	map=`printf '30064771%s 30064771%s\n' 129 299 296 299 299 296 | \
+	    sed -e 's,\([^ ]*\) \([^ ]*\),<dict><key>HIDKeyboardModifierMappingDst</key><integer>\2</integer><key>HIDKeyboardModifierMappingSrc</key><integer>\1</integer></dict>,'` && \
+	  for m in `defaults -currentHost read | \
+	      sed -n 's/ *"com\.apple\.keyboard\.modifiermapping\.\(.*\)" = .*/\1/p'`; do \
+	    defaults -currentHost write -g "com.apple.keyboard.modifiermapping.$$m" -array $$map || exit 1; \
+	  done

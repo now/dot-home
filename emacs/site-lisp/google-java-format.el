@@ -70,7 +70,6 @@ there is no region, then formats the current line."
                        nil (list temp-buffer stderr-file) t
                        "--offset" (number-to-string (1- start))
                        "--length" (number-to-string (- end start))
-                       "--aosp"
                        "-"))
               (stderr
                (with-temp-buffer

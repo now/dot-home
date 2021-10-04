@@ -38,10 +38,8 @@
 /config.log
 /config.status
 /configure
-/emacs.d/inits/provided-delayed-inits.el
-/emacs.d/inits/unprovided-delayed-inits.el
-/emacs.d/site-lisp/userloaddefs.el
-/emacs.d/site-lisp/userloaddefs.el~
+/emacs/site-lisp/userloaddefs.el
+/emacs/site-lisp/userloaddefs.el~
 /host/host.mk
 /libexec/clipboard-get
 /libexec/clipboard-get.in
