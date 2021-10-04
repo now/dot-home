@@ -771,6 +771,14 @@ See also `evil-open-fold' and `evil-close-fold'."
   :config (progn
             (evil-make-overriding-map git-rebase-mode-map nil)))
 
+(use-package go-mode
+  :ensure t
+  :bind (("C-c C-c" . comment-region))
+  :hook ((go-mode . now-go-mode-hook))
+  :config (defun now-go-mode-hook ()
+            (indent-tabs-mode)
+            (setq-local fill-column 100)))
+
 (use-package grep
   :custom ((grep-highlight-matches t)
            (grep-program "g")
