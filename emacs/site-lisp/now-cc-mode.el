@@ -94,7 +94,7 @@ The symbol starts at position START and ends at position END."
                                                 (match-string-no-properties 2)
                                                 (match-string-no-properties 3))
                                   do (progn
-                                       (previous-line)
+                                       (forward-line -1)
                                        (kill-whole-line)))
                          :test (lambda (a b) (string= (nth 0 a) (nth 0 b)))))))
         (search-forward-regexp "^package ")
