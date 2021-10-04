@@ -151,7 +151,9 @@ See also `evil-open-fold' and `evil-close-fold'."
             (setf (alist-get "now" iso-transl-language-alist nil nil #'equal)
                   '((".")
                     (".." . [?·])
-                    (".3" . [?…])))
+                    (".3" . [?…])
+                    ("*'" . [?ʹ])
+                    ("*\"" . [?ʺ])))
             (iso-transl-set-language "now")))
 
 (use-package ivy
