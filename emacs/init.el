@@ -872,10 +872,6 @@ See also `evil-open-fold' and `evil-close-fold'."
   :evil-bind ((:map motion calendar-mode-map
                     ("H" . calendar-cursor-holidays))))
 
-(use-package indent
-  :no-require t
-  :custom ((indent-tabs-mode nil)))
-
 (use-package info
   :evil-bind ((:map motion Info-mode-map
                     ("C-i" . Info-history-forward)))
@@ -1463,7 +1459,8 @@ For example, “&a'” → “á”"
          (nxml-mode . turn-off-auto-fill))
   :defer nil
   :config (progn
-            (column-number-mode)))
+            (column-number-mode)
+            (indent-tabs-mode -1)))
 
 (use-package simple
   :no-require t
