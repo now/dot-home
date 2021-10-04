@@ -56,19 +56,6 @@ colon."
                              (not (and c-auto-newline c-electric-flag))
                            (> (prefix-numeric-value arg) 0))))
 
-(defun now-c-mode-prettify-symbols-compose-p (start end match)
-  "Return true iff the symbol MATCH should be composed in C mode.
-The symbol starts at position START and ends at position END."
-  (if (save-match-data (string-match "^\\(?:\\[.*\\]\\|--\\)$" match))
-      t
-    (let* ((syntaxes-beg (if (memq (char-syntax (char-after start)) '(?w ?_))
-                             '(?w ?_) '(?. ?\\)))
-           (syntaxes-end (if (memq (char-syntax (char-before end)) '(?w ?_))
-                             '(?w ?_) '(?. ?\\))))
-      (not (or (memq (char-syntax (or (char-before start) ?\s)) syntaxes-beg)
-               (memq (char-syntax (or (char-after end) ?\s)) syntaxes-end)
-               (nth 8 (syntax-ppss)))))))
-
 ;;;#autoload
 (defun now-java-mode-clean-up-imports ()
   (interactive)
