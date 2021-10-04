@@ -65,7 +65,7 @@
                                   :background "#e9ebed" :foreground ,black))))
     `(custom-button-pressed ((,gui (:box (:line-width 1 :color "#35576d")
                                    :background "#d4d6da" :foreground ,black))))
-    `(default ((default . (:family "SF Mono" :height 120))
+    `(default ((default . (:family "Fira Code" :height 120))
                (,gtk . (:height 105))
                (,gui-dark . (:foreground ,off-white :background ,off-black))
                (,gui-lite . (:foreground ,black :background ,white))))
