@@ -504,20 +504,18 @@ See also `evil-open-fold' and `evil-close-fold'."
                                 (or (get-text-property (1- pos) 'compilation-directory)
                                     (get-text-property pos 'compilation-directory))))
                          (dir (when dir (file-name-as-directory (car dir)))))
-                    (message "%s" dir)
                     (if dir
                         (if (file-exists-p (concat dir s))
                             s
-                          (let ((java-1 (format "%s.java" s))
-                                (scala-1 (format "%s.scala" s))
-                                (java-2 (format "%s.java"
-                                                (replace-regexp-in-string "\\." "/" s)))
-                                (scala-2 (format "%s.scala"
-                                                 (replace-regexp-in-string "\\." "/" s))))
+                          (let* ((s (replace-regexp-in-string "\$.*" "" s))
+                                 (java-1 (format "%s.java" s))
+                                 (scala-1 (format "%s.scala" s))
+                                 (java-2 (format "%s.java"
+                                                 (replace-regexp-in-string "\\." "/" s)))
+                                 (scala-2 (format "%s.scala"
+                                                  (replace-regexp-in-string "\\." "/" s))))
                             (cl-find-if
-                             (lambda (f)
-                               (message "%s" f)
-                               (file-exists-p (concat dir f)))
+                             (lambda (f) (file-exists-p (concat dir f)))
                              (list
                               java-1
                               scala-1
