@@ -684,6 +684,7 @@ See also `evil-open-fold' and `evil-close-fold'."
 
 (use-package eldoc
   :diminish
+  :custom ((eldoc-echo-area-use-multiline-p nil))
   :hook ((emacs-lisp-mode . eldoc-mode)))
 
 (use-package electric
