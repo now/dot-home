@@ -1,5 +1,7 @@
 (require 'cc-mode)
 
+(defvar c-syntactic-element)
+
 ;;;###autoload
 (defun now-c-fill-paragraph (&optional arg)
   "Like `c-fill-paragraph', but add indent to `fill-column'.
