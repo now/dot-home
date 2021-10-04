@@ -18,6 +18,14 @@
     <value>e</value>
   </variable>
   <variable>
+    <name>GOBIN</name>
+    <value>@bindir@</value>
+  </variable>
+  <variable>
+    <name>GOMODCACHE</name>
+    <value>@XDG_CONFIG_CACHE@/go</value>
+  </variable>
+  <variable>
     <name>PAGER</name>
     <value>e</value>
   </variable>

@@ -14,6 +14,8 @@ fonts_DATA = \
 
 librarylaunchagents_DATA = \
 	os/Darwin/Library/LaunchAgents/se.disu.environment.editor.plist \
+	os/Darwin/Library/LaunchAgents/se.disu.environment.gobin.plist \
+	os/Darwin/Library/LaunchAgents/se.disu.environment.gomodcache.plist \
 	os/Darwin/Library/LaunchAgents/se.disu.environment.lang.plist \
 	os/Darwin/Library/LaunchAgents/se.disu.environment.manpager.plist \
 	os/Darwin/Library/LaunchAgents/se.disu.environment.manwidth.plist \
@@ -39,6 +41,8 @@ emacs/site-lisp/now-path.el: \
 
 
 os/Darwin/Library/LaunchAgents/se.disu.environment.editor.plist \
+os/Darwin/Library/LaunchAgents/se.disu.environment.gobin.plist \
+os/Darwin/Library/LaunchAgents/se.disu.environment.gomodcache.plist \
 os/Darwin/Library/LaunchAgents/se.disu.environment.lang.plist \
 os/Darwin/Library/LaunchAgents/se.disu.environment.manpager.plist \
 os/Darwin/Library/LaunchAgents/se.disu.environment.manwidth.plist \

@@ -541,6 +541,7 @@ $(emptydirs):
 	    -e 's|@SHELL[@]|$(SHELL)|g' \
 	    -e 's|@SOCAT[@]|$(SOCAT)|g' \
 	    -e 's|@XCLIP[@]|$(XCLIP)|g' \
+	    -e 's|@XDG_CONFIG_CACHE[@]|$(XDG_CONFIG_CACHE)|g' \
 	    -e 's|@ZSHELL[@]|$(ZSHELL)|g' \
 	    -e 's|@bindir[@]|$(bindir)|g' \
 	    -e 's|@abs_builddir[@]|$(abs_builddir)|g' \
