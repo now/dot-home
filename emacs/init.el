@@ -167,6 +167,7 @@ See also `evil-open-fold' and `evil-close-fold'."
   :config (progn
             (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
                                           (t . ivy--regex-fuzzy)))
+	    (declare-function ivy-mode "ivy")
             (ivy-mode 1)))
 
 (use-package ivy-avy
@@ -384,6 +385,7 @@ See also `evil-open-fold' and `evil-close-fold'."
                                 company-keywords)
                                company-dabbrev)))
   :config (progn
+	    (declare-function global-company-mode "company")
             (global-company-mode)))
 
 (use-package company-dabbrev
@@ -495,6 +497,7 @@ See also `evil-open-fold' and `evil-close-fold'."
               (setf (alist-get (car cons) compilation-error-regexp-alist-alist)
                     (cdr cons)))
             (defun now-compilation-maven-file ()
+	      (declare-function compilation--previous-directory "compile")
               (let ((s (match-string-no-properties 1)))
                 (if (or (null s) (file-name-absolute-p s))
                     s
@@ -1657,12 +1660,14 @@ For example, “&a'” → “á”"
   (customize-set-variable 'custom-enabled-themes custom-enabled-themes))
 
 ;; TODO Move these to the relevant use-package
+(declare-function evil-mode "evil-core")
 (evil-mode)
 (load-theme 'now t)
 
 (defun desktop-value-to-string (value)
   "Convert VALUE to a string that when read evaluates to the same value.
 Not all types of values are supported."
+  (declare-function desktop--v2s "desktop")
   (let* ((print-escape-newlines t)
 	 (print-length nil)
 	 (print-level nil)
