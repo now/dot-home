@@ -142,7 +142,7 @@ See also `evil-open-fold' and `evil-close-fold'."
 
 (use-package fira-code-mode
   :ensure t
-  :custom ((fira-code-mode-disabled-ligatures '("[]" "x")))
+  :custom ((fira-code-mode-disabled-ligatures '("[]" "lambda" "x")))
   :hook ((prog-mode . fira-code-mode)))
 
 (use-package iso-transl
