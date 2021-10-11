@@ -39,6 +39,7 @@ ELC = $(EMACS) \
 	--eval "(require 'package)" \
 	--eval "(package-initialize)" \
 	--eval "(setq byte-compile-dest-file-function (lambda (file) \"$@\"))" \
+	--eval "(setq byte-compile-error-on-warn t)" \
 	$(ELCFLAGS) \
 	-f batch-byte-compile
 
