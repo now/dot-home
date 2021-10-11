@@ -26,7 +26,6 @@
 
 (add-hook 'emacs-startup-hook #'now-report-emacs-startup-time)
 
-;; TODO eval-when-compile?
 (eval-and-compile
   (require 'use-package)
   (setq use-package-compute-statistics nil
