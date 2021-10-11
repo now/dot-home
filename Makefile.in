@@ -347,6 +347,7 @@ xdgconfighomecmus_DATA = \
 	cmus/rc
 
 userconf_elcs = \
+	emacs/custom.elc \
 	emacs/init.elc \
 	emacs/now-theme.elc
 
