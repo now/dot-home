@@ -8,7 +8,6 @@
              '("melpa" . "http://melpa.org/packages/")
              'append)
 
-(setq ring-bell-function 'ignore)
 (setq process-connection-type nil)
 (setq gc-cons-threshold 20000000
       undo-limit 80000000
