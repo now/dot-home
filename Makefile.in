@@ -396,6 +396,7 @@ sitelisp_elcs = \
 	emacs/site-lisp/now-org-clock.elc \
 	emacs/site-lisp/now-org-colview.elc \
 	emacs/site-lisp/now-org.elc \
+	emacs/site-lisp/now-project.elc \
 	emacs/site-lisp/now-ruby.elc \
 	emacs/site-lisp/now-scala-mode.elc \
 	emacs/site-lisp/now-smie.elc \

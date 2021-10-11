@@ -1291,6 +1291,10 @@ For example, “&a'” → “á”"
 (use-package project
   :ensure t)
 
+(use-package now-project
+  :no-require t
+  :bind (("C-c c" . now-project-display-compilation)))
+
 (use-package recentf
   :no-require t
   :custom ((recentf-max-saved-items 50)
