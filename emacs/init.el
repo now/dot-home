@@ -1559,7 +1559,6 @@ For example, “&a'” → “á”"
   :custom ((tramp-copy-size-limit nil)))
 
 (use-package typescript-mode
-  :no-require t
   :ensure t
   :custom ((typescript-indent-columns nil))
   :bind (:map typescript-mode-map
