@@ -1,33 +1,36 @@
 ;; -*- lexical-binding: t; -*-
 
-(add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
-(require 'userloaddefs)
-
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/")
-             'append)
-
-(setq process-connection-type nil)
 (setq gc-cons-threshold 20000000
       undo-limit 80000000
       undo-strong-limit 120000000
       undo-outer-limit 360000000)
 
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (message "Emacs ready in %.2f seconds"
-                     (float-time (time-subtract after-init-time
-                                     before-init-time)))))
+(require 'package)
+(setf (alist-get "melpa" package-archives nil nil #'equal) "https://melpa.org/packages/")
+
+(add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
+(require 'userloaddefs)
+
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(load custom-file)
+
+;; TODO Why?
+(setq process-connection-type nil)
+
+(defun now-report-emacs-startup-time ()
+  "Write a ‘message’ that reports the time it took to start Emacs."
+  (interactive)
+  (message "Emacs ready in %.2f seconds"
+	   (float-time (time-subtract after-init-time
+				      before-init-time))))
+
+(add-hook 'emacs-startup-hook #'now-report-emacs-startup-time)
 
 ;; TODO eval-when-compile?
 (eval-and-compile
   (require 'use-package)
   (setq use-package-compute-statistics nil
         use-package-verbose nil))
-
-(setq custom-file (concat user-emacs-directory "custom.el"))
-(load custom-file)
 
 ;; This comes first, as we want path set early on.
 (use-package now-path
