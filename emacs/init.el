@@ -510,7 +510,7 @@ See also `evil-open-fold' and `evil-close-fold'."
                     (if dir
                         (if (file-exists-p (concat dir s))
                             s
-                          (let* ((s (replace-regexp-in-string "\$.*" "" s))
+                          (let* ((s (replace-regexp-in-string "\\$.*" "" s))
                                  (java-1 (format "%s.java" s))
                                  (scala-1 (format "%s.scala" s))
                                  (java-2 (format "%s.java"
