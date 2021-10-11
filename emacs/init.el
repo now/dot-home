@@ -756,7 +756,7 @@ See also `evil-open-fold' and `evil-close-fold'."
     ((and `(,_ ,_ ,width ,height) (guard (< width height)))
      (setq split-width-threshold nil))
     (_
-     (setq split-width-threshold 200))))
+     (setq split-width-threshold 160))))
 (setq window-size-change-functions '(now-window-size-change-function))
 
 (use-package json-mode
