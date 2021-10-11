@@ -3,7 +3,6 @@
 (add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
 (require 'userloaddefs)
 
-;(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/")
