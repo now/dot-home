@@ -28,11 +28,6 @@
   (setq use-package-compute-statistics nil
         use-package-verbose nil))
 
-(global-set-key [f1] nil)
-(global-set-key [f2] nil)
-(global-set-key [f3] nil)
-(global-set-key [f4] nil)
-
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file)
 
