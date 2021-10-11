@@ -140,6 +140,11 @@
 See also `evil-open-fold' and `evil-close-fold'."
               (evil-fold-action evil-fold-list :close-rec)))
 
+(use-package avy
+  :bind* ("C-." . avy-goto-char-timer)
+  ;; TODO Probably use own setup code here instead.
+  :config (avy-setup-default))
+
 (use-package fira-code-mode
   :ensure t
   :custom ((fira-code-mode-disabled-ligatures '("[]" "x")))
