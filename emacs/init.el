@@ -26,6 +26,10 @@
 
 (add-hook 'emacs-startup-hook #'now-report-emacs-startup-time)
 
+;; TODO ctl-x-map "b" should be bound to counsel-ibuffer, but using
+;; buff-menu-ext instead to generate the entries.
+(define-key ctl-x-map "\C-b" 'buffer-menu)
+
 (eval-and-compile
   (require 'use-package)
   (setq use-package-compute-statistics nil
