@@ -144,17 +144,6 @@ See also `evil-open-fold' and `evil-close-fold'."
   ;; TODO Probably use own setup code here instead.
   :config (avy-setup-default))
 
-(use-package iso-transl
-  :defer t
-  :config (progn
-            (setf (alist-get "now" iso-transl-language-alist nil nil #'equal)
-                  '((".")
-                    (".." . [?·])
-                    (".3" . [?…])
-                    ("*'" . [?ʹ])
-                    ("*\"" . [?ʺ])))
-            (iso-transl-set-language "now")))
-
 (use-package ivy
   :diminish
   :custom ((ivy-count-format "")
@@ -897,6 +886,17 @@ See also `evil-open-fold' and `evil-close-fold'."
 (use-package isearch
   :no-require t
   :custom ((search-whitespace-regexp "[ \t\r\n]+")))
+
+(use-package iso-transl
+  :defer t
+  :config (progn
+            (setf (alist-get "now" iso-transl-language-alist nil nil #'equal)
+                  '((".")
+                    (".." . [?·])
+                    (".3" . [?…])
+                    ("*'" . [?ʹ])
+                    ("*\"" . [?ʺ])))
+            (iso-transl-set-language "now")))
 
 (use-package ispell
   :no-require t
