@@ -144,11 +144,6 @@ See also `evil-open-fold' and `evil-close-fold'."
   ;; TODO Probably use own setup code here instead.
   :config (avy-setup-default))
 
-(use-package fira-code-mode
-  :ensure t
-  :custom ((fira-code-mode-disabled-ligatures '("[]" "lambda" "x")))
-  :hook ((prog-mode . fira-code-mode)))
-
 (use-package iso-transl
   :defer t
   :config (progn
@@ -741,6 +736,11 @@ See also `evil-open-fold' and `evil-close-fold'."
   :defer t
   :config (progn
             (setq find-function-C-source-directory "~/Projects/emacs/src")))
+
+(use-package fira-code-mode
+  :ensure t
+  :custom ((fira-code-mode-disabled-ligatures '("[]" "lambda" "x")))
+  :hook ((prog-mode . fira-code-mode)))
 
 ;; TODO Customize
 (use-package flycheck
