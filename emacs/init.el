@@ -144,28 +144,6 @@ See also `evil-open-fold' and `evil-close-fold'."
   ;; TODO Probably use own setup code here instead.
   :config (avy-setup-default))
 
-(use-package ivy
-  :diminish
-  :custom ((ivy-count-format "")
-           (ivy-height 20)
-           (ivy-use-virtual-buffers t))
-  :bind (:map ivy-mode-map
-              ("C-j" . ivy-immediate-done)
-              ("C-M-j" . ivy-alt-done))
-  :config (progn
-            (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
-                                          (t . ivy--regex-fuzzy)))
-	    (declare-function ivy-mode "ivy")
-            (ivy-mode 1)))
-
-(use-package ivy-avy
-  :ensure t)
-
-(use-package now-ivy
-  :after ivy
-  :bind (:map ivy-mode-map
-              ([remap switch-to-buffer] . 'now-ivy-switch-buffer)))
-
 (use-package ace-window
   :ensure t
   :bind (("C-x C-o" . ace-window)
@@ -905,6 +883,28 @@ See also `evil-open-fold' and `evil-close-fold'."
               ("en_US" "[[:alpha:]]" "[^[:alpha:]]" "['’]" nil ("-B") nil utf-8)
               ("en_GB-ise" "[[:alpha:]]" "[^[:alpha:]]" "['’]" nil ("-B") nil utf-8)
               ("sv_SE" "[[:alpha:]]" "[^[:alpha:]]" "['’]" nil ("-C") nil utf-8)))))
+
+(use-package ivy
+  :diminish
+  :custom ((ivy-count-format "")
+           (ivy-height 20)
+           (ivy-use-virtual-buffers t))
+  :bind (:map ivy-mode-map
+              ("C-j" . ivy-immediate-done)
+              ("C-M-j" . ivy-alt-done))
+  :config (progn
+            (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
+                                          (t . ivy--regex-fuzzy)))
+	    (declare-function ivy-mode "ivy")
+            (ivy-mode 1)))
+
+(use-package ivy-avy
+  :ensure t)
+
+(use-package now-ivy
+  :after ivy
+  :bind (:map ivy-mode-map
+              ([remap switch-to-buffer] . 'now-ivy-switch-buffer)))
 
 (use-package jka-cmpr-hook
   :no-require t
