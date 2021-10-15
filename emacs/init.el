@@ -139,11 +139,6 @@
 See also `evil-open-fold' and `evil-close-fold'."
               (evil-fold-action evil-fold-list :close-rec)))
 
-(use-package avy
-  :bind* ("C-." . avy-goto-char-timer)
-  ;; TODO Probably use own setup code here instead.
-  :config (avy-setup-default))
-
 (use-package ace-window
   :ensure t
   :bind (("C-x C-o" . ace-window)
@@ -204,6 +199,11 @@ See also `evil-open-fold' and `evil-close-fold'."
 
 (use-package autotest-mode
   :mode ("\\.at\\'"))
+
+(use-package avy
+  :bind* ("C-." . avy-goto-char-timer)
+  ;; TODO Probably use own setup code here instead.
+  :config (avy-setup-default))
 
 (use-package bindings
   :no-require t
