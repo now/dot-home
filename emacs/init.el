@@ -30,6 +30,15 @@
 ;; buff-menu-ext instead to generate the entries.
 (define-key ctl-x-map "\C-b" 'buffer-menu)
 
+(defun now-window-size-change-function (_)
+  (pcase (cdr (assoc 'geometry
+                     (car (display-monitor-attributes-list))))
+    ((and `(,_ ,_ ,width ,height) (guard (< width height)))
+     (setq split-width-threshold nil))
+    (_
+     (setq split-width-threshold 160))))
+(setq window-size-change-functions '(now-window-size-change-function))
+
 (eval-and-compile
   (require 'use-package)
   (setq use-package-compute-statistics nil
@@ -720,15 +729,6 @@ See also `evil-open-fold' and `evil-close-fold'."
   :custom ((blink-cursor-blinks 0)
            (default-frame-alist '((right-fringe . 0))))
   :config (blink-cursor-mode))
-
-(defun now-window-size-change-function (_)
-  (pcase (cdr (assoc 'geometry
-                     (car (display-monitor-attributes-list))))
-    ((and `(,_ ,_ ,width ,height) (guard (< width height)))
-     (setq split-width-threshold nil))
-    (_
-     (setq split-width-threshold 160))))
-(setq window-size-change-functions '(now-window-size-change-function))
 
 (use-package json-mode
   :ensure t)
