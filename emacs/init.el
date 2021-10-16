@@ -731,9 +731,6 @@ See also `evil-open-fold' and `evil-close-fold'."
            (default-frame-alist '((right-fringe . 0))))
   :config (blink-cursor-mode))
 
-(use-package json-mode
-  :ensure t)
-
 (use-package now-git
   :after evil
   :no-require t
@@ -915,6 +912,9 @@ See also `evil-open-fold' and `evil-close-fold'."
   :no-require t
   :mode (("\\.jsx\\(inc\\)?\\'" . js-mode))
   :custom ((js-indent-level 2)))
+
+(use-package json-mode
+  :ensure t)
 
 (use-package magit
   :ensure t
