@@ -1499,14 +1499,6 @@ For example, “&a'” → “á”"
   :config (progn
             (advice-add 'smie-auto-fill :around 'now-smie-auto-fill)))
 
-(use-package solar
-  :no-require t
-  :custom ((calendar-time-display-form '(24-hours ":" minutes (if time-zone " ")
-                                                  time-zone))
-           (calendar-latitude 57.708870)
-           (calendar-longitude 11.97456)
-           (calendar-location-name "Göteborg")))
-
 (use-package smtpmail
   :no-require t
   :custom ((smtpmail-queue-dir "~/Maildir/.Queue/cur")))
@@ -1519,6 +1511,14 @@ For example, “&a'” → “á”"
                                                  587
                                                  nil nil nil nil nil))))
            (smtpmail-multi-associations '(("now@disu.se" disuse)))))
+
+(use-package solar
+  :no-require t
+  :custom ((calendar-time-display-form '(24-hours ":" minutes (if time-zone " ")
+                                                  time-zone))
+           (calendar-latitude 57.708870)
+           (calendar-longitude 11.97456)
+           (calendar-location-name "Göteborg")))
 
 (use-package swiper
   :after evil
