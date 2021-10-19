@@ -535,6 +535,7 @@ See also `evil-open-fold' and `evil-close-fold'."
          ("C-h v" . counsel-describe-variable)
          ("C-x C-f" . counsel-find-file))
   :config (progn
+	    (declare-function ivy-configure "ivy")
             (ivy-configure 'counsel-evil-registers :height ivy-height)))
 
 (use-package now-counsel-evil
