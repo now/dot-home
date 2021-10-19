@@ -1299,7 +1299,7 @@ For example, “&a'” → “á”"
 
 (use-package now-project
   :no-require t
-  :bind (("C-c c" . now-project-display-compilation)))
+  :bind (("C-x c" . now-project-display-compilation)))
 
 (use-package recentf
   :no-require t
