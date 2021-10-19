@@ -1587,8 +1587,8 @@ For example, “&a'” → “á”"
                   (delq entry compilation-error-regexp-alist))))
 
 (use-package typescriptreact-mode
-  :no-require t
-  )
+  :no-require t)
+
 (use-package undo-tree
   :disabled
   :custom ((undo-tree-mode-lighter nil)
