@@ -1475,7 +1475,8 @@ For example, “&a'” → “á”"
 (use-package simple
   :diminish auto-fill-function
   :no-require t
-  :custom ((completion-show-help nil))
+  :custom ((completion-show-help nil)
+	   (what-cursor-show-names t))
   :hook (((prog-mode text-mode) . auto-fill-mode)
          (nxml-mode . turn-off-auto-fill))
   :defer nil
