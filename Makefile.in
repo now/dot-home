@@ -375,7 +375,6 @@ sitelisp_elcs = \
 	emacs/site-lisp/autotest-mode.elc \
 	emacs/site-lisp/buff-menu-ext.elc \
 	emacs/site-lisp/docfold.elc \
-	emacs/site-lisp/evil-paredit.elc \
 	emacs/site-lisp/google-java-format.elc \
 	emacs/site-lisp/hide-mode-line.elc \
 	emacs/site-lisp/highlight-selected-window.elc \
@@ -383,11 +382,9 @@ sitelisp_elcs = \
 	emacs/site-lisp/now-calc.elc \
 	emacs/site-lisp/now-cc-mode.elc \
 	emacs/site-lisp/now-compile.elc \
-	emacs/site-lisp/now-counsel-evil.elc \
 	emacs/site-lisp/now-dired.elc \
 	emacs/site-lisp/now-eglot.elc \
 	emacs/site-lisp/now-elisp-mode.elc \
-	emacs/site-lisp/now-evil.elc \
 	emacs/site-lisp/now-git.elc \
 	emacs/site-lisp/now-gxref.elc \
 	emacs/site-lisp/now-init.elc \
@@ -403,7 +400,6 @@ sitelisp_elcs = \
 	emacs/site-lisp/now-sort.elc \
 	emacs/site-lisp/rnc-mode.elc \
 	emacs/site-lisp/typescriptreact-mode.elc \
-	emacs/site-lisp/use-package-evil-bind.elc \
 	emacs/site-lisp/velocity-mode.elc
 
 xdgconfighomeemacssitelisp_DATA = \

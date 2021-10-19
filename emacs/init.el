@@ -49,132 +49,13 @@
 (use-package now-path
   :when (eq (window-system) 'ns))
 
-;; This comes first, as keybindings here, notably that of ‘,’, affect
-;; other packages’ keybinding potentials.
-(use-package evil
-  :ensure t
-  :custom ((evil-digraphs-table-user '(((?c ?b) . ?•)
-                                       ((?t ?b) . ?‣)
-                                       ((?\( ?/) . ?∉)
-                                       ((?. ?3) . ?…)
-                                       ((?, ?3) . ?⋯)
-                                       ((?< ?Y) . ?≺)
-                                       ((?< ?/) . ?⟨)
-                                       ((?> ?/) . ?⟩)))
-           (evil-echo-state nil)
-           (evil-mode-line-fomat nil)
-           (evil-move-cursor-back nil)
-           (evil-shift-round nil)
-           (evil-shift-width 2)
-           (evil-symbol-word-search t)
-           (evil-want-abbrev-expand-on-insert-exit nil)
-           (evil-want-fine-undo t))
-  :bind ((:map evil-insert-state-map
-               ("C-d" . evil-normal-state))
-         (:map evil-motion-state-map
-               (",")
-               ("<DEL>" . evil-scroll-page-up)
-               ("<SPC>" . evil-scroll-page-down)
-               (", B" . buffer-menu)
-               ("C-d" . evil-insert)
-               ("L")
-               ("S" . evil-window-bottom)
-               ("S-<SPC>" . evil-scroll-page-up)
-               ("g b" . backward-sexp)
-               ("g c" . evil-avy-goto-char-timer)
-               ("g l" . evil-avy-goto-line)
-               ("g s" . evil-avy-goto-symbol-1)
-               ("g w" . forward-sexp)
-               ("l")
-               ("s" . evil-forward-char))
-         (:map evil-normal-state-map
-               ("<DEL>")
-               ("L" . evil-change-whole-line)
-               ("Q" . evil-record-macro)
-               ("S")
-               ("C-r")
-               ("g w")
-               ("l" . evil-substitute)
-               ("s")
-               ("q" . delete-other-windows)
-               ("z C" . evil-hide-fold-rec))
-         (:map evil-replace-state-map
-               ("C-d" . evil-normal-state))
-         (:map evil-visual-state-map
-               ("C-d" . evil-normal-state)))
-  :config (progn
-            (setq evil-emacs-state-modes
-                  (cl-set-difference evil-emacs-state-modes
-                                     '(archive-mode
-                                       git-commit-mode
-                                       git-rebase-mode
-                                       tar-mode
-                                       xref--xref-buffer-mode))
-                  evil-insert-state-modes
-                  (cl-set-difference evil-insert-state-modes
-                                     '(term-mode))
-                  evil-overriding-maps
-                  (cl-set-difference evil-overriding-maps
-                                     '((compilation-mode-map . nil))
-                                     :key 'car))
-            (add-to-list 'evil-emacs-state-modes 'term-mode)
-            (push '((docfold-minor-mode)
-                    :open-all   docfold-show-all
-                    :close-all  docfold-hide-all
-                    :toggle     docfold-toggle-section
-                    :open       docfold-show-section
-                    :open-rec   docfold-show-section-recursively
-                    :close      docfold-hide-section
-                    :close-rec  docfold-hide-section-recursively)
-                  evil-fold-list)))
-
-(use-package evil-jumps
-  :functions (evil--jumps-install-or-uninstall)
-  :defer t
-  :config (remove-hook 'evil-local-mode-hook
-                       #'evil--jumps-install-or-uninstall))
-
-(use-package now-evil
-  ;; We include a function that’s defined by evil that’s later used in
-  ;; :after evil use-packages.
-  :functions (evil-change-state
-              evil-fold-action
-              evil-get-auxiliary-keymap ; TODO Figure out why this is required.
-              evil-make-overriding-map ; TODO Figure out why this is required.
-              evil-set-command-properties
-              evil-set-initial-state)
-  :hook ((evil-insert-state-exit . now-evil-delete-auto-indent))
-  :config (evil-define-command evil-hide-fold-rec ()
-              "Close fold at point recursively.
-See also `evil-open-fold' and `evil-close-fold'."
-              (evil-fold-action evil-fold-list :close-rec)))
-
 (use-package ace-window
   :ensure t
   :bind (("C-x C-o" . ace-window)
          ("C-x o" . ace-window)))
 
-(use-package ace-window
-  :after evil
-  :bind ((:map evil-motion-state-map
-                (", o" . ace-window))))
-
 (use-package amx
   :ensure t)
-
-(use-package amx
-  :after evil
-  :bind (:map evil-motion-state-map
-              ("~" . amx-major-mode-commands)))
-
-(use-package arc-mode
-  :after evil
-  :evil-bind ((:map motion archive-mode-map
-                    ("j" . archive-next-line)
-                    ("k" . archive-previous-line)
-                    ("h" . evil-backward-char)))
-  :config (progn
-            (evil-make-overriding-map archive-mode-map 'normal)))
 
 (use-package auth-source
   :when (eq system-type 'darwin)
@@ -249,10 +130,7 @@ See also `evil-open-fold' and `evil-close-fold'."
                ("." . Buffer-menu-mark-old-buffers)
                ("Q" . Buffer-menu-do-query-replace-regexp)
                ("U" . Buffer-menu-unmark-all)
-               ("r" . Buffer-menu-toggle-read-only)))
-  :evil-bind ((:map motion Buffer-menu-mode-map
-                    ("s" . evil-forward-char)
-                    ("w" . Buffer-menu-save))))
+               ("r" . Buffer-menu-toggle-read-only))))
 
 (use-package buffer
   :no-require t
@@ -279,16 +157,7 @@ See also `evil-open-fold' and `evil-close-fold'."
                             (calendar-absolute-from-gregorian
                              (list month day year)))))
               'font-lock-face 'week))
-           (calendar-week-start-day 1))
-  :evil-bind ((:map motion calendar-mode-map
-                    ("C-b" . calendar-scroll-right-three-months)
-                    ("C-f" . calendar-scroll-left-three-months)
-                    ("b" . calendar-beginning-of-week)
-                    ("h" . calendar-backward-day)
-                    ("j" . calendar-forward-week)
-                    ("k" . calendar-backward-week)
-                    ("s" . calendar-forward-day)
-                    ("w" . calendar-end-of-week))))
+           (calendar-week-start-day 1)))
 
 (use-package cc-mode
   :custom ((c-default-style '((java-mode . "now-java-style")
@@ -510,15 +379,6 @@ See also `evil-open-fold' and `evil-close-fold'."
                               (format "src/test/scala/%s" scala-2)))))
                       s)))))))
 
-(use-package compile
-  :after evil
-  :bind ((:map evil-motion-state-map
-               (", m" . compile)
-               (", r" . recompile))
-         (:map evil-motion-state-map
-               (", N" . compilation-next-file)
-               (", P" . compilation-previous-file))))
-
 (use-package counsel
   :ensure t
   :functions (ivy-configure)
@@ -533,48 +393,7 @@ See also `evil-open-fold' and `evil-close-fold'."
          ("C-h l" . counsel-find-library)
          ("C-h u" . counsel-unicode-char)
          ("C-h v" . counsel-describe-variable)
-         ("C-x C-f" . counsel-find-file))
-  :config (progn
-	    (declare-function ivy-configure "ivy")
-            (ivy-configure 'counsel-evil-registers :height ivy-height)))
-
-(use-package now-counsel-evil
-  :after (counsel evil))
-
-(use-package counsel
-  :after evil
-  :bind ((:map evil-motion-state-map
-               (", D" . counsel-dired-jump)
-               (", F" . counsel-git-grep)
-               (", J" . counsel-git)
-               (", \"" . counsel-evil-registers)
-               (", j" . counsel-file-jump)
-               ("M-d" . counsel-M-x)
-               ("`" . counsel-M-x))
-         (:map evil-visual-state-map
-               ("`" . counsel-M-x))))
-
-(use-package counsel
-  :defines magit-mode-map
-  :after magit
-  :bind ((:map magit-mode-map
-               (", B" . buffer-menu)
-               (", D" . counsel-dired-jump)
-               (", F" . counsel-git-grep)
-               (", J" . counsel-git)
-               (", b" . switch-to-buffer)
-               (", j" . counsel-file-jump)
-               (", k" . kill-buffer)
-               (", o" . ace-window)
-               ("M-d" . counsel-M-x)
-               ("`" . counsel-M-x))))
-
-(use-package counsel
-  :defines org-agenda-mode-map
-  :after org
-  :bind ((:map org-agenda-mode-map
-               ("`" . counsel-M-x)
-               ("M-d" . counsel-M-x))))
+         ("C-x C-f" . counsel-find-file)))
 
 (use-package css-mode
   :no-require t
@@ -593,8 +412,6 @@ See also `evil-open-fold' and `evil-close-fold'."
             ;; use-package.
             (dolist (variable '(command-history
                                 compile-history
-                                evil-ex-history
-                                evil-ex-search-history
                                 log-edit-comment-ring
                                 minibuffer-history
                                 read-expression-history
@@ -687,12 +504,6 @@ See also `evil-open-fold' and `evil-close-fold'."
 (use-package now-elisp-mode
   :hook ((emacs-lisp-mode . now-emacs-lisp-mode-hook)))
 
-(use-package epa
-  :after evil
-  :defer t
-  :config (progn
-            (evil-make-overriding-map epa-key-list-mode-map nil)))
-
 (use-package ffap
   :custom ((ffap-machine-p-known 'accept)))
 
@@ -703,12 +514,6 @@ See also `evil-open-fold' and `evil-close-fold'."
   :defer t
   :config (progn
             (setq insert-directory-program "a")))
-
-(use-package files
-  :after evil
-  :bind (:map evil-motion-state-map
-              (", W" . save-some-buffers)
-              ))
 
 (use-package find-func
   :defer t
@@ -731,18 +536,6 @@ See also `evil-open-fold' and `evil-close-fold'."
   :custom ((blink-cursor-blinks 0)
            (default-frame-alist '((right-fringe . 0))))
   :config (blink-cursor-mode))
-
-(use-package now-git
-  :after evil
-  :no-require t
-  :bind ((:map evil-motion-state-map
-               (", g" . now-git-grep))))
-
-(use-package git-rebase
-  :after evil
-  :defer t
-  :config (progn
-            (evil-make-overriding-map git-rebase-mode-map nil)))
 
 (use-package go-mode
   :ensure t
@@ -796,29 +589,13 @@ See also `evil-open-fold' and `evil-close-fold'."
                (4 '(face nil display ":")))
               ("^Binary file \\(.+\\) matches$" 1 nil nil 0 1))))
 
-(use-package grep
-  :after evil
-  :no-require t
-  :bind ((:map evil-motion-state-map
-               (", G" . grep)))
-  :config (progn
-            (evil-make-overriding-map grep-mode-map nil)))
-
 (use-package gxref
   :ensure t)
 
-(use-package now-gxref
-  :after evil
-  :bind ((:map evil-motion-state-map
-               (", E" . now-gxref-find-file))))
-
 (use-package hide-mode-line
-  :config (hide-mode-line-mode))
-
-(use-package hide-mode-line
-  :after evil
-  :bind (:map evil-motion-state-map
-              (", i" . hide-mode-line-show-mode-line)))
+  :config (hide-mode-line-mode)
+  :bind (:map ctl-x-map
+	      ("," . hide-mode-line-show-mode-line)))
 
 (use-package highlight-selected-window
   :config (highlight-selected-window-mode))
@@ -849,13 +626,9 @@ See also `evil-open-fold' and `evil-close-fold'."
                                       holiday-local-holidays
                                       holiday-christian-holidays
                                       holiday-other-holidays
-                                      holiday-solar-holidays)))
-  :evil-bind ((:map motion calendar-mode-map
-                    ("H" . calendar-cursor-holidays))))
+                                      holiday-solar-holidays))))
 
 (use-package info
-  :evil-bind ((:map motion Info-mode-map
-                    ("C-i" . Info-history-forward)))
   :config (progn
             (add-to-list 'Info-additional-directory-list
                          (concat user-emacs-directory "info"))))
@@ -930,28 +703,19 @@ See also `evil-open-fold' and `evil-close-fold'."
 
 (use-package magit-files
   :no-require t
-  :after evil
-  :bind ((:map evil-motion-state-map
-               (", S" . magit-file-dispatch))))
+  :bind ((:map ctl-x-map
+               ("G" . magit-file-dispatch))))
 
 (use-package magit-popup
   :no-require t
   :custom ((magit-popup-show-common-commands nil)))
-
-(use-package magit-status
-  :no-require t
-  :after evil
-  :bind ((:map evil-motion-state-map
-               (", s" . magit-status))))
 
 (use-package make-mode
   :no-require t
   :custom ((makefile-backslash-align nil)))
 
 (use-package man
-  :custom ((Man-notify-method 'pushy))
-  :evil-bind ((:map normal Man-mode-map
-                    ("q" . Man-quit))))
+  :custom ((Man-notify-method 'pushy)))
 
 (use-package markdown-mode
   :ensure t
@@ -1089,14 +853,6 @@ For example, “&a'” → “á”"
            (org-yank-adjusted-subtrees t))
   :bind ((:map narrow-map
                ("T" . now-org-narrow-to-subtree-and-show-todo-tree)))
-  :evil-bind ((:map motion org-mode-map
-                    ("<RET>" . org-cycle))
-              (:map normal org-mode-map
-                    (", i" . org-clock-in)
-                    (", o" . org-clock-out)
-                    (", P" . org-set-property)
-                    (", T" . org-set-effort)
-                    (", t" . org-todo)))
   :config (progn
             (defface org-delegated nil
               "Face used for DELEGATED todo keyword."
@@ -1166,11 +922,6 @@ For example, “&a'” → “á”"
                ("n" . org-agenda-next-item)
                ("p" . org-agenda-previous-item))))
 
-(use-package org-agenda
-  :after evil
-  :bind ((:map evil-motion-state-map
-               (", a" . org-agenda))))
-
 (use-package org-archive
   :custom ((org-archive-save-context-info '(time olpath category todo itags))))
 
@@ -1198,11 +949,6 @@ For example, “&a'” → “á”"
                                     ("T" "Annotated Todo" entry (file "")
                                      "* TODO %?\n%U\n%i\n%a"
                                      :clock-in t :clock-resume t)))))
-
-(use-package org-capture
-  :after evil
-  :bind ((:map evil-motion-state-map
-               (", O" . org-capture))))
 
 (use-package org-clock
   :after org
@@ -1263,25 +1009,6 @@ For example, “&a'” → “á”"
 (use-package paredit
   :ensure t
   :diminish paredit-mode
-  :evil-bind ((:map motion paredit-mode-map
-                    ("g B" . evil-paredit-backward-up)
-                    ("g W" . evil-paredit-forward-up)
-                    ("g b" . evil-paredit-backward)
-                    ("g w" . evil-paredit-forward))
-              (:map normal paredit-mode-map
-                    ("( <RET>" . paredit-split-sexp)
-                    ("( J" . paredit-join-sexps)
-                    ("( R" . paredit-raise-sexp)
-                    ("( S" . paredit-splice-sexp-killing-backward)
-                    ("( W" . paredit-wrap-round)
-                    ("( s" . paredit-splice-sexp)
-                    ("D" . paredit-kill)
-                    ("X" . paredit-backward-delete)
-                    ("x" . paredit-forward-delete)
-                    ("( (" . evil-paredit-backward-slurp-sexp)
-                    ("( {" . evil-paredit-backward-barf-sexp)
-                    (") )" . evil-paredit-forward-slurp-sexp)
-                    (") }" . evil-paredit-forward-barf-sexp)))
   :hook (((emacs-lisp-mode
             eval-expression-minibuffer-setup
             lisp-interaction-mode
@@ -1358,9 +1085,6 @@ For example, “&a'” → “á”"
                                  "etc/schema/schemas.xml"))))
 
 (use-package ruby-mode
-  :evil-bind ((:map normal ruby-mode-map
-                    (", t" . ruby-find-other-file)
-                    (", M" . ruby-run-test-at-line)))
   :hook ((ruby-mode . now-ruby-mode-hook))
   :config (progn
             (define-abbrev ruby-mode-abbrev-table "d" "" 'ruby-skeleton-def
@@ -1485,14 +1209,6 @@ For example, “&a'” → “á”"
             (column-number-mode)
             (indent-tabs-mode -1)))
 
-(use-package simple
-  :no-require t
-  :after evil
-  :bind ((:map evil-motion-state-map
-               (", c" . shell-command)
-               (", n" . next-error)
-               (", p" . previous-error))))
-
 (use-package smerge-mode
   :custom ((smerge-auto-leave nil)
            (smerge-command-prefix "\C-cv")))
@@ -1522,21 +1238,6 @@ For example, “&a'” → “á”"
            (calendar-latitude 57.708870)
            (calendar-longitude 11.97456)
            (calendar-location-name "Göteborg")))
-
-(use-package swiper
-  :after evil
-  :bind ((:map evil-motion-state-map
-               (", /" . swiper))))
-
-(use-package tar-mode
-  :after evil
-  :evil-bind ((:map motion tar-mode-map
-                    ("<RET>" . tar-extract)
-                    ("j" . tar-next-line)
-                    ("k" . tar-previous-line)
-                    ("h" . evil-backward-char)))
-  :config (progn
-            (evil-make-overriding-map tar-mode-map 'normal)))
 
 (use-package term/xterm
   :defer t
@@ -1596,13 +1297,6 @@ For example, “&a'” → “á”"
            (undo-tree-visualizer-timestamps t))
   :config (global-undo-tree-mode))
 
-(use-package undo-tree
-  :disabled
-  :after evil
-  :bind (:map evil-motion-state-map
-              (", u" . undo-tree-visualize)
-              ("U" . undo-tree-redo)))
-
 (use-package vc-git
   :defer t
   :config (progn
@@ -1611,10 +1305,6 @@ For example, “&a'” → “á”"
 (use-package vc-hooks
   :defer t
   :custom ((vc-handled-backends '(Git))))
-
-(use-package view
-  :evil-bind ((:map normal view-mode-map
-                    ("q" . quit-window))))
 
 (use-package visual-fill-column
   :ensure t
@@ -1642,18 +1332,6 @@ For example, “&a'” → “á”"
 	    (require 'xref)
             (add-to-list 'xref-backend-functions 'gxref-xref-backend)))
 
-(use-package xref
-  :functions (evil-put-command-property)
-  :no-require t
-  :after evil
-  :bind ((:map evil-motion-state-map
-               ("C-]" . xref-find-definitions)
-               ("g C-]" . xref-find-references))
-         (:map evil-normal-state-map
-               ("C-t" . xref-pop-marker-stack)))
-  :config (progn
-            (evil-put-command-property 'xref-find-definitions :jump t)))
-
 (defun light-or-dark-mode ()
   (interactive)
   (customize-set-variable
@@ -1671,8 +1349,6 @@ For example, “&a'” → “á”"
   (customize-set-variable 'custom-enabled-themes custom-enabled-themes))
 
 ;; TODO Move these to the relevant use-package
-(declare-function evil-mode "evil-core")
-(evil-mode)
 (load-theme 'now t)
 
 (defun desktop-value-to-string (value)
