@@ -1,7 +1,0 @@
-bind -v
-
-bind \\t rl_complete
-bind ^D vi-command-mode
-bind -a l vi-substitute-char
-bind -a L vi-substitute-line
-bind -a s vi-next-char
