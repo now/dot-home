@@ -1,9 +1,0 @@
-emulate -L zsh
-
-if (( $#BUFFER > 0 )); then
-  zle list-choices
-elif (( $#jobdirs > 0 )); then
-  fg
-else
-  exit
-fi

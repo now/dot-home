@@ -7,7 +7,7 @@ REPORTTIME=300
 setopt completeinword nolistambiguous nolisttypes \
        extendedhistory histignorespace histnostore \
        rcexpandparam \
-       combiningchars ignoreeof \
+       combiningchars \
        nonotify \
        promptsubst \
        nobeep
@@ -18,11 +18,6 @@ PS3='Your selection: '
 PS4='+%N:%i: '
 
 TIMEFMT=%J$'\n''real: %*E, user: %*U, system: %*S (%P)'
-
-autoload -U add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
-add-zsh-hook zsh_directory_name zsh_directory_name_cdr
-add-zsh-hook zsh_directory_name dynamic-directory-names
 
 zmodload -i zsh/complist
 
@@ -42,53 +37,15 @@ zstyle ':completion:*:processes' command 'ps -U $EUID 2>/dev/null'
 zstyle ':completion:*:manuals' separate-sections true
 zstyle ':completion:*:*:kill:*:*' menu selection
 
-autoload -U forward-word-match backward-word-match backward-kill-word-match
-
 function auto-zle () { autoload -U $1; zle -N $1; }
-auto-zle cd-to-alternate-directory
-auto-zle foreground-or-list-choices
 auto-zle history-beginning-search-menu
-auto-zle insert-composed-char
-auto-zle up-directory
-auto-zle vi-cmd-mode-silently
 unfunction auto-zle
 
-zle -N backward-kill-to-space-or-/ backward-kill-word-match
-zstyle ':zle:backward-kill-to-space-or-/' word-chars '*?_-.[]~=&;!#$%^(){}<>:@,\\'
-
-zle -N forward-parameter forward-word-match
-zle -N backward-parameter backward-word-match
-zstyle ':zle:(forward|backward)-parameter' word-style shell
-
-bindkey -arp '^['
-bindkey -a \
-  '(' backward-parameter \
-  ')' forward-parameter \
-  '/' history-incremental-search-backward \
-  '?' history-incremental-search-forward \
-  '^D' foreground-or-list-choices \
-  '^O' accept-line-and-down-history \
-  '^U' up-directory \
-  '^^' cd-to-alternate-directory \
-  'L' vi-change-whole-line \
-  'U' redo \
-  'l' vi-substitute \
-  's' vi-forward-char \
-  'u' undo
-
-bindkey -rp '^['
-bindkey -r '^['
 bindkey \
   '^?' backward-delete-char \
-  '^D' vi-cmd-mode-silently \
   '^H' backward-delete-char \
-  '^K' insert-composed-char \
   '^O' accept-line-and-down-history \
-  '^P' push-line-or-edit \
-  '^U' up-directory \
-  '^W' backward-kill-to-space-or-/ \
   '^X^L' history-beginning-search-menu \
-  '^^' cd-to-alternate-directory \
   ' ' magic-space
 
 autoload -U zargs hc up

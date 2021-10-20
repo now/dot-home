@@ -420,12 +420,7 @@ xdgconfighomezshfunctions_DATA = \
 	zsh/functions/_unpack \
 	zsh/functions/_up \
 	zsh/functions/hc \
-	zsh/functions/up \
-	zsh/functions/dynamic-directory-names \
-	zsh/functions/zle/cd-to-alternate-directory \
-	zsh/functions/zle/foreground-or-list-choices \
-	zsh/functions/zle/up-directory \
-	zsh/functions/zle/vi-cmd-mode-silently
+	zsh/functions/up
 
 bin_SCRIPTS = \
 	bin/a \

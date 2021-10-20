@@ -1,3 +1,0 @@
-emulate -L zsh
-
-cd - && zle reset-prompt
