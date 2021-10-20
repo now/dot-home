@@ -1,9 +1,1 @@
 set bell-style none
-set editing-mode vi
-
-set keymap vi
-  "L": vi-subst
-  "l": vi-subst
-  "^D": vi-movement-mode
-set keymap vi-move
-  "s": forward-char
