@@ -706,10 +706,6 @@
   :bind ((:map ctl-x-map
                ("G" . magit-file-dispatch))))
 
-(use-package magit-popup
-  :no-require t
-  :custom ((magit-popup-show-common-commands nil)))
-
 (use-package make-mode
   :no-require t
   :custom ((makefile-backslash-align nil)))
