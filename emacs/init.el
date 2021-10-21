@@ -1019,6 +1019,9 @@ For example, “&a'” → “á”"
   :hook (((prog-mode text-mode) . auto-fill-mode)
          (nxml-mode . turn-off-auto-fill))
   :defer nil
+  :bind (:map global-map
+	      ("s-z" . 'undo-only)
+	      ("s-Z" . 'undo-redo))
   :config (progn
             (column-number-mode)
             (indent-tabs-mode -1)))
