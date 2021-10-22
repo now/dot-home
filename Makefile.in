@@ -294,7 +294,6 @@ userconf_DATA = \
 	indent.pro \
 	inputrc \
 	mailcap \
-	mbsyncrc \
 	zshenv
 
 userconfaudacity_DATA = \
