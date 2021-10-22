@@ -293,7 +293,6 @@ userconf_DATA = \
 	hunspell_sv \
 	indent.pro \
 	inputrc \
-	mailcap \
 	zshenv
 
 userconfaudacity_DATA = \
