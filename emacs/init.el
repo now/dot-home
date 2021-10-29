@@ -31,12 +31,10 @@
 (define-key ctl-x-map "\C-b" 'buffer-menu)
 
 (defun now-set-split-width-threshold-based-on-aspect-ratio (_)
-  (pcase (cdr (assoc 'geometry
-                     (car (display-monitor-attributes-list))))
-    ((and `(,_ ,_ ,width ,height) (guard (< width height)))
-     (setq split-width-threshold nil))
-    (_
-     (setq split-width-threshold 160))))
+  (setq split-width-threshold
+        (pcase (cdr (assoc 'geometry (car (display-monitor-attributes-list))))
+          ((and `(,_ ,_ ,width ,height) (guard (< width height))) nil)
+          (_ 160))))
 
 (add-to-list 'window-size-change-functions 'now-set-split-width-threshold-based-on-aspect-ratio)
 
