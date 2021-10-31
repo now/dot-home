@@ -1162,23 +1162,6 @@ For example, “&a'” → “á”"
 ;; TODO Move these to the relevant use-package
 (load-theme 'now t)
 
-(defun desktop-value-to-string (value)
-  "Convert VALUE to a string that when read evaluates to the same value.
-Not all types of values are supported."
-  (declare-function desktop--v2s "desktop")
-  (let* ((print-escape-newlines t)
-	 (print-length nil)
-	 (print-level nil)
-         (print-circle t)
-	 (float-output-format nil)
-	 (quote.sexp (desktop--v2s value))
-	 (quote (car quote.sexp))
-	 (print-quoted t)
-	 (txt (prin1-to-string (cdr quote.sexp))))
-    (if (eq quote 'must)
-	(concat "'" txt)
-      txt)))
-
 (defun now-bug-reference-fontify-around (next &rest args)
   (let ((case-fold-search nil))
     (apply next args)))
