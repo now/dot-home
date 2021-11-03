@@ -6,6 +6,7 @@
 ;; Keywords: languages
 
 ;;; Code
+(require 'typescript-mode)
 
 ;;;###autoload
 (define-derived-mode typescriptreact-mode typescript-mode "typescriptreact"
@@ -15,4 +16,4 @@
 (add-to-list 'auto-mode-alist
              (cons (purecopy "\\.tsx\\'") 'typescriptreact-mode))
 
-(provide typescriptreact-mode)
+(provide 'typescriptreact-mode)
