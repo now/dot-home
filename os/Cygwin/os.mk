@@ -94,7 +94,8 @@ appdataghislerpluginswlximagineplugin_SCRIPTS = \
 
 ifeq ($(enable_fonts), yes)
 fonts_DATA = \
-	$(fontsdejavu_DATA)
+	$(fontsdejavu_DATA) \
+	$(fontsfiracode_DATA)
 
 $(addprefix $(fontsdir)/,$(notdir $(fonts_DATA))): \
 	INSTALL_DATA = $(srcdir)/build/Cygwin/install-font "$(abs_builddir)"

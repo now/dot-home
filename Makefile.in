@@ -249,6 +249,25 @@ fonts/$(dejavu_fonts_ttf_version_zip): fonts/.dirstamp
 $(fontsdejavu_DATA): fonts/$(dejavu_fonts_ttf_version_zip) fonts/dejavu/.dirstamp
 	$(V_UNZIP)$(UNZIP) -qop $< $(dejavu_fonts_ttf_version)/ttf/$(@F) > $@
 
+FIRACODE_FONTS_VERSION = 5.2
+firacode_fonts_zip = Fira_Code_v$(FIRACODE_FONTS_VERSION).zip
+
+fontsfiracode_DATA = \
+	fonts/firacode/FiraCode-Bold.ttf \
+	fonts/firacode/FiraCode-Light.ttf \
+	fonts/firacode/FiraCode-Medium.ttf \
+	fonts/firacode/FiraCode-Regular.ttf \
+	fonts/firacode/FiraCode-Retina.ttf \
+	fonts/firacode/FiraCode-SemiBold.ttf
+
+fonts/$(firacode_fonts_zip): fonts/.dirstamp
+	$(V_CURL)$(CURL) -Ls \
+	  https://github.com/tonsky/FiraCode/releases/download/$(FIRACODE_FONTS_VERSION)/$(firacode_fonts_zip) > $@.tmp
+	$(V_at)mv $@.tmp $@
+
+$(fontsfiracode_DATA): fonts/$(firacode_fonts_zip) fonts/firacode/.dirstamp
+	$(V_UNZIP)$(UNZIP) -qop $< ttf/$(@F) > $@
+
 HUNSPELL_DICT_VERSION = 2014.08.11
 HUNSPELL_EN_GB_DICT_ZIP = hunspell/hunspell-en_GB-ise-$(HUNSPELL_DICT_VERSION).zip
 HUNSPELL_EN_US_DICT_ZIP = hunspell/hunspell-en_US-$(HUNSPELL_DICT_VERSION).zip

@@ -10,7 +10,8 @@ xdgconfighomevlcdir = $(prefix)/Library/Preferences/org.videolan.vlc
 ELC_LOADPATH = -L emacs/site-lisp
 
 fonts_DATA = \
-	$(fontsdejavu_DATA)
+	$(fontsdejavu_DATA) \
+	$(fontsfiracode_DATA)
 
 librarylaunchagents_DATA = \
 	os/Darwin/Library/LaunchAgents/se.disu.environment.editor.plist \
