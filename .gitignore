@@ -38,6 +38,7 @@
 /config.log
 /config.status
 /configure
+/configure~
 /emacs/site-lisp/userloaddefs.el
 /emacs/site-lisp/userloaddefs.el~
 /host/host.mk
