@@ -22,7 +22,9 @@ KEYCHAIN = @KEYCHAIN@
 LAUNCHCTL = @LAUNCHCTL@
 MKDIR_P = @MKDIR_P@
 PATCH = @PATCH@
+PORT = @PORT@
 SOCAT = @SOCAT@
+SUDO = @SUDO@
 UNZIP = @UNZIP@
 XCLIP = @XCLIP@
 XSLTPROC = @XSLTPROC@
@@ -95,6 +97,11 @@ V_ELC = $(_v_ELC_$(V))
 _v_ELC_ = $(_v_ELC_$(DEFAULT_VERBOSITY))
 _v_ELC_0 = @echo "  ELC       " $@;
 _v_ELC_1 =
+
+V_PORT = $(_v_PORT_$(V))
+_v_PORT_ = $(_v_PORT_$(DEFAULT_VERBOSITY))
+_v_PORT_0 = @echo "  PORT      " $@;
+_v_PORT_1 =
 
 V_UNZIP = $(_v_UNZIP_$(V))
 _v_UNZIP_ = $(_v_UNZIP_$(DEFAULT_VERBOSITY))

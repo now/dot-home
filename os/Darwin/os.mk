@@ -66,6 +66,51 @@ $(call DIR,fonts)
 $(call DIR,librarylaunchagents,,\
 	$$(V_LAUNCHCTL)$$(LAUNCHCTL) unload $$@; $$(LAUNCHCTL) load $$@)
 
+macports_PACKAGES = \
+	autoconf \
+	automake \
+	bison \
+	borgbackup \
+	clojure \
+	coreutils \
+	curl \
+	diffutils \
+	emacs-app-devel \
+	exif \
+	findutils \
+	flac \
+	gawk \
+	git \
+	gmake \
+	gnupg2 \
+	go \
+	gopls \
+	grep \
+	gsed \
+	hunspell \
+	iperf3 \
+	jq \
+	libxml2 \
+	libxslt \
+	miller \
+	parallel \
+	py39-awscli \
+	rsync \
+	socat \
+	sqlite3 \
+	vorbis-tools \
+	wget \
+	yarn \
+	zsh
+
+macports/$(macports_PACKAGES): macports/.dirstamp
+	$(V_PORT)$(PORT) -q installed $(@F) | fgrep '  $(@F)' > /dev/null || \
+	  $(SUDO) $(PORT) -N $(if $(V_PORT),-q) install $(@F)
+	$(V_at): > $@.tmp
+	$(V_at)mv $@.tmp $@
+
+install: macports/$(macports_PACKAGES)
+
 # sudo launchctl config user path '~/opt/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/local/bin:/opt/local/sbin:/Library/Apple/usr/bin'
 
 fix-keybindings:
