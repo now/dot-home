@@ -39,6 +39,8 @@ if you want to do the same for files renamed in WDired mode."
 		 (character :tag "Mark" :value ?R))
   :group 'dired-mark)
 
+(defvar dired-one-file)
+
 ;;;###autoload
 (defun now-dired-do-rename-shows (&optional arg table)
   (interactive "P\nsTable: ")
