@@ -240,7 +240,6 @@
 
 (use-package compile
   :custom ((compilation-context-lines 0)
-           ;;(compilation-disable-input t)
            (compilation-error-regexp-alist '(sbt
                                              maven
                                              clang-include
