@@ -119,7 +119,7 @@ libexecdir = $(prefix)/opt/libexec
 projectsdir = @projectsdir@
 sharedir = $(prefix)/opt/share
 userconfdir = $(prefix)
-XDG_CONFIG_CACHE = @XDG_CONFIG_CACHE@
+XDG_CACHE_HOME = @XDG_CACHE_HOME@
 XDG_CONFIG_HOME = @XDG_CONFIG_HOME@
 userconfaudacitydir = $(userconfdir)/.audacity
 userconfmixxxdir = $(userconfdir)/.mixxx
@@ -554,7 +554,7 @@ $(emptydirs):
 	    -e 's|@SHELL[@]|$(SHELL)|g' \
 	    -e 's|@SOCAT[@]|$(SOCAT)|g' \
 	    -e 's|@XCLIP[@]|$(XCLIP)|g' \
-	    -e 's|@XDG_CONFIG_CACHE[@]|$(XDG_CONFIG_CACHE)|g' \
+	    -e 's|@XDG_CACHE_HOME[@]|$(XDG_CACHE_HOME)|g' \
 	    -e 's|@ZSHELL[@]|$(ZSHELL)|g' \
 	    -e 's|@bindir[@]|$(bindir)|g' \
 	    -e 's|@abs_builddir[@]|$(abs_builddir)|g' \

@@ -36,7 +36,7 @@ AC_ARG_WITH([dtachsession],
      [override default dtach cache session file])],
   [dtachsession=$withval
    dtachsessiondir=`AS_DIRNAME(["$dtachsession"])`],
-  [dtachsessiondir='${XDG_CONFIG_CACHE}/dtach'
+  [dtachsessiondir='${XDG_CACHE_HOME}/dtach'
    dtachsession='${dtachsessiondir}/session'])
 AC_SUBST([dtachsessiondir])
 AC_SUBST([dtachsession])
@@ -54,7 +54,7 @@ AC_ARG_WITH([zshistory],
   [AS_HELP_STRING([--with-zshistory], [override default Zsh history file])],
   [zshistory=$withval
    zshistorydir=`AS_DIRNAME(["$zshistory"])`],
-  [zshistorydir='${XDG_CONFIG_CACHE}/zsh'
+  [zshistorydir='${XDG_CACHE_HOME}/zsh'
    zshistory='${zshistorydir}/history'])
 AC_SUBST([zshistorydir])
 AC_SUBST([zshistory])
@@ -101,8 +101,8 @@ AC_ARG_VAR([XSLTPROC], [the xsltproc command])
 AC_PATH_PROGS([ZSHELL], [zsh])
 AC_ARG_VAR([ZSHELL], [the zsh command])
 prefix=${HOME}
-AC_ARG_VAR([XDG_CONFIG_CACHE], [the user’s cache directory])
-: ${XDG_CONFIG_CACHE='${prefix}/.cache'}
+AC_ARG_VAR([XDG_CACHE_HOME], [the user’s cache directory])
+: ${XDG_CACHE_HOME='${prefix}/.cache'}
 AC_ARG_VAR([XDG_CONFIG_HOME], [the user’s configuration directory])
 : ${XDG_CONFIG_HOME='${prefix}/.config'}
 AC_CONFIG_LINKS(

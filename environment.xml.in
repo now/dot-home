@@ -23,7 +23,7 @@
   </variable>
   <variable>
     <name>GOMODCACHE</name>
-    <value>@XDG_CONFIG_CACHE@/go</value>
+    <value>@XDG_CACHE_HOME@/go</value>
   </variable>
   <variable>
     <name>PAGER</name>
