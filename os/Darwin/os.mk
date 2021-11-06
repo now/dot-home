@@ -103,13 +103,13 @@ macports_PACKAGES = \
 	yarn \
 	zsh
 
-macports/$(macports_PACKAGES): macports/.dirstamp
+$(addprefix macports/,$(macports_PACKAGES)): macports/.dirstamp
 	$(V_PORT)$(PORT) -q installed $(@F) | fgrep '  $(@F)' > /dev/null || \
 	  $(SUDO) $(PORT) -N $(if $(V_PORT),-q) install $(@F)
 	$(V_at): > $@.tmp
 	$(V_at)mv $@.tmp $@
 
-install: macports/$(macports_PACKAGES)
+install: $(addprefix macports/,$(macports_PACKAGES))
 
 # sudo launchctl config user path '~/opt/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/local/bin:/opt/local/sbin:/Library/Apple/usr/bin'
 

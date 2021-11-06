@@ -100,7 +100,7 @@ _v_ELC_1 =
 
 V_PORT = $(_v_PORT_$(V))
 _v_PORT_ = $(_v_PORT_$(DEFAULT_VERBOSITY))
-_v_PORT_0 = @echo "  PORT      " $@;
+_v_PORT_0 = @echo "  PORT      " $(@F);
 _v_PORT_1 =
 
 V_UNZIP = $(_v_UNZIP_$(V))
