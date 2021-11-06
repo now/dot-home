@@ -1,0 +1,6 @@
+cacheFolder: @XDG_CACHE_HOME@/yarn
+enableColors: false
+enableHyperlinks: false
+enableProgressBars: false
+enableTelemetry: false
+enableTimers: false

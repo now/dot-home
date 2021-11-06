@@ -319,6 +319,7 @@ userconf_DATA = \
 	hunspell_sv \
 	indent.pro \
 	inputrc \
+	yarnrnc.yml \
 	zshenv
 
 userconfaudacity_DATA = \
