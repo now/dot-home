@@ -146,7 +146,7 @@ sysconfdir = /etc
 
 dtachsessiondir = @dtachsessiondir@
 dtachsession = @dtachsession@
-
+yarncachedir = @yarncachedir@
 zshcachedir = @zshcachedir@
 zshcompletioncachedir = @zshcompletioncachedir@
 zshcompletiondumpdir = @zshcompletiondumpdir@
@@ -571,6 +571,7 @@ $(sort $(emptydirs)):
 	    -e 's|@dtachsession[@]|$(dtachsession)|g' \
 	    -e 's|@libexecdir[@]|$(libexecdir)|g' \
 	    -e 's|@projectsdir[@]|$(projectsdir)|g' \
+	    -e 's|@yarncachedir[@]|$(yarncachedir)|g' \
 	    -e 's|@zshcompletioncachedir[@]|$(zshcompletioncachedir)|g' \
 	    -e 's|@zshcompletiondump[@]|$(zshcompletiondump)|g' \
 	    -e 's|@zshistory[@]|$(zshistory)|g' \

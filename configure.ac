@@ -50,6 +50,12 @@ AC_ARG_WITH([projectsdir],
   [projectsdir=$withval],
   [projectsdir='${prefix}/Projects'])
 AC_SUBST([projectsdir])
+AC_ARG_WITH([yarncachedir],
+  [AS_HELP_STRING(
+     [--with-yarncachedir], [override default yarn cache directory])],
+   [yarncachedir=$withval],
+   [yarncachedir='${XDG_CACHE_HOME}/yarn'])
+AC_SUBST([yarncachedir])
 AC_ARG_WITH([zshcachedir],
   [AS_HELP_STRING(
      [--with-zshcachedir], [override default Zsh cache directory])],

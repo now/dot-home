@@ -1,4 +1,4 @@
-cacheFolder: @XDG_CACHE_HOME@/yarn
+cacheFolder: @yarncachedir@
 enableColors: false
 enableHyperlinks: false
 enableProgressBars: false
