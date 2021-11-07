@@ -21,7 +21,7 @@ TIMEFMT=%J$'\n''real: %*E, user: %*U, system: %*S (%P)'
 
 zmodload -i zsh/complist
 
-autoload -U compinit; compinit -d ${XDG_CACHE_HOME:-~/.cache}/zsh/completion-dump
+autoload -U compinit; compinit -d '@zshcompletiondump@'
 
 zstyle ':completion:*' ignore-parents parent pwd
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'r:|[:.,_-]=** r:|=**'
@@ -31,7 +31,7 @@ zstyle ':completion:*:descriptions' format '%K{white}%d%k'
 zstyle ':completion:*:messages' format '%F{green}%d%f'
 zstyle ':completion:*:warnings' format '%F{red}no matches for %d%f'
 zstyle ':completion:*:options' auto-description 'specify %d'
-zstyle ':completion::complete:*' cache-path @zshcompletioncachedir@
+zstyle ':completion::complete:*' cache-path '@zshcompletioncachedir@'
 zstyle ':completion::complete:*' use-cache yes
 
 zstyle ':completion:*:processes' command 'ps -U $EUID 2>/dev/null'

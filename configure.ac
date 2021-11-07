@@ -63,6 +63,15 @@ AC_ARG_WITH([zshcompletioncachedir],
   [zshcompletioncachedir=$withval],
   [zshcompletioncachedir='${zshcachedir}/completion'])
 AC_SUBST([zshcompletioncachedir])
+AC_ARG_WITH([zshcompletiondump],
+  [AS_HELP_STRING(
+    [--with-zshcompletiondump], [override default Zsh completion dump file])],
+  [zshcompletiondump=$withval
+   zshcompletiondumpdir=`AS_DIRNAME(["$zshcompletiondump])`],
+  [zshcompletiondumpdir='${zshcachedir}'
+   zshcompletiondump='${zshcompletiondumpdir}/completion-dump'])
+AC_SUBST([zshcompletiondumpdir])
+AC_SUBST([zshcompletiondump])
 AC_ARG_WITH([zshistory],
   [AS_HELP_STRING([--with-zshistory], [override default Zsh history file])],
   [zshistory=$withval

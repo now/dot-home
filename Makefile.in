@@ -148,6 +148,8 @@ dtachsession = @dtachsession@
 
 zshcachedir = @zshcachedir@
 zshcompletioncachedir = @zshcompletioncachedir@
+zshcompletiondumpdir = @zshcompletiondumpdir@
+zshcompletiondump = @zshcompletiondump@
 zshistorydir = @zshistorydir@
 zshistory = @zshistory@
 
@@ -538,11 +540,12 @@ $(call DIR,xdgconfighomezshfunctions)
 emptydirs = \
 	$(dtachsessiondir) \
 	$(zshcompletioncachedir) \
+	$(zshcompletiondumpdir) \
 	$(zshistorydir)
 
 install: | $(emptydirs)
 
-$(emptydirs):
+$(sort $(emptydirs)):
 	$(V_MKDIR_P)$(INSTALL) -d -m 0700 $@
 
 %: %.in Makefile
@@ -566,6 +569,7 @@ $(emptydirs):
 	    -e 's|@libexecdir[@]|$(libexecdir)|g' \
 	    -e 's|@projectsdir[@]|$(projectsdir)|g' \
 	    -e 's|@zshcompletioncachedir[@]|$(zshcompletioncachedir)|g' \
+	    -e 's|@zshcompletiondump[@]|$(zshcompletiondump)|g' \
 	    -e 's|@zshistory[@]|$(zshistory)|g' \
 	    -e 's|@xdgconfighomezshdir[@]|$(xdgconfighomezshdir)|g' \
 	    -e 's|@xdgconfighomezshfunctionsdir[@]|$(xdgconfighomezshfunctionsdir)|g' \
