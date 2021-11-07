@@ -21,6 +21,7 @@ INSTALL = @INSTALL@
 KEYCHAIN = @KEYCHAIN@
 LAUNCHCTL = @LAUNCHCTL@
 MKDIR_P = @MKDIR_P@
+MKTEMP = @MKTEMP@
 PATCH = @PATCH@
 PORT = @PORT@
 SOCAT = @SOCAT@
@@ -494,7 +495,8 @@ endif
 $(bin_SCRIPTS): bin/.dirstamp
 $(sitelisp_elcs): emacs/site-lisp/.dirstamp
 $(xdgconfighomeemacs_DATA): emacs/.dirstamp
-$(xdgconfighomezsh_DATA): zsh/.dirstamp
+zsh/zshrc: zsh/.dirstamp
+zsh/functions/hc: zsh/functions/.dirstamp
 git/config: git/.dirstamp
 
 $(sitelisp_elcs): ELC_INCLUDES =
@@ -558,6 +560,7 @@ $(sort $(emptydirs)):
 	    -e 's|@EXIFTOOL[@]|$(EXIFTOOL)|g' \
 	    -e 's|@GREP[@]|$(GREP)|g' \
 	    -e 's|@KEYCHAIN[@]|$(KEYCHAIN)|g' \
+	    -e 's|@MKTEMP[@]|$(MKTEMP)|g' \
 	    -e 's|@SHELL[@]|$(SHELL)|g' \
 	    -e 's|@SOCAT[@]|$(SOCAT)|g' \
 	    -e 's|@XCLIP[@]|$(XCLIP)|g' \

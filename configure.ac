@@ -106,6 +106,8 @@ AC_ARG_VAR([KEYCHAIN], [the keychain command])
 AC_CHECK_PROGS([LAUNCHCTL], [launchctl], [:])
 AC_ARG_VAR([LAUNCHCTL], [the launchctl command])
 AC_PROG_MKDIR_P
+AC_CHECK_PROGS([MKTEMP], [gmktemp mktemp])
+AC_ARG_VAR([MKTEMP], [the mktemp command])
 AC_CHECK_PROGS([PATCH], [patch])
 AC_ARG_VAR([PATCH], [the patch command])
 AC_CHECK_PROGS([PORT], [port])
