@@ -10,7 +10,7 @@
   </variable>
   <variable>
     <name>GOMODCACHE</name>
-    <value>@XDG_CACHE_HOME@/go</value>
+    <value>@gomodcachedir@</value>
   </variable>
   <variable>
     <name>LANG</name>

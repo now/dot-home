@@ -146,6 +146,7 @@ sysconfdir = /etc
 
 dtachsessiondir = @dtachsessiondir@
 dtachsession = @dtachsession@
+gomodcachedir = @gomodcachedir@
 yarncachedir = @yarncachedir@
 zshcachedir = @zshcachedir@
 zshcompletioncachedir = @zshcompletioncachedir@
@@ -569,6 +570,7 @@ $(sort $(emptydirs)):
 	    -e 's|@bindir[@]|$(bindir)|g' \
 	    -e 's|@abs_builddir[@]|$(abs_builddir)|g' \
 	    -e 's|@dtachsession[@]|$(dtachsession)|g' \
+	    -e 's|@gomodcachedir[@]|$(gomodcachedir)|g' \
 	    -e 's|@libexecdir[@]|$(libexecdir)|g' \
 	    -e 's|@projectsdir[@]|$(projectsdir)|g' \
 	    -e 's|@yarncachedir[@]|$(yarncachedir)|g' \

@@ -45,6 +45,12 @@ AC_ARG_WITH([e-mail-address],
   [emailaddress=$withval],
   [emailaddress=now@disu.se])
 AC_SUBST([emailaddress])
+AC_ARG_WITH([gomodcachedir],
+  [AS_HELP_STRING(
+     [--with-gomodcachedir], [override default Go module cache directory])],
+  [gomodcachedir=$withval],
+  [gomodcachedir='${XDG_CACHE_HOME}/go/pkg/mod'])
+AC_SUBST([gomodcachedir])
 AC_ARG_WITH([projectsdir],
   [AS_HELP_STRING([--with-projectsdir], [override default projects directory])],
   [projectsdir=$withval],
