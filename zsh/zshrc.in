@@ -31,7 +31,7 @@ zstyle ':completion:*:descriptions' format '%K{white}%d%k'
 zstyle ':completion:*:messages' format '%F{green}%d%f'
 zstyle ':completion:*:warnings' format '%F{red}no matches for %d%f'
 zstyle ':completion:*:options' auto-description 'specify %d'
-zstyle ':completion::complete:*' cache-path ${XDG_CACHE_HOME:-~/.cache}/zsh/completion
+zstyle ':completion::complete:*' cache-path @zshcompletioncachedir@
 zstyle ':completion::complete:*' use-cache yes
 
 zstyle ':completion:*:processes' command 'ps -U $EUID 2>/dev/null'

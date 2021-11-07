@@ -146,6 +146,7 @@ sysconfdir = /etc
 dtachsessiondir = @dtachsessiondir@
 dtachsession = @dtachsession@
 
+zshcompletioncachedir = @zshcompletioncachedir@
 zshistorydir = @zshistorydir@
 zshistory = @zshistory@
 
@@ -535,6 +536,7 @@ $(call DIR,xdgconfighomezshfunctions)
 
 emptydirs = \
 	$(dtachsessiondir) \
+	$(zshcompletioncachedir) \
 	$(zshistorydir)
 
 install: | $(emptydirs)
@@ -562,6 +564,7 @@ $(emptydirs):
 	    -e 's|@dtachsession[@]|$(dtachsession)|g' \
 	    -e 's|@libexecdir[@]|$(libexecdir)|g' \
 	    -e 's|@projectsdir[@]|$(projectsdir)|g' \
+	    -e 's|@zshcompletioncachedir[@]|$(zshcompletioncachedir)|g' \
 	    -e 's|@zshistory[@]|$(zshistory)|g' \
 	    -e 's|@xdgconfighomezshdir[@]|$(xdgconfighomezshdir)|g' \
 	    -e 's|@xdgconfighomezshfunctionsdir[@]|$(xdgconfighomezshfunctionsdir)|g' \
