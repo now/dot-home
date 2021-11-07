@@ -50,18 +50,24 @@ AC_ARG_WITH([projectsdir],
   [projectsdir=$withval],
   [projectsdir='${prefix}/Projects'])
 AC_SUBST([projectsdir])
+AC_ARG_WITH([zshcachedir],
+  [AS_HELP_STRING(
+     [--with-zshcachedir], [override default Zsh cache directory])],
+  [zshcachedir=$withval],
+  [zshcachedir='${XDG_CACHE_HOME}/zsh'])
+AC_SUBST([zshcachedir])
 AC_ARG_WITH([zshcompletioncachedir],
   [AS_HELP_STRING(
     [--with-zshcompletioncachedir],
     [override default Zsh completion cache directory])],
   [zshcompletioncachedir=$withval],
-  [zshcompletioncachedir='${XDG_CACHE_HOME}/zsh/completion'])
+  [zshcompletioncachedir='${zshcachedir}/completion'])
 AC_SUBST([zshcompletioncachedir])
 AC_ARG_WITH([zshistory],
   [AS_HELP_STRING([--with-zshistory], [override default Zsh history file])],
   [zshistory=$withval
    zshistorydir=`AS_DIRNAME(["$zshistory"])`],
-  [zshistorydir='${XDG_CACHE_HOME}/zsh'
+  [zshistorydir='${zshcachedir}'
    zshistory='${zshistorydir}/history'])
 AC_SUBST([zshistorydir])
 AC_SUBST([zshistory])

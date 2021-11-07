@@ -146,6 +146,7 @@ sysconfdir = /etc
 dtachsessiondir = @dtachsessiondir@
 dtachsession = @dtachsession@
 
+zshcachedir = @zshcachedir@
 zshcompletioncachedir = @zshcompletioncachedir@
 zshistorydir = @zshistorydir@
 zshistory = @zshistory@
