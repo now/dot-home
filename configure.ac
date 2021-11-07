@@ -51,6 +51,13 @@ AC_ARG_WITH([gomodcachedir],
   [gomodcachedir=$withval],
   [gomodcachedir='${XDG_CACHE_HOME}/go/pkg/mod'])
 AC_SUBST([gomodcachedir])
+AC_ARG_WITH([m2localrepositorydir],
+  [AS_HELP_STRING(
+     [--with-m2localrepositorydir],
+     [override default m2 local repository directory])],
+  [m2localrepositorydir=$withval],
+  [m2localrepositorydir='${XDG_CACHE_HOME}/maven'])
+AC_SUBST([m2localrepositorydir])
 AC_ARG_WITH([projectsdir],
   [AS_HELP_STRING([--with-projectsdir], [override default projects directory])],
   [projectsdir=$withval],

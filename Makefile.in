@@ -123,6 +123,7 @@ userconfdir = $(prefix)
 XDG_CACHE_HOME = @XDG_CACHE_HOME@
 XDG_CONFIG_HOME = @XDG_CONFIG_HOME@
 userconfaudacitydir = $(userconfdir)/.audacity
+userconfm2dir = $(userconfdir)/.m2
 userconfmixxxdir = $(userconfdir)/.mixxx
 userconfmixxxcontrollersdir = $(userconfmixxxdir)/controllers
 userconfmixxxskinsdir = $(userconfmixxxdir)/skins
@@ -147,6 +148,7 @@ sysconfdir = /etc
 dtachsessiondir = @dtachsessiondir@
 dtachsession = @dtachsession@
 gomodcachedir = @gomodcachedir@
+m2localrepositorydir = @m2localrepositorydir@
 yarncachedir = @yarncachedir@
 zshcachedir = @zshcachedir@
 zshcompletioncachedir = @zshcompletioncachedir@
@@ -331,6 +333,9 @@ userconf_DATA = \
 userconfaudacity_DATA = \
 	audacity.cfg
 
+userconfm2_DATA = \
+	m2/settings.xml
+
 userconfmixxx_DATA = \
 	mixxx/mixxx.cfg
 
@@ -496,6 +501,7 @@ endif
 $(bin_SCRIPTS): bin/.dirstamp
 $(sitelisp_elcs): emacs/site-lisp/.dirstamp
 $(xdgconfighomeemacs_DATA): emacs/.dirstamp
+m2/settings.xml: m2/.dirstamp
 zsh/zshrc: zsh/.dirstamp
 zsh/functions/hc: zsh/functions/.dirstamp
 git/config: git/.dirstamp
@@ -529,6 +535,7 @@ $(call DIR,xdgconfighomeemacs)
 $(call DIR,xdgconfighomeemacsetcschema)
 $(call DIR,xdgconfighomeemacssitelisp)
 endif
+$(call DIR,userconfm2)
 $(call DIR,userconfmixxx)
 $(call DIR,userconfmixxxcontrollers)
 $(call DIR,userconfmixxxskinsroe)
@@ -572,6 +579,7 @@ $(sort $(emptydirs)):
 	    -e 's|@dtachsession[@]|$(dtachsession)|g' \
 	    -e 's|@gomodcachedir[@]|$(gomodcachedir)|g' \
 	    -e 's|@libexecdir[@]|$(libexecdir)|g' \
+	    -e 's|@m2localrepositorydir[@]|$(m2localrepositorydir)|g' \
 	    -e 's|@projectsdir[@]|$(projectsdir)|g' \
 	    -e 's|@yarncachedir[@]|$(yarncachedir)|g' \
 	    -e 's|@zshcompletioncachedir[@]|$(zshcompletioncachedir)|g' \
