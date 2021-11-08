@@ -114,6 +114,7 @@ _v_XSLTPROC_ = $(_v_XSLTPROC_$(DEFAULT_VERBOSITY))
 _v_XSLTPROC_0 = @echo "  XSLTPROC  " $@;
 _v_XSLTPROC_1 =
 
+exec_prefix = @exec_prefix@
 prefix = @prefix@
 bindir = $(prefix)/opt/bin
 libexecdir = $(prefix)/opt/libexec
@@ -122,6 +123,7 @@ sharedir = $(prefix)/opt/share
 userconfdir = $(prefix)
 XDG_CACHE_HOME = @XDG_CACHE_HOME@
 XDG_CONFIG_HOME = @XDG_CONFIG_HOME@
+XDG_STATE_HOME = @XDG_STATE_HOME@
 userconfaudacitydir = $(userconfdir)/.audacity
 userconfm2dir = $(userconfdir)/.m2
 userconfmixxxdir = $(userconfdir)/.mixxx
@@ -150,6 +152,7 @@ dtachsession = @dtachsession@
 gomodcachedir = @gomodcachedir@
 m2localrepositorydir = @m2localrepositorydir@
 yarncachedir = @yarncachedir@
+yarnstatedir = @yarnstatedir@
 zshcachedir = @zshcachedir@
 zshcompletioncachedir = @zshcompletioncachedir@
 zshcompletiondumpdir = @zshcompletiondumpdir@
@@ -327,7 +330,8 @@ userconf_DATA = \
 	hunspell_sv \
 	indent.pro \
 	inputrc \
-	yarnrnc.yml \
+	yarnrc \
+	yarnrc.yml \
 	zshenv
 
 userconfaudacity_DATA = \
@@ -577,11 +581,13 @@ $(sort $(emptydirs)):
 	    -e 's|@bindir[@]|$(bindir)|g' \
 	    -e 's|@abs_builddir[@]|$(abs_builddir)|g' \
 	    -e 's|@dtachsession[@]|$(dtachsession)|g' \
+	    -e 's|@exec_prefix[@]|$(exec_prefix)|g' \
 	    -e 's|@gomodcachedir[@]|$(gomodcachedir)|g' \
 	    -e 's|@libexecdir[@]|$(libexecdir)|g' \
 	    -e 's|@m2localrepositorydir[@]|$(m2localrepositorydir)|g' \
 	    -e 's|@projectsdir[@]|$(projectsdir)|g' \
 	    -e 's|@yarncachedir[@]|$(yarncachedir)|g' \
+	    -e 's|@yarnstatedir[@]|$(yarnstatedir)|g' \
 	    -e 's|@zshcompletioncachedir[@]|$(zshcompletioncachedir)|g' \
 	    -e 's|@zshcompletiondump[@]|$(zshcompletiondump)|g' \
 	    -e 's|@zshistory[@]|$(zshistory)|g' \

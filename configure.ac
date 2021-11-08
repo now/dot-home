@@ -69,6 +69,12 @@ AC_ARG_WITH([yarncachedir],
    [yarncachedir=$withval],
    [yarncachedir='${XDG_CACHE_HOME}/yarn'])
 AC_SUBST([yarncachedir])
+AC_ARG_WITH([yarnstatedir],
+  [AS_HELP_STRING(
+     [--with-yarnstatedir], [override default yarn state directory])],
+   [yarnstatedir=$withval],
+   [yarnstatedir='${XDG_STATE_HOME}/yarn'])
+AC_SUBST([yarnstatedir])
 AC_ARG_WITH([zshcachedir],
   [AS_HELP_STRING(
      [--with-zshcachedir], [override default Zsh cache directory])],
@@ -144,10 +150,13 @@ AC_ARG_VAR([XSLTPROC], [the xsltproc command])
 AC_PATH_PROGS([ZSHELL], [zsh])
 AC_ARG_VAR([ZSHELL], [the zsh command])
 prefix=${HOME}
+exec_prefix=${prefix}/opt
 AC_ARG_VAR([XDG_CACHE_HOME], [the user’s cache directory])
 : ${XDG_CACHE_HOME='${prefix}/.cache'}
 AC_ARG_VAR([XDG_CONFIG_HOME], [the user’s configuration directory])
 : ${XDG_CONFIG_HOME='${prefix}/.config'}
+AC_ARG_VAR([XDG_STATE_HOME], [the user’s state directory])
+: ${XDG_STATE_HOME='${prefix}/.local/state'}
 AC_CONFIG_LINKS(
   [bin/a.in:$os_bin_a_in
    bin/im.in:os/$our_host_os/bin/im.in
