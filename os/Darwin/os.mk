@@ -111,7 +111,7 @@ $(addprefix macports/,$(macports_PACKAGES)): macports/.dirstamp
 
 install: $(addprefix macports/,$(macports_PACKAGES))
 
-# sudo launchctl config user path '~/opt/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/local/bin:/opt/local/sbin:/Library/Apple/usr/bin'
+# sudo launchctl config user path '~/opt/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin'
 
 fix-keybindings:
 	map=`printf '30064771%s 30064771%s\n' 129 299 296 299 299 296 | \
