@@ -116,10 +116,10 @@ _v_XSLTPROC_1 =
 
 exec_prefix = @exec_prefix@
 prefix = @prefix@
-bindir = $(prefix)/opt/bin
-libexecdir = $(prefix)/opt/libexec
+bindir = @bindir@
+datarootdir = @datarootdir@
+libexecdir = @libexecdir@
 projectsdir = @projectsdir@
-sharedir = $(prefix)/opt/share
 userconfdir = $(prefix)
 XDG_CACHE_HOME = @XDG_CACHE_HOME@
 XDG_CONFIG_HOME = @XDG_CONFIG_HOME@

@@ -150,11 +150,14 @@ AC_ARG_VAR([XSLTPROC], [the xsltproc command])
 AC_PATH_PROGS([ZSHELL], [zsh])
 AC_ARG_VAR([ZSHELL], [the zsh command])
 prefix=${HOME}
-exec_prefix=${prefix}/opt
+exec_prefix='${prefix}/.local'
+datarootdir='${XDG_STATE_HOME}'
 AC_ARG_VAR([XDG_CACHE_HOME], [the user’s cache directory])
 : ${XDG_CACHE_HOME='${prefix}/.cache'}
 AC_ARG_VAR([XDG_CONFIG_HOME], [the user’s configuration directory])
 : ${XDG_CONFIG_HOME='${prefix}/.config'}
+AC_ARG_VAR([XDG_DATA_HOME], [the user’s data directory])
+: ${XDG_DATA_HOME='${prefix}/.local/share'}
 AC_ARG_VAR([XDG_STATE_HOME], [the user’s state directory])
 : ${XDG_STATE_HOME='${prefix}/.local/state'}
 AC_CONFIG_LINKS(

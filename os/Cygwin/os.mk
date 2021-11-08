@@ -113,7 +113,7 @@ startup_SCRIPTS = \
 # 	os/Cygwin/share/icons/text-html.ico \
 # 	os/Cygwin/share/icons/text-x-generic.ico
 
-# $(eval $(call GROUP_template,$(share_DATA),$(sharedir),,os/Cygwin/share/))
+# $(eval $(call GROUP_template,$(share_DATA),$(datarootdir),,os/Cygwin/share/))
 
 $(call DIR,appdataghisler)
 $(call DIR,appdataghislerlanguages)
