@@ -24,22 +24,39 @@ librarylaunchagents_DATA = \
 	os/Darwin/Library/LaunchAgents/se.disu.kinesis.plist \
 	os/Darwin/Library/LaunchAgents/se.disu.socat.plist
 
+paths_DATA = \
+	$(sysconfdir)/paths \
+	$(sysconfdir)/paths.d/100-rvictl
+
 sitelisp_elcs += \
 	emacs/site-lisp/now-path.elc
+
+xdgconfighomezsh_DATA += \
+	os/Darwin/zsh/zprofile
 
 emacs/init.elc: | emacs/site-lisp/now-path.el
 
 emacs/site-lisp/now-path.el: \
 	environment.xml \
+	$(paths_DATA) \
 	os/Darwin/emacs/site-lisp/now-path.el.xsl \
 	os/Darwin/emacs/site-lisp/.dirstamp
 	$(V_XSLTPROC)$(XSLTPROC) \
 	  --stringparam home "$(prefix)" \
-	  --stringparam path "$(PATH)" \
+	  --stringparam path "`cat $(paths_DATA) | tr \\\\n : | sed 's/:$$//'`" \
 	  $(srcdir)/os/Darwin/emacs/site-lisp/now-path.el.xsl \
 	  $< > $@.tmp
 	$(V_at)mv $@.tmp $@
 
+os/Darwin/zsh/zprofile: \
+	environment.xml \
+	os/Darwin/zsh/zprofile.xsl \
+	os/Darwin/zsh/.dirstamp \
+	os/Linux/zsh/zprofile.xsl
+	$(V_XSLTPROC)$(XSLTPROC) \
+	  $(srcdir)/os/Darwin/zsh/zprofile.xsl \
+	  $< > $@.tmp
+	$(V_at)mv $@.tmp $@
 
 os/Darwin/Library/LaunchAgents/se.disu.environment.editor.plist \
 os/Darwin/Library/LaunchAgents/se.disu.environment.gobin.plist \
