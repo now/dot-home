@@ -146,6 +146,7 @@ xdgconfighomezshdir = $(xdgconfighomedir)/zsh
 xdgconfighomezshfunctionsdir = $(xdgconfighomezshdir)/functions
 sysconfdir = /etc
 
+awscredentials = @awscredentials@
 dtachsessiondir = @dtachsessiondir@
 dtachsession = @dtachsession@
 gomodcachedir = @gomodcachedir@
@@ -580,6 +581,7 @@ $(sort $(emptydirs)):
 	    -e 's|@ZSHELL[@]|$(ZSHELL)|g' \
 	    -e 's|@bindir[@]|$(bindir)|g' \
 	    -e 's|@abs_builddir[@]|$(abs_builddir)|g' \
+	    -e 's|@awscredentials[@]|$(awscredentials)|g' \
 	    -e 's|@dtachsession[@]|$(dtachsession)|g' \
 	    -e 's|@exec_prefix[@]|$(exec_prefix)|g' \
 	    -e 's|@gomodcachedir[@]|$(gomodcachedir)|g' \

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <environment>
   <variable>
+    <name>AWS_SHARED_CREDENTIALS_FILE</name>
+    <value>@awscredentials@</value>
+  </variable>
+  <variable>
     <name>EDITOR</name>
     <value>e</value>
   </variable>

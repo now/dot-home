@@ -31,6 +31,12 @@ AC_ARG_ENABLE([fonts],
   [AS_HELP_STRING([--enable-fonts],
      [enable installation of fonts])])
 AC_SUBST([enable_fonts])
+AC_ARG_WITH([awscredentials],
+  [AS_HELP_STRING(
+     [--with-awscredentials], [override default aws credentials file])],
+  [awscredentials=$withval],
+  [awscredentials='${XDG_CONFIG_HOME}/aws/credentials'])
+AC_SUBST([awscredentials])
 AC_ARG_WITH([dtachsession],
   [AS_HELP_STRING([--with-dtachsession],
      [override default dtach cache session file])],

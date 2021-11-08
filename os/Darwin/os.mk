@@ -14,6 +14,7 @@ fonts_DATA = \
 	$(fontsfiracode_DATA)
 
 librarylaunchagents_DATA = \
+	os/Darwin/Library/LaunchAgents/se.disu.environment.aws_shared_credentials_file.plist \
 	os/Darwin/Library/LaunchAgents/se.disu.environment.editor.plist \
 	os/Darwin/Library/LaunchAgents/se.disu.environment.gobin.plist \
 	os/Darwin/Library/LaunchAgents/se.disu.environment.gomodcache.plist \
@@ -58,14 +59,9 @@ os/Darwin/zsh/zprofile: \
 	  $< > $@.tmp
 	$(V_at)mv $@.tmp $@
 
-os/Darwin/Library/LaunchAgents/se.disu.environment.editor.plist \
-os/Darwin/Library/LaunchAgents/se.disu.environment.gobin.plist \
-os/Darwin/Library/LaunchAgents/se.disu.environment.gomodcache.plist \
-os/Darwin/Library/LaunchAgents/se.disu.environment.lang.plist \
-os/Darwin/Library/LaunchAgents/se.disu.environment.manpager.plist \
-os/Darwin/Library/LaunchAgents/se.disu.environment.manwidth.plist \
-os/Darwin/Library/LaunchAgents/se.disu.environment.pager.plist: \
+%.plist: \
 	environment.xml \
+	Makefile \
 	os/Darwin/Library/LaunchAgents/se.disu.environment.plist.xsl \
 	os/Darwin/Library/LaunchAgents/.dirstamp
 	$(V_XSLTPROC)$(XSLTPROC) \
