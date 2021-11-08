@@ -1,6 +1,7 @@
 userconfxmonaddir = $(userconfdir)/.xmonad
 
 userconf_DATA += \
+	os/Linux/XCompose \
 	os/Linux/Xresources
 
 userconf_SCRIPTS += \
