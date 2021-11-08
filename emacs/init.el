@@ -521,6 +521,7 @@
 
 (use-package fira-code-mode
   :ensure t
+  :diminish fira-code-mode
   :custom ((fira-code-mode-disabled-ligatures '("[]" "lambda" "x")))
   :hook ((prog-mode . fira-code-mode)))
 
