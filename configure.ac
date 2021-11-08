@@ -51,6 +51,13 @@ AC_ARG_WITH([gomodcachedir],
   [gomodcachedir=$withval],
   [gomodcachedir='${XDG_CACHE_HOME}/go/pkg/mod'])
 AC_SUBST([gomodcachedir])
+AC_ARG_WITH([hunspelldir],
+  [AS_HELP_STRING([--with-hunspelldir], [override default hunspell directory])],
+  [hunspelldir=$withval],
+  [AS_CASE([$host_os],
+     [darwin*], [hunspelldir='${prefix}/Library/Spelling'],
+     [hunspelldir='${userconfdir}/.openoffice.org/3/user/wordbook'])])
+AC_SUBST([hunspelldir])
 AC_ARG_WITH([m2localrepositorydir],
   [AS_HELP_STRING(
      [--with-m2localrepositorydir],

@@ -130,7 +130,6 @@ userconfmixxxdir = $(userconfdir)/.mixxx
 userconfmixxxcontrollersdir = $(userconfmixxxdir)/controllers
 userconfmixxxskinsdir = $(userconfmixxxdir)/skins
 userconfmixxxskinsroedir = $(userconfmixxxskinsdir)/Roe
-userconfopenofficeorg3userwordbookdir = $(userconfdir)/.openoffice.org/3/user/wordbook
 userconfsbtdir = $(userconfdir)/.sbt
 userconfsbt10dir = $(userconfsbtdir)/1.0
 userconfsbt10pluginsdir = $(userconfsbt10dir)/plugins
@@ -150,6 +149,7 @@ sysconfdir = /etc
 dtachsessiondir = @dtachsessiondir@
 dtachsession = @dtachsession@
 gomodcachedir = @gomodcachedir@
+hunspelldir = @hunspelldir@
 m2localrepositorydir = @m2localrepositorydir@
 yarncachedir = @yarncachedir@
 yarnstatedir = @yarnstatedir@
@@ -364,7 +364,7 @@ userconfmixxxskinsroe_DATA = \
 	mixxx/skins/Roe/style.qss \
 	mixxx/skins/Roe/vumeter-latency.svg
 
-userconfopenofficeorg3userwordbook_DATA = \
+hunspell_DATA = \
 	hunspell/en_GB-ise.aff \
 	hunspell/en_GB-ise.dic \
 	hunspell/en_US.aff \
@@ -543,13 +543,13 @@ $(call DIR,userconfm2)
 $(call DIR,userconfmixxx)
 $(call DIR,userconfmixxxcontrollers)
 $(call DIR,userconfmixxxskinsroe)
-$(call DIR,userconfopenofficeorg3userwordbook)
 $(call DIR,xdgconfighomecmus)
 $(call DIR,xdgconfighomefontconfig)
 $(call DIR,xdgconfighomegit)
 $(call DIR,xdgconfighomevlc)
 $(call DIR,xdgconfighomezsh,.)
 $(call DIR,xdgconfighomezshfunctions)
+$(call DIR,hunspell)
 
 emptydirs = \
 	$(dtachsessiondir) \
