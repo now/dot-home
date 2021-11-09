@@ -42,7 +42,7 @@ AC_ARG_WITH([dtachsession],
      [override default dtach cache session file])],
   [dtachsession=$withval
    dtachsessiondir=`AS_DIRNAME(["$dtachsession"])`],
-  [dtachsessiondir='${XDG_CACHE_HOME}/dtach'
+  [dtachsessiondir='${XDG_STATE_HOME}/dtach'
    dtachsession='${dtachsessiondir}/session'])
 AC_SUBST([dtachsessiondir])
 AC_SUBST([dtachsession])
