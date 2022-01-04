@@ -27,5 +27,7 @@
         default = simple
 [github]
 	user = now
+[gitlab]
+	user = n0w
 [diff]
         algorithm = histogram
