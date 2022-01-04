@@ -145,6 +145,7 @@
     `(lazy-highlight ((,cui (:foreground ,black :background ,light-yellow))))
     `(link ((,cui (:foreground ,blue))))
     `(link-visited ((,cui (:foreground ,purple))))
+    `(magit-blame-heading ((,cui (:inherit magit-blame-highlight))))
     `(magit-branch ((,cui (:inherit dired-directory))))
     `(magit-diff-added ((,cui (:inherit diff-added))))
     `(magit-diff-added-highlight ((,cui (:foreground ,light-green
@@ -165,6 +166,9 @@
                                            :extend t))))
     `(magit-diffstat-added ((,cui (:inherit diff-added))))
     `(magit-diffstat-removed ((,cui (:inherit diff-removed))))
+    `(magit-filename ((,cui)))
+    `(magit-log-author ((,cui)))
+    `(magit-log-date ((,cui)))
     `(magit-log-head-label-bisect-bad ((,cui (:inherit error))))
     `(magit-log-head-label-bisect-good ((,cui (:inherit success))))
     `(magit-log-head-label-default ((,cui (:background "grey90"))))
