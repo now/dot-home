@@ -1052,6 +1052,10 @@ For example, “&a'” → “á”"
            (calendar-longitude 11.97456)
            (calendar-location-name "Göteborg")))
 
+(use-package sql-indent
+  :ensure t
+  :custom ((sqlind-basic-offset 8)))
+
 (use-package term/xterm
   :defer t
   :config (progn
