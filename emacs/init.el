@@ -772,7 +772,7 @@ For example, “&a'” → “á”"
   :config (setq truncate-string-ellipsis "…"))
 
 (use-package now-init
-  :hook ((compilation-mode . now-do-not-show-trailing-whitespace)
+  :hook (((compilation-mode help-mode) . now-do-not-show-trailing-whitespace)
          (message-mode . now-remove-continuation-fringe-indicator)
          (prog-mode . now-comment-auto-fill-only-comments)
          (tabulated-list-mode
