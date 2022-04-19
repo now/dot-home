@@ -1017,8 +1017,8 @@ For example, “&a'” → “á”"
          (nxml-mode . turn-off-auto-fill))
   :defer nil
   :bind (:map global-map
-	      ("s-z" . 'undo-only)
-	      ("s-Z" . 'undo-redo))
+              ("s-z" . 'undo-only)
+              ("s-Z" . 'undo-redo))
   :config (progn
             (line-number-mode -1)))
 
