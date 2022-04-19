@@ -468,8 +468,6 @@
 (use-package display-fill-column-indicator
   :hook ((text-mode . display-fill-column-indicator-mode)))
 
-(use-package docfold
-  :hook ((prog-mode . docfold-minor-mode)))
 
 (use-package ediff
   :no-require t
