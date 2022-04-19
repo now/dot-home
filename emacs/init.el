@@ -21,8 +21,8 @@
   "Write a ‘message’ that reports the time it took to start Emacs."
   (interactive)
   (message "Emacs ready in %.2f seconds"
-	   (float-time (time-subtract after-init-time
-				      before-init-time))))
+           (float-time (time-subtract after-init-time
+                                      before-init-time))))
 
 (add-hook 'emacs-startup-hook #'now-report-emacs-startup-time)
 
@@ -230,7 +230,7 @@
                                 company-keywords)
                                company-dabbrev)))
   :config (progn
-	    (declare-function global-company-mode "company")
+            (declare-function global-company-mode "company")
             (global-company-mode)))
 
 (use-package company-dabbrev
@@ -244,6 +244,7 @@
                                              maven
                                              clang-include
                                              gcc-include
+                                             typescript-X
                                              gnu
                                              gcov-file
                                              gcov-header
@@ -341,7 +342,7 @@
               (setf (alist-get (car cons) compilation-error-regexp-alist-alist)
                     (cdr cons)))
             (defun now-compilation-maven-file ()
-	      (declare-function compilation--previous-directory "compile")
+              (declare-function compilation--previous-directory "compile")
               (let ((s (match-string-no-properties 1)))
                 (if (or (null s) (file-name-absolute-p s))
                     s
@@ -595,7 +596,7 @@
 (use-package hide-mode-line
   :config (hide-mode-line-mode)
   :bind (:map ctl-x-map
-	      ("," . hide-mode-line-show-mode-line)))
+              ("," . hide-mode-line-show-mode-line)))
 
 (use-package highlight-selected-window
   :config (highlight-selected-window-mode))
@@ -666,7 +667,7 @@
   :config (progn
             (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
                                           (t . ivy--regex-fuzzy)))
-	    (declare-function ivy-mode "ivy")
+            (declare-function ivy-mode "ivy")
             (ivy-mode 1)))
 
 (use-package ivy-avy
@@ -836,7 +837,7 @@ For example, “&a'” → “á”"
 (use-package now-project
   :no-require t
   :bind (:map ctl-x-map
-	      ("c" . now-project-display-compilation)))
+              ("c" . now-project-display-compilation)))
 
 (use-package recentf
   :no-require t
@@ -1010,7 +1011,7 @@ For example, “&a'” → “á”"
   :diminish auto-fill-function
   :no-require t
   :custom ((completion-show-help nil)
-	   (what-cursor-show-names t))
+           (what-cursor-show-names t))
   :hook (((prog-mode text-mode) . auto-fill-mode)
          (nxml-mode . turn-off-auto-fill))
   :defer nil
@@ -1141,7 +1142,7 @@ For example, “&a'” → “á”"
   :bind ((:map xref--xref-buffer-mode-map
                ("q" . quit-window)))
   :config (progn
-	    (require 'xref)
+            (require 'xref)
             (add-to-list 'xref-backend-functions 'gxref-xref-backend)))
 
 (defun light-or-dark-mode ()
