@@ -542,7 +542,9 @@
 
 (use-package frame
   :custom ((blink-cursor-blinks 0)
-           (default-frame-alist '((right-fringe . 0))))
+           (default-frame-alist '((cursor-type . bar)
+                                  (right-fringe . 0)))
+           (initial-frame-alist '((vertical-scroll-bars))))
   :config (blink-cursor-mode))
 
 (use-package go-mode
