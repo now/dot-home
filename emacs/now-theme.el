@@ -83,6 +83,7 @@
     `(dired-header ((,cui (:inherit header))))
     `(dired-perm-write ((,cui (:foreground "#ff00ff"))))
     `(dired-symlink ((,cui (:foreground ,light-cyan))))
+    `(eglot-diagnostic-tag-unnecessary-face ((,cui (:inherit font-lock-warning-face))))
     `(error ((,cui (:foreground ,white :background ,red))))
     `(escape-glyph ((,cui (:foreground ,light-blue))))
     `(flymake-note ((,cui)))
