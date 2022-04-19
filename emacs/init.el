@@ -1014,7 +1014,7 @@ For example, “&a'” → “á”"
            (indent-tabs-mode nil)
            (what-cursor-show-names t))
   :hook (((prog-mode text-mode) . auto-fill-mode)
-         (nxml-mode . turn-off-auto-fill))
+         ((go-mode nxml-mode) . turn-off-auto-fill))
   :defer nil
   :bind (:map global-map
               ("s-z" . 'undo-only)
