@@ -1090,7 +1090,6 @@ For example, “&a'” → “á”"
 
 (use-package typescript-mode
   :ensure t
-  :custom ((typescript-indent-columns nil))
   :bind (:map typescript-mode-map
               ("*" . c-electric-star)))
 
