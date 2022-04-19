@@ -551,6 +551,12 @@
   :ensure t
   :after magit)
 
+(use-package git-commit
+  :no-require t
+  :hook ((git-commit-setup . now-git-commit-setup-hook))
+  :config (defun now-git-commit-setup-hook ()
+            (setq-local fill-column 72)))
+
 (use-package go-mode
   :ensure t
   :bind (("C-c C-c" . comment-region))
