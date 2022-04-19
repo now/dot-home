@@ -559,7 +559,6 @@
 
 (use-package go-mode
   :ensure t
-  :bind (("C-c C-c" . comment-region))
   :hook ((go-mode . now-go-mode-hook))
   :config (defun now-go-mode-hook ()
             (indent-tabs-mode)
