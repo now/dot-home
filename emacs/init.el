@@ -547,6 +547,10 @@
            (initial-frame-alist '((vertical-scroll-bars))))
   :config (blink-cursor-mode))
 
+(use-package ghub
+  :ensure t
+  :after magit)
+
 (use-package go-mode
   :ensure t
   :bind (("C-c C-c" . comment-region))
