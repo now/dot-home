@@ -468,6 +468,8 @@
 (use-package display-fill-column-indicator
   :hook ((text-mode . display-fill-column-indicator-mode)))
 
+(use-package docker-tramp
+  :ensure t)
 
 (use-package ediff
   :no-require t
