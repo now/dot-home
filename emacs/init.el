@@ -536,6 +536,10 @@
 (use-package flyspell
   :hook ((message-mode . flyspell-mode)))
 
+(use-package forge
+  :ensure t
+  :after magit)
+
 (use-package frame
   :custom ((blink-cursor-blinks 0)
            (default-frame-alist '((right-fringe . 0))))
