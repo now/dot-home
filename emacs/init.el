@@ -1151,6 +1151,9 @@ For example, “&a'” → “á”"
             (require 'xref)
             (add-to-list 'xref-backend-functions 'gxref-xref-backend)))
 
+(use-package yaml-mode
+  :ensure t)
+
 (defun light-or-dark-mode ()
   (interactive)
   (customize-set-variable
