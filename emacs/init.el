@@ -478,7 +478,9 @@
 
 (use-package eglot
   :ensure t
-  :custom ((eglot-ignored-server-capabilites '(:documentHighlightProvider))))
+  :custom ((eglot-ignored-server-capabilites '(:documentHighlightProvider))
+           (eglot-workspace-configuration '((:gopls . ((allowImplicitNetworkAccess . t)
+                                                       (staticcheck . t)))))))
 
 (use-package eldoc
   :diminish
