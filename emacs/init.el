@@ -1011,6 +1011,7 @@ For example, “&a'” → “á”"
   :diminish auto-fill-function
   :no-require t
   :custom ((completion-show-help nil)
+           (indent-tabs-mode nil)
            (what-cursor-show-names t))
   :hook (((prog-mode text-mode) . auto-fill-mode)
          (nxml-mode . turn-off-auto-fill))
@@ -1019,8 +1020,7 @@ For example, “&a'” → “á”"
 	      ("s-z" . 'undo-only)
 	      ("s-Z" . 'undo-redo))
   :config (progn
-            (column-number-mode)
-            (indent-tabs-mode -1)))
+            (line-number-mode -1)))
 
 (use-package smerge-mode
   :custom ((smerge-auto-leave nil)
