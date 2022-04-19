@@ -91,7 +91,8 @@
   :mode ("\\.at\\'"))
 
 (use-package avy
-  :bind* ("C-." . avy-goto-char-timer)
+  :bind* (("C-." . avy-goto-char-timer)
+          ("C->" . avy-goto-line))
   :custom ((avy-timeout-seconds 0.3))
   ;; TODO Probably use own setup code here instead.
   :config (avy-setup-default))
