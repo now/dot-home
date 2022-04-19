@@ -561,8 +561,7 @@
   :ensure t
   :hook ((go-mode . now-go-mode-hook))
   :config (defun now-go-mode-hook ()
-            (indent-tabs-mode)
-            (setq-local fill-column 100)))
+            (setq-local tab-width 2)))
 
 (use-package grep
   :custom ((grep-highlight-matches t)
