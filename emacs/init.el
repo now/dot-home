@@ -710,6 +710,9 @@
   :no-require t
   :custom ((makefile-backslash-align nil)))
 
+(use-package now-make-mode
+  :hook (makefile-mode . now-make-mode-remove-space-after-tab-from-whitespace-style))
+
 (use-package man
   :custom ((Man-notify-method 'pushy)))
 

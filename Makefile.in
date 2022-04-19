@@ -428,6 +428,7 @@ sitelisp_elcs = \
 	emacs/site-lisp/now-gxref.elc \
 	emacs/site-lisp/now-init.elc \
 	emacs/site-lisp/now-ivy.elc \
+	emacs/site-lisp/now-make-mode.elc \
 	emacs/site-lisp/now-project.elc \
 	emacs/site-lisp/now-ruby.elc \
 	emacs/site-lisp/now-scala-mode.elc \
