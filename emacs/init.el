@@ -1127,12 +1127,15 @@ For example, “&a'” → “á”"
   :hook ((message-mode . visual-fill-column-mode)))
 
 (use-package whitespace
-  :diminish whitespace-mode
-  :custom ((whitespace-style '(face
-                               trailing
+  :diminish (global-whitespace-mode whitespace-mode)
+  :custom ((whitespace-global-modes '(prog-mode))
+           (whitespace-style '(face
+                               missing-newline-at-eof
                                empty
                                indentation
-                               space-before-tab))))
+                               space-after-tab
+                               space-before-tab)))
+  :config (global-whitespace-mode))
 
 (use-package xdisp
   :no-require t
