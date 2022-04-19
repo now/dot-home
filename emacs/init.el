@@ -380,22 +380,6 @@
                               (format "src/test/scala/%s" scala-2)))))
                       s)))))))
 
-(use-package counsel
-  :ensure t
-  :functions (ivy-configure)
-  ;; TODO After ivy?  I don’t quite see why that’d matter, but John
-  ;; has it.
-  :custom ((counsel-find-file-ignore-regexp
-            (concat "\\(\\`\\.[^.]\\|"
-                    (regexp-opt completion-ignored-extensions)
-                    "\\'\\)")))
-  :bind (("C-h f" . counsel-describe-function)
-         ("C-h i" . counsel-info-lookup-symbol)
-         ("C-h l" . counsel-find-library)
-         ("C-h u" . counsel-unicode-char)
-         ("C-h v" . counsel-describe-variable)
-         ("C-x C-f" . counsel-find-file)))
-
 (use-package css-mode
   :no-require t
   :custom ((css-indent-offset 2)))
