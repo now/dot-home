@@ -466,7 +466,7 @@
             (set-display-table-slot standard-display-table 'vertical-border 0)))
 
 (use-package display-fill-column-indicator
-  :hook (((prog-mode text-mode) . display-fill-column-indicator-mode)))
+  :hook ((text-mode . display-fill-column-indicator-mode)))
 
 (use-package docfold
   :hook ((prog-mode . docfold-minor-mode)))
