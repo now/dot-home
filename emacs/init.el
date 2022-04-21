@@ -814,9 +814,6 @@ For example, “&a'” → “á”"
   :config (progn
             (show-paren-mode)))
 
-(use-package project
-  :ensure t)
-
 (use-package now-project
   :no-require t
   :bind (:map ctl-x-map
