@@ -587,9 +587,6 @@
                (4 '(face nil display ":")))
               ("^Binary file \\(.+\\) matches$" 1 nil nil 0 1))))
 
-(use-package gxref
-  :ensure t)
-
 (use-package hide-mode-line
   :config (hide-mode-line-mode)
   :bind (:map ctl-x-map
