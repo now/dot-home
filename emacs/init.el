@@ -52,10 +52,6 @@
   :bind (("C-x C-o" . ace-window)
          ("C-x o" . ace-window)))
 
-(use-package amx
-  :ensure t
-  :config (amx-mode 1))
-
 (use-package auth-source
   :when (eq system-type 'darwin)
   :no-require t
