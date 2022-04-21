@@ -680,7 +680,7 @@
 (use-package magit
   :ensure t
   :no-require t
-  :custom ((magit-repository-directories '(("~/Projects". 1)))))
+  :custom ((magit-repository-directories '(("~/Projects" . 1)))))
 
 (use-package magit-blame
   :defer t
