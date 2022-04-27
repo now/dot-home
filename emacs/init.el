@@ -673,6 +673,12 @@
 (use-package json-mode
   :ensure t)
 
+(use-package lisp-mode
+  :no-require t
+  :bind ((:map lisp-mode-shared-map
+               ("C-c r" . raise-sexp)
+               ("C-c s" . delete-pair))))
+
 (use-package magit
   :ensure t
   :no-require t
@@ -805,11 +811,19 @@ For example, “&a'” → “á”"
 (use-package paredit
   :ensure t
   :diminish paredit-mode
-  :hook (((emacs-lisp-mode
-            eval-expression-minibuffer-setup
-            lisp-interaction-mode
-            lisp-mode)
-           . paredit-mode)))
+  :hook (((emacs-lisp-mode lisp-interaction-mode lisp-mode) . paredit-mode))
+  :bind (:map paredit-mode-map
+              ("M-(")
+              ("M-r")
+              ("M-s")
+              ("C-M-f")
+              ("C-M-b")
+              ("C-M-d")
+              ("C-M-p")
+              ("C-M-u")
+              ;("M-k" . paredit-raise-sexp)
+              ;("M-K" . paredit-splice-sexp)
+              ))
 
 (use-package paren
   :no-require t
