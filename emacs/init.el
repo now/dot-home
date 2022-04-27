@@ -1160,3 +1160,124 @@ For example, “&a'” → “á”"
     (apply next args)))
 
 (advice-add 'bug-reference-fontify :around 'now-bug-reference-fontify-around)
+
+(dolist (b '("C-/"
+             "C-?"
+             "C-M-<down>"
+             "C-M-<down-mouse-1>"
+             "C-M-<drag-mouse-1>"
+             "C-M-<end>"
+             "M-<begin>"
+             "M-<down-mouse-1>"
+             "M-<drag-mouse-1>"
+             "M-<end>"
+             "M-<f10>"
+             "M-<home>"
+             "M-<left>"
+             "M-<mouse-1>"
+             "M-<mouse-2>"
+             "M-<mouse-3>"
+             "M-<next>"
+             "M-<prior>"
+             "M-<right>"
+             "S-<f10>"
+             "S-<insert>"
+             "S-<insertchar>"
+             "S-<mouse-1>"
+             "S-<mouse-3>"
+             "<again>"
+             "<begin>"
+             "<down>"
+             "<down-mouse-1>"
+             "<drag-mouse-1>"
+             "<drag-n-drop>"
+             "<end>"
+             ;"<execute>"
+             "<f3>"
+             "<f4>"
+             ;"<find>"
+             "<home>"
+             "<insert>"
+             "<insertchar>"
+             "<kp-end>"
+             "<kp-home>"
+             "<kp-next>"
+             "<kp-prior>"
+             "<left>"
+             "<menu>"
+             ;"<mouse-1>"
+             "<mouse-2>"
+             "<mouse-3>"
+             "<next>"
+             "<open>"
+             "<prior>"
+             "<redo>"
+             "<right>"
+             "s-<kp-bar>"
+             "s-<left>"
+             "s-<right>"
+             "<up>"
+             "ESC C-<down>"
+             "ESC C-<end>"
+             "ESC C-<home>"
+             "ESC C-<up>"
+             "ESC <begin>"
+             "ESC <end>"
+             "ESC <f10>"
+             "ESC <home>"
+             "ESC <left>"
+             "ESC <next>"
+             "ESC <prior>"
+             "ESC <right>"
+             "C-x C-d"
+             "C-x 6"
+             ;"C-x +"
+             ;"C-x -"
+             ;"C-x ."
+             ;"C-x ;"
+             ;"C-x `"
+             ;"C-x f"
+             "C-x C-<left>"
+             "C-x C-<right>"
+             "C-x <left>"
+             "C-x <right>"
+             ))
+  (keymap-global-unset b t))
+
+;; ?
+(keymap-global-unset "C-/" t)
+(keymap-global-unset "C-?" t)
+
+(keymap-global-unset "C-M-<down>" t)
+(keymap-global-unset "C-M-<down-mouse-1>" t)
+(keymap-global-unset "C-M-<drag-mouse-1>" t)
+(keymap-global-unset "C-M-<end>" t)
+(keymap-global-unset "C-M-<home>" t)
+(keymap-global-unset "C-M-<up>" t)
+(keymap-global-unset "C-<down>" t)
+(keymap-global-unset "C-<down-mouse-1>" t)
+(keymap-global-unset "C-<end>" t)
+(keymap-global-unset "C-<f10>" t)
+(keymap-global-unset "C-<home>" t)
+(keymap-global-unset "C-<next>" t)
+(keymap-global-unset "C-<prior>" t)
+(keymap-global-unset "C-<up>" t)
+(keymap-global-unset "C-<insert>" t)
+(keymap-global-unset "C-<insertchar>" t)
+
+(keymap-global-unset "M-`" t)
+(keymap-global-unset "<help>" t)
+(keymap-global-unset "<f1>" t)
+(keymap-global-unset "<f2>" t)
+(keymap-global-unset "<f10>" t)
+(keymap-global-unset "<f11>" t)
+(keymap-global-unset "<XF86Back>" t)
+(keymap-global-unset "<XF86Forward>" t)
+(keymap-global-unset "<Scroll_Lock>" t)
+(keymap-global-unset "C-<down-mouse-2>" t)
+(keymap-unset help-map "<f1>" t)
+(keymap-unset help-map "<help>" t)
+(keymap-global-unset "s-&" t)
+(keymap-global-unset "<pinch>" t)
+
+(mouse-wheel-mode -1)
