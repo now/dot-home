@@ -430,7 +430,6 @@ sitelisp_elcs = \
 	emacs/site-lisp/now-make-mode.elc \
 	emacs/site-lisp/now-project.elc \
 	emacs/site-lisp/now-ruby.elc \
-	emacs/site-lisp/now-scala-mode.elc \
 	emacs/site-lisp/now-smie.elc \
 	emacs/site-lisp/now-sort.elc \
 	emacs/site-lisp/rnc-mode.elc \

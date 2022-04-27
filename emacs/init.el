@@ -933,16 +933,6 @@ For example, “&a'” → “á”"
               (setq-local adaptive-fill-function
                           'now-ruby-mode-adaptive-fill-function))))
 
-(use-package scala-mode
-  :ensure t)
-
-(use-package now-scala-mode
-  :no-require t
-  :hook ((scala-mode . now-scala-mode-setup))
-  :config (define-auto-insert
-            'scala-mode
-            #'now-scala-mode-auto-insert-mode-skeleton))
-
 (use-package scroll-bar
   :commands (scroll-bar-mode)
   :defer t
