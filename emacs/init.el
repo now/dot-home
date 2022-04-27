@@ -1035,6 +1035,9 @@ For example, “&a'” → “á”"
   :ensure t
   :custom ((sqlind-basic-offset 8)))
 
+(use-package tab-bar
+  :custom ((tab-bar-show nil)))
+
 (use-package term/xterm
   :defer t
   :config (progn
