@@ -7,6 +7,7 @@
 
 (require 'package)
 (setf (alist-get "melpa" package-archives nil nil #'equal) "https://melpa.org/packages/")
+(setf (alist-get "melpa" package-archive-priorities nil nil #'equal) -1)
 
 (add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
 (require 'userloaddefs)
