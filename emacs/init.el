@@ -87,7 +87,6 @@
 
 (use-package bindings
   :no-require t
-  :custom ((column-number-indicator-zero-based nil))
   :config (progn
             (setq mode-line-client `(""
                                      (:propertize
