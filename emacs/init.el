@@ -48,11 +48,6 @@
 (use-package now-path
   :when (eq (window-system) 'ns))
 
-(use-package ace-window
-  :ensure t
-  :bind (("C-x C-o" . ace-window)
-         ("C-x o" . ace-window)))
-
 (use-package auth-source
   :when (eq system-type 'darwin)
   :no-require t
