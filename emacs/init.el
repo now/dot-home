@@ -669,9 +669,6 @@
 (use-package now-make-mode
   :hook (makefile-mode . now-make-mode-remove-space-after-tab-from-whitespace-style))
 
-(use-package man
-  :custom ((Man-notify-method 'pushy)))
-
 (use-package markdown-mode
   :ensure t
   :custom ((markdown-list-item-bullets '("•" "◦" "‣"))))
