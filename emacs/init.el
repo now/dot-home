@@ -27,10 +27,6 @@
 
 (add-hook 'emacs-startup-hook #'now-report-emacs-startup-time)
 
-;; TODO ctl-x-map "b" should be bound to counsel-ibuffer, but using
-;; buff-menu-ext instead to generate the entries.
-(define-key ctl-x-map "\C-b" 'buffer-menu)
-
 (defun now-set-split-width-threshold-based-on-aspect-ratio (_)
   (setq split-width-threshold
         (pcase (cdr (assoc 'geometry (car (display-monitor-attributes-list))))
