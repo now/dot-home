@@ -803,23 +803,6 @@ For example, “&a'” → “á”"
   :no-require t
   :config (put 'narrow-to-page 'disabled nil))
 
-(use-package paredit
-  :ensure t
-  :diminish paredit-mode
-  :hook (((emacs-lisp-mode lisp-interaction-mode lisp-mode) . paredit-mode))
-  :bind (:map paredit-mode-map
-              ("M-(")
-              ("M-r")
-              ("M-s")
-              ("C-M-f")
-              ("C-M-b")
-              ("C-M-d")
-              ("C-M-p")
-              ("C-M-u")
-              ;("M-k" . paredit-raise-sexp)
-              ;("M-K" . paredit-splice-sexp)
-              ))
-
 (use-package paren
   :no-require t
   :custom ((show-paren-delay 0))
