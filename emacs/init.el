@@ -85,20 +85,6 @@
   ;; TODO Probably use own setup code here instead.
   :config (avy-setup-default))
 
-(use-package bindings
-  :no-require t
-  :config (progn
-            (setq mode-line-client `(""
-                                     (:propertize
-                                      (""
-                                       (:eval
-                                        (if (bound-and-true-p
-                                             server-buffer-clients)
-                                            "@"
-                                          "")))
-                                      help-echo
-                                      "emacsclient frame")))))
-
 (use-package buff-menu-ext
   :bind ((:map Buffer-menu-mode-map
                ("%")
