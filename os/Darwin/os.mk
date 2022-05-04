@@ -81,44 +81,33 @@ $(call DIR,librarylaunchagents,,\
 
 macports_PACKAGES = \
 	autoconf \
+	autoconf-archive \
 	automake \
 	bison \
-	borgbackup \
 	clojure \
 	coreutils \
-	curl \
-	diffutils \
 	emacs-app-devel \
 	exif \
-	findutils \
 	flac \
-	gawk \
-	git \
 	gmake \
 	gnupg2 \
 	go \
 	gopls \
 	grep \
-	gsed \
 	hunspell \
 	iperf3 \
-	jq \
 	libxml2 \
 	libxslt \
-	miller \
-	parallel \
-	py39-awscli \
+	pkgconfig \
 	rsync \
 	socat \
 	sqlite3 \
-	vorbis-tools \
-	wget \
-	yarn \
-	zsh
+	vorbis-tools
 
 $(addprefix macports/,$(macports_PACKAGES)): macports/.dirstamp
 	$(V_PORT)$(PORT) -q installed $(@F) | fgrep '  $(@F)' > /dev/null || \
-	  $(SUDO) $(PORT) -N $(if $(V_PORT),-q) install $(@F)
+	  $(SUDO) $(PORT) -N $(if $(V_PORT),-q) install $(@F) $($(@F)_VARIANT)
+	$(SUDO) $(PORT) setrequested $(@F)
 	$(V_at): > $@.tmp
 	$(V_at)mv $@.tmp $@
 

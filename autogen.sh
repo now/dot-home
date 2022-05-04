@@ -10,12 +10,11 @@ install-package () {
 }
 
 for p in autoconf \
-	   curl \
 	   emacs-app-devel \
 	   exif \
+           gmake \
 	   grep \
-	   socat \
-	   zsh; do
+	   socat; do
   install-package $p
 done
 
