@@ -788,11 +788,6 @@ For example, “&a'” → “á”"
   :bind (:map ctl-x-map
               ("c" . now-project-display-compilation)))
 
-(use-package recentf
-  :no-require t
-  :custom ((recentf-max-saved-items 50)
-           (recentf-save-file (concat user-emacs-directory "recentf"))))
-
 (use-package replace
   :no-require t
   :custom ((replace-lax-whitespace t)))
