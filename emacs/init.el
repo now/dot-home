@@ -1156,12 +1156,39 @@ For example, “&a'” → “á”"
 
 (advice-add 'bug-reference-fontify :around 'now-bug-reference-fontify-around)
 
-(dolist (b '("C-/"
+(dolist (b '("s-&"
+             ;"s-'"
+             "s-:"
+             "s-C"
+             "s-S"
+             "s-^"
+             ;"s-`"
+             "s-o"
+             "s-t"
+             "C-/"
              "C-?"
              "C-M-<down>"
              "C-M-<down-mouse-1>"
              "C-M-<drag-mouse-1>"
              "C-M-<end>"
+             "C-M-<home>"
+             "C-M-<left>"
+             "C-M-<mouse-1>"
+             "C-M-<right>"
+             "C-M-<up>"
+             "C-<down>"
+             "C-<down-mouse-1>"
+             "C-<down-mouse-2>"
+             "C-<end>"
+             "C-<f10>"
+             "C-<home>"
+             "C-<insert>"
+             "C-<insertchar>"
+             "C-<left>"
+             "C-<next>"
+             "C-<prior>"
+             "C-<right>"
+             "C-<up>"
              "M-<begin>"
              "M-<down-mouse-1>"
              "M-<drag-mouse-1>"
@@ -1175,11 +1202,15 @@ For example, “&a'” → “á”"
              "M-<next>"
              "M-<prior>"
              "M-<right>"
+             "M-`"
              "S-<f10>"
              "S-<insert>"
              "S-<insertchar>"
              "S-<mouse-1>"
              "S-<mouse-3>"
+             "<XF86Back>"
+             "<XF86Forward>"
+             "<Scroll_Lock>"
              "<again>"
              "<begin>"
              "<down>"
@@ -1188,9 +1219,14 @@ For example, “&a'” → “á”"
              "<drag-n-drop>"
              "<end>"
              ;"<execute>"
+             "<f1>"
+             "<f2>"
              "<f3>"
              "<f4>"
+             "<f10>"
+             "<f11>"
              ;"<find>"
+             "<help>"
              "<home>"
              "<insert>"
              "<insertchar>"
@@ -1205,6 +1241,7 @@ For example, “&a'” → “á”"
              "<mouse-3>"
              "<next>"
              "<open>"
+             "<pinch>"
              "<prior>"
              "<redo>"
              "<right>"
@@ -1239,40 +1276,7 @@ For example, “&a'” → “á”"
              ))
   (keymap-global-unset b t))
 
-;; ?
-(keymap-global-unset "C-/" t)
-(keymap-global-unset "C-?" t)
-
-(keymap-global-unset "C-M-<down>" t)
-(keymap-global-unset "C-M-<down-mouse-1>" t)
-(keymap-global-unset "C-M-<drag-mouse-1>" t)
-(keymap-global-unset "C-M-<end>" t)
-(keymap-global-unset "C-M-<home>" t)
-(keymap-global-unset "C-M-<up>" t)
-(keymap-global-unset "C-<down>" t)
-(keymap-global-unset "C-<down-mouse-1>" t)
-(keymap-global-unset "C-<end>" t)
-(keymap-global-unset "C-<f10>" t)
-(keymap-global-unset "C-<home>" t)
-(keymap-global-unset "C-<next>" t)
-(keymap-global-unset "C-<prior>" t)
-(keymap-global-unset "C-<up>" t)
-(keymap-global-unset "C-<insert>" t)
-(keymap-global-unset "C-<insertchar>" t)
-
-(keymap-global-unset "M-`" t)
-(keymap-global-unset "<help>" t)
-(keymap-global-unset "<f1>" t)
-(keymap-global-unset "<f2>" t)
-(keymap-global-unset "<f10>" t)
-(keymap-global-unset "<f11>" t)
-(keymap-global-unset "<XF86Back>" t)
-(keymap-global-unset "<XF86Forward>" t)
-(keymap-global-unset "<Scroll_Lock>" t)
-(keymap-global-unset "C-<down-mouse-2>" t)
 (keymap-unset help-map "<f1>" t)
 (keymap-unset help-map "<help>" t)
-(keymap-global-unset "s-&" t)
-(keymap-global-unset "<pinch>" t)
 
 (mouse-wheel-mode -1)
