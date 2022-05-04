@@ -466,9 +466,6 @@
   :custom ((eldoc-echo-area-use-multiline-p nil))
   :hook ((emacs-lisp-mode . eldoc-mode)))
 
-(use-package electric
-  :hook ((prog-mode . electric-quote-local-mode)))
-
 (use-package elisp-mode
   :config (font-lock-add-keywords
            'emacs-lisp-mode
