@@ -800,6 +800,11 @@ For example, “&a'” → “á”"
   :config (progn
             (show-paren-mode)))
 
+(use-package pp
+  :no-require t
+  :bind (:map ctl-x-map
+              ("C-m" . pp-macroexpand-last-sexp)))
+
 (use-package now-project
   :no-require t
   :bind (:map ctl-x-map
