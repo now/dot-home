@@ -106,10 +106,6 @@
                ("U" . Buffer-menu-unmark-all)
                ("r" . Buffer-menu-toggle-read-only))))
 
-(use-package buffer
-  :no-require t
-  :custom ((indicate-buffer-boundaries t)))
-
 (use-package bug-reference
   :custom ((bug-reference-bug-regexp "\\(\\b\\([A-Z]+-[0-9]+\\)\\b\\)")))
 
