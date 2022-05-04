@@ -194,9 +194,7 @@
                            (whitespace-line-column . 100)))
             (defun now-c-mode-hook ()
               (setq-local adaptive-fill-function
-                          'now-c-mode-adaptive-fill-function)
-              (setq-local docfold-set-up-overlay
-                          'docfold-c-set-up-overlay))))
+                          'now-c-mode-adaptive-fill-function))))
 
 (use-package now-cc-mode
   :bind ((:map c-mode-map
