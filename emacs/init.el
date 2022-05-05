@@ -1032,12 +1032,6 @@ For example, “&a'” → “á”"
 (use-package typescriptreact-mode
   :no-require t)
 
-(use-package undo-tree
-  :disabled
-  :custom ((undo-tree-mode-lighter nil)
-           (undo-tree-visualizer-timestamps t))
-  :config (global-undo-tree-mode))
-
 (use-package vc-git
   :defer t
   :config (progn
