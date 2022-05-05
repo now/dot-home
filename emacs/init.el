@@ -1065,10 +1065,7 @@ For example, “&a'” → “á”"
 (use-package xref
   :defer nil
   :bind ((:map xref--xref-buffer-mode-map
-               ("q" . quit-window)))
-  :config (progn
-            (require 'xref)
-            (add-to-list 'xref-backend-functions 'gxref-xref-backend)))
+               ("q" . quit-window))))
 
 (use-package yaml-mode
   :ensure t)
