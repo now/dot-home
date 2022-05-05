@@ -1013,10 +1013,6 @@ For example, “&a'” → “á”"
   :config (progn
             (tool-bar-mode -1)))
 
-(use-package tramp-sh
-  :no-require t
-  :custom ((tramp-copy-size-limit nil)))
-
 (use-package typescript-mode
   :ensure t
   :bind (:map typescript-mode-map
