@@ -592,11 +592,6 @@
                                       holiday-other-holidays
                                       holiday-solar-holidays))))
 
-(use-package info
-  :config (progn
-            (add-to-list 'Info-additional-directory-list
-                         (concat user-emacs-directory "info"))))
-
 (use-package isearch
   :no-require t
   :custom ((search-whitespace-regexp "[ \t\r\n]+")))
