@@ -4,7 +4,48 @@
 
 (require 'package)
 (setf (alist-get "melpa" package-archives nil nil #'equal) "https://melpa.org/packages/")
-(setf (alist-get "melpa" package-archive-priorities nil nil #'equal) -1)
+
+(let ((packages
+       '(("gnu"
+          . (avy
+             company
+             compat
+             dash
+             eglot
+             json-mode
+             sed-mode
+             sql-indent
+             transient))
+         ("nongnu"
+          . (git-commit
+             go-mode
+             magit
+             magit-section
+             markdown-mode
+             typescript-mode
+             visual-fill-column
+             with-editor
+             yaml-mode))
+         (nil
+          . (docker-tramp
+             fira-code-mode
+             forge
+             smtpmail-multi)))))
+  (cl-flet ((refresh-when-pinned (package)
+              (when (assq package package-pinned-packages)
+                (package-read-all-archive-contents))))
+    (dolist (pin packages)
+      (when (car pin)
+        (dolist (package (cdr pin))
+          (push (cons package (car pin)) package-pinned-packages))))
+    (dolist (package (mapcan #'cdr packages))
+      (unless (package-installed-p package)
+        (refresh-when-pinned package)
+        (if (assq package package-archive-contents)
+            (package-install package)
+          (package-refresh-contents)
+          (refresh-when-pinned package)
+          (package-install package))))))
 
 (add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
 (require 'userloaddefs)
@@ -43,9 +84,6 @@
 
 (use-package autorevert
   :diminish auto-revert-mode)
-
-(use-package autotest-mode
-  :mode ("\\.at\\'"))
 
 (use-package avy
   :bind* (("C-." . avy-goto-char-timer)
@@ -127,7 +165,6 @@
          (c-mode . now-c-auto-newline-mode)))
 
 (use-package company
-  :ensure t
   :diminish)
 
 (use-package compile
@@ -301,12 +338,6 @@
                                     (vector (make-glyph-code #x2026)))
             (set-display-table-slot standard-display-table 'vertical-border 0)))
 
-(use-package docker-tramp
-  :ensure t)
-
-(use-package eglot
-  :ensure t)
-
 (use-package eldoc
   :diminish)
 
@@ -338,7 +369,6 @@
             (setq find-function-C-source-directory "~/Projects/emacs/src")))
 
 (use-package fira-code-mode
-  :ensure t
   :diminish fira-code-mode)
 
 ;; TODO Customize
@@ -346,11 +376,9 @@
   :disabled)
 
 (use-package forge
-  :ensure t
   :after magit)
 
 (use-package ghub
-  :ensure t
   :after magit)
 
 (use-package git-commit
@@ -360,7 +388,6 @@
             (setq-local fill-column 72)))
 
 (use-package go-mode
-  :ensure t
   :hook ((go-mode . now-go-mode-hook))
   :config (defun now-go-mode-hook ()
             (setq-local tab-width 2)))
@@ -442,18 +469,11 @@
   :mode (("\\.jsx\\(inc\\)?\\'" . js-mode))
   :custom ((js-indent-level 2)))
 
-(use-package json-mode
-  :ensure t)
-
 (use-package lisp-mode
   :no-require t
   :bind ((:map lisp-mode-shared-map
                ("C-c r" . raise-sexp)
                ("C-c s" . delete-pair))))
-
-(use-package magit
-  :no-require t
-  :ensure t)
 
 (use-package magit-files
   :no-require t
@@ -462,9 +482,6 @@
 
 (use-package now-make-mode
   :hook (makefile-mode . now-make-mode-remove-space-after-tab-from-whitespace-style))
-
-(use-package markdown-mode
-  :ensure t)
 
 (use-package message
   :defer t
@@ -657,7 +674,6 @@ For example, “&a'” → “á”"
                           'now-ruby-mode-adaptive-fill-function))))
 
 (use-package sed-mode
-  :ensure t
   :hook ((sed-mode . now-sed-mode-hook))
   :config (defun now-sed-mode-hook ()
             (setq-local smie-indent-basic 2)))
@@ -699,7 +715,6 @@ For example, “&a'” → “á”"
   :custom ((smtpmail-queue-dir "~/Maildir/.Queue/cur")))
 
 (use-package smtpmail-multi
-  :ensure t
   :no-require t
   :custom ((smtpmail-multi-accounts '((disuse . ("now@disu.se"
                                                  "disu.se"
@@ -708,7 +723,6 @@ For example, “&a'” → “á”"
            (smtpmail-multi-associations '(("now@disu.se" disuse)))))
 
 (use-package sql-indent
-  :ensure t
   :custom ((sqlind-basic-offset 8)))
 
 (use-package term/xterm
@@ -734,7 +748,6 @@ For example, “&a'” → “á”"
             (set-terminal-parameter nil 'background-mode 'light)))
 
 (use-package typescript-mode
-  :ensure t
   :bind (:map typescript-mode-map
               ("*" . c-electric-star)))
 
@@ -758,7 +771,6 @@ For example, “&a'” → “á”"
             (defun vc-git-mode-line-string (_) "")))
 
 (use-package visual-fill-column
-  :ensure t
   :hook ((message-mode . visual-fill-column-mode)))
 
 (use-package whitespace
@@ -773,9 +785,6 @@ For example, “&a'” → “á”"
   :defer nil
   :bind ((:map xref--xref-buffer-mode-map
                ("q" . quit-window))))
-
-(use-package yaml-mode
-  :ensure t)
 
 (defun light-or-dark-mode ()
   (interactive)
