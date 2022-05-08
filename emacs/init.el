@@ -11,6 +11,7 @@
              company
              compat
              dash
+             diminish
              eglot
              json-mode
              sed-mode
@@ -54,6 +55,17 @@
   (dolist (mode modes)
     (push mode auto-mode-alist)))
 
+(let ((modes
+       '(auto-fill-function
+         auto-revert-mode
+         company-mode
+         eldoc-mode
+         fira-code-mode
+         global-whitespace-mode
+         whitespace-mode)))
+  (require 'diminish)
+  (mapc #'diminish modes))
+
 (add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
 (require 'userloaddefs)
 
@@ -88,9 +100,6 @@
 ;; This comes first, as we want path set early on.
 (use-package now-path
   :when (eq (window-system) 'ns))
-
-(use-package autorevert
-  :diminish auto-revert-mode)
 
 (use-package avy
   :bind* (("C-." . avy-goto-char-timer)
@@ -170,9 +179,6 @@
                ([remap c-fill-paragraph] . now-c-fill-paragraph)))
   :hook ((c-mode . now-c-mode-hook)
          (c-mode . now-c-auto-newline-mode)))
-
-(use-package company
-  :diminish)
 
 (use-package compile
   :custom ((compilation-error-regexp-alist '(sbt
@@ -345,9 +351,6 @@
                                     (vector (make-glyph-code #x2026)))
             (set-display-table-slot standard-display-table 'vertical-border 0)))
 
-(use-package eldoc
-  :diminish)
-
 (use-package elisp-mode
   :config (font-lock-add-keywords
            'emacs-lisp-mode
@@ -374,9 +377,6 @@
   :defer t
   :config (progn
             (setq find-function-C-source-directory "~/Projects/emacs/src")))
-
-(use-package fira-code-mode
-  :diminish fira-code-mode)
 
 ;; TODO Customize
 (use-package flycheck
@@ -443,8 +443,6 @@
 (use-package hide-mode-line
   :bind (:map ctl-x-map
               ("," . hide-mode-line-show-mode-line)))
-
-(use-package highlight-selected-window)
 
 (use-package hl-line
   :hook (((Buffer-menu-mode
@@ -698,7 +696,6 @@ For example, “&a'” → “á”"
            (shr-bullet "• ")))
 
 (use-package simple
-  :diminish auto-fill-function
   :no-require t
   :custom ((indent-tabs-mode nil))
   :hook (((prog-mode text-mode) . auto-fill-mode)
@@ -775,9 +772,6 @@ For example, “&a'” → “á”"
 
 (use-package visual-fill-column
   :hook ((message-mode . visual-fill-column-mode)))
-
-(use-package whitespace
-  :diminish (global-whitespace-mode whitespace-mode))
 
 (use-package xdisp
   :no-require t
