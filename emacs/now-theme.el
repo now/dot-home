@@ -39,6 +39,362 @@
        (selection-lite "#2165d9"))
   (custom-theme-set-variables
    'now
+
+   ;; Editing
+
+   ;;   Editing Basics
+   '(show-trailing-whitespace t)
+   '(what-cursor-show-names t)
+
+   ;;   Matching
+   '(replace-lax-whitespace t)
+
+   ;;     Company
+   '(company-backends
+     '(company-bbdb
+       company-semantic
+       company-cmake
+       company-capf
+       company-clang
+       company-files
+       (company-dabbrev-code
+        company-gtags
+        company-keywords)
+       company-dabbrev))
+   '(company-idle-delay .175)
+   '(company-show-numbers t)
+   '(global-company-mode t)
+
+   ;;       Company Dabbrev
+   '(company-dabbrev-downcase nil)
+   '(company-dabbrev-ignore-case nil)
+
+   ;;     Completion
+   '(completion-show-help nil)
+
+   ;;     Isearch
+   '(search-whitespace-regexp "[ \t\r\n]+")
+
+   ;;     Paren Showing
+   '(show-paren-delay 0)
+   '(show-paren-mode t)
+
+   ;;   Undo
+   '(undo-limit 80000000)
+   '(undo-strong-limit 120000000)
+   '(undo-outer-limit 360000000)
+
+   ;; Convenience
+
+   ;;   Avy
+   '(avy-timeout-seconds 0.3)
+
+   ;;   Ffap
+   '(ffap-machine-p-known 'accept)
+
+   ;;   Tab Bar
+   '(tab-bar-show nil)
+
+   ;;   Whitespace
+   '(global-whitespace-mode t)
+   '(whitespace-global-modes '(prog-mode))
+   '(whitespace-style
+     '(face
+       missing-newline-at-eof
+       empty
+       indentation
+       space-after-tab
+       space-before-tab))
+
+   ;; Files
+
+   ;;   Auto Insert
+   '(auto-insert-alist
+     (assoc-delete-all
+      nil
+      auto-insert-alist
+      (lambda (key _)
+        (or (member
+             (cdr-safe key)
+             '("C / C++ header"
+               "C / C++ program"
+               "Makefile"))
+            (member
+             key
+             '(html-mode
+               plain-tex-mode
+               bibtex-mode
+               latex-mode
+               ada-mode))))))
+   '(auto-insert-mode t)
+
+   ;;   Backup
+   '(make-backup-files nil)
+   '(require-final-newline t)
+
+   ;;   Dired
+   '(dired-dwim-target t)
+   '(dired-isearch-filenames 'dwim)
+   '(dired-listing-switches "--si -al")
+   '(dired-mode-hook
+     (cons 'hl-line-mode (when (boundp 'dired-mode-hook) dired-mode-hook)))
+   '(dired-recursive-copies 'always)
+   '(dired-recursive-deletes 'always)
+
+   ;;   Find File
+   '(revert-without-query '("\\.log$"))
+
+   ;; Text
+   '(text-mode-hook (cons 'display-fill-column-indicator-mode text-mode-hook))
+
+   ;;   Markdown
+   '(markdown-list-item-bullets '("•" "◦" "‣"))
+
+   ;;   Relax Ng
+   '(rng-schema-locating-files
+     (cons (concat user-emacs-directory "etc/schema/schemas.xml")
+           rng-schema-locating-files))
+
+   ;; Data
+
+   ;;   Compression
+
+   ;;     Jka Compr
+   '(jka-compr-verbose nil)
+
+   ;; Communication
+
+   ;;   Bug Reference
+   '(bug-reference-bug-regexp "\\(\\b\\([A-Z]\\{3,\\}-[0-9]+\\)\\b\\)")
+
+   ;; Programming
+
+   ;;   Languages
+
+   ;;     C
+   '(c-electric-pound-behavior '(alignleft))
+
+   ;;     Nxml
+   '(nxml-char-ref-display-glyph-flag nil)
+   '(nxml-slash-auto-complete-flag t)
+
+   ;;     Prog Mode
+   '(prog-mode-hook (cons 'fira-code-mode prog-mode-hook))
+
+   ;;     Sh
+
+   ;;       Sh Script
+   '(sh-alias-alist (cons '(@SHELL@ . sh) (cons '(@ZSHELL@ . zsh) sh-alias-alist)))
+
+   ;;         Sh Indentation
+   '(sh-basic-offset 2)
+
+   ;;   Tools
+
+   ;;     Compilation
+   '(compilation-scroll-output 'first-error)
+
+   ;;     Grep
+   '(grep-highlight-matches t)
+   '(grep-program "g")
+   '(grep-use-null-device nil)
+   '(grep-use-null-filename-separator t)
+
+   ;;     Magit
+
+   ;;       Magit Essentials
+   '(magit-repository-directories '(("~/Projects" . 1)))
+
+   ;;       Magit Modes
+
+   ;;         Magit Blame
+   '(magit-blame-styles
+     (let ((styles
+            (if (boundp 'magit-blame-styles)
+                magit-blame-styles
+              (custom--standard-value 'magit-blame-styles))))
+       (cons
+        (cons
+         'headings
+         (cons
+          '(heading-format . "%-20a %C %.6H %s\n")
+          (cdr (assq 'headings styles))))
+        styles)))
+
+   ;;     Makefile
+   '(makefile-backslash-align nil)
+
+   ;;     Smerge
+   '(smerge-auto-leave nil)
+   '(smerge-command-prefix "\C-cv")
+
+   ;;     Vc
+   '(vc-handled-backends '(Git))
+
+   ;; Applications
+
+   ;;   Calendar
+   '(calendar-date-style iso)
+   '(calendar-intermonth-text
+     '(propertize
+       (format
+        "%2d"
+        (car
+         (calendar-iso-from-absolute
+          (calendar-absolute-from-gregorian
+           (list month day year)))))
+       'font-lock-face 'week))
+   '(calendar-latitude 57.708870)
+   '(calendar-location-name "Göteborg")
+   '(calendar-longitude 11.97456)
+   '(calendar-mark-holidays-flag t)
+   '(calendar-time-display-form
+     '(24-hours ":" minutes (if time-zone " ") time-zone))
+   '(calendar-week-start-day 1)
+
+   ;;     Eglot
+   '(eglot-ignored-server-capabilites '(:documentHighlightProvider))
+   '(eglot-workspace-configuration
+     '((:gopls . ((allowImplicitNetworkAccess . t) (staticcheck . t)))))
+
+   ;;     Holidays
+   '(calendar-holidays
+     (append holiday-general-holidays
+             holiday-local-holidays
+             holiday-christian-holidays
+             holiday-other-holidays
+             holiday-solar-holidays))
+   '(holiday-christian-holidays
+     '((holiday-easter-etc -2 "Good Friday")
+       (holiday-easter-etc +1 "Easter Monday")
+       (holiday-easter-etc +39 "Ascension Day")
+       (holiday-easter-etc +49 "Pentecost")
+       (holiday-fixed 12 24 "Christmas Eve")
+       (holiday-fixed 12 25 "Christmas")
+       (holiday-fixed 12 26 "Boxing Day")))
+   '(holiday-general-holidays
+     '((holiday-fixed 1 1 "New Year’s Day")
+       (holiday-fixed 5 1 "International Worker’s Day")
+       (holiday-fixed 6 6 "National Day of Sweden")
+       (holiday-float 6 5 -1 "Midsummer’s Eve" 26)
+       (holiday-fixed 12 31 "New Year’s Eve")))
+
+   ;;   Ispell
+   ;; TODO This should perhaps go in another theme, now-configuration?
+   '(ispell-local-dictionary-alist
+     '((nil "[[:alpha:]]" "[^[:alpha:]]" "['’]" nil ("-B") nil utf-8)
+       ("en_US" "[[:alpha:]]" "[^[:alpha:]]" "['’]" nil ("-B") nil utf-8)
+       ("en_GB-ise" "[[:alpha:]]" "[^[:alpha:]]" "['’]" nil ("-B") nil utf-8)
+       ("sv_SE" "[[:alpha:]]" "[^[:alpha:]]" "['’]" nil ("-C") nil utf-8)))
+
+   ;;   Mail
+
+   ;;     Message
+
+   ;;       Message Various
+   '(message-mode-hook (cons 'flyspell-mode message-mode-hook))
+
+   ;;   Package
+   '(package-quickstart t)
+
+   ;;   Mail
+
+   ;;     Gnus
+
+   ;;       Auth Source
+   '(auth-sources
+     (pcase system-type
+       ('darwin '(macos-keychain-internet))
+       ('gnu/linux '("secrets:Login"))))
+
+   ;; Development
+
+   ;;   Extensions
+
+   ;;     Eldoc
+   '(eldoc-echo-area-use-multiline-p nil)
+
+   ;;   Internal
+
+   ;;     Storage Allocation
+   '(gc-cons-threshold 20000000)
+
+   ;;   Lisp
+   '(emacs-lisp-mode-hook (cons 'eldoc-mode emacs-lisp-mode-hook))
+
+   ;;     Checkdoc
+   '(checkdoc-arguments-in-order-flag t)
+   '(checkdoc-package-keywords-flag t)
+   '(checkdoc-spellcheck-documentation-flag t)
+
+   ;; Environment
+
+   ;;   Frames
+   '(default-frame-alist
+     '((cursor-type . bar) (height . 1.0) (right-fringe . 0) (width . 0.5)))
+   '(initial-frame-alist '((vertical-scroll-bars)))
+   '(menu-bar-mode (eq window-system 'ns))
+   '(scroll-bar-mode nil)
+   '(tool-bar-mode nil)
+   '(undelete-frame-mode t)
+
+   ;;     Cursor
+   '(blink-cursor-blinks 0)
+   '(blink-cursor-mode t)
+
+   ;;     Destkop
+   '(desktop-after-read-hook
+     (cons 'desktop-auto-save-enable desktop-after-read-hook))
+   '(desktop-base-file-name "emacs.desktop")
+   '(desktop-globals-to-save
+     '(command-history
+       compile-history
+       desktop-missing-file-warning
+       file-name-history
+       log-edit-comment-ring
+       minibuffer-history
+       read-expression-history
+       regexp-search-ring
+       register-alist
+       search-ring
+       shell-command-history
+       tags-file-name
+       tags-table-list))
+   '(desktop-lazy-idle-delay 2)
+   '(desktop-lazy-verbose nil)
+   '(desktop-restore-eager 0)
+   '(desktop-save-mode t)
+
+   ;;      Ediff Window
+   '(ediff-window-setup-function 'ediff-setup-windows-plain)
+   '(ediff-split-window-function 'split-window-horizontally)
+
+   ;;      Highlight Selected Window
+   '(highlight-selected-window-mode t)
+
+   ;;   Minibuffer
+   '(completions-format 'vertical)
+
+   ;;   Mode Line
+   '(hide-mode-line-mode t)
+   '(line-number-mode nil)
+
+   ;;   Mouse
+   '(mouse-wheel-mode nil)
+
+   ;; Faces
+
+   ;;   Fira Code Ligatures
+   '(fira-code-mode-disabled-ligatures '("[]" "{-" "lambda" "x"))
+
+   ;; Help
+
+   ;;   Customize
+
+   ;;     Customize Buffer
+   '(custom-search-field nil)
+
+   ;; Unknown
    '(face-font-family-alternatives
      '(("Monospace" "SF Mono" "DejaVu Sans Mono" "fixed")
        ("Monospace Serif" "SF Mono" "DejaVu Sans Mono" "fixed")
@@ -64,7 +420,12 @@
     `(custom-button-mouse ((,gui (:box (:line-width 1 :color "#478cba")
                                   :background "#e9ebed" :foreground ,black))))
     `(custom-button-pressed ((,gui (:box (:line-width 1 :color "#35576d")
-                                   :background "#d4d6da" :foreground ,black))))
+                                    :background "#d4d6da" :foreground ,black))))
+    `(custom-group-tag ((,cui (:inherit variable-pitch :height 1.2 :weight bold))))
+    `(custom-state ((,cui)))
+    `(custom-variable-tag ((,cui (:inherit variable-pitch
+                                  :weight bold
+                                  :box (:line-width 1)))))
     `(default ((default . (:family "Fira Code" :height 120))
                (,gtk . (:height 105))
                (,gui-dark . (:foreground ,off-white :background ,off-black))
@@ -269,6 +630,8 @@
     `(whitespace-space-before-tab ((,cui (:inherit whitespace-trailing))))
     `(whitespace-tab ((,cui (:inherit whitespace-space))))
     `(whitespace-trailing ((,cui (:inherit trailing-whitespace))))
+    `(widget-field ((,gui (:box (:line-width 1 :color "#656a6f")))
+                    (,cui (:background ,off-white))))
     `(woman-bold ((,gui (:weight bold)) (,cui (:foreground ,blue))))
     `(woman-italic ((,gui (:slant italic)) (,cui (:foreground ,red))))))
 

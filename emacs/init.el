@@ -1,9 +1,6 @@
 ;; -*- lexical-binding: t; -*-
 
-(setq gc-cons-threshold 20000000
-      undo-limit 80000000
-      undo-strong-limit 120000000
-      undo-outer-limit 360000000)
+(load-theme 'now t)
 
 (require 'package)
 (setf (alist-get "melpa" package-archives nil nil #'equal) "https://melpa.org/packages/")
@@ -44,34 +41,6 @@
 (use-package now-path
   :when (eq (window-system) 'ns))
 
-(use-package auth-source
-  :when (eq system-type 'darwin)
-  :no-require t
-  :custom ((auth-sources '(macos-keychain-internet))))
-
-(use-package auth-source
-  :when (eq system-type 'gnu/linux)
-  :no-require t
-  :custom ((auth-sources '("secrets:Login"))))
-
-(use-package autoinsert
-  :config (progn
-            (setq auto-insert-alist
-                  (assoc-delete-all
-                   nil auto-insert-alist
-                   (lambda (key _)
-                     (or (member (cdr-safe key)
-                                 '("C / C++ header"
-                                   "C / C++ program"
-                                   "Makefile"))
-                         (member key
-                                 '(html-mode
-                                   plain-tex-mode
-                                   bibtex-mode
-                                   latex-mode
-                                   ada-mode))))))
-            (auto-insert-mode)))
-
 (use-package autorevert
   :diminish auto-revert-mode)
 
@@ -81,7 +50,6 @@
 (use-package avy
   :bind* (("C-." . avy-goto-char-timer)
           ("C->" . avy-goto-line))
-  :custom ((avy-timeout-seconds 0.3))
   ;; TODO Probably use own setup code here instead.
   :config (avy-setup-default))
 
@@ -106,9 +74,6 @@
                ("U" . Buffer-menu-unmark-all)
                ("r" . Buffer-menu-toggle-read-only))))
 
-(use-package bug-reference
-  :custom ((bug-reference-bug-regexp "\\(\\b\\([A-Z]+-[0-9]+\\)\\b\\)")))
-
 (use-package calc
   :no-require t
   :config (progn
@@ -117,23 +82,10 @@
                           calc-gnuplot-default-device "dumb"
                           calc-show-banner nil)))
 
-(use-package calendar
-  :custom ((calendar-date-style 'iso)
-           (calendar-mark-holidays-flag t)
-           (calendar-intermonth-text
-            '(propertize
-              (format "%2d"
-                      (car (calendar-iso-from-absolute
-                            (calendar-absolute-from-gregorian
-                             (list month day year)))))
-              'font-lock-face 'week))
-           (calendar-week-start-day 1)))
-
 (use-package cc-mode
   :custom ((c-default-style '((java-mode . "now-java-style")
                               (awk-mode . "awk")
-                              (other . "now-c-style")))
-           (c-electric-pound-behavior '(alignleft)))
+                              (other . "now-c-style"))))
   :bind ((:map c-mode-base-map
                ("C-j" . c-context-line-break)))
   :config (progn
@@ -174,41 +126,12 @@
   :hook ((c-mode . now-c-mode-hook)
          (c-mode . now-c-auto-newline-mode)))
 
-(use-package checkdoc
-  :no-require t
-  :custom ((checkdoc-arguments-in-order-flag t)
-           (checkdoc-package-keywords-flag t)
-           (checkdoc-spellcheck-documentation-flag t)))
-
 (use-package company
   :ensure t
-  :diminish
-  :defer 1
-  :custom ((company-format-margin-function nil)
-           (company-idle-delay .175)
-           (company-show-numbers t)
-           (company-backends '(company-bbdb
-                               company-semantic
-                               company-cmake
-                               company-capf
-                               company-clang
-                               company-files
-                               (company-dabbrev-code
-                                company-gtags
-                                company-keywords)
-                               company-dabbrev)))
-  :config (progn
-            (declare-function global-company-mode "company")
-            (global-company-mode)))
-
-(use-package company-dabbrev
-  :no-require t
-  :custom ((company-dabbrev-downcase nil)
-           (company-dabbrev-ignore-case nil)))
+  :diminish)
 
 (use-package compile
-  :custom ((compilation-context-lines 0)
-           (compilation-error-regexp-alist '(sbt
+  :custom ((compilation-error-regexp-alist '(sbt
                                              maven
                                              clang-include
                                              gcc-include
@@ -218,8 +141,7 @@
                                              gcov-header
                                              gcov-nomark
                                              gcov-called-line
-                                             gcov-never-called))
-           (compilation-scroll-output 'first-error))
+                                             gcov-never-called)))
   :config (progn
             (dolist (cons
                      `((maven
@@ -352,52 +274,15 @@
   :custom ((css-indent-offset 2)))
 
 (use-package desktop
-  :custom ((desktop-base-file-name "emacs.desktop")
-           (desktop-restore-eager 0)
-           (desktop-lazy-idle-delay 2)
-           (desktop-lazy-verbose nil))
-  :hook ((desktop-after-read . desktop-auto-save-enable))
   :demand t
   :config (progn
-            (setq desktop-dirname (car desktop-path))
-            ;; TODO Move these variables to the respective
-            ;; use-package.
-            (dolist (variable '(command-history
-                                compile-history
-                                log-edit-comment-ring
-                                minibuffer-history
-                                read-expression-history
-                                shell-command-history))
-              (add-to-list 'desktop-globals-to-save variable))
-            (setq desktop-globals-to-save
-                  (cl-set-difference desktop-globals-to-save
-                                     '(register-alist)))))
-
-(use-package desktop
-  :defer 2
-  :config (progn
-            (desktop-save-mode)))
-
-(use-package diff
-  ;; We use :after diff here, which is a bit weird, as :custom will
-  ;; autoload diff otherwise, as diff-switches is an autoloaded defvar.
-  :after diff
-  :no-require t
-  :custom ((diff-switches "-u")))
+            (setq desktop-dirname (car desktop-path))))
 
 (use-package dired
   ;; Same as for diff, we use :after dired.
   :after dired
-  :custom ((dired-dwim-target t)
-           (dired-listing-switches "--si -al")
-           (dired-recursive-copies 'always)
-           (dired-recursive-deletes 'always))
   :bind (:map dired-mode-map
               ("e" . now-dired-ediff-files)))
-
-(use-package dired-aux
-  :no-require t
-  :custom ((dired-isearch-filenames 'dwim)))
 
 (use-package dired-x
   :after dired)
@@ -416,27 +301,14 @@
                                     (vector (make-glyph-code #x2026)))
             (set-display-table-slot standard-display-table 'vertical-border 0)))
 
-(use-package display-fill-column-indicator
-  :hook ((text-mode . display-fill-column-indicator-mode)))
-
 (use-package docker-tramp
   :ensure t)
 
-(use-package ediff
-  :no-require t
-  :custom ((ediff-window-setup-function 'ediff-setup-windows-plain)
-           (ediff-split-window-function 'split-window-horizontally)))
-
 (use-package eglot
-  :ensure t
-  :custom ((eglot-ignored-server-capabilites '(:documentHighlightProvider))
-           (eglot-workspace-configuration '((:gopls . ((allowImplicitNetworkAccess . t)
-                                                       (staticcheck . t)))))))
+  :ensure t)
 
 (use-package eldoc
-  :diminish
-  :custom ((eldoc-echo-area-use-multiline-p nil))
-  :hook ((emacs-lisp-mode . eldoc-mode)))
+  :diminish)
 
 (use-package elisp-mode
   :config (font-lock-add-keywords
@@ -455,13 +327,7 @@
 (use-package now-elisp-mode
   :hook ((emacs-lisp-mode . now-emacs-lisp-mode-hook)))
 
-(use-package ffap
-  :custom ((ffap-machine-p-known 'accept)))
-
 (use-package files
-  :custom ((make-backup-files nil)
-           (require-final-newline t)
-           (revert-without-query '("\\.log$")))
   :defer t
   :config (progn
             (setq insert-directory-program "a")))
@@ -473,29 +339,15 @@
 
 (use-package fira-code-mode
   :ensure t
-  :diminish fira-code-mode
-  :custom ((fira-code-mode-disabled-ligatures '("[]" "{-" "lambda" "x")))
-  :hook ((prog-mode . fira-code-mode)))
+  :diminish fira-code-mode)
 
 ;; TODO Customize
 (use-package flycheck
   :disabled)
 
-(use-package flyspell
-  :hook ((message-mode . flyspell-mode)))
-
 (use-package forge
   :ensure t
   :after magit)
-
-(use-package frame
-  :custom ((blink-cursor-blinks 0)
-           (default-frame-alist '((cursor-type . bar)
-                                  (height . 1.0)
-                                  (right-fringe . 0)
-                                  (width . 0.5)))
-           (initial-frame-alist '((vertical-scroll-bars))))
-  :config (blink-cursor-mode))
 
 (use-package ghub
   :ensure t
@@ -513,11 +365,8 @@
   :config (defun now-go-mode-hook ()
             (setq-local tab-width 2)))
 
+;; TODO Pretty sure that this can be removed.
 (use-package grep
-  :custom ((grep-highlight-matches t)
-           (grep-program "g")
-           (grep-use-null-device nil)
-           (grep-use-null-filename-separator t))
   :config (setq grep-regexp-alist
             `((,(concat "^\\(?:"
                         ;; Parse using NUL characters when `--null' is used.
@@ -558,43 +407,16 @@
               ("^Binary file \\(.+\\) matches$" 1 nil nil 0 1))))
 
 (use-package hide-mode-line
-  :config (hide-mode-line-mode)
   :bind (:map ctl-x-map
               ("," . hide-mode-line-show-mode-line)))
 
-(use-package highlight-selected-window
-  :config (highlight-selected-window-mode))
+(use-package highlight-selected-window)
 
 (use-package hl-line
   :hook (((Buffer-menu-mode
             arc-mode
-            dired-mode
             tar-mode)
            . hl-line-mode)))
-
-(use-package holidays
-  :after holidays
-  :custom ((holiday-general-holidays '((holiday-fixed 1 1 "New Year’s Day")
-                                       (holiday-fixed 5 1 "International Worker’s Day")
-                                       (holiday-fixed 6 6 "National Day of Sweden")
-                                       (holiday-float 6 5 -1 "Midsummer’s Eve" 26)
-                                       (holiday-fixed 12 31 "New Year’s Eve")))
-           (holiday-christian-holidays '((holiday-easter-etc -2 "Good Friday")
-                                         (holiday-easter-etc +1 "Easter Monday")
-                                         (holiday-easter-etc +39 "Ascension Day")
-                                         (holiday-easter-etc +49 "Pentecost")
-                                         (holiday-fixed 12 24 "Christmas Eve")
-                                         (holiday-fixed 12 25 "Christmas")
-                                         (holiday-fixed 12 26 "Boxing Day")))
-           (calendar-holidays (append holiday-general-holidays
-                                      holiday-local-holidays
-                                      holiday-christian-holidays
-                                      holiday-other-holidays
-                                      holiday-solar-holidays))))
-
-(use-package isearch
-  :no-require t
-  :custom ((search-whitespace-regexp "[ \t\r\n]+")))
 
 (use-package iso-transl
   :defer t
@@ -615,18 +437,6 @@
                     ("*\"" . [?ʺ])))
             (iso-transl-set-language "now")))
 
-(use-package ispell
-  :no-require t
-  :custom ((ispell-local-dictionary-alist
-            '((nil "[[:alpha:]]" "[^[:alpha:]]" "['’]" nil ("-B") nil utf-8)
-              ("en_US" "[[:alpha:]]" "[^[:alpha:]]" "['’]" nil ("-B") nil utf-8)
-              ("en_GB-ise" "[[:alpha:]]" "[^[:alpha:]]" "['’]" nil ("-B") nil utf-8)
-              ("sv_SE" "[[:alpha:]]" "[^[:alpha:]]" "['’]" nil ("-C") nil utf-8)))))
-
-(use-package jka-cmpr-hook
-  :no-require t
-  :custom ((jka-compr-verbose . nil)))
-
 (use-package js
   :no-require t
   :mode (("\\.jsx\\(inc\\)?\\'" . js-mode))
@@ -642,37 +452,19 @@
                ("C-c s" . delete-pair))))
 
 (use-package magit
-  :ensure t
   :no-require t
-  :custom ((magit-repository-directories '(("~/Projects" . 1)))))
-
-(use-package magit-blame
-  :defer t
-  :config (setf (alist-get 'heading-format
-                           (alist-get 'headings magit-blame-styles))
-                "%-20a %C %.6H %s\n"))
+  :ensure t)
 
 (use-package magit-files
   :no-require t
   :bind ((:map ctl-x-map
                ("G" . magit-file-dispatch))))
 
-(use-package make-mode
-  :no-require t
-  :custom ((makefile-backslash-align nil)))
-
 (use-package now-make-mode
   :hook (makefile-mode . now-make-mode-remove-space-after-tab-from-whitespace-style))
 
 (use-package markdown-mode
-  :ensure t
-  :custom ((markdown-list-item-bullets '("•" "◦" "‣"))))
-
-(use-package menu-bar
-  :commands (menu-bar-mode)
-  :defer t
-  :config (progn
-            (menu-bar-mode -1)))
+  :ensure t)
 
 (use-package message
   :defer t
@@ -691,10 +483,6 @@
             (define-abbrev message-mode-abbrev-table "tsn"
               "Thanks,\n  Nikolai"
               nil :system t :case-fixed t)))
-
-(use-package minibuffer
-  :no-require t
-  :custom ((completions-format 'vertical)))
 
 (use-package mule
   :custom ((default-input-method "rfc1345--"))
@@ -731,9 +519,6 @@ For example, “&a'” → “á”"
          ((nxml-mode prog-mode text-mode) . now-set-fill-column-to-80)))
 
 (use-package nxml-mode
-  :custom ((nxml-char-ref-display-glyph-flag nil)
-           (nxml-sexp-element-flag t)
-           (nxml-slash-auto-complete-flag t))
   :mode ("\\.rng\\'"
          "\\.sch\\'"
          "\\.xsd\\'")
@@ -759,19 +544,9 @@ For example, “&a'” → “á”"
               "<xsl:template match=\"" _ "\">" \n
               "</xsl:template>" >)))
 
-(use-package package
-  :no-require t
-  :custom ((package-quickstart t)))
-
 (use-package page
   :no-require t
   :config (put 'narrow-to-page 'disabled nil))
-
-(use-package paren
-  :no-require t
-  :custom ((show-paren-delay 0))
-  :config (progn
-            (show-paren-mode)))
 
 (use-package pp
   :no-require t
@@ -782,10 +557,6 @@ For example, “&a'” → “á”"
   :no-require t
   :bind (:map ctl-x-map
               ("c" . now-project-display-compilation)))
-
-(use-package replace
-  :no-require t
-  :custom ((replace-lax-whitespace t)))
 
 (use-package rnc-mode
   :defer t
@@ -825,13 +596,6 @@ For example, “&a'” → “á”"
               \n
               (- rnc-indent-level) str "." v1 ".content = " \n
               "}" >)))
-
-(use-package rng-loc
-  :defer t
-  :config (progn
-            (add-to-list 'rng-schema-locating-files
-                         (concat user-emacs-directory
-                                 "etc/schema/schemas.xml"))))
 
 (use-package ruby-mode
   :hook ((ruby-mode . now-ruby-mode-hook))
@@ -892,12 +656,6 @@ For example, “&a'” → “á”"
               (setq-local adaptive-fill-function
                           'now-ruby-mode-adaptive-fill-function))))
 
-(use-package scroll-bar
-  :commands (scroll-bar-mode)
-  :defer t
-  :config (progn
-            (scroll-bar-mode -1)))
-
 (use-package sed-mode
   :ensure t
   :hook ((sed-mode . now-sed-mode-hook))
@@ -914,14 +672,6 @@ For example, “&a'” → “á”"
   :no-require
   :hook (after-init . server-start))
 
-(use-package sh-script
-  :custom ((sh-indentation 2)
-           (sh-basic-offset 2))
-  :defer t
-  :config (progn
-            (add-to-list 'sh-alias-alist '(@SHELL@ . sh))
-            (add-to-list 'sh-alias-alist '(@ZSHELL@ . zsh))))
-
 (use-package shr
   :no-require t
   :custom ((shr-use-fonts nil)
@@ -931,21 +681,13 @@ For example, “&a'” → “á”"
 (use-package simple
   :diminish auto-fill-function
   :no-require t
-  :custom ((completion-show-help nil)
-           (indent-tabs-mode nil)
-           (what-cursor-show-names t))
+  :custom ((indent-tabs-mode nil))
   :hook (((prog-mode text-mode) . auto-fill-mode)
          ((go-mode nxml-mode) . turn-off-auto-fill))
   :defer nil
   :bind (:map global-map
               ("s-z" . 'undo-only)
-              ("s-Z" . 'undo-redo))
-  :config (progn
-            (line-number-mode -1)))
-
-(use-package smerge-mode
-  :custom ((smerge-auto-leave nil)
-           (smerge-command-prefix "\C-cv")))
+              ("s-Z" . 'undo-redo)))
 
 (use-package smie
   :defer t
@@ -965,20 +707,9 @@ For example, “&a'” → “á”"
                                                  nil nil nil nil nil))))
            (smtpmail-multi-associations '(("now@disu.se" disuse)))))
 
-(use-package solar
-  :no-require t
-  :custom ((calendar-time-display-form '(24-hours ":" minutes (if time-zone " ")
-                                                  time-zone))
-           (calendar-latitude 57.708870)
-           (calendar-longitude 11.97456)
-           (calendar-location-name "Göteborg")))
-
 (use-package sql-indent
   :ensure t
   :custom ((sqlind-basic-offset 8)))
-
-(use-package tab-bar
-  :custom ((tab-bar-show nil)))
 
 (use-package term/xterm
   :defer t
@@ -1001,12 +732,6 @@ For example, “&a'” → “á”"
                     ("brightcyan"    14 (128 176 192))
                     ("brightwhite"   15 (246 246 246))))
             (set-terminal-parameter nil 'background-mode 'light)))
-
-(use-package tool-bar
-  :commands (tool-bar-mode)
-  :defer t
-  :config (progn
-            (tool-bar-mode -1)))
 
 (use-package typescript-mode
   :ensure t
@@ -1032,28 +757,15 @@ For example, “&a'” → “á”"
   :config (progn
             (defun vc-git-mode-line-string (_) "")))
 
-(use-package vc-hooks
-  :defer t
-  :custom ((vc-handled-backends '(Git))))
-
 (use-package visual-fill-column
   :ensure t
   :hook ((message-mode . visual-fill-column-mode)))
 
 (use-package whitespace
-  :diminish (global-whitespace-mode whitespace-mode)
-  :custom ((whitespace-global-modes '(prog-mode))
-           (whitespace-style '(face
-                               missing-newline-at-eof
-                               empty
-                               indentation
-                               space-after-tab
-                               space-before-tab)))
-  :config (global-whitespace-mode))
+  :diminish (global-whitespace-mode whitespace-mode))
 
 (use-package xdisp
   :no-require t
-  :custom ((show-trailing-whitespace t))
   :config (progn
             (setq overlay-arrow-string "►")))
 
@@ -1080,9 +792,6 @@ For example, “&a'” → “á”"
        'dark
      'light))
   (customize-set-variable 'custom-enabled-themes custom-enabled-themes))
-
-;; TODO Move these to the relevant use-package
-(load-theme 'now t)
 
 (defun now-bug-reference-fontify-around (next &rest args)
   (let ((case-fold-search nil))
@@ -1212,5 +921,3 @@ For example, “&a'” → “á”"
 
 (keymap-unset help-map "<f1>" t)
 (keymap-unset help-map "<help>" t)
-
-(mouse-wheel-mode -1)

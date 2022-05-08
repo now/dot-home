@@ -1,6 +1,6 @@
 (defgroup highlight-selected-window nil
   "Highlight the `selected-window'."
-  :group 'tools)
+  :group 'frames)
 
 (defface highlight-selected-window-unselected-window
   '((((class color) (min-colors 256)) (:background "grey94" :extend t))
