@@ -47,6 +47,13 @@
           (refresh-when-pinned package)
           (package-install package))))))
 
+(let ((modes
+       '(("\\.rng\\'" . xml-mode)
+         ("\\.sch\\'" . xml-mode)
+         ("\\.xsd\\'" . xml-mode))))
+  (dolist (mode modes)
+    (push mode auto-mode-alist)))
+
 (add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
 (require 'userloaddefs)
 
@@ -466,7 +473,6 @@
 
 (use-package js
   :no-require t
-  :mode (("\\.jsx\\(inc\\)?\\'" . js-mode))
   :custom ((js-indent-level 2)))
 
 (use-package lisp-mode
@@ -536,9 +542,6 @@ For example, “&a'” → “á”"
          ((nxml-mode prog-mode text-mode) . now-set-fill-column-to-80)))
 
 (use-package nxml-mode
-  :mode ("\\.rng\\'"
-         "\\.sch\\'"
-         "\\.xsd\\'")
   :defer t
   :config (progn
             (define-abbrev nxml-mode-abbrev-table "s" ""
