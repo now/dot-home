@@ -11,7 +11,6 @@
              company
              compat
              dash
-             diminish
              eglot
              json-mode
              sed-mode
@@ -54,17 +53,6 @@
          ("\\.xsd\\'" . xml-mode))))
   (dolist (mode modes)
     (push mode auto-mode-alist)))
-
-(let ((modes
-       '(auto-fill-function
-         auto-revert-mode
-         company-mode
-         eldoc-mode
-         fira-code-mode
-         global-whitespace-mode
-         whitespace-mode)))
-  (require 'diminish)
-  (mapc #'diminish modes))
 
 (add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
 (require 'userloaddefs)
