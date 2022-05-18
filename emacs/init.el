@@ -1,7 +1,6 @@
 ;; -*- lexical-binding: t; -*-
 
-(load-theme 'now t)
-
+(setq package-quickstart t)
 (require 'package)
 (setf (alist-get "melpa" package-archives nil nil #'equal) "https://melpa.org/packages/")
 
@@ -520,12 +519,10 @@ For example, “&a'” → “á”"
   :config (setq truncate-string-ellipsis "…"))
 
 (use-package now-init
-  :hook (((compilation-mode help-mode) . now-do-not-show-trailing-whitespace)
-         (message-mode . now-remove-continuation-fringe-indicator)
-         (prog-mode . now-comment-auto-fill-only-comments)
+  :hook ((message-mode . now-remove-continuation-fringe-indicator)
          (tabulated-list-mode
           . now-tabulated-list-mode-use-global-glyphless-char-display)
-         ((nxml-mode prog-mode text-mode) . now-set-fill-column-to-80)))
+         (nxml-mode . now-set-fill-column-to-80)))
 
 (use-package nxml-mode
   :defer t
@@ -686,8 +683,7 @@ For example, “&a'” → “á”"
 (use-package simple
   :no-require t
   :custom ((indent-tabs-mode nil))
-  :hook (((prog-mode text-mode) . auto-fill-mode)
-         ((go-mode nxml-mode) . turn-off-auto-fill))
+  :hook (((go-mode nxml-mode) . turn-off-auto-fill))
   :defer nil
   :bind (:map global-map
               ("s-z" . 'undo-only)
@@ -915,3 +911,7 @@ For example, “&a'” → “á”"
 
 (keymap-unset help-map "<f1>" t)
 (keymap-unset help-map "<help>" t)
+
+(load-theme 'now t)
+
+(add-hook 'emacs-startup-hook 'hide-mode-line-mode)

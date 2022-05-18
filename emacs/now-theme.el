@@ -145,7 +145,11 @@
    '(revert-without-query '("\\.log$"))
 
    ;; Text
-   '(text-mode-hook (cons 'display-fill-column-indicator-mode text-mode-hook))
+   '(text-mode-hook
+     `(auto-fill-mode
+       display-fill-column-indicator-mode
+       now-set-fill-column-to-80
+       . ,text-mode-hook))
 
    ;;   Markdown
    '(markdown-list-item-bullets '("•" "◦" "‣"))
@@ -179,7 +183,12 @@
    '(nxml-slash-auto-complete-flag t)
 
    ;;     Prog Mode
-   '(prog-mode-hook (cons 'fira-code-mode prog-mode-hook))
+   '(prog-mode-hook
+     `(auto-fill-mode
+       fira-code-mode
+       now-comment-auto-fill-only-comments
+       now-set-fill-column-to-80
+       . ,prog-mode-hook))
 
    ;;     Sh
 
@@ -192,6 +201,9 @@
    ;;   Tools
 
    ;;     Compilation
+   '(compilation-mode-hook
+     `(now-do-not-show-trailing-whitespace
+       . ,(when (boundp 'compilation-mode-hook) compilation-mode-hook)))
    '(compilation-scroll-output 'first-error)
 
    ;;     Grep
@@ -388,6 +400,10 @@
    '(fira-code-mode-disabled-ligatures '("[]" "{-" "lambda" "x"))
 
    ;; Help
+   '(help-mode-hook
+     (cons
+      'now-do-not-show-trailing-whitespace
+      (when (boundp 'help-mode-hook) help-mode-hook)))
 
    ;;   Customize
 
