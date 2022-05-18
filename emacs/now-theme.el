@@ -96,7 +96,6 @@
    '(tab-bar-show nil)
 
    ;;   Whitespace
-   '(global-whitespace-mode t)
    '(whitespace-global-modes '(prog-mode))
    '(whitespace-style
      '(face
@@ -105,6 +104,7 @@
        indentation
        space-after-tab
        space-before-tab))
+   '(global-whitespace-mode t)
 
    ;; Files
 
