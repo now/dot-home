@@ -85,8 +85,8 @@
         use-package-verbose nil))
 
 ;; This comes first, as we want path set early on.
-(use-package now-path
-  :when (eq (window-system) 'ns))
+(when (eq (window-system) 'ns)
+  (require 'now-path))
 
 (use-package avy
   :bind* (("C-." . avy-goto-char-timer)
@@ -767,21 +767,21 @@ For example, “&a'” → “á”"
   :bind ((:map xref--xref-buffer-mode-map
                ("q" . quit-window))))
 
-(defun light-or-dark-mode ()
-  (interactive)
-  (customize-set-variable
-   'frame-background-mode
-   (if (= (do-applescript
-           "tell application \"System Events\"
-            if get dark mode of appearance preferences then
-              1
-            else
-              0
-            end if
-          end tell") 1)
-       'dark
-     'light))
-  (customize-set-variable 'custom-enabled-themes custom-enabled-themes))
+;; (defun light-or-dark-mode ()
+;;   (interactive)
+;;   (customize-set-variable
+;;    'frame-background-mode
+;;    (if (= (do-applescript
+;;            "tell application \"System Events\"
+;;             if get dark mode of appearance preferences then
+;;               1
+;;             else
+;;               0
+;;             end if
+;;           end tell") 1)
+;;        'dark
+;;      'light))
+;;   (customize-set-variable 'custom-enabled-themes custom-enabled-themes))
 
 (defun now-bug-reference-fontify-around (next &rest args)
   (let ((case-fold-search nil))
@@ -915,3 +915,15 @@ For example, “&a'” → “á”"
 (load-theme 'now t)
 
 (add-hook 'emacs-startup-hook 'hide-mode-line-mode)
+
+(ligature-set-ligatures 'prog-mode '("**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\" "{-" "::"
+                                     ":::" ":=" "!!" "!=" "!==" "-}" "----" "-->" "->" "->>"
+                                     "-<" "-<<" "-~" "#{" "#[" "##" "###" "####" "#(" "#?" "#_"
+                                     "#_(" ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*" "/**"
+                                     "/=" "/==" "/>" "//" "///" "&&" "||" "||=" "|=" "|>" "^=" "$>"
+                                     "++" "+++" "+>" "=:=" "==" "===" "==>" "=>" "=>>" "<="
+                                     "=<<" "=/=" ">-" ">=" ">=>" ">>" ">>-" ">>=" ">>>" "<*"
+                                     "<*>" "<|" "<|>" "<$" "<$>" "<!--" "<-" "<--" "<->" "<+"
+                                     "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
+                                     "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%"))
+(global-ligature-mode t)

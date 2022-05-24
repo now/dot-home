@@ -503,10 +503,10 @@ endif
 $(bin_SCRIPTS): bin/.dirstamp
 $(sitelisp_elcs): emacs/site-lisp/.dirstamp
 $(xdgconfighomeemacs_DATA): emacs/.dirstamp
-m2/settings.xml: m2/.dirstamp
-zsh/zshrc: zsh/.dirstamp
-zsh/functions/hc: zsh/functions/.dirstamp
-git/config: git/.dirstamp
+$(userconfm2_DATA): m2/.dirstamp
+$(xdgconfighomezsh_DATA): zsh/.dirstamp
+$(xdgconfighomezshfunctions_DATA): zsh/functions/.dirstamp
+$(xdgconfighomegit_DATA): git/.dirstamp
 
 $(sitelisp_elcs): ELC_INCLUDES =
 $(sitelisp_elcs): %.elc: %.el
