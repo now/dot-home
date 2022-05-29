@@ -1,5 +1,7 @@
 ;; -*- lexical-binding: t; -*-
 
+(require 'desktop)
+
 (require 'package)
 (setq package-quickstart t)
 (setf (alist-get "melpa" package-archives nil nil #'equal) "https://melpa.org/packages/")
@@ -78,18 +80,6 @@
 ;; This comes first, as we want path set early on.
 (use-package now-path
   :when (eq (window-system) 'ns))
-
-(use-package avy
-  ;; TODO Probably use own setup code here instead.
-  :config (avy-setup-default))
-
-(use-package calc
-  :no-require t
-  :config (progn
-            (require 'now-calc)
-            (setq-default calc-group-char " "
-                          calc-gnuplot-default-device "dumb"
-                          calc-show-banner nil)))
 
 (use-package cc-mode
   :custom ((c-default-style '((java-mode . "now-java-style")
@@ -267,11 +257,6 @@
   :no-require t
   :custom ((css-indent-offset 2)))
 
-(use-package desktop
-  :demand t
-  :config (progn
-            (setq desktop-dirname (car desktop-path))))
-
 (use-package disp-table
   :config (progn
             (defface wrap-glyph
@@ -285,16 +270,6 @@
             (set-display-table-slot standard-display-table 'selective-display
                                     (vector (make-glyph-code #x2026)))
             (set-display-table-slot standard-display-table 'vertical-border 0)))
-
-(use-package files
-  :defer t
-  :config (progn
-            (setq insert-directory-program "a")))
-
-(use-package find-func
-  :defer t
-  :config (progn
-            (setq find-function-C-source-directory "~/Projects/emacs/src")))
 
 ;; TODO Customize
 (use-package flycheck
@@ -403,10 +378,6 @@ For example, “&a'” → “á”"
                ("&:)" ?\☺)
                ("&:(" ?\☹)
                ("&<3" ?\❤)))))
-
-(use-package mule-util
-  :defer t
-  :config (setq truncate-string-ellipsis "…"))
 
 (use-package nxml-mode
   :defer t
@@ -596,11 +567,6 @@ For example, “&a'” → “á”"
   :config (progn
             (defun vc-git-mode-line-string (_) "")))
 
-(use-package xdisp
-  :no-require t
-  :config (progn
-            (setq overlay-arrow-string "►")))
-
 (defun light-or-dark-mode ()
   (interactive)
   (customize-set-variable
@@ -765,6 +731,9 @@ For example, “&a'” → “á”"
 (with-eval-after-load 'buffer-mode
   (require 'buffer-menu-ext))
 
+(with-eval-after-load 'calc
+  (require 'now-calc))
+
 (with-eval-after-load 'cc-mode
   (keymap-set c-mode-map "M-q" 'now-c-fill-paragraph))
 
@@ -783,6 +752,9 @@ For example, “&a'” → “á”"
          (or "cl-assert" "cl-check-type" "error" "signal" "user-error" "warn"))
         symbol-end)
       (1 font-lock-keyword-face)))))
+
+(with-eval-after-load 'isearch
+  (keymap-set isearch-mode-map "C-'" 'avy-isearch))
 
 (with-eval-after-load 'lisp-mode
   (define-keymap
@@ -818,6 +790,21 @@ For example, “&a'” → “á”"
  'now-tabulated-list-mode-use-global-glyphless-char-display)
 
 (add-hook 'tar-mode-hook 'hl-line-mode)
+
+(eval-when-compile
+  (require 'find-func))
+
+(setq
+ desktop-dirname (car desktop-path)
+ find-function-C-source-directory "~/Projects/emacs/src"
+ insert-directory-program "a"
+ overlay-arrow-string "►"
+ truncate-string-ellipsis "…")
+
+(setq-default
+ calc-group-char " "
+ calc-gnuplot-default-device "dumb"
+ calc-show-banner nil)
 
 (load-theme 'now t)
 
