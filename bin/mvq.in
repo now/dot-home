@@ -1,0 +1,71 @@
+#! @SHELL@
+
+assembly="\
+Reading assembly descriptor: .+"
+docker="\
+loaded credentials for user account with clientId=.+"
+ear="\
+Copying artifact \\[.+\\] to \\[.+\\]"
+ejb="\
+Building EJB .+"
+resource="\
+Using '[^']+' encoding to copy filtered (resources|properties files)\.|\
+skip non existing resourceDirectory .*"
+surefire="\
+No tests to run\\.|\
+()|\
+-------------------------------------------------------|\
+ T E S T S"
+war="\
+Packaging (classes|webapp)|\
+Processing war project"
+jacoco="\
+Skipping JaCoCo execution due to missing execution data file\\.|\
+Loading execution data file .+|\
+Analyzed bundle '[^']+' with [0-9]+ classes"
+scala="\
+Using incremental compilation using Mixed compile order|\
+Compiler bridge file: .+|\
+compiler plugin: .+|\
+Done compiling\.|\
+compile in [0-9]+\.[0-9]+ s|\
+No sources to compile"
+jacoco_stdout="\
+Audit done\\."
+scalatest="\
+Discovery starting\\.|\
+(Discovery|Run) completed in ([0-9]+ seconds?, )?[0-9]+ milliseconds\\.|\
+Run starting\\. Expected test count is: [0-9]+|\
+Total number of tests run: [0-9]+|\
+Suites: completed [0-9]+, aborted [0-9]+|\
+All tests passed\\."
+
+protoc=
+
+set -o pipefail
+
+MAVEN_OPTS="--add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED \
+  --add-exports jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED \
+  --add-exports jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED \
+  --add-exports jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED \
+  --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED \
+  $MAVEN_OPTS" exec mvn \
+     -Djava.awt.headless=true \
+     -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.event.ExecutionEventLogger=warn \
+     -Dorg.slf4j.simpleLogger.log.org.apache.maven.plugin.compiler.CompilerMojo=warn \
+     -Dorg.slf4j.simpleLogger.log.org.apache.maven.plugin.plugin.DescriptorGeneratorMojo=warn \
+     -Dorg.slf4j.simpleLogger.log.org.apache.maven.plugins.source.SourceJarNoForkMojo=warn \
+     -Dorg.slf4j.simpleLogger.log.org.apache.maven.plugins.toolchain.ToolchainMojo=warn \
+     -Dorg.slf4j.simpleLogger.log.org.apache.maven.scm.manager.plexus.DefaultScmManager=warn \
+     -Dorg.slf4j.simpleLogger.log.org.codehaus.mojo.build.CreateMojo=warn \
+     -Dorg.slf4j.simpleLogger.log.org.codehaus.mojo.native2ascii.mojo.Native2AsciiInplaceMojo=warn \
+     -Dorg.slf4j.simpleLogger.log.org.jacoco.maven.AgentITMojo=warn \
+     -Dorg.slf4j.simpleLogger.log.org.jacoco.maven.ReportITMojo=warn \
+     -Dorg.slf4j.simpleLogger.log.org.sonatype.nexus.maven.staging.deploy.DeployLifecycleParticipant=warn \
+     "$@" | \
+  sed -El \
+      -e '/^\[ERROR\] Failed to execute goal org\.apache\.maven\.plugins:maven-compiler-plugin:[0-9]+\.[0-9]+\..+:compile (.+) on project .+: Compilation failure/,/^\[ERROR\] \[Help 1\]/d'
+#   | \
+#  sed -El \
+#      -e "/^\[INFO\] ($assembly|$docker|$ear|$ejb|$jacoco|$resource|$scala|$surefire|$war)\$/d" \
+#      -e "/^($jacoco_stdout|$scalatest)\$/d"

@@ -475,6 +475,7 @@ bin_SCRIPTS = \
 	bin/m \
 	bin/mfedit \
 	bin/mov-re-encode \
+	bin/mvq \
 	bin/o \
 	bin/oo \
 	bin/pack \
