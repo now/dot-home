@@ -272,9 +272,6 @@
   :config (progn
             (setq desktop-dirname (car desktop-path))))
 
-(use-package dired-x
-  :after dired)
-
 (use-package disp-table
   :config (progn
             (defface wrap-glyph
@@ -780,6 +777,7 @@ For example, “&a'” → “á”"
 (eval-after-load 'cc-mode #'now-cc-mode-init)
 
 (with-eval-after-load 'dired
+  (require 'dired-x)
   (keymap-set dired-mode-map "e" 'now-dired-ediff-files))
 
 (with-eval-after-load 'elisp-mode
