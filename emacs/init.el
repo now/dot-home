@@ -289,20 +289,6 @@
                                     (vector (make-glyph-code #x2026)))
             (set-display-table-slot standard-display-table 'vertical-border 0)))
 
-(use-package elisp-mode
-  :config (font-lock-add-keywords
-           'emacs-lisp-mode
-           `((,(concat "(" (eval-when-compile
-                             (regexp-opt '("cl-assert"
-                                           "cl-check-type"
-                                           "error"
-                                           "signal"
-                                           "user-error"
-                                           "warn")
-                                         t))
-                       "\\_>")
-              (1 font-lock-keyword-face)))))
-
 (use-package files
   :defer t
   :config (progn
@@ -795,6 +781,16 @@ For example, “&a'” → “á”"
 
 (with-eval-after-load 'dired
   (keymap-set dired-mode-map "e" 'now-dired-ediff-files))
+
+(with-eval-after-load 'elisp-mode
+  (font-lock-add-keywords
+   'emacs-lisp-mode
+   `((,(rx
+        ?\(
+        (group
+         (or "cl-assert" "cl-check-type" "error" "signal" "user-error" "warn"))
+        symbol-end)
+      (1 font-lock-keyword-face)))))
 
 (with-eval-after-load 'lisp-mode
   (define-keymap
