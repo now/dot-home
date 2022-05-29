@@ -1,42 +1,12 @@
+;; -*- lexical-binding: t; -*-
+
 (deftheme now
   "Color theme by Nikolai Weibull.")
 
-(let* ((cui '((class color) (min-colors 89)))
-       (gtk '((type gtk)))
-       (gui '((type graphic)))
-       (dark '((background dark)))
-       (lite '((background light)))
-       (cui-dark `(,@cui ,@dark))
-       (gtk-dark `(,@gtk ,@dark))
-       (gui-dark `(,@gui ,@dark))
-       (cui-lite `(,@cui ,@lite))
-       (gtk-lite `(,@gtk ,@lite))
-       (gui-lite `(,@gui ,@lite))
-       (black "#000000")
-       (red "#951616")
-       (green "#257325")
-       (blue "#2f5a9b")
-       (mustard "#766020")
-       (purple "#602f80")
-       (cyan "#5694a8")
-       (light-blue "#2080c0")
-       (off-black "#1e1e1e")
-       (off-white "#dedede")
-       (light-red "#f02626")
-       (light-green "#009000")
-       (light-yellow "#f0a500")
-       (light-magenta "#933763")
-       (light-cyan "#80b0c0")
-       (brown "#af5f00")
-       (off-red "RosyBrown1")
-       (light-orange "#ffaf5f")
-       (lighter-yellow "#ffd700")
-       (white "#ffffff")
-       (yellow "#ffbd00")
-       ;; macOS
-       (selection-dark "#1c5ac8")
-       ;; macOS
-       (selection-lite "#2165d9"))
+(cl-macrolet ((value (variable-name)
+            `'(if (boundp ',variable-name)
+                ,variable-name
+              (custom--standard-value ',variable-name))))
   (custom-theme-set-variables
    'now
 
@@ -136,8 +106,7 @@
    '(dired-dwim-target t)
    '(dired-isearch-filenames 'dwim)
    '(dired-listing-switches "--si -al")
-   '(dired-mode-hook
-     (cons 'hl-line-mode (when (boundp 'dired-mode-hook) dired-mode-hook)))
+   `(dired-mode-hook (cons 'hl-line-mode ,(value dired-mode-hook)))
    '(dired-recursive-copies 'always)
    '(dired-recursive-deletes 'always)
 
@@ -155,9 +124,9 @@
    '(markdown-list-item-bullets '("•" "◦" "‣"))
 
    ;;   Relax Ng
-   '(rng-schema-locating-files
+   `(rng-schema-locating-files
      (cons (concat user-emacs-directory "etc/schema/schemas.xml")
-           rng-schema-locating-files))
+           ,(value rng-schema-locating-files)))
 
    ;; Data
 
@@ -193,7 +162,8 @@
    ;;     Sh
 
    ;;       Sh Script
-   '(sh-alias-alist (cons '(@SHELL@ . sh) (cons '(@ZSHELL@ . zsh) sh-alias-alist)))
+   `(sh-alias-alist
+     (cl-list* '(@SHELL@ . sh) '(@ZSHELL@ . zsh) ,(value sh-alias-alist)))
 
    ;;         Sh Indentation
    '(sh-basic-offset 2)
@@ -201,9 +171,8 @@
    ;;   Tools
 
    ;;     Compilation
-   '(compilation-mode-hook
-     `(now-do-not-show-trailing-whitespace
-       . ,(when (boundp 'compilation-mode-hook) compilation-mode-hook)))
+   `(compilation-mode-hook
+     (cons 'now-do-not-show-trailing-whitespace ,(value compilation-mode-hook)))
    '(compilation-scroll-output 'first-error)
 
    ;;     Grep
@@ -220,11 +189,8 @@
    ;;       Magit Modes
 
    ;;         Magit Blame
-   '(magit-blame-styles
-     (let ((styles
-            (if (boundp 'magit-blame-styles)
-                magit-blame-styles
-              (custom--standard-value 'magit-blame-styles))))
+   `(magit-blame-styles
+     (let ((styles ,(value magit-blame-styles)))
        (cons
         (cons
          'headings
@@ -400,10 +366,8 @@
    '(fira-code-mode-disabled-ligatures '("[]" "{-" "lambda" "x"))
 
    ;; Help
-   '(help-mode-hook
-     (cons
-      'now-do-not-show-trailing-whitespace
-      (when (boundp 'help-mode-hook) help-mode-hook)))
+   `(help-mode-hook
+     (cons 'now-do-not-show-trailing-whitespace ,(value help-mode-hook)))
 
    ;;   Customize
 
@@ -417,7 +381,45 @@
        ("Sans Serif" "DejaVu Sans" "fixed")))
    '(magit-diff-highlight-hunk-region-functions
      '(magit-diff-highlight-hunk-region-dim-outside
-       magit-diff-highlight-hunk-region-using-face)))
+       magit-diff-highlight-hunk-region-using-face))))
+
+(let* ((cui '((class color) (min-colors 89)))
+       (gtk '((type gtk)))
+       (gui '((type graphic)))
+       (dark '((background dark)))
+       (lite '((background light)))
+       ;; (cui-dark `(,@cui ,@dark))
+       ;; (gtk-dark `(,@gtk ,@dark))
+       (gui-dark `(,@gui ,@dark))
+       ;; (cui-lite `(,@cui ,@lite))
+       ;; (gtk-lite `(,@gtk ,@lite))
+       (gui-lite `(,@gui ,@lite))
+       (black "#000000")
+       (red "#951616")
+       (green "#257325")
+       (blue "#2f5a9b")
+       ;; (mustard "#766020")
+       (purple "#602f80")
+       (cyan "#5694a8")
+       (light-blue "#2080c0")
+       (off-black "#1e1e1e")
+       (off-white "#dedede")
+       (light-red "#f02626")
+       (light-green "#009000")
+       (light-yellow "#f0a500")
+       ;; (light-magenta "#933763")
+       (light-cyan "#80b0c0")
+       (brown "#af5f00")
+       (off-red "RosyBrown1")
+       ;; (light-orange "#ffaf5f")
+       (lighter-yellow "#ffd700")
+       (white "#ffffff")
+       (yellow "#ffbd00")
+       ;; macOS
+       (selection-dark "#1c5ac8")
+       ;; macOS
+       ;; (selection-lite "#2165d9")
+       )
   (custom-theme-set-faces
     'now
     `(avy-lead-face ((,cui (:foreground ,black :background ,off-red))))
