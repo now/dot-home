@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t; -*-
 
-(setq package-quickstart t)
 (require 'package)
+(setq package-quickstart t)
 (setf (alist-get "melpa" package-archives nil nil #'equal) "https://melpa.org/packages/")
 
 (let ((packages
@@ -89,31 +89,8 @@
   :when (eq (window-system) 'ns))
 
 (use-package avy
-  :bind* (("C-." . avy-goto-char-timer)
-          ("C->" . avy-goto-line))
   ;; TODO Probably use own setup code here instead.
   :config (avy-setup-default))
-
-(use-package buff-menu-ext
-  :bind ((:map Buffer-menu-mode-map
-               ("%")
-               ("%f" . Buffer-menu-mark-by-file-name-regexp)
-               ("%m" . Buffer-menu-mark-by-mode-regexp)
-               ("%n" . Buffer-menu-mark-by-name-regexp)
-               ("*/" . Buffer-menu-mark-dired-buffers)
-               ("*M" . Buffer-menu-mark-by-mode)
-               ("*c" . Buffer-menu-change-marks)
-               ("*e" . Buffer-menu-mark-dissociated-buffers)
-               ("*h" . Buffer-menu-mark-help-buffers)
-               ("*m" . Buffer-menu-mark-modified-buffers)
-               ("*r" . Buffer-menu-mark-read-only-buffers)
-               ("*s" . Buffer-menu-mark-special-buffers)
-               ("*u" . Buffer-menu-mark-unsaved-buffers)
-               ("*z" . Buffer-menu-mark-compressed-file-buffers)
-               ("." . Buffer-menu-mark-old-buffers)
-               ("Q" . Buffer-menu-do-query-replace-regexp)
-               ("U" . Buffer-menu-unmark-all)
-               ("r" . Buffer-menu-toggle-read-only))))
 
 (use-package calc
   :no-require t
@@ -127,8 +104,6 @@
   :custom ((c-default-style '((java-mode . "now-java-style")
                               (awk-mode . "awk")
                               (other . "now-c-style"))))
-  :bind ((:map c-mode-base-map
-               ("C-j" . c-context-line-break)))
   :config (progn
             (c-add-style "now-c-style"
                          `("linux"
@@ -162,8 +137,6 @@
                           'now-c-mode-adaptive-fill-function))))
 
 (use-package now-cc-mode
-  :bind ((:map c-mode-map
-               ([remap c-fill-paragraph] . now-c-fill-paragraph)))
   :hook ((c-mode . now-c-mode-hook)
          (c-mode . now-c-auto-newline-mode)))
 
@@ -315,12 +288,6 @@
   :config (progn
             (setq desktop-dirname (car desktop-path))))
 
-(use-package dired
-  ;; Same as for diff, we use :after dired.
-  :after dired
-  :bind (:map dired-mode-map
-              ("e" . now-dired-ediff-files)))
-
 (use-package dired-x
   :after dired)
 
@@ -427,10 +394,6 @@
                (4 '(face nil display ":")))
               ("^Binary file \\(.+\\) matches$" 1 nil nil 0 1))))
 
-(use-package hide-mode-line
-  :bind (:map ctl-x-map
-              ("," . hide-mode-line-show-mode-line)))
-
 (use-package hl-line
   :hook (((Buffer-menu-mode
             arc-mode
@@ -459,17 +422,6 @@
 (use-package js
   :no-require t
   :custom ((js-indent-level 2)))
-
-(use-package lisp-mode
-  :no-require t
-  :bind ((:map lisp-mode-shared-map
-               ("C-c r" . raise-sexp)
-               ("C-c s" . delete-pair))))
-
-(use-package magit-files
-  :no-require t
-  :bind ((:map ctl-x-map
-               ("G" . magit-file-dispatch))))
 
 (use-package now-make-mode
   :hook (makefile-mode . now-make-mode-remove-space-after-tab-from-whitespace-style))
@@ -550,16 +502,6 @@ For example, “&a'” → “á”"
 (use-package page
   :no-require t
   :config (put 'narrow-to-page 'disabled nil))
-
-(use-package pp
-  :no-require t
-  :bind (:map ctl-x-map
-              ("C-m" . pp-macroexpand-last-sexp)))
-
-(use-package now-project
-  :no-require t
-  :bind (:map ctl-x-map
-              ("c" . now-project-display-compilation)))
 
 (use-package rnc-mode
   :defer t
@@ -684,10 +626,7 @@ For example, “&a'” → “á”"
   :no-require t
   :custom ((indent-tabs-mode nil))
   :hook (((go-mode nxml-mode) . turn-off-auto-fill))
-  :defer nil
-  :bind (:map global-map
-              ("s-z" . 'undo-only)
-              ("s-Z" . 'undo-redo)))
+  :defer nil)
 
 (use-package smie
   :defer t
@@ -732,10 +671,6 @@ For example, “&a'” → “á”"
             (set-terminal-parameter nil 'background-mode 'light)))
 
 (use-package typescript-mode
-  :bind (:map typescript-mode-map
-              ("*" . c-electric-star)))
-
-(use-package typescript-mode
   :no-require t
   :after typescript-mode
   :config (dolist (entry '(typescript-tsc
@@ -761,11 +696,6 @@ For example, “&a'” → “á”"
   :no-require t
   :config (progn
             (setq overlay-arrow-string "►")))
-
-(use-package xref
-  :defer nil
-  :bind ((:map xref--xref-buffer-mode-map
-               ("q" . quit-window))))
 
 (defun light-or-dark-mode ()
   (interactive)
@@ -885,6 +815,8 @@ For example, “&a'” → “á”"
              "ESC C-<down>"
              "ESC C-<end>"
              "ESC C-<home>"
+             "ESC C-<left>"
+             "ESC C-<right>"
              "ESC C-<up>"
              "ESC <begin>"
              "ESC <end>"
@@ -909,8 +841,42 @@ For example, “&a'” → “á”"
              ))
   (keymap-global-unset b t))
 
+(define-keymap
+  :keymap (current-global-map)
+  "C-." 'avy-goto-char-timer
+  "C->" 'avy-goto-line
+  "s-z" 'undo-only
+  "s-Z" 'undo-redo)
+
 (keymap-unset help-map "<f1>" t)
 (keymap-unset help-map "<help>" t)
+
+(define-keymap
+  :keymap ctl-x-map
+  "," 'hide-mode-line-show-mode-line
+  "C-m" 'pp-macroexpand-last-sexp
+  "G" 'magit-file-dispatch
+  "c" 'now-project-display-compilation)
+
+(with-eval-after-load 'buffer-mode
+  (require 'buffer-menu-ext))
+
+(with-eval-after-load 'cc-mode
+  (keymap-set c-mode-map "M-q" 'now-c-fill-paragraph))
+
+(eval-after-load 'cc-mode #'now-cc-mode-init)
+
+(with-eval-after-load 'dired
+  (keymap-set dired-mode-map "e" 'now-dired-ediff-files))
+
+(with-eval-after-load 'lisp-mode
+  (define-keymap
+    :keymap lisp-mode-shared-map
+    "C-c r" 'raise-sexp
+    "C-c s" 'delete-pair))
+
+(with-eval-after-load 'xref
+  (keymap-set xref--xref-buffer-mode-map "q" 'quit-window))
 
 (load-theme 'now t)
 

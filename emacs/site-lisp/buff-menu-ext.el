@@ -267,4 +267,34 @@ If DELIMITED (prefix arg), replace only word-delimited matches."
             (push this-mode modes))))
     (mapcar #'symbol-name modes)))
 
+(defvar-keymap Buffer-menu-mode-mark-by-regexp-map
+  :doc "Local keymap for ‘Buffer-menu-mode’ buffers to mark buffers
+with properties that match a given regular expression."
+  "f" 'Buffer-menu-mark-by-file-name-regexp
+  "m" 'Buffer-menu-mark-by-mode-regexp
+  "n" 'Buffer-menu-mark-by-name-regexp)
+
+(defvar-keymap Buffer-menu-mode-mark-buffer-type-map
+  :doc "Local keymap for ‘Buffer-menu-mode’ buffers to mark buffers of
+a given type."
+  "/" 'Buffer-menu-mark-dired-buffers
+  "M" 'Buffer-menu-mark-by-mode
+  "c" 'Buffer-menu-change-marks
+  "e" 'Buffer-menu-mark-dissociated-buffers
+  "h" 'Buffer-menu-mark-help-buffers
+  "m" 'Buffer-menu-mark-modified-buffers
+  "r" 'Buffer-menu-mark-read-only-buffers
+  "s" 'Buffer-menu-mark-special-buffers
+  "u" 'Buffer-menu-mark-unsaved-buffers
+  "z" 'Buffer-menu-mark-compressed-file-buffers)
+
+(define-keymap
+  :keymap Buffer-menu-mode-map
+  "%" Buffer-menu-mode-mark-by-regexp-map
+  "*" Buffer-menu-mode-mark-buffer-type-map
+  "." 'Buffer-menu-mark-old-buffers
+  "Q" 'Buffer-menu-do-query-replace-regexp
+  "U" 'Buffer-menu-unmark-all
+  "r" 'Buffer-menu-toggle-read-only)
+
 (provide 'buff-menu-ext)
