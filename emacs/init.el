@@ -300,12 +300,6 @@
 (use-package flycheck
   :disabled)
 
-(use-package forge
-  :after magit)
-
-(use-package ghub
-  :after magit)
-
 ;; TODO Pretty sure that this can be removed.
 (use-package grep
   :config (setq grep-regexp-alist
@@ -795,6 +789,9 @@ For example, “&a'” → “á”"
     :keymap lisp-mode-shared-map
     "C-c r" 'raise-sexp
     "C-c s" 'delete-pair))
+
+(with-eval-after-load 'magit
+  (require 'forge))
 
 (eval-after-load 'xref #'now-xref-init)
 
