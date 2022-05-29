@@ -423,14 +423,13 @@ sitelisp_elcs = \
 	emacs/site-lisp/now-compile.elc \
 	emacs/site-lisp/now-dired.elc \
 	emacs/site-lisp/now-eglot.elc \
-	emacs/site-lisp/now-elisp-mode.elc \
 	emacs/site-lisp/now-git.elc \
 	emacs/site-lisp/now-init.elc \
-	emacs/site-lisp/now-make-mode.elc \
 	emacs/site-lisp/now-project.elc \
 	emacs/site-lisp/now-ruby.elc \
 	emacs/site-lisp/now-smie.elc \
 	emacs/site-lisp/now-sort.elc \
+	emacs/site-lisp/now-xref.elc \
 	emacs/site-lisp/rnc-mode.elc \
 	emacs/site-lisp/typescriptreact-mode.elc \
 	emacs/site-lisp/velocity-mode.elc

@@ -62,15 +62,6 @@
 ;; TODO Why?
 (setq process-connection-type nil)
 
-(defun now-report-emacs-startup-time ()
-  "Write a ‘message’ that reports the time it took to start Emacs."
-  (interactive)
-  (message "Emacs ready in %.2f seconds"
-           (float-time (time-subtract after-init-time
-                                      before-init-time))))
-
-(add-hook 'emacs-startup-hook #'now-report-emacs-startup-time)
-
 (defun now-set-split-width-threshold-based-on-aspect-ratio (_)
   (setq split-width-threshold
         (pcase (cdr (assoc 'geometry (car (display-monitor-attributes-list))))
@@ -131,14 +122,7 @@
             (c-add-style "now-java-style"
                          `("java"
                            (c-offsets-alist . ((arglist-intro . ++)))
-                           (whitespace-line-column . 100)))
-            (defun now-c-mode-hook ()
-              (setq-local adaptive-fill-function
-                          'now-c-mode-adaptive-fill-function))))
-
-(use-package now-cc-mode
-  :hook ((c-mode . now-c-mode-hook)
-         (c-mode . now-c-auto-newline-mode)))
+                           (whitespace-line-column . 100)))))
 
 (use-package compile
   :custom ((compilation-error-regexp-alist '(sbt
@@ -319,9 +303,6 @@
                        "\\_>")
               (1 font-lock-keyword-face)))))
 
-(use-package now-elisp-mode
-  :hook ((emacs-lisp-mode . now-emacs-lisp-mode-hook)))
-
 (use-package files
   :defer t
   :config (progn
@@ -341,17 +322,6 @@
 
 (use-package ghub
   :after magit)
-
-(use-package git-commit
-  :no-require t
-  :hook ((git-commit-setup . now-git-commit-setup-hook))
-  :config (defun now-git-commit-setup-hook ()
-            (setq-local fill-column 72)))
-
-(use-package go-mode
-  :hook ((go-mode . now-go-mode-hook))
-  :config (defun now-go-mode-hook ()
-            (setq-local tab-width 2)))
 
 ;; TODO Pretty sure that this can be removed.
 (use-package grep
@@ -394,12 +364,6 @@
                (4 '(face nil display ":")))
               ("^Binary file \\(.+\\) matches$" 1 nil nil 0 1))))
 
-(use-package hl-line
-  :hook (((Buffer-menu-mode
-            arc-mode
-            tar-mode)
-           . hl-line-mode)))
-
 (use-package iso-transl
   :defer t
   :config (progn
@@ -422,9 +386,6 @@
 (use-package js
   :no-require t
   :custom ((js-indent-level 2)))
-
-(use-package now-make-mode
-  :hook (makefile-mode . now-make-mode-remove-space-after-tab-from-whitespace-style))
 
 (use-package message
   :defer t
@@ -469,12 +430,6 @@ For example, “&a'” → “á”"
 (use-package mule-util
   :defer t
   :config (setq truncate-string-ellipsis "…"))
-
-(use-package now-init
-  :hook ((message-mode . now-remove-continuation-fringe-indicator)
-         (tabulated-list-mode
-          . now-tabulated-list-mode-use-global-glyphless-char-display)
-         (nxml-mode . now-set-fill-column-to-80)))
 
 (use-package nxml-mode
   :defer t
@@ -543,7 +498,6 @@ For example, “&a'” → “á”"
               "}" >)))
 
 (use-package ruby-mode
-  :hook ((ruby-mode . now-ruby-mode-hook))
   :config (progn
             (define-abbrev ruby-mode-abbrev-table "d" "" 'ruby-skeleton-def
               :system t)
@@ -586,35 +540,12 @@ For example, “&a'” → “á”"
               "expect " _ " do" \n
                _ \n
               "end" \n
-              "end" >)
-            (defun now-ruby-mode-hook ()
-              (setq-local compile-command "rake -s ")
-              (setq-local paragraph-start
-                          (rx (| ?\f
-                                 (: (* (in ?\  ?\t)) eol)
-                                 (: (* (in ?\  ?\t))
-                                    ?#
-                                    (* (in ?\  ?\t))
-                                    ?@
-                                    (+ (in alpha))
-                                    (in ?\  ?\t)))))
-              (setq-local adaptive-fill-function
-                          'now-ruby-mode-adaptive-fill-function))))
-
-(use-package sed-mode
-  :hook ((sed-mode . now-sed-mode-hook))
-  :config (defun now-sed-mode-hook ()
-            (setq-local smie-indent-basic 2)))
+              "end" >)))
 
 (use-package semantic/format
   :no-require t
   :config (progn
             (setq-default semantic-function-argument-separator ", ")))
-
-(use-package server
-  :unless noninteractive
-  :no-require
-  :hook (after-init . server-start))
 
 (use-package shr
   :no-require t
@@ -625,7 +556,6 @@ For example, “&a'” → “á”"
 (use-package simple
   :no-require t
   :custom ((indent-tabs-mode nil))
-  :hook (((go-mode nxml-mode) . turn-off-auto-fill))
   :defer nil)
 
 (use-package smie
@@ -688,9 +618,6 @@ For example, “&a'” → “á”"
   :defer t
   :config (progn
             (defun vc-git-mode-line-string (_) "")))
-
-(use-package visual-fill-column
-  :hook ((message-mode . visual-fill-column-mode)))
 
 (use-package xdisp
   :no-require t
@@ -875,8 +802,31 @@ For example, “&a'” → “á”"
     "C-c r" 'raise-sexp
     "C-c s" 'delete-pair))
 
-(with-eval-after-load 'xref
-  (keymap-set xref--xref-buffer-mode-map "q" 'quit-window))
+(eval-after-load 'xref #'now-xref-init)
+
+(add-hook 'Buffer-menu-mode-hook 'hl-line-mode)
+
+(unless noninteractive
+  (add-hook 'after-init-hook 'server-start))
+
+(add-hook 'arc-mode-hook 'hl-line-mode)
+
+(add-hook 'emacs-startup-hook 'now-report-emacs-startup-time)
+
+(add-hook 'nxml-mode-hook 'now-set-fill-column-to-80)
+(add-hook 'nxml-mode-hook 'turn-off-auto-fill)
+
+(add-hook 'ruby-mode-hook 'now-ruby-set-compile-command-to-rake)
+(add-hook 'ruby-mode-hook 'now-ruby-include-yard-tags-in-paragraph-start)
+(add-hook 'ruby-mode-hook 'now-ruby-set-adaptive-fill-function)
+
+(add-hook 'sed-mode-hook 'now-set-smie-indent-basic-to-2)
+
+(add-hook
+ 'tabulated-list-mode-hook
+ 'now-tabulated-list-mode-use-global-glyphless-char-display)
+
+(add-hook 'tar-mode-hook 'hl-line-mode)
 
 (load-theme 'now t)
 

@@ -87,3 +87,26 @@ filesystem."
   "Value of `adaptive-fill-function' for `ruby-mode'."
   (if (looking-at "\\([ \t]*#[ \t]*\\)@[[:alpha:]]+[ \t]")
       (concat (match-string 1) "  ")))
+
+;;;###autoload
+(defun now-ruby-set-compile-command-to-rake ()
+  "Set `compile-command' to rake -s."
+  (setq-local compile-command "rake -s "))
+
+;;;###autoload
+(defun now-ruby-include-yard-tags-in-paragraph-start ()
+  "Set `paragraph-start' to handle YARD tags."
+  (setq-local
+   paragraph-start
+   (rx-let ((form-feed ?\f)
+            (optional-whitespace (zero-or-more whitespace))
+            (empty-line (sequence optional-whitespace line-end))
+            (comment-start (sequence optional-whitespace ?# optional-whitespace))
+            (yard-tag (sequence ?@ (one-or-more letter)))
+            (yard-comment-start (sequence comment-start yard-tag whitespace)))
+     (rx (or form-feed empty-line yard-comment-start)))))
+
+;;;###autoload
+(defun now-ruby-set-adaptive-fill-function ()
+  "Set `adaptive-fill-function' to `now-ruby-adaptive-fill-function'."
+  (setq-local adaptive-fill-function 'now-ruby-adaptive-fill-function))

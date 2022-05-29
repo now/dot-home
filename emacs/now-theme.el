@@ -114,11 +114,12 @@
    '(revert-without-query '("\\.log$"))
 
    ;; Text
-   '(text-mode-hook
-     `(auto-fill-mode
-       display-fill-column-indicator-mode
-       now-set-fill-column-to-80
-       . ,text-mode-hook))
+   `(text-mode-hook
+     (cl-list*
+      'auto-fill-mode
+      'display-fill-column-indicator-mode
+      'now-set-fill-column-to-80
+      ,(value text-mode-hook)))
 
    ;;   Markdown
    '(markdown-list-item-bullets '("•" "◦" "‣"))
@@ -146,18 +147,29 @@
 
    ;;     C
    '(c-electric-pound-behavior '(alignleft))
+   `(c-mode-hook
+     (cl-list*
+      'now-c-set-adaptive-fill-function
+      'now-c-auto-newline-mode
+      ,(value c-mode-hook)))
+
+   ;;     Go
+   `(go-mode-hook
+     (cl-list*
+      'now-set-tab-width-to-2 'turn-off-auto-fill ,(value go-mode-hook)))
 
    ;;     Nxml
    '(nxml-char-ref-display-glyph-flag nil)
    '(nxml-slash-auto-complete-flag t)
 
    ;;     Prog Mode
-   '(prog-mode-hook
-     `(auto-fill-mode
-       fira-code-mode
-       now-comment-auto-fill-only-comments
-       now-set-fill-column-to-80
-       . ,prog-mode-hook))
+   `(prog-mode-hook
+     (cl-list*
+      'auto-fill-mode
+      'fira-code-mode
+      'now-comment-auto-fill-only-comments
+      'now-set-fill-column-to-80
+       ,(value prog-mode-hook)))
 
    ;;     Sh
 
@@ -188,6 +200,10 @@
 
    ;;       Magit Modes
 
+   ;;         Git Commit
+   `(git-commit-setup-hook
+     (cons 'now-set-fill-column-to-72 ,(value git-commit-setup-hook)))
+
    ;;         Magit Blame
    `(magit-blame-styles
      (let ((styles ,(value magit-blame-styles)))
@@ -201,6 +217,10 @@
 
    ;;     Makefile
    '(makefile-backslash-align nil)
+   `(makefile-mode-hook
+     (cons
+      'now-remove-space-after-tab-from-whitespace-style
+      ,(value makefile-mode-hook)))
 
    ;;     Smerge
    '(smerge-auto-leave nil)
@@ -270,7 +290,12 @@
    ;;     Message
 
    ;;       Message Various
-   '(message-mode-hook (cons 'flyspell-mode message-mode-hook))
+   `(message-mode-hook
+     (cl-list*
+      'flyspell-mode
+      'now-remove-continuation-fringe-indicator
+      'visual-fill-column-mode
+      ,(value message-mode-hook)))
 
    ;;   Package
    '(package-quickstart t)
@@ -298,7 +323,11 @@
    '(gc-cons-threshold 20000000)
 
    ;;   Lisp
-   '(emacs-lisp-mode-hook (cons 'eldoc-mode emacs-lisp-mode-hook))
+   `(emacs-lisp-mode-hook
+     (cl-list*
+      'eldoc-mode
+      'now-set-page-delimiter-to-three-semicolons
+      ,(value emacs-lisp-mode-hook)))
 
    ;;     Checkdoc
    '(checkdoc-arguments-in-order-flag t)
@@ -321,8 +350,8 @@
    '(blink-cursor-mode t)
 
    ;;     Destkop
-   '(desktop-after-read-hook
-     (cons 'desktop-auto-save-enable desktop-after-read-hook))
+   `(desktop-after-read-hook
+     (cons 'desktop-auto-save-enable ,(value desktop-after-read-hook)))
    '(desktop-base-file-name "emacs.desktop")
    '(desktop-globals-to-save
      '(command-history

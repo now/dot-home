@@ -136,4 +136,13 @@ colon."
                 (apply 'insert imports)
                 (newline)))))))))
 
+;;;###autoload
+(defun now-cc-mode-init ()
+  (keymap-set c-mode-base-map "C-j" #'c-context-line-break))
+
+;;;###autoload
+(defun now-c-set-adaptive-fill-function ()
+  "Set `adaptive-fill-function' to `now-c-mode-adaptive-fill-function'."
+  (setq-local adaptive-fill-function 'now-c-mode-adaptive-fill-function))
+
 (provide 'now-cc-mode)
