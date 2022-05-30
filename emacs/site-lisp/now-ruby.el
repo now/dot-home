@@ -1,3 +1,14 @@
+;;; now-ruby.el --- ruby-mode customizations         -*- lexical-binding: t; -*-
+
+;; Copyright © 2022  Nikolai Weibull
+
+;; Author: Nikolai Weibull <now@disu.se>
+;; Keywords: local
+
+;;; Code:
+
+(require 'ruby-mode)
+
 (defcustom now-ruby-unit-test-file-name-mapping
   '(("\\(.*\\)\\(?:/lib/\\)\\(.*\\.\\(?:rb\\)\\)$" . "\\1/test/unit/\\2"))
   "Unit test file-name mapping."
@@ -83,10 +94,66 @@ filesystem."
                         t))
                "::")))
 
-(defun now-ruby-adaptive-fill-function ()
-  "Value of `adaptive-fill-function' for `ruby-mode'."
-  (if (looking-at "\\([ \t]*#[ \t]*\\)@[[:alpha:]]+[ \t]")
-      (concat (match-string 1) "  ")))
+;;;###autoload
+(defun now-ruby-mode-init ()
+  "Initialize customizations to `ruby-mode'."
+  (add-hook 'ruby-mode-hook 'now-ruby-set-compile-command-to-rake)
+  (add-hook 'ruby-mode-hook 'now-ruby-include-yard-tags-in-paragraph-start)
+  (add-hook 'ruby-mode-hook 'now-ruby-set-adaptive-fill-function)
+  (define-abbrev ruby-mode-abbrev-table "d" "" 'ruby-skeleton-def :system t)
+  (define-abbrev
+    ruby-mode-abbrev-table
+    "tlc"
+    ""
+    'ruby-skeleton-top-level-class
+    :system t)
+  (define-abbrev
+    ruby-mode-abbrev-table
+    "tlm"
+    ""
+    'ruby-skeleton-top-level-module
+    :system t)
+  (define-abbrev ruby-mode-abbrev-table
+    "tle"
+    ""
+    'ruby-skeleton-top-level-expectations
+    :system t))
+
+(define-skeleton ruby-skeleton-def
+  "Insert a method definition."
+  "Method name and argument list: "
+  "def " str \n
+  _ \n
+  "end" >)
+
+(define-skeleton ruby-skeleton-top-level-class
+  "Insert a top-level class."
+  nil
+  "# -*- coding: utf-8 -*-" \n
+  \n
+  "class " (ruby-file-name-to-module-name) \n
+  _ \n
+  "end" >)
+
+(define-skeleton ruby-skeleton-top-level-module
+  "Insert a top-level module."
+  nil
+  "# -*- coding: utf-8 -*-" \n
+  \n
+  "module " (ruby-file-name-to-module-name) \n
+  _ \n
+  "end" >)
+
+(define-skeleton ruby-skeleton-top-level-expectations
+  "Insert top-level expectations."
+  nil
+  "# -*- coding: utf-8 -*-" \n
+  \n
+  "Expectations do" \n
+  "expect " _ " do" \n
+  _ \n
+  "end" \n
+  "end" >)
 
 ;;;###autoload
 (defun now-ruby-set-compile-command-to-rake ()
@@ -110,3 +177,8 @@ filesystem."
 (defun now-ruby-set-adaptive-fill-function ()
   "Set `adaptive-fill-function' to `now-ruby-adaptive-fill-function'."
   (setq-local adaptive-fill-function 'now-ruby-adaptive-fill-function))
+
+(defun now-ruby-adaptive-fill-function ()
+  "Value of `adaptive-fill-function' for `ruby-mode'."
+  (if (looking-at "\\([ \t]*#[ \t]*\\)@[[:alpha:]]+[ \t]")
+      (concat (match-string 1) "  ")))

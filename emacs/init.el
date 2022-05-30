@@ -379,116 +379,9 @@ For example, “&a'” → “á”"
                ("&:(" ?\☹)
                ("&<3" ?\❤)))))
 
-(use-package nxml-mode
-  :defer t
-  :config (progn
-            (define-abbrev nxml-mode-abbrev-table "s" ""
-              'nxml-mode-skeleton-xsl-stylesheet
-              :system t)
-            (define-abbrev nxml-mode-abbrev-table "t" ""
-              'nxml-mode-skeleton-xsl-template
-              :system t)
-            (define-skeleton nxml-mode-skeleton-xsl-stylesheet
-              "Insert an XSL Stylesheet."
-              nil
-              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" \n
-              "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">" \n
-              "<xsl:output method=\"xml\" encoding=\"UTF-8\"/>" \n
-              _ \n
-              "</xsl:stylesheet>" >)
-            (define-skeleton nxml-mode-skeleton-xsl-template
-              "Insert an XSL Template."
-              nil
-              "<xsl:template match=\"" _ "\">" \n
-              "</xsl:template>" >)))
-
 (use-package page
   :no-require t
   :config (put 'narrow-to-page 'disabled nil))
-
-(use-package rnc-mode
-  :defer t
-  :config (progn
-            (define-abbrev rnc-mode-abbrev-table "a" ""
-              'now-rnc-mode-skeleton-attribute :system t)
-            (define-skeleton now-rnc-mode-skeleton-attribute
-              "Insert an attribute definition."
-              "Prefix: "
-              "div {" \n
-              str
-              '(setq v1 (skeleton-read "Element name: "))
-              '(setq v2 (skeleton-read "Attribute name: "))
-              "." v1 ".attributes &= " str "." v1 ".attributes." v2 \n
-              str "." v1 ".attributes." v2 " = attribute " v2 " { " _ " }" \n
-              "}" >)
-            (define-abbrev rnc-mode-abbrev-table "d" ""
-              'now-rnc-mode-skeleton-div :system t)
-            (define-skeleton now-rnc-mode-skeleton-div
-              "Insert a div."
-              nil
-              "div {" \n
-              _ \n
-              "}" >)
-            (define-abbrev rnc-mode-abbrev-table "e" ""
-              'now-rnc-mode-skeleton-element :system t)
-            (define-skeleton now-rnc-mode-skeleton-element
-              "Insert an element definition."
-              "Prefix: "
-              "div {" \n
-              str
-              '(setq v1 (skeleton-read "Element name: "))
-              "." v1 " = element " v1 " { " str "." v1 ".attributes, "
-              str "." v1 ".content }" "\n"
-              \n
-              str "." v1 ".attributes = " _ "\n"
-              \n
-              (- rnc-indent-level) str "." v1 ".content = " \n
-              "}" >)))
-
-(use-package ruby-mode
-  :config (progn
-            (define-abbrev ruby-mode-abbrev-table "d" "" 'ruby-skeleton-def
-              :system t)
-            (define-skeleton ruby-skeleton-def
-              "Insert a method definition."
-              "Method name and argument list: "
-              "def " str \n
-              _ \n
-              "end" >)
-            (define-abbrev ruby-mode-abbrev-table "tlc" ""
-              'ruby-skeleton-top-level-class
-              :system t)
-            (define-skeleton ruby-skeleton-top-level-class
-              "Insert a top-level class."
-              nil
-              "# -*- coding: utf-8 -*-" \n
-              \n
-              "class " (ruby-file-name-to-module-name) \n
-              _ \n
-              "end" >)
-            (define-abbrev ruby-mode-abbrev-table "tlm" ""
-              'ruby-skeleton-top-level-module
-              :system t)
-            (define-skeleton ruby-skeleton-top-level-module
-              "Insert a top-level module."
-              nil
-              "# -*- coding: utf-8 -*-" \n
-              \n
-              "module " (ruby-file-name-to-module-name) \n
-              _ \n
-              "end" >)
-            (define-abbrev ruby-mode-abbrev-table "tle" ""
-              'ruby-skeleton-top-level-expectations :system t)
-            (define-skeleton ruby-skeleton-top-level-expectations
-              "Insert top-level expectations."
-              nil
-              "# -*- coding: utf-8 -*-" \n
-              \n
-              "Expectations do" \n
-              "expect " _ " do" \n
-               _ \n
-              "end" \n
-              "end" >)))
 
 (use-package semantic/format
   :no-require t
@@ -765,6 +658,12 @@ For example, “&a'” → “á”"
 (with-eval-after-load 'magit
   (require 'forge))
 
+(eval-after-load 'nxml-mode #'now-nxml-mode-init)
+
+(eval-after-load 'rnc-mode #'now-rnc-mode-init)
+
+(eval-after-load 'ruby-mode #'now-ruby-mode-init)
+
 (eval-after-load 'xref #'now-xref-init)
 
 (add-hook 'Buffer-menu-mode-hook 'hl-line-mode)
@@ -775,13 +674,6 @@ For example, “&a'” → “á”"
 (add-hook 'arc-mode-hook 'hl-line-mode)
 
 (add-hook 'emacs-startup-hook 'now-report-emacs-startup-time)
-
-(add-hook 'nxml-mode-hook 'now-set-fill-column-to-80)
-(add-hook 'nxml-mode-hook 'turn-off-auto-fill)
-
-(add-hook 'ruby-mode-hook 'now-ruby-set-compile-command-to-rake)
-(add-hook 'ruby-mode-hook 'now-ruby-include-yard-tags-in-paragraph-start)
-(add-hook 'ruby-mode-hook 'now-ruby-set-adaptive-fill-function)
 
 (add-hook 'sed-mode-hook 'now-set-smie-indent-basic-to-2)
 
