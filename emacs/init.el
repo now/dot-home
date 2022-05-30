@@ -379,10 +379,6 @@ For example, “&a'” → “á”"
                ("&:(" ?\☹)
                ("&<3" ?\❤)))))
 
-(use-package page
-  :no-require t
-  :config (put 'narrow-to-page 'disabled nil))
-
 (use-package semantic/format
   :no-require t
   :config (progn
@@ -620,6 +616,8 @@ For example, “&a'” → “á”"
   "C-m" 'pp-macroexpand-last-sexp
   "G" 'magit-file-dispatch
   "c" 'now-project-display-compilation)
+
+(put 'narrow-to-page 'disabled nil)
 
 (with-eval-after-load 'buffer-mode
   (require 'buffer-menu-ext))
