@@ -138,7 +138,43 @@ colon."
 
 ;;;###autoload
 (defun now-cc-mode-init ()
-  (keymap-set c-mode-base-map "C-j" #'c-context-line-break))
+  (keymap-set c-mode-base-map "C-j" #'c-context-line-break)
+  (keymap-set c-mode-map "M-q" 'now-c-fill-paragraph)
+  (c-add-style
+   "now-c"
+   `("linux"
+     (c-hanging-colons-alist . ((label after)))
+     (c-offsets-alist
+      .
+      ((arglist-cont . +)
+       (arglist-cont-nonempty . +)
+       (cpp-define-intro . +)
+       (inher-cont . +)
+       (member-init-cont . +)
+       (objc-method-args-cont . +)
+       (objc-method-call-cont . +)
+       (template-args-cont . +)))
+     (comment-start . "// ")
+     (comment-end . "")
+     (paragraph-start
+      .
+      ,(rx-let ((form-feed ?\f)
+                (any-whitespace (zero-or-more whitespace))
+                (empty-line (sequence any-whitespace line-end))
+                (comment-starter (or (>= 2 ?/) (one-or-more ?*)))
+                (comment-start
+                 (sequence any-whitespace comment-starter any-whitespace))
+                (tag (sequence ?@ (one-or-more letter)))
+                (separate-comment-starter
+                 (or line-end (sequence (or tag ?•) whitespace)))
+                (separate-comment-start
+                 (sequence comment-start separate-comment-starter)))
+         (rx (or form-feed empty-line separate-comment-start))))))
+  (c-add-style
+   "now-java"
+   `("java"
+     (c-offsets-alist . ((arglist-intro . ++)))
+     (whitespace-line-column . 100))))
 
 ;;;###autoload
 (defun now-c-set-adaptive-fill-function ()

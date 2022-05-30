@@ -166,9 +166,9 @@ filesystem."
   (setq-local
    paragraph-start
    (rx-let ((form-feed ?\f)
-            (optional-whitespace (zero-or-more whitespace))
-            (empty-line (sequence optional-whitespace line-end))
-            (comment-start (sequence optional-whitespace ?# optional-whitespace))
+            (any-whitespace (zero-or-more whitespace))
+            (empty-line (sequence any-whitespace line-end))
+            (comment-start (sequence any-whitespace ?# any-whitespace))
             (yard-tag (sequence ?@ (one-or-more letter)))
             (yard-comment-start (sequence comment-start yard-tag whitespace)))
      (rx (or form-feed empty-line yard-comment-start)))))

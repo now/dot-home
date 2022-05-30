@@ -146,6 +146,9 @@
    ;;   Languages
 
    ;;     C
+   `(c-default-style
+     (cl-list*
+      '(java-mode . "now-java") '(other . "now-c") ,(value c-default-style)))
    '(c-electric-pound-behavior '(alignleft))
    `(c-mode-hook
      (cl-list*

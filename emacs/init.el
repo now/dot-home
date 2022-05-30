@@ -81,39 +81,6 @@
 (use-package now-path
   :when (eq (window-system) 'ns))
 
-(use-package cc-mode
-  :custom ((c-default-style '((java-mode . "now-java-style")
-                              (awk-mode . "awk")
-                              (other . "now-c-style"))))
-  :config (progn
-            (c-add-style "now-c-style"
-                         `("linux"
-                           (c-hanging-colons-alist . ((label after)))
-                           (c-offsets-alist . ((arglist-cont . +)
-                                               (arglist-cont-nonempty . +)
-                                               (cpp-define-intro . +)
-                                               (inher-cont . +)
-                                               (member-init-cont . +)
-                                               (objc-method-args-cont . +)
-                                               (objc-method-call-cont . +)
-                                               (template-args-cont . +)))
-                           (comment-start . "// ")
-                           (comment-end . "")
-                           (paragraph-start . ,(rx (| (: (* (in ?\  ?\t))
-                                                         (| (>= 2 ?/)
-                                                            (* ?*))
-                                                         (* (in ?\ ?\t))
-                                                         (| eol
-                                                            (: (| (: ?@
-                                                                     (+ (in alpha)))
-                                                                  ?•)
-                                                               (in ?\ ?\t))))
-                                                      (: bol ?\f))))))
-            (c-add-style "now-java-style"
-                         `("java"
-                           (c-offsets-alist . ((arglist-intro . ++)))
-                           (whitespace-line-column . 100)))))
-
 (use-package compile
   :custom ((compilation-error-regexp-alist '(sbt
                                              maven
@@ -624,9 +591,6 @@ For example, “&a'” → “á”"
 
 (with-eval-after-load 'calc
   (require 'now-calc))
-
-(with-eval-after-load 'cc-mode
-  (keymap-set c-mode-map "M-q" 'now-c-fill-paragraph))
 
 (eval-after-load 'cc-mode #'now-cc-mode-init)
 
