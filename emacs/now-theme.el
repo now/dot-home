@@ -360,6 +360,7 @@
      '(command-history
        compile-history
        desktop-missing-file-warning
+       extended-command-history
        file-name-history
        log-edit-comment-ring
        minibuffer-history
