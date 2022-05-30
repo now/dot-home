@@ -415,9 +415,6 @@ For example, “&a'” → “á”"
             (setq compilation-error-regexp-alist
                   (delq entry compilation-error-regexp-alist))))
 
-(use-package typescriptreact-mode
-  :no-require t)
-
 (use-package vc-git
   :defer t
   :config (progn
