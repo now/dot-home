@@ -77,10 +77,6 @@
   :no-require t
   :custom ((css-indent-offset 2)))
 
-;; TODO Customize
-(use-package flycheck
-  :disabled)
-
 (use-package js
   :no-require t
   :custom ((js-indent-level 2)))
@@ -331,6 +327,8 @@
   (require 'dired-x)
   (keymap-set dired-mode-map "e" 'now-dired-ediff-files))
 
+(eval-after-load 'disp-table #'now-disp-table-init)
+
 (with-eval-after-load 'elisp-mode
   (font-lock-add-keywords
    'emacs-lisp-mode
@@ -402,17 +400,6 @@
  calc-group-char " "
  calc-gnuplot-default-device "dumb"
  calc-show-banner nil)
-
-(defface wrap-glyph
-  '((((min-colors 16) (class color)) :foreground "blue")
-    (t :inverse-video t))
-  "Face for wrap glyph."
-  :group 'basic-faces)
-
-(set-display-table-slot standard-display-table 'wrap #x00a0)
-(set-display-table-slot
- standard-display-table 'selective-display (vector (make-glyph-code #x2026)))
-(set-display-table-slot standard-display-table 'vertical-border 0)
 
 (load-theme 'now t)
 

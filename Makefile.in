@@ -425,6 +425,7 @@ sitelisp_elcs = \
 	emacs/site-lisp/now-cc-mode.elc \
 	emacs/site-lisp/now-compile.elc \
 	emacs/site-lisp/now-dired.elc \
+	emacs/site-lisp/now-disp-table.elc \
 	emacs/site-lisp/now-eglot.elc \
 	emacs/site-lisp/now-git.elc \
 	emacs/site-lisp/now-init.elc \
