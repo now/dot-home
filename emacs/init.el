@@ -166,28 +166,6 @@
               "Thanks,\n  Nikolai"
               nil :system t :case-fixed t)))
 
-(use-package mule
-  :custom ((default-input-method "rfc1345--"))
-  :defer t
-  :config (progn
-            (quail-define-package
-             "rfc1345--" "UTF-8" "m-" t
-             "Unicode characters input method using a subset of RFC1345.
-For example, “&a'” → “á”"
-             nil t nil nil nil nil nil nil nil nil t)
-            (require 'rfc1345 "quail/rfc1345")
-            (let ((map (quail-map)))
-              (quail-select-package "rfc1345--")
-              (setf (nth 2 quail-current-package) map)
-              (quail-define-rules
-               ((append . t))
-               ("&(-" ?\∈)
-               ("&(/" ?\∉)
-               ("&cb" ?\•)
-               ("&:)" ?\☺)
-               ("&:(" ?\☹)
-               ("&<3" ?\❤)))))
-
 (use-package semantic/format
   :no-require t
   :config (progn

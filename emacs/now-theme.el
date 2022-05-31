@@ -16,6 +16,11 @@
    '(show-trailing-whitespace t)
    '(what-cursor-show-names t)
 
+   ;;   I18n
+
+   ;;     Mule
+   '(default-input-method "TeX")
+
    ;;   Matching
    '(replace-lax-whitespace t)
 
@@ -187,18 +192,18 @@
 
    ;;     Compilation
    '(compilation-error-regexp-alist
-     (sbt
-      maven
-      clang-include
-      gcc-include
-      typescript-X
-      gmake
-      gnu
-      gcov-file
-      gcov-header
-      gcov-nomark
-      gcov-called-line
-      gcov-never-called))
+     '(sbt
+       maven
+       clang-include
+       gcc-include
+       typescript-X
+       gmake
+       gnu
+       gcov-file
+       gcov-header
+       gcov-nomark
+       gcov-called-line
+       gcov-never-called))
    `(compilation-mode-hook
      (cons 'now-do-not-show-trailing-whitespace ,(value compilation-mode-hook)))
    '(compilation-scroll-output 'first-error)
