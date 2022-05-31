@@ -21,6 +21,9 @@
    ;;     Mule
    '(default-input-method "TeX")
 
+   ;;   Indent
+   '(indent-tabs-mode nil)
+
    ;;   Matching
    '(replace-lax-whitespace t)
 
@@ -168,10 +171,16 @@
       'now-c-auto-newline-mode
       ,(value c-mode-hook)))
 
+   ;;     Css
+   '(css-indent-offset 2)
+
    ;;     Go
    `(go-mode-hook
      (cl-list*
       'now-set-tab-width-to-2 'turn-off-auto-fill ,(value go-mode-hook)))
+
+   ;;     JavaScript
+   '(js-indent-level 2)
 
    ;;     Nxml
    '(nxml-char-ref-display-glyph-flag nil)

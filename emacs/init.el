@@ -64,27 +64,9 @@
 ;; TODO Why?
 (setq process-connection-type nil)
 
-(eval-and-compile
-  (require 'use-package)
-  (setq use-package-compute-statistics nil
-        use-package-verbose nil))
-
 ;; This comes first, as we want path set early on.
 (when (eq (window-system) 'ns)
   (require 'now-path))
-
-(use-package css-mode
-  :no-require t
-  :custom ((css-indent-offset 2)))
-
-(use-package js
-  :no-require t
-  :custom ((js-indent-level 2)))
-
-(use-package simple
-  :no-require t
-  :custom ((indent-tabs-mode nil))
-  :defer nil)
 
 (defun light-or-dark-mode ()
   (interactive)
