@@ -146,6 +146,13 @@
    ;;   Bug Reference
    '(bug-reference-bug-regexp "\\(\\b\\([A-Z]\\{3,\\}-[0-9]+\\)\\b\\)")
 
+   ;;   Web
+
+   ;;     Shr
+  '(shr-use-fonts nil)
+  '(shr-width nil)
+  '(shr-bullet "• ")
+
    ;; Programming
 
    ;;   Languages
@@ -310,6 +317,19 @@
 
    ;;     Message
 
+   ;;       Message Buffers
+   '(message-kill-buffer-on-exit t)
+
+   ;;       Message Insertion
+   '(message-citation-line-format "%N, %Y-%m-%d %R:\n")
+   '(message-citation-line-function 'message-insert-formatted-citation-line)
+
+   ;;       Message Interface
+   '(message-subscribed-addresses nil)
+
+   ;;       Message Sending
+   '(message-send-mail-function 'smtpmail-multi-send-it)
+
    ;;       Message Various
    `(message-mode-hook
      (cl-list*
@@ -317,6 +337,12 @@
       'now-remove-continuation-fringe-indicator
       'visual-fill-column-mode
       ,(value message-mode-hook)))
+
+   ;;     Smtpmail
+   '(smtpmail-multi-accounts
+     '((disuse . ("now@disu.se" "disu.se" 587 nil nil nil nil nil))))
+   '(smtpmail-multi-associations '(("now@disu.se" disuse)))
+   '(smtpmail-queue-dir "~/Maildir/.Queue/cur")
 
    ;;   Package
    '(package-quickstart t)

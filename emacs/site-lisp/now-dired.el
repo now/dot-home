@@ -1,6 +1,7 @@
 ;; -*- lexical-binding: t -*-
 
 (require 'dired-aux)
+(require 'dired-x)
 (require 'ediff)
 
 ;;;###autoload
@@ -118,3 +119,7 @@ if you want to do the same for files renamed in WDired mode."
            (read-file-name (format "Rename %s to: " relative-old)
                            (dired-dwim-target-directory) nil nil initial))))
      now-dired-keep-marker-rename-shows)))
+
+;;;###autoload
+(defun now-dired-init ()
+  (keymap-set dired-mode-map "e" 'now-dired-ediff-files))

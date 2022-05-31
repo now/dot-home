@@ -81,51 +81,10 @@
   :no-require t
   :custom ((js-indent-level 2)))
 
-(use-package message
-  :defer t
-  :custom ((message-citation-line-format "%N, %Y-%m-%d %R:\n")
-           (message-citation-line-function 'message-insert-formatted-citation-line)
-           (message-kill-buffer-on-exit t)
-           (message-send-mail-function 'smtpmail-multi-send-it)
-           (message-subscribed-addresses nil))
-  :config (progn
-            (define-abbrev message-mode-abbrev-table "br"
-              "Best regards,\n  Nikolai"
-              nil :system t :case-fixed t)
-            (define-abbrev message-mode-abbrev-table "tbr"
-              "Thank you and best regards,\n  Nikolai"
-              nil :system t :case-fixed t)
-            (define-abbrev message-mode-abbrev-table "tsn"
-              "Thanks,\n  Nikolai"
-              nil :system t :case-fixed t)))
-
-(use-package semantic/format
-  :no-require t
-  :config (progn
-            (setq-default semantic-function-argument-separator ", ")))
-
-(use-package shr
-  :no-require t
-  :custom ((shr-use-fonts nil)
-           (shr-width nil)
-           (shr-bullet "• ")))
-
 (use-package simple
   :no-require t
   :custom ((indent-tabs-mode nil))
   :defer nil)
-
-(use-package smtpmail
-  :no-require t
-  :custom ((smtpmail-queue-dir "~/Maildir/.Queue/cur")))
-
-(use-package smtpmail-multi
-  :no-require t
-  :custom ((smtpmail-multi-accounts '((disuse . ("now@disu.se"
-                                                 "disu.se"
-                                                 587
-                                                 nil nil nil nil nil))))
-           (smtpmail-multi-associations '(("now@disu.se" disuse)))))
 
 (use-package vc-git
   :defer t
@@ -299,9 +258,7 @@
 
 (eval-after-load 'compile #'now-compile-init)
 
-(with-eval-after-load 'dired
-  (require 'dired-x)
-  (keymap-set dired-mode-map "e" 'now-dired-ediff-files))
+(eval-after-load 'dired #'now-dired-init)
 
 (eval-after-load 'disp-table #'now-disp-table-init)
 
@@ -330,6 +287,8 @@
 
 (with-eval-after-load 'magit
   (require 'forge))
+
+(eval-after-load 'message #'now-message-init)
 
 (eval-after-load 'nxml-mode #'now-nxml-mode-init)
 
@@ -383,7 +342,8 @@
 (setq-default
  calc-group-char " "
  calc-gnuplot-default-device "dumb"
- calc-show-banner nil)
+ calc-show-banner nil
+ semantic-function-argument-separator ", ")
 
 (load-theme 'now t)
 

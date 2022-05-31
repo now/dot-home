@@ -139,6 +139,7 @@ xdgconfighomeemacsdir = $(xdgconfighomedir)/emacs
 xdgconfighomeemacsetcschemadir = $(xdgconfighomeemacsdir)/etc/schema
 xdgconfighomeemacsinitsdir = $(xdgconfighomeemacsdir)/inits
 xdgconfighomeemacssitelispdir = $(xdgconfighomeemacsdir)/site-lisp
+xdgconfighomeemacssitelispgnusdir = $(xdgconfighomeemacssitelispdir)/gnus
 xdgconfighomeemacssitelispinternationaldir = $(xdgconfighomeemacssitelispdir)/international
 xdgconfighomeemacssitelispprogmodesdir = $(xdgconfighomeemacssitelispdir)/progmodes
 xdgconfighomeemacssitelisptermdir = $(xdgconfighomeemacssitelispdir)/term
@@ -453,6 +454,13 @@ xdgconfighomeemacssitelispinternational_DATA = \
 	$(sitelispinternational_elcs) \
 	$(sitelispinternational_elcs:%.elc=%.el.gz)
 
+sitelispgnus_elcs = \
+	emacs/site-lisp/gnus/now-message.elc
+
+xdgconfighomeemacssitelispgnus_DATA = \
+	$(sitelispgnus_elcs) \
+	$(sitelispgnus_elcs:%.elc=%.el.gz)
+
 sitelispprogmodes_elcs = \
 	emacs/site-lisp/progmodes/now-grep.elc \
 	emacs/site-lisp/progmodes/now-typescript-mode.elc
@@ -532,6 +540,7 @@ endif
 $(bin_SCRIPTS): bin/.dirstamp
 $(xdgconfighomeemacs_DATA): emacs/.dirstamp
 $(xdgconfighomeemacssitelisp_DATA): emacs/site-lisp/.dirstamp
+$(xdgconfighomeemacssitelispgnus_DATA): emacs/site-lisp/gnus/.dirstamp
 $(xdgconfighomeemacssitelispinternational_DATA): emacs/site-lisp/international/.dirstamp
 $(xdgconfighomeemacssitelispprogmodes_DATA): emacs/site-lisp/progmodes/.dirstamp
 $(xdgconfighomeemacssitelispterm_DATA): emacs/site-lisp/term/.dirstamp
@@ -541,10 +550,12 @@ zsh/functions/hc: zsh/functions/.dirstamp
 git/config: git/.dirstamp
 
 $(sitelisp_elcs) \
+$(sitelispgnus_elcs) \
 $(sitelispinternational_elcs) \
 $(sitelispprogmodes_elcs) \
 $(sitelispterm_elcs): ELC_INCLUDES =
 $(sitelisp_elcs) \
+$(sitelispgnus_elcs) \
 $(sitelispinternational_elcs) \
 $(sitelispprogmodes_elcs) \
 $(sitelispterm_elcs): %.elc: %.el
@@ -552,6 +563,7 @@ $(sitelispterm_elcs): %.elc: %.el
 
 emacs/site-lisp/userloaddefs.el: \
 	$(sitelisp_elcs) \
+	$(sitelispgnus_elcs) \
 	$(sitelispinternational_elcs) \
 	$(sitelispprogmodes_elcs) \
 	$(sitelispterm_elcs) \
@@ -566,6 +578,7 @@ emacs/site-lisp/userloaddefs.el: \
 	              string))" \
 	  -f batch-update-autoloads \
 	  $(srcdir)/emacs/site-lisp \
+	  $(srcdir)/emacs/site-lisp/gnus \
 	  $(srcdir)/emacs/site-lisp/international \
 	  $(srcdir)/emacs/site-lisp/progmodes \
 	  $(srcdir)/emacs/site-lisp/term
@@ -580,6 +593,7 @@ ifneq ($(EMACS),)
 $(call DIR,xdgconfighomeemacs)
 $(call DIR,xdgconfighomeemacsetcschema)
 $(call DIR,xdgconfighomeemacssitelisp)
+$(call DIR,xdgconfighomeemacssitelispgnus)
 $(call DIR,xdgconfighomeemacssitelispinternational)
 $(call DIR,xdgconfighomeemacssitelispprogmodes)
 $(call DIR,xdgconfighomeemacssitelispterm)
