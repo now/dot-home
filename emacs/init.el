@@ -299,7 +299,7 @@
 
 (put 'narrow-to-page 'disabled nil)
 
-(with-eval-after-load 'buffer-mode
+(with-eval-after-load 'buffer-menu
   (require 'buffer-menu-ext))
 
 (with-eval-after-load 'calc
