@@ -70,8 +70,8 @@
         use-package-verbose nil))
 
 ;; This comes first, as we want path set early on.
-(use-package now-path
-  :when (eq (window-system) 'ns))
+(when (eq (window-system) 'ns)
+  (require 'now-path))
 
 (use-package css-mode
   :no-require t
