@@ -115,11 +115,6 @@
   :custom ((indent-tabs-mode nil))
   :defer nil)
 
-(use-package smie
-  :defer t
-  :config (progn
-            (advice-add 'smie-auto-fill :around 'now-smie-auto-fill)))
-
 (use-package smtpmail
   :no-require t
   :custom ((smtpmail-queue-dir "~/Maildir/.Queue/cur")))
@@ -165,12 +160,6 @@
        'dark
      'light))
   (customize-set-variable 'custom-enabled-themes custom-enabled-themes))
-
-(defun now-bug-reference-fontify-around (next &rest args)
-  (let ((case-fold-search nil))
-    (apply next args)))
-
-(advice-add 'bug-reference-fontify :around 'now-bug-reference-fontify-around)
 
 (dolist (b '("s-&"
              ;"s-'"
@@ -385,6 +374,10 @@
 (add-to-list
  'window-size-change-functions
  'now-set-split-width-threshold-based-on-aspect-ratio)
+
+(advice-add 'bug-reference-fontify :around 'now-disable-case-fold-search-around)
+
+(advice-add 'smie-auto-fill :around 'now-smie-auto-fill)
 
 (eval-when-compile
   (require 'find-func))

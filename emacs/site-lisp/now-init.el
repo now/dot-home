@@ -62,6 +62,14 @@
           (_ 160))))
 
 ;;;###autoload
+;;;###autoload
+(defun now-disable-case-fold-search-around (next &rest args)
+  "Set ‘case-fold-search’ to ‘nil’ and apply NEXT to ARGS."
+  (let ((case-fold-search nil))
+    (apply next args)))
+
+
+;;;###autoload
 (defun now-report-emacs-startup-time ()
   "Write a ‘message’ that reports the time it took to start Emacs."
   (interactive)
