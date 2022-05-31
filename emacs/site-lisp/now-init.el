@@ -55,6 +55,13 @@
   (setq-local page-delimiter ";;; .*\n"))
 
 ;;;###autoload
+(defun now-set-split-width-threshold-based-on-aspect-ratio (_)
+  (setq split-width-threshold
+        (pcase (cdr (assoc 'geometry (car (display-monitor-attributes-list))))
+          ((and `(,_ ,_ ,width ,height) (guard (< width height))) nil)
+          (_ 160))))
+
+;;;###autoload
 (defun now-report-emacs-startup-time ()
   "Write a ‘message’ that reports the time it took to start Emacs."
   (interactive)

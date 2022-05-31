@@ -64,14 +64,6 @@
 ;; TODO Why?
 (setq process-connection-type nil)
 
-(defun now-set-split-width-threshold-based-on-aspect-ratio (_)
-  (setq split-width-threshold
-        (pcase (cdr (assoc 'geometry (car (display-monitor-attributes-list))))
-          ((and `(,_ ,_ ,width ,height) (guard (< width height))) nil)
-          (_ 160))))
-
-(add-to-list 'window-size-change-functions 'now-set-split-width-threshold-based-on-aspect-ratio)
-
 (eval-and-compile
   (require 'use-package)
   (setq use-package-compute-statistics nil
@@ -391,6 +383,10 @@
  'now-tabulated-list-mode-use-global-glyphless-char-display)
 
 (add-hook 'tar-mode-hook 'hl-line-mode)
+
+(add-to-list
+ 'window-size-change-functions
+ 'now-set-split-width-threshold-based-on-aspect-ratio)
 
 (eval-when-compile
   (require 'find-func))
