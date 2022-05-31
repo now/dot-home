@@ -139,6 +139,7 @@ xdgconfighomeemacsdir = $(xdgconfighomedir)/emacs
 xdgconfighomeemacsetcschemadir = $(xdgconfighomeemacsdir)/etc/schema
 xdgconfighomeemacsinitsdir = $(xdgconfighomeemacsdir)/inits
 xdgconfighomeemacssitelispdir = $(xdgconfighomeemacsdir)/site-lisp
+xdgconfighomeemacssitelispinternationaldir = $(xdgconfighomeemacssitelispdir)/international
 xdgconfighomeemacssitelisptermdir = $(xdgconfighomeemacssitelispdir)/term
 xdgconfighomefontconfigdir = $(xdgconfighomedir)/fontconfig
 xdgconfighomegitdir = $(xdgconfighomedir)/git
@@ -442,6 +443,13 @@ xdgconfighomeemacssitelisp_DATA = \
 	$(sitelisp_elcs:%.elc=%.el.gz) \
 	emacs/site-lisp/userloaddefs.el
 
+sitelispinternational_elcs = \
+	emacs/site-lisp/international/now-iso-transl.elc
+
+xdgconfighomeemacssitelispinternational_DATA = \
+	$(sitelispinternational_elcs) \
+	$(sitelispinternational_elcs:%.elc=%.el.gz)
+
 sitelispterm_elcs = \
 	emacs/site-lisp/term/now-xterm.elc
 
@@ -511,22 +519,27 @@ userconf_DATA += \
 endif
 
 $(bin_SCRIPTS): bin/.dirstamp
-$(sitelisp_elcs): emacs/site-lisp/.dirstamp
-$(sitelispterm_elcs): emacs/site-lisp/term/.dirstamp
 $(xdgconfighomeemacs_DATA): emacs/.dirstamp
+$(xdgconfighomeemacssitelisp_DATA): emacs/site-lisp/.dirstamp
+$(xdgconfighomeemacssitelispinternational_DATA): emacs/site-lisp/international/.dirstamp
+$(xdgconfighomeemacssitelispterm_DATA): emacs/site-lisp/term/.dirstamp
 m2/settings.xml: m2/.dirstamp
 zsh/zshrc: zsh/.dirstamp
 zsh/functions/hc: zsh/functions/.dirstamp
 git/config: git/.dirstamp
 
-$(sitelisp_elcs) $(sitelispterm_elcs): ELC_INCLUDES =
-$(sitelisp_elcs) $(sitelispterm_elcs): %.elc: %.el
+$(sitelisp_elcs) \
+$(sitelispinternational_elcs) \
+$(sitelispterm_elcs): ELC_INCLUDES =
+$(sitelisp_elcs) \
+$(sitelispinternational_elcs) \
+$(sitelispterm_elcs): %.elc: %.el
 	$(V_ELC)$(ELC) $<
 
 emacs/site-lisp/userloaddefs.el: \
 	$(sitelisp_elcs) \
+	$(sitelispinternational_elcs) \
 	$(sitelispterm_elcs) \
-	emacs/site-lisp/.dirstamp \
 	Makefile
 	$(V_ELC)$(EMACS) --batch -q --eval '(setq vc-handled-backends nil)' \
 	  --eval '(setq generated-autoload-file "$(abs_srcdir)/$@")' \
@@ -538,6 +551,7 @@ emacs/site-lisp/userloaddefs.el: \
 	              string))" \
 	  -f batch-update-autoloads \
 	  $(srcdir)/emacs/site-lisp \
+	  $(srcdir)/emacs/site-lisp/international \
 	  $(srcdir)/emacs/site-lisp/term
 	$(V_at)if test "$(srcdir)" != .; then mv $(srcdir)/$@ $@; fi
 	$(V_at)touch $@
@@ -550,6 +564,7 @@ ifneq ($(EMACS),)
 $(call DIR,xdgconfighomeemacs)
 $(call DIR,xdgconfighomeemacsetcschema)
 $(call DIR,xdgconfighomeemacssitelisp)
+$(call DIR,xdgconfighomeemacssitelispinternational)
 $(call DIR,xdgconfighomeemacssitelispterm)
 endif
 $(call DIR,userconfm2)

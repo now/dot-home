@@ -144,25 +144,6 @@
                (4 '(face nil display ":")))
               ("^Binary file \\(.+\\) matches$" 1 nil nil 0 1))))
 
-(use-package iso-transl
-  :defer t
-  :config (progn
-            (iso-transl-define-keys (mapcar (lambda (p) (cons (car p) nil)) iso-transl-char-map))
-            (setq iso-transl-dead-key-alist nil)
-            (defun iso-transl-define-keys (alist)
-              (while alist
-                (let ((translated-vec (cdr (car alist))))
-                  (define-key iso-transl-ctl-x-8-map (car (car alist)) translated-vec))
-                (setq alist (cdr alist))))
-            (iso-transl-define-keys iso-transl-char-map)
-            (setf (alist-get "now" iso-transl-language-alist nil nil #'equal)
-                  '((".")
-                    (".." . [?·])
-                    (".3" . [?…])
-                    ("*'" . [?ʹ])
-                    ("*\"" . [?ʺ])))
-            (iso-transl-set-language "now")))
-
 (use-package js
   :no-require t
   :custom ((js-indent-level 2)))
@@ -448,6 +429,8 @@ For example, “&a'” → “á”"
 
 (with-eval-after-load 'isearch
   (keymap-set isearch-mode-map "C-'" 'avy-isearch))
+
+(eval-after-load 'iso-transl #'now-iso-transl-init)
 
 (with-eval-after-load 'lisp-mode
   (define-keymap
