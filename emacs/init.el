@@ -86,11 +86,6 @@
   :custom ((indent-tabs-mode nil))
   :defer nil)
 
-(use-package vc-git
-  :defer t
-  :config (progn
-            (defun vc-git-mode-line-string (_) "")))
-
 (defun light-or-dark-mode ()
   (interactive)
   (customize-set-variable
