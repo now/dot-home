@@ -127,9 +127,6 @@
                                                  nil nil nil nil nil))))
            (smtpmail-multi-associations '(("now@disu.se" disuse)))))
 
-(use-package sql-indent
-  :custom ((sqlind-basic-offset 8)))
-
 (use-package typescript-mode
   :after typescript-mode
   :config (dolist (entry '(typescript-tsc
@@ -349,6 +346,8 @@
 (eval-after-load 'rnc-mode #'now-rnc-mode-init)
 
 (eval-after-load 'ruby-mode #'now-ruby-mode-init)
+
+(eval-after-load 'sql-indent #'now-sql-indent-init)
 
 (eval-after-load 'term/xterm #'term/now-xterm-init)
 

@@ -435,6 +435,7 @@ sitelisp_elcs = \
 	emacs/site-lisp/now-ruby.elc \
 	emacs/site-lisp/now-smie.elc \
 	emacs/site-lisp/now-sort.elc \
+	emacs/site-lisp/now-sql-indent.elc \
 	emacs/site-lisp/now-xref.elc \
 	emacs/site-lisp/rnc-mode.elc \
 	emacs/site-lisp/typescriptreact-mode.elc \
