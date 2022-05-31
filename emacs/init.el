@@ -81,145 +81,6 @@
 (use-package now-path
   :when (eq (window-system) 'ns))
 
-(use-package compile
-  :custom ((compilation-error-regexp-alist '(sbt
-                                             maven
-                                             clang-include
-                                             gcc-include
-                                             typescript-X
-                                             gnu
-                                             gcov-file
-                                             gcov-header
-                                             gcov-nomark
-                                             gcov-called-line
-                                             gcov-never-called)))
-  :config (progn
-            (dolist (cons
-                     `((maven
-                        ,(rx bol
-                             "["
-                             (| "ERROR"
-                                (group-n 4 (: "WARN" (? "ING")))
-                                (group-n 5 "INFO"))
-                             "]"
-                             (+ ?\s)
-                             (? "[" (or "Warn" "Error") "] ")
-                             (group-n 1
-                                      (* digit)
-                                      (not (in digit ?\n))
-                                      (*? (| (not (in ?\n ?\s ?:))
-                                             (: ?\s (not (in ?- ?/ ?\n)))
-                                             (: ?: (not (in ?\s ?\n))))))
-                             ":"
-                             (| (: "["
-                                   (group-n 2 (+ digit))
-                                   (? ","
-                                      (group-n 3 (+ digit)))
-                                   "]")
-                                (: (group-n 2 (+ digit)) ":"
-                                   (? (group-n 3 (+ digit)) ":")))
-                             " ")
-                        now-compilation-maven-file
-                        2 3 (4 . 5) nil (1 (funcall 'now-compilation-maven-highlight)))
-                       (sbt
-                        ,(rx bol
-                             "["
-                             (| "error"
-                                (group-n 4 (: "warn" (? "ing")))
-                                (group-n 5 "info"))
-                             "] "
-                             (group-n 1
-                                      (* digit)
-                                      (not (in digit ?\n))
-                                      (*? (| (not (in ?\n ?\s ?:))
-                                             (: ?\s (not (in ?- ?/ ?\n)))
-                                             (: ?: (not (in ?\s ?\n))))))
-                             ":"
-                             (| (: "["
-                                   (group-n 2 (+ digit))
-                                   ","
-                                   (group-n 3 (+ digit))
-                                   "]")
-                                (: (group-n 2 (+ digit)) ":"
-                                   (? (group-n 3 (+ digit)) ":")))
-                             " ")
-                        1 2 3 (4 . 5))
-                       (typescript-X
-                        ,(rx bol
-                             (: (group-n 1
-                                         (* (in (?0 . ?9)))
-                                         (not (in (?0 . ?9) ?\n))
-                                         (*? (| (not (in ?\n ?\s ?:))
-                                                (: ?\s (not (in ?- ?/ ?\n)))
-                                                (: ?: (not (in ?\s ?\n))))))
-                                "("
-                                (group-n 2 (+ (in (?0 . ?9))))
-                                ","
-                                (group-n 3 (+ (in (?0 . ?9))))
-                                "): "))
-                        1 2 3)
-                       (typescript ;; webkit?
-                        ,(rx bol
-                             (: (group-n 1
-                                         (* (in (?0 . ?9)))
-                                         (not (in (?0 . ?9) ?\n))
-                                         (*? (| (not (in ?\n ?\s ?:))
-                                                (: ?\s (not (in ?- ?/ ?\n)))
-                                                (: ?: (not (in ?\s ?\n))))))
-                                "\n  Line "
-                                (group-n 2 (+ (in (?0 . ?9))))
-                                ":"
-                                (group-n 3 (+ (in (?0 . ?9))))
-                                ":  "))
-                        1 2 3)
-                       (typescript-following
-                        ,(rx bol
-                             (: "  Line "
-                                (group-n 2 (+ (in (?0 . ?9))))
-                                ":"
-                                (group-n 3 (+ (in (?0 . ?9))))
-                                ":  "))
-                        nil 2 3)))
-              (setf (alist-get (car cons) compilation-error-regexp-alist-alist)
-                    (cdr cons)))
-            (defun now-compilation-maven-file ()
-              (declare-function compilation--previous-directory "compile")
-              (let ((s (match-string-no-properties 1)))
-                (if (or (null s) (file-name-absolute-p s))
-                    s
-                  (let* ((pos (compilation--previous-directory
-                               (match-beginning 0)))
-                         (dir (when pos
-                                (or (get-text-property (1- pos) 'compilation-directory)
-                                    (get-text-property pos 'compilation-directory))))
-                         (dir (when dir (file-name-as-directory (car dir)))))
-                    (if dir
-                        (if (file-exists-p (concat dir s))
-                            s
-                          (let* ((s (replace-regexp-in-string "\\$.*" "" s))
-                                 (java-1 (format "%s.java" s))
-                                 (scala-1 (format "%s.scala" s))
-                                 (java-2 (format "%s.java"
-                                                 (replace-regexp-in-string "\\." "/" s)))
-                                 (scala-2 (format "%s.scala"
-                                                  (replace-regexp-in-string "\\." "/" s))))
-                            (cl-find-if
-                             (lambda (f) (file-exists-p (concat dir f)))
-                             (list
-                              java-1
-                              scala-1
-                              java-2
-                              scala-2
-                              (format "src/main/java/%s" java-1)
-                              (format "src/main/scala/%s" scala-1)
-                              (format "src/test/java/%s" java-1)
-                              (format "src/test/scala/%s" scala-1)
-                              (format "src/main/java/%s" java-2)
-                              (format "src/main/scala/%s" scala-2)
-                              (format "src/test/java/%s" java-2)
-                              (format "src/test/scala/%s" scala-2)))))
-                      s)))))))
-
 (use-package css-mode
   :no-require t
   :custom ((css-indent-offset 2)))
@@ -568,6 +429,8 @@ For example, “&a'” → “á”"
   (require 'now-calc))
 
 (eval-after-load 'cc-mode #'now-cc-mode-init)
+
+(eval-after-load 'compile #'now-compile-init)
 
 (with-eval-after-load 'dired
   (require 'dired-x)

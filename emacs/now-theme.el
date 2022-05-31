@@ -186,6 +186,19 @@
    ;;   Tools
 
    ;;     Compilation
+   '(compilation-error-regexp-alist
+     (sbt
+      maven
+      clang-include
+      gcc-include
+      typescript-X
+      gmake
+      gnu
+      gcov-file
+      gcov-header
+      gcov-nomark
+      gcov-called-line
+      gcov-never-called))
    `(compilation-mode-hook
      (cons 'now-do-not-show-trailing-whitespace ,(value compilation-mode-hook)))
    '(compilation-scroll-output 'first-error)
