@@ -85,20 +85,6 @@
   :no-require t
   :custom ((css-indent-offset 2)))
 
-(use-package disp-table
-  :config (progn
-            (defface wrap-glyph
-              '((((min-colors 16) (class color))
-                 :foreground "blue")
-                (t
-                 :inverse-video t))
-              "Face for wrap glyph."
-              :group 'basic-faces)
-            (set-display-table-slot standard-display-table 'wrap #x00a0)
-            (set-display-table-slot standard-display-table 'selective-display
-                                    (vector (make-glyph-code #x2026)))
-            (set-display-table-slot standard-display-table 'vertical-border 0)))
-
 ;; TODO Customize
 (use-package flycheck
   :disabled)
@@ -420,6 +406,17 @@
  calc-group-char " "
  calc-gnuplot-default-device "dumb"
  calc-show-banner nil)
+
+(defface wrap-glyph
+  '((((min-colors 16) (class color)) :foreground "blue")
+    (t :inverse-video t))
+  "Face for wrap glyph."
+  :group 'basic-faces)
+
+(set-display-table-slot standard-display-table 'wrap #x00a0)
+(set-display-table-slot
+ standard-display-table 'selective-display (vector (make-glyph-code #x2026)))
+(set-display-table-slot standard-display-table 'vertical-border 0)
 
 (load-theme 'now t)
 
