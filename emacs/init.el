@@ -103,47 +103,6 @@
 (use-package flycheck
   :disabled)
 
-;; TODO Pretty sure that this can be removed.
-(use-package grep
-  :config (setq grep-regexp-alist
-            `((,(concat "^\\(?:"
-                        ;; Parse using NUL characters when `--null' is used.
-                        ;; Note that we must still assume no newlines in
-                        ;; filenames due to "foo: Is a directory." type
-                        ;; messages.
-                        "\\(?1:[^\0\n]+\\)\\(?3:\0\\)\\(?2:[0-9]+\\)\\(?::\\|\\(?4:\0\\)\\)"
-                        "\\|"
-                        ;; Fallback if `--null' is not used, use a tight regexp
-                        ;; to handle weird file names (with colons in them) as
-                        ;; well as possible.  E.g., use [1-9][0-9]* rather than
-                        ;; [0-9]+ so as to accept ":034:" in file names.
-                        "\\(?1:"
-                        "\\(?:[a-zA-Z]:\\)?" ; Allow "C:..." for w32.
-                        "[^\n:]+?[^\n/:]\\):[\t ]*\\(?2:[1-9][0-9]*\\)[\t ]*:"
-                        "\\)")
-               1 2
-               ;; Calculate column positions (col . end-col) of first grep match on a line
-               (,(lambda ()
-                   (when grep-highlight-matches
-                     (let* ((beg (match-end 0))
-                            (end (save-excursion (goto-char beg) (line-end-position)))
-                            (mbeg (text-property-any beg end 'font-lock-face grep-match-face)))
-                       (when mbeg
-                         (- mbeg beg)))))
-                .
-                ,(lambda ()
-                   (when grep-highlight-matches
-                     (let* ((beg (match-end 0))
-                            (end (save-excursion (goto-char beg) (line-end-position)))
-                            (mbeg (text-property-any beg end 'font-lock-face grep-match-face))
-                            (mend (and mbeg (next-single-property-change mbeg 'font-lock-face nil end))))
-                       (when mend
-                         (- mend beg))))))
-               nil nil
-               (3 '(face nil display ":"))
-               (4 '(face nil display ":")))
-              ("^Binary file \\(.+\\) matches$" 1 nil nil 0 1))))
-
 (use-package js
   :no-require t
   :custom ((js-indent-level 2)))
@@ -203,7 +162,6 @@
   :custom ((sqlind-basic-offset 8)))
 
 (use-package typescript-mode
-  :no-require t
   :after typescript-mode
   :config (dolist (entry '(typescript-tsc
                            typescript-tsc-pretty
@@ -404,6 +362,8 @@
          (or "cl-assert" "cl-check-type" "error" "signal" "user-error" "warn"))
         symbol-end)
       (1 font-lock-keyword-face)))))
+
+(eval-after-load 'grep #'now-grep-init)
 
 (with-eval-after-load 'isearch
   (keymap-set isearch-mode-map "C-'" 'avy-isearch))
