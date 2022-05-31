@@ -454,12 +454,12 @@ xdgconfighomeemacssitelispinternational_DATA = \
 	$(sitelispinternational_elcs:%.elc=%.el.gz)
 
 sitelispprogmodes_elcs = \
-	emacs/site-lisp/progmodes/now-grep.elc
+	emacs/site-lisp/progmodes/now-grep.elc \
+	emacs/site-lisp/progmodes/now-typescript-mode.elc
 
 xdgconfighomeemacssitelispprogmodes_DATA = \
 	$(sitelispprogmodes_elcs) \
 	$(sitelispprogmodes_elcs:%.elc=%.el.gz)
-
 
 sitelispterm_elcs = \
 	emacs/site-lisp/term/now-xterm.elc

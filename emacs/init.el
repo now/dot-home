@@ -127,16 +127,6 @@
                                                  nil nil nil nil nil))))
            (smtpmail-multi-associations '(("now@disu.se" disuse)))))
 
-(use-package typescript-mode
-  :after typescript-mode
-  :config (dolist (entry '(typescript-tsc
-                           typescript-tsc-pretty
-                           typescript-tslint
-                           typescript-nglint-error
-                           typescript-nglint-warning))
-            (setq compilation-error-regexp-alist
-                  (delq entry compilation-error-regexp-alist))))
-
 (use-package vc-git
   :defer t
   :config (progn
@@ -350,6 +340,8 @@
 (eval-after-load 'sql-indent #'now-sql-indent-init)
 
 (eval-after-load 'term/xterm #'term/now-xterm-init)
+
+(eval-after-load 'typescript-mode #'now-typescript-mode-init)
 
 (eval-after-load 'xref #'now-xref-init)
 
