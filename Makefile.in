@@ -390,11 +390,11 @@ xdgconfighomecmus_DATA = \
 	cmus/rc
 
 userconf_elcs = \
-	emacs/custom.elc \
 	emacs/init.elc \
 	emacs/now-theme.elc
 
 xdgconfighomeemacs_DATA = \
+	emacs/custom.el \
 	$(userconf_elcs) \
 	$(userconf_elcs:%.elc=%.el.gz)
 
