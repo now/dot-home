@@ -655,19 +655,3 @@ $(sort $(emptydirs)):
 	    -e 's|@xdgconfighomezshfunctionsdir[@]|$(xdgconfighomezshfunctionsdir)|g' \
 	    $< > $@.tmp && \
 	  mv $@.tmp $@
-
-DEPENDENCIES = \
-	zap
-
-environmentdir = Environment
-
-install-dependencies:
-	$(MKDIR_P) $(environmentdir) && \
-	  for d in $(DEPENDENCIES); do \
-	    ed=$(environmentdir)/$$d; \
-	    if test -d $$ed; then \
-	      (cd $$ed && git up && make install); \
-	    else \
-	      (git clone myhub:$$d.git $$ed && cd $$ed && make install); \
-	    fi; \
-	  done
