@@ -5,48 +5,7 @@
 (require 'package)
 (setq package-quickstart t)
 (setf (alist-get "melpa" package-archives nil nil #'equal) "https://melpa.org/packages/")
-
-(let ((packages
-       '(("gnu"
-          . (avy
-             company
-             compat
-             dash
-             eglot
-             json-mode
-             sed-mode
-             sql-indent
-             transient))
-         ("nongnu"
-          . (git-commit
-             go-mode
-             magit
-             magit-section
-             markdown-mode
-             typescript-mode
-             visual-fill-column
-             with-editor
-             yaml-mode))
-         (nil
-          . (docker-tramp
-             fira-code-mode
-             forge
-             smtpmail-multi)))))
-  (cl-flet ((refresh-when-pinned (package)
-              (when (assq package package-pinned-packages)
-                (package-read-all-archive-contents))))
-    (dolist (pin packages)
-      (when (car pin)
-        (dolist (package (cdr pin))
-          (push (cons package (car pin)) package-pinned-packages))))
-    (dolist (package (mapcan #'cdr packages))
-      (unless (package-installed-p package)
-        (refresh-when-pinned package)
-        (if (assq package package-archive-contents)
-            (package-install package)
-          (package-refresh-contents)
-          (refresh-when-pinned package)
-          (package-install package))))))
+(load (concat user-emacs-directory "packages"))
 
 (let ((modes
        '(("\\.rng\\'" . xml-mode)

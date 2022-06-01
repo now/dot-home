@@ -99,6 +99,11 @@ _v_ELC_ = $(_v_ELC_$(DEFAULT_VERBOSITY))
 _v_ELC_0 = @echo "  ELC       " $@;
 _v_ELC_1 =
 
+V_ELPA = $(_v_ELPA_$(V))
+_v_ELPA_ = $(_v_ELPA_$(DEFAULT_VERBOSITY))
+_v_ELPA_0 = @echo "  ELPA      " $@;
+_v_ELPA_1 =
+
 V_PORT = $(_v_PORT_$(V))
 _v_PORT_ = $(_v_PORT_$(DEFAULT_VERBOSITY))
 _v_PORT_0 = @echo "  PORT      " $(@F);
@@ -391,7 +396,8 @@ xdgconfighomecmus_DATA = \
 
 userconf_elcs = \
 	emacs/init.elc \
-	emacs/now-theme.elc
+	emacs/now-theme.elc \
+	emacs/packages.elc
 
 xdgconfighomeemacs_DATA = \
 	emacs/custom.el \
@@ -568,7 +574,10 @@ emacs/site-lisp/userloaddefs.el: \
 	$(sitelispprogmodes_elcs) \
 	$(sitelispterm_elcs) \
 	Makefile
-	$(V_ELC)$(EMACS) --batch -q --eval '(setq vc-handled-backends nil)' \
+	$(V_ELC)$(EMACS) \
+	  --batch \
+	  -q \
+	  --eval '(setq vc-handled-backends nil)' \
 	  --eval '(setq generated-autoload-file "$(abs_srcdir)/$@")' \
 	  --eval "(defun byte-compile-info (string &optional message type) \
 	            (let ((string (format \"  %-11s%s\" (or type \"INFO\") \
@@ -584,6 +593,74 @@ emacs/site-lisp/userloaddefs.el: \
 	  $(srcdir)/emacs/site-lisp/term
 	$(V_at)if test "$(srcdir)" != .; then mv $(srcdir)/$@ $@; fi
 	$(V_at)touch $@
+
+emacs_PACKAGES = \
+	gnu/avy/0.5.0 \
+	gnu/company/0.9.13 \
+	gnu/dash/2.19.1 \
+	gnu/eglot/1.8 \
+	gnu/json-mode/0.2 \
+	gnu/sed-mode/1.0 \
+	gnu/sql-indent/1.6 \
+	gnu/transient/0.3.7 \
+	nil/docker-tramp/20220219.420 \
+	nil/fira-code-mode/20220531.1555 \
+	nil/smtpmail-multi/20160218.2349 \
+	nongnu/git-commit/3.3.0 \
+	nongnu/go-mode/1.6.0 \
+	nongnu/magit/3.3.0 \
+	nongnu/magit-section/3.3.0 \
+	nongnu/markdown-mode/2.5 \
+	nongnu/typescript-mode/0.4 \
+	nongnu/visual-fill-column/2.5 \
+	nongnu/with-editor/3.2.0 \
+	nongnu/yaml-mode/0.0.15
+
+emacs/packages.el: Makefile.in
+	$(V_GEN){ \
+	  printf "(require 'package)\\n\\n(setq\\n package-load-list\\n '(" && \
+	  nl= && \
+	  for p in $(foreach p,$(emacs_PACKAGES),"$(wordlist 2,3,$(subst /, ,$(p)))"); do \
+	    printf "$$nl(%s \"%s\")" $$p || exit 1; \
+	    nl='\n   '; \
+	  done && \
+	  printf ")\\n package-pinned-packages\\n '(" && \
+	  nl= && \
+	  for p in $(foreach p,$(emacs_PACKAGES),"$(word 2,$(subst /, ,$(p))) $(word 1,$(subst /, ,$(p)))"); do \
+	    printf "$$nl(%s . \"%s\")" $$p || exit 1; \
+	    nl='\n   '; \
+	  done && \
+	  printf '))\n'; } > $@.tmp
+	$(V_at)mv $@.tmp $@
+
+elpa_packages = $(foreach p,$(emacs_PACKAGES),emacs/elpa/$(subst $(space),@,$(wordlist 2,3,$(subst /, ,$(p)))))
+
+$(elpa_packages): emacs/elpa/.dirstamp
+	$(V_ELPA)$(EMACS) \
+	  --batch \
+	  -q \
+	  --eval "(setq package-quickstart t)" \
+	  --eval "(require 'package)" \
+	  --eval "(package-initialize)" \
+	  --eval "(let ((archive $(subst \"nil\",nil,\"$(word 1,$(subst /, ,$(filter %/$(word 1,$(subst @, ,$(@F)))/,$(dir $(emacs_PACKAGES)))))\")) \
+	                (package '$(word 1,$(subst @, ,$(@F))))) \
+	            (when archive \
+	              (push (cons package archive) package-pinned-packages)) \
+		  (cl-flet ((refresh-when-pinned (package) \
+	                      (when (assq package package-pinned-packages) \
+	                        (package-read-all-archive-contents)))) \
+	         (unless (package-installed-p package) \
+	          (refresh-when-pinned package) \
+	          (if (assq package package-archive-contents) \
+	              (package-install package) \
+	            (package-refresh-contents) \
+	            (refresh-when-pinned package) \
+	            (package-install package)))))" \
+	  $(ELCFLAGS) \
+	  -f batch-byte-compile
+	$(V_at): > $@
+
+install: $(elpa_packages)
 
 $(call DIR,bin)
 $(call DIR,libexec)
