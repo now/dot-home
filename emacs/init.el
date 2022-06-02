@@ -221,9 +221,6 @@
     "C-c r" 'raise-sexp
     "C-c s" 'delete-pair))
 
-(with-eval-after-load 'magit
-  (require 'forge))
-
 (eval-after-load 'message #'now-message-init)
 
 (eval-after-load 'nxml-mode #'now-nxml-mode-init)
