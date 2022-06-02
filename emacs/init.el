@@ -183,6 +183,7 @@
   "c" 'now-project-display-compilation)
 
 (put 'narrow-to-page 'disabled nil)
+(put 'set-goal-column 'disabled nil)
 
 (with-eval-after-load 'buffer-menu
   (require 'buffer-menu-ext))
