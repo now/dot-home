@@ -199,23 +199,20 @@
            (xref . #'now-xref-init)))
   (eval-after-load (car feature-init) (cdr feature-init)))
 
-(add-hook 'Buffer-menu-mode-hook 'Buffer-menu-mode-ext)
-(add-hook 'Buffer-menu-mode-hook 'hl-line-mode)
-
-(unless noninteractive
-  (add-hook 'after-init-hook 'server-start))
-
-(add-hook 'arc-mode-hook 'hl-line-mode)
-
-(add-hook 'emacs-startup-hook 'now-report-emacs-startup-time)
-
-(add-hook 'sed-mode-hook 'now-set-smie-indent-basic-to-2)
-
-(add-hook
- 'tabulated-list-mode-hook
- 'now-tabulated-list-mode-use-global-glyphless-char-display)
-
-(add-hook 'tar-mode-hook 'hl-line-mode)
+(dolist (hook
+         (remove
+          nil
+          `((Buffer-menu-mode-hook Buffer-menu-mode-ext hl-line-mode)
+            ,(unless noninteractive '(after-init-hook server-start))
+            (arc-mode-hook hl-line-mode)
+            (emacs-startup-hook
+             hide-mode-line-mode now-report-emacs-startup-time)
+            (sed-mode-hook now-set-smie-indent-basic-to-2)
+            (tabulated-list-mode-hook
+             now-tabulated-list-mode-use-global-glyphless-char-display)
+            (tar-mode-hook hl-line-mode))))
+  (dolist (function (cdr hook))
+    (add-hook (car hook) function)))
 
 (add-to-list
  'window-size-change-functions
@@ -245,5 +242,3 @@
  semantic-function-argument-separator ", ")
 
 (load-theme 'now t)
-
-(add-hook 'emacs-startup-hook 'hide-mode-line-mode)
