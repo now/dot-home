@@ -394,8 +394,11 @@
 
    ;;   Frames
    '(default-frame-alist
-     '((cursor-type . bar) (height . 1.0) (right-fringe . 0) (width . 0.5)))
-   '(initial-frame-alist '((vertical-scroll-bars)))
+     '((cursor-type . bar)
+       (height . 1.0)
+       (right-fringe . 0)
+       (vertical-scroll-bars)
+       (width . 0.5)))
    '(menu-bar-mode (eq window-system 'ns))
    '(scroll-bar-mode nil)
    '(tool-bar-mode nil)
