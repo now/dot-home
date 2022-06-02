@@ -178,59 +178,28 @@
 (put 'narrow-to-page 'disabled nil)
 (put 'set-goal-column 'disabled nil)
 
-(with-eval-after-load 'buffer-menu
-  (require 'buffer-menu-ext))
+(dolist (feature-init
+         '((calc . #'now-calc-init)
+           (cc-mode . #'now-cc-mode-init)
+           (compile . #'now-compile-init)
+           (dired . #'now-dired-init)
+           (disp-table . #'now-disp-table-init)
+           (elisp-mode . #'now-elisp-mode-init)
+           (grep . #'now-grep-init)
+           (isearch . #'now-isearch-init)
+           (iso-transl . #'now-iso-transl-init)
+           (lisp-mode . #'now-lisp-mode-init)
+           (message . #'now-message-init)
+           (nxml-mode . #'now-xml-mode-init)
+           (rnc-mode . #'now-rnc-mode-init)
+           (ruby-mode . #'ruby-mode-init)
+           (sql-indent . #'now-sql-indent-init)
+           (term/xterm . #'term/now-xterm-init)
+           (typescript-mode . #'now-typescript-mode-init)
+           (xref . #'now-xref-init)))
+  (eval-after-load (car feature-init) (cdr feature-init)))
 
-(with-eval-after-load 'calc
-  (require 'now-calc))
-
-(eval-after-load 'cc-mode #'now-cc-mode-init)
-
-(eval-after-load 'compile #'now-compile-init)
-
-(eval-after-load 'dired #'now-dired-init)
-
-(eval-after-load 'disp-table #'now-disp-table-init)
-
-(with-eval-after-load 'elisp-mode
-  (font-lock-add-keywords
-   'emacs-lisp-mode
-   `((,(rx
-        ?\(
-        (group
-         (or "cl-assert" "cl-check-type" "error" "signal" "user-error" "warn"))
-        symbol-end)
-      (1 font-lock-keyword-face)))))
-
-(eval-after-load 'grep #'now-grep-init)
-
-(with-eval-after-load 'isearch
-  (keymap-set isearch-mode-map "C-'" 'avy-isearch))
-
-(eval-after-load 'iso-transl #'now-iso-transl-init)
-
-(with-eval-after-load 'lisp-mode
-  (define-keymap
-    :keymap lisp-mode-shared-map
-    "C-c r" 'raise-sexp
-    "C-c s" 'delete-pair))
-
-(eval-after-load 'message #'now-message-init)
-
-(eval-after-load 'nxml-mode #'now-nxml-mode-init)
-
-(eval-after-load 'rnc-mode #'now-rnc-mode-init)
-
-(eval-after-load 'ruby-mode #'now-ruby-mode-init)
-
-(eval-after-load 'sql-indent #'now-sql-indent-init)
-
-(eval-after-load 'term/xterm #'term/now-xterm-init)
-
-(eval-after-load 'typescript-mode #'now-typescript-mode-init)
-
-(eval-after-load 'xref #'now-xref-init)
-
+(add-hook 'Buffer-menu-mode-hook 'Buffer-menu-mode-ext)
 (add-hook 'Buffer-menu-mode-hook 'hl-line-mode)
 
 (unless noninteractive
@@ -273,9 +242,6 @@
  truncate-string-ellipsis "…")
 
 (setq-default
- calc-group-char " "
- calc-gnuplot-default-device "dumb"
- calc-show-banner nil
  semantic-function-argument-separator ", ")
 
 (load-theme 'now t)

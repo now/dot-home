@@ -144,6 +144,7 @@ xdgconfighomeemacsdir = $(xdgconfighomedir)/emacs
 xdgconfighomeemacsetcschemadir = $(xdgconfighomeemacsdir)/etc/schema
 xdgconfighomeemacsinitsdir = $(xdgconfighomeemacsdir)/inits
 xdgconfighomeemacssitelispdir = $(xdgconfighomeemacsdir)/site-lisp
+xdgconfighomeemacssitelispcalcdir = $(xdgconfighomeemacssitelispdir)/calc
 xdgconfighomeemacssitelispgnusdir = $(xdgconfighomeemacssitelispdir)/gnus
 xdgconfighomeemacssitelispinternationaldir = $(xdgconfighomeemacssitelispdir)/international
 xdgconfighomeemacssitelispprogmodesdir = $(xdgconfighomeemacssitelispdir)/progmodes
@@ -428,7 +429,6 @@ sitelisp_elcs = \
 	emacs/site-lisp/hide-mode-line.elc \
 	emacs/site-lisp/highlight-selected-window.elc \
 	emacs/site-lisp/nmc-mode.elc \
-	emacs/site-lisp/now-calc.elc \
 	emacs/site-lisp/now-cc-mode.elc \
 	emacs/site-lisp/now-compile.elc \
 	emacs/site-lisp/now-dired.elc \
@@ -436,6 +436,7 @@ sitelisp_elcs = \
 	emacs/site-lisp/now-eglot.elc \
 	emacs/site-lisp/now-git.elc \
 	emacs/site-lisp/now-init.elc \
+	emacs/site-lisp/now-isearch.elc \
 	emacs/site-lisp/now-nxml-mode.elc \
 	emacs/site-lisp/now-rnc-mode.elc \
 	emacs/site-lisp/now-project.elc \
@@ -453,12 +454,12 @@ xdgconfighomeemacssitelisp_DATA = \
 	$(sitelisp_elcs:%.elc=%.el.gz) \
 	emacs/site-lisp/userloaddefs.el
 
-sitelispinternational_elcs = \
-	emacs/site-lisp/international/now-iso-transl.elc
+sitelispcalc_elcs = \
+	emacs/site-lisp/calc/now-calc.elc
 
-xdgconfighomeemacssitelispinternational_DATA = \
-	$(sitelispinternational_elcs) \
-	$(sitelispinternational_elcs:%.elc=%.el.gz)
+xdgconfighomeemacssitelispcalc_DATA = \
+	$(sitelispcalc_elcs) \
+	$(sitelispcalc_elcs:%.elc=%.el.gz)
 
 sitelispgnus_elcs = \
 	emacs/site-lisp/gnus/now-message.elc
@@ -467,8 +468,17 @@ xdgconfighomeemacssitelispgnus_DATA = \
 	$(sitelispgnus_elcs) \
 	$(sitelispgnus_elcs:%.elc=%.el.gz)
 
+sitelispinternational_elcs = \
+	emacs/site-lisp/international/now-iso-transl.elc
+
+xdgconfighomeemacssitelispinternational_DATA = \
+	$(sitelispinternational_elcs) \
+	$(sitelispinternational_elcs:%.elc=%.el.gz)
+
 sitelispprogmodes_elcs = \
+	emacs/site-lisp/progmodes/now-elisp-mode.elc \
 	emacs/site-lisp/progmodes/now-grep.elc \
+	emacs/site-lisp/progmodes/now-lisp-mode.elc \
 	emacs/site-lisp/progmodes/now-typescript-mode.elc
 
 xdgconfighomeemacssitelispprogmodes_DATA = \
@@ -546,6 +556,7 @@ endif
 $(bin_SCRIPTS): bin/.dirstamp
 $(xdgconfighomeemacs_DATA): emacs/.dirstamp
 $(xdgconfighomeemacssitelisp_DATA): emacs/site-lisp/.dirstamp
+$(xdgconfighomeemacssitelispcalc_DATA): emacs/site-lisp/calc/.dirstamp
 $(xdgconfighomeemacssitelispgnus_DATA): emacs/site-lisp/gnus/.dirstamp
 $(xdgconfighomeemacssitelispinternational_DATA): emacs/site-lisp/international/.dirstamp
 $(xdgconfighomeemacssitelispprogmodes_DATA): emacs/site-lisp/progmodes/.dirstamp
@@ -556,11 +567,13 @@ zsh/functions/hc: zsh/functions/.dirstamp
 git/config: git/.dirstamp
 
 $(sitelisp_elcs) \
+$(sitelispcalc_elcs) \
 $(sitelispgnus_elcs) \
 $(sitelispinternational_elcs) \
 $(sitelispprogmodes_elcs) \
 $(sitelispterm_elcs): ELC_INCLUDES =
 $(sitelisp_elcs) \
+$(sitelispcalc_elcs) \
 $(sitelispgnus_elcs) \
 $(sitelispinternational_elcs) \
 $(sitelispprogmodes_elcs) \
@@ -570,6 +583,7 @@ $(sitelispterm_elcs): %.elc: %.el
 emacs/site-lisp/userloaddefs.el: \
 	$(sitelisp_elcs) \
 	$(sitelispgnus_elcs) \
+	$(sitelispcalc_elcs) \
 	$(sitelispinternational_elcs) \
 	$(sitelispprogmodes_elcs) \
 	$(sitelispterm_elcs) \
@@ -587,6 +601,7 @@ emacs/site-lisp/userloaddefs.el: \
 	              string))" \
 	  -f batch-update-autoloads \
 	  $(srcdir)/emacs/site-lisp \
+	  $(srcdir)/emacs/site-lisp/calc \
 	  $(srcdir)/emacs/site-lisp/gnus \
 	  $(srcdir)/emacs/site-lisp/international \
 	  $(srcdir)/emacs/site-lisp/progmodes \
@@ -670,6 +685,7 @@ ifneq ($(EMACS),)
 $(call DIR,xdgconfighomeemacs)
 $(call DIR,xdgconfighomeemacsetcschema)
 $(call DIR,xdgconfighomeemacssitelisp)
+$(call DIR,xdgconfighomeemacssitelispcalc)
 $(call DIR,xdgconfighomeemacssitelispgnus)
 $(call DIR,xdgconfighomeemacssitelispinternational)
 $(call DIR,xdgconfighomeemacssitelispprogmodes)

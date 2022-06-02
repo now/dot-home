@@ -297,4 +297,8 @@ a given type."
   "U" 'Buffer-menu-unmark-all
   "r" 'Buffer-menu-toggle-read-only)
 
+;;;###autoload
+(defun Buffer-menu-mode-ext ()
+  "An autoloaded function to add to `Buffer-menu-mode-hook' to add customizations.")
+
 (provide 'buff-menu-ext)
