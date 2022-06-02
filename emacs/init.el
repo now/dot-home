@@ -7,13 +7,6 @@
 (setf (alist-get "melpa" package-archives nil nil #'equal) "https://melpa.org/packages/")
 (load (concat user-emacs-directory "packages"))
 
-(let ((modes
-       '(("\\.rng\\'" . xml-mode)
-         ("\\.sch\\'" . xml-mode)
-         ("\\.xsd\\'" . xml-mode))))
-  (dolist (mode modes)
-    (push mode auto-mode-alist)))
-
 (add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
 (require 'userloaddefs)
 
@@ -267,6 +260,12 @@
   (require 'find-func))
 
 (setq
+ auto-mode-alist
+ (cl-list*
+  '("\\.rng\\'" . xml-mode)
+  '("\\.sch\\'" . xml-mode)
+  '("\\.xsd\\'" . xml-mode)
+  auto-mode-alist)
  desktop-dirname (car desktop-path)
  find-function-C-source-directory "~/Projects/emacs/src"
  insert-directory-program "a"
