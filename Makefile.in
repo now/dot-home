@@ -617,7 +617,6 @@ emacs_PACKAGES = \
 	gnu/json-mode/0.2 \
 	gnu/sed-mode/1.0 \
 	gnu/sql-indent/1.6 \
-	gnu/transient/0.3.7 \
 	nil/docker-tramp/20220219.420 \
 	nil/fira-code-mode/20220531.1555 \
 	nil/smtpmail-multi/20160218.2349 \
