@@ -32,6 +32,9 @@ paths_DATA = \
 sitelisp_elcs += \
 	emacs/site-lisp/now-path.elc
 
+sitelispterm_elcs += \
+	emacs/site-lisp/term/now-ns-win.elc
+
 xdgconfighomezsh_DATA += \
 	os/Darwin/zsh/zprofile
 
