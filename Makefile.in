@@ -555,6 +555,7 @@ userconf_DATA += \
 endif
 
 $(bin_SCRIPTS): bin/.dirstamp
+$(userconfm2_DATA): m2/.dirstamp
 $(xdgconfighomeemacs_DATA): emacs/.dirstamp
 $(xdgconfighomeemacssitelisp_DATA): emacs/site-lisp/.dirstamp
 $(xdgconfighomeemacssitelispcalc_DATA): emacs/site-lisp/calc/.dirstamp
@@ -562,10 +563,9 @@ $(xdgconfighomeemacssitelispgnus_DATA): emacs/site-lisp/gnus/.dirstamp
 $(xdgconfighomeemacssitelispinternational_DATA): emacs/site-lisp/international/.dirstamp
 $(xdgconfighomeemacssitelispprogmodes_DATA): emacs/site-lisp/progmodes/.dirstamp
 $(xdgconfighomeemacssitelispterm_DATA): emacs/site-lisp/term/.dirstamp
-m2/settings.xml: m2/.dirstamp
-zsh/zshrc: zsh/.dirstamp
-zsh/functions/hc: zsh/functions/.dirstamp
-git/config: git/.dirstamp
+$(xdgconfighomegit_DATA): git/.dirstamp
+$(xdgconfighomezsh_DATA): zsh/.dirstamp
+$(xdgconfighomezshfunctions_DATA): zsh/functions/.dirstamp
 
 $(sitelisp_elcs) \
 $(sitelispcalc_elcs) \
