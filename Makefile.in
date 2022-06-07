@@ -653,9 +653,10 @@ $(elpa_packages): emacs/elpa/.dirstamp
 	$(V_ELPA)$(EMACS) \
 	  --batch \
 	  -q \
-	  --eval "(setq package-quickstart t)" \
+	  --eval '(setq package-quickstart t)' \
 	  --eval "(require 'package)" \
-	  --eval "(package-initialize)" \
+	  --eval '(package-initialize)' \
+	  --eval '(push (cons "melpa" "https://melpa.org/packages/") package-archives)' \
 	  --eval "(let ((archive $(subst \"nil\",nil,\"$(word 1,$(subst /, ,$(filter %/$(word 1,$(subst @, ,$(@F)))/,$(dir $(emacs_PACKAGES)))))\")) \
 	                (package '$(word 1,$(subst @, ,$(@F))))) \
 	            (when archive \
