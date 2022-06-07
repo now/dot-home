@@ -186,6 +186,7 @@
            (iso-transl . #'now-iso-transl-init)
            (lisp-mode . #'now-lisp-mode-init)
            (message . #'now-message-init)
+           (mule-util . #'now-mule-util-init)
            (nxml-mode . #'now-xml-mode-init)
            (rnc-mode . #'now-rnc-mode-init)
            (ruby-mode . #'ruby-mode-init)
@@ -231,7 +232,7 @@
  insert-directory-program "a"
  overlay-arrow-string "►"
  process-connection-type nil            ; TODO Why?
- truncate-string-ellipsis "…")
+ )
 
 (setq-default semantic-function-argument-separator ", ")
 

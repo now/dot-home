@@ -469,7 +469,8 @@ xdgconfighomeemacssitelispgnus_DATA = \
 	$(sitelispgnus_elcs:%.elc=%.el.gz)
 
 sitelispinternational_elcs = \
-	emacs/site-lisp/international/now-iso-transl.elc
+	emacs/site-lisp/international/now-iso-transl.elc \
+	emacs/site-lisp/international/now-mule-util.elc
 
 xdgconfighomeemacssitelispinternational_DATA = \
 	$(sitelispinternational_elcs) \
@@ -667,10 +668,10 @@ $(elpa_packages): emacs/elpa/.dirstamp
 	         (unless (package-installed-p package) \
 	          (refresh-when-pinned package) \
 	          (if (assq package package-archive-contents) \
-	              (package-install package) \
+	              (package-install package t) \
 	            (package-refresh-contents) \
 	            (refresh-when-pinned package) \
-	            (package-install package)))))" \
+	            (package-install package t)))))" \
 	  $(ELCFLAGS) \
 	  -f batch-byte-compile
 	$(V_at): > $@
