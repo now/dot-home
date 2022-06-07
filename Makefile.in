@@ -573,9 +573,6 @@ bin_SCRIPTS_generated = \
 	bin/valgrind-ruby
 
 libexec_SCRIPTS = \
-	$(libexec_SCRIPTS_generated)
-
-libexec_SCRIPTS_generated = \
 	libexec/clipboard-get \
 	libexec/clipboard-put
 
@@ -594,7 +591,6 @@ userconf_DATA += \
 endif
 
 $(bin_SCRIPTS_generated): bin/.dirstamp
-$(libexec_SCRIPTS_generated): libexec/.dirstamp
 $(userconfm2_DATA_generated): bin/.dirstamp
 $(xdgconfighomeemacs_DATA_generated): emacs/.dirstamp
 $(xdgconfighomeemacssitelisp_DATA_generated): emacs/site-lisp/.dirstamp
