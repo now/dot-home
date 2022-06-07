@@ -487,6 +487,7 @@ xdgconfighomeemacssitelispprogmodes_DATA = \
 	$(sitelispprogmodes_elcs:%.elc=%.el.gz)
 
 sitelispterm_elcs = \
+	emacs/site-lisp/term/now-ns-win.elc \
 	emacs/site-lisp/term/now-xterm.elc
 
 xdgconfighomeemacssitelispterm_DATA = \

@@ -16,22 +16,6 @@
 (when (eq (window-system) 'ns)
   (require 'now-path))
 
-(defun light-or-dark-mode ()
-  (interactive)
-  (customize-set-variable
-   'frame-background-mode
-   (if (= (do-applescript
-           "tell application \"System Events\"
-            if get dark mode of appearance preferences then
-              1
-            else
-              0
-            end if
-          end tell") 1)
-       'dark
-     'light))
-  (customize-set-variable 'custom-enabled-themes custom-enabled-themes))
-
 (dolist (key
          '("s-&"
            "s-:"
