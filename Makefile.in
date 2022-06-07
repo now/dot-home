@@ -648,73 +648,90 @@ emacs/site-lisp/userloaddefs.el: \
 	$(V_at)if test "$(srcdir)" != .; then mv $(srcdir)/$@ $@; fi
 	$(V_at)touch $@
 
-emacs_PACKAGES = \
-	gnu/avy/0.5.0 \
-	gnu/company/0.9.13 \
-	gnu/dash/2.19.1 \
-	gnu/eglot/1.8 \
-	gnu/json-mode/0.2 \
-	gnu/sed-mode/1.0 \
-	gnu/sql-indent/1.6 \
-	nil/docker-tramp/20220219.420 \
-	nil/fira-code-mode/20220531.1555 \
-	nil/smtpmail-multi/20160218.2349 \
-	nongnu/git-commit/3.3.0 \
-	nongnu/go-mode/1.6.0 \
-	nongnu/magit/3.3.0 \
-	nongnu/magit-section/3.3.0 \
-	nongnu/markdown-mode/2.5 \
-	nongnu/typescript-mode/0.4 \
-	nongnu/visual-fill-column/2.5 \
-	nongnu/with-editor/3.2.0 \
-	nongnu/yaml-mode/0.0.15
+EMACS_PACKAGE = $(eval $(call EMACS_PACKAGE_define,$(1),$(2),$(3)))
 
-emacs/packages.el: Makefile.in
+define EMACS_PACKAGE_define
+emacs_PACKAGES += $(2)
+
+emacs_PACKAGES_$(2) = emacs/elpa/$(2)@$(3)
+
+emacs_PACKAGES_$(2)_archive = $(1)
+
+emacs_PACKAGES_$(2)_version = $(3)
+
+emacs/elpa/$(2)@$(3): emacs/elpa/.dirstamp | $$(xdgconfighomeemacsdir)
+	$$(V_ELPA)$$(EMACS) \
+	  --batch \
+	  -q \
+	  --eval '(setq package-quickstart t)' \
+	  --eval "(require 'package)" \
+	  --eval '(package-initialize t)' \
+	  --eval '(push (cons "melpa" "https://melpa.org/packages/") package-archives)' \
+	  --eval "(let* ((archive $(subst \"melpa\",nil,\"$(1)\")) \
+	                 (package '$(2))) \
+	            (when archive \
+	              (push (cons package archive) package-pinned-packages)) \
+		    (cl-flet ((reread-when-pinned (package) \
+	                        (when (assq package package-pinned-packages) \
+	                          (package-read-all-archive-contents)))) \
+	                (reread-when-pinned package) \
+	                (let ((package-desc (assq package package-archive-contents))) \
+	                  (if package-desc \
+	                      (package-install-from-archive package-desc) \
+	                    (package-refresh-contents) \
+	                    (reread-when-pinned package) \
+	                    (let ((package-desc (assq package package-archive-contents))) \
+	                      (if package-desc \
+	                          (package-install-from-package package-desc) \
+	                        (error \"Package unavailable: %s\" package)))))))" \
+	  --eval "(package-quickstart-refresh)" \
+	  $$(ELCFLAGS)
+	$$(V_at): > $$@
+
+install: emacs/elpa/$(2)@$(3)
+
+endef
+
+$(call EMACS_PACKAGE,gnu,avy,0.5.0)
+$(call EMACS_PACKAGE,gnu,company,0.9.13)
+$(call EMACS_PACKAGE,gnu,dash,2.19.1)
+$(call EMACS_PACKAGE,gnu,eglot,1.8)
+$(call EMACS_PACKAGE,gnu,json-mode,0.2)
+$(call EMACS_PACKAGE,gnu,sed-mode,1.0)
+$(call EMACS_PACKAGE,gnu,sql-indent,1.6)
+$(call EMACS_PACKAGE,melpa,docker-tramp,20220219.420)
+$(call EMACS_PACKAGE,melpa,fira-code-mode,20220531.1555)
+$(call EMACS_PACKAGE,melpa,smtpmail-multi,20160218.2349)
+$(call EMACS_PACKAGE,nongnu,git-commit,3.3.0)
+$(call EMACS_PACKAGE,nongnu,go-mode,1.6.0)
+$(call EMACS_PACKAGE,nongnu,magit,3.3.0)
+$(call EMACS_PACKAGE,nongnu,magit-section,3.3.0)
+$(call EMACS_PACKAGE,nongnu,markdown-mode,2.5)
+$(call EMACS_PACKAGE,nongnu,typescript-mode,0.4)
+$(call EMACS_PACKAGE,nongnu,visual-fill-column,2.5)
+$(call EMACS_PACKAGE,nongnu,with-editor,3.2.0)
+$(call EMACS_PACKAGE,nongnu,yaml-mode,0.0.15)
+
+emacs/packages.el: Makefile
 	$(V_GEN){ \
 	  printf "(require 'package)\\n\\n(setq\\n package-load-list\\n '(" && \
 	  nl= && \
-	  for p in $(foreach p,$(emacs_PACKAGES),"$(wordlist 2,3,$(subst /, ,$(p)))"); do \
+	  for p in $(foreach p,$(emacs_PACKAGES),"$(p) $(emacs_PACKAGES_$(p)_version)"); do \
 	    printf "$$nl(%s \"%s\")" $$p || exit 1; \
 	    nl='\n   '; \
 	  done && \
 	  printf ")\\n package-pinned-packages\\n '(" && \
 	  nl= && \
-	  for p in $(foreach p,$(emacs_PACKAGES),"$(word 2,$(subst /, ,$(p))) $(word 1,$(subst /, ,$(p)))"); do \
+	  for p in $(foreach p,$(emacs_PACKAGES),"$(p) $(emacs_PACKAGES_$(p)_archive)"); do \
 	    printf "$$nl(%s . \"%s\")" $$p || exit 1; \
 	    nl='\n   '; \
 	  done && \
 	  printf '))\n'; } > $@.tmp
 	$(V_at)mv $@.tmp $@
 
-elpa_packages = $(foreach p,$(emacs_PACKAGES),emacs/elpa/$(subst $(space),@,$(wordlist 2,3,$(subst /, ,$(p)))))
-
-$(elpa_packages): emacs/elpa/.dirstamp | $(xdgconfighomeemacsdir)
-	$(V_ELPA)$(EMACS) \
-	  --batch \
-	  -q \
-	  --eval '(setq package-quickstart t)' \
-	  --eval "(require 'package)" \
-	  --eval '(package-initialize)' \
-	  --eval '(push (cons "melpa" "https://melpa.org/packages/") package-archives)' \
-	  --eval "(let ((archive $(subst \"nil\",nil,\"$(word 1,$(subst /, ,$(filter %/$(word 1,$(subst @, ,$(@F)))/,$(dir $(emacs_PACKAGES)))))\")) \
-	                (package '$(word 1,$(subst @, ,$(@F))))) \
-	            (when archive \
-	              (push (cons package archive) package-pinned-packages)) \
-		  (cl-flet ((refresh-when-pinned (package) \
-	                      (when (assq package package-pinned-packages) \
-	                        (package-read-all-archive-contents)))) \
-	         (unless (package-installed-p package) \
-	          (refresh-when-pinned package) \
-	          (if (assq package package-archive-contents) \
-	              (package-install package t) \
-	            (package-refresh-contents) \
-	            (refresh-when-pinned package) \
-	            (package-install package t)))))" \
-	  $(ELCFLAGS) \
-	  -f batch-byte-compile
-	$(V_at): > $@
-
-install: $(elpa_packages)
+emacs/site-lisp/now-eglot.el: $(emacs_PACKAGES_eglot)
+emacs/site-lisp/now-sql-indent.el: $(emacs_PACKAGES_sql-indent)
+emacs/site-lisp/typescriptreact-mode.el: $(emacs_PACKAGES_typescript-mode)
 
 $(call DIR,bin)
 $(call DIR,libexec)
