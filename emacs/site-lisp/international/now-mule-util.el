@@ -7,6 +7,8 @@
 
 ;;; Code:
 
+(require 'mule-util)
+
 ;;;###autoload
 (defun now-mule-util-init ()
   (setq truncate-string-ellipsis "…"))
