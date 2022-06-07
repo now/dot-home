@@ -348,6 +348,9 @@ userconfaudacity_DATA = \
 	audacity.cfg
 
 userconfm2_DATA = \
+	$(userconfm2_DATA_generated)
+
+userconfm2_DATA_generated = \
 	m2/settings.xml
 
 userconfmixxx_DATA = \
@@ -401,7 +404,10 @@ userconf_elcs = \
 	emacs/packages.elc
 
 xdgconfighomeemacs_DATA = \
-	emacs/custom.el \
+	$(xdgconfighomeemacs_DATA_generated) \
+	emacs/custom.el
+
+xdgconfighomeemacs_DATA_generated = \
 	$(userconf_elcs) \
 	$(userconf_elcs:%.elc=%.el.gz)
 
@@ -450,14 +456,20 @@ sitelisp_elcs = \
 	emacs/site-lisp/velocity-mode.elc
 
 xdgconfighomeemacssitelisp_DATA = \
+	$(xdgconfighomeemacssitelisp_DATA_generated) \
+	emacs/site-lisp/userloaddefs.el
+
+xdgconfighomeemacssitelisp_DATA_generated = \
 	$(sitelisp_elcs) \
 	$(sitelisp_elcs:%.elc=%.el.gz) \
-	emacs/site-lisp/userloaddefs.el
 
 sitelispcalc_elcs = \
 	emacs/site-lisp/calc/now-calc.elc
 
 xdgconfighomeemacssitelispcalc_DATA = \
+	$(xdgconfighomeemacssitelispcalc_DATA_generated)
+
+xdgconfighomeemacssitelispcalc_DATA_generated = \
 	$(sitelispcalc_elcs) \
 	$(sitelispcalc_elcs:%.elc=%.el.gz)
 
@@ -465,6 +477,9 @@ sitelispgnus_elcs = \
 	emacs/site-lisp/gnus/now-message.elc
 
 xdgconfighomeemacssitelispgnus_DATA = \
+	$(xdgconfighomeemacssitelispgnus_DATA_generated)
+
+xdgconfighomeemacssitelispgnus_DATA_generated = \
 	$(sitelispgnus_elcs) \
 	$(sitelispgnus_elcs:%.elc=%.el.gz)
 
@@ -473,6 +488,9 @@ sitelispinternational_elcs = \
 	emacs/site-lisp/international/now-mule-util.elc
 
 xdgconfighomeemacssitelispinternational_DATA = \
+	$(xdgconfighomeemacssitelispinternational_DATA_generated)
+
+xdgconfighomeemacssitelispinternational_DATA_generated = \
 	$(sitelispinternational_elcs) \
 	$(sitelispinternational_elcs:%.elc=%.el.gz)
 
@@ -483,6 +501,9 @@ sitelispprogmodes_elcs = \
 	emacs/site-lisp/progmodes/now-typescript-mode.elc
 
 xdgconfighomeemacssitelispprogmodes_DATA = \
+	$(xdgconfighomeemacssitelispprogmodes_DATA_generated)
+
+xdgconfighomeemacssitelispprogmodes_DATA_generated = \
 	$(sitelispprogmodes_elcs) \
 	$(sitelispprogmodes_elcs:%.elc=%.el.gz)
 
@@ -490,6 +511,9 @@ sitelispterm_elcs = \
 	emacs/site-lisp/term/now-xterm.elc
 
 xdgconfighomeemacssitelispterm_DATA = \
+	$(xdgconfighomeemacssitelispterm_DATA_generated)
+
+xdgconfighomeemacssitelispterm_DATA_generated = \
 	$(sitelispterm_elcs) \
 	$(sitelispterm_elcs:%.elc=%.el.gz)
 
@@ -497,22 +521,34 @@ xdgconfighomefontconfig_DATA = \
 	fonts.conf
 
 xdgconfighomegit_DATA = \
+	$(xdgconfighomegit_DATA_generated)
+
+xdgconfighomegit_DATA_generated = \
 	git/config
 
 xdgconfighomevlc_DATA = \
 	vlcrc
 
 xdgconfighomezsh_DATA = \
+	$(xdgconfighomezsh_DATA_generated)
+
+xdgconfighomezsh_DATA_generated = \
 	zsh/zlogin \
 	zsh/zshrc
 
 xdgconfighomezshfunctions_DATA = \
+	$(xdgconfighomezshfunctions_DATA_generated) \
 	zsh/functions/_unpack \
 	zsh/functions/_up \
-	zsh/functions/hc \
 	zsh/functions/up
 
+xdgconfighomezshfunctions_DATA_generated = \
+	zsh/functions/hc
+
 bin_SCRIPTS = \
+	$(bin_SCRIPTS_generated)
+
+bin_SCRIPTS_generated = \
 	bin/a \
 	bin/aa \
 	bin/asciitable \
@@ -537,6 +573,9 @@ bin_SCRIPTS = \
 	bin/valgrind-ruby
 
 libexec_SCRIPTS = \
+	$(libexec_SCRIPTS_generated)
+
+libexec_SCRIPTS_generated = \
 	libexec/clipboard-get \
 	libexec/clipboard-put
 
@@ -554,18 +593,21 @@ userconf_DATA += \
 	vimrc
 endif
 
-$(bin_SCRIPTS): bin/.dirstamp
-$(userconfm2_DATA): m2/.dirstamp
-$(xdgconfighomeemacs_DATA): emacs/.dirstamp
-$(xdgconfighomeemacssitelisp_DATA): emacs/site-lisp/.dirstamp
-$(xdgconfighomeemacssitelispcalc_DATA): emacs/site-lisp/calc/.dirstamp
-$(xdgconfighomeemacssitelispgnus_DATA): emacs/site-lisp/gnus/.dirstamp
-$(xdgconfighomeemacssitelispinternational_DATA): emacs/site-lisp/international/.dirstamp
-$(xdgconfighomeemacssitelispprogmodes_DATA): emacs/site-lisp/progmodes/.dirstamp
-$(xdgconfighomeemacssitelispterm_DATA): emacs/site-lisp/term/.dirstamp
-$(xdgconfighomegit_DATA): git/.dirstamp
-$(xdgconfighomezsh_DATA): zsh/.dirstamp
-$(xdgconfighomezshfunctions_DATA): zsh/functions/.dirstamp
+$(bin_SCRIPTS_generated): bin/.dirstamp
+$(libexec_SCRIPTS_generated): libexec/.dirstamp
+$(userconfm2_DATA_generated): bin/.dirstamp
+$(xdgconfighomeemacs_DATA_generated): emacs/.dirstamp
+$(xdgconfighomeemacssitelisp_DATA_generated): emacs/site-lisp/.dirstamp
+$(xdgconfighomeemacssitelispcalc_DATA_generated): emacs/site-lisp/calc/.dirstamp
+$(xdgconfighomeemacssitelispgnus_DATA_generated): emacs/site-lisp/gnus/.dirstamp
+$(xdgconfighomeemacssitelispinternational_DATA_generated): \
+	emacs/site-lisp/international/.dirstamp
+$(xdgconfighomeemacssitelispprogmodes_DATA_generated): \
+	emacs/site-lisp/progmodes/.dirstamp
+$(xdgconfighomeemacssitelispterm_DATA_generated): emacs/site-lisp/term/.dirstamp
+$(xdgconfighomegit_DATA_generated): git/.dirstamp
+$(xdgconfighomezsh_DATA_generated): zsh/.dirstamp
+$(xdgconfighomezshfunctions_DATA_generated): zsh/functions/.dirstamp
 
 $(sitelisp_elcs) \
 $(sitelispcalc_elcs) \
