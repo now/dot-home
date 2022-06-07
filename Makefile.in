@@ -688,7 +688,7 @@ emacs/packages.el: Makefile.in
 
 elpa_packages = $(foreach p,$(emacs_PACKAGES),emacs/elpa/$(subst $(space),@,$(wordlist 2,3,$(subst /, ,$(p)))))
 
-$(elpa_packages): emacs/elpa/.dirstamp
+$(elpa_packages): emacs/elpa/.dirstamp | $(xdgconfighomeemacsdir)
 	$(V_ELPA)$(EMACS) \
 	  --batch \
 	  -q \
@@ -744,6 +744,7 @@ $(call DIR,hunspell)
 
 emptydirs = \
 	$(dtachsessiondir) \
+	$(xdgconfighomeemacsdir) \
 	$(zshcompletioncachedir) \
 	$(zshcompletiondumpdir) \
 	$(zshistorydir)
