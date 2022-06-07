@@ -744,7 +744,6 @@ $(call DIR,hunspell)
 
 emptydirs = \
 	$(dtachsessiondir) \
-	$(xdgconfighomeemacsdir) \
 	$(zshcompletioncachedir) \
 	$(zshcompletiondumpdir) \
 	$(zshistorydir)
