@@ -730,6 +730,7 @@ emacs/packages.el: Makefile
 	$(V_at)mv $@.tmp $@
 
 emacs/site-lisp/now-eglot.el: $(emacs_PACKAGES_eglot)
+emacs/site-lisp/now-rnc-mode.elc: emacs/site-lisp/rnc-mode.elc
 emacs/site-lisp/now-sql-indent.el: $(emacs_PACKAGES_sql-indent)
 emacs/site-lisp/typescriptreact-mode.el: $(emacs_PACKAGES_typescript-mode)
 
