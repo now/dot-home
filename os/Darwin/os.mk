@@ -75,7 +75,7 @@ os/Darwin/Library/LaunchAgents/se.disu.environment.%.plist: \
 	  $< > $@.tmp
 	$(V_at)mv $@.tmp $@
 
-$(librarylaunchagents_DATA): os/Darwin/Library/Launchagents/.dirstamp
+os/Darwin/Library/LaunchAgents/se.disu.socat.plist: os/Darwin/Library/LaunchAgents/.dirstamp
 
 $(call DIR,fonts)
 $(call DIR,librarylaunchagents,,\
