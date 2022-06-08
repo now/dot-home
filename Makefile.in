@@ -677,12 +677,12 @@ emacs/elpa/$(2)@$(3): emacs/elpa/.dirstamp | $$(xdgconfighomeemacsdir)
 	                (reread-when-pinned package) \
 	                (let ((package-desc (assq package package-archive-contents))) \
 	                  (if package-desc \
-	                      (package-install-from-archive package-desc) \
+	                      (package-install-from-archive (cadr package-desc)) \
 	                    (package-refresh-contents) \
 	                    (reread-when-pinned package) \
 	                    (let ((package-desc (assq package package-archive-contents))) \
 	                      (if package-desc \
-	                          (package-install-from-archive package-desc) \
+	                          (package-install-from-archive (cadr package-desc)) \
 	                        (error \"Package unavailable: %s\" package)))))))" \
 	  --eval "(package-quickstart-refresh)" \
 	  $$(ELCFLAGS)
