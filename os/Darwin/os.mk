@@ -109,7 +109,7 @@ macports_PACKAGES = \
 $(addprefix macports/,$(macports_PACKAGES)): macports/.dirstamp
 	$(V_PORT)$(PORT) -q installed $(@F) | fgrep '  $(@F)' > /dev/null || \
 	  $(SUDO) $(PORT) -N $(if $(V_PORT),-q) install $(@F) $($(@F)_VARIANT)
-	$(SUDO) $(PORT) setrequested $(@F)
+	$(V_at)$(SUDO) $(PORT) setrequested $(@F)
 	$(V_at): > $@.tmp
 	$(V_at)mv $@.tmp $@
 
