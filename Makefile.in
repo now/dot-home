@@ -278,7 +278,7 @@ fonts/$(dejavu_fonts_ttf_version_zip): fonts/.dirstamp
 $(fontsdejavu_DATA): fonts/$(dejavu_fonts_ttf_version_zip) fonts/dejavu/.dirstamp
 	$(V_UNZIP)$(UNZIP) -qop $< $(dejavu_fonts_ttf_version)/ttf/$(@F) > $@
 
-FIRACODE_FONTS_VERSION = 5.2
+FIRACODE_FONTS_VERSION = 6.2
 firacode_fonts_zip = Fira_Code_v$(FIRACODE_FONTS_VERSION).zip
 
 fontsfiracode_DATA = \
