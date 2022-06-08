@@ -5,7 +5,7 @@ out=`xcode-select --install 2>&1` || \
 
 # sudo xcodebuild -license
 
-install-package () {
+installpackage () {
   port -q installed "$1" | fgrep "  $1" || sudo port -N -q install "$1"
 }
 
@@ -15,7 +15,7 @@ for p in autoconf \
            gmake \
 	   grep \
 	   socat; do
-  install-package $p
+  installpackage $p
 done
 
 mkdir -p .build &&
