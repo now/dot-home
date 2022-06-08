@@ -26,8 +26,7 @@ librarylaunchagents_DATA = \
 	os/Darwin/Library/LaunchAgents/se.disu.socat.plist
 
 paths_DATA = \
-	$(sysconfdir)/paths \
-	$(sysconfdir)/paths.d/100-rvictl
+	$(sysconfdir)/paths
 
 sitelisp_elcs += \
 	emacs/site-lisp/now-path.elc
