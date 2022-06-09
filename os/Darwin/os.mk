@@ -97,6 +97,7 @@ macports_PACKAGES = \
 	grep \
 	hunspell \
 	iperf3 \
+	jdk17 \
 	libxml2 \
 	libxslt \
 	pkgconfig \
