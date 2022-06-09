@@ -130,6 +130,7 @@ XDG_CACHE_HOME = @XDG_CACHE_HOME@
 XDG_CONFIG_HOME = @XDG_CONFIG_HOME@
 XDG_STATE_HOME = @XDG_STATE_HOME@
 userconfaudacitydir = $(userconfdir)/.audacity
+userconfgradledir = $(userconfdir)/.gradle
 userconfm2dir = $(userconfdir)/.m2
 userconfmixxxdir = $(userconfdir)/.mixxx
 userconfmixxxcontrollersdir = $(userconfmixxxdir)/controllers
@@ -346,6 +347,9 @@ userconf_DATA = \
 
 userconfaudacity_DATA = \
 	audacity.cfg
+
+userconfgradle_DATA = \
+	gradle/gradle.properties
 
 userconfm2_DATA = \
 	$(userconfm2_DATA_generated)
@@ -748,6 +752,7 @@ $(call DIR,xdgconfighomeemacssitelispinternational)
 $(call DIR,xdgconfighomeemacssitelispprogmodes)
 $(call DIR,xdgconfighomeemacssitelispterm)
 endif
+$(call DIR,userconfgradle)
 $(call DIR,userconfm2)
 $(call DIR,userconfmixxx)
 $(call DIR,userconfmixxxcontrollers)
