@@ -80,7 +80,7 @@
                font-shape-gstring])))
          characters)
         (set-char-table-parent ligatures composition-function-table)
-        (setq-local composition-function-table ligatures))))
+        (setq-local composition-function-table ligatures)))))
 
 (provide 'ligatures)
 ;;; ligatures.el ends here

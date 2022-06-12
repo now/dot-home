@@ -438,6 +438,7 @@ sitelisp_elcs = \
 	emacs/site-lisp/google-java-format.elc \
 	emacs/site-lisp/hide-mode-line.elc \
 	emacs/site-lisp/highlight-selected-window.elc \
+	emacs/site-lisp/ligatures.elc \
 	emacs/site-lisp/nmc-mode.elc \
 	emacs/site-lisp/now-cc-mode.elc \
 	emacs/site-lisp/now-compile.elc \
