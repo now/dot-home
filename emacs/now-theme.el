@@ -190,7 +190,6 @@
    `(prog-mode-hook
      (cl-list*
       'auto-fill-mode
-      'fira-code-mode
       'now-comment-auto-fill-only-comments
       'now-set-fill-column-to-80
        ,(value prog-mode-hook)))
@@ -450,9 +449,6 @@
    '(mouse-wheel-mode nil)
 
    ;; Faces
-
-   ;;   Fira Code Ligatures
-   '(fira-code-mode-disabled-ligatures '("[]" "{-" "lambda" "x"))
 
    ;; Help
    `(help-mode-hook
