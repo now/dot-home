@@ -45,6 +45,7 @@ emacs/site-lisp/now-path.el: \
 	os/Darwin/emacs/site-lisp/now-path.el.xsl \
 	os/Darwin/emacs/site-lisp/.dirstamp
 	$(V_XSLTPROC)$(XSLTPROC) \
+	  --xinclude \
 	  --stringparam home "$(prefix)" \
 	  --stringparam path "`cat $(paths_DATA) | tr \\\\n : | sed 's/:$$//'`" \
 	  $(srcdir)/os/Darwin/emacs/site-lisp/now-path.el.xsl \
@@ -57,6 +58,7 @@ os/Darwin/zsh/zprofile: \
 	os/Darwin/zsh/.dirstamp \
 	os/Linux/zsh/zprofile.xsl
 	$(V_XSLTPROC)$(XSLTPROC) \
+	  --xinclude \
 	  $(srcdir)/os/Darwin/zsh/zprofile.xsl \
 	  $< > $@.tmp
 	$(V_at)mv $@.tmp $@
@@ -67,6 +69,7 @@ os/Darwin/Library/LaunchAgents/se.disu.environment.%.plist: \
 	os/Darwin/Library/LaunchAgents/se.disu.environment.plist.xsl \
 	os/Darwin/Library/LaunchAgents/.dirstamp
 	$(V_XSLTPROC)$(XSLTPROC) \
+	  --xinclude \
 	  --stringparam label "$(@F)" \
 	  --stringparam name "$(@F:se.disu.environment.%.plist=%)" \
 	  --stringparam current-value "$($(@F:se.disu.environment.%.plist=%))" \
@@ -77,8 +80,6 @@ os/Darwin/Library/LaunchAgents/se.disu.environment.%.plist: \
 os/Darwin/Library/LaunchAgents/se.disu.socat.plist: os/Darwin/Library/LaunchAgents/.dirstamp
 
 $(call DIR,fonts)
-$(call DIR,librarylaunchagents,,\
-	$$(V_LAUNCHCTL)$$(LAUNCHCTL) unload $$@; $$(LAUNCHCTL) load $$@)
 
 macports_PACKAGES = \
 	autoconf \

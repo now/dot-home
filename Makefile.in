@@ -737,8 +737,12 @@ emacs/site-lisp/now-rnc-mode.elc: emacs/site-lisp/rnc-mode.elc
 emacs/site-lisp/now-sql-indent.el: $(emacs_PACKAGES_sql-indent)
 emacs/site-lisp/typescriptreact-mode.el: $(emacs_PACKAGES_typescript-mode)
 
+environment.xml: host/environment.xml
+
 $(call DIR,bin)
 $(call DIR,libexec)
+$(call DIR,librarylaunchagents,,\
+	$$(V_LAUNCHCTL)$$(LAUNCHCTL) unload $$@; $$(LAUNCHCTL) load $$@)
 $(call DIR,userconf,.)
 $(call DIR,userconfaudacity)
 ifneq ($(EMACS),)

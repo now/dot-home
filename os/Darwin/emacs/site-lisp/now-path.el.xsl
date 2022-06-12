@@ -20,10 +20,11 @@
 
 ;;; Code:
 
-(let ((path '(</xsl:text>
+(let ((path
+       '(</xsl:text>
     <xsl:for-each select="set:distinct(exsl:node-set($paths)/path)">
       <xsl:if test="position() > 1">
-        <xsl:text>&#x0a;              </xsl:text>
+        <xsl:text>&#x0a;         </xsl:text>
       </xsl:if>
       <xsl:value-of select="."/>
     </xsl:for-each>

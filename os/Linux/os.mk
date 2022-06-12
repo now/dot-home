@@ -20,6 +20,7 @@ os/Linux/zsh/zprofile: \
 	os/Linux/zsh/zprofile.xsl \
 	os/Linux/zsh/.dirstamp
 	$(V_XSLTPROC)$(XSLTPROC) \
+	  --xinclude
 	  $(srcdir)/os/Linux/zsh/zprofile.xsl \
 	  $< > $@.tmp
 	$(V_at)mv $@.tmp $@

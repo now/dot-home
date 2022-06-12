@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<environment>
+  <variable>
+    <name>CATALINA_BASE</name>
+    <value>@projectsdir@/ibe/runtimes/tomcat-edvin</value>
+  </variable>
+  <variable>
+    <name>CATALINA_HOME</name>
+    <value>/tmp</value>
+  </variable>
+  <variable>
+    <name>CURRENT_DB_HOST</name>
+    <value>localhost</value>
+  </variable>
+  <variable>
+    <name>IBE_CURRENT</name>
+    <value>@projectsdir@/ibe</value>
+  </variable>
+  <variable>
+    <name>IBE_DB_SCHEMA</name>
+    <value>ibe</value>
+  </variable>
+  <variable>
+    <name>IBE_RUNTIME_ENVIRONMENT</name>
+    <value>dev</value>
+  </variable>
+  <variable>
+    <name>PATH</name>
+    <value>
+      <paths>
+        <path>@projectsdir@/ibe/env/dev-scripts</path>
+        <path>@projectsdir@/ibe/env/system/opt/local/bin</path>
+      </paths>
+    </value>
+  </variable>
+  <variable>
+    <name>PHANTOMJS_CDNURL</name>
+    <value>https://artifactory.etraveli.net/artifactory/binaries/node/download</value>
+  </variable>
+  <variable>
+    <name>SASS_BINARY_SITE</name>
+    <value>https://artifactory.etraveli.net/artifactory/binaries/node/download</value>
+  </variable>
+</environment>

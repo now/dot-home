@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<environment>
+<environment xmlns:xi="http://www.w3.org/2001/XInclude">
   <variable>
     <name>AWS_SHARED_CREDENTIALS_FILE</name>
     <value>@awscredentials@</value>
@@ -36,9 +36,25 @@
     <name>PATH</name>
     <value>
       <paths>
+        <xi:include
+            href="host/environment.xml"
+            xpointer="xpointer(/environment/variable[name='PATH']/value/paths/*)"/>
         <path>@bindir@</path>
         <current-value/>
       </paths>
     </value>
   </variable>
+  <xi:include
+      href="host/environment.xml"
+      xpointer="xpointer(/environment/variable[not(contains('
+                AWS_SHARED_CREDENTIALS_FILE
+                EDITOR
+                GOBIN
+                GOMODCACHE
+                LANG
+                MANPAGER
+                MANWIDTH
+                PAGER
+                PATH
+                ', concat(' ', name, ' ')))])"/>
 </environment>

@@ -21,7 +21,7 @@ AS_IF([test "x$enable_hostname_dotfiles" != xno],
   [AS_IF([test "x$enable_hostname_dotfiles" = xyes],
      [enable_hostname_dotfiles=`hostname`])
    AS_CASE([$enable_hostname_dotfiles],
-     [portair.local],
+     [dev-nikwei|portair.local],
        [our_hostname=$enable_hostname_dotfiles],
      [AS_IF([test "x$enable_hostname_dotfiles_default" = xyes],
         [our_hostname=generic],
@@ -176,6 +176,7 @@ AC_ARG_VAR([XDG_STATE_HOME], [the user’s state directory])
 AC_CONFIG_LINKS(
   [bin/a.in:$os_bin_a_in
    bin/im.in:os/$our_host_os/bin/im.in
+   host/environment.xml.in:host/$our_hostname/environment.xml.in
    host/host.mk:host/$our_hostname/host.mk
    libexec/clipboard-get.in:os/$our_host_os/libexec/clipboard-get.in
    libexec/clipboard-put.in:os/$our_host_os/libexec/clipboard-put.in
