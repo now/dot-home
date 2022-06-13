@@ -672,7 +672,7 @@ emacs/elpa/$(2)@$(3): emacs/elpa/.dirstamp | $$(xdgconfighomeemacsdir)
 	  --eval "(require 'package)" \
 	  --eval '(package-initialize t)' \
 	  --eval '(push (cons "melpa" "https://melpa.org/packages/") package-archives)' \
-	  --eval "(let* ((archive $(subst \"melpa\",nil,\"$(1)\")) \
+	  --eval "(let* ((archive \"$(1)\") \
 	                 (package '$(2))) \
 	            (when archive \
 	              (push (cons package archive) package-pinned-packages)) \
