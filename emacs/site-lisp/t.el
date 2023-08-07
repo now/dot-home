@@ -42,14 +42,14 @@
   "Return result of applying FUNCTION to ARGUMENTS."
   "Return result of ‘apply’ on FUNCTION with ARGUMENTS."
   (apply function arguments))
-
+
 ;;; t-apply
 
 (cl-defgeneric t-apply (function &rest arguments)
   "Return result of applying FUNCTION to ARGUMENTS."
   "Return result of ‘t-funcall’ on FUNCTION with ARGUMENTS."
   (apply #'t-funcall function arguments))
-
+
 ;;; t-iterations
 
 (cl-defgeneric t-iterations (iterative)
@@ -61,12 +61,12 @@ advance the iteration process.
 If nil is returned, there are no more iterations."
   "Return ITERATIVE."
   iterative)
-
+
 ;;; t-current
 
 (cl-defgeneric t-current (iterations)
   "Return the value of the current iteration among ITERATIONS.")
-
+
 ;;; t-advance
 
 (cl-defgeneric t-advance (iterations)
@@ -74,7 +74,7 @@ If nil is returned, there are no more iterations."
 Applying ‘t-iterations’ to the returned value gives the
 iterations to apply ‘t-current’ to, or nil if there are no more
 iterations.")
-
+
 ;;; t--each
 
 (cl-defgeneric t--each (iterative function)
@@ -87,8 +87,7 @@ to it.  If FUNCTION returns non-nil, repeat on the result of
 applying ‘t-iterations’ to the result of applying ‘t-advance’ to
 it."
   (t-loop (iterations (t-iterations iterative))
-          (when iterations
-            (t-funcall function (t-current iterations))
+          (when (and iterations (t-funcall function (t-current iterations)))
             (recur (t-advance iterations))))
   (let ((iterations (t-iterations iterative)))
     (while (and iterations (t-funcall function (t-current iterations)))
