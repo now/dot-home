@@ -51,7 +51,9 @@
               (ligatures (cdr specification)))
           (when (or
                  (eq modes t)
-                 (cl-some #'derived-mode-p (if (listp modes) modes `(,modes))))
+                 (if (listp modes)
+                     (cl-some #'derived-mode-p modes)
+                   (derived-mode-p modes)))
             (dolist (ligature ligatures)
               (cond
                ((and (stringp ligature) (length> ligature 1))
