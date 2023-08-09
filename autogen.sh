@@ -10,6 +10,7 @@ installpackage () {
 }
 
 for p in autoconf \
+           automake \
 	   emacs-app-devel \
 	   exif \
            gmake \
