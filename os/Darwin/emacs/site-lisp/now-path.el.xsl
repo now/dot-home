@@ -30,7 +30,7 @@
     </xsl:for-each>
     <xsl:text>)))
   (setenv "PATH" (string-join path ":"))
-  (setq exec-path (nconc path exec-path)))
+  (setq exec-path (append path exec-path)))
 
 (provide 'now-path)
 
