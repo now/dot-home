@@ -636,14 +636,14 @@ emacs/site-lisp/userloaddefs.el: \
 	  --batch \
 	  -q \
 	  --eval '(setq vc-handled-backends nil)' \
-	  --eval '(setq generated-autoload-file "$(abs_srcdir)/$@")' \
 	  --eval "(defun byte-compile-info (string &optional message type) \
 	            (let ((string (format \"  %-11s%s\" (or type \"INFO\") \
 	                                  string))) \
 	              (when message \
 	                (message \"%s\" string)) \
 	              string))" \
-	  -f batch-update-autoloads \
+	  -f loaddefs-generate-batch \
+          "$(abs_srcdir)/$@" \
 	  $(srcdir)/emacs/site-lisp \
 	  $(srcdir)/emacs/site-lisp/calc \
 	  $(srcdir)/emacs/site-lisp/gnus \
