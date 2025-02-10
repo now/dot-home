@@ -1,0 +1,3 @@
+.bitbucket-theme .hl-atom, .bitbucket-theme .hl-def, .bitbucket-theme .hl-keyword, .bitbucket-theme .hl-meta, .bitbucket-theme .hl-string, .bitbucket-theme .hl-variable {
+  color: inherit !important;
+}
