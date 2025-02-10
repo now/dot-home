@@ -183,7 +183,7 @@
 (dolist (hook
          (remove
           nil
-          `((Buffer-menu-mode-hook Buffer-menu-mode-ext hl-line-mode)
+          `((Buffer-menu-mode-hook Buffer-menu-mode-ext hl-line-mode now-do-not-show-trailing-whitespace)
             ,(unless noninteractive '(after-init-hook server-start))
             (arc-mode-hook hl-line-mode)
             (emacs-startup-hook
