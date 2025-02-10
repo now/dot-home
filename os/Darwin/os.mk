@@ -85,24 +85,20 @@ macports_PACKAGES = \
 	autoconf-archive \
 	automake \
 	bison \
-	clojure \
 	coreutils \
-	emacs-app-devel \
+	emacs-app \
 	exif \
 	flac \
 	gmake \
 	gnupg2 \
-	go \
-	gopls \
 	grep \
 	hunspell \
 	iperf3 \
-	jdk17 \
+	jdk21 \
 	libxml2 \
 	libxslt \
 	pkgconfig \
 	rsync \
-	socat \
 	sqlite3 \
 	vorbis-tools
 
