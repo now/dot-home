@@ -13,8 +13,7 @@ for p in autoconf \
 	   emacs-app-devel \
 	   exif \
            gmake \
-	   grep \
-	   socat; do
+	   grep; do
   installpackage $p
 done
 

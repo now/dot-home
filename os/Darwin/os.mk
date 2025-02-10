@@ -22,8 +22,7 @@ librarylaunchagents_DATA = \
 	os/Darwin/Library/LaunchAgents/se.disu.environment.manpager.plist \
 	os/Darwin/Library/LaunchAgents/se.disu.environment.manwidth.plist \
 	os/Darwin/Library/LaunchAgents/se.disu.environment.pager.plist \
-	os/Darwin/Library/LaunchAgents/se.disu.kinesis.plist \
-	os/Darwin/Library/LaunchAgents/se.disu.socat.plist
+	os/Darwin/Library/LaunchAgents/se.disu.kinesis.plist
 
 paths_DATA = \
 	$(sysconfdir)/paths
