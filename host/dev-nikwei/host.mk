@@ -6,4 +6,5 @@ librarylaunchagents_DATA += \
 	os/Darwin/Library/LaunchAgents/se.disu.environment.ibe_db_schema.plist \
 	os/Darwin/Library/LaunchAgents/se.disu.environment.ibe_runtime_environment.plist \
 	os/Darwin/Library/LaunchAgents/se.disu.environment.phantomjs_cdnurl.plist \
-	os/Darwin/Library/LaunchAgents/se.disu.environment.sass_binary_site.plist
+	os/Darwin/Library/LaunchAgents/se.disu.environment.sass_binary_site.plist \
+	os/Darwin/Library/LaunchAgents/se.disu.environment.weka_home.plist

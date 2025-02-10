@@ -41,4 +41,8 @@
     <name>SASS_BINARY_SITE</name>
     <value>https://artifactory.etraveli.net/artifactory/binaries/node/download</value>
   </variable>
+  <variable>
+    <name>WEKA_HOME</name>
+    <value>@XDG_CACHE_HOME@/weka</value>
+  </variable>
 </environment>
