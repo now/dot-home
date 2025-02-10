@@ -417,6 +417,7 @@
      '(command-history
        compile-history
        desktop-missing-file-warning
+       eglot-command-history
        extended-command-history
        file-name-history
        log-edit-comment-ring

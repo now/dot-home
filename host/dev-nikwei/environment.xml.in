@@ -28,6 +28,7 @@
     <name>PATH</name>
     <value>
       <paths>
+        <path>@exec_prefix@/opt/jdt/bin</path>
         <path>@projectsdir@/ibe/env/dev-scripts</path>
         <path>@projectsdir@/ibe/env/system/opt/local/bin</path>
       </paths>

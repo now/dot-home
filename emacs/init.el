@@ -164,6 +164,7 @@
            (compile . ,#'now-compile-init)
            (dired . ,#'now-dired-init)
            (disp-table . ,#'now-disp-table-init)
+           (eglot . ,#'now-eglot-init)
            (elisp-mode . ,#'now-elisp-mode-init)
            (grep . ,#'now-grep-init)
            (isearch . ,#'now-isearch-init)
