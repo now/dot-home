@@ -12,6 +12,7 @@
 
 (cl-defmacro t-loop (bindings &rest body)
   "TODO"
+  (declare (indent 1) (debug t))
   (let ((recur (gensym "t-loop-recur-"))
         (result (gensym "t-loop-result-")))
     `(let (,@bindings
