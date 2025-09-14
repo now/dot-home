@@ -719,7 +719,7 @@ $(call EMACS_PACKAGE,nongnu,yaml-mode,0.0.15)
 
 emacs/packages.el: Makefile
 	$(V_GEN){ \
-	  printf "(require 'package)\\n\\n(setq\\n package-load-list\\n '(" && \
+	  printf ";; -*- lexical-binding: t; -*-\\n\\n(require 'package)\\n\\n(setq\\n package-load-list\\n '(" && \
 	  nl= && \
 	  for p in $(foreach p,$(emacs_PACKAGES),"$(p) $(emacs_PACKAGES_$(p)_version)"); do \
 	    printf "$$nl(%s \"%s\")" $$p || exit 1; \
