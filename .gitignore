@@ -3,6 +3,7 @@
 *.elc
 *.xpi
 *.zip
+.DS_Store
 .dirstamp
 /.build/
 /Environment/
