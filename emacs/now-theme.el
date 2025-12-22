@@ -532,7 +532,7 @@
     `(custom-variable-tag ((,cui (:inherit variable-pitch
                                   :weight bold
                                   :box (:line-width 1)))))
-    `(default ((default . (:family "Fira Code" :height 120))
+    `(default ((default . (:family "SF Mono" :height 120))
                (,gtk . (:height 105))
                (,gui-dark . (:foreground ,off-white :background ,off-black))
                (,gui-lite . (:foreground ,black :background ,white))))
