@@ -436,9 +436,6 @@
    '(ediff-window-setup-function 'ediff-setup-windows-plain)
    '(ediff-split-window-function 'split-window-horizontally)
 
-   ;;      Highlight Selected Window
-   '(highlight-selected-window-mode t)
-
    ;;   Minibuffer
    '(completions-format 'vertical)
 
@@ -580,8 +577,6 @@
     `(gnus-summary-normal-unread ((,cui (:weight bold))))
     `(header-line ((,cui (:inherit mode-line))))
     `(highlight ((,cui (:foreground ,white :background ,selection-dark))))
-    `(highlight-selected-window-unselected-window ((,gui-dark :background "grey15" :extend t)
-						   (,gui-lite :background "grey90" :extend t)))
     `(holiday ((,cui (:foreground ,white :background ,red))))
     `(ido-first-match ((,cui (:inherit isearch))))
     `(ido-only-match ((,cui (:inherit success))))
