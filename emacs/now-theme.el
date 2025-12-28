@@ -126,7 +126,6 @@
      (cl-list*
       'auto-fill-mode
       'display-fill-column-indicator-mode
-      'ligatures-mode
       'now-set-fill-column-to-80
       ,(value text-mode-hook)))
 
@@ -191,7 +190,6 @@
    `(prog-mode-hook
      (cl-list*
       'auto-fill-mode
-      'ligatures-mode
       'now-comment-auto-fill-only-comments
       'now-set-fill-column-to-80
        ,(value prog-mode-hook)))
