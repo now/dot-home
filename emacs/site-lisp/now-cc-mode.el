@@ -12,7 +12,7 @@ indent, if we're filling a paragraph, though not any higher than
   (let ((c-lit-limits (c-literal-limits nil t)))
     (when (memq (c-literal-type c-lit-limits) '(c c++))
       (let ((fill-column (min (+ (current-fill-column)
-                                 (- (car c-lit-limits) (point-at-bol)))
+                                 (- (car c-lit-limits) (line-beginning-position)))
                               80)))
         (c-fill-paragraph arg)))))
 
