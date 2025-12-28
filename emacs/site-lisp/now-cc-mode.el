@@ -1,3 +1,12 @@
+;;; now-cc-mode.el --- cc-mode customizations        -*- lexical-binding: t; -*-
+
+;; Copyright © 2025  Nikolai Weibull
+
+;; Author: Nikolai Weibull <now@disu.se>
+;; Keywords: local
+
+;;; Code:
+
 (require 'cc-mode)
 
 (defvar c-syntactic-element)
@@ -182,3 +191,4 @@ colon."
   (setq-local adaptive-fill-function 'now-c-mode-adaptive-fill-function))
 
 (provide 'now-cc-mode)
+;;; now-cc-mode.el ends here
