@@ -677,7 +677,7 @@ install: emacs/elpa/$(2)@$(3)
 endef
 
 $(call EMACS_PACKAGE,gnu,avy,0.5.0)
-$(call EMACS_PACKAGE,gnu,company,0.9.13)
+$(call EMACS_PACKAGE,gnu,company,1.2.0)
 $(call EMACS_PACKAGE,gnu,dash,2.19.1)
 $(call EMACS_PACKAGE,melpa,eglot,20220612.1004)
 $(call EMACS_PACKAGE,gnu,json-mode,0.2)
