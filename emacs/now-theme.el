@@ -211,7 +211,6 @@
        maven
        clang-include
        gcc-include
-       typescript-X
        gmake
        gnu
        gcov-file
@@ -711,9 +710,6 @@
     `(show-paren-mismatch ((,cui (:inherit error))))
     `(success ((,cui (:foreground ,white :background ,green))))
     `(trailing-whitespace ((,cui (:inherit error))))
-    `(typescript-jsdoc-tag ((,cui (:inherit font-lock-comment-face))))
-    `(typescript-jsdoc-type ((,cui (:inherit font-lock-comment-face))))
-    `(typescript-jsdoc-value ((,cui (:inherit font-lock-comment-face))))
     `(undo-tree-visualizer-active-branch-face ((t)))
     `(undo-tree-visualizer-current-face ((t)))
     `(undo-tree-visualizer-unmodified-face ((,cui (:foreground ,green))))

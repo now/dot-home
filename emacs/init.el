@@ -177,7 +177,6 @@
            (ruby-mode . ,#'now-ruby-mode-init)
            (sql-indent . ,#'now-sql-indent-init)
            (term/xterm . ,#'term/now-xterm-init)
-           (typescript-mode . ,#'now-typescript-mode-init)
            (xref . ,#'now-xref-init)))
   (eval-after-load (car feature-init) (cdr feature-init)))
 

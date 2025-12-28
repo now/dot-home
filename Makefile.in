@@ -436,7 +436,6 @@ sitelisp_elcs = \
 	emacs/site-lisp/now-sql-indent.elc \
 	emacs/site-lisp/now-xref.elc \
 	emacs/site-lisp/rnc-mode.elc \
-	emacs/site-lisp/typescriptreact-mode.elc \
 	emacs/site-lisp/velocity-mode.elc
 
 xdgconfighomeemacssitelisp_DATA = \
@@ -481,8 +480,7 @@ xdgconfighomeemacssitelispinternational_DATA_generated = \
 sitelispprogmodes_elcs = \
 	emacs/site-lisp/progmodes/now-elisp-mode.elc \
 	emacs/site-lisp/progmodes/now-grep.elc \
-	emacs/site-lisp/progmodes/now-lisp-mode.elc \
-	emacs/site-lisp/progmodes/now-typescript-mode.elc
+	emacs/site-lisp/progmodes/now-lisp-mode.elc
 
 xdgconfighomeemacssitelispprogmodes_DATA = \
 	$(xdgconfighomeemacssitelispprogmodes_DATA_generated)
@@ -693,7 +691,6 @@ $(call EMACS_PACKAGE,nongnu,magit-section,4.4.2)
 $(call EMACS_PACKAGE,nongnu,with-editor,3.4.7)
 $(call EMACS_PACKAGE,nongnu,magit,4.4.2)
 $(call EMACS_PACKAGE,nongnu,markdown-mode,2.7)
-$(call EMACS_PACKAGE,nongnu,typescript-mode,0.4)
 $(call EMACS_PACKAGE,nongnu,visual-fill-column,2.5)
 $(call EMACS_PACKAGE,nongnu,yaml-mode,0.0.15)
 
@@ -717,7 +714,6 @@ emacs/packages.el: Makefile
 emacs/site-lisp/now-eglot.el: $(emacs_PACKAGES_eglot)
 emacs/site-lisp/now-rnc-mode.elc: emacs/site-lisp/rnc-mode.elc
 emacs/site-lisp/now-sql-indent.el: $(emacs_PACKAGES_sql-indent)
-emacs/site-lisp/typescriptreact-mode.el: $(emacs_PACKAGES_typescript-mode)
 
 environment.xml: host/environment.xml
 
