@@ -692,7 +692,6 @@ $(call EMACS_PACKAGE,nongnu,with-editor,3.4.7)
 $(call EMACS_PACKAGE,nongnu,magit,4.4.2)
 $(call EMACS_PACKAGE,nongnu,markdown-mode,2.7)
 $(call EMACS_PACKAGE,nongnu,visual-fill-column,2.5)
-$(call EMACS_PACKAGE,nongnu,yaml-mode,0.0.15)
 
 emacs/packages.el: Makefile
 	$(V_GEN){ \
