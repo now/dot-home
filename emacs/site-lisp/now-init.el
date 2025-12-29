@@ -36,11 +36,6 @@
   (setf (alist-get 'continuation fringe-indicator-alist) nil))
 
 ;;;###autoload
-(defun now-remove-truncation-fringe-indicator ()
-  "Remove `'continuation' from `fringe-indicator-alist'."
-  (setf (alist-get 'truncation fringe-indicator-alist) nil))
-
-;;;###autoload
 (defun now-set-tab-width-to-2 ()
   "Set `tab-width' to 2."
   (setq-local tab-width 2))
@@ -62,12 +57,10 @@
           (_ 160))))
 
 ;;;###autoload
-;;;###autoload
 (defun now-disable-case-fold-search-around (next &rest args)
   "Set ‘case-fold-search’ to ‘nil’ and apply NEXT to ARGS."
   (let ((case-fold-search nil))
     (apply next args)))
-
 
 ;;;###autoload
 (defun now-report-emacs-startup-time ()
