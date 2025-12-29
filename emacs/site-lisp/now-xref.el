@@ -2,7 +2,7 @@
 
 ;; Copyright © 2022  Nikolai Weibull
 
-;; Author: Nikolai Weibull <now@Nikolais-MacBook-Pro-2.local>
+;; Author: Nikolai Weibull <now@disu.se>
 ;; Keywords: local
 
 ;;; Code:
