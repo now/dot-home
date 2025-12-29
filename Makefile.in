@@ -478,7 +478,6 @@ xdgconfighomeemacssitelispinternational_DATA_generated = \
 
 sitelispprogmodes_elcs = \
 	emacs/site-lisp/progmodes/now-elisp-mode.elc \
-	emacs/site-lisp/progmodes/now-grep.elc \
 	emacs/site-lisp/progmodes/now-lisp-mode.elc
 
 xdgconfighomeemacssitelispprogmodes_DATA = \

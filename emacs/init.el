@@ -166,7 +166,6 @@
            (disp-table . ,#'now-disp-table-init)
            (eglot . ,#'now-eglot-init)
            (elisp-mode . ,#'now-elisp-mode-init)
-           (grep . ,#'now-grep-init)
            (isearch . ,#'now-isearch-init)
            (iso-transl . ,#'now-iso-transl-init)
            (lisp-mode . ,#'now-lisp-mode-init)
