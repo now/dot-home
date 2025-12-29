@@ -435,8 +435,7 @@ sitelisp_elcs = \
 	emacs/site-lisp/now-sort.elc \
 	emacs/site-lisp/now-sql-indent.elc \
 	emacs/site-lisp/now-xref.elc \
-	emacs/site-lisp/rnc-mode.elc \
-	emacs/site-lisp/velocity-mode.elc
+	emacs/site-lisp/rnc-mode.elc
 
 xdgconfighomeemacssitelisp_DATA = \
 	$(xdgconfighomeemacssitelisp_DATA_generated) \
