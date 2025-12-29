@@ -174,7 +174,6 @@
            (nxml-mode . ,#'now-nxml-mode-init)
            (rnc-mode . ,#'now-rnc-mode-init)
            (ruby-mode . ,#'now-ruby-mode-init)
-           (sql-indent . ,#'now-sql-indent-init)
            (term/xterm . ,#'term/now-xterm-init)
            (xref . ,#'now-xref-init)))
   (eval-after-load (car feature-init) (cdr feature-init)))

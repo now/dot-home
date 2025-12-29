@@ -433,7 +433,6 @@ sitelisp_elcs = \
 	emacs/site-lisp/now-ruby.elc \
 	emacs/site-lisp/now-smie.elc \
 	emacs/site-lisp/now-sort.elc \
-	emacs/site-lisp/now-sql-indent.elc \
 	emacs/site-lisp/now-xref.elc \
 	emacs/site-lisp/rnc-mode.elc
 
@@ -710,7 +709,6 @@ emacs/packages.el: Makefile
 
 emacs/site-lisp/now-eglot.el: $(emacs_PACKAGES_eglot)
 emacs/site-lisp/now-rnc-mode.elc: emacs/site-lisp/rnc-mode.elc
-emacs/site-lisp/now-sql-indent.el: $(emacs_PACKAGES_sql-indent)
 
 environment.xml: host/environment.xml
 
