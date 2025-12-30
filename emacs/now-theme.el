@@ -39,7 +39,6 @@
 
    ;;     Paren Showing
    '(show-paren-delay 0)
-   '(show-paren-mode t)
 
    ;;   Undo
    '(undo-limit 80000000)
