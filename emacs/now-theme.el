@@ -28,7 +28,7 @@
    '(replace-lax-whitespace t)
 
    ;;     Company
-   '(company-show-numbers t)
+   '(company-show-quick-access t)
    '(global-company-mode t)
 
    ;;       Company Dabbrev
