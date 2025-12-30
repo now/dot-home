@@ -2,9 +2,7 @@
 
 (require 'package)
 (setq package-quickstart t)
-(setf
- (alist-get "melpa" package-archives nil nil #'equal)
- "https://melpa.org/packages/")
+(setf (alist-get "melpa" package-archives nil nil #'equal) "https://melpa.org/packages/")
 (load (concat user-emacs-directory "packages"))
 
 (add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
@@ -56,21 +54,26 @@
 (dolist (hook
          (remove
           nil
-          `((Buffer-menu-mode-hook Buffer-menu-mode-ext hl-line-mode now-do-not-show-trailing-whitespace)
+          `((Buffer-menu-mode-hook
+             Buffer-menu-mode-ext
+             hl-line-mode
+             now-do-not-show-trailing-whitespace)
             ,(unless noninteractive '(after-init-hook server-start))
-            (arc-mode-hook hl-line-mode)
+            (arc-mode-hook
+             hl-line-mode)
             (emacs-startup-hook
-             hide-mode-line-mode now-report-emacs-startup-time)
-            (sed-mode-hook now-set-smie-indent-basic-to-2)
+             hide-mode-line-mode
+             now-report-emacs-startup-time)
+            (sed-mode-hook
+             now-set-smie-indent-basic-to-2)
             (tabulated-list-mode-hook
              now-tabulated-list-mode-use-global-glyphless-char-display)
-            (tar-mode-hook hl-line-mode))))
+            (tar-mode-hook
+             hl-line-mode))))
   (dolist (function (cdr hook))
     (add-hook (car hook) function)))
 
-(add-to-list
- 'window-size-change-functions
- 'now-set-split-width-threshold-based-on-aspect-ratio)
+(add-to-list 'window-size-change-functions 'now-set-split-width-threshold-based-on-aspect-ratio)
 
 (advice-add 'bug-reference-fontify :around 'now-disable-case-fold-search-around)
 
