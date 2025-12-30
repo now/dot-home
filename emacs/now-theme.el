@@ -31,10 +31,6 @@
    '(company-show-quick-access t)
    '(global-company-mode t)
 
-   ;;       Company Dabbrev
-   '(company-dabbrev-downcase nil)
-   '(company-dabbrev-ignore-case nil)
-
    ;;     Completion
    '(completion-show-help nil)
 
