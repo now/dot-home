@@ -28,17 +28,6 @@
    '(replace-lax-whitespace t)
 
    ;;     Company
-   '(company-backends
-     '(company-bbdb
-       company-semantic
-       company-cmake
-       company-capf
-       company-clang
-       company-files
-       (company-dabbrev-code
-        company-gtags
-        company-keywords)
-       company-dabbrev))
    '(company-idle-delay .175)
    '(company-show-numbers t)
    '(global-company-mode t)
