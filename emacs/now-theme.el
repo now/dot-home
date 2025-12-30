@@ -50,9 +50,6 @@
    ;;   Avy
    '(avy-timeout-seconds 0.3)
 
-   ;;   Ffap
-   '(ffap-machine-p-known 'accept)
-
    ;;   Tab Bar
    '(tab-bar-show nil)
 
