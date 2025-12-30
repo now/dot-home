@@ -28,7 +28,6 @@
    '(replace-lax-whitespace t)
 
    ;;     Company
-   '(company-idle-delay .175)
    '(company-show-numbers t)
    '(global-company-mode t)
 
