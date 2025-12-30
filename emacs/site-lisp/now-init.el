@@ -1,3 +1,12 @@
+;;; now-init.el --- initialization helpers           -*- lexical-binding: t; -*-
+
+;; Copyright © 2025  Nikolai Weibull
+
+;; Author: Nikolai Weibull <now@disu.se>
+;; Keywords: local
+
+;;; Code:
+
 (require 'whitespace)
 
 ;;;###autoload
@@ -71,3 +80,4 @@
                                       before-init-time))))
 
 (provide 'now-init)
+;;; now-init.el ends here
