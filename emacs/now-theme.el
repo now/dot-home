@@ -266,6 +266,9 @@
 
    ;; Applications
 
+   ;;   Calc
+   '(calc-make-windows-dedicated t)
+
    ;;   Calendar
    '(calendar-date-style iso)
    '(calendar-intermonth-text
