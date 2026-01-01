@@ -132,9 +132,9 @@
    ;;   Web
 
    ;;     Shr
-  '(shr-use-fonts nil)
-  '(shr-width nil)
-  '(shr-bullet "• ")
+   '(shr-use-fonts nil)
+   '(shr-width nil)
+   '(shr-bullet "• ")
 
    ;; Programming
 
