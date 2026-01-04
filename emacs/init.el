@@ -89,7 +89,6 @@
 (setq
  desktop-dirname (car desktop-path)
  find-function-C-source-directory "~/Projects/emacs/src"
- insert-directory-program "a"
  overlay-arrow-string "►"
  process-connection-type nil            ; TODO Why?
  )
