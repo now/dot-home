@@ -14,6 +14,7 @@ DTACH = @DTACH@
 EMACS = @EMACS@
 EMACSCLIENT = @EMACSCLIENT@
 EXIFTOOL = @EXIFTOOL@
+FFMPEG = @FFMPEG@
 GREP = @GREP@
 GZIP = @GZIP@
 ICONV = @ICONV@
@@ -548,6 +549,7 @@ bin_SCRIPTS_generated = \
 	bin/oo \
 	bin/pack \
 	bin/terminal-colors \
+	bin/to-tp7 \
 	bin/unpack \
 	bin/valgrind-ruby
 
@@ -759,8 +761,10 @@ $(sort $(emptydirs)):
 	    -e 's|@EMACSCLIENT[@]|$(EMACSCLIENT)|g' \
 	    -e 's|@emailaddress[@]|$(emailaddress)|g' \
 	    -e 's|@EXIFTOOL[@]|$(EXIFTOOL)|g' \
+	    -e 's|@FFMPEG[@]|$(FFMPEG)|g' \
 	    -e 's|@GREP[@]|$(GREP)|g' \
 	    -e 's|@KEYCHAIN[@]|$(KEYCHAIN)|g' \
+	    -e 's|@MKDIR_P[@]|$(MKDIR_P)|g' \
 	    -e 's|@MKTEMP[@]|$(MKTEMP)|g' \
 	    -e 's|@SHELL[@]|$(SHELL)|g' \
 	    -e 's|@SOCAT[@]|$(SOCAT)|g' \

@@ -132,6 +132,8 @@ AC_PATH_PROGS([EMACSCLIENT], [emacsclient emacsclient-nox], [],
 AC_ARG_VAR([EMACSCLIENT], [the emacsclient command])
 AC_CHECK_PROGS([EXIFTOOL], [exiftool exiftool-5.22])
 AC_ARG_VAR([EXIFTOOL], [the exiftool command])
+AC_CHECK_PROGS([FFMPEG], [ffmpeg])
+AC_ARG_VAR([FFMPEG], [the ffmpeg command])
 AC_CHECK_PROGS([GREP], [ggrep grep])
 AC_ARG_VAR([GREP], [the grep command])
 AC_CHECK_PROGS([GZIP], [gzip])

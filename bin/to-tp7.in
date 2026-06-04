@@ -1,0 +1,29 @@
+#! @ZSHELL@
+
+EXIFTOOL='@EXIFTOOL@'
+FFMPEG='@FFMPEG@'
+MKDIR_P='@MKDIR_P@'
+
+integer failed=0 i=1
+local -a targets=(left right)
+
+# TODO Normalize volume.
+# Do this by calculating the reference loudness of all inputs?
+# No, I don’t think that that’s necessary.
+# loudnorm=i=-14,tp=-1,
+# TODO Figure out what characters to replace for best display on TP-7.
+# TODO Figure out TP-7 shortcut to show remaining seconds.
+# TODO Holy shit, Reaper sets BPM properly.  Reaper is the way to go here, I
+# think.  It can easily normalize as well.  It’s a good place to set cue points
+# as well.  Argh, Reaper sets BPM to project BPM.
+# ffmpeg -i 01\ Small\ Circle\ Of\ Friends\ \(DJ\ Prom_s\ Stompin_\ Peak\ Time\
+  # Mix\).m4a -ar 44100 -f f32le -ac 1 - | ~/Downloads/bpm-tools-0.3/bpm
+# TODO Adjust font in Emacs to not be so heavy?
+${=MKDIR_P} $(targets) &&
+  $EXIFTOOL -q -p '${BeatsPerMinute}:${Title;}:${Directory}/${FileName}' $* |
+    sort -g |
+    while IFS=: read -r bpm title input; do
+      $FFMPEG -nostdin -v error -y -i $input $targets[i]/$bpm\ $title.wav || failed=1
+      (( i = i % $#targets + 1 ))
+    done &&
+  (( !failed ))
