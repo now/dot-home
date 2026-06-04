@@ -1,0 +1,151 @@
+#! @ZSHELL@
+
+setopt err_return local_options
+
+acid_size=24
+
+main () {
+  local tempo=$1; shift
+  local wav id fmt_content content
+  local -a other_ids other_sizes other_content
+  integer riff_size fmt_size size i
+  for wav; do
+    exec 3<$wav
+    {
+      read-id id
+      [[ $id == RIFF ]] || read-die expected RIFF, not $id
+      read-unsigned-long riff_size
+      read-id type
+      [[ $type == WAVE ]] || read-die expected WAVE, not $type
+      read-id id
+      [[ $id == 'fmt ' ]] || read-die expected fmt, not $id
+      read-unsigned-long fmt_size
+      read-n $fmt_size fmt_content
+      while read-id id; do
+        read-unsigned-long size
+        read-n $size content
+        case $id in
+          acid) ;;
+          *)
+            other_ids+=$id
+            other_sizes+=$size
+            other_content+=$content
+            ;;
+        esac
+      done
+    } always {
+      exec 3<&-
+    }
+    (( riff_size =
+       4 +
+       4 + 4 + fmt_size +
+       4 + 4 + acid_size ))
+    for size in $other_sizes; do
+      (( riff_size += 4 + 4 + size ))
+    done
+    {
+      write RIFF
+      write-unsigned-long $riff_size
+      write WAVE
+      write 'fmt '
+      write-unsigned-long $fmt_size
+      write $fmt_content
+      write acid
+      write-unsigned-long $acid_size
+      write-unsigned-long 1
+      write-unsigned-short $[0x30]
+      write-unsigned-short $[0x8000]
+      write-float 0
+      write-unsigned-long 0
+      write-unsigned-short 4
+      write-unsigned-short 4
+      write-float $tempo
+      for (( i = 1; i <= $#other_ids; i++ )); do
+        write $other_ids[i]
+        write-unsigned-long $other_sizes[i]
+        print -rn $other_content[i]
+      done
+    } > $wav
+  done
+}
+
+read-unsigned-long () {
+  read-integer 4 0 $1
+}
+
+read-integer () {
+  integer i n=$1 sign=1 value
+  local -a bytes
+  read-bytes $n bytes
+  if (( $2 && bytes[1] & 128 )); then
+    (( sign = -1, bytes[1] &= 127, 1 ))
+  fi
+  for (( i = 1; i <= n; i++ )); do
+    (( value |= bytes[i] << (8 * (i - 1)), 1 ))
+  done
+  (( value *= sign, 1 ))
+  typeset -g $3=$value
+}
+
+read-id () {
+  read-n 4 $1
+}
+
+read-bytes () {
+  setopt nomultibyte
+  local raw
+  read-n $1 raw
+  printf -v $2 %d \'${^${(s::)raw}}
+}
+
+read-n () {
+  if (( $1 <= 0 )); then
+    if [[ -n $2 ]]; then
+      typeset -g $2=
+    fi
+  else
+    setopt nomultibyte
+    read -r -k $1 -u 3 $2
+  fi
+}
+
+read-die () {
+  setopt noerr_return
+  print -r -u 2 $aif: $*
+  exit 1
+}
+
+write-unsigned-short () {
+  integer n=$1
+  write-bytes $[n & 255] $[n >> 8 & 255]
+}
+
+write-long () {
+}
+
+write-unsigned-long () {
+  (( $1 >= 0 )) || die unsigned long must be non-negative: $1
+  integer n=$1
+  write-bytes $[n & 255] $[n >> 8 & 255] $[n >> 16 & 255] $[n >> 24]
+}
+
+write-float () {
+  ruby -e "print([$(printf %f $1)].pack('e'))"
+}
+
+write-bytes () {
+  setopt nomultibyte
+  write ${(j::)${(#)*}}
+}
+
+write () {
+  print -rn $*
+}
+
+die () {
+  setopt noerr_return
+  print -r -u 2 $0: $*
+  exit 1
+}
+
+main $*
