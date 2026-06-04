@@ -547,6 +547,7 @@ bin_SCRIPTS_generated = \
 	bin/mvq \
 	bin/o \
 	bin/oo \
+	bin/op-drums \
 	bin/pack \
 	bin/terminal-colors \
 	bin/to-tp7 \

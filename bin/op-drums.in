@@ -1,0 +1,322 @@
+#! @ZSHELL@
+
+setopt err_return local_options
+
+autoload -U zmathfunc
+zmathfunc
+zmodload -af zsh/mathfunc floor
+
+AIFC_VERSION=2726318400
+
+main () {
+  local -a sounds start end
+  local aif id type format expectedformat sound
+  integer \
+    size \
+    fver_seen version \
+    comm_seen channels samples samplesize samplerate \
+    ssnd_seen offset blocksize \
+    expectedchannels
+  for aif; do
+    exec 3<$aif
+    {
+      read-id id
+      [[ $id == FORM ]] || read-die expected FORM, not $id
+      read-long size
+      read-id type
+      [[ $type == AIF[CF] ]] || read-die expected AIFC or AIFF, not $type
+
+      fver_seen=0 comm_seen=0 ssnd_seen=0
+      while read-id id; do
+        read-long size
+        (( size >= 0 )) || read-die chunk size must be non-negative, not $size
+        case $id in
+          FVER)
+            if [[ $type == AIFF ]]; then
+              read-n $size
+            else
+              read-unsigned-long version
+              (( fver_seen = 1 ))
+            fi
+            ;;
+          COMM)
+            read-short channels
+            read-unsigned-long samples
+            read-short samplesize
+            read-extended samplerate
+            if [[ $type == AIFF ]]; then
+              format=NONE
+            else
+              read-id format
+              read-pstring
+            fi
+            (( comm_seen = 1 ))
+            ;;
+          SSND)
+            read-unsigned-long offset
+            read-unsigned-long blocksize
+            read-n $offset
+            (( size % 2 == 0 )) || read-n 1
+            (( ssnd_seen = 1 ))
+            ;;
+          *)
+            read-n $size
+            ;;
+        esac
+      done
+      if (( !fver_seen )); then
+        version=$AIFC_VERSION
+        [[ $type == AIFF ]] || missing-chunk FVER
+      fi
+      (( !comm_seen )) ||  missing-chunk COMM
+      if (( !ssnd_seen )); then
+        if (( samples != 0 )); then
+          missing-chunk SSND
+        else
+          sound=
+        fi
+      fi
+      if (( $#sounds == 0 )); then
+        (( 1 <= channels && channels <= 2 )) ||
+          read-die only 1 or 2 channels are supported, not $channels
+        (( expectedchannels = channels ))
+        expectedformat=$format
+      fi
+      validate $expectedchannels $channels 'channels must be %d, not %d'
+      validate 16 $samplesize 'sample size must be %d, not %d'
+      validate 44100 $samplerate 'sample rate must be %d, not %d'
+      validate $expectedformat $format 'format must be %s, not %s'
+      validate $[channels * 2 * samples] $(nbytes $sound) \
+        "$channels channels of 16-bit sound of $samples samples is %d bytes, not %d"
+
+      start+=$(( $#end == 0 ? 0 : end[-1] + 1 ))
+      end+=$(( start[-1] + samples ))
+      sounds+=$sound
+    } always {
+      exec 3<&-
+    }
+  done
+
+  local -a keys=({1..24})
+  start+=(${keys[$#start+1,-1]/*/0]})
+  end+=(${keys[$#end+1,-1]/*/0})
+  integer i
+  for (( i = 1; i <= $#start; i++ )); do
+    (( start[i] = scale(start[i]), end[i] = scale(end[i]), 1 ))
+  done
+  local op_1=${${"$(<<-EOF
+{
+	"drum_version":2,
+	"type":"drum",
+	"name":"new project",
+	"start":[${(j:,:)start}],
+	"end":[${(j:,:)end}],
+	"octave":0,
+	"pitch":[${(j:,:)keys/*/0}],
+	"playmode":[${(j:,:)keys/*/12288}],
+	"reverse":[${(j:,:)keys/*/8192}],
+	"volume":[${(j:,:)keys/*/8192}],
+	"dyna_env":[0,8192,0,8192,0,0,0,0],
+	"fx_active":false,
+	"fx_type":"delay",
+	"fx_params":[8000,8000,8000,8000,8000,8000,8000,8000],
+	"lfo_active":false,
+	"lfo_type":"tremolo",
+	"lfo_params":[16000,16000,16000,16000,0,0,0,0]
+}
+EOF
+        )"}//$'\n'}
+  integer op_1_n=$(nbytes $op_1)
+
+  local ssnd=${(j::)sounds}
+  integer ssnd_n=$(nbytes $ssnd)
+
+  write FORM
+  write-long \
+    $[4 +
+      4 + 4 + 4 +
+      4 + 4 + 2 + 4 + 2 + 10 + 4 + 1 + 0 + 1 +
+      4 + 4 + 4 + op_1_n + op_1_n % 2 +
+      4 + 4 + 4 + 4 + ssnd_n + ssnd_n % 2]
+  write AIFC
+
+  write FVER
+  write-long 4
+  write-long $AIFC_VERSION
+
+  write COMM
+  write-long $[2 + 4 + 2 + 10 + 4 + 1 + 0 + 1]
+  write-short $channels
+  write-unsigned-long $[ssnd_n / 2 / channels]
+  write-short 16
+  write-extended 44100
+  write $format
+  write-pstring ''
+
+  write APPL
+  write-long $[4 + op_1_n]
+  write op-1
+  write $op_1
+  write-pad-byte-if $[op_1_n % 2 != 0]
+
+  write SSND
+  write-long $[4 + 4 + ssnd_n]
+  write-unsigned-long 0
+  write-unsigned-long 0
+  write $ssnd
+  write-pad-byte-if $[ssnd_n % 2 != 0]
+}
+
+read-short () {
+  read-integer 2 1 $1
+}
+
+read-long () {
+  read-integer 4 1 $1
+}
+
+read-unsigned-long () {
+  read-integer 4 0 $1
+}
+
+read-integer () {
+  integer i n=$1 sign=1 value
+  local -a bytes
+  read-bytes $n bytes
+  if (( $2 && bytes[1] & 128 )); then
+    (( sign = -1, bytes[1] &= 127, 1 ))
+  fi
+  for (( i = 1; i <= n; i++ )); do
+    (( value |= bytes[i] << (8 * (n - i)), 1 ))
+  done
+  (( value *= sign, 1 ))
+  typeset -g $3=$value
+}
+
+EXTENDED_44100=$'@\C-N\M-,D\C-@\C-@\C-@\C-@\C-@\C-@'
+
+read-extended () {
+  local bytes
+  read-n 10 bytes
+  case $bytes in
+    $EXTENDED_44100) typeset -g $1=44100 ;;
+    *) read-die unknown extended value: "$(typeset -p bytes)" ;;
+  esac
+}
+
+read-pstring () {
+  local -a length
+  read-bytes 1 length
+  read-n $length $1
+  if (( length % 2 == 0 )); then
+    read-n 1
+  fi
+}
+
+read-id () {
+  read-n 4 $1
+}
+
+read-bytes () {
+  setopt nomultibyte
+  local raw
+  read-n $1 raw
+  printf -v $2 %d \'${^${(s::)raw}}
+}
+
+read-n () {
+  if (( $1 <= 0 )); then
+    if [[ -n $2 ]]; then
+      typeset -g $2=
+    fi
+  else
+    setopt nomultibyte
+    read -r -k $1 -u 3 $2
+  fi
+}
+
+missing-chunk () {
+  if (( version == $AIFC_VERSION )); then
+    read-die missing $1 chunk
+  else
+    read-die unexpected AIFC version: $version
+  fi
+}
+
+validate () {
+  (( $2 == $1 )) || read-die "$(printf $3 $1 $2)"
+}
+
+read-die () {
+  setopt noerr_return
+  print -r -u 2 $aif: $*
+  exit 1
+}
+
+write-short () {
+  integer n=$1
+  write-bytes $[n >> 8 & 255] $[n & 255]
+}
+
+write-long () {
+  integer n=$1
+  write-bytes $[n >> 24] $[n >> 16 & 255] $[n >> 8 & 255] $[n & 255]
+}
+
+write-unsigned-long () {
+  (( $1 >= 0 )) || die unsigned long must be non-negative: $1
+  write-long $*
+}
+
+write-extended () {
+  case $1 in
+    44100) write $EXTENDED_44100 ;;
+    *) die unhandled extended: $1 ;;
+  esac
+}
+
+write-pstring () {
+  local pstring=$*
+  integer n=$(nbytes $pstring)
+  (( n < 256 )) || die pstring must be between 0 and 255 bytes long: $pstring
+  setopt nomultibyte
+  write-bytes $n
+  write $pstring
+  write-pad-byte-if $[n % 2 == 0]
+}
+
+write-pad-byte-if () {
+  if (( $1 )); then
+    write-bytes 0
+  fi
+}
+
+write-bytes () {
+  setopt nomultibyte
+  write ${(j::)${(#)*}}
+}
+
+write () {
+  print -rn $*
+}
+
+die () {
+  setopt noerr_return
+  print -r -u 2 $0: $*
+  exit 1
+}
+
+nbytes () {
+  setopt nomultibyte
+  print $#1
+}
+
+scale () {
+  setopt noerr_return
+  integer n
+  (( n = floor(2147483646.0 / (44100 * (channels == 1 ? 12 : 20)) * $1) ))
+  true
+}
+functions -M scale 1
+
+main $*
